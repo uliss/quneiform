@@ -23,14 +23,16 @@
 #include <QObject>
 #include "language.h"
 
+class ThumbnailGenerator;
 class Page;
-typedef QList<Page*>    PageList;
+typedef QList<Page*> PageList;
 
 class Packet: public QObject
 {
     Q_OBJECT
 public:
     Packet(QObject * parent = 0);
+    ~Packet();
 
     /**
       * Appends page
@@ -120,7 +122,15 @@ public:
       */
     bool save(const QString& filename);
 
+    /**
+     * Returns list of packet pages
+     */
     PageList pages() const { return pages_;  }
+
+    /**
+     * Updates page thumbs
+     */
+    void updateThumbs();
 signals:
     /**
       * Emitted when packet changed
@@ -170,11 +180,19 @@ public  slots:
     void remove(Page * page);
 private slots:
     void pageChange();
+    void setupThumbGenerator();
+    void thumbGeneratorFinish();
+    void thumbGeneratorStart();
+private:
+    void removeDelayed();
 private:
     PageList pages_;
     QString filename_;
     bool changed_;
     bool is_new_;
+    bool page_remove_lock_;
+    ThumbnailGenerator * thumb_generator_;
+    PageList delayed_remove_;
 public:
     friend QDataStream& operator<<(QDataStream& stream, const Packet& doc);
     friend QDataStream& operator>>(QDataStream& stream, Packet& doc);

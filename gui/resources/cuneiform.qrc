@@ -4,5 +4,6 @@
         <file>cuneiform_logo_22.png</file>
         <file>cuneiform_logo_32.png</file>
         <file>cuneiform_logo_64.png</file>
+        <file>thumb-empty.png</file>
     </qresource>
 </RCC>

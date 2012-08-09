@@ -5,7 +5,7 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../dialogs/aboutdialog.ui" line="20"/>
-        <location filename="../../../build/debug/gui/ui_aboutdialog.h" line="93"/>
+        <location filename="../../../build/clang-debug/gui/ui_aboutdialog.h" line="93"/>
         <source>About Quneiform</source>
         <translation type="unfinished"></translation>
     </message>
@@ -113,13 +113,13 @@
     <name>ExportDialog</name>
     <message>
         <location filename="../dialogs/exportdialog.ui" line="14"/>
-        <location filename="../../../build/debug/gui/ui_exportdialog.h" line="75"/>
+        <location filename="../../../build/clang-debug/gui/ui_exportdialog.h" line="75"/>
         <source>Format selection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/exportdialog.ui" line="22"/>
-        <location filename="../../../build/debug/gui/ui_exportdialog.h" line="76"/>
+        <location filename="../../../build/clang-debug/gui/ui_exportdialog.h" line="76"/>
         <source>Format:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -178,91 +178,91 @@
     <name>FormatSettingsDialog</name>
     <message>
         <location filename="../dialogs/formatsettingsdialog.ui" line="14"/>
-        <location filename="../../../build/debug/gui/ui_formatsettingsdialog.h" line="203"/>
+        <location filename="../../../build/clang-debug/gui/ui_formatsettingsdialog.h" line="203"/>
         <source>Format settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/formatsettingsdialog.ui" line="22"/>
-        <location filename="../../../build/debug/gui/ui_formatsettingsdialog.h" line="204"/>
+        <location filename="../../../build/clang-debug/gui/ui_formatsettingsdialog.h" line="204"/>
         <source>Unrecognized char:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/formatsettingsdialog.ui" line="30"/>
-        <location filename="../../../build/debug/gui/ui_formatsettingsdialog.h" line="205"/>
+        <location filename="../../../build/clang-debug/gui/ui_formatsettingsdialog.h" line="205"/>
         <source>~</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/formatsettingsdialog.ui" line="55"/>
-        <location filename="../../../build/debug/gui/ui_formatsettingsdialog.h" line="206"/>
+        <location filename="../../../build/clang-debug/gui/ui_formatsettingsdialog.h" line="206"/>
         <source>$</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/formatsettingsdialog.ui" line="60"/>
-        <location filename="../../../build/debug/gui/ui_formatsettingsdialog.h" line="207"/>
+        <location filename="../../../build/clang-debug/gui/ui_formatsettingsdialog.h" line="207"/>
         <source>@</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/formatsettingsdialog.ui" line="70"/>
-        <location filename="../../../build/debug/gui/ui_formatsettingsdialog.h" line="209"/>
+        <location filename="../../../build/clang-debug/gui/ui_formatsettingsdialog.h" line="209"/>
         <source>Preserve line breaks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/formatsettingsdialog.ui" line="77"/>
-        <location filename="../../../build/debug/gui/ui_formatsettingsdialog.h" line="210"/>
+        <location filename="../../../build/clang-debug/gui/ui_formatsettingsdialog.h" line="210"/>
         <source>Font formatting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/formatsettingsdialog.ui" line="95"/>
-        <location filename="../../../build/debug/gui/ui_formatsettingsdialog.h" line="212"/>
+        <location filename="../../../build/clang-debug/gui/ui_formatsettingsdialog.h" line="212"/>
         <source>Use &lt;b&gt;bold&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/formatsettingsdialog.ui" line="109"/>
-        <location filename="../../../build/debug/gui/ui_formatsettingsdialog.h" line="214"/>
+        <location filename="../../../build/clang-debug/gui/ui_formatsettingsdialog.h" line="214"/>
         <source>Use &lt;i&gt;italic&lt;/i&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/formatsettingsdialog.ui" line="123"/>
-        <location filename="../../../build/debug/gui/ui_formatsettingsdialog.h" line="216"/>
+        <location filename="../../../build/clang-debug/gui/ui_formatsettingsdialog.h" line="216"/>
         <source>Use &lt;u&gt;underlined&lt;/u&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/formatsettingsdialog.ui" line="137"/>
-        <location filename="../../../build/debug/gui/ui_formatsettingsdialog.h" line="218"/>
+        <location filename="../../../build/clang-debug/gui/ui_formatsettingsdialog.h" line="218"/>
         <source>Use font size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/formatsettingsdialog.ui" line="149"/>
-        <location filename="../../../build/debug/gui/ui_formatsettingsdialog.h" line="219"/>
+        <location filename="../../../build/clang-debug/gui/ui_formatsettingsdialog.h" line="219"/>
         <source>Alternatives</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/formatsettingsdialog.ui" line="155"/>
-        <location filename="../../../build/debug/gui/ui_formatsettingsdialog.h" line="221"/>
+        <location filename="../../../build/clang-debug/gui/ui_formatsettingsdialog.h" line="221"/>
         <source>Shows tooltip and &lt;u&gt;underlines&lt;/u&gt; character, that have recognition alternatives.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/formatsettingsdialog.ui" line="158"/>
-        <location filename="../../../build/debug/gui/ui_formatsettingsdialog.h" line="223"/>
+        <location filename="../../../build/clang-debug/gui/ui_formatsettingsdialog.h" line="223"/>
         <source>Show alternatives</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/formatsettingsdialog.ui" line="167"/>
-        <location filename="../../../build/debug/gui/ui_formatsettingsdialog.h" line="224"/>
+        <location filename="../../../build/clang-debug/gui/ui_formatsettingsdialog.h" line="224"/>
         <source>Alternative color:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -473,7 +473,7 @@
     <name>LogViewerDialog</name>
     <message>
         <location filename="../dialogs/logviewerdialog.ui" line="20"/>
-        <location filename="../../../build/debug/gui/ui_logviewerdialog.h" line="91"/>
+        <location filename="../../../build/clang-debug/gui/ui_logviewerdialog.h" line="91"/>
         <source>Log View</source>
         <translation type="unfinished"></translation>
     </message>
@@ -487,220 +487,220 @@
     <name>MainWindow</name>
     <message>
         <location filename="../widgets/mainwindow.ui" line="32"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="253"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="253"/>
         <source>&amp;File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="44"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="254"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="254"/>
         <source>&amp;Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="51"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="255"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="255"/>
         <source>Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="65"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="256"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="256"/>
         <source>Recognition</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="72"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="257"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="257"/>
         <source>View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="84"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="258"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="258"/>
         <source>Window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="128"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="216"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="216"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="131"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="218"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="218"/>
         <source>About Cuneiform</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="139"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="220"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="220"/>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="147"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="221"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="221"/>
         <location filename="../widgets/mainwindow.cpp" line="447"/>
         <source>Open images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="158"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="222"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="222"/>
         <source>Zoom In</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="166"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="223"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="223"/>
         <source>Zoom Out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="174"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="224"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="224"/>
         <source>Fit to width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="182"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="225"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="225"/>
         <source>Fit to page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="185"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="227"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="227"/>
         <source>Fit image to page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="193"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="229"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="229"/>
         <source>Recognize All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="196"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="230"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="230"/>
         <source>Ctrl+R</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="204"/>
         <location filename="../widgets/mainwindow.ui" line="207"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="231"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="233"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="231"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="233"/>
         <source>Rotate right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="215"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="235"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="235"/>
         <source>Rotate left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="220"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="236"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="236"/>
         <source>Save packet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="225"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="237"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="237"/>
         <source>Open packet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="233"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="238"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="238"/>
         <source>Original size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="236"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="239"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="239"/>
         <source>Ctrl+0</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="241"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="240"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="240"/>
         <source>Preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="249"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="241"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="241"/>
         <source>Recognition settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="254"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="242"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="242"/>
         <source>Scan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="257"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="243"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="243"/>
         <source>Alt+S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="265"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="244"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="244"/>
         <source>Content only</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="268"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="245"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="245"/>
         <source>Ctrl+1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="276"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="246"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="246"/>
         <source>Thumbnails</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="279"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="247"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="247"/>
         <source>Ctrl+2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="284"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="248"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="248"/>
         <source>Report Bug...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="292"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="249"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="249"/>
         <source>Split horizontal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="300"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="250"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="250"/>
         <source>Split vertical</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="305"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="251"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="251"/>
         <source>Full screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="310"/>
-        <location filename="../../../build/debug/gui/ui_mainwindow.h" line="252"/>
+        <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="252"/>
         <source>Minimize</source>
         <translation type="unfinished"></translation>
     </message>
@@ -881,67 +881,67 @@ Page: %2</source>
     <name>PagePropertiesDialog</name>
     <message>
         <location filename="../dialogs/pagepropertiesdialog.ui" line="14"/>
-        <location filename="../../../build/debug/gui/ui_pagepropertiesdialog.h" line="204"/>
+        <location filename="../../../build/clang-debug/gui/ui_pagepropertiesdialog.h" line="204"/>
         <source>Page properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/pagepropertiesdialog.ui" line="28"/>
-        <location filename="../../../build/debug/gui/ui_pagepropertiesdialog.h" line="205"/>
+        <location filename="../../../build/clang-debug/gui/ui_pagepropertiesdialog.h" line="205"/>
         <source>File:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/pagepropertiesdialog.ui" line="42"/>
-        <location filename="../../../build/debug/gui/ui_pagepropertiesdialog.h" line="207"/>
+        <location filename="../../../build/clang-debug/gui/ui_pagepropertiesdialog.h" line="207"/>
         <source>Image size:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/pagepropertiesdialog.ui" line="56"/>
-        <location filename="../../../build/debug/gui/ui_pagepropertiesdialog.h" line="209"/>
+        <location filename="../../../build/clang-debug/gui/ui_pagepropertiesdialog.h" line="209"/>
         <source>Rotation:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/pagepropertiesdialog.ui" line="70"/>
-        <location filename="../../../build/debug/gui/ui_pagepropertiesdialog.h" line="211"/>
+        <location filename="../../../build/clang-debug/gui/ui_pagepropertiesdialog.h" line="211"/>
         <source>Language:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/pagepropertiesdialog.ui" line="84"/>
-        <location filename="../../../build/debug/gui/ui_pagepropertiesdialog.h" line="213"/>
+        <location filename="../../../build/clang-debug/gui/ui_pagepropertiesdialog.h" line="213"/>
         <source>Recognized:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/pagepropertiesdialog.ui" line="98"/>
-        <location filename="../../../build/debug/gui/ui_pagepropertiesdialog.h" line="215"/>
+        <location filename="../../../build/clang-debug/gui/ui_pagepropertiesdialog.h" line="215"/>
         <source>Saved:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/pagepropertiesdialog.ui" line="112"/>
-        <location filename="../../../build/debug/gui/ui_pagepropertiesdialog.h" line="217"/>
+        <location filename="../../../build/clang-debug/gui/ui_pagepropertiesdialog.h" line="217"/>
         <source>Sections:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/pagepropertiesdialog.ui" line="126"/>
-        <location filename="../../../build/debug/gui/ui_pagepropertiesdialog.h" line="219"/>
+        <location filename="../../../build/clang-debug/gui/ui_pagepropertiesdialog.h" line="219"/>
         <source>Paragraphs:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/pagepropertiesdialog.ui" line="140"/>
-        <location filename="../../../build/debug/gui/ui_pagepropertiesdialog.h" line="221"/>
+        <location filename="../../../build/clang-debug/gui/ui_pagepropertiesdialog.h" line="221"/>
         <source>Characters:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/pagepropertiesdialog.ui" line="154"/>
-        <location filename="../../../build/debug/gui/ui_pagepropertiesdialog.h" line="223"/>
+        <location filename="../../../build/clang-debug/gui/ui_pagepropertiesdialog.h" line="223"/>
         <source>Images:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -980,49 +980,49 @@ Page: %2</source>
     <name>RecognitionSettingsDialog</name>
     <message>
         <location filename="../dialogs/recognitionsettingsdialog.ui" line="23"/>
-        <location filename="../../../build/debug/gui/ui_recognitionsettingsdialog.h" line="121"/>
+        <location filename="../../../build/clang-debug/gui/ui_recognitionsettingsdialog.h" line="121"/>
         <source>Recognition settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/recognitionsettingsdialog.ui" line="35"/>
-        <location filename="../../../build/debug/gui/ui_recognitionsettingsdialog.h" line="122"/>
+        <location filename="../../../build/clang-debug/gui/ui_recognitionsettingsdialog.h" line="122"/>
         <source>Layout:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/recognitionsettingsdialog.ui" line="44"/>
-        <location filename="../../../build/debug/gui/ui_recognitionsettingsdialog.h" line="123"/>
+        <location filename="../../../build/clang-debug/gui/ui_recognitionsettingsdialog.h" line="123"/>
         <source>Search pictures</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/recognitionsettingsdialog.ui" line="51"/>
-        <location filename="../../../build/debug/gui/ui_recognitionsettingsdialog.h" line="124"/>
+        <location filename="../../../build/clang-debug/gui/ui_recognitionsettingsdialog.h" line="124"/>
         <source>One column layout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/recognitionsettingsdialog.ui" line="61"/>
-        <location filename="../../../build/debug/gui/ui_recognitionsettingsdialog.h" line="125"/>
+        <location filename="../../../build/clang-debug/gui/ui_recognitionsettingsdialog.h" line="125"/>
         <source>Recognition:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/recognitionsettingsdialog.ui" line="76"/>
-        <location filename="../../../build/debug/gui/ui_recognitionsettingsdialog.h" line="126"/>
+        <location filename="../../../build/clang-debug/gui/ui_recognitionsettingsdialog.h" line="126"/>
         <source>Use spelling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/recognitionsettingsdialog.ui" line="83"/>
-        <location filename="../../../build/debug/gui/ui_recognitionsettingsdialog.h" line="127"/>
+        <location filename="../../../build/clang-debug/gui/ui_recognitionsettingsdialog.h" line="127"/>
         <source>Dot matrix</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs/recognitionsettingsdialog.ui" line="90"/>
-        <location filename="../../../build/debug/gui/ui_recognitionsettingsdialog.h" line="128"/>
+        <location filename="../../../build/clang-debug/gui/ui_recognitionsettingsdialog.h" line="128"/>
         <source>Fax</source>
         <translation type="unfinished"></translation>
     </message>

@@ -19,7 +19,11 @@
 #ifndef IMAGECACHE_H
 #define IMAGECACHE_H
 
-class QString;
+#include <QMap>
+#include <QString>
+#include <QQueue>
+#include <QImage>
+
 class QPixmap;
 class ImageURL;
 
@@ -27,17 +31,25 @@ class ImageCache
 {
     ImageCache();
 public:
+    static size_t cacheLimit();
+    static void setCacheLimit(size_t limit);
+    static void clear();
+
     /**
       * Checks is pixmap exists in cache
       */
     static bool find(const ImageURL& path, QPixmap * pixmap);
     static bool find(const QString& path, QPixmap * pixmap);
+    static bool find(const ImageURL &path, QImage * image);
+    static bool find(const QString& path, QImage * image);
 
     /**
       * Inserts pixmap into cache
       */
     static bool insert(const ImageURL& path, const QPixmap& pixmap);
     static bool insert(const QString& path, const QPixmap& pixmap);
+    static bool insert(const ImageURL& path, const QImage& image);
+    static bool insert(const QString& path, const QImage& image);
 
     /**
       * Loads pixmap from cache, if not found load from file
@@ -45,6 +57,16 @@ public:
       */
     static bool load(const ImageURL& path, QPixmap * pixmap);
     static bool load(const QString& path, QPixmap * pixmap);
+    static bool load(const ImageURL& path, QImage * image);
+    static bool load(const QString& path, QImage * image);
+private:
+    static bool freeMemory(int requiredSize);
+    static void insertNoCheck(const QString& path, const QImage& image);
+private:
+    typedef QMap<QString, QImage> ImageMap;
+    typedef QQueue<QString> ImageQueue;
+    static ImageMap map_;
+    static ImageQueue queue_;
 };
 
 #endif // IMAGECACHE_H

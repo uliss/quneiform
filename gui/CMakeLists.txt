@@ -79,6 +79,7 @@ set(HEADERS
     widgets/thumbnailwidget.h
     internal/cimageview.h
     quneiformapplication.h
+    thumbnailgenerator.h
 )
 
 set(SOURCES
@@ -150,6 +151,7 @@ set(SOURCES
     guilog.cpp
     workspace.cpp
     settingskeys.cpp
+    thumbnailgenerator.cpp
 )
 
 if(APPLE)

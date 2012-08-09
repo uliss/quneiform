@@ -90,13 +90,15 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent * event);
     void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget);
 private:
+    QPixmap defaultPageThumb() const;
+    QPixmap pageThumb() const;
     void setupIndicator();
     void setupLabel();
-    void setupPixmap();
     void setupToolTip();
     void updatePixmapPos();
 private slots:
     void pageFaultForward();
+    void setupPixmap();
     void handlePageRotate();
     void updatePageIndicators();
 private:

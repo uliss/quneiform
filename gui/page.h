@@ -44,8 +44,8 @@ class QPixmap;
 class Page: public QObject {
     Q_OBJECT
 public:
-    explicit Page(const QString& image_path = "");
-    explicit Page(const ImageURL& imageUrl);
+    explicit Page(const QString& image_path = "", bool load = true);
+    explicit Page(const ImageURL& imageUrl, bool load = true);
     ~Page();
 
     enum PageFlag {
@@ -97,6 +97,11 @@ public:
       * Returns true if page has read areas
       */
     bool hasReadAreas() const;
+
+    /**
+     * Returns true if page has generated thumb
+     */
+    bool hasThumb() const;
 
     /**
       * Returns read areas
@@ -212,12 +217,6 @@ public:
     QRect mapToPage(const QRect &r) const;
 
     /**
-      * Returns page area on image
-      * @see setPageArea()
-      */
-    QRect pageArea() const;
-
-    /**
       * Returns page recognize settings
       * @see setRecognitionSettings()
       */
@@ -270,6 +269,12 @@ public:
     void setFormatSettings(const FormatSettings& settings);
 
     /**
+     * Sets page image size
+     * @see imageSize()
+     */
+    void setImageSize(const QSize& sz);
+
+    /**
       * Sets page language
       */
     void setLanguage(const Language& lang);
@@ -284,7 +289,7 @@ public:
     /**
       * Sets thumb pixmap
       */
-    void setThumb(const QPixmap& thumb);
+    void setThumb(const QImage &thumb);
 
     /**
       * Sets page view scale
@@ -302,7 +307,7 @@ public:
       * Returns pointer to thumb pixmap
       * or NULL if no pixmap yet
       */
-    const QPixmap * thumb() const;
+    QPixmap thumb() const;
 
     /**
       * Unsets page state flag
@@ -351,14 +356,21 @@ signals:
     void recognized();
 
     /**
-      * Emmitted when page is rotated
+      * Emitted when page is rotated
       */
     void rotated(int angle);
+
+    /**
+     * Emitted when page thumb nail is changed
+     */
+    void thumbChanged();
 
     /**
       * Emmited when page is transformed
       */
     void viewScaled();
+public:
+    static QSize maxThumbnailSize();
 private:
     void _setFlag(PageFlag flag) { state_flags_ |= flag; }
     void _unsetFlag(PageFlag flag) { state_flags_ &= (~flag); }
@@ -368,20 +380,20 @@ private:
     void clearBlocks(BlockType type);
     void initDocument();
     void initRects();
-    void initThumb();
     void setBlocks(const Rectangles& rects, BlockType type);
     void setCEDPage(cf::CEDPagePtr page);
     void setChanged();
     void setRecognized(bool value = true);
     void updateBlocks();
+    void updateImageSize() const;
 private:
     ImageURL image_url_;
-    QSize image_size_;
+    mutable QSize image_size_;
     PageFlags state_flags_;
     qint32 angle_;
     float view_scale_;
     QPoint view_scroll_;
-    bool is_null_;
+    mutable bool is_null_;
     mutable QMutex mutex_;
     RecognitionSettings rec_settings_;
     RectList blocks_;
@@ -389,7 +401,7 @@ private:
     FormatSettings format_settings_;
     Language language_;
     cf::CEDPagePtr cedpage_;
-    QPixmap * thumb_;
+    QImage * thumb_;
     QList<QRect> read_areas_;
 public:
     friend QDataStream& operator<<(QDataStream& stream, const Page& page);

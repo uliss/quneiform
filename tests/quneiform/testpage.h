@@ -31,6 +31,9 @@ public slots:
     void callTimerSlot(const char * member, int msec = 500);
     void sendDialogAccept();
     void sendDialogCancel();
+    void handlePageChange();
+    void handlePageRotate();
+    void handlePageThumbChange();
 private slots:
     void testAngle();
     void testSetAngle();
@@ -47,6 +50,7 @@ private slots:
     void testSetViewScroll();
     void testUnsetFlag();
     void testReadWrite();
+    void testMultiThreadFuzzing();
 };
 
 #endif // TESTPAGE_H

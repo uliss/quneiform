@@ -16,7 +16,9 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <QDebug>
 #include <QDataStream>
+#include <QFile>
 
 #include "imageurl.h"
 
@@ -24,6 +26,11 @@ ImageURL::ImageURL(const QString& path, int imageNumber) :
     path_(path),
     image_number_(imageNumber)
 {
+}
+
+bool ImageURL::exists() const
+{
+    return QFile::exists(path_);
 }
 
 bool ImageURL::isEmpty() const
@@ -63,6 +70,15 @@ void ImageURL::setImageNumber(int n)
 void ImageURL::setPath(const QString& path)
 {
     path_ = path;
+}
+
+QDebug& operator<<(QDebug& dbg, const ImageURL& url)
+{
+    dbg << url.path();
+    if(!url.isSimple())
+        dbg << "page:" << url.imageNumber();
+
+    return dbg;
 }
 
 QDataStream& operator<<(QDataStream& os, const ImageURL& imageURL)

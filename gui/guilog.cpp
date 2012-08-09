@@ -19,6 +19,8 @@
 #include <QDir>
 #include <QFile>
 #include <QDateTime>
+#include <QMutex>
+#include <QMutexLocker>
 #include <cstdio>
 
 #include "common/singleton.h"
@@ -31,16 +33,21 @@ public:
         prefix_(prefix),
         print_datetime_(dateTime)
     {
+        QMutexLocker lock(&mutex_);
+
         f_.open(QFile::WriteOnly | QFile::Truncate);
     }
 
     ~LogFile()
     {
+        QMutexLocker lock(&mutex_);
         f_.close();
     }
 
     void write(const char * msg)
     {
+        QMutexLocker lock(&mutex_);
+
         if(!f_.isOpen())
             return;
 
@@ -60,6 +67,7 @@ public:
 private:
     QString prefix_;
     QFile f_;
+    QMutex mutex_;
     bool print_datetime_;
 };
 
@@ -113,21 +121,26 @@ void guiMessageLogger(QtMsgType type, const char * msg)
     switch(type) {
     case QtDebugMsg:
         DebugLogger::instance().write(msg);
+        fprintf(stderr, "%s\n", msg);
         break;
     case QtWarningMsg:
         DebugLogger::instance().write(msg);
         WarningLogger::instance().write(msg);
+        fprintf(stderr, "%s\n", msg);
         break;
     case QtCriticalMsg:
         DebugLogger::instance().write(msg);
         CriticalLogger::instance().write(msg);
+        fprintf(stderr, "%s\n", msg);
         break;
     case QtFatalMsg:
         DebugLogger::instance().write(msg);
         FatalLogger::instance().write(msg);
+        fprintf(stderr, "%s\n", msg);
         break;
     default:
         DebugLogger::instance().write(msg);
+        fprintf(stderr, "%s\n", msg);
         break;
     }
 }

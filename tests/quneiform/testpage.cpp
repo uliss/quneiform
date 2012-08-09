@@ -22,6 +22,12 @@
 #include <QDataStream>
 #include <QApplication>
 #include <QMessageBox>
+#include <QFuture>
+#include <QtConcurrentRun>
+#include <QSignalMapper>
+
+#include <stdio.h>
+
 #include "testpage.h"
 #include "ced/cedpage.h"
 #define private public
@@ -82,6 +88,21 @@ void TestPage::sendDialogCancel() {
     QMessageBox * box = qobject_cast<QMessageBox*>(dialog);
     if(box)
         QTest::keyClick(box, Qt::Key_Escape);
+}
+
+void TestPage::handlePageChange()
+{
+}
+
+void TestPage::handlePageRotate()
+{
+}
+
+void TestPage::handlePageThumbChange()
+{
+    Page * p = qobject_cast<Page*>(sender());
+    if(p)
+        p->thumb().size();
 }
 
 void TestPage::testAngle() {
@@ -158,7 +179,6 @@ void TestPage::testConstruct() {
     QVERIFY(p.isNull());
     QVERIFY(!p.isRecognized());
     QVERIFY(!p.isExported());
-    QCOMPARE(p.pageArea(), QRect());
     QCOMPARE(p.viewScale(), float(1.0));
     QVERIFY(p.viewScroll() != QPoint());
     QVERIFY(p.isFirstViewScroll());
@@ -460,6 +480,59 @@ void TestPage::testReadWrite() {
 
     QFile f(fname);
     f.remove();
+}
+
+static void threadRotate(Page * p)
+{
+    p->rotate(qrand() % 360);
+}
+
+static void threadSetAngle(Page * p)
+{
+    p->setAngle(qrand() % 360);
+}
+
+static void threadSetThumb(Page * p)
+{
+    p->setThumb(QImage(CF_IMAGE_DIR "/german.png"));
+}
+
+void TestPage::testMultiThreadFuzzing()
+{
+
+    QSignalMapper ch_mapper;
+    QSignalMapper rt_mapper;
+    QSignalMapper th_mapper;
+
+
+    QList<Page*> pages;
+    for(int i = 0; i < 1000; i++) {
+        pages.append(new Page(ImageURL(SAMPLE_IMG)));
+        connect(pages.back(), SIGNAL(changed()), &ch_mapper, SLOT(map()));
+        connect(pages.back(), SIGNAL(rotated(int)), &rt_mapper, SLOT(map()));
+        connect(pages.back(), SIGNAL(thumbChanged()), &th_mapper, SLOT(map()));
+        connect(pages.back(), SIGNAL(thumbChanged()), SLOT(handlePageThumbChange()));
+
+        th_mapper.setMapping(pages.back(), i);
+    }
+
+    QSignalSpy thumb_spy(&th_mapper, SIGNAL(mapped(int)));
+
+    QFuture<void> f_thumb = QtConcurrent::map(pages, threadSetThumb);
+    QFuture<void> f_rotate = QtConcurrent::map(pages, threadRotate);
+    QFuture<void> f_angle = QtConcurrent::map(pages, threadSetAngle);
+
+    f_angle.waitForFinished();
+    f_rotate.waitForFinished();
+    f_thumb.waitForFinished();
+
+    QApplication::processEvents();
+
+    QCOMPARE(thumb_spy.count(), 1000);
+
+    foreach(Page * p, pages) {
+        delete p;
+    }
 }
 
 QTEST_MAIN(TestPage)

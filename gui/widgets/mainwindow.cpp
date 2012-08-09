@@ -316,7 +316,7 @@ bool MainWindow::openImage(const QString& path, bool allowDuplication)
     if(utils::looksLikeMultiPageDocument(path))
         return openMultiPage(path);
 
-    Page * p = new Page(path);
+    Page * p = new Page(path, false); // cause we use thumb generation
     p->setLanguage(lang_select_->currentLanguage());
 
     if(p->isNull()) {
@@ -394,7 +394,7 @@ bool MainWindow::openMultiPage(const QString& path)
 
         progress_->load(path, i);
 
-        Page * p = new Page(ImageURL(path, i));
+        Page * p = new Page(ImageURL(path, i), false); // do not load, cause we using thumb generator
         p->setLanguage(lang_select_->currentLanguage());
 
         if(p->isNull()) {
@@ -437,6 +437,10 @@ void MainWindow::open(const QStringList& paths) {
     }
 
     progress_->stop();
+
+    QApplication::processEvents();
+
+    packet_->updateThumbs();
 }
 
 void MainWindow::openImagesDialog()

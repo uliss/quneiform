@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,25 +16,50 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-
-#ifndef TESTIMAGECACHE_H
-#define TESTIMAGECACHE_H
+#ifndef THUMBNAILGENERATOR_H
+#define THUMBNAILGENERATOR_H
 
 #include <QObject>
+#include <QFuture>
+#include <QFutureWatcher>
+#include <QList>
 
-class TestImageCache : public QObject
+class Page;
+
+class ThumbnailGenerator : public QObject
 {
     Q_OBJECT
 public:
-    explicit TestImageCache(QObject *parent = 0);
-private slots:
-    void testFind();
-    void testInsert();
-    void testLoad();
-    void testFindImage();
-    void testInsertImage();
-    void testLoadImage();
-    void testMultiThred();
+    ThumbnailGenerator(QObject * parent = 0);
+    ~ThumbnailGenerator();
+
+    QList<Page*> pages() const;
+    void setPages(const QList<Page*>& pages);
+
+    /**
+     * Cancels thumb generation thread
+     * @see run()
+     */
+    void cancel();
+
+    /**
+     * Returns ture if thumb generation thread is running
+     * @see run()
+     */
+    bool isRunning() const;
+
+    /**
+     * Starts thumb generation thread
+     * @see isRunning()
+     */
+    void run();
+signals:
+    void finished();
+    void started();
+private:
+    QList<Page*> pages_;
+    QFuture<void> job_;
+    QFutureWatcher<void> watcher_;
 };
 
-#endif // TESTIMAGECACHE_H
+#endif // THUMBNAILGENERATOR_H

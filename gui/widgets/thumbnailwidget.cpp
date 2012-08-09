@@ -148,6 +148,7 @@ ThumbnailWidget::ThumbnailWidget(Page * page) :
     connect(page, SIGNAL(rotated(int)), SLOT(handlePageRotate()));
     connect(page, SIGNAL(changed()), SLOT(updatePageIndicators()));
     connect(page, SIGNAL(exported()), SLOT(updatePageIndicators()));
+    connect(page, SIGNAL(thumbChanged()), SLOT(setupPixmap()));
 
     updatePageIndicators();
 }
@@ -194,6 +195,21 @@ void ThumbnailWidget::paint(QPainter * painter, const QStyleOptionGraphicsItem *
     }
 }
 
+QPixmap ThumbnailWidget::defaultPageThumb() const
+{
+    return QPixmap(":/img/thumb-empty.png").scaled(THUMB_IMAGE_HEIGHT, THUMB_IMAGE_WIDTH,
+                                                   Qt::KeepAspectRatio, Qt::SmoothTransformation);
+}
+
+QPixmap ThumbnailWidget::pageThumb() const
+{
+    if(!page_ || !page_->hasThumb())
+        return defaultPageThumb();
+
+    return page_->thumb().scaled(THUMB_IMAGE_HEIGHT, THUMB_IMAGE_WIDTH,
+                                 Qt::KeepAspectRatio, Qt::SmoothTransformation);
+}
+
 Page * ThumbnailWidget::page() const {
     return page_;
 }
@@ -205,12 +221,8 @@ void ThumbnailWidget::pageFaultForward() {
 
 void ThumbnailWidget::handlePageRotate() {
     Q_CHECK_PTR(pixmap_);
-    Q_CHECK_PTR(page_);
 
-    if(!page_->thumb())
-        return;
-
-    pixmap_->setPixmap(*page_->thumb());
+    pixmap_->setPixmap(pageThumb());
     updatePixmapPos();
 }
 
@@ -242,17 +254,12 @@ void ThumbnailWidget::setupLabel()
     label_->setPos(xpos, THUMB_HEIGHT - 30);
 }
 
-void ThumbnailWidget::setupPixmap() {
-    QPixmap thumb(THUMB_IMAGE_HEIGHT, THUMB_IMAGE_WIDTH);
+void ThumbnailWidget::setupPixmap()
+{
+    if(pixmap_)
+        delete pixmap_;
 
-    if(!page_ || !page_->thumb()) {
-        thumb.fill();
-    }
-    else {
-        thumb = *page_->thumb();
-    }
-
-    pixmap_ = new Pixmap(thumb, this);
+    pixmap_ = new Pixmap(pageThumb(), this);
     updatePixmapPos();
 }
 

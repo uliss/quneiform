@@ -38,9 +38,6 @@
 #include "export/rectexporter.h"
 #include "export/exporterfactory.h"
 
-static const int THUMB_IMAGE_HEIGHT = 100;
-static const int THUMB_IMAGE_WIDTH = 100;
-
 static const QPoint INVALID_POINT(std::numeric_limits<int>::max(), std::numeric_limits<int>::min());
 
 static language_t languageToType(const Language& lang) {
@@ -53,7 +50,7 @@ static language_t languageToType(const Language& lang) {
     }
 }
 
-Page::Page(const QString& image_path) :
+Page::Page(const QString& image_path, bool load) :
     image_url_(image_path, 0),
     state_flags_(NONE),
     angle_(0),
@@ -62,12 +59,16 @@ Page::Page(const QString& image_path) :
     doc_(NULL),
     thumb_(NULL)
 {
-    initThumb();
+    is_null_ = !image_url_.exists();
+
+    if(load)
+        updateImageSize();
+
     initRects();
     initDocument();
 }
 
-Page::Page(const ImageURL& imageUrl) :
+Page::Page(const ImageURL& imageUrl, bool load) :
     image_url_(imageUrl),
     state_flags_(NONE),
     angle_(0),
@@ -76,7 +77,11 @@ Page::Page(const ImageURL& imageUrl) :
     doc_(NULL),
     thumb_(NULL)
 {
-    initThumb();
+    is_null_ = !image_url_.exists();
+
+    if(load)
+        updateImageSize();
+
     initRects();
     initDocument();
 }
@@ -106,6 +111,11 @@ void Page::clearReadAreas()
 bool Page::hasReadAreas() const
 {
     return !read_areas_.isEmpty();
+}
+
+bool Page::hasThumb() const
+{
+    return thumb_ && (!thumb_->isNull());
 }
 
 QList<QRect> Page::readAreas() const
@@ -198,7 +208,11 @@ ImageURL Page::imageURL() const
     return image_url_;
 }
 
-QSize Page::imageSize() const {
+QSize Page::imageSize() const
+{
+    if(image_size_.isNull())
+        updateImageSize();
+
     return image_size_;
 }
 
@@ -239,8 +253,11 @@ QString Page::name() const
     return QFileInfo(image_url_.path()).fileName();
 }
 
-QRect Page::mapFromPage(const QRect &r) const
+QRect Page::mapFromPage(const QRect& r) const
 {
+    if(image_size_.isNull())
+        updateImageSize();
+
     int width = image_size_.width();
     int height = image_size_.height();
 
@@ -267,6 +284,9 @@ QRect Page::mapFromPage(const QRect &r) const
 
 QRect Page::mapToPage(const QRect& r) const
 {
+    if(image_size_.isNull())
+        updateImageSize();
+
     int width = image_size_.width();
     int height = image_size_.height();
 
@@ -289,10 +309,6 @@ QRect Page::mapToPage(const QRect& r) const
     default:
         return r;
     }
-}
-
-QRect Page::pageArea() const {
-    return QRect();
 }
 
 const RecognitionSettings& Page::recognitionSettings() const {
@@ -322,15 +338,18 @@ void Page::scaleView(qreal factor) {
     setViewScale(view_scale_ * factor);
 }
 
-void Page::setAngle(int angle) {
-    QMutexLocker lock(&mutex_);
-
+void Page::setAngle(int angle)
+{
     const int new_angle = (360 + (angle % 360)) % 360;
 
-    if(thumb_)
-        setThumb(thumb_->transformed(QTransform().rotate(new_angle - angle_)));
+    {
+        QMutexLocker lock(&mutex_);
+        if(thumb_)
+            *thumb_ = thumb_->transformed(QTransform().rotate(new_angle - angle_));
 
-    angle_ = new_angle;
+        angle_ = new_angle;
+    }
+
     emit changed();
     emit rotated(angle_);
 }
@@ -393,6 +412,12 @@ void Page::setFormatSettings(const FormatSettings& s) {
     format_settings_ = s;
 
     setChanged();
+}
+
+void Page::setImageSize(const QSize& sz)
+{
+    QMutexLocker lock(&mutex_);
+    image_size_ = sz;
 }
 
 void Page::setLanguage(const Language& lang) {
@@ -458,6 +483,19 @@ void Page::updateBlocks() {
     setBlocks(exp.columns(), COLUMN);
     setBlocks(exp.sections(), SECTION);
     blockSignals(false);
+}
+
+void Page::updateImageSize() const
+{
+    QImage image;
+    if(ImageCache::load(image_url_, &image)) {
+        image_size_ = image.size();
+        is_null_ = false;
+    }
+    else {
+        is_null_ = true;
+        image_size_ = QSize();
+    }
 }
 
 void Page::updateTextDocument() {
@@ -533,13 +571,17 @@ QDataStream& operator>>(QDataStream& is, Page& page) {
     is >> ced;
     page.cedpage_ = ced.page();
 
-    bool has_pixmap = false;
-    is >> has_pixmap;
+    bool has_thumb = false;
+    is >> has_thumb;
 
-    if(has_pixmap) {
-        QPixmap thumb;
+    if(has_thumb) {
+        QImage thumb;
         is >> thumb;
-        page.setThumb(thumb);
+
+        if(page.thumb_)
+            *(page.thumb_) = thumb;
+        else
+            page.thumb_ = new QImage(thumb);
     }
 
     is >> page.read_areas_;
@@ -560,34 +602,28 @@ QDataStream& operator>>(QDataStream& is, Page::PageFlags& flags) {
     return is;
 }
 
-const QPixmap * Page::thumb() const
+QPixmap Page::thumb() const
 {
-    return thumb_;
+    QMutexLocker lock(&mutex_);
+
+    if(!thumb_)
+        return QPixmap();
+
+    return QPixmap::fromImage(*thumb_);
 }
 
-void Page::setThumb(const QPixmap& thumb)
+void Page::setThumb(const QImage& thumb)
 {
-    if(thumb_)
-        *thumb_ = thumb;
-    else
-        thumb_ = new QPixmap(thumb);
-}
+    {
+        QMutexLocker lock(&mutex_);
 
-void Page::initThumb()
-{
-    QPixmap pixmap;
-    if(ImageCache::load(image_url_, &pixmap)) {
-        is_null_ = false;
-        image_size_ = pixmap.size();
-
-        if(pixmap.height() > pixmap.width())
-            setThumb(pixmap.scaledToHeight(THUMB_IMAGE_HEIGHT));
+        if(thumb_)
+            *thumb_ = thumb;
         else
-            setThumb(pixmap.scaledToWidth(THUMB_IMAGE_WIDTH));
+            thumb_ = new QImage(thumb);
     }
-    else {
-        is_null_ = true;
-    }
+
+    emit thumbChanged();
 }
 
 void Page::initDocument()
@@ -596,4 +632,9 @@ void Page::initDocument()
         delete doc_;
 
     doc_ = new QTextDocument(this);
+}
+
+QSize Page::maxThumbnailSize()
+{
+    return QSize(200, 200);
 }
