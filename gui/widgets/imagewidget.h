@@ -23,6 +23,8 @@
 #include <QWidget>
 
 class QVBoxLayout;
+class QToolBar;
+class QAction;
 class ImageView;
 class Page;
 
@@ -33,7 +35,7 @@ public:
     explicit ImageWidget(QWidget * parent = 0);
 
     void showPage(Page * p);
-    void showPageBinarized(Page * p);
+    void showPageBinarized();
     QSize sizeHint () const;
 signals:
     void binarize(Page*);
@@ -69,6 +71,7 @@ signals:
 public slots:
     void fitPage();
     void fitWidth();
+    void handleActionBinarize(bool checked);
     void originalSize();
     void showChar(const QRect& bbox);
     void updateSettings();
@@ -76,12 +79,16 @@ public slots:
     void zoomIn();
     void zoomOut();
 private:
+    void resetBinarizeAction();
     void setupLayout();
+    void setupToolBar();
     void setupView();
     void updateFormatLayout();
 private:
     QVBoxLayout * layout_;
     ImageView * view_;
+    QToolBar * toolbar_;
+    QAction * act_bin_;
 };
 
 #endif // IMAGEWIDGET_H

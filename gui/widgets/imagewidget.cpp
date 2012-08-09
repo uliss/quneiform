@@ -18,6 +18,8 @@
 
 #include <QDebug>
 #include <QVBoxLayout>
+#include <QToolBar>
+#include <QAction>
 
 #ifdef QT_OS_MAC
 #include <QtOpenGL/QGLWidget>
@@ -25,11 +27,18 @@
 
 #include "imagewidget.h"
 #include "imageview.h"
+#include "iconutils.h"
 
 ImageWidget::ImageWidget(QWidget * parent) :
-    QWidget(parent), layout_(NULL), view_(NULL) {
+    QWidget(parent),
+    layout_(NULL),
+    view_(NULL) ,
+    toolbar_(NULL),
+    act_bin_(NULL)
+{
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setupLayout();
+    setupToolBar();
     setupView();
 }
 
@@ -43,6 +52,14 @@ void ImageWidget::fitWidth() {
     view_->fitWidth();
 }
 
+void ImageWidget::handleActionBinarize(bool checked)
+{
+    if(checked)
+        view_->showPageBinarized();
+    else
+        view_->showPageOriginal();
+}
+
 void ImageWidget::originalSize() {
     Q_CHECK_PTR(view_);
     view_->originalSize();
@@ -54,6 +71,20 @@ void ImageWidget::setupLayout() {
     layout_->setMargin(0);
     layout_->setSpacing(0);
     setLayout(layout_);
+}
+
+void ImageWidget::setupToolBar()
+{
+    toolbar_ = new QToolBar(this);
+    toolbar_->setIconSize(QSize(12, 12));
+    toolbar_->setFloatable(false);
+
+    act_bin_ = toolbar_->addAction(iconFromTheme("binarize"), tr("Binarize"));
+    connect(act_bin_, SIGNAL(toggled(bool)), SLOT(handleActionBinarize(bool)));
+    act_bin_->setCheckable(true);
+    act_bin_->setChecked(false);
+    act_bin_->setDisabled(true);
+    layout_->addWidget(toolbar_);
 }
 
 void ImageWidget::setupView() {
@@ -86,16 +117,17 @@ void ImageWidget::showPage(Page * p) {
     }
 
     view_->showPage(p);
+    resetBinarizeAction();
 }
 
-void ImageWidget::showPageBinarized(Page *p)
+void ImageWidget::showPageBinarized()
 {
     if(!view_) {
         qDebug() << Q_FUNC_INFO << "no view";
         return;
     }
 
-    view_->showPageBinarized(p);
+    view_->showPageBinarized();
 }
 
 QSize ImageWidget::sizeHint () const {
@@ -124,4 +156,12 @@ void ImageWidget::zoomIn() {
 
 void ImageWidget::zoomOut() {
     zoom(0.8);
+}
+
+void ImageWidget::resetBinarizeAction()
+{
+    act_bin_->blockSignals(true);
+    act_bin_->setChecked(false);
+    act_bin_->blockSignals(false);
+    act_bin_->setEnabled(view_->hasPage());
 }

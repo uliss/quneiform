@@ -40,6 +40,7 @@
 #include "selection.h"
 #include "selectionlist.h"
 #include "iconutils.h"
+#include "pagebinarizator.h"
 
 #define HAS_PAGE() {\
     if(!page_) {\
@@ -68,6 +69,16 @@ ImageView::ImageView(QWidget * parent) :
 
 ImageView::~ImageView() {    
     delete scene_;
+}
+
+bool ImageView::hasPage() const
+{
+    return page_ != NULL;
+}
+
+Page * ImageView::page()
+{
+    return page_;
 }
 
 void ImageView::activate(bool value) {
@@ -446,16 +457,32 @@ void ImageView::showPage(Page * page) {
     activate(true);
 }
 
-void ImageView::showPageBinarized(Page * page)
+void ImageView::showPageOriginal()
 {
-    if(!page) {
+    if(!page_) {
+        qDebug() << Q_FUNC_INFO << "attempt to show NULL page";
+        return;
+    }
+
+    qDebug() << Q_FUNC_INFO;
+    showImage();
+}
+
+void ImageView::showPageBinarized()
+{
+    if(!page_) {
         qDebug() << Q_FUNC_INFO << "attempt to show NULL page";
         return;
     }
 
     qDebug() << Q_FUNC_INFO;
 
-    pixmap_->setPixmap(QPixmap::fromImage(page->binarizedImage()));
+    if(!page_->isBinarized()) {
+        PageBinarizator b;
+        b.binarize(page_);
+    }
+
+    pixmap_->setPixmap(QPixmap::fromImage(page_->binarizedImage()));
 }
 
 void ImageView::updatePageArea() {

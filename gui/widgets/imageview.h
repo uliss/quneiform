@@ -39,6 +39,16 @@ public:
     ~ImageView();
 
     /**
+     * Returns true if viewed page is valid
+     */
+    bool hasPage() const;
+
+    /**
+     * Returns pointer to current page
+     */
+    Page * page();
+
+    /**
       * Clears view and scene
       */
     void clearScene();
@@ -65,7 +75,8 @@ public:
       */
     void showPage(Page * page);
 
-    void showPageBinarized(Page * page);
+    void showPageOriginal();
+    void showPageBinarized();
 
     /**
       * Sets view minimal scale
