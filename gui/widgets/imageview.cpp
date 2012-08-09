@@ -157,8 +157,6 @@ void ImageView::createContextMenu() {
                              tr("Original size"),
                              this,
                              SLOT(originalSize()));
-
-    context_menu_->addAction("Binarize image", this, SLOT(handleBinarizeImage()));
 }
 
 void ImageView::deletePage() {
@@ -524,11 +522,6 @@ void ImageView::wheelEvent(QWheelEvent * event) {
         zoom(0.93);
 
     event->accept();
-}
-
-void ImageView::handleBinarizeImage()
-{
-    emit binarize(page_);
 }
 
 void ImageView::zoom(qreal factor) {

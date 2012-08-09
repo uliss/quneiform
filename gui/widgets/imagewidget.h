@@ -38,7 +38,6 @@ public:
     void showPageBinarized();
     QSize sizeHint () const;
 signals:
-    void binarize(Page*);
     /**
       * Emitted after gesture rotate attempt
       */

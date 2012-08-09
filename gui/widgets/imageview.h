@@ -118,8 +118,6 @@ public slots:
 
     void updatePageArea();
 signals:
-    void binarize(Page * page);
-
     /**
       * Emmitted after gesture rotate attempt
       */
@@ -158,7 +156,6 @@ protected:
 private slots:
     void clearPageLayout();
     void deletePage();
-    void handleBinarizeImage();
     void handleRecognizeRequest();
     void savePageSelections();
     void startPageSelection();
