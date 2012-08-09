@@ -57,6 +57,7 @@
 #include "iconutils.h"
 #include "fullscreen.h"
 #include "settingskeys.h"
+#include "pagebinarizator.h"
 #include "scan/scannerdialog.h"
 
 
@@ -71,7 +72,8 @@ MainWindow::MainWindow(QWidget *parent) :
         packet_(new Packet(this)),
         progress_(new OpenProgressDialog(this)),
         image_widget_(NULL),
-        view_splitter_(NULL)
+        view_splitter_(NULL),
+        page_binarizator_(NULL)
 {
     setupUi();
     setupPacket();
@@ -93,6 +95,25 @@ MainWindow::~MainWindow() {
 void MainWindow::about() {
     AboutDialog about;
     about.exec();
+}
+
+void MainWindow::binarizePage(Page * page)
+{
+    if(!page) {
+        qWarning() << Q_FUNC_INFO << "NULL page given";
+        return;
+    }
+
+    if(!page_binarizator_) {
+        page_binarizator_ = new PageBinarizator(this);
+    }
+
+    if(!page_binarizator_->binarize(page)) {
+        QMessageBox::warning(this, "warning", "binarization failed");
+        return;
+    }
+
+    image_widget_->showPageBinarized(page);
 }
 
 void MainWindow::addRecentMenu(QMenu * menu) {
@@ -721,6 +742,7 @@ void MainWindow::setupImageView() {
     connect(image_widget_, SIGNAL(scaled()), SLOT(enableZoomActions()));
     connect(image_widget_, SIGNAL(gestureRotateAttempt(int)), SLOT(rotate(int)));
     connect(image_widget_, SIGNAL(recognize(Page*)), SLOT(recognizePage(Page*)));
+    connect(image_widget_, SIGNAL(binarize(Page*)), SLOT(binarizePage(Page*)));
 }
 
 void MainWindow::setupLanguageMenu() {

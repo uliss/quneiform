@@ -39,6 +39,7 @@ class TextEditor;
 class QProgressDialog;
 class QHBoxLayout;
 class QSplitter;
+class PageBinarizator;
 
 class MainWindow: public QMainWindow {
     Q_OBJECT
@@ -59,6 +60,7 @@ protected:
     void closeEvent(QCloseEvent * event);
 private slots:
     void about();
+    void binarizePage(Page * page);
     void disableViewActions();
     void disableZoomInAction();
     void disableZoomOutAction();
@@ -152,6 +154,7 @@ private:
     RecentMenu * recent_packets_;
     RecentMenu * recent_images_;
     QSplitter * view_splitter_;
+    PageBinarizator * page_binarizator_;
 };
 
 #endif // MAINWINDOW_H

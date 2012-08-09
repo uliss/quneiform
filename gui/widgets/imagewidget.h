@@ -33,8 +33,10 @@ public:
     explicit ImageWidget(QWidget * parent = 0);
 
     void showPage(Page * p);
+    void showPageBinarized(Page * p);
     QSize sizeHint () const;
 signals:
+    void binarize(Page*);
     /**
       * Emitted after gesture rotate attempt
       */

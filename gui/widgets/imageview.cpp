@@ -146,6 +146,8 @@ void ImageView::createContextMenu() {
                              tr("Original size"),
                              this,
                              SLOT(originalSize()));
+
+    context_menu_->addAction("Binarize image", this, SLOT(handleBinarizeImage()));
 }
 
 void ImageView::deletePage() {
@@ -444,6 +446,18 @@ void ImageView::showPage(Page * page) {
     activate(true);
 }
 
+void ImageView::showPageBinarized(Page * page)
+{
+    if(!page) {
+        qDebug() << Q_FUNC_INFO << "attempt to show NULL page";
+        return;
+    }
+
+    qDebug() << Q_FUNC_INFO;
+
+    pixmap_->setPixmap(QPixmap::fromImage(page->binarizedImage()));
+}
+
 void ImageView::updatePageArea() {
     Q_CHECK_PTR(scene());
 
@@ -483,6 +497,11 @@ void ImageView::wheelEvent(QWheelEvent * event) {
         zoom(0.93);
 
     event->accept();
+}
+
+void ImageView::handleBinarizeImage()
+{
+    emit binarize(page_);
 }
 
 void ImageView::zoom(qreal factor) {

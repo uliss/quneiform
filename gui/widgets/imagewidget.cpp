@@ -66,6 +66,7 @@ void ImageWidget::setupView() {
     connect(view_, SIGNAL(scaleIsTooSmall()), SIGNAL(scaleIsTooSmall()));
     connect(view_, SIGNAL(gestureRotateAttempt(int)), SIGNAL(gestureRotateAttempt(int)));
     connect(view_, SIGNAL(recognize(Page*)), SIGNAL(recognize(Page*)));
+    connect(view_, SIGNAL(binarize(Page*)), SIGNAL(binarize(Page*)));
 
 #ifdef QT_OS_MAC
     view_->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
@@ -85,6 +86,16 @@ void ImageWidget::showPage(Page * p) {
     }
 
     view_->showPage(p);
+}
+
+void ImageWidget::showPageBinarized(Page *p)
+{
+    if(!view_) {
+        qDebug() << Q_FUNC_INFO << "no view";
+        return;
+    }
+
+    view_->showPageBinarized(p);
 }
 
 QSize ImageWidget::sizeHint () const {

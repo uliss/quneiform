@@ -57,7 +57,8 @@ Page::Page(const QString& image_path, bool load) :
     view_scale_(1.0),
     view_scroll_(INVALID_POINT),
     doc_(NULL),
-    thumb_(NULL)
+    thumb_(NULL),
+    binarized_(NULL)
 {
     is_null_ = !image_url_.exists();
 
@@ -75,7 +76,8 @@ Page::Page(const ImageURL& imageUrl, bool load) :
     view_scale_(1.0),
     view_scroll_(INVALID_POINT),
     doc_(NULL),
-    thumb_(NULL)
+    thumb_(NULL),
+    binarized_(NULL)
 {
     is_null_ = !image_url_.exists();
 
@@ -521,6 +523,28 @@ QPoint Page::viewScroll() const {
 bool Page::isFirstViewScroll() const
 {
     return view_scroll_ == INVALID_POINT;
+}
+
+QImage Page::binarizedImage() const
+{
+    if(binarized_)
+        return *binarized_;
+
+    return QImage();
+}
+
+bool Page::isBinarized() const
+{
+    return binarized_ != NULL && !binarized_->isNull();
+}
+
+void Page::setBinarizedImage(const QImage& image)
+{
+    if(binarized_)
+        delete binarized_;
+
+    binarized_ = new QImage(image);
+    emit binarized();
 }
 
 QDataStream& operator<<(QDataStream& os, const Page& page) {

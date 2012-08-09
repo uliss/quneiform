@@ -332,7 +332,13 @@ public:
       */
     QPoint viewScroll() const;
     bool isFirstViewScroll() const;
+
+    QImage binarizedImage() const;
+    bool isBinarized() const;
+    void setBinarizedImage(const QImage& image);
 signals:
+    void binarized();
+
     /**
       * Emmitted when some page data changed, such as
       * scale, angle, flags, selection etc.
@@ -403,6 +409,7 @@ private:
     cf::CEDPagePtr cedpage_;
     QImage * thumb_;
     QList<QRect> read_areas_;
+    QImage * binarized_;
 public:
     friend QDataStream& operator<<(QDataStream& stream, const Page& page);
     friend QDataStream& operator>>(QDataStream& stream, Page& page);

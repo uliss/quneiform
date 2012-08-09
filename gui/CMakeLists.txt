@@ -43,6 +43,7 @@ set(TRANSLATIONS_TS translations/ru.ts translations/ua.ts)
 set(HEADERS 
     packet.h
     page.h
+    pagebinarizator.h
     pagerecognizer.h
     pagerecognitionqueue.h
     selectionlist.h
@@ -95,6 +96,7 @@ set(SOURCES
     metatyperegistrator.cpp
     packet.cpp
     page.cpp
+    pagebinarizator.cpp
     pagearea.cpp
     pagelayout.cpp
     pagerecognizer.cpp
