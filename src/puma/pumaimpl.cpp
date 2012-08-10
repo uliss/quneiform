@@ -82,35 +82,6 @@ static Handle hDebugEnableSearchSegment = NULL;
 static Handle hDebugStrings = NULL;
 static Handle hDebugCancelTurn = NULL;
 
-static double portion_of_rus_letters(CSTR_line lin_ruseng) {
-    if (!lin_ruseng)
-        return 0;
-
-    CSTR_rast_attr attr;
-    CSTR_rast rast = CSTR_GetFirstRaster(lin_ruseng);
-    UniVersions uv;
-    int nRus = 0, nAll = 0;
-
-    for (rast = CSTR_GetNext(rast); rast; rast = CSTR_GetNext(rast)) {
-        CSTR_GetAttr(rast, &attr);
-        CSTR_GetCollectionUni(rast, &uv);
-
-        if (attr.flg & (CSTR_f_let)) {
-            if (attr.language == LANGUAGE_RUSSIAN && uv.lnAltCnt
-                    && uv.Alt[0].Prob > 100 && !strchr("0123456789/%",
-                    uv.Alt[0].Code[0]))
-                nRus++;
-
-            nAll++;
-        }
-    }
-
-    if (!nAll)
-        return 0;
-
-    return (double) nRus / (double) nAll;
-}
-
 using namespace std;
 
 #ifndef NDEBUG
@@ -120,9 +91,6 @@ using namespace std;
 #endif
 
 namespace cf {
-
-static char global_buf[64000]; // OLEG fot Consistent
-static int32_t global_buf_len = 0; // OLEG fot Consistent
 
 uint32_t PumaImpl::update_flags_ = 0;
 
@@ -153,8 +121,7 @@ PumaImpl::PumaImpl() :
     cline_(NULL),
     rc_line_(TRUE),
     need_clean_line_(FALSE),
-    recog_name_(NULL),
-    special_project_(SPEC_PRJ_NO)
+    recog_name_(NULL)
 {
     modulesInit();
 }
@@ -535,41 +502,10 @@ void PumaImpl::pass2() {
     if (Config::instance().debugDump())
         saveCSTR(2);
 
-    if (SPEC_PRJ_GIP == special_project_ && recognize_options_.language()
-            == LANGUAGE_RUS_ENG)
-        pass2special();
-
     if (RSTR_NeedPass2())
         recognizePass2();
     else
         Debug() << "RSTR said that second pass is not needed.\n";
-}
-
-void PumaImpl::pass2special() {
-    double s = 0;
-    int n = CSTR_GetMaxNumber();
-    for (int i = 1; i <= n; i++) {
-        CSTR_line lin_ruseng = CSTR_GetLineHandle(i, 1);
-        s += portion_of_rus_letters(lin_ruseng);
-    }
-
-    if (n)
-        s /= (double) n;
-
-    if (n && s < 0.4) {
-        for (int i = 0; i <= n; i++) {
-            for (int j = 1; j < 10; j++) {
-                CSTR_line lin_ruseng = CSTR_GetLineHandle(i, j);
-
-                if (lin_ruseng)
-                    CSTR_DeleteLine(lin_ruseng);
-            }
-        }
-
-        recognize_options_.setLanguage(LANGUAGE_ENGLISH);
-        recognizeSetup();
-        recognizePass1();
-    }
 }
 
 void PumaImpl::spellCorrection() {
@@ -773,9 +709,6 @@ void PumaImpl::recognize() {
     if (Config::instance().debug())
         printResult(cerr);
 
-    if (SPEC_PRJ_CONS == special_project_)
-        recognizeSpecial();
-
     normalize();
 }
 
@@ -878,7 +811,6 @@ void PumaImpl::recognizeSetup() {
     opt.pageSkew2048 = info.Incline2048;//0
     int32_t nResolutionY = info.DPIY;//300;
     opt.language = recognize_options_.language();
-    global_buf_len = 0; // OLEG fot Consistent
 
     if (!RSTR_NewPage(nResolutionY, cpage_))
         throw PumaException("RSTR_NewPage failed");
@@ -912,24 +844,6 @@ void PumaImpl::recognizeSetup() {
         RPSTR_SetImportData(RPSTR_FNIMP_LANGUAGE, &w8);
         RCORRKEGL_SetImportData(RCORRKEGL_FNIMP_LANGUAGE, &w8);
     }
-}
-
-void PumaImpl::recognizeSpecial() {
-    char * buf = &global_buf[0], buf_str[1024];
-    char * pb = buf;
-    global_buf_len = 0;
-
-    for (int i = 1, count = CSTR_GetMaxNumber(); i <= count; i++) {
-        CSTR_line buf_line = CSTR_GetLineHandle(i, 1);
-        CSTR_LineToTxt_Coord(buf_line, buf_str, 1023);
-        strcpy(pb, buf_str);
-        int len = strlen(pb);
-        pb += len + 1;
-        global_buf_len += len + 1;
-    }
-
-    *pb = 0;
-    global_buf_len++;
 }
 
 void PumaImpl::rotate(BitmapPtr * dib, Point * p) {
@@ -1029,11 +943,6 @@ static inline bool isValidPageTemplate(const Rect& r)
             r.right() >= 0 ||
             r.bottom() >= 0 ||
             r.top() >= 0;
-}
-
-void PumaImpl::setSpecialProject(special_project_t SpecialProject) {
-    special_project_ = SpecialProject;
-    RSTR_SetSpecPrj(SpecialProject);
 }
 
 void PumaImpl::applyReadMask()

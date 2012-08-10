@@ -25,7 +25,6 @@
 #include <boost/shared_ptr.hpp>
 
 #include "cfcompat.h"
-#include "specprj.h"
 #include "common/binarizeoptions.h"
 #include "common/formatoptions.h"
 #include "common/rect.h"
@@ -108,8 +107,6 @@ class PumaImpl
          * @see setFormatOptions()
          */
         void setRecognizeOptions(const RecognizeOptions& opt);
-
-        void setSpecialProject(special_project_t SpecialProject);
     private:
         void applyReadMask();
         BackupPage * cpage();
@@ -128,7 +125,6 @@ class PumaImpl
         void normalize();
         void pass1();
         void pass2();
-        void pass2special();
         void preOpenInitialize();
         void printResult(std::ostream& os);
         void printResultLine(std::ostream& os, size_t lineNumber);
@@ -137,7 +133,6 @@ class PumaImpl
         void recognizePass1();
         void recognizePass2();
         void recognizeSetup();
-        void recognizeSpecial();
         void rotate(BitmapPtr * dib, Point * p);
         void saveCSTR(int pass);
         void saveLayoutToFile(const std::string& fname);
@@ -173,7 +168,6 @@ class PumaImpl
         Bool32 rc_line_;
         Bool32 need_clean_line_;
         const char * recog_name_;
-        special_project_t special_project_;
         BinarizeOptions binarize_options_;
 };
 
