@@ -20,6 +20,7 @@
 #include <QImageReader>
 
 #include "pagebinarizator.h"
+#include "binarizationsettings.h"
 #include "page.h"
 #include "imageurl.h"
 #include "imagecache.h"
@@ -40,7 +41,7 @@ bool PageBinarizator::binarize(Page * page)
         return false;
     }
 
-    QImage img = binarize(page->imageURL());
+    QImage img = binarize(page->imageURL(), page->binarizationSettings());
     if(img.isNull()) {
         qWarning() << Q_FUNC_INFO << "binarization failed:" << page->imageURL();
         return false;
@@ -50,7 +51,7 @@ bool PageBinarizator::binarize(Page * page)
     return true;
 }
 
-QImage PageBinarizator::binarize(const ImageURL& path)
+QImage PageBinarizator::binarize(const ImageURL& path, const BinarizationSettings& settings)
 {
     using namespace cf;
     QImage src_image;
@@ -72,9 +73,7 @@ QImage PageBinarizator::binarize(const ImageURL& path)
         return QImage();
     }
 
-    BinarizeOptions opts;
-    opts.setBinarizator(BINARIZATOR_DEFAULT);
-    BinarizatorPtr bptr = BinarizatorFactory::instance().make(opts);
+    BinarizatorPtr bptr = BinarizatorFactory::instance().make(settings.toCfOptions());
     bptr->setSource(&dib);
     CTDIB * bin_dib = bptr->binarize();
 

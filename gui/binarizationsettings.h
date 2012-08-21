@@ -16,23 +16,37 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef PAGEBINARIZATOR_H
-#define PAGEBINARIZATOR_H
+#ifndef BINARIZATIONSETTINGS_H
+#define BINARIZATIONSETTINGS_H
 
-#include <QObject>
-#include <QImage>
+#include <QDataStream>
+#include <QHash>
+#include <QVariant>
+#include <QString>
 
-class BinarizationSettings;
-class ImageURL;
-class Page;
+namespace cf {
+    class BinarizeOptions;
+}
 
-class PageBinarizator : public QObject
+class BinarizationSettings
 {
-    Q_OBJECT
 public:
-    explicit PageBinarizator(QObject * parent = 0);
-    bool binarize(Page * page);
-    QImage binarize(const ImageURL& path, const BinarizationSettings& settings);
+    BinarizationSettings();
+    BinarizationSettings(const cf::BinarizeOptions& opts);
+    cf::BinarizeOptions toCfOptions() const;
+
+    bool getBool(const QString& key, bool fallback) const;
+    int getInt(const QString& key, int fallback) const;
+    QString getString(const QString& key, const QString& fallback) const;
+
+    QVariant get(const QString& key, const QVariant& fallback = QVariant()) const;
+    void set(const QString& key, const QVariant& get);
+private:
+    friend QDataStream& operator<<(QDataStream& stream, const BinarizationSettings& s);
+    friend QDataStream& operator>>(QDataStream& stream, BinarizationSettings& s);
+private:
+    typedef QHash<QString, QVariant> Table;
+    Table settings_;
 };
 
-#endif // PAGEBINARIZATOR_H
+#endif // BINARIZATIONSETTINGS_H

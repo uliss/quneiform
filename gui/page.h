@@ -31,8 +31,9 @@
 #include <QSharedPointer>
 #include <QScopedPointer>
 
-#include "recognitionsettings.h"
+#include "binarizationsettings.h"
 #include "formatsettings.h"
+#include "recognitionsettings.h"
 #include "imageurl.h"
 #include "language.h"
 
@@ -137,6 +138,11 @@ public:
       * @see blocks(), setBlocks()
       */
     int blocksCount(BlockType t) const;
+
+    /**
+     * Returns page binarization settings
+     */
+    const BinarizationSettings& binarizationSettings() const;
 
    /**
      * Returns pointer to cf::CEDPage
@@ -428,6 +434,7 @@ private:
     QImage * thumb_;
     QList<QRect> read_areas_;
     QScopedPointer<QImage> binarized_;
+    BinarizationSettings bin_settings_;
 public:
     friend QDataStream& operator<<(QDataStream& stream, const Page& page);
     friend QDataStream& operator>>(QDataStream& stream, Page& page);

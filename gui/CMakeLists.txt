@@ -84,6 +84,7 @@ set(HEADERS
 )
 
 set(SOURCES
+    binarizationsettings.cpp
     cfutils.cpp
     exportsettings.cpp
     formatsettings.cpp

@@ -380,6 +380,11 @@ int Page::blocksCount(BlockType t) const {
     return blocks_.at(t).count();
 }
 
+const BinarizationSettings& Page::binarizationSettings() const
+{
+    return bin_settings_;
+}
+
 void Page::resetViewScale() {
     setViewScale(1.0);
 }
@@ -622,6 +627,7 @@ QDataStream& operator<<(QDataStream& os, const Page& page) {
     }
 
     os << page.read_areas_;
+    os << page.bin_settings_;
 
     return os;
 }
@@ -658,6 +664,7 @@ QDataStream& operator>>(QDataStream& is, Page& page) {
     }
 
     is >> page.read_areas_;
+    is >> page.bin_settings_;
 
     return is;
 }
