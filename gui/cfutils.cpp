@@ -20,7 +20,7 @@
 
 QRect toQRect(const cf::Rect& r)
 {
-    return QRect(r.left() - 1, r.top() - 1, r.width(), r.height());
+    return QRect(r.left(), r.top() - 1, r.width(), r.height());
 }
 
 QColor toQColor(const cf::Color& c)
