@@ -21,12 +21,13 @@
 
 #include "common/singleton.h"
 #include "ibinarizator.h"
+#include "globus.h"
 
 namespace cf {
 
 class BinarizeOptions;
 
-class BinarizatorFactoryImpl
+class CLA_EXPO BinarizatorFactoryImpl
 {
 public:
     BinarizatorPtr make(const BinarizeOptions &opts);
