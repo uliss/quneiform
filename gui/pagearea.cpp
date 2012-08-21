@@ -54,21 +54,21 @@ void PageArea::show(Page * page) {
     updateLayout(page);
 }
 
-QRect PageArea::showChar(const QRect& bbox) {
-    QSettings settings;
-    QPen p(settings.value(KEY_CURRENT_CHAR_COLOR, Qt::red).value<QColor>());
+QRect PageArea::showChar(const QRect& bbox)
+{
+    QPen pen(QSettings().value(KEY_CURRENT_CHAR_COLOR, Qt::red).value<QColor>());
 
     QRect r;
 
     if(layout_)
         r = layout_->mapFromPage(bbox);
     else
-        r = bbox;
+        r = bbox.normalized();
 
     if(!current_char_bbox_) {
         current_char_bbox_ = new QGraphicsRectItem(r, this);
-        current_char_bbox_->setPen(p);
-        QColor background = p.color();
+        current_char_bbox_->setPen(pen);
+        QColor background = pen.color();
         background.setAlpha(20);
         current_char_bbox_->setBrush(background);
     }

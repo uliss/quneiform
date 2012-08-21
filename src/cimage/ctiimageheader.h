@@ -73,6 +73,10 @@ class CTIImageHeader
         CTIImageHeader(BitmapPtr handle, bool externalImage);
         ~CTIImageHeader();
     public:
+        void clearMasks();
+        void clearReadMask();
+        void clearWriteMask();
+
         void disableReadMask() {
             enable_read_mask_ = false;
         }
@@ -109,21 +113,16 @@ class CTIImageHeader
             return (image_ = NewHandle);
         }
 
-        void setWriteMask(CTIMask * WMask) {
-            write_mask_ = WMask;
-        }
-
         CTIMask * writeMask() {
             return write_mask_;
-        }
-
-        void setReadMask(CTIMask * RMask) {
-            read_mask_ = RMask;
         }
 
         CTIMask * readMask() {
             return read_mask_;
         }
+
+        void setReadMask(CTIMask * mask);
+        void setWriteMask(CTIMask * mask);
     private:
         BitmapPtr image_;
         CTIMask * write_mask_;

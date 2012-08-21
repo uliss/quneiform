@@ -21,6 +21,8 @@
 
 #include <QList>
 #include <QObject>
+#include <QScopedPointer>
+
 #include "language.h"
 
 class ThumbnailGenerator;
@@ -191,7 +193,7 @@ private:
     bool changed_;
     bool is_new_;
     bool page_remove_lock_;
-    ThumbnailGenerator * thumb_generator_;
+    QScopedPointer<ThumbnailGenerator> thumb_generator_;
     PageList delayed_remove_;
 public:
     friend QDataStream& operator<<(QDataStream& stream, const Packet& doc);

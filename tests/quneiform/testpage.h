@@ -35,6 +35,7 @@ public slots:
     void handlePageRotate();
     void handlePageThumbChange();
 private slots:
+    void initTestCase();
     void testAngle();
     void testSetAngle();
     void testConstruct();
@@ -51,6 +52,12 @@ private slots:
     void testUnsetFlag();
     void testReadWrite();
     void testMultiThreadFuzzing();
+    void testReadBoundingRect();
+    void testMapPointFromBackend();
+    void testMapPointFromBackendWithReadArea();
+    void testMapFromBackend();
+    void testMapToBackend();
+    void testRects();
 };
 
 #endif // TESTPAGE_H

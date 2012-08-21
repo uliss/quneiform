@@ -94,34 +94,14 @@ static inline bool isBitSet(puchar data, size_t n)
     return data[(n)/BITS] & (0x80 >> ((n) % BITS));
 }
 
-bool CTIControl::writeDIBtoBMP(const std::string& name, CTDIB * pDIB)
+bool CTIControl::writeDIBtoBMP(const std::string& name, CTDIB * dib)
 {
-    if(!pDIB) {
+    if(!dib) {
         CIMAGE_ERROR_FUNC << "NULL ctdib";
         return false;
     }
 
-    BitmapPtr dib = NULL;
-    pDIB->bitmap(&dib);
-
-    if(!dib)
-        return false;
-
-    if(!pDIB->dibSize())
-        return false;
-
-    CIMAGE_DEBUG_FUNC << "dump to \"" << name << "\"";
-
-    BitmapFileHeader bf;
-    bf.bfSize = BMP_FILE_HEADER_SIZE + pDIB->dibSize();
-    // fileheader + infoheader + palette
-    bf.bfOffBits = BMP_FILE_HEADER_SIZE + pDIB->headerSize() + pDIB->palleteSize();
-
-    std::ofstream of(name.c_str());
-    of.write((char*) &bf, sizeof(bf));
-    of.write((char*) dib, pDIB->dibSize());
-
-    return !of.fail();
+    return dib->saveToBMP(name);
 }
 
 bool CTIControl::writeDIBtoBMP(const std::string& name, BitmapPtr h)
@@ -279,6 +259,11 @@ bool CTIControl::enableReadMask(const std::string& imageName)
 bool CTIControl::enableWriteMask(const std::string& imageName)
 {
     return images_.enableWriteMask(imageName);
+}
+
+bool CTIControl::clearReadMasks(const std::string& name)
+{
+    return images_.clearReadMask(name);
 }
 
 void CTIControl::clear() {
@@ -978,8 +963,9 @@ bool CTIControl::applyMaskToDIB(CTDIB * dib, CTIMask * mask, int at_x, int at_y)
     }
 
     for (int y = y_begin; y < y_end; y++) {
-        CTIMaskLine * mask_line;
-        if (!mask->GetLine(y, &mask_line))
+        CTIMaskLine * mask_line = mask->findLine(y);
+
+        if(!mask_line)
             continue;
 
         //если удалось открыть маску

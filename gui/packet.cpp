@@ -31,8 +31,7 @@ Packet::Packet(QObject * parent) :
         filename_(DEFAULT_NAME),
         changed_(false),
         is_new_(true),
-        page_remove_lock_(false),
-        thumb_generator_(NULL)
+        page_remove_lock_(false)
 {
 }
 
@@ -166,12 +165,9 @@ void Packet::pageChange() {
 
 void Packet::setupThumbGenerator()
 {
-    if(thumb_generator_)
-        delete thumb_generator_;
-
-    thumb_generator_ = new ThumbnailGenerator(this);
-    connect(thumb_generator_, SIGNAL(started()), SLOT(thumbGeneratorStart()));
-    connect(thumb_generator_, SIGNAL(finished()), SLOT(thumbGeneratorFinish()));
+    thumb_generator_.reset(new ThumbnailGenerator(this));
+    connect(thumb_generator_.data(), SIGNAL(started()), SLOT(thumbGeneratorStart()));
+    connect(thumb_generator_.data(), SIGNAL(finished()), SLOT(thumbGeneratorFinish()));
 }
 
 void Packet::thumbGeneratorFinish()

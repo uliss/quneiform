@@ -84,6 +84,7 @@ set(HEADERS
 )
 
 set(SOURCES
+    cfutils.cpp
     exportsettings.cpp
     formatsettings.cpp
     fullscreen.cpp

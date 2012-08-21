@@ -23,6 +23,7 @@
 #include <QMutexLocker>
 #include <QPixmap>
 #include <QTextDocument>
+#include <QTransform>
 
 #include <string>
 #include <sstream>
@@ -57,8 +58,7 @@ Page::Page(const QString& image_path, bool load) :
     view_scale_(1.0),
     view_scroll_(INVALID_POINT),
     doc_(NULL),
-    thumb_(NULL),
-    binarized_(NULL)
+    thumb_(NULL)
 {
     is_null_ = !image_url_.exists();
 
@@ -76,8 +76,7 @@ Page::Page(const ImageURL& imageUrl, bool load) :
     view_scale_(1.0),
     view_scroll_(INVALID_POINT),
     doc_(NULL),
-    thumb_(NULL),
-    binarized_(NULL)
+    thumb_(NULL)
 {
     is_null_ = !image_url_.exists();
 
@@ -90,7 +89,6 @@ Page::Page(const ImageURL& imageUrl, bool load) :
 
 Page::~Page() {
     delete thumb_;
-    delete binarized_;
 }
 
 void Page::addReadArea(const QRect& r)
@@ -124,6 +122,23 @@ bool Page::hasThumb() const
 QList<QRect> Page::readAreas() const
 {
     return read_areas_;
+}
+
+QRect Page::readBoundingRect() const
+{
+    QRect full_image(QPoint(), imageSize());
+    if(read_areas_.isEmpty())
+        return full_image;
+
+    QRect res;
+    for(int i = 0; i < read_areas_.size(); i++) {
+        if(i == 0)
+            res = read_areas_[i];
+        else
+            res |= read_areas_[i];
+    }
+
+    return res & full_image;
 }
 
 void Page::setReadAreas(const QList<QRect>& rects)
@@ -235,6 +250,74 @@ void Page::initRects() {
     blocks_ << Rectangles();
 }
 
+QTransform Page::fromBackendMatrix() const
+{
+    if(image_size_.isNull())
+        updateImageSize();
+
+    int width = image_size_.width();
+    int height = image_size_.height();
+
+    QTransform  matrix;
+    QRect read_area = readBoundingRect();
+
+    switch(angle_) {
+    case 0:
+        matrix.translate(read_area.left(), read_area.top());
+        break;
+    case 90:
+        matrix.rotate(-90);
+        matrix.translate(-(height-1), 0);
+        if(hasReadAreas())
+            matrix.translate((height-1) - read_area.bottom(), read_area.left());
+        break;
+    case 180:
+        matrix.rotate(180);
+        matrix.translate(-(width-1), -(height-1));
+        if(hasReadAreas())
+            matrix.translate((width-1) - read_area.right(), (height-1) - read_area.bottom());
+        break;
+    case 270:
+        matrix.rotate(-270);
+        matrix.translate(0, -(width-1));
+        if(hasReadAreas())
+            matrix.translate(read_area.top(), (width-1) - read_area.right());
+        break;
+    default:
+        qWarning() << Q_FUNC_INFO << "invalid turn angle:" << angle_;
+        break;
+    }
+
+    return matrix;
+}
+
+QTransform Page::toBackendMatrix() const
+{
+    if(image_size_.isNull())
+        updateImageSize();
+
+    QTransform matrix;
+    QRect read_bbox = readBoundingRect();
+
+    switch(angle_) {
+    case 90:
+        matrix.rotate(90);
+        matrix.translate(0, -(read_bbox.height()-1));
+        break;
+    case 180:
+        matrix.rotate(180);
+        matrix.translate(-(read_bbox.width()-1), -(read_bbox.height()-1));
+        break;
+    case 270:
+        matrix.rotate(270);
+        matrix.translate(-(read_bbox.width()-1), 0);
+    default:
+        break;
+    }
+
+    return matrix;
+}
+
 bool Page::isNull() const {
     return is_null_;
 }
@@ -256,62 +339,30 @@ QString Page::name() const
     return QFileInfo(image_url_.path()).fileName();
 }
 
-QRect Page::mapFromPage(const QRect& r) const
+QPoint Page::mapFromBackend(const QPoint& pt) const
 {
-    if(image_size_.isNull())
-        updateImageSize();
-
-    int width = image_size_.width();
-    int height = image_size_.height();
-
-    switch(angle_) {
-    case 0:
-        return r;
-    case 90:
-        height--;
-        return QRect(QPoint(r.top(), height - r.right()),
-                     QPoint(r.bottom(), height - r.left()));
-    case 180:
-        height--;
-        width--;
-        return QRect(QPoint(width - r.right(), height - r.bottom()),
-                     QPoint(width - r.left(), height - r.top()));
-    case 270:
-        width--;
-        return QRect(QPoint(width - r.bottom(), r.left()),
-                     QPoint(width - r.top(), r.right()));
-    default:
-        return r;
-    }
+    return fromBackendMatrix().map(pt);
 }
 
-QRect Page::mapToPage(const QRect& r) const
+QRect Page::mapFromBackend(const QRect& rect) const
 {
-    if(image_size_.isNull())
-        updateImageSize();
+    QTransform matrix = fromBackendMatrix();
+    QPoint pt0 = matrix.map(rect.topLeft());
+    QPoint pt1 = matrix.map(rect.bottomRight());
+    return QRect(pt0, pt1).normalized();
+}
 
-    int width = image_size_.width();
-    int height = image_size_.height();
+QPoint Page::mapToBackend(const QPoint& pt) const
+{
+    QPoint offset = readBoundingRect().topLeft();
+    return toBackendMatrix().map(pt - offset);
+}
 
-    switch(angle_) {
-    case 0:
-        return r;
-    case 270:
-        height--;
-        return QRect(QPoint(r.top(), width - r.right()),
-                     QPoint(r.bottom(), width - r.left()));
-    case 180:
-        height--;
-        width--;
-        return QRect(QPoint(width - r.right(), height - r.bottom()),
-                     QPoint(width - r.left(), height - r.top()));
-    case 90:
-        height--;
-        return QRect(QPoint(height - r.bottom(), r.left()),
-                     QPoint(height - r.top(), r.right()));
-    default:
-        return r;
-    }
+QRect Page::mapToBackend(const QRect& r) const
+{
+    QPoint pt0 = mapToBackend(r.topLeft());
+    QPoint pt1 = mapToBackend(r.bottomRight());
+    return QRect(pt0, pt1).normalized();
 }
 
 const RecognitionSettings& Page::recognitionSettings() const {
@@ -536,15 +587,12 @@ QImage Page::binarizedImage() const
 
 bool Page::isBinarized() const
 {
-    return binarized_ != NULL && !binarized_->isNull();
+    return binarized_ && !binarized_->isNull();
 }
 
 void Page::setBinarizedImage(const QImage& image)
 {
-    if(binarized_)
-        delete binarized_;
-
-    binarized_ = new QImage(image);
+    binarized_.reset(new QImage(image));
     emit binarized();
 }
 

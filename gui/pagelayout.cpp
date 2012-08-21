@@ -165,6 +165,6 @@ QRect PageLayout::mapFromPage(const QRect& r) const
     if(!page_)
         return r;
 
-    return page_->mapFromPage(r);
+    return page_->mapFromBackend(r.normalized());
 }
 

@@ -28,6 +28,8 @@
 #include <QColor>
 #include <QMutex>
 #include <QFlags>
+#include <QSharedPointer>
+#include <QScopedPointer>
 
 #include "recognitionsettings.h"
 #include "formatsettings.h"
@@ -107,6 +109,11 @@ public:
       * Returns read areas
       */
     QList<QRect> readAreas() const;
+
+    /**
+     * Returns bounding rect of all read areas
+     */
+    QRect readBoundingRect() const;
 
     /**
       * Sets read areas
@@ -213,8 +220,17 @@ public:
       */
     QString name() const;
 
-    QRect mapFromPage(const QRect& r) const;
-    QRect mapToPage(const QRect &r) const;
+    /**
+     * Maps point from backend to page view coords
+     */
+    QPoint mapFromBackend(const QPoint& p) const;
+    QRect mapFromBackend(const QRect& r) const;
+
+    /**
+     * Maps given point or rect to backend coordinates
+     */
+    QPoint mapToBackend(const QPoint& pt) const;
+    QRect mapToBackend(const QRect& r) const;
 
     /**
       * Returns page recognize settings
@@ -386,6 +402,8 @@ private:
     void clearBlocks(BlockType type);
     void initDocument();
     void initRects();
+    QTransform fromBackendMatrix() const;
+    QTransform toBackendMatrix() const;
     void setBlocks(const Rectangles& rects, BlockType type);
     void setCEDPage(cf::CEDPagePtr page);
     void setChanged();
@@ -409,12 +427,14 @@ private:
     cf::CEDPagePtr cedpage_;
     QImage * thumb_;
     QList<QRect> read_areas_;
-    QImage * binarized_;
+    QScopedPointer<QImage> binarized_;
 public:
     friend QDataStream& operator<<(QDataStream& stream, const Page& page);
     friend QDataStream& operator>>(QDataStream& stream, Page& page);
     friend class PageRecognizer;
 };
+
+typedef QSharedPointer<Page> PagePtr;
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(Page::PageFlags)
 

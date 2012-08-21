@@ -17,7 +17,9 @@
  ***************************************************************************/
 
 #include <iostream>
+
 #include "rectexporter.h"
+#include "cfutils.h"
 #include "ced/cedchar.h"
 #include "ced/cedline.h"
 #include "ced/cedparagraph.h"
@@ -30,16 +32,12 @@ namespace cf {
 static const int BAD_RECT_VALUE = 65535;
 
 // spaces have invalid bounding rectangle
-inline bool isValid(const QRect& rc) {
+inline bool isValid(const cf::Rect& rc) {
     return rc.left() != -1 && //
             rc.left() != BAD_RECT_VALUE && //
             rc.right() != BAD_RECT_VALUE && //
             rc.top() != BAD_RECT_VALUE && //
             rc.bottom() != BAD_RECT_VALUE;
-}
-
-inline QRect cf2qt(const cf::Rect& rect) {
-    return QRect(rect.left(), rect.top() - 1, rect.width(), rect.height());
 }
 
 RectExporter::RectExporter(CEDPagePtr page)
@@ -88,15 +86,14 @@ const RectExporter::RectList& RectExporter::sections() const {
     return sections_;
 }
 
-void RectExporter::writeCharacterEnd(CEDChar& chr) {
-    QRect current_char = cf2qt(chr.boundingRect());
-
-    if(isValid(current_char)) {
-        chars_.append(current_char);
-    }
+void RectExporter::writeCharacterEnd(CEDChar& chr)
+{
     // skip spaces
-    else
+    if(!isValid(chr.boundingRect()))
         return;
+
+    QRect current_char = toQRect(chr.boundingRect());
+    chars_.append(current_char);
 
     if(line_begin_) {
         current_line_ = current_char;
@@ -154,7 +151,7 @@ void RectExporter::writeParagraphEnd(CEDParagraph&) {
 }
 
 void RectExporter::writePicture(CEDPicture& pict) {
-    QRect r = cf2qt(pict.boundingRect());
+    QRect r = toQRect(pict.boundingRect());
     pictures_.append(r);
 }
 

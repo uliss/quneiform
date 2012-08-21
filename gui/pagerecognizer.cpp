@@ -39,6 +39,7 @@
 #include "export/rectexporter.h"
 #include "export/qtextdocumentexporter.h"
 #include "settingskeys.h"
+#include "imagecache.h"
 
 static language_t languageToType(const Language& lang) {
     if(lang.isValid()) {
@@ -74,26 +75,9 @@ static cf::RecognizeOptions getRecogOptions(Page * page) {
 
     if(page->hasReadAreas()) {
         foreach(QRect r, page->readAreas()) {
-            QRect rr = page->mapToPage(r);
-            res.addReadRect(cf::Rect(rr.left(), rr.top(), rr.width(), rr.height()));
+            r = page->mapToBackend(r);
+            res.addReadRect(cf::Rect(r.left(), r.top(), r.width(), r.height()));
         }
-    }
-
-    switch(page->angle()) {
-    case 0:
-        break;
-    case 90:
-        res.setTurnAngle(cf::RecognizeOptions::ANGLE_90);
-        break;
-    case 180:
-        res.setTurnAngle(cf::RecognizeOptions::ANGLE_180);
-        break;
-    case 270:
-        res.setTurnAngle(cf::RecognizeOptions::ANGLE_270);
-        break;
-    default:
-        qWarning() << Q_FUNC_INFO << "unsupported angle: " << page->angle();
-        break;
     }
 
     if(!page->imageURL().isSimple())
@@ -107,38 +91,21 @@ static cf::RecognizeOptions getRecogOptions(Page * page) {
     return res;
 }
 
-PageRecognizer::PageRecognizer(QObject * parent)
+PageRecognizer::PageRecognizer(QObject * parent, WorkerType type)
     : QObject(parent),
     page_(NULL),
-    counter_(NULL),
-    recog_state_(NULL),
     abort_(false),
-    worker_type_(LOCAL)
+    worker_type_(type)
 {
-    counter_ = new cf::PercentCounter;
+    counter_.reset(new cf::PercentCounter);
     counter_->setCallback(this, &PageRecognizer::handleRecognitionProgress);
 
-    recog_state_ = new cf::RecognitionState;
+    recog_state_.reset(new cf::RecognitionState);
     recog_state_->setCallback(this, &PageRecognizer::handleRecognitionState);
-
-    QSettings settings;
-#ifndef NDEBUG
-    bool process = settings.value(KEY_PROCESS_RECOGNITION, false).toBool();
-#else
-    bool process = settings.value(KEY_PROCESS_RECOGNITION, true).toBool();
-#endif
-
-    if(process)
-        worker_type_ = PROCESS;
-    else
-        worker_type_ = LOCAL;
 }
 
 PageRecognizer::~PageRecognizer()
-{
-    delete counter_;
-    delete recog_state_;
-}
+{}
 
 void PageRecognizer::abort() {
     QMutexLocker l(&lock_);
@@ -148,7 +115,7 @@ void PageRecognizer::abort() {
 
 void PageRecognizer::exportPageText() {
     Q_CHECK_PTR(page_);
-    Q_CHECK_PTR(counter_);
+    Q_ASSERT(counter_);
 
     page_->updateTextDocument();
     page_->setRecognized();
@@ -189,8 +156,8 @@ void PageRecognizer::handleRecognitionState(int state) {
 
 void PageRecognizer::loadImage()
 {
-    Q_CHECK_PTR(counter_);
-    Q_CHECK_PTR(recog_state_);
+    Q_ASSERT(counter_);
+    Q_ASSERT(recog_state_);
     // update counter and state
     counter_->add(9);
 }
@@ -232,13 +199,6 @@ static cf::RecognitionPtr makeRecognitionServer(PageRecognizer::WorkerType worke
     return server;
 }
 
-static cf::ImageURL makeImageURL(Page * p)
-{
-    cf::ImageURL res(p->imagePath().toUtf8().constData());
-    res.setImageNumber(p->imageURL().imageNumber());
-    return res;
-}
-
 bool PageRecognizer::recognize() {
     using namespace cf;
 
@@ -254,17 +214,23 @@ bool PageRecognizer::recognize() {
         setConfigOptions();
         loadImage();
 
+        QImage image;
+        if(!ImageCache::load(page_->imageURL(), &image))
+            throw std::runtime_error("[PageRecognizer::recognize] can't load image");
+        image = image.copy(page_->readBoundingRect()).transformed(QTransform().rotate(page_->angle()));
+
         FormatOptions fopts = getFormatOptions(page_);
         RecognizeOptions ropts = getRecogOptions(page_);
 
-        PercentCounter recog_counter(counter_);
+        PercentCounter recog_counter(counter_.data());
         recog_counter.setContribution(80);
 
         ResolutionHistogramCallbackSetter hist_clbk(boost::bind(&PageRecognizer::saveResolutionHeightHistogram, this, _1),
                                                     boost::bind(&PageRecognizer::saveResolutionWidthHistogram, this, _1));
 
-        RecognitionPtr server = makeRecognitionServer(worker_type_, &recog_counter, recog_state_);
-        CEDPagePtr cedptr = server->recognizeImage(makeImageURL(page_), BinarizeOptions(), ropts, fopts);
+        RecognitionPtr server = makeRecognitionServer(workerType(), &recog_counter, recog_state_.data());
+
+        CEDPagePtr cedptr = server->recognizeImage(QtImageLoader::fromQImage(image), BinarizeOptions(), ropts, fopts);
 
         if(!cedptr)
             return false;
@@ -277,6 +243,7 @@ bool PageRecognizer::recognize() {
         page_->setFlag(Page::RECOGNITION_FAILED);
         page_->unsetFlag(Page::RECOGNIZED);
         emit failed(e.what());
+        qWarning() << Q_FUNC_INFO << e.what() << "for" << page_->imageURL();
         return false;
     }
 
@@ -295,7 +262,7 @@ bool PageRecognizer::recognize() {
 }
 
 void PageRecognizer::setConfigOptions() {
-    Q_CHECK_PTR(counter_);
+    Q_ASSERT(counter_);
 
     QSettings s;
     cf::Config::instance().setDebug(s.value(KEY_PRINT_CUNEIFORM_DEBUG, false).toBool());
@@ -314,6 +281,21 @@ void PageRecognizer::setWorkerType(PageRecognizer::WorkerType t)
 
 PageRecognizer::WorkerType PageRecognizer::workerType() const
 {
+    switch(worker_type_) {
+    case LOCAL:
+    case PROCESS:
+        return worker_type_;
+    case RUNTIME:
+    default: {
+#ifdef NDEBUG
+        bool default_process = false;
+#else
+        bool default_process = true;
+#endif
+        return QSettings().value(KEY_PROCESS_RECOGNITION, default_process).toBool() ? PROCESS : LOCAL;
+    }
+    }
+
     return worker_type_;
 }
 

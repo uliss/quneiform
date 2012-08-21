@@ -51,7 +51,7 @@ RecognizeOptions::RecognizeOptions() :
 
 void RecognizeOptions::addReadRect(const Rect &r)
 {
-    read_rects_.push_back(r);
+    read_rects_.push_back(r.normalized());
 }
 
 std::vector<Rect> RecognizeOptions::readRects() const

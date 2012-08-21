@@ -32,6 +32,7 @@
 #include "ced/cedpage.h"
 #define private public
 #include "gui/page.h"
+#include "gui/pagerecognizer.h"
 
 #ifndef CF_IMAGE_DIR
 #define CF_IMAGE_DIR ""
@@ -65,6 +66,13 @@ void CHECK_SMALL_FILE(const QString& fname, const QString& content) {
     }
     else
         QFAIL("can't open file");
+}
+
+void noMessageOutput(QtMsgType, const char *) {}
+
+void TestPage::initTestCase()
+{
+    qInstallMsgHandler(noMessageOutput);
 }
 
 TestPage::TestPage(QObject *parent) :
@@ -533,6 +541,281 @@ void TestPage::testMultiThreadFuzzing()
     foreach(Page * p, pages) {
         delete p;
     }
+}
+
+void TestPage::testReadBoundingRect()
+{
+    Page page;
+    page.setImageSize(QSize(280, 80));
+    QCOMPARE(page.imageSize(), QSize(280, 80));
+
+    QCOMPARE(page.readBoundingRect(), QRect(0, 0, 280, 80));
+    page.addReadArea(QRect(10, 10, 40, 60));
+    QCOMPARE(page.readBoundingRect(), QRect(10, 10, 40, 60));
+
+    page.addReadArea(QRect(-10, -10, 40, 60));
+    QCOMPARE(page.readBoundingRect(), QRect(0, 0, 50, 70));
+}
+
+void TestPage::testMapPointFromBackend()
+{
+    Page page;
+    //   0 1 2 3 4 5
+    // 0 X * * * * *
+    // 1 *         *
+    // 2 *         *
+    // 3 *         *
+    // 4 *         *
+    // 5 *         *
+    // 6 *         *
+    // 7 *         *
+    // 8 *         *
+    // 9 * * * * * *
+    QPoint ptX(0, 0);
+    page.setImageSize(QSize(6, 10));
+    QCOMPARE(page.mapFromBackend(ptX), QPoint(0, 0));
+
+    page.setAngle(90);
+    // page coord
+    //   0 1 2 3 4 5 6 7 8 9
+    // 0 X * * * * * * * * *
+    // 1 *                 *
+    // 2 *                 *
+    // 3 *                 *
+    // 4 *                 *
+    // 5 * * * * * * * * * *
+
+    // view coord
+    //   0 1 2 3 4 5
+    // 0 * * * * * *
+    // 1 *         *
+    // 2 *         *
+    // 3 *         *
+    // 4 *         *
+    // 5 *         *
+    // 6 *         *
+    // 7 *         *
+    // 8 *         *
+    // 9 X * * * * *
+    QCOMPARE(page.mapFromBackend(ptX), QPoint(0, 9));
+
+    page.setAngle(180);
+    // page coord
+    //   0 1 2 3 4 5
+    // 0 X * * * * *
+    // 1 *         *
+    // 2 *         *
+    // 3 *         *
+    // 4 *         *
+    // 5 *         *
+    // 6 *         *
+    // 7 *         *
+    // 8 *         *
+    // 9 * * * * * *
+
+    // view coord
+    //   0 1 2 3 4 5
+    // 0 * * * * * *
+    // 1 *         *
+    // 2 *         *
+    // 3 *         *
+    // 4 *         *
+    // 5 *         *
+    // 6 *         *
+    // 7 *         *
+    // 8 *         *
+    // 9 * * * * * X
+    QCOMPARE(page.mapFromBackend(ptX), QPoint(5, 9));
+
+    page.setAngle(270);
+    // page coord
+    //   0 1 2 3 4 5 6 7 8 9
+    // 0 X * * * * * * * * *
+    // 1 *                 *
+    // 2 *                 *
+    // 3 *                 *
+    // 4 *                 *
+    // 5 * * * * * * * * * *
+
+    // view coord
+    //   0 1 2 3 4 5
+    // 0 * * * * * X
+    // 1 *         *
+    // 2 *         *
+    // 3 *         *
+    // 4 *         *
+    // 5 *         *
+    // 6 *         *
+    // 7 *         *
+    // 8 *         *
+    // 9 * * * * * *
+    QCOMPARE(page.mapFromBackend(ptX), QPoint(5, 0));
+}
+
+void TestPage::testMapPointFromBackendWithReadArea()
+{
+    Page page;
+    page.setImageSize(QSize(6, 10));
+    page.addReadArea(QRect(1, 2, 5, 2));
+    page.setAngle(0);
+    // backend coord
+    //   0 1 2 3 4
+    // 0 X * * * *
+    // 1 * . . . *
+    // 2 * * * * *
+
+    // view coord
+    //   0 1 2 3 4 5
+    // 0 . . . . . .
+    // 1 . . . . . .
+    // 2 . X * * * *
+    // 3 . * . . . *
+    // 4 . * * * * *
+    // 5 . . . . . .
+    // 6 . . . . . .
+    // 7 . . . . . .
+    // 8 . . . . . .
+    // 9 . . . . . .
+    QCOMPARE(page.mapFromBackend(QPoint(0, 0)), QPoint(1, 2)); // top left
+    QCOMPARE(page.mapFromBackend(QPoint(0, 2)), QPoint(1, 4)); // top bottom
+    QCOMPARE(page.mapFromBackend(QPoint(4, 2)), QPoint(5, 4)); // right bottom
+    QCOMPARE(page.mapFromBackend(QPoint(4, 0)), QPoint(5, 2)); // top right
+    QCOMPARE(page.mapFromBackend(QRect(0, 0, 5, 2)), QRect(1, 2, 5, 2));
+
+    page.setAngle(90);
+    //   0 1 2
+    // 0 X * *
+    // 1 * . *
+    // 2 * . *
+    // 3 * . *
+    // 4 * * *
+
+    //   0 1 2 3 4 5
+    // 0 . . . . . .
+    // 1 . . . . . .
+    // 2 . * * * * *
+    // 3 . * . . . *
+    // 4 . X * * * *
+    // 5 . . . . . .
+    // 6 . . . . . .
+    // 7 . . . . . .
+    // 8 . . . . . .
+    // 9 . . . . . .
+}
+
+void TestPage::testMapFromBackend()
+{
+    Page page;
+    QRect rect(10, 20, 60, 70);
+    page.setImageSize(QSize(100, 200));
+
+    QCOMPARE(page.mapFromBackend(rect).size(), QSize(60, 70));
+    QCOMPARE(page.mapFromBackend(QRect(0, 0, 100, 200)), QRect(0, 0, 100, 200));
+
+    page.setAngle(90);
+    QCOMPARE(page.mapFromBackend(rect).size(), QSize(70, 60));
+    QCOMPARE(page.mapFromBackend(QRect(0, 0, 200, 100)), QRect(0, 0, 100, 200));
+
+    page.setAngle(180);
+    QCOMPARE(page.mapFromBackend(rect).size(), QSize(60, 70));
+    QCOMPARE(page.mapFromBackend(QRect(0, 0, 100, 200)), QRect(0, 0, 100, 200));
+
+    page.setAngle(270);
+    QCOMPARE(page.mapFromBackend(rect).size(), QSize(70, 60));
+    QCOMPARE(page.mapFromBackend(QRect(0, 0, 200, 100)), QRect(0, 0, 100, 200));
+
+
+    // with read area
+    page.addReadArea(QRect(1, 2, 30, 40));
+
+    page.setAngle(0);
+    QCOMPARE(page.mapFromBackend(QRect(0, 0, 30, 40)), QRect(1, 2, 30, 40));
+
+    page.setAngle(90);
+    QCOMPARE(page.mapFromBackend(QRect(0, 0, 40, 30)), QRect(1, 2, 30, 40));
+
+    page.setAngle(180);
+    QCOMPARE(page.mapFromBackend(QRect(0, 0, 30, 40)), QRect(1, 2, 30, 40));
+
+    page.setAngle(270);
+    QCOMPARE(page.mapFromBackend(QRect(0, 0, 40, 30)), QRect(1, 2, 30, 40));
+}
+
+void TestPage::testMapToBackend()
+{
+    Page page;
+    QPoint ptX(0, 0);
+    page.setImageSize(QSize(6, 10));
+
+    // angle 0
+    QCOMPARE(page.mapToBackend(QPoint(0, 0)), QPoint(0, 0));
+    QCOMPARE(page.mapToBackend(QPoint(1, 2)), QPoint(1, 2));
+    QCOMPARE(page.mapToBackend(QRect(0, 0, 6, 10)), QRect(0, 0, 6, 10));
+    QCOMPARE(page.mapToBackend(QRect(1, 2, 3, 4)), QRect(1, 2, 3, 4));
+
+    page.setAngle(90);
+    QCOMPARE(page.mapToBackend(QPoint(0, 0)), QPoint(9, 0));
+    QCOMPARE(page.mapToBackend(QPoint(0, 9)), QPoint(0, 0));
+    QCOMPARE(page.mapToBackend(QRect(0, 0, 6, 10)), QRect(0, 0, 10, 6));
+    QCOMPARE(page.mapToBackend(QRect(1, 2, 3, 4)), QRect(4, 1, 4, 3));
+
+    page.setAngle(180);
+    QCOMPARE(page.mapToBackend(QPoint(0, 0)), QPoint(5, 9));
+    QCOMPARE(page.mapToBackend(QPoint(5, 9)), QPoint(0, 0));
+    QCOMPARE(page.mapToBackend(QRect(0, 0, 6, 10)), QRect(0, 0, 6, 10));
+    QCOMPARE(page.mapToBackend(QRect(1, 2, 3, 4)), QRect(2, 4, 3, 4));
+
+    page.setAngle(270);
+    QCOMPARE(page.mapToBackend(QPoint(0, 0)), QPoint(0, 5));
+    QCOMPARE(page.mapToBackend(QPoint(5, 0)), QPoint(0, 0));
+    QCOMPARE(page.mapToBackend(QRect(0, 0, 6, 10)), QRect(0, 0, 10, 6));
+    QCOMPARE(page.mapToBackend(QRect(1, 2, 3, 4)), QRect(2, 2, 4, 3));
+
+    page.setAngle(0);
+    // with page area
+    page.addReadArea(QRect(1, 2, 5, 8));
+
+    QCOMPARE(page.mapToBackend(QPoint(0, 0)), QPoint(-1, -2));
+    QCOMPARE(page.mapToBackend(QPoint(1, 2)), QPoint(0, 0));
+    QCOMPARE(page.mapToBackend(QRect(1, 2, 5, 8)), QRect(0, 0, 5, 8));
+
+    page.setAngle(90);
+    QCOMPARE(page.mapToBackend(QPoint(0, 0)), QPoint(9, -1));
+    QCOMPARE(page.mapToBackend(QPoint(1, 9)), QPoint(0, 0));
+    QCOMPARE(page.mapToBackend(QRect(1, 2, 5, 8)), QRect(0, 0, 8, 5));
+
+    page.setAngle(180);
+    QCOMPARE(page.mapToBackend(QPoint(0, 0)), QPoint(5, 9));
+    QCOMPARE(page.mapToBackend(QRect(1, 2, 5, 8)), QRect(0, 0, 5, 8));
+
+    page.setAngle(270);
+    QCOMPARE(page.mapToBackend(ptX), QPoint(-2, 5));
+    QCOMPARE(page.mapToBackend(QRect(1, 2, 5, 8)), QRect(0, 0, 8, 5));
+}
+
+void TestPage::testRects()
+{
+    Page page(SAMPLE_IMG);
+    PageRecognizer r;
+    r.setPage(&page);
+    r.setWorkerType(PageRecognizer::LOCAL);
+    QVERIFY(r.recognize());
+
+    QCOMPARE(page.blocksCount(Page::COLUMN), 1);
+    QCOMPARE(page.blocksCount(Page::SECTION), 1);
+    QCOMPARE(page.blocksCount(Page::PICTURE), 0);
+    QCOMPARE(page.blocksCount(Page::LINE), 2);
+    QCOMPARE(page.blocksCount(Page::PARAGRAPH), 2);
+    QCOMPARE(page.blocksCount(Page::CHAR), 7);
+
+    QList<QRect> chars = page.blocks(Page::CHAR);
+    QCOMPARE(chars[0], QRect(12, 18, 30, 44));  // E
+    QCOMPARE(chars[1], QRect(50, 18, 35, 44));  // N
+    QCOMPARE(chars[2], QRect(93, 17, 40, 46));  // G
+    QCOMPARE(chars[3], QRect(143, 17, 29, 45)); // L
+    QCOMPARE(chars[4], QRect(177, 18, 7, 44));  // I
+    QCOMPARE(chars[5], QRect(193, 17, 32, 46)); // S
+    QCOMPARE(chars[6], QRect(233, 18, 35, 44)); // H
 }
 
 QTEST_MAIN(TestPage)

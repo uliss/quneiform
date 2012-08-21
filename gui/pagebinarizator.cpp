@@ -67,19 +67,34 @@ QImage PageBinarizator::binarize(const ImageURL& path)
     }
 
     CTDIB dib;
-    dib.setBitmap(raw_data->data());
+    if(!dib.setBitmap(raw_data->data())) {
+        qCritical() << Q_FUNC_INFO << "can't set bitmap data";
+        return QImage();
+    }
 
     BinarizeOptions opts;
     opts.setBinarizator(BINARIZATOR_DEFAULT);
     BinarizatorPtr bptr = BinarizatorFactory::instance().make(opts);
     bptr->setSource(&dib);
     CTDIB * bin_dib = bptr->binarize();
+
+    if(!bin_dib) {
+        qCritical() << Q_FUNC_INFO << "can't binarize DIB";
+        return src_image;
+    }
+
     BitmapPtr data = NULL;
-    bin_dib->bitmap(&data);
+    if(!bin_dib->bitmap(&data)) {
+        qCritical() << Q_FUNC_INFO << "can't get DIB handle";
+        return src_image;
+    }
 
     QImage res;
-    if(!res.loadFromData((uchar*) data, dib.dibSize(), "DIB"))
-        qWarning() << Q_FUNC_INFO << "can't load DIB";
+    if(!res.loadFromData((uchar*) data, dib.dibSize(), "DIB")) {
+        qCritical() << Q_FUNC_INFO << "can't load DIB";
+        delete bin_dib;
+        return src_image;
+    }
 
     delete bin_dib;
 

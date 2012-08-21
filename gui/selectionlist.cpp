@@ -145,7 +145,7 @@ void SelectionList::addSelection(const QRectF& r)
 {
     foreach(Selection * s, selections_) {
         if(s->rect().intersects(r)) {
-            qDebug() << Q_FUNC_INFO << "intersected selection\n";
+            qDebug() << Q_FUNC_INFO << "intersected selection";
         }
     }
 

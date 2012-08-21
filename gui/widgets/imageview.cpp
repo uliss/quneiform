@@ -462,8 +462,14 @@ void ImageView::showPageOriginal()
         return;
     }
 
-    qDebug() << Q_FUNC_INFO;
-    showImage();
+    QPixmap image;
+    if(!ImageCache::load(page_->imageURL(), &image)) {
+        qDebug() << "[Error]" << Q_FUNC_INFO << "can't load image";
+        return;
+    }
+
+    pixmap_->setPixmap(image);
+    pixmap_->setZValue(0);
 }
 
 void ImageView::showPageBinarized()
@@ -472,8 +478,6 @@ void ImageView::showPageBinarized()
         qDebug() << Q_FUNC_INFO << "attempt to show NULL page";
         return;
     }
-
-    qDebug() << Q_FUNC_INFO;
 
     if(!page_->isBinarized()) {
         PageBinarizator b;

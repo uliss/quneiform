@@ -39,6 +39,7 @@
 #include "common/tostring.h"
 #include "quneiform_debug.h"
 #include "settingskeys.h"
+#include "cfutils.h"
 
 using namespace cf;
 
@@ -50,15 +51,6 @@ static void setFormatMargins(QTextFrameFormat& format, const cf::Rect& margins) 
 }
 
 static const char * SOFT_HYPEN = "\xAD";
-
-static inline QRect toQRect(const cf::Rect& r) {
-    QRect res(r.x(), r.y(), r.width(), r.height());
-    return res.isValid() ? res.translated(0, -1) : res;
-}
-
-static inline QColor toQColor(const cf::Color& c) {
-    return QColor(c.red(), c.green(), c.blue());
-}
 
 QTextDocumentExporter::QTextDocumentExporter(CEDPagePtr page, const FormatOptions& opts) :
         GenericExporter(page, opts),

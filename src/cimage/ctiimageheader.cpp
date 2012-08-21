@@ -84,8 +84,43 @@ CTIImageHeader::~CTIImageHeader()
     if (isInternalImage())
         free(imageHandle());
 
+    clearMasks();
+}
+
+void CTIImageHeader::clearMasks()
+{
+    clearReadMask();
+    clearWriteMask();
+}
+
+void CTIImageHeader::clearReadMask()
+{
     delete read_mask_;
+    read_mask_ = NULL;
+}
+
+void CTIImageHeader::clearWriteMask()
+{
     delete write_mask_;
+    write_mask_ = NULL;
+}
+
+void CTIImageHeader::setReadMask(CTIMask * mask)
+{
+    if(read_mask_ == mask)
+        return;
+
+    clearReadMask();
+    read_mask_ = mask;
+}
+
+void CTIImageHeader::setWriteMask(CTIMask * mask)
+{
+    if(write_mask_ == mask)
+        return;
+
+    clearWriteMask();
+    write_mask_ = mask;
 }
 
 }

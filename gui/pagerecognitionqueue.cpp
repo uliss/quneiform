@@ -33,7 +33,7 @@ PageRecognitionQueue::PageRecognitionQueue(QObject * parent) :
         abort_(false),
         page_error_num_(0)
 {
-    recognizer_ = new PageRecognizer(this);
+    recognizer_ = new PageRecognizer(this, PageRecognizer::RUNTIME);
 
     connect(recognizer_, SIGNAL(percentsDone(int)), SLOT(handlePagePercents(int)));
     connect(recognizer_, SIGNAL(failed(QString)), SLOT(handleFail(QString)));

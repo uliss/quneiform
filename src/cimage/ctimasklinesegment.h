@@ -57,6 +57,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _CTIMASKLINESEGMENT_H_
 #define _CTIMASKLINESEGMENT_H_
 
+#include <iosfwd>
+
 #include "cttypes.h"
 
 namespace cf
@@ -83,7 +85,7 @@ public:
     };
 
 public:
-    CTIMaskLineSegment * next() {
+    CTIMaskLineSegment * next() const {
         return next_;
     }
 
@@ -107,11 +109,11 @@ public:
         return (X >= start_ && X <= end_);
     }
 
-    bool cutRightTo(CTIMaskLineSegment * pSegm);
+    bool cutRightTo(const CTIMaskLineSegment& segm);
     // обрезать с конца
-    bool cutLeftTo(CTIMaskLineSegment * pSegm);
+    bool cutLeftTo(const CTIMaskLineSegment& segm);
     // обрезать с начала
-    bool addWith(CTIMaskLineSegment * pSegm);
+    bool addWith(const CTIMaskLineSegment& segm);
     // пересечение данного сегмента с аргументом
     bool intersectWith(const CTIMaskLineSegment& segm);
     // положение данного сегмента относительно аргумента
@@ -123,7 +125,7 @@ public:
 public:
     CTIMaskLineSegment();
     CTIMaskLineSegment(int Start, int End);
-    CTIMaskLineSegment(CTIMaskLineSegment * pSegm);
+    CTIMaskLineSegment(const CTIMaskLineSegment& pSegm);
     ~CTIMaskLineSegment();
 private:
     point_dir_t pointDirection(int X) const;
@@ -134,6 +136,8 @@ private:
 };
 
 typedef CTIMaskLineSegment * PCTIMaskLineSegment;
+
+std::ostream& operator<<(std::ostream& os, const CTIMaskLineSegment& s);
 
 }
 

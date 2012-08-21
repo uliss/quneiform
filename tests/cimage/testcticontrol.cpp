@@ -76,22 +76,42 @@ void TestCTIControl::testAddRectToReadMask()
     CPPUNIT_ASSERT(!ctrl.addRectToReadMask("test", Rect()));
 
     // no mask
-    BitmapPtr handle = loadDibFromBmp("black_1.bmp");
-    ctrl.addImage("test", handle);
+    BitmapPtr src_image = loadDibFromBmp("black_1.bmp");
+    ctrl.addImage("test", src_image);
     CPPUNIT_ASSERT(ctrl.enableReadMask("test"));
     CPPUNIT_ASSERT(ctrl.addRectToReadMask("test", Rect(Point(0, 0), Point(50, 50))));
 
-    BitmapPtr h = ctrl.imageCopy("test");
-    CPPUNIT_ASSERT(h);
-    CPPUNIT_ASSERT(ctrl.addImage("test_mask", h));
+    BitmapPtr dest_image = ctrl.imageCopy("test");
+    CPPUNIT_ASSERT(dest_image);
+    CPPUNIT_ASSERT(ctrl.addImage("test_mask", dest_image));
     CPPUNIT_ASSERT(ctrl.dumpImage("test_mask", "cimage_add_rect.bmp"));
-    IS_WHITE_HANDLE_1(h, 0, 0);
-    IS_BLACK_HANDLE_1(h, 50, 50);
+    IS_WHITE_HANDLE_1(dest_image, 0, 0);
+    IS_WHITE_HANDLE_1(dest_image, 49, 49);
+    IS_BLACK_HANDLE_1(dest_image, 50, 50);
 
     CPPUNIT_ASSERT(ctrl.removeImage("test"));
-    ctrl.free(h);
+    ctrl.free(dest_image);
 
-    delete[] handle;
+    delete[] src_image;
+
+    {
+        // check for full image size mask
+        DibPtr src("black_1.bmp");
+        ctrl.addImage("source", src.handle());
+        CPPUNIT_ASSERT(ctrl.enableReadMask("source"));
+        CPPUNIT_ASSERT(ctrl.addRectToReadMask("source", Rect(0, 0, 100, 100)));
+        BitmapPtr dest = ctrl.imageCopy("source");
+        CPPUNIT_ASSERT(dest);
+        CPPUNIT_ASSERT(ctrl.addImage("test_mask", dest));
+        CPPUNIT_ASSERT(ctrl.dumpImage("test_mask", "cimage_add_rect_2.bmp"));
+        IS_WHITE_HANDLE_1(dest, 0, 0);
+        IS_WHITE_HANDLE_1(dest, 50, 50);
+        IS_WHITE_HANDLE_1(dest, 99, 99);
+        IS_WHITE_HANDLE_1(dest, 99, 1);
+        IS_WHITE_HANDLE_1(dest, 1, 99);
+        CPPUNIT_ASSERT(ctrl.removeImage("source"));
+        ctrl.free(dest);
+    }
 }
 
 void TestCTIControl::testApplyMask()

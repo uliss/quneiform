@@ -55,6 +55,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include <cstddef>
+#include <iostream>
 
 #include "ctimasklinesegment.h"
 
@@ -83,10 +84,10 @@ CTIMaskLineSegment::CTIMaskLineSegment(int Start, int End)
     }
 }
 
-CTIMaskLineSegment::CTIMaskLineSegment(CTIMaskLineSegment *pSegm)
-    : next_(pSegm->next()),
-      start_(pSegm->start()),
-      end_(pSegm->end())
+CTIMaskLineSegment::CTIMaskLineSegment(const CTIMaskLineSegment& segm)
+    : next_(segm.next()),
+      start_(segm.start()),
+      end_(segm.end())
 {
 }
 
@@ -123,7 +124,7 @@ CTIMaskLineSegment::intersection_t CTIMaskLineSegment::isIntersectWith(const CTI
 
 bool CTIMaskLineSegment::intersectWith(const CTIMaskLineSegment& segm)
 {
-    switch (isIntersectWith(segm)) {
+    switch(isIntersectWith(segm)) {
     case INTERSECTION_LEFT :
         end_  = segm.end();
         return true;
@@ -139,53 +140,44 @@ bool CTIMaskLineSegment::intersectWith(const CTIMaskLineSegment& segm)
     }
 }
 
-bool CTIMaskLineSegment::addWith(CTIMaskLineSegment * pSegm)
+bool CTIMaskLineSegment::addWith(const CTIMaskLineSegment& segm)
 {
-    if (!pSegm)
-        return false;
-
-    switch (isIntersectWith(*pSegm)) {
+    switch (isIntersectWith(segm)) {
     case INTERSECTION_LEFT :
-        start_ = pSegm->start();
+        start_ = segm.start();
         return true;
     case INTERSECTION_RIGHT :
-        end_  = pSegm->end();
+        end_  = segm.end();
         return true;
     case INTERSECTION_IN :
         return true;
     case INTERSECTION_OVER:
-        start_ = pSegm->start();
-        end_  = pSegm->end();
+        start_ = segm.start();
+        end_  = segm.end();
         return true;
     default:
         return false;
     }
 }
 
-bool CTIMaskLineSegment::cutLeftTo(CTIMaskLineSegment * pSegm)
+bool CTIMaskLineSegment::cutLeftTo(const CTIMaskLineSegment& segm)
 {
-    if (!pSegm)
-        return false;
-
-    switch (isIntersectWith(*pSegm)) {
+    switch (isIntersectWith(segm)) {
     case INTERSECTION_RIGHT :
     case INTERSECTION_IN :
-        end_  = pSegm->start();
+        end_  = segm.start();
         return true;
     default:
         return false;
     }
 }
 
-bool CTIMaskLineSegment::cutRightTo(CTIMaskLineSegment *pSegm)
+bool CTIMaskLineSegment::cutRightTo(const CTIMaskLineSegment& segm)
 {
-    if (!pSegm)
-        return false;
-
-    switch ( isIntersectWith(*pSegm) ) {
+    switch (isIntersectWith(segm)) {
     case INTERSECTION_LEFT :
     case INTERSECTION_IN :
-        start_ = pSegm->end();
+        start_ = segm.end();
         return true;
     default:
         return false;
@@ -202,6 +194,12 @@ CTIMaskLineSegment::point_dir_t CTIMaskLineSegment::pointDirection(int X) const
     }
 
     return POINT_IN;
+}
+
+std::ostream& operator<<(std::ostream& os, const CTIMaskLineSegment& s)
+{
+    os << "Segment[" <<  s.start() << ',' << s.end() << ']';
+    return os;
 }
 
 }

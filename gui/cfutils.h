@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,21 +16,17 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QTest>
-#include "testtexteditor.h"
-#include "gui/widgets/texteditor.h"
-#include "gui/page.h"
+#ifndef CFUTILS_H
+#define CFUTILS_H
 
-void TestTextEditor::testPageDelete() {
-    TextEditor e;
-    Page * p1 = new Page("page 1");
-    Page * p2 = new Page("page 2");
+#include <QRect>
+#include <QColor>
 
-    e.showPage(p1);
-    e.showPage(p2);
+#include "common/rect.h"
+#include "common/color.h"
 
-    delete p2;
-    delete p1;
-}
+QRect toQRect(const cf::Rect& r);
+QColor toQColor(const cf::Color& c);
 
-QTEST_MAIN(TestTextEditor)
+
+#endif // CFUTILS_H

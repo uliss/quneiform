@@ -59,140 +59,77 @@
 #include "resource.h"
 #include "ctimask.h"
 #include "ctimemory.h"
+#include "cimage_debug.h"
 
 namespace cf
 {
 
 CTIMask::CTIMask() :
-    line_(0),
     width_(0),
-    height_(0),
-    mwSegments(0)
+    height_(0)
 {
 }
 
-CTIMask::CTIMask(int width, int Height) :
-    line_(0),
+CTIMask::CTIMask(int width, int height) :
     width_(width),
-    height_(Height),
-    mwSegments(0)
+    height_(height)
 {
 }
 
 CTIMask::~CTIMask()
 {
-    PCTIMaskLine pPL = line_.GetNext();
-    PCTIMaskLine pL = line_.GetNext();
-
-    while (pL) {
-        pL = pL->GetNext();
-        delete pPL;
-        pPL = pL;
-    }
+    clear();
 }
 
 bool CTIMask::addRectangle(const Rect& r)
 {
-    uint32_t wXb;
-    uint32_t wXe;
-    uint32_t wYb;
-    uint32_t wYe;
-    PCTIMaskLine pPL = &line_;
-    PCTIMaskLine pL;
-    uint32_t wLine;
-
     if (!isRectOnMask(r))
         return false;
 
-    wXb = r.x();
-    wYb = r.y();
-    wXe = wXb + r.width();
-    wYe = wYb + r.height();
-    CTIMaskLineSegment Segm(wXb, wXe);
+    CTIMaskLineSegment segm(r.left(), r.right());
 
-    if (!SetPtrToPrevLine(wYb, &pPL)) {
-        SetReturnCode_cimage(IDS_CIMAGE_UNABLE_ADD_MASK);
-        return FALSE;
-    }
-
-    pL = pPL->GetNext();
-
-    for (wLine = wYb; wLine < wYe; wLine++) {
-        if (!pL)
-            pPL->SetNext(pL = new CTIMaskLine(width_, wLine, &Segm));
-
-        else {
-            if (pL->lineNumber() == wLine) {
-                // кладем новый сегмент в линию
-                if (!pL->addSegment(&Segm)) {
-                    SetReturnCode_cimage(IDS_CIMAGE_UNABLE_ADD_MASK);
-                    return false;
-                }
-            }
-
-            else {
-                // двставляем новую линию
-                pPL->SetNext(pL
-                             = new CTIMaskLine(width_, wLine, &Segm, pL));
+    for(int i = r.top(); i < r.bottom(); i++) {
+        CTIMaskLine * line = findLine(i);
+        if(line) {
+            if (!line->addSegment(segm)) {
+                CIMAGE_WARNING_FUNC << "can't add segment:" << segm;
+                return false;
             }
         }
-
-        if (pL)
-            pL = ((pPL = pL)->GetNext());
+        else {
+            lines_[i] = new CTIMaskLine(width_, i, segm);
+        }
     }
 
-    mwSegments++;
     return true;
+}
+
+void CTIMask::clear()
+{
+    for(LinesMap::iterator it = lines_.begin(), end = lines_.end(); it != end; ++it)
+        delete it->second;
+
+    lines_.clear();
 }
 
 bool CTIMask::removeRectangle(const Rect& r)
 {
-    uint32_t wXb;
-    uint32_t wXe;
-    uint32_t wYb;
-    uint32_t wYe;
-    PCTIMaskLine pPL = &line_;
-    PCTIMaskLine pL;
-    uint32_t wLine;
-
     if (!isRectOnMask(r))
-        return FALSE;
-
-    wXb = r.x();
-    wYb = r.y();
-    wXe = wXb + r.width();
-    wYe = wYb + r.height();
-    CTIMaskLineSegment Segm(wXb, wXe);
-
-    if (!SetPtrToPrevLine(wYb, &pPL)) {
-        SetReturnCode_cimage(IDS_CIMAGE_UNABLE_REMOVE_MASK);
         return false;
-    }
 
-    pL = pPL->GetNext();
+    for (int i = r.top(); i < r.bottom(); i++) {
+        CTIMaskLine * line = findLine(i);
+        if(!line)
+            continue;
 
-    for (wLine = wYb; wLine < wYe; wLine++) {
-        if (!pL) {
-            SetReturnCode_cimage(IDS_CIMAGE_UNABLE_REMOVE_MASK);
+        CTIMaskLineSegment segm(r.left(), r.right());
+
+        if (!line->removeSegment(segm)) {
+            CIMAGE_WARNING_FUNC << "can't remove segment:" << segm;
             return false;
         }
-
-        else if (!pL->removeSegment(&Segm)) {
-            SetReturnCode_cimage(IDS_CIMAGE_UNABLE_REMOVE_MASK);
-            return false;
-        }
-
-        if (pL->segmentsNumber() == 0) {
-            pPL->SetNext(pL->GetNext());
-            delete pL;
-            pL = pPL->GetNext();
-        }
-
-        if (pL)
-            pL = ((pPL = pL)->GetNext());
     }
 
-    mwSegments--;
     return true;
 }
 
@@ -204,51 +141,10 @@ bool CTIMask::isRectOnMask(const Rect& r) const
             r.bottom() < height_;
 }
 
-Bool32 CTIMask::SetPtrToPrevLine(uint32_t wLine, PPCTIMaskLine ppLine)
+CTIMaskLine * CTIMask::findLine(uint number)
 {
-    if (!ppLine)
-        return FALSE;
-
-    while ((*ppLine)->GetNext()) {
-        if (((*ppLine)->GetNext())->lineNumber() >= wLine)
-            break;
-
-        (*ppLine) = ((*ppLine)->GetNext());
-    }
-
-    return TRUE;
-}
-
-Bool32 CTIMask::GetLine(int wLine, PPCTIMaskLine ppcLine)
-{
-    PCTIMaskLine pL = line_.GetNext();
-    Bool32 bLinePresent = FALSE;
-    int32_t iLine;
-    *ppcLine = NULL;
-
-    if (wLine > height_) {
-        return FALSE;
-    }
-
-    while (pL) {
-        iLine = pL->lineNumber();
-
-        if (iLine < (int32_t) wLine) {
-            pL = pL->GetNext();
-            continue;
-        }
-
-        if (iLine == (int32_t) wLine) {
-            *ppcLine = pL;
-            bLinePresent = TRUE;
-            break;
-        }
-
-        if (iLine > (int32_t) wLine)
-            break;
-    }
-
-    return bLinePresent;
+    LinesMap::iterator it = lines_.find(number);
+    return it == lines_.end() ? NULL : it->second;
 }
 
 }
