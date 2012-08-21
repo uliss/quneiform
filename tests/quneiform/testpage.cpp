@@ -809,13 +809,13 @@ void TestPage::testRects()
     QCOMPARE(page.blocksCount(Page::CHAR), 7);
 
     QList<QRect> chars = page.blocks(Page::CHAR);
-    QCOMPARE(chars[0], QRect(12, 18, 30, 44));  // E
-    QCOMPARE(chars[1], QRect(50, 18, 35, 44));  // N
-    QCOMPARE(chars[2], QRect(93, 17, 40, 46));  // G
-    QCOMPARE(chars[3], QRect(143, 17, 29, 45)); // L
-    QCOMPARE(chars[4], QRect(177, 18, 7, 44));  // I
-    QCOMPARE(chars[5], QRect(193, 17, 32, 46)); // S
-    QCOMPARE(chars[6], QRect(233, 18, 35, 44)); // H
+    QCOMPARE(chars[0], QRect(14, 18, 29, 44));  // E
+    QCOMPARE(chars[1], QRect(52, 18, 34, 44));  // N
+    QCOMPARE(chars[2], QRect(95, 17, 39, 46));  // G
+    QCOMPARE(chars[3], QRect(145, 17, 28, 45)); // L
+    QCOMPARE(chars[4], QRect(179, 18, 6, 44));  // I
+    QCOMPARE(chars[5], QRect(195, 17, 31, 46)); // S
+    QCOMPARE(chars[6], QRect(235, 18, 34, 44)); // H
 }
 
 QTEST_MAIN(TestPage)
