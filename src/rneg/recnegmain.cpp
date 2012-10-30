@@ -496,7 +496,7 @@ void RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage, uchar* pImageName,
 
 	now = root;
 	if (1/*!(LDPUMA_Skip (PutToCPage) )*/) {
-		POLY_ block = { 0 };
+        POLY_ block;
 		uint32_t size_poly = sizeof(POLY_);
 		while (now) {
 			if ((now->neg).p > inf_prob) {

@@ -96,7 +96,8 @@ PageRecognizer * PageRecognitionQueue::recognizer() {
     return recognizer_;
 }
 
-void PageRecognitionQueue::start() {
+void PageRecognitionQueue::start()
+{
     QMutexLocker l(&queue_lock_);
     emit started();
     page_count_ = pages_.count();
@@ -124,6 +125,47 @@ void PageRecognitionQueue::start() {
 
         if(ok)
             pages_done++;
+    }
+
+    if(abort_)
+        abort_ = false;
+
+    emit finished(pages_done);
+}
+
+void PageRecognitionQueue::startSegmentation()
+{
+    QMutexLocker l(&queue_lock_);
+    emit started();
+    page_count_ = pages_.count();
+    page_error_num_ = 0;
+    int pages_done = 0;
+
+    if(abort_)
+        abort_ = false;
+
+    while(!pages_.empty()) {
+        {
+            QMutexLocker l(&abort_lock_);
+            if(abort_) {
+                pages_.clear();
+                abort_ = false;
+                break;
+            }
+        }
+
+        Page * p = pages_.dequeue();
+        clearPageFault(p->imagePath());
+        emit pageStarted(p->name());
+        recognizer_->setPage(p);
+        bool ok = recognizer_->analyze();
+
+        if(ok) {
+            pages_done++;
+        }
+        else {
+            qWarning() << Q_FUNC_INFO << "page analyze failed";
+        }
     }
 
     if(abort_)

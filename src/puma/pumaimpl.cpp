@@ -118,6 +118,90 @@ PumaImpl::~PumaImpl() {
     modulesDone();
 }
 
+void PumaImpl::addLayoutBlock(const LayoutBlock &block)
+{
+    switch(block.type()) {
+    case LayoutBlock::TEXT:
+        addTextBlock(block.rect());
+        break;
+    case LayoutBlock::IMAGE:
+        addImageBlock(block.rect());
+        break;
+    default:
+        PUMA_WARNING_FUNC() << "unknown block type:" << block.type();
+    }
+}
+
+void PumaImpl::addImageBlock(const Rect& rect)
+{
+    PUMA_TRACE_FUNC() << rect;
+
+    if(!cpage_)
+        return;
+
+    POLY_ poly;
+    poly.com.setRect(rect);
+    poly.com.setFlag(CPAGE_BLOCK_USER);
+    uint count = CPAGE_GetCountBlock(cpage_);
+    CPAGE_CreateBlock(cpage_, TYPE_IMAGE, ++count, 0, &poly, sizeof(poly));
+
+    unsetUpdateFlag(FLG_UPDATE_CPAGE);
+}
+
+void PumaImpl::addTextBlock(const Rect& block)
+{
+    PUMA_TRACE_FUNC() << block;
+
+    if(!cpage_)
+        return;
+
+    POLY_ poly;
+    poly.com.setRect(block);
+    poly.com.setFlag(CPAGE_BLOCK_USER);
+    uint count = CPAGE_GetCountBlock(cpage_);
+    CPAGE_CreateBlock(cpage_, TYPE_TEXT, ++count, 0, &poly, sizeof(poly));
+
+    unsetUpdateFlag(FLG_UPDATE_CPAGE);
+}
+
+LayoutBlockList PumaImpl::textBlocks() const
+{
+    LayoutBlockList res;
+    if(!cpage_)
+        return res;
+
+    Handle block = CPAGE_GetBlockFirst(cpage_, TYPE_TEXT);
+
+    while (block) {
+        POLY_ poly;
+        CPAGE_GetBlockData(cpage_, block, TYPE_TEXT, &poly, sizeof(poly));
+        res.push_back(LayoutBlock(poly.rect(), LayoutBlock::TEXT));
+        block = CPAGE_GetBlockNext(cpage_, block, TYPE_TEXT);
+    }
+
+    return res;
+}
+
+LayoutBlockList PumaImpl::imageBlocks() const
+{
+    LayoutBlockList res;
+    if(!cpage_)
+        return res;
+
+    Handle block = CPAGE_GetBlockFirst(cpage_, TYPE_IMAGE);
+
+    while (block) {
+        POLY_ poly;
+        CPAGE_GetBlockData(cpage_, block, TYPE_IMAGE, &poly, sizeof(poly));
+        res.push_back(LayoutBlock(poly.rect(), LayoutBlock::IMAGE));
+        block = CPAGE_GetBlockNext(cpage_, block, TYPE_IMAGE);
+    }
+
+    debugPrintCpage();
+
+    return res;
+}
+
 void PumaImpl::binarizeImage()
 {
     clearAll();
@@ -198,15 +282,15 @@ void PumaImpl::close() {
     input_dib_ = NULL;
 }
 
-void PumaImpl::debugPrintCpage() {
-    Debug() << "Container CPAGE has: \n name : size\n";
+void PumaImpl::debugPrintCpage() const
+{
+    PUMA_DEBUG_FUNC() << "Container CPAGE has: \n name : size";
     Handle block = CPAGE_GetBlockFirst(cpage_, 0);
 
     while (block) {
-        Debug() << CPAGE_GetNameInternalType(CPAGE_GetBlockType(cpage_, block))
+        cfDebug() << CPAGE_GetNameInternalType(CPAGE_GetBlockType(cpage_, block))
                 << " : "
-                << CPAGE_GetBlockData(cpage_, block, CPAGE_GetBlockType(cpage_, block), NULL, 0)
-                << "\n";
+                << CPAGE_GetBlockData(cpage_, block, CPAGE_GetBlockType(cpage_, block), NULL, 0);
         block = CPAGE_GetBlockNext(cpage_, block, 0);
     }
 }
@@ -277,7 +361,7 @@ void PumaImpl::getImageInfo(const std::string& image_name) {
         throw PumaException("CIMAGE_GetImageInfo failed");
 }
 
-void PumaImpl::layout()
+void PumaImpl::prepare()
 {
     RSPreProcessImage DataforRS;
 
@@ -309,7 +393,12 @@ void PumaImpl::layout()
     rstuff_->setImageData(&DataforRS);
     rstuff_->setRecognizeOptions(recognize_options_);
     rstuff_->normalize();
+}
 
+void PumaImpl::layout()
+{
+    PUMA_TRACE_FUNC();
+    prepare();
     markup();
 }
 
@@ -331,7 +420,7 @@ void PumaImpl::markup() {
     marker_->markupPage();
     cpage_ = marker_->cpage();
 
-    if (Config::instance().debug())
+    if(Config::instance().debug())
         debugPrintCpage();
 
     unsetUpdateFlag(FLG_UPDATE_CPAGE);
@@ -617,13 +706,16 @@ void PumaImpl::recognize()
 
     assert(cpage_);
     // Проверим: выделены ли фрагменты.
-    if (!CPAGE_GetCountBlock(cpage_) || hasUpdateFlag(FLG_UPDATE_CPAGE))
+    if (!CPAGE_GetCountBlock(cpage_) || hasUpdateFlag(FLG_UPDATE_CPAGE)) {
+        if(!CPAGE_GetCountBlock(cpage_))
+            PUMA_WARNING_FUNC() << "empty page layout";
+
+        PUMA_WARNING_FUNC() << "update layout";
         layout();
+    }
 
     CSTR_DeleteAll();
-
-    if (cpage_)
-        CPAGE_UpdateBlocks(cpage_, TYPE_CPAGE_TABLE);
+    CPAGE_UpdateBlocks(cpage_, TYPE_CPAGE_TABLE);
 
     if (Config::instance().debugDump())
         saveLayoutToFile(layout_filename_);

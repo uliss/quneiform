@@ -296,7 +296,7 @@ void LayoutFromCPAGE(Handle hCPAGE, CCOM_handle hCCOM)
 
     //негативы и вертикальные фрагменты как блоки текста
 
-    Rect16 Rc;
+    ::Rect16 Rc;
     for (h = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT); h != NULL; h = CPAGE_GetBlockNext(hCPAGE, h,
             TYPE_TEXT)) {
         CPAGE_GetBlockData(hCPAGE, h, TYPE_TEXT, &block, sizeof(POLY_));
@@ -382,7 +382,7 @@ void LayoutFromCPAGE(Handle hCPAGE, CCOM_handle hCCOM)
 void file_string(STRING * s)
 {
     CSTR_line lin_in;
-    Rect16 r = { s->xLeft, s->yTop, s->xRight, s->yBottom };
+    ::Rect16 r = { s->xLeft, s->yTop, s->xRight, s->yBottom };
     Rect32 left, right;
     Bool32 filtr = FALSE;
 
@@ -435,6 +435,9 @@ void file_string(STRING * s)
             left.bottom = right.bottom = -16000;
             for (nri = nle = i = 0; i < s->nDust; i++) {
                 com = cf::Roots::at(s->pDustList[i])->pComp;
+                if(!com)
+                    continue;
+
                 if (com->w * com->h < 15) {
                     CCOM_comp com1 = *com;
                     com1.upper = com1.upper - (int16_t) (nIncline * com1.left / 2048);
@@ -471,6 +474,10 @@ void file_string(STRING * s)
         for (i = 0; i < s->nDust; i++) {
             pRoot = cf::Roots::at(s->pDustList[i]);
             com = pRoot->pComp;
+
+            if(!com)
+                continue;
+
             if (filtr && com->w * com->h < 15) {
                 CCOM_comp com1 = *com;
                 com1.upper = com1.upper - (int16_t) (nIncline * com1.left / 2048);
@@ -501,6 +508,9 @@ void file_string(STRING * s)
         for (i = 0; i < s->nLetters; i++) {
             pRoot = cf::Roots::at(s->pLettersList[i]);
             com = pRoot->pComp;
+
+            if(!com)
+                continue;
 
             // begin Oleg 2003.08.29
             if (((com->w + (1 << com->scale) - 1) >> com->scale) > 127 || ((com->h + (1
@@ -752,7 +762,7 @@ void SomeDraw()
     if (!LDPUMA_Skip(hStrPointedD)) {
         CSTR_line str;
         CSTR_attr lattr;
-        Rect16 r;
+        ::Rect16 r;
         PAGEINFO info;
         GetPageInfo(HCPAGE, &info);
         nIncline = info.Incline2048;

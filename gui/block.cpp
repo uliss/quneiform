@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,43 +16,81 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QDebug>
-#include <QLabel>
+#include <QDataStream>
 
-#include "page.h"
-#include "recognitionprogressdialog.h"
-#include "pagerecognitionqueue.h"
+#include "block.h"
 
-RecognitionProgressDialog::RecognitionProgressDialog(QWidget * parent) :
-        QProgressDialog(parent) {
-    setWindowTitle(tr("Recognition"));
-    setMinimumDuration(0);
-    setMinimum(0);
-    setMaximum(100);
-    setFixedWidth(400);
-    setupLabel();
-}
-
-void RecognitionProgressDialog::connectToQueue(PageRecognitionQueue * queue)
+Block::Block() :
+    type_(BLOCK_CHAR)
 {
-    if(!queue)
-        return;
-
-    connect(queue, SIGNAL(started()), SLOT(show()));
-    connect(queue, SIGNAL(done()), SLOT(close()));
-    connect(queue, SIGNAL(percentDone(int)), SLOT(setValue(int)));
-    connect(queue, SIGNAL(pageStarted(QString)), SLOT(setCurrentPage(QString)));
-    connect(this, SIGNAL(canceled()), queue, SLOT(abort()));
 }
 
-void RecognitionProgressDialog::setCurrentPage(const QString& path) {
-    setLabelText(tr("Page recognition: \"%1\"").arg(path));
+Block::Block(BlockType type, const QRect& rect) :
+    rect_(rect),
+    type_(type),
+    number_(0)
+{
 }
 
-void RecognitionProgressDialog::setupLabel() {
-    QLabel * label = new QLabel();
-    label->setAlignment(Qt::AlignLeft);
-    label->setTextFormat(Qt::PlainText);
-    label->setScaledContents(false);
-    setLabel(label);
+bool Block::isEditable() const
+{
+    switch(type_) {
+    case BLOCK_CHAR:
+    case BLOCK_LINE:
+    case BLOCK_PARAGRAPH:
+    case BLOCK_COLUMN:
+    case BLOCK_SECTION:
+    case BLOCK_PICTURE:
+        return false;
+    default:
+        return true;
+    }
+}
+
+int Block::number() const
+{
+    return number_;
+}
+
+void Block::setNumber(int num)
+{
+    number_ = static_cast<qint16>(num);
+}
+
+QRect Block::rect() const
+{
+    return rect_;
+}
+
+void Block::setRect(const QRect& r)
+{
+    rect_ = r;
+}
+
+BlockType Block::type() const
+{
+    return type_;
+}
+
+void Block::setType(BlockType type)
+{
+    type_ = type;
+}
+
+QDataStream& operator<<(QDataStream& stream, const Block& block)
+{
+    stream << block.rect_
+           << block.type_
+           << block.number_;
+    return stream;
+}
+
+QDataStream& operator>>(QDataStream& stream, Block& block)
+{
+    stream >> block.rect_;
+    int type;
+    stream >> type;
+    block.type_ = static_cast<BlockType>(type);
+    stream >> block.number_;
+    return stream;
 }

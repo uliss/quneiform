@@ -238,7 +238,7 @@
     <name>ImageView</name>
     <message>
         <source>Select recognize area</source>
-        <translation>Выбрать область распознавания</translation>
+        <translation type="obsolete">Выбрать область распознавания</translation>
     </message>
     <message>
         <source>Fit to width</source>
@@ -256,12 +256,68 @@
         <source>Recognize</source>
         <translation>Распознать</translation>
     </message>
+    <message>
+        <source>Add text block</source>
+        <translation>Добавить текстовый блок</translation>
+    </message>
+    <message>
+        <source>Add image block</source>
+        <translation>Выделить изображение</translation>
+    </message>
+    <message>
+        <source>Select recognition area</source>
+        <translation>Выбрать область распознавания</translation>
+    </message>
+    <message>
+        <source>Delete text area</source>
+        <translation type="obsolete">Удалить область распознавания</translation>
+    </message>
+    <message>
+        <source>Delete recognition area</source>
+        <translation>Удалить область распознавания</translation>
+    </message>
+    <message>
+        <source>Delete text block</source>
+        <translation>Удалить текстовый блок</translation>
+    </message>
+    <message>
+        <source>Delete image block</source>
+        <translation>Удалить область изображения</translation>
+    </message>
+    <message>
+        <source>Delete table block</source>
+        <translation>Удалить табличный блок</translation>
+    </message>
 </context>
 <context>
     <name>ImageWidget</name>
     <message>
         <source>Binarize</source>
         <translation>Бинаризация</translation>
+    </message>
+    <message>
+        <source>Add image block</source>
+        <translation>Выделить изображение</translation>
+    </message>
+    <message>
+        <source>Add text block</source>
+        <translation>Добавить текстовый блок</translation>
+    </message>
+    <message>
+        <source>Select recognition area</source>
+        <translation>Выбрать область распознавания</translation>
+    </message>
+    <message>
+        <source>Show layout</source>
+        <translation>Показать макет страницы</translation>
+    </message>
+    <message>
+        <source>Analyze</source>
+        <translation>Анализировать</translation>
+    </message>
+    <message>
+        <source>Perform page layout analysis</source>
+        <translation>Произвести анализ макета страницы</translation>
     </message>
 </context>
 <context>

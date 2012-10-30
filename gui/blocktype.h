@@ -16,18 +16,21 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef CFUTILS_H
-#define CFUTILS_H
+#ifndef BLOCKTYPE_H
+#define BLOCKTYPE_H
 
-#include <QRect>
-#include <QColor>
+/* do not change values! */
+enum BlockType {
+    BLOCK_PICTURE      = 0,
+    BLOCK_CHAR         = 1,
+    BLOCK_LINE         = 2,
+    BLOCK_PARAGRAPH    = 3,
+    BLOCK_COLUMN       = 4,
+    BLOCK_SECTION      = 5,
+    BLOCK_LAYOUT_TEXT  = 6,
+    BLOCK_LAYOUT_IMAGE = 7,
+    BLOCK_LAYOUT_AREA  = 8,
+    BLOCK_LAYOUT_TABLE = 9
+};
 
-#include "common/rect.h"
-#include "common/color.h"
-
-QRect toQRect(const cf::Rect& r);
-cf::Rect toRect(const QRect& r);
-QColor toQColor(const cf::Color& c);
-
-
-#endif // CFUTILS_H
+#endif // BLOCKTYPE_H

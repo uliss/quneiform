@@ -102,7 +102,7 @@ uint32_t CPAGE_PICTURE_to_TYPE_PICTURE( CPAGE_PICTURE * lpDataIn, uint32_t SizeI
         return 0;
     }
 
-    POLY_  desc = {0} ;
+    POLY_  desc;
     CPAGE_PICTURE pict = *lpDataIn;
     desc.com.count = pict.Number;
 

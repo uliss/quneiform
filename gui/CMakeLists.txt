@@ -43,6 +43,7 @@ set(TRANSLATIONS_TS translations/ru.ts translations/ua.ts)
 set(HEADERS 
     packet.h
     page.h
+    pagearea.h
     pagebinarizator.h
     pagerecognizer.h
     pagerecognitionqueue.h
@@ -85,6 +86,7 @@ set(HEADERS
 
 set(SOURCES
     binarizationsettings.cpp
+    block.cpp
     cfutils.cpp
     exportsettings.cpp
     formatsettings.cpp
@@ -100,7 +102,6 @@ set(SOURCES
     page.cpp
     pagebinarizator.cpp
     pagearea.cpp
-    pagelayout.cpp
     pagerecognizer.cpp
     pagerecognitionqueue.cpp
     recognitionsettings.cpp

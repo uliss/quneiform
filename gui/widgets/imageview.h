@@ -21,6 +21,8 @@
 
 #include <QGraphicsView>
 
+#include "blocktype.h"
+
 class QGraphicsScene;
 class QGraphicsRectItem;
 class QGraphicsPixmapItem;
@@ -30,9 +32,9 @@ class QMenu;
 class Page;
 class PageArea;
 class Selection;
-class SelectionList;
 
-class ImageView : public QGraphicsView {
+class ImageView : public QGraphicsView
+{
     Q_OBJECT
 public:
     ImageView(QWidget * parent = 0);
@@ -53,22 +55,16 @@ public:
       */
     void clearScene();
 
-    /**
-      * Hides format layout
-      * @see showFormatLayout()
-      */
-    void hideFormatLayout();
+    void hideLayoutBlocks(BlockType t);
+
+    bool isLayoutBlockVisible(BlockType t) const;
 
     /**
       * Show char bbox
       */
     void showChar(const QRect& bbox);
 
-    /**
-      * Shows cuneiform page formatting
-      * @see hideFormatLayout()
-      */
-    void showFormatLayout();
+    void showLayoutBlocks(BlockType t);
 
     /**
       * Shows page. Previous items are cleared
@@ -116,6 +112,22 @@ public slots:
       */
     void originalSize();
 
+    /**
+     * Starts page recognition area selection
+     * @see startTextBlockSelection(), startImageBlockSelection()
+     */
+    void startPageAreaSelection();
+
+    /**
+     * Starts text block selection
+     */
+    void startTextBlockSelection();
+
+    /**
+     * Starts image block selection
+     */
+    void startImageBlockSelection();
+
     void updatePageArea();
 signals:
     /**
@@ -157,14 +169,13 @@ private slots:
     void clearPageLayout();
     void deletePage();
     void handleRecognizeRequest();
-    void savePageSelections();
-    void startPageSelection();
+    void removeLayoutBlock();
     void updatePageView();
 private:
     void activate(bool value);
+    void appendBlockContextMenu(const QPoint& pos);
     void connectPageSignals(Page * page);
-    void createContextMenu();
-    void deletePageArea();
+    void createContextMenu(const QPoint& pos);
     void disconnectPageSignals(Page * page);
     bool isSceneSizeSmaller();
     bool isSceneWidthSmaller();
@@ -178,7 +189,6 @@ private:
     void setupView();
     void showImage();
     void updatePageScroll();
-    void updatePageSelection();
 private:
     QGraphicsScene * scene_;
     Page * page_;
@@ -187,7 +197,7 @@ private:
     qreal max_scale_;
     QGraphicsPixmapItem * pixmap_;
     PageArea * area_;
-    SelectionList * selections_;
+    Selection * current_selection_;
 };
 
 #endif

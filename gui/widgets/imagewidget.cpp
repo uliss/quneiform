@@ -34,7 +34,12 @@ ImageWidget::ImageWidget(QWidget * parent) :
     layout_(NULL),
     view_(NULL) ,
     toolbar_(NULL),
-    act_bin_(NULL)
+    act_bin_(NULL),
+    act_add_area_(NULL),
+    act_add_image_(NULL),
+    act_add_text_(NULL),
+    act_toggle_layout_(NULL),
+    act_segment_(NULL)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setupLayout();
@@ -60,6 +65,30 @@ void ImageWidget::handleActionBinarize(bool checked)
         view_->showPageOriginal();
 }
 
+void ImageWidget::handleActionAddImageBlock()
+{
+    Q_CHECK_PTR(view_);
+    view_->startImageBlockSelection();
+}
+
+void ImageWidget::handleActionAddTextBlock()
+{
+    Q_CHECK_PTR(view_);
+    view_->startTextBlockSelection();
+}
+
+void ImageWidget::handleActionSegment()
+{
+    Q_CHECK_PTR(view_);
+    emit segment(view_->page());
+}
+
+void ImageWidget::handleActionSelectArea()
+{
+    Q_CHECK_PTR(view_);
+    view_->startPageAreaSelection();
+}
+
 void ImageWidget::originalSize() {
     Q_CHECK_PTR(view_);
     view_->originalSize();
@@ -78,12 +107,41 @@ void ImageWidget::setupToolBar()
     toolbar_ = new QToolBar(this);
     toolbar_->setIconSize(QSize(12, 12));
     toolbar_->setFloatable(false);
+    toolbar_->setStyleSheet("QToolBar{ background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #cdcdcd, stop: 1 #ababab)}");
 
     act_bin_ = toolbar_->addAction(iconFromTheme("binarize"), tr("Binarize"));
-    connect(act_bin_, SIGNAL(toggled(bool)), SLOT(handleActionBinarize(bool)));
+    act_bin_->setToolTip(tr("Binarize"));
     act_bin_->setCheckable(true);
     act_bin_->setChecked(false);
     act_bin_->setDisabled(true);
+    connect(act_bin_, SIGNAL(toggled(bool)), SLOT(handleActionBinarize(bool)));
+
+    act_add_area_ = toolbar_->addAction(iconFromTheme("select-rectangular"), tr("Select recognition area"));
+    act_add_area_->setDisabled(true);
+    act_add_area_->setToolTip(tr("Select recognition area"));
+    connect(act_add_area_, SIGNAL(triggered()), SLOT(handleActionSelectArea()));
+
+    act_add_text_ = toolbar_->addAction(iconFromTheme("insert-text"), tr("Add text block"));
+    act_add_text_->setDisabled(true);
+    act_add_text_->setToolTip(tr("Add text block"));
+    connect(act_add_text_, SIGNAL(triggered()), SLOT(handleActionAddTextBlock()));
+
+    act_add_image_ = toolbar_->addAction(iconFromTheme("insert-image"), tr("Add image block"));
+    act_add_image_->setDisabled(true);
+    act_add_image_->setToolTip(tr("Add image block"));
+    connect(act_add_image_, SIGNAL(triggered()), SLOT(handleActionAddImageBlock()));
+
+    toolbar_->addSeparator();
+
+    act_toggle_layout_ = toolbar_->addAction(tr("Show layout"));
+    connect(act_toggle_layout_, SIGNAL(triggered()), SLOT(toggleLayoutBlocks()));
+    act_toggle_layout_->setCheckable(true);
+
+    act_segment_ = toolbar_->addAction(tr("Analyze"));
+    act_segment_->setDisabled(true);
+    act_segment_->setToolTip(tr("Perform page layout analysis"));
+    connect(act_segment_, SIGNAL(triggered()), SLOT(handleActionSegment()));
+
     layout_->addWidget(toolbar_);
 }
 
@@ -109,6 +167,17 @@ void ImageWidget::showChar(const QRect& bbox) {
     view_->showChar(bbox);
 }
 
+void ImageWidget::toggleLayoutBlocks()
+{
+    view_->isLayoutBlockVisible(BLOCK_LAYOUT_TEXT) ?
+                view_->hideLayoutBlocks(BLOCK_LAYOUT_TEXT) :
+                view_->showLayoutBlocks(BLOCK_LAYOUT_TEXT);
+
+    view_->isLayoutBlockVisible(BLOCK_LAYOUT_IMAGE) ?
+                view_->hideLayoutBlocks(BLOCK_LAYOUT_IMAGE) :
+                view_->showLayoutBlocks(BLOCK_LAYOUT_IMAGE);
+}
+
 void ImageWidget::showPage(Page * p) {
     if(!view_) {
         qDebug() << Q_FUNC_INFO << "no view";
@@ -116,7 +185,7 @@ void ImageWidget::showPage(Page * p) {
     }
 
     view_->showPage(p);
-    resetBinarizeAction();
+    updateActions();
 }
 
 void ImageWidget::showPageBinarized()
@@ -157,10 +226,19 @@ void ImageWidget::zoomOut() {
     zoom(0.8);
 }
 
-void ImageWidget::resetBinarizeAction()
+void ImageWidget::updateActions()
 {
     act_bin_->blockSignals(true);
     act_bin_->setChecked(false);
     act_bin_->blockSignals(false);
-    act_bin_->setEnabled(view_->hasPage());
+
+    bool has_page = view_->hasPage();
+
+    act_bin_->setEnabled(has_page);
+    act_add_image_->setEnabled(has_page);
+    act_add_text_->setEnabled(has_page);
+    act_add_area_->setEnabled(has_page);
+    act_segment_->setEnabled(has_page);
+
+    act_toggle_layout_->setChecked(view_->isLayoutBlockVisible(BLOCK_LAYOUT_TEXT));
 }

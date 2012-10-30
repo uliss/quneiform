@@ -19,7 +19,6 @@ set(CF_GUI_TESTS
     page
     packet
     pageindicator
-    pagelayout
     pagerecognitionqueue
     pagerecognizer
     recentmenu

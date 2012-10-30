@@ -28,6 +28,7 @@
 class Page;
 
 namespace cf {
+class AbstractRecognitionServer;
 class PercentCounter;
 class RecognitionState;
 }
@@ -65,6 +66,11 @@ public slots:
       * Tries to abort recognition process
       */
     void abort();
+
+    /**
+     * Analyzes page layout and makes page markup
+     */
+    bool analyze();
 
     /**
       * Starts page recognition thread
@@ -107,11 +113,15 @@ signals:
       * Emitted after page is recognized
       */
     void recognized();
+private slots:
+    void handleFail(const QString& msg);
 private:
     void exportPageText();
+    bool exportPageLayout(cf::AbstractRecognitionServer * server);
+    bool importPageLayout(const cf::AbstractRecognitionServer * server);
     void handleRecognitionProgress(unsigned char percentsDone);
     void handleRecognitionState(int);
-    void loadImage();
+    bool loadImage();
     void setConfigOptions();
     void saveResolutionHeightHistogram(const std::vector<int>& hist);
     void saveResolutionWidthHistogram(const std::vector<int>& hist);
@@ -123,6 +133,7 @@ private:
     QMutex lock_;
     volatile bool abort_;
     WorkerType worker_type_;
+    QImage image_;
 };
 
 #endif // PAGERECOGNIZER_H

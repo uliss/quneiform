@@ -22,7 +22,10 @@
 #include <QGraphicsRectItem>
 #include <QObject>
 
+#include "block.h"
+
 class Selection;
+class Page;
 
 class SelectionList : public QObject, public QGraphicsRectItem
 {
@@ -43,16 +46,22 @@ public:
     };
 
 public:
-    SelectionList(const QRectF& rect, QGraphicsItem * parent = NULL);
+    SelectionList(QGraphicsItem * parent = NULL);
     void addSelection(const QRectF &r);
     void clearSelections();
     bool isTurned() const;
     void setTurned(bool value);
-    void setSelectionMode(selection_mode_t mode);
-    void setSelectionType(selection_t type);
-    void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0);
+    void set(selection_t type, selection_mode_t mode);
+    void populateFromPage(const Page * p);
     QRect selectionBoundingRect() const;
-    QList<QRect> selectionRects() const;
+
+    bool isBlocksVisible(BlockType t) const;
+    void hideBlocks(BlockType t);
+    void showBlocks(BlockType t);
+
+    QList<Block> imageBlocks() const;
+    QList<Block> textBlocks() const;
+    QList<QRect> readAreas() const;
 signals:
     void changed();
 protected:
@@ -64,6 +73,8 @@ protected:
 private:
     friend class Selection;
 private:
+    void addLayoutBlock(const Block& block, const Page * page);
+    void addLayoutBlock(BlockType t, const QRect& bbox);
     void handleSelectionDelete(Selection * s);
 
     Selection * makeSelection(const QRectF &r);
@@ -77,11 +88,18 @@ private:
 
     void addRubberBand();
     void removeRubberBand();
+
+    void populateChars(const Page * page);
+    void populateLines(const Page * page);
+    void populateParagraphs(const Page * page);
+    void populateColumns(const Page * page);
+    void populateSections(const Page * page);
+    void populatePictures(const Page * page);
 private:
     QPointF selection_start_;
     QList<Selection*> selections_;
     QGraphicsRectItem * rubber_band_;
-    selection_t selection_type_;
+    selection_t type_;
     selection_mode_t mode_;
     bool turned_;
 };

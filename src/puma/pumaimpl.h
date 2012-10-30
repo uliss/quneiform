@@ -35,6 +35,7 @@
 #include "common/dib.h"
 #include "export/exporter.h"
 #include "globus.h"
+#include "layoutblock.h"
 
 class CTIControl;
 struct CCOM_cont;
@@ -55,6 +56,12 @@ class PumaImpl
     public:
         PumaImpl();
         ~PumaImpl();
+
+        void addLayoutBlock(const LayoutBlock& block);
+        void addImageBlock(const Rect& rect);
+        void addTextBlock(const Rect& block);
+        LayoutBlockList imageBlocks() const;
+        LayoutBlockList textBlocks() const;
 
         void binarizeImage();
 
@@ -78,6 +85,7 @@ class PumaImpl
          */
         void formatResult();
 
+        void prepare();
         void layout();
 
         /**
@@ -112,7 +120,7 @@ class PumaImpl
         BackupPage * cpage();
         PAGEINFO * pageInfo();
         void clearAll();
-        void debugPrintCpage();
+        void debugPrintCpage() const;
         void extractComponents();
         void extractStrings();
         void getImageInfo(const std::string& image_name);

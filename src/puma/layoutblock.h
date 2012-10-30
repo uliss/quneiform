@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,43 +16,71 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QDebug>
-#include <QLabel>
+#ifndef LAYOUTBLOCK_H
+#define LAYOUTBLOCK_H
 
-#include "page.h"
-#include "recognitionprogressdialog.h"
-#include "pagerecognitionqueue.h"
+#include <vector>
 
-RecognitionProgressDialog::RecognitionProgressDialog(QWidget * parent) :
-        QProgressDialog(parent) {
-    setWindowTitle(tr("Recognition"));
-    setMinimumDuration(0);
-    setMinimum(0);
-    setMaximum(100);
-    setFixedWidth(400);
-    setupLabel();
-}
+#include "globus.h"
+#include "common/rect.h"
 
-void RecognitionProgressDialog::connectToQueue(PageRecognitionQueue * queue)
+namespace cf
 {
-    if(!queue)
-        return;
 
-    connect(queue, SIGNAL(started()), SLOT(show()));
-    connect(queue, SIGNAL(done()), SLOT(close()));
-    connect(queue, SIGNAL(percentDone(int)), SLOT(setValue(int)));
-    connect(queue, SIGNAL(pageStarted(QString)), SLOT(setCurrentPage(QString)));
-    connect(this, SIGNAL(canceled()), queue, SLOT(abort()));
+class CLA_EXPO LayoutBlock
+{
+public:
+    enum Type {
+        INVALID,
+        TEXT,
+        IMAGE,
+        TABLE
+    };
+public:
+    LayoutBlock(const Rect& r, Type t = INVALID);
+
+    /**
+     * Returns true if image block
+     * @see type()
+     */
+    bool isImage() const;
+
+    /**
+     * Returns true if text block
+     * @see type()
+     */
+    bool isText() const;
+
+    /**
+     * Returns block bounding rect
+     * @see setRect()
+     */
+    Rect rect() const;
+
+    /**
+     * Sets block bounding rect
+     * @see rect()
+     */
+    void setRect(const Rect& r);
+
+    /**
+     * Returns block type
+     * @see setType()
+     */
+    Type type() const;
+
+    /**
+     * Sets block type
+     * @see type()
+     */
+    void setType(Type t);
+private:
+    Rect rect_;
+    Type type_;
+};
+
+typedef std::vector<LayoutBlock> LayoutBlockList;
+
 }
 
-void RecognitionProgressDialog::setCurrentPage(const QString& path) {
-    setLabelText(tr("Page recognition: \"%1\"").arg(path));
-}
-
-void RecognitionProgressDialog::setupLabel() {
-    QLabel * label = new QLabel();
-    label->setAlignment(Qt::AlignLeft);
-    label->setTextFormat(Qt::PlainText);
-    label->setScaledContents(false);
-    setLabel(label);
-}
+#endif // LAYOUTBLOCK_H

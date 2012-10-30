@@ -89,6 +89,11 @@ public slots:
       * @see abort(), started()
       */
     void start();
+
+    /**
+     * Starts segmentation process
+     */
+    void startSegmentation();
 signals:
     /**
       * Emmitted on page recognition error

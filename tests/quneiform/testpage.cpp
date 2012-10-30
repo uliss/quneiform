@@ -30,6 +30,7 @@
 
 #include "testpage.h"
 #include "ced/cedpage.h"
+#include "common/log.h"
 #define private public
 #include "gui/page.h"
 #include "gui/pagerecognizer.h"
@@ -190,12 +191,12 @@ void TestPage::testConstruct() {
     QCOMPARE(p.viewScale(), float(1.0));
     QVERIFY(p.viewScroll() != QPoint());
     QVERIFY(p.isFirstViewScroll());
-    QVERIFY(p.blocks(Page::CHAR).empty());
-    QVERIFY(p.blocks(Page::COLUMN).empty());
-    QVERIFY(p.blocks(Page::LINE).empty());
-    QVERIFY(p.blocks(Page::SECTION).empty());
-    QVERIFY(p.blocks(Page::PARAGRAPH).empty());
-    QVERIFY(p.blocks(Page::PICTURE).empty());
+    QVERIFY(p.blocks(BLOCK_CHAR).empty());
+    QVERIFY(p.blocks(BLOCK_COLUMN).empty());
+    QVERIFY(p.blocks(BLOCK_LINE).empty());
+    QVERIFY(p.blocks(BLOCK_SECTION).empty());
+    QVERIFY(p.blocks(BLOCK_PARAGRAPH).empty());
+    QVERIFY(p.blocks(BLOCK_PICTURE).empty());
 
     p.setViewScroll(QPoint());
     QVERIFY(!p.isFirstViewScroll());
@@ -346,63 +347,63 @@ void TestPage::testSetRecognitionSettings() {
 void TestPage::testSetBlocks() {
     Page p("");
 
-    QVERIFY(p.blocks(Page::CHAR).empty());
-    QVERIFY(p.blocks(Page::COLUMN).empty());
-    QVERIFY(p.blocks(Page::LINE).empty());
-    QVERIFY(p.blocks(Page::SECTION).empty());
-    QVERIFY(p.blocks(Page::PARAGRAPH).empty());
-    QVERIFY(p.blocks(Page::PICTURE).empty());
+    QVERIFY(p.blocks(BLOCK_CHAR).empty());
+    QVERIFY(p.blocks(BLOCK_COLUMN).empty());
+    QVERIFY(p.blocks(BLOCK_LINE).empty());
+    QVERIFY(p.blocks(BLOCK_SECTION).empty());
+    QVERIFY(p.blocks(BLOCK_PARAGRAPH).empty());
+    QVERIFY(p.blocks(BLOCK_PICTURE).empty());
 
-    Page::Rectangles rects;
-    rects << QRect(0, 0, 10, 20);
-    rects << QRect(1, 1, 2, 2);
+    Page::BlockList block_lst;
+    block_lst << Block(BLOCK_CHAR, QRect(0, 0, 10, 20));
+    block_lst << Block(BLOCK_CHAR, QRect(1, 1, 2, 2));
 
-    p.setBlocks(rects, Page::CHAR);
-    QCOMPARE(p.blocks(Page::CHAR).count(), 2);
-    QCOMPARE(p.blocks(Page::CHAR).at(0), QRect(0, 0, 10, 20));
-    QCOMPARE(p.blocks(Page::CHAR).at(1), QRect(1, 1, 2, 2));
-    QVERIFY(p.blocks(Page::COLUMN).empty());
-    QVERIFY(p.blocks(Page::LINE).empty());
-    QVERIFY(p.blocks(Page::SECTION).empty());
-    QVERIFY(p.blocks(Page::PARAGRAPH).empty());
-    QVERIFY(p.blocks(Page::PICTURE).empty());
+    p.setBlocks(block_lst, BLOCK_CHAR);
+    QCOMPARE(p.blocks(BLOCK_CHAR).count(), 2);
+    QCOMPARE(p.blocks(BLOCK_CHAR).at(0).rect(), QRect(0, 0, 10, 20));
+    QCOMPARE(p.blocks(BLOCK_CHAR).at(1).rect(), QRect(1, 1, 2, 2));
+    QVERIFY(p.blocks(BLOCK_COLUMN).empty());
+    QVERIFY(p.blocks(BLOCK_LINE).empty());
+    QVERIFY(p.blocks(BLOCK_SECTION).empty());
+    QVERIFY(p.blocks(BLOCK_PARAGRAPH).empty());
+    QVERIFY(p.blocks(BLOCK_PICTURE).empty());
 
-    rects.removeLast();
-    p.setBlocks(rects, Page::COLUMN);
-    QCOMPARE(p.blocks(Page::COLUMN).count(), 1);
-    QCOMPARE(p.blocks(Page::COLUMN).at(0), QRect(0, 0, 10, 20));
-    QVERIFY(p.blocks(Page::LINE).empty());
-    QVERIFY(p.blocks(Page::SECTION).empty());
-    QVERIFY(p.blocks(Page::PARAGRAPH).empty());
-    QVERIFY(p.blocks(Page::PICTURE).empty());
+    block_lst.removeLast();
+    p.setBlocks(block_lst, BLOCK_COLUMN);
+    QCOMPARE(p.blocks(BLOCK_COLUMN).count(), 1);
+    QCOMPARE(p.blocks(BLOCK_COLUMN).at(0).rect(), QRect(0, 0, 10, 20));
+    QVERIFY(p.blocks(BLOCK_LINE).empty());
+    QVERIFY(p.blocks(BLOCK_SECTION).empty());
+    QVERIFY(p.blocks(BLOCK_PARAGRAPH).empty());
+    QVERIFY(p.blocks(BLOCK_PICTURE).empty());
 
-    rects.removeLast();
-    p.setBlocks(rects, Page::LINE);
-    QCOMPARE(p.blocks(Page::LINE).count(), 0);
-    QVERIFY(p.blocks(Page::SECTION).empty());
-    QVERIFY(p.blocks(Page::PARAGRAPH).empty());
-    QVERIFY(p.blocks(Page::PICTURE).empty());
+    block_lst.removeLast();
+    p.setBlocks(block_lst, BLOCK_LINE);
+    QCOMPARE(p.blocks(BLOCK_LINE).count(), 0);
+    QVERIFY(p.blocks(BLOCK_SECTION).empty());
+    QVERIFY(p.blocks(BLOCK_PARAGRAPH).empty());
+    QVERIFY(p.blocks(BLOCK_PICTURE).empty());
 
-    rects << QRect(100, 100, 100, 100);
-    p.setBlocks(rects, Page::SECTION);
-    QCOMPARE(p.blocks(Page::SECTION).count(), 1);
-    QCOMPARE(p.blocks(Page::SECTION).at(0), QRect(100, 100, 100, 100));
-    QVERIFY(p.blocks(Page::PARAGRAPH).empty());
-    QVERIFY(p.blocks(Page::PICTURE).empty());
+    block_lst << Block(BLOCK_SECTION, QRect(100, 100, 100, 100));
+    p.setBlocks(block_lst, BLOCK_SECTION);
+    QCOMPARE(p.blocks(BLOCK_SECTION).count(), 1);
+    QCOMPARE(p.blocks(BLOCK_SECTION).at(0).rect(), QRect(100, 100, 100, 100));
+    QVERIFY(p.blocks(BLOCK_PARAGRAPH).empty());
+    QVERIFY(p.blocks(BLOCK_PICTURE).empty());
 
-    rects << QRect(20, 20, 20, 20);
-    p.setBlocks(rects, Page::PARAGRAPH);
-    QCOMPARE(p.blocks(Page::PARAGRAPH).count(), 2);
-    QCOMPARE(p.blocks(Page::PARAGRAPH).at(0), QRect(100, 100, 100, 100));
-    QCOMPARE(p.blocks(Page::PARAGRAPH).at(1), QRect(20, 20, 20, 20));
-    QVERIFY(p.blocks(Page::PICTURE).empty());
+    block_lst << Block(BLOCK_PARAGRAPH, QRect(20, 20, 20, 20));
+    p.setBlocks(block_lst, BLOCK_PARAGRAPH);
+    QCOMPARE(p.blocks(BLOCK_PARAGRAPH).count(), 2);
+    QCOMPARE(p.blocks(BLOCK_PARAGRAPH).at(0).rect(), QRect(100, 100, 100, 100));
+    QCOMPARE(p.blocks(BLOCK_PARAGRAPH).at(1).rect(), QRect(20, 20, 20, 20));
+    QVERIFY(p.blocks(BLOCK_PICTURE).empty());
 
-    rects << QRect(30, 30, 30, 30);
-    p.setBlocks(rects, Page::PICTURE);
-    QCOMPARE(p.blocks(Page::PICTURE).count(), 3);
-    QCOMPARE(p.blocks(Page::PICTURE).at(0), QRect(100, 100, 100, 100));
-    QCOMPARE(p.blocks(Page::PICTURE).at(1), QRect(20, 20, 20, 20));
-    QCOMPARE(p.blocks(Page::PICTURE).at(2), QRect(30, 30, 30, 30));
+    block_lst << Block(BLOCK_PICTURE, QRect(30, 30, 30, 30));
+    p.setBlocks(block_lst, BLOCK_PICTURE);
+    QCOMPARE(p.blocks(BLOCK_PICTURE).count(), 3);
+    QCOMPARE(p.blocks(BLOCK_PICTURE).at(0).rect(), QRect(100, 100, 100, 100));
+    QCOMPARE(p.blocks(BLOCK_PICTURE).at(1).rect(), QRect(20, 20, 20, 20));
+    QCOMPARE(p.blocks(BLOCK_PICTURE).at(2).rect(), QRect(30, 30, 30, 30));
 }
 
 void TestPage::testSetViewScroll() {
@@ -435,10 +436,10 @@ void TestPage::testUnsetFlag() {
 void TestPage::testReadWrite() {
     Page p(SAMPLE_IMG);
     QPoint pt(10, 20);
-    QRect r(20, 30, 40, 50);
+    Block b(BLOCK_CHAR, QRect(20, 30, 40, 50));
     QString fname("page.tmp");
     p.setViewScroll(pt);
-    p.addReadArea(r);
+    p.addReadArea(b.rect());
     p.setAngle(90);
     p.setLanguage(Language(5));
 
@@ -446,10 +447,10 @@ void TestPage::testReadWrite() {
     s.setFax(true);
     p.setRecognitionSettings(s);
 
-    Page::Rectangles rects;
-    rects << r << r << r;
-    p.setBlocks(rects, Page::CHAR);
-    p.setBlocks(rects, Page::PICTURE);
+    Page::BlockList block_lst;
+    block_lst << b << b << b;
+    p.setBlocks(block_lst, BLOCK_CHAR);
+    p.setBlocks(block_lst, BLOCK_PICTURE);
 
     p.setCEDPage(cf::CEDPagePtr(new cf::CEDPage));
     p.cedPage()->setImageName("CED Image");
@@ -480,8 +481,8 @@ void TestPage::testReadWrite() {
         QCOMPARE(p.recognitionSettings(), p2.recognitionSettings());
         QCOMPARE(p.viewScale(), p2.viewScale());
         QCOMPARE(p.viewScroll(), p2.viewScroll());
-        QCOMPARE(p.blocks(Page::CHAR).count(), p2.blocks(Page::CHAR).count());
-        QCOMPARE(p.blocks(Page::PICTURE).count(), p2.blocks(Page::PICTURE).count());
+        QCOMPARE(p.blocks(BLOCK_CHAR).count(), p2.blocks(BLOCK_CHAR).count());
+        QCOMPARE(p.blocks(BLOCK_PICTURE).count(), p2.blocks(BLOCK_PICTURE).count());
         QCOMPARE(p.language(), p2.language());
         QCOMPARE(p.cedPage()->imageName(), std::string("CED Image"));
     }
@@ -801,21 +802,21 @@ void TestPage::testRects()
     r.setWorkerType(PageRecognizer::LOCAL);
     QVERIFY(r.recognize());
 
-    QCOMPARE(page.blocksCount(Page::COLUMN), 1);
-    QCOMPARE(page.blocksCount(Page::SECTION), 1);
-    QCOMPARE(page.blocksCount(Page::PICTURE), 0);
-    QCOMPARE(page.blocksCount(Page::LINE), 2);
-    QCOMPARE(page.blocksCount(Page::PARAGRAPH), 2);
-    QCOMPARE(page.blocksCount(Page::CHAR), 7);
+    QCOMPARE(page.blocksCount(BLOCK_COLUMN), 1);
+    QCOMPARE(page.blocksCount(BLOCK_SECTION), 1);
+    QCOMPARE(page.blocksCount(BLOCK_PICTURE), 0);
+    QCOMPARE(page.blocksCount(BLOCK_LINE), 2);
+    QCOMPARE(page.blocksCount(BLOCK_PARAGRAPH), 2);
+    QCOMPARE(page.blocksCount(BLOCK_CHAR), 7);
 
-    QList<QRect> chars = page.blocks(Page::CHAR);
-    QCOMPARE(chars[0], QRect(14, 18, 29, 44));  // E
-    QCOMPARE(chars[1], QRect(52, 18, 34, 44));  // N
-    QCOMPARE(chars[2], QRect(95, 17, 39, 46));  // G
-    QCOMPARE(chars[3], QRect(145, 17, 28, 45)); // L
-    QCOMPARE(chars[4], QRect(179, 18, 6, 44));  // I
-    QCOMPARE(chars[5], QRect(195, 17, 31, 46)); // S
-    QCOMPARE(chars[6], QRect(235, 18, 34, 44)); // H
+    Page::BlockList char_blocks = page.blocks(BLOCK_CHAR);
+    QCOMPARE(char_blocks[0].rect(), QRect(14, 18, 29, 44));  // E
+    QCOMPARE(char_blocks[1].rect(), QRect(52, 18, 34, 44));  // N
+    QCOMPARE(char_blocks[2].rect(), QRect(95, 17, 39, 46));  // G
+    QCOMPARE(char_blocks[3].rect(), QRect(145, 17, 28, 45)); // L
+    QCOMPARE(char_blocks[4].rect(), QRect(179, 18, 6, 44));  // I
+    QCOMPARE(char_blocks[5].rect(), QRect(195, 17, 31, 46)); // S
+    QCOMPARE(char_blocks[6].rect(), QRect(235, 18, 34, 44)); // H
 }
 
 QTEST_MAIN(TestPage)

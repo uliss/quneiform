@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,42 +16,41 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#ifndef BLOCK_H
+#define BLOCK_H
 
-#ifndef PAGELAYOUT_H
-#define PAGELAYOUT_H
+#include <QRect>
 
-#include <QGraphicsItemGroup>
+#include "blocktype.h"
 
-class Page;
+class QDataStream;
 
-class PageLayout : public QGraphicsItemGroup
+class Block
 {
 public:
-    PageLayout();
-    QGraphicsItemGroup * charBlocks();
-    void clear();
-    QGraphicsItemGroup * columnBlocks();
-    QGraphicsItemGroup * lineBlocks();
-    QGraphicsItemGroup * paragraphBlocks();
-    QGraphicsItemGroup * pictureBlocks();
-    void populate(const Page& page);
-    QGraphicsItemGroup * sectionBlocks();
-    QRect mapFromPage(const QRect& r) const;
+    Block();
+    Block(BlockType type, const QRect& rect);
+
+    bool isEditable() const;
+
+    int number() const;
+    void setNumber(int num);
+
+    QRect rect() const;
+    void setRect(const QRect& r);
+
+    BlockType type() const;
+    void setType(BlockType type);
 public:
-    typedef QGraphicsItemGroup * PageLayout::*GroupMember;
+    friend QDataStream& operator<<(QDataStream& stream, const Block& block);
+    friend QDataStream& operator>>(QDataStream& stream, Block& block);
 private:
-    QColor blockColor(int type) const;
-    void clearGroupBlocks(GroupMember ptr);
-    QGraphicsRectItem * createBlock(const QRect& r, const QColor& color);
-    void populateGroup(QGraphicsItemGroup * group, int group_type);
-private:
-    const Page * page_;
-    QGraphicsItemGroup * chars_;
-    QGraphicsItemGroup * columns_;
-    QGraphicsItemGroup * lines_;
-    QGraphicsItemGroup * paragraphs_;
-    QGraphicsItemGroup * pictures_;
-    QGraphicsItemGroup * sections_;
+    QRect rect_;
+    BlockType type_;
+    qint16 number_;
 };
 
-#endif // PAGELAYOUT_H
+QDataStream& operator<<(QDataStream& stream, const Block& block);
+QDataStream& operator>>(QDataStream& stream, Block& block);
+
+#endif // BLOCK_H

@@ -86,7 +86,7 @@ int main(int argc, char **argv)
         return EXIT_FAILURE;
     }
     catch(...) {
-        cfError() << "Unknown exception.";
+        std::cerr << "Unknown exception.";
         return EXIT_FAILURE;
     }
     

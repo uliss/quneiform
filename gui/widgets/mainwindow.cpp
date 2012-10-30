@@ -660,6 +660,13 @@ void MainWindow::savePage(Page * page) {
     }
 }
 
+void MainWindow::segmentPage(Page * page)
+{
+    Q_CHECK_PTR(recognition_queue_);
+    recognition_queue_->add(page);
+    recognition_queue_->startSegmentation();
+}
+
 void MainWindow::selectLanguage(const Language& lang) {
     Q_CHECK_PTR(lang_select_);
     Q_CHECK_PTR(lang_menu_);
@@ -721,6 +728,7 @@ void MainWindow::setupImageView() {
     connect(image_widget_, SIGNAL(scaled()), SLOT(enableZoomActions()));
     connect(image_widget_, SIGNAL(gestureRotateAttempt(int)), SLOT(rotate(int)));
     connect(image_widget_, SIGNAL(recognize(Page*)), SLOT(recognizePage(Page*)));
+    connect(image_widget_, SIGNAL(segment(Page*)), SLOT(segmentPage(Page*)));
 }
 
 void MainWindow::setupLanguageMenu() {

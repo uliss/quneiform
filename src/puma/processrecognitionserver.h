@@ -35,9 +35,12 @@ public:
     ProcessRecognitionServer();
     ~ProcessRecognitionServer();
 
+    void addImageBlock(const Rect& r);
+    void addTextBlock(const Rect& r);
     bool analyze();
     bool binarize();
     CEDPagePtr format();
+    bool manualLayout();
     bool open(const ImageURL& url);
     bool open(ImagePtr img);
     bool recognize();

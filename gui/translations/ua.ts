@@ -308,27 +308,57 @@
 <context>
     <name>ImageView</name>
     <message>
-        <location filename="../widgets/imageview.cpp" line="132"/>
+        <location filename="../widgets/imageview.cpp" line="114"/>
+        <source>Delete recognition area</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/imageview.cpp" line="108"/>
+        <source>Delete text block</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/imageview.cpp" line="111"/>
+        <source>Delete image block</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/imageview.cpp" line="117"/>
+        <source>Delete table block</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/imageview.cpp" line="168"/>
         <source>Recognize</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/imageview.cpp" line="140"/>
-        <source>Select recognize area</source>
+        <location filename="../widgets/imageview.cpp" line="176"/>
+        <source>Select recognition area</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/imageview.cpp" line="147"/>
+        <location filename="../widgets/imageview.cpp" line="181"/>
+        <source>Add text block</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/imageview.cpp" line="186"/>
+        <source>Add image block</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/imageview.cpp" line="194"/>
         <source>Fit to width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/imageview.cpp" line="152"/>
+        <location filename="../widgets/imageview.cpp" line="199"/>
         <source>Fit to page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/imageview.cpp" line="157"/>
+        <location filename="../widgets/imageview.cpp" line="204"/>
         <source>Original size</source>
         <translation type="unfinished"></translation>
     </message>
@@ -336,8 +366,42 @@
 <context>
     <name>ImageWidget</name>
     <message>
-        <location filename="../widgets/imagewidget.cpp" line="82"/>
+        <location filename="../widgets/imagewidget.cpp" line="112"/>
+        <location filename="../widgets/imagewidget.cpp" line="113"/>
         <source>Binarize</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/imagewidget.cpp" line="119"/>
+        <location filename="../widgets/imagewidget.cpp" line="121"/>
+        <source>Select recognition area</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/imagewidget.cpp" line="124"/>
+        <location filename="../widgets/imagewidget.cpp" line="126"/>
+        <source>Add text block</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/imagewidget.cpp" line="129"/>
+        <location filename="../widgets/imagewidget.cpp" line="131"/>
+        <source>Add image block</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/imagewidget.cpp" line="136"/>
+        <source>Show layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/imagewidget.cpp" line="140"/>
+        <source>Analyze</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/imagewidget.cpp" line="142"/>
+        <source>Perform page layout analysis</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -825,17 +889,17 @@ Do you want to save it?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/mainwindow.cpp" line="758"/>
+        <location filename="../widgets/mainwindow.cpp" line="766"/>
         <source>Recent files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/mainwindow.cpp" line="765"/>
+        <location filename="../widgets/mainwindow.cpp" line="773"/>
         <source>Recent packets</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/mainwindow.cpp" line="891"/>
+        <location filename="../widgets/mainwindow.cpp" line="899"/>
         <source>Recognition error</source>
         <translation type="unfinished"></translation>
     </message>
@@ -979,7 +1043,7 @@ Page: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs/recognitionprogressdialog.cpp" line="48"/>
+        <location filename="../dialogs/recognitionprogressdialog.cpp" line="49"/>
         <source>Page recognition: &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>

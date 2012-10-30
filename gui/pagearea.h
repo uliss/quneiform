@@ -20,27 +20,40 @@
 #define PAGEAREA_H
 
 #include <QGraphicsRectItem>
+#include <QObject>
+
+#include "blocktype.h"
 
 class Page;
-class PageLayout;
+class SelectionList;
 
-class PageArea : public QGraphicsRectItem
+class PageArea : public QObject, public QGraphicsRectItem
 {
+    Q_OBJECT
 public:
     PageArea();
+    ~PageArea();
 
     void clear();
-    void hideLayout();
     void show(Page * page);
     QRect showChar(const QRect& bbox);
-    void showLayout();
+
+    bool isBlockVisible(BlockType t) const;
+    void hideBlocks(BlockType t);
+    void showBlocks(BlockType t);
+    void startImageBlockSelection();
+    void startPageAreaSelection();
+    void startTextBlockSelection();
+public slots:
+    void saveSelections();
 private:
     void clearCurrentChar();
-    void clearLayout();
-    void updateLayout(Page * page);
+    void updateLayout();
+    QRect mapFromPage(const QRect& r) const;
 private:
-    PageLayout * layout_;
+    Page * page_;
     QGraphicsRectItem * current_char_bbox_;
+    SelectionList * selections_;
 };
 
 #endif // PAGEAREA_H

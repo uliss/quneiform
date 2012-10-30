@@ -678,7 +678,6 @@ Bool32 OutputFragments(Handle hPage)
         all_polys[i].com.type = TYPE_TEXT;//Текст, Картинка, Таблица;
         //all_polys[i].com.number = ++count;//порядковый номер
         all_polys[i].com.number = p->nNumber;//порядковый номер
-        all_polys[i].com.Color = 0;
         all_polys[i].com.count = 4;
         all_polys[i].com.Vertex[0].rx() = p->Rect.xLeft;
         all_polys[i].com.Vertex[0].ry() = p->Rect.yTop;

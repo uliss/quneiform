@@ -4,6 +4,7 @@ set(CF_WORKER cuneiform-worker)
 
 set(CF_PUMA_SOURCE
     abstractrecognitionserver.cpp
+    layoutblock.cpp
     localrecognitionserver.cpp
     pumaimpl.cpp
     recognitionfactory.cpp

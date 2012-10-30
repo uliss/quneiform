@@ -30,6 +30,9 @@ public:
     LocalRecognitionServer();
     ~LocalRecognitionServer();
 
+    void addImageBlock(const Rect& r);
+    void addTextBlock(const Rect& r);
+
     /**
      * Makes document layout
      * @return true on success
@@ -50,6 +53,11 @@ public:
     CEDPagePtr format();
 
     /**
+     * Makes document manual layout
+     */
+    bool manualLayout();
+
+    /**
      * Opens image
      * @param url - image url
      * @return true on success
@@ -62,6 +70,18 @@ public:
      * @returns true on success
      */
     bool recognize();
+
+    /**
+     * Returns list of iamge blocks after page layout
+     * @see textBlocks()
+     */
+    LayoutBlockList imageBlocks() const;
+
+    /**
+     * Returns array of text blocks after page layout
+     * @see imageBlocks()
+     */
+    LayoutBlockList textBlocks() const;
 private:
     void close();
     void handleExceptionCommon(std::exception& e);

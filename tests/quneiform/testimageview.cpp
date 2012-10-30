@@ -24,9 +24,11 @@
 #include "testimageview.h"
 #include "gui/page.h"
 #include "gui/selection.h"
+
 #define private public
 #include "gui/widgets/imageview.h"
 #include "gui/selectionlist.h"
+#include "gui/pagearea.h"
 
 #ifndef CF_IMAGE_DIR
 #define CF_IMAGE_DIR ""
@@ -53,7 +55,6 @@ TestImageView::TestImageView(QObject *parent) :
 void TestImageView::testConstruct() {
     ImageView iv;
     QVERIFY(iv.area_ == NULL);
-    QVERIFY(iv.selections_ == NULL);
     QVERIFY(iv.page_ == NULL);
     QVERIFY(iv.scene());
     QVERIFY(iv.scene()->items().isEmpty());
@@ -71,7 +72,6 @@ void TestImageView::testClearScene() {
     iv.clearScene();
     QVERIFY(iv.scene()->items().isEmpty());
     QVERIFY(iv.area_ == NULL);
-    QVERIFY(iv.selections_ == NULL);
 }
 
 #define NO_SCALE(page, view) \
@@ -183,8 +183,7 @@ void TestImageView::testShowPage() {
 
     iv.showPage(&p);
     QVERIFY(!iv.sceneRect().isNull());
-    QVERIFY(iv.selections_ != NULL);
-    QCOMPARE(iv.selections_->selectionBoundingRect(), QRect(5, 6, 10, 20));
+    QCOMPARE(iv.area_->selections_->selectionBoundingRect(), QRect(5, 6, 10, 20));
 
     QCOMPARE(iv.verticalScrollBar()->value(), 12);
     QCOMPARE(iv.horizontalScrollBar()->value(), 11);
@@ -226,7 +225,7 @@ void TestImageView::testSelection() {
     iv.showPage(&p);
     wait_events();
 
-#define CHECK_CURSOR(c) QCOMPARE(iv.selections_->selectionAt(0)->cursor().shape(), c);
+#define CHECK_CURSOR(c) QCOMPARE(iv.area_->selections_->selectionAt(0)->cursor().shape(), c);
 
     mouseMove(&iv, QPoint(20, 30));
     CHECK_CURSOR(Qt::SizeFDiagCursor);
@@ -289,4 +288,4 @@ void TestImageView::testMinMaxZoom() {
     QCOMPARE(too_small.count(), 1);
 }
 
-QTEST_MAIN(TestImageView);
+QTEST_MAIN(TestImageView)

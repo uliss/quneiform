@@ -65,7 +65,6 @@ Page::Page(const QString& image_path, bool load) :
     if(load)
         updateImageSize();
 
-    initRects();
     initDocument();
 }
 
@@ -83,7 +82,6 @@ Page::Page(const ImageURL& imageUrl, bool load) :
     if(load)
         updateImageSize();
 
-    initRects();
     initDocument();
 }
 
@@ -98,6 +96,21 @@ void Page::addReadArea(const QRect& r)
     read_areas_.append(r);
 
     setChanged();
+}
+
+void Page::appendTextBlock(const QRect& r)
+{
+    appendBlock(Block(BLOCK_LAYOUT_TEXT, r));
+}
+
+void Page::appendImageBlock(const QRect& r)
+{
+    appendBlock(Block(BLOCK_LAYOUT_IMAGE, r));
+}
+
+bool Page::manualLayout() const
+{
+    return blocksCount(BLOCK_LAYOUT_IMAGE) > 0 || blocksCount(BLOCK_LAYOUT_TEXT) > 0;
 }
 
 void Page::clearReadAreas()
@@ -144,9 +157,21 @@ QRect Page::readBoundingRect() const
 void Page::setReadAreas(const QList<QRect>& rects)
 {
     QMutexLocker lock(&mutex_);
-
     read_areas_ = rects;
+    setChanged();
+}
 
+void Page::setImageBlocks(const BlockList& blocks)
+{
+    QMutexLocker lock(&mutex_);
+    setBlocks(blocks, BLOCK_LAYOUT_IMAGE);
+    setChanged();
+}
+
+void Page::setTextBlocks(const BlockList& blocks)
+{
+    QMutexLocker lock(&mutex_);
+    setBlocks(blocks, BLOCK_LAYOUT_TEXT);
     setChanged();
 }
 
@@ -154,23 +179,25 @@ int Page::angle() const {
     return angle_;
 }
 
-void Page::appendBlock(const QRect& rect, BlockType type) {
-    Q_ASSERT(type < blocks_.size());
-    blocks_[type].append(rect);
+void Page::appendBlock(const Block& block)
+{
+    blocks_[block.type()].append(block);
+    setChanged();
 }
 
-cf::CEDPagePtr Page::cedPage() {
+cf::CEDPagePtr Page::cedPage()
+{
     return cedpage_;
 }
 
-void Page::clearBlocks() {
-    for(int i = 0; i < blocks_.count(); i++)
-        blocks_[i].clear();
+void Page::clearBlocks()
+{
+    blocks_.clear();
 }
 
-void Page::clearBlocks(BlockType type) {
-    Q_ASSERT(type < blocks_.size());
-    blocks_[type].clear();
+void Page::clearBlocks(BlockType type)
+{
+    blocks_.remove(type);
 }
 
 void Page::clearLayout() {
@@ -232,22 +259,6 @@ QSize Page::imageSize() const
         updateImageSize();
 
     return image_size_;
-}
-
-void Page::initRects() {
-    blocks_.clear();
-    // pictures
-    blocks_ << Rectangles();
-    // chars
-    blocks_ << Rectangles();
-    // lines
-    blocks_ << Rectangles();
-    // paragraphs
-    blocks_ << Rectangles();
-    // columns
-    blocks_ << Rectangles();
-    // sections
-    blocks_ << Rectangles();
 }
 
 QTransform Page::fromBackendMatrix() const
@@ -369,15 +380,14 @@ const RecognitionSettings& Page::recognitionSettings() const {
     return rec_settings_;
 }
 
-const Page::Rectangles& Page::blocks(BlockType t) const {
-    Q_ASSERT(t < blocks_.size());
-
-    return blocks_.at(t);
+Page::BlockList Page::blocks(BlockType t) const
+{
+    return blocks_[t];
 }
 
-int Page::blocksCount(BlockType t) const {
-    Q_ASSERT(t < blocks_.size());
-    return blocks_.at(t).count();
+int Page::blocksCount(BlockType t) const
+{
+    return blocks_[t].count();
 }
 
 const BinarizationSettings& Page::binarizationSettings() const
@@ -439,7 +449,22 @@ void Page::setChanged() {
     emit changed();
 }
 
-void Page::setRecognized(bool value) {
+void Page::setAnalyzed(bool value)
+{
+    if(value) {
+        _unsetFlag(ANALYZE_FAILED);
+        _setFlag(ANALYZED);
+        emit analyzed();
+        emit changed();
+    }
+    else {
+        _unsetFlag(ANALYZED);
+        _unsetFlag(ANALYZE_FAILED);
+    }
+}
+
+void Page::setRecognized(bool value)
+{
     if(value) {
         _unsetFlag(RECOGNITION_FAILED);
         _setFlag(RECOGNIZED);
@@ -501,14 +526,9 @@ void Page::setRecognitionSettings(const RecognitionSettings& opts) {
     setChanged();
 }
 
-void Page::setBlocks(const QList<QRect>& rects, BlockType type) {
-    Q_ASSERT(type < blocks_.size());
-
-    clearBlocks(type);
-
-    foreach(QRect r, rects) {
-        blocks_[type].append(r);
-    }
+void Page::setBlocks(const BlockList& blocks, BlockType type)
+{
+    blocks_[type] = blocks;
 }
 
 void Page::setViewScale(float scale) {
@@ -527,20 +547,26 @@ void Page::unsetFlag(PageFlag flag) {
     }
 }
 
-void Page::updateBlocks() {
+void Page::updateBlocks()
+{
     Q_CHECK_PTR(cedpage_);
 
     cf::RectExporter exp(cedpage_);
     exp.collect();
 
     blockSignals(true);
-    clearBlocks();
-    setBlocks(exp.pictures(), PICTURE);
-    setBlocks(exp.chars(), CHAR);
-    setBlocks(exp.lines(), LINE);
-    setBlocks(exp.paragraphs(), PARAGRAPH);
-    setBlocks(exp.columns(), COLUMN);
-    setBlocks(exp.sections(), SECTION);
+    clearBlocks(BLOCK_PICTURE);
+    setBlocks(exp.pictures(), BLOCK_PICTURE);
+    clearBlocks(BLOCK_CHAR);
+    setBlocks(exp.chars(), BLOCK_CHAR);
+    clearBlocks(BLOCK_LINE);
+    setBlocks(exp.lines(), BLOCK_LINE);
+    clearBlocks(BLOCK_PARAGRAPH);
+    setBlocks(exp.paragraphs(), BLOCK_PARAGRAPH);
+    clearBlocks(BLOCK_COLUMN);
+    setBlocks(exp.columns(), BLOCK_COLUMN);
+    clearBlocks(BLOCK_SECTION);
+    setBlocks(exp.sections(), BLOCK_SECTION);
     blockSignals(false);
 }
 

@@ -69,6 +69,16 @@ ProcessRecognitionServer::~ProcessRecognitionServer()
     PUMA_TRACE_FUNC();
 }
 
+void ProcessRecognitionServer::addImageBlock(const Rect& r)
+{
+    PUMA_WARNING_FUNC() << r << "not implemeneted";
+}
+
+void ProcessRecognitionServer::addTextBlock(const Rect& r)
+{
+    PUMA_WARNING_FUNC() << r << "not implemeneted";
+}
+
 bool ProcessRecognitionServer::binarize()
 {
     stateSet(RecognitionState::BINARIZED);
@@ -81,6 +91,11 @@ CEDPagePtr ProcessRecognitionServer::format()
     stateSet(RecognitionState::FORMATTED);
     counterAdd(10);
     return page_;
+}
+
+bool ProcessRecognitionServer::manualLayout()
+{
+    return false;
 }
 
 bool ProcessRecognitionServer::analyze()

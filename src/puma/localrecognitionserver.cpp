@@ -49,6 +49,18 @@ LocalRecognitionServer::~LocalRecognitionServer()
         Puma::instance().close();
 }
 
+void LocalRecognitionServer::addImageBlock(const Rect& r)
+{
+    PUMA_TRACE_FUNC() << r;
+    Puma::instance().addImageBlock(r);
+}
+
+void LocalRecognitionServer::addTextBlock(const Rect& r)
+{
+    PUMA_TRACE_FUNC() << r;
+    Puma::instance().addTextBlock(r);
+}
+
 bool LocalRecognitionServer::binarize()
 {
     PUMA_TRACE_FUNC();
@@ -125,6 +137,21 @@ CEDPagePtr LocalRecognitionServer::format()
     return res;
 }
 
+bool LocalRecognitionServer::manualLayout()
+{
+    PUMA_TRACE_FUNC();
+
+    if(!isBinarized()) {
+        PUMA_ERROR_FUNC() << "image not binarized";
+        return false;
+    }
+
+    Puma::instance().prepare();
+    setTotalState(RecognitionState::ANALYZED);
+    counterAdd(COUNTER_ANALYZE_VALUE);
+    return true;
+}
+
 void LocalRecognitionServer::handleExceptionCommon(std::exception& e)
 {
     PUMA_ERROR_FUNC() << e.what();
@@ -193,6 +220,16 @@ bool LocalRecognitionServer::recognize()
         handleExceptionCommon(e);
         throw RecognitionException(e.what(), UNKNOWN);
     }
+}
+
+LayoutBlockList LocalRecognitionServer::imageBlocks() const
+{
+    return Puma::instance().imageBlocks();
+}
+
+LayoutBlockList LocalRecognitionServer::textBlocks() const
+{
+    return Puma::instance().textBlocks();
 }
 
 void LocalRecognitionServer::setOptions()

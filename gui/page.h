@@ -36,6 +36,8 @@
 #include "recognitionsettings.h"
 #include "imageurl.h"
 #include "language.h"
+#include "blocktype.h"
+#include "block.h"
 
 #include "ced/cedpageptr.h"
 
@@ -52,12 +54,14 @@ public:
     ~Page();
 
     enum PageFlag {
-        NONE = 0,
-        RECOGNIZED = 1,
-        RECOGNITION_FAILED = (1 << 1),
-        EXPORTED = (1 << 2),
-        EXPORT_FAILED = (1 << 3),
-        CHANGED = (1 << 4)
+        NONE               = 0,
+        RECOGNIZED         = 0x1,
+        RECOGNITION_FAILED = 0x2,
+        EXPORTED           = 0x4,
+        EXPORT_FAILED      = 0x8,
+        CHANGED            = 0x10,
+        ANALYZED           = 0x20,
+        ANALYZE_FAILED     = 0x40
     };
 
     Q_DECLARE_FLAGS(PageFlags, PageFlag)
@@ -71,24 +75,18 @@ public:
         }
     };
 
-    typedef QList<QRect> Rectangles;
-    typedef QList<Rectangles> RectList;
-
-    /* do no change values! */
-    enum BlockType {
-        PICTURE = 0,
-        CHAR = 1,
-        LINE = 2,
-        PARAGRAPH = 3,
-        COLUMN = 4,
-        SECTION = 5
-    };
+    typedef QList<Block> BlockList;
 
     /**
       * Adds read area to page
       * @see clearReadAreas()
       */
     void addReadArea(const QRect& r);
+
+    void appendTextBlock(const QRect& r);
+    void appendImageBlock(const QRect& r);
+
+    bool manualLayout() const;
 
     /**
       * Removes all read areas
@@ -120,6 +118,8 @@ public:
       * Sets read areas
       */
     void setReadAreas(const QList<QRect>& rects);
+    void setImageBlocks(const BlockList& blocks);
+    void setTextBlocks(const BlockList& blocks);
 
     /**
       * Returns page rotation angle in degrees
@@ -131,7 +131,7 @@ public:
       * Returns list of blocks rectangles
       * @see setBlocks(), blocksCount()
       */
-    const Rectangles& blocks(BlockType t) const;
+    BlockList blocks(BlockType t) const;
 
     /**
       * Returns number of blocks by given type
@@ -148,6 +148,8 @@ public:
      * Returns pointer to cf::CEDPage
      */
     cf::CEDPagePtr cedPage();
+
+    void clearBlocks(BlockType type);
 
     /**
       * Clears page blocks and area
@@ -359,6 +361,7 @@ public:
     bool isBinarized() const;
     void setBinarizedImage(const QImage& image);
 signals:
+    void analyzed();
     void binarized();
 
     /**
@@ -403,16 +406,15 @@ private:
     void _setFlag(PageFlag flag) { state_flags_ |= flag; }
     void _unsetFlag(PageFlag flag) { state_flags_ &= (~flag); }
 
-    void appendBlock(const QRect& rect, BlockType type);
+    void appendBlock(const Block& block);
     void clearBlocks();
-    void clearBlocks(BlockType type);
     void initDocument();
-    void initRects();
     QTransform fromBackendMatrix() const;
     QTransform toBackendMatrix() const;
-    void setBlocks(const Rectangles& rects, BlockType type);
+    void setBlocks(const BlockList& blocks, BlockType type);
     void setCEDPage(cf::CEDPagePtr page);
     void setChanged();
+    void setAnalyzed(bool value = true);
     void setRecognized(bool value = true);
     void updateBlocks();
     void updateImageSize() const;
@@ -426,7 +428,7 @@ private:
     mutable bool is_null_;
     mutable QMutex mutex_;
     RecognitionSettings rec_settings_;
-    RectList blocks_;
+    QMap<int, BlockList> blocks_;
     QTextDocument * doc_;
     FormatSettings format_settings_;
     Language language_;

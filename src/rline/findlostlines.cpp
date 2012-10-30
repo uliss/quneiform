@@ -525,7 +525,7 @@ Bool32 getLostLines(const FLLData *work_data, const LineData* aCPLines,
 			}
 
 			if (bshowcp) {
-				Rect16 rect_cp;
+                ::Rect16 rect_cp;
 
 				rect_cp.top = aCP[cp].y() - 3;
 				rect_cp.bottom = aCP[cp].y() + 3;
@@ -802,7 +802,7 @@ Bool32 extractLines(const FLLData *work_data, Point *aCP, const int32_t nCP,
 
 					if (bShowCR) {
 						Rect32 r;
-						Rect16 dr;
+                        ::Rect16 dr;
 
 						getLineIdealStrictRectangular(&aInterval[i].term, &r,
 								!is_horiz, 0);

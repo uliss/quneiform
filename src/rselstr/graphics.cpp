@@ -105,7 +105,7 @@ void _setcolor(int color) {
 }
 
 void _rectangle(int t, int left, int top, int right, int bottom) {
-	Rect16 rect = { left, top, right, bottom };
+    ::Rect16 rect = { left, top, right, bottom };
 	switch (t) {
 	case _GFILLINTERIOR:
 		LDPUMA_DrawRect(NULL, &rect, 0, swColor, 0, PUMA_MODULE_RBLOCK);
