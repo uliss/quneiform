@@ -74,7 +74,6 @@ private:
     friend class Selection;
 private:
     void addLayoutBlock(const Block& block, const Page * page);
-    void addLayoutBlock(BlockType t, const QRect& bbox);
     void handleSelectionDelete(Selection * s);
 
     Selection * makeSelection(const QRectF &r);

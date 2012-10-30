@@ -215,13 +215,6 @@ void SelectionList::addLayoutBlock(const Block& block, const Page * page)
     selections_.append(s);
 }
 
-void SelectionList::addLayoutBlock(BlockType t, const QRect& bbox)
-{
-    Selection * s = new Selection(this, bbox);
-    s->setSelectionType(t);
-    selections_.append(s);
-}
-
 void SelectionList::addSelection(const QRectF& r)
 {
     foreach(Selection * s, selections_) {
