@@ -202,7 +202,9 @@ include(${QT_USE_FILE})
 qt4_add_resources(QRC_SOURCES ${RESOURCES})
 qt4_wrap_cpp(MOC_SOURCES ${HEADERS})
 qt4_wrap_ui(UI_HEADERS ${FORMS})
-qt4_create_translation(TRANSLATIONS_QM ${HEADERS} ${SOURCES} ${UI_HEADERS} ${FORMS} ${TRANSLATIONS_TS})
+qt4_create_translation(TRANSLATIONS_QM ${HEADERS} ${SOURCES} ${UI_HEADERS} ${FORMS}
+    ${TRANSLATIONS_TS}
+    OPTIONS -locations none)
 
 source_group("Header Files" FILES ${HEADERS})
 source_group("Source Files" FILES ${SOURCES})
