@@ -32,6 +32,8 @@ public:
     Block(BlockType type, const QRect& rect);
 
     bool isEditable() const;
+    bool isUser() const;
+    void setUser(bool value);
 
     int number() const;
     void setNumber(int num);
@@ -48,6 +50,7 @@ private:
     QRect rect_;
     BlockType type_;
     qint16 number_;
+    quint16 is_user_;
 };
 
 QDataStream& operator<<(QDataStream& stream, const Block& block);

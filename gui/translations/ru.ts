@@ -309,7 +309,7 @@
     </message>
     <message>
         <source>Show layout</source>
-        <translation>Показать макет страницы</translation>
+        <translation type="obsolete">Показать макет страницы</translation>
     </message>
     <message>
         <source>Analyze</source>

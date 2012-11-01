@@ -21,14 +21,17 @@
 #include "block.h"
 
 Block::Block() :
-    type_(BLOCK_CHAR)
+    type_(BLOCK_CHAR),
+    number_(0),
+    is_user_(0)
 {
 }
 
 Block::Block(BlockType type, const QRect& rect) :
     rect_(rect),
     type_(type),
-    number_(0)
+    number_(0),
+    is_user_(0)
 {
 }
 
@@ -45,6 +48,16 @@ bool Block::isEditable() const
     default:
         return true;
     }
+}
+
+bool Block::isUser() const
+{
+    return is_user_ == 1;
+}
+
+void Block::setUser(bool value)
+{
+    is_user_ = value ? 1 : 0;
 }
 
 int Block::number() const

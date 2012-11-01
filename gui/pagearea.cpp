@@ -142,7 +142,6 @@ void PageArea::updateLayout()
     if(!selections_) {
         selections_ = new SelectionList(this);
         connect(selections_, SIGNAL(changed()), SLOT(saveSelections()));
-        scene()->addItem(selections_);
     }
 
     selections_->blockSignals(true);

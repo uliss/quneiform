@@ -418,6 +418,7 @@ private:
     void setRecognized(bool value = true);
     void updateBlocks();
     void updateImageSize() const;
+    int userBlocksCount(BlockType type) const;
 private:
     ImageURL image_url_;
     mutable QSize image_size_;

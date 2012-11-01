@@ -300,10 +300,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Show layout</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Analyze</source>
         <translation type="unfinished"></translation>
     </message>

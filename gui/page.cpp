@@ -110,7 +110,7 @@ void Page::appendImageBlock(const QRect& r)
 
 bool Page::manualLayout() const
 {
-    return blocksCount(BLOCK_LAYOUT_IMAGE) > 0 || blocksCount(BLOCK_LAYOUT_TEXT) > 0;
+    return userBlocksCount(BLOCK_LAYOUT_IMAGE) > 0 || userBlocksCount(BLOCK_LAYOUT_TEXT) > 0;
 }
 
 void Page::clearReadAreas()
@@ -165,6 +165,14 @@ void Page::setImageBlocks(const BlockList& blocks)
 {
     QMutexLocker lock(&mutex_);
     setBlocks(blocks, BLOCK_LAYOUT_IMAGE);
+
+    for(BlockList::iterator it = blocks_[BLOCK_LAYOUT_IMAGE].begin(), end = blocks_[BLOCK_LAYOUT_IMAGE].end();
+        it != end;
+        ++it)
+    {
+        it->setUser(true);
+    }
+
     setChanged();
 }
 
@@ -172,6 +180,14 @@ void Page::setTextBlocks(const BlockList& blocks)
 {
     QMutexLocker lock(&mutex_);
     setBlocks(blocks, BLOCK_LAYOUT_TEXT);
+
+    for(BlockList::iterator it = blocks_[BLOCK_LAYOUT_TEXT].begin(), end = blocks_[BLOCK_LAYOUT_TEXT].end();
+        it != end;
+        ++it)
+    {
+        it->setUser(true);
+    }
+
     setChanged();
 }
 
@@ -581,6 +597,16 @@ void Page::updateImageSize() const
         is_null_ = true;
         image_size_ = QSize();
     }
+}
+
+int Page::userBlocksCount(BlockType type) const
+{
+    int res = 0;
+    foreach(Block b, blocks_[type]) {
+        if(b.isUser())
+            res++;
+    }
+    return res;
 }
 
 void Page::updateTextDocument() {

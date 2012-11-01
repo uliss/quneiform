@@ -133,9 +133,9 @@ void ImageWidget::setupToolBar()
 
     toolbar_->addSeparator();
 
-    act_toggle_layout_ = toolbar_->addAction(tr("Show layout"));
-    connect(act_toggle_layout_, SIGNAL(triggered()), SLOT(toggleLayoutBlocks()));
-    act_toggle_layout_->setCheckable(true);
+//    act_toggle_layout_ = toolbar_->addAction(tr("Show layout"));
+//    connect(act_toggle_layout_, SIGNAL(triggered()), SLOT(toggleLayoutBlocks()));
+//    act_toggle_layout_->setCheckable(true);
 
     act_segment_ = toolbar_->addAction(tr("Analyze"));
     act_segment_->setDisabled(true);
@@ -240,5 +240,5 @@ void ImageWidget::updateActions()
     act_add_area_->setEnabled(has_page);
     act_segment_->setEnabled(has_page);
 
-    act_toggle_layout_->setChecked(view_->isLayoutBlockVisible(BLOCK_LAYOUT_TEXT));
+//    act_toggle_layout_->setChecked(view_->isLayoutBlockVisible(BLOCK_LAYOUT_TEXT));
 }
