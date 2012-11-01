@@ -48,7 +48,7 @@ SelectionList::SelectionList(QGraphicsItem * parent) :
     rubber_band_(NULL),
     type_(SELECT_NONE),
     mode_(MODE_NONE),
-    turned_(false)
+    page_(NULL)
 {
     setActive(true);
     setPen(QPen(Qt::NoPen));
@@ -62,23 +62,25 @@ void SelectionList::populateFromPage(const Page * p)
         return;
     }
 
-    populateChars(p);
-    populateLines(p);
-    populateParagraphs(p);
-    populateColumns(p);
-    populateSections(p);
-    populatePictures(p);
+    page_ = p;
 
-    foreach(Block block, p->blocks(BLOCK_LAYOUT_TEXT)) {
-        addLayoutBlock(block, p);
+    populateChars();
+    populateLines();
+    populateParagraphs();
+    populateColumns();
+    populateSections();
+    populatePictures();
+
+    foreach(Block block, page_->blocks(BLOCK_LAYOUT_TEXT)) {
+        addLayoutBlock(block);
     }
 
-    foreach(Block block, p->blocks(BLOCK_LAYOUT_IMAGE)) {
-        addLayoutBlock(block, p);
+    foreach(Block block, page_->blocks(BLOCK_LAYOUT_IMAGE)) {
+        addLayoutBlock(block);
     }
 
-    foreach(Block block, p->blocks(BLOCK_LAYOUT_TABLE)) {
-        addLayoutBlock(block, p);
+    foreach(Block block, page_->blocks(BLOCK_LAYOUT_TABLE)) {
+        addLayoutBlock(block);
     }
 }
 
@@ -208,9 +210,12 @@ void SelectionList::mouseReleaseEvent(QGraphicsSceneMouseEvent * event)
     }
 }
 
-void SelectionList::addLayoutBlock(const Block& block, const Page * page)
+void SelectionList::addLayoutBlock(const Block& block)
 {
-    Selection * s = new Selection(this, page->mapFromBackend(block.rect()));
+    if(!page_)
+        return;
+
+    Selection * s = new Selection(this, page_->mapFromBackend(block.rect()));
     s->setSelectionType(block.type());
     selections_.append(s);
 }
@@ -241,12 +246,10 @@ void SelectionList::clearSelections()
 
 bool SelectionList::isTurned() const
 {
-    return turned_;
-}
+    if(!page_)
+        return false;
 
-void SelectionList::setTurned(bool value)
-{
-    turned_ = value;
+    return page_->angle() % 180 != 0;
 }
 
 void SelectionList::set(SelectionList::selection_t type, SelectionList::selection_mode_t mode)
@@ -408,81 +411,81 @@ void SelectionList::removeRubberBand()
     }
 }
 
-void SelectionList::populateChars(const Page * page)
+void SelectionList::populateChars()
 {
-    if(!page)
+    if(!page_)
         return;
 
     if(!QSettings().value(KEY_DEBUG_CHARACTERS_BBOX, false).toBool())
         return;
 
-    foreach(Block block, page->blocks(BLOCK_CHAR)) {
-        addLayoutBlock(block, page);
+    foreach(Block block, page_->blocks(BLOCK_CHAR)) {
+        addLayoutBlock(block);
     }
 }
 
-void SelectionList::populateLines(const Page * page)
+void SelectionList::populateLines()
 {
-    if(!page)
+    if(!page_)
         return;
 
     if(!QSettings().value(KEY_DEBUG_LINES_BBOX, false).toBool())
         return;
 
-    foreach(Block block, page->blocks(BLOCK_LINE)) {
-        addLayoutBlock(block, page);
+    foreach(Block block, page_->blocks(BLOCK_LINE)) {
+        addLayoutBlock(block);
     }
 }
 
-void SelectionList::populateParagraphs(const Page * page)
+void SelectionList::populateParagraphs()
 {
-    if(!page)
+    if(!page_)
         return;
 
     if(!QSettings().value(KEY_DEBUG_PARAGRAPHS_BBOX, false).toBool())
         return;
 
-    foreach(Block block, page->blocks(BLOCK_PARAGRAPH)) {
-        addLayoutBlock(block, page);
+    foreach(Block block, page_->blocks(BLOCK_PARAGRAPH)) {
+        addLayoutBlock(block);
     }
 }
 
-void SelectionList::populateColumns(const Page * page)
+void SelectionList::populateColumns()
 {
-    if(!page)
+    if(!page_)
         return;
 
     if(!QSettings().value(KEY_DEBUG_COLUMNS_BBOX, false).toBool())
         return;
 
-    foreach(Block block, page->blocks(BLOCK_COLUMN)) {
-        addLayoutBlock(block, page);
+    foreach(Block block, page_->blocks(BLOCK_COLUMN)) {
+        addLayoutBlock(block);
     }
 }
 
-void SelectionList::populateSections(const Page * page)
+void SelectionList::populateSections()
 {
-    if(!page)
+    if(!page_)
         return;
 
     if(!QSettings().value(KEY_DEBUG_SECTIONS_BBOX, false).toBool())
         return;
 
-    foreach(Block block, page->blocks(BLOCK_SECTION)) {
-        addLayoutBlock(block, page);
+    foreach(Block block, page_->blocks(BLOCK_SECTION)) {
+        addLayoutBlock(block);
     }
 }
 
-void SelectionList::populatePictures(const Page * page)
+void SelectionList::populatePictures()
 {
-    if(!page)
+    if(!page_)
         return;
 
     if(!QSettings().value(KEY_DEBUG_PICTURES_BBOX, false).toBool())
         return;
 
-    foreach(Block block, page->blocks(BLOCK_PICTURE)) {
-        addLayoutBlock(block, page);
+    foreach(Block block, page_->blocks(BLOCK_PICTURE)) {
+        addLayoutBlock(block);
     }
 }
 

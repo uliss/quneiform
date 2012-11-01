@@ -58,7 +58,6 @@ void PageArea::saveSelections()
         return;
     }
 
-    selections_->setTurned(transform().isRotating());
     page_->setReadAreas(selections_->readAreas());
     page_->setImageBlocks(selections_->imageBlocks());
     page_->setTextBlocks(selections_->textBlocks());
@@ -148,7 +147,6 @@ void PageArea::updateLayout()
     selections_->clearSelections();
     selections_->setRect(scene()->sceneRect());
     selections_->setZValue(10);
-    selections_->setTurned(transform().isRotating());
     selections_->populateFromPage(page_);
 
     foreach(QRect r, page_->readAreas()) {
