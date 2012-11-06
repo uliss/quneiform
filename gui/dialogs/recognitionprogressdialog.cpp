@@ -39,7 +39,7 @@ void RecognitionProgressDialog::connectToQueue(PageRecognitionQueue * queue)
         return;
 
     connect(queue, SIGNAL(started()), SLOT(show()));
-    connect(queue, SIGNAL(done()), SLOT(close()));
+    connect(queue, SIGNAL(finished(int)), SLOT(close()));
     connect(queue, SIGNAL(percentDone(int)), SLOT(setValue(int)));
     connect(queue, SIGNAL(pageStarted(QString)), SLOT(setCurrentPage(QString)));
     connect(this, SIGNAL(canceled()), queue, SLOT(abort()));
