@@ -26,6 +26,8 @@
 #include "selectionlist.h"
 #include "settingskeys.h"
 
+static const int SELECTION_ZVALUE = 10;
+
 PageArea::PageArea() :
     page_(NULL),
     current_char_bbox_(NULL),
@@ -44,6 +46,32 @@ void PageArea::clear()
 void PageArea::clearCurrentChar() {
     delete current_char_bbox_;
     current_char_bbox_ = NULL;
+}
+
+void PageArea::fillSelections()
+{
+    selections_->blockSignals(true);
+    selections_->populateFromPage(page_);
+
+    foreach(QRect r, page_->readAreas()) {
+        selections_->addSelection(r);
+    }
+
+    selections_->blockSignals(false);
+}
+
+void PageArea::resetSelections()
+{
+    if(!selections_) {
+        selections_ = new SelectionList(this);
+        connect(selections_, SIGNAL(changed()), SLOT(saveSelections()));
+    }
+
+    selections_->blockSignals(true);
+    selections_->clearSelections();
+    selections_->setRect(scene()->sceneRect());
+    selections_->setZValue(SELECTION_ZVALUE);
+    selections_->blockSignals(false);
 }
 
 void PageArea::saveSelections()
@@ -115,20 +143,26 @@ void PageArea::showBlocks(BlockType t)
 
 void PageArea::startImageBlockSelection()
 {
-    if(selections_)
-        selections_->set(SelectionList::SELECT_IMAGE, SelectionList::MODE_ADD);
+    if(!selections_)
+        resetSelections();
+
+    selections_->set(SelectionList::SELECT_IMAGE, SelectionList::MODE_ADD);
 }
 
 void PageArea::startPageAreaSelection()
 {
-    if(selections_)
-        selections_->set(SelectionList::SELECT_AREA, SelectionList::MODE_REPLACE);
+    if(!selections_)
+        resetSelections();
+
+    selections_->set(SelectionList::SELECT_AREA, SelectionList::MODE_REPLACE);
 }
 
 void PageArea::startTextBlockSelection()
 {
-    if(selections_)
-        selections_->set(SelectionList::SELECT_TEXT, SelectionList::MODE_ADD);
+    if(!selections_)
+        resetSelections();
+
+    selections_->set(SelectionList::SELECT_TEXT, SelectionList::MODE_ADD);
 }
 
 void PageArea::updateLayout()
@@ -138,22 +172,8 @@ void PageArea::updateLayout()
         return;
     }
 
-    if(!selections_) {
-        selections_ = new SelectionList(this);
-        connect(selections_, SIGNAL(changed()), SLOT(saveSelections()));
-    }
-
-    selections_->blockSignals(true);
-    selections_->clearSelections();
-    selections_->setRect(scene()->sceneRect());
-    selections_->setZValue(10);
-    selections_->populateFromPage(page_);
-
-    foreach(QRect r, page_->readAreas()) {
-        selections_->addSelection(r);
-    }
-
-    selections_->blockSignals(false);
+    resetSelections();
+    fillSelections();
 }
 
 QRect PageArea::mapFromPage(const QRect& r) const

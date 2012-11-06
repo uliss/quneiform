@@ -48,6 +48,8 @@ public slots:
     void saveSelections();
 private:
     void clearCurrentChar();
+    void fillSelections();
+    void resetSelections();
     void updateLayout();
     QRect mapFromPage(const QRect& r) const;
 private:

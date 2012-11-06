@@ -119,20 +119,28 @@ void ImageView::appendBlockContextMenu(const QPoint& pos)
     context_menu_->addSeparator();
 }
 
-void ImageView::clearPageLayout()
+void ImageView::clearPageArea()
 {
+    if(scene())
+        scene()->removeItem(area_);
+
     delete area_;
     area_ = NULL;
+    area_ = new PageArea;
+
+    if(scene())
+        scene()->addItem(area_);
 }
 
-void ImageView::clearScene() {
+void ImageView::clearScene()
+{
     if(!scene()) {
         qDebug() << Q_FUNC_INFO << "no scene";
         return;
     }
 
-    clearPageLayout();
     scene()->clear();
+    area_ = NULL;
     pixmap_ = NULL;
     scene()->setSceneRect(QRect());
 }
@@ -146,7 +154,7 @@ void ImageView::connectPageSignals(Page * page)
     connect(page, SIGNAL(recognized()), SLOT(updatePageArea()));
     connect(page, SIGNAL(analyzed()), SLOT(updatePageArea()));
     connect(page, SIGNAL(destroyed()), SLOT(deletePage()));
-    connect(page, SIGNAL(layoutCleared()), SLOT(clearPageLayout()));
+    connect(page, SIGNAL(layoutCleared()), SLOT(clearPageArea()));
 }
 
 void ImageView::contextMenuEvent(QContextMenuEvent * event)
@@ -227,7 +235,7 @@ void ImageView::disconnectPageSignals(Page * page) {
     disconnect(page, SIGNAL(viewScaled()), this, SLOT(updatePageView()));
     disconnect(page, SIGNAL(rotated(int)), this, SLOT(updatePageView()));
     disconnect(page, SIGNAL(destroyed()), this, SLOT(deletePage()));
-    disconnect(page, SIGNAL(layoutCleared()), this, SLOT(clearPageLayout()));
+    disconnect(page, SIGNAL(layoutCleared()), this, SLOT(clearPageArea()));
 } 
 
 bool ImageView::event(QEvent * event) {
@@ -401,6 +409,8 @@ void ImageView::startTextBlockSelection()
 {
     if(area_)
         area_->startTextBlockSelection();
+    else
+        qDebug() << Q_FUNC_INFO << "NULL area";
 }
 
 void ImageView::startImageBlockSelection()
@@ -530,11 +540,17 @@ void ImageView::showPageBinarized()
     pixmap_->setPixmap(QPixmap::fromImage(page_->binarizedImage()));
 }
 
-void ImageView::updatePageArea() {
-    Q_CHECK_PTR(scene());
-
-    if(!page_)
+void ImageView::updatePageArea()
+{
+    if(!scene()) {
+        qWarning() << Q_FUNC_INFO << "no scene";
         return;
+    }
+
+    if(!page_) {
+        qWarning() << Q_FUNC_INFO << "NULL page";
+        return;
+    }
 
     if(!area_)
         area_ = new PageArea();

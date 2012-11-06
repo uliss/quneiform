@@ -166,7 +166,7 @@ protected:
     void pinchTriggered(QPinchGesture * gesture);
     void wheelEvent(QWheelEvent * event);
 private slots:
-    void clearPageLayout();
+    void clearPageArea();
     void deletePage();
     void handleRecognizeRequest();
     void removeLayoutBlock();
