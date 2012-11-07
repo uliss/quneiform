@@ -233,6 +233,34 @@
         <source>Restart application to apply icon theme settings.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Autosave:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Autosave interval:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1 min</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>3 min</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>5 min</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>10 min</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>20 min</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ImageView</name>

@@ -38,5 +38,7 @@ extern const char * KEY_DEBUG_PICTURES_BBOX;
 extern const char * KEY_LAST_OPEN_DIRECTORY;
 extern const char * KEY_RECENT_FILES;
 extern const char * KEY_RECENT_PACKETS;
+extern const char * KEY_AUTOSAVE;
+extern const char * KEY_AUTOSAVE_INTERVAL;
 
 #endif // SETTINGSKEYS_H

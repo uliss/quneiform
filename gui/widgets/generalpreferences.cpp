@@ -27,6 +27,8 @@
 #include <QDesktopServices>
 #include <QIcon>
 #include <QMessageBox>
+#include <QCheckBox>
+#include <QComboBox>
 
 #include "generalpreferences.h"
 #include "iconutils.h"
@@ -43,6 +45,28 @@ GeneralPreferences::GeneralPreferences(QWidget * parent) :
     setupLayout();
     setupExternalEditor();
     setupIconTheme();
+    setupAutosave();
+}
+
+void GeneralPreferences::setupAutosave()
+{
+    QCheckBox * autosave = new QCheckBox(this);
+    connectControl(autosave, SIGNAL(toggled(bool)), standartCallbacks(KEY_AUTOSAVE));
+
+    QComboBox * autosave_interval = new QComboBox(this);
+    autosave_interval->setEnabled(autosave->isChecked());
+    autosave_interval->addItem(tr("1 min"), 60);
+    autosave_interval->addItem(tr("3 min"), 60 * 3);
+    autosave_interval->addItem(tr("5 min"), 60 * 5);
+    autosave_interval->addItem(tr("10 min"), 60 * 10);
+    autosave_interval->addItem(tr("20 min"), 60 * 20);
+
+    layout_->addRow(tr("Autosave:"), autosave);
+    layout_->addRow(tr("Autosave interval:"), autosave_interval);
+
+    Callbacks autosave_int_cb(&loadAutosaveInterval, &saveAutosaveInterval);
+    connectControl(autosave_interval, SIGNAL(activated(int)), autosave_int_cb);
+    connect(autosave, SIGNAL(toggled(bool)), autosave_interval, SLOT(setEnabled(bool)));
 }
 
 void GeneralPreferences::setupExternalEditor()
@@ -164,4 +188,35 @@ bool GeneralPreferences::saveIconTheme(QWidget * w, const QVariant &data)
     }
 
     return  true;
+}
+
+bool GeneralPreferences::loadAutosaveInterval(QWidget * w, const QVariant& data)
+{
+    Q_UNUSED(data);
+
+    QComboBox * cb = qobject_cast<QComboBox*>(w);
+    if(!cb)
+        return false;
+
+    int current_idx = cb->findData(QSettings().value(KEY_AUTOSAVE_INTERVAL, 60 * 10).toInt());
+    if(current_idx >= 0)
+        cb->setCurrentIndex(current_idx);
+
+    return true;
+}
+
+bool GeneralPreferences::saveAutosaveInterval(QWidget * w, const QVariant& data)
+{
+    Q_UNUSED(data);
+
+    QComboBox * cb = qobject_cast<QComboBox*>(w);
+    if(!cb)
+        return false;
+
+    int idx = cb->currentIndex();
+    if(idx < 0)
+        return false;
+
+    QSettings().setValue(KEY_AUTOSAVE_INTERVAL, cb->itemData(idx).toInt());
+    return true;
 }

@@ -233,6 +233,34 @@
         <source>Theme changed</source>
         <translation>Тема изменена</translation>
     </message>
+    <message>
+        <source>Autosave:</source>
+        <translation>Автосохранение:</translation>
+    </message>
+    <message>
+        <source>Autosave interval:</source>
+        <translation>Сохранять каждые:</translation>
+    </message>
+    <message>
+        <source>1 min</source>
+        <translation>1 мин</translation>
+    </message>
+    <message>
+        <source>3 min</source>
+        <translation>3 мин</translation>
+    </message>
+    <message>
+        <source>5 min</source>
+        <translation>5 мин</translation>
+    </message>
+    <message>
+        <source>10 min</source>
+        <translation>10 мин</translation>
+    </message>
+    <message>
+        <source>20 min</source>
+        <translation>20 мин</translation>
+    </message>
 </context>
 <context>
     <name>ImageView</name>

@@ -29,6 +29,7 @@
 #include <QImageReader>
 #include <QUrl>
 #include <QDesktopServices>
+#include <QTimer>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -64,6 +65,7 @@ static const int VERSION_MAJOR = 0;
 static const int VERSION_MINOR = 0;
 static const int VERSION_PATCH = 1;
 static const int MAX_RECENT_FILES = 5;
+static const int AUTOSAVE_INTERVAL = 5;
 
 MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent),
@@ -71,7 +73,8 @@ MainWindow::MainWindow(QWidget *parent) :
         packet_(new Packet(this)),
         progress_(new OpenProgressDialog(this)),
         image_widget_(NULL),
-        view_splitter_(NULL)
+        view_splitter_(NULL),
+        autosave_timer_(NULL)
 {
     setupUi();
     setupPacket();
@@ -82,6 +85,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setupRecent();
     setupViewSplit();
     readSettings();
+    setupAutosaveTimer();
 
     utils::addFullScreenWidget(this);
 }
@@ -93,6 +97,17 @@ MainWindow::~MainWindow() {
 void MainWindow::about() {
     AboutDialog about;
     about.exec();
+}
+
+void MainWindow::autosavePacket()
+{
+    Q_CHECK_PTR(packet_);
+
+    // autosave not for new packets
+    if(packet_->isNew() || packet_->fileName().isEmpty())
+        return;
+
+    savePacket(packet_->fileName());
 }
 
 void MainWindow::addRecentMenu(QMenu * menu) {
@@ -181,7 +196,7 @@ void MainWindow::connectActions() {
     connect(ui_->actionRotateRight, SIGNAL(triggered()), SLOT(rotateRight()));
     connect(ui_->actionOpenPacket, SIGNAL(triggered()), SLOT(openPacketDialog()));
     connect(ui_->actionSavePacket, SIGNAL(triggered()), SLOT(savePacket()));
-    connect(ui_->actionPreferences, SIGNAL(triggered()), SLOT(showSettings()));
+    connect(ui_->actionPreferences, SIGNAL(triggered()), SLOT(showPreferences()));
     connect(ui_->actionRecognitionSettings, SIGNAL(triggered()), SLOT(recognitionSettings()));
     connect(ui_->actionScan, SIGNAL(triggered()), SLOT(showScanDialog()));
     connect(ui_->actionViewThumbnails, SIGNAL(triggered()), SLOT(showViewThumbnails()));
@@ -809,6 +824,15 @@ void MainWindow::setupTextView() {
     connect(text_view_, SIGNAL(charSelected(QRect)), image_widget_, SLOT(showChar(QRect)));
 }
 
+void MainWindow::setupAutosaveTimer()
+{
+    autosave_timer_ = new QTimer(this);
+    autosave_timer_->setSingleShot(false);
+    connect(autosave_timer_, SIGNAL(timeout()), SLOT(autosavePacket()));
+
+    updateAutosaveTimer();
+}
+
 void MainWindow::setupThumbs() {
     thumbs_ = new ThumbnailList(this);
     thumbs_->setPacket(packet_);
@@ -877,6 +901,31 @@ QStringList MainWindow::supportedImagesFilter() const
     return res;
 }
 
+void MainWindow::updateAutosaveTimer()
+{
+    if(!autosave_timer_) {
+        qWarning() << Q_FUNC_INFO << "NULL autosave timer";
+        return;
+    }
+
+    int interval = QSettings().value(KEY_AUTOSAVE_INTERVAL, AUTOSAVE_INTERVAL).toInt();
+    if(interval <= 0)
+        interval = AUTOSAVE_INTERVAL;
+
+    autosave_timer_->stop();
+    autosave_timer_->setInterval(interval  * 1000); // in milliseconds
+
+    if(QSettings().value(KEY_AUTOSAVE).toBool()) {
+        qDebug() << Q_FUNC_INFO << "autosave timer:" << interval << "seconds";
+        autosave_timer_->start();
+    }
+}
+
+void MainWindow::updatePreferences()
+{
+    updateAutosaveTimer();
+}
+
 void MainWindow::showPageImage(Page * page) {
     Q_CHECK_PTR(page);
 
@@ -899,11 +948,13 @@ void MainWindow::showPageFault(Page * page) {
     QMessageBox::critical(this, tr("Recognition error"), msg);
 }
 
-void MainWindow::showSettings()
+void MainWindow::showPreferences()
 {
     AbstractPreferencesDialog * prefs = PreferencesDialogFactory::make();
     prefs->exec();
     delete prefs;
+
+    updatePreferences();
 }
 
 void MainWindow::showScanDialog()
