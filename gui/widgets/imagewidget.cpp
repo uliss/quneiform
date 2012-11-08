@@ -202,7 +202,8 @@ QSize ImageWidget::sizeHint () const {
     return QSize(800, 600);
 }
 
-void ImageWidget::updateFormatLayout() {
+void ImageWidget::updateFormatLayout()
+{
     Q_CHECK_PTR(view_);
 
     view_->updatePageArea();

@@ -140,6 +140,7 @@ private:
     void setupUiLayout();
     QStringList supportedImagesFilter() const;
     void updateAutosaveTimer();
+    void updateLayoutVisibility();
     void updatePreferences();
     void writeSettings();
 protected:

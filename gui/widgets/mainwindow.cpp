@@ -921,9 +921,18 @@ void MainWindow::updateAutosaveTimer()
     }
 }
 
+void MainWindow::updateLayoutVisibility()
+{
+    if(!image_widget_)
+        return;
+
+    image_widget_->updateSettings();
+}
+
 void MainWindow::updatePreferences()
 {
     updateAutosaveTimer();
+    updateLayoutVisibility();
 }
 
 void MainWindow::showPageImage(Page * page) {
