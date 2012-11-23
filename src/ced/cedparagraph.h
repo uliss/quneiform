@@ -47,6 +47,11 @@ class CLA_EXPO CEDParagraph: public BlockElement
         align_t align() const;
 
         /**
+         * Returns pointer to deep paragraph copy
+         */
+        CEDParagraph * clone() const;
+
+        /**
          * Call appropriate exporter function
          */
         void exportElement(CEDExporter& exp);
@@ -109,6 +114,8 @@ class CLA_EXPO CEDParagraph: public BlockElement
          * Sets user number at the stage of fragmentation
          */
         void setUserNumber(int value);
+    public:
+        CEDParagraph(const CEDParagraph& par);
     private:
 #ifdef CF_SERIALIZE
         friend class boost::serialization::access;

@@ -40,6 +40,11 @@ class CLA_EXPO CEDPage: public BlockElement
          */
         void addSection(CEDSection * sect);
 
+        /**
+         * Returns pointer to deep page copy
+         */
+        CEDPage * clone() const;
+
         void exportElement(CEDExporter& exp);
 
         /**
@@ -155,6 +160,8 @@ class CLA_EXPO CEDPage: public BlockElement
          * @see setTurn()
          */
         int turn() const;
+    protected:
+        CEDPage(const CEDPage& page);
     private:
 #ifdef CF_SERIALIZE
         friend class boost::serialization::access;

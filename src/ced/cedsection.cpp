@@ -30,9 +30,24 @@ namespace cf
 {
 
 CEDSection::CEDSection() :
-    header_y_(0), footer_y_(0), line_between_columns_(false), section_break_(false),
-            orientation_(0) {
-}
+    header_y_(0),
+    footer_y_(0),
+    line_between_columns_(false),
+    section_break_(false),
+    orientation_(0)
+{}
+
+
+CEDSection::CEDSection(const CEDSection& sec) :
+    BlockElement(sec),
+    header_y_(sec.header_y_),
+    footer_y_(sec.footer_y_),
+    line_between_columns_(sec.line_between_columns_),
+    section_break_(sec.section_break_),
+    orientation_(sec.orientation_),
+    col_wd_(sec.col_wd_),
+    col_space_(sec.col_space_)
+{}
 
 void CEDSection::addColInfo(int width, int space) {
     col_wd_.push_back(width);
@@ -41,6 +56,11 @@ void CEDSection::addColInfo(int width, int space) {
 
 void CEDSection::addColumn(CEDColumn * col) {
     addElement(col);
+}
+
+CEDSection * CEDSection::clone() const
+{
+    return new CEDSection(*this);
 }
 
 CEDColumn * CEDSection::columnAt(size_t pos) {

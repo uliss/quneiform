@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,49 +16,21 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "cedcolumn.h"
-#include "cedsection.h"
-#include "cedexporter.h"
+#include "cedpagemerge.h"
+#include "ced/cedpage.h"
+#include "ced/cedsection.h"
 
-namespace cf
+namespace cf {
+
+CEDPageMerge::CEDPageMerge()
 {
+}
 
-CEDColumn::CEDColumn(CEDSection * parent) :
-    BlockElement(parent),
-    width_(0),
-    space_(0)
-{}
-
-CEDColumn * CEDColumn::clone() const
+void CEDPageMerge::add(CEDPagePtr page)
 {
-    return new CEDColumn(*this);
-}
-
-CEDColumn::CEDColumn(const CEDColumn& col) :
-    BlockElement(col),
-    width_(col.width_),
-    space_(col.space_)
-{}
-
-
-void CEDColumn::exportElement(CEDExporter& exp) {
-    exp.exportColumn(*this);
-}
-
-void CEDColumn::setSpace(int space) {
-    space_ = space;
-}
-
-void CEDColumn::setWidth(int width) {
-    width_ = width;
-}
-
-int CEDColumn::space() const {
-    return space_;
-}
-
-int CEDColumn::width() const {
-    return width_;
+    for(size_t i = 0; i < page->sectionCount(); i++) {
+        result_->addSection(page->sectionAt(i)->clone());
+    }
 }
 
 }

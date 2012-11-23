@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,49 +16,22 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "cedcolumn.h"
-#include "cedsection.h"
-#include "cedexporter.h"
+#ifndef CEDPAGEMERGE_H
+#define CEDPAGEMERGE_H
 
-namespace cf
+#include "ced/cedpageptr.h"
+
+namespace cf {
+
+class CEDPageMerge
 {
-
-CEDColumn::CEDColumn(CEDSection * parent) :
-    BlockElement(parent),
-    width_(0),
-    space_(0)
-{}
-
-CEDColumn * CEDColumn::clone() const
-{
-    return new CEDColumn(*this);
-}
-
-CEDColumn::CEDColumn(const CEDColumn& col) :
-    BlockElement(col),
-    width_(col.width_),
-    space_(col.space_)
-{}
-
-
-void CEDColumn::exportElement(CEDExporter& exp) {
-    exp.exportColumn(*this);
-}
-
-void CEDColumn::setSpace(int space) {
-    space_ = space;
-}
-
-void CEDColumn::setWidth(int width) {
-    width_ = width;
-}
-
-int CEDColumn::space() const {
-    return space_;
-}
-
-int CEDColumn::width() const {
-    return width_;
-}
+public:
+    CEDPageMerge();
+    void add(CEDPagePtr page);
+private:
+    CEDPagePtr result_;
+};
 
 }
+
+#endif // CEDPAGEMERGE_H

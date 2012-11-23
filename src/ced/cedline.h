@@ -46,6 +46,11 @@ class CLA_EXPO CEDLine: public BlockElement
         CEDChar * charAt(size_t pos);
 
         /**
+         * Returns pointer to deep line copy
+         */
+        CEDLine * clone() const;
+
+        /**
          * Returns default font height
          */
         int defaultFontHeight() const;
@@ -90,6 +95,8 @@ class CLA_EXPO CEDLine: public BlockElement
          * @see hardBreak()
          */
         void setHardBreak(bool value);
+    protected:
+        CEDLine(const CEDLine& line);
     private:
 #ifdef CF_SERIALIZE
         friend class boost::serialization::access;

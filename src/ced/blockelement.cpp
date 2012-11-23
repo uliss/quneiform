@@ -24,10 +24,36 @@ namespace cf
 BlockElement::BlockElement(BlockElement * parent) :
     Element(parent), border_left_(ED_BRDR_NONE), border_top_(ED_BRDR_NONE), border_right_(
             ED_BRDR_NONE), border_bottom_(ED_BRDR_NONE), border_left_wd_(0), border_top_wd_(0),
-            border_right_wd_(0), border_bottom_wd_(0) {
+    border_right_wd_(0), border_bottom_wd_(0) {
 }
 
-Element * BlockElement::elementAt(size_t pos) {
+BlockElement::BlockElement(const BlockElement& el) :
+    Element(el)
+{
+    border_left_ = el.border_left_;
+    border_top_ = el.border_top_;
+    border_right_ = el.border_right_;
+    border_bottom_ = el.border_bottom_;
+    border_left_wd_ = el.border_left_wd_;
+    border_top_wd_ = el.border_top_wd_;
+    border_right_wd_ = el.border_right_wd_;
+    border_bottom_wd_ = el.border_bottom_wd_;
+    margins_ = el.margins_;
+
+    elements_.reserve(el.elementCount());
+    for(size_t i = 0; i < el.elementCount(); i++) {
+        elements_.push_back(ElementPtr(el.elementAt(i)->clone()));
+        elements_.back()->setParent(this);
+    }
+}
+
+Element * BlockElement::elementAt(size_t pos)
+{
+    return elements_.at(pos).get();
+}
+
+const Element * BlockElement::elementAt(size_t pos) const
+{
     return elements_.at(pos).get();
 }
 

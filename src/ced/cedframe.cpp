@@ -23,7 +23,26 @@ namespace cf
 {
 
 CEDFrame::CEDFrame(BlockElement * parent, hposition_t hpos, vposition_t vpos) :
-    BlockElement(parent), dxfrtextx(-1), dxfrtexty(-1), border_space_(-1), hpos_(hpos), vpos_(vpos) {
+    BlockElement(parent),
+    dxfrtextx(-1),
+    dxfrtexty(-1),
+    border_space_(-1),
+    hpos_(hpos),
+    vpos_(vpos) {
+}
+
+
+CEDFrame::CEDFrame(const CEDFrame& frame) :
+    BlockElement(frame)
+{
+    border_space_ = frame.border_space_;
+    hpos_= frame.hpos_;
+    vpos_ = frame.vpos_;
+}
+
+CEDFrame * CEDFrame::clone() const
+{
+    return new CEDFrame(*this);
 }
 
 void CEDFrame::exportElement(CEDExporter& exp) {
