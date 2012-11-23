@@ -68,3 +68,20 @@ void TestCEDSection::testSerializeXml() {
     CPPUNIT_ASSERT_EQUAL(sec.sectionBreak(), new_sec.sectionBreak());
 #endif
 }
+
+void TestCEDSection::testClone()
+{
+    CEDSection sec;
+    sec.setHeaderY(10);
+    sec.setFooterY(20);
+    sec.setSectionBreak(true);
+    sec.setLineBetweenColumns(false);
+    sec.setOrientation(1);
+    sec.addColInfo(10, 20);
+
+    CEDSection * sec_copy = sec.clone();
+    CPPUNIT_ASSERT(sec_copy);
+    CPPUNIT_ASSERT_EQUAL(sec.lineBetweenColumns(), sec_copy->lineBetweenColumns());
+    CPPUNIT_ASSERT_EQUAL(sec.sectionBreak(), sec_copy->sectionBreak());
+    delete sec_copy;
+}

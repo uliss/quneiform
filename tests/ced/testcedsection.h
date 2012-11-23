@@ -26,10 +26,12 @@ class TestCEDSection : public CppUnit::TestFixture
     CPPUNIT_TEST_SUITE(TestCEDSection);
     CPPUNIT_TEST(testSerialize);
     CPPUNIT_TEST(testSerializeXml);
+    CPPUNIT_TEST(testClone);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testSerialize();
     void testSerializeXml();
+    void testClone();
 };
 
 #endif // TESTCEDSECTION_H
