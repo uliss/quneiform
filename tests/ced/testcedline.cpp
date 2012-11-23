@@ -150,3 +150,16 @@ void TestCedLine::testSerializeXml() {
     CPPUNIT_ASSERT_EQUAL(new_pict->align(), im->align());
 #endif
 }
+
+void TestCedLine::testClone()
+{
+    CEDLine line;
+    line.setHardBreak(true);
+    line.setDefaultFontHeight(100);
+
+    CEDLine * line_copy = line.clone();
+    CPPUNIT_ASSERT(line_copy);
+    CPPUNIT_ASSERT_EQUAL(line.hardBreak(), line_copy->hardBreak());
+    CPPUNIT_ASSERT_EQUAL(line.defaultFontHeight(), line_copy->defaultFontHeight());
+    delete line_copy;
+}
