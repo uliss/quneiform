@@ -31,10 +31,9 @@ CEDPicture::CEDPicture() :
 CEDPicture::CEDPicture(const CEDPicture& pic) :
     Element(pic),
     align_(pic.align_),
-    number_(pic.number_),
-    goal_(pic.goal_)
+    number_(pic.number_)
 {
-    image_ = pic.image_;
+    image_ = ImagePtr(pic.image_->clone());
 }
 
 ed_align_t CEDPicture::align() const {

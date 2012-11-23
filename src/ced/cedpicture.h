@@ -93,14 +93,12 @@ class CLA_EXPO CEDPicture: public Element
             ar & make_nvp("align", align_);
             ar & make_nvp("number", number_);
             ar & make_nvp("image", image_);
-            //            ar & make_nvp("goal", goal_);
         }
 #endif
     private:
         ed_align_t align_;
         int number_;
         ImagePtr image_;
-        Size goal_;
 };
 
 }
