@@ -17,6 +17,8 @@ def test():
         fmtTest.setFormat(key)
         fmtTest.cuneiformTest(fmtTest.makeFullImageName('german.bmp'), True)
 
+    os.chdir("py")
+
     if fmtTest.passed():
         return True
     else:
