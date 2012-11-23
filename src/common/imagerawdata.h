@@ -19,7 +19,6 @@
 #ifndef IMAGERAWDATA_H_
 #define IMAGERAWDATA_H_
 
-#include <boost/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
 #include <iostream>
 #include "globus.h"
@@ -32,7 +31,7 @@
 namespace cf
 {
 
-class CLA_EXPO ImageRawData: public boost::noncopyable
+class CLA_EXPO ImageRawData
 {
     public:
         enum allocator_t
@@ -49,6 +48,11 @@ class CLA_EXPO ImageRawData: public boost::noncopyable
          * Deletes image raw data
          */
         void clear();
+
+        /**
+         * Returns pointer to raw data deep copy
+         */
+        virtual ImageRawData * clone() const;
 
         /**
          * Returns pointer to image data
@@ -71,6 +75,10 @@ class CLA_EXPO ImageRawData: public boost::noncopyable
          * Sets image raw data. Previous data is cleared
          */
         void set(unsigned char * data, size_t size, allocator_t allocator);
+    protected:
+        ImageRawData(const ImageRawData& data);
+    private:
+        void operator=(const ImageRawData&);
     private:
 #ifdef CF_SERIALIZE
         friend class boost::serialization::access;
