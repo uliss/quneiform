@@ -27,19 +27,24 @@ CfExporter::CfExporter(const ExportSettings& s)
     : IQfExporter(s) {
 }
 
-void CfExporter::exportTo(Page * p, const QString& fname) {
+void CfExporter::exportTo(Page * p, const QString& fname)
+{
     Q_CHECK_PTR(p);
 
-    qDebug() << Q_FUNC_INFO << fname;
+    exportCEDPage(p->cedPage(), p->formatSettings(), fname);
+}
+
+void CfExporter::exportCEDPage(cf::CEDPagePtr page, const FormatSettings& s, const QString& fullPath)
+{
+    qDebug() << Q_FUNC_INFO << fullPath;
 
     cf::FormatOptions opts;
-    p->formatSettings().exportTo(opts);
+    s.exportTo(opts);
 
-    cf::ExporterFactory::instance().setPage(cf::CEDPagePtr(p->cedPage()));
+    cf::ExporterFactory::instance().setPage(page);
     cf::ExporterFactory::instance().setFormatOptions(opts);
     cf::ExporterPtr e = cf::ExporterFactory::instance().make(
                 static_cast<cf::format_t>(settings().cfFormatType()));
-//    e->setOutputPictureDir(output_image_dir_);
 
-    e->exportTo(fname.toLocal8Bit().data());
+    e->exportTo(fullPath.toLocal8Bit().data());
 }

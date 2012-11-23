@@ -20,9 +20,11 @@
 #include <QFile>
 #include <QCoreApplication>
 
+#include "export/cfexporter.h"
 #include "packet.h"
 #include "page.h"
 #include "thumbnailgenerator.h"
+#include "export/cedpagemerge.h"
 
 static const QString DEFAULT_NAME = "untitled.qpf";
 
@@ -78,6 +80,26 @@ void Packet::clear()
 
     pages_.clear();
     emit changed();
+}
+
+bool Packet::exportTo(const QString& fullPath, const ExportSettings& settings)
+{
+    cf::CEDPageMerge m;
+
+    foreach(Page * p, pages_) {
+        m.add(p->cedPage());
+    }
+
+    try {
+        CfExporter exp(settings);
+        exp.exportCEDPage(m.get(), FormatSettings(), fullPath);
+    }
+    catch(ExporterException& e) {
+        qWarning() << Q_FUNC_INFO << e.what();
+        return false;
+    }
+
+    return true;
 }
 
 QString Packet::fileName() const {
@@ -199,6 +221,16 @@ void Packet::removeDelayed()
 
 int Packet::pageCount() const {
     return pages_.count();
+}
+
+int Packet::recognizedPageCount() const
+{
+    int res = 0;
+    foreach(Page * p, pages_) {
+        if(p->isRecognized())
+            res++;
+    }
+    return res;
 }
 
 void Packet::remove(Page * page)

@@ -54,8 +54,15 @@ public slots:
 
     /**
       * Recognizes all opened images
+      * @see recognizeOthers()
       */
     void recognizeAll();
+
+    /**
+     * Recognizes all pages that were not recognized
+     * @see recognizeAll()
+     */
+    void recognizeOthers();
 protected:
     void closeEvent(QCloseEvent * event);
 private slots:
@@ -66,6 +73,7 @@ private slots:
     void disableZoomOutAction();
     void enableViewActions();
     void enableZoomActions();
+    void exportPacket();
     void handleReportBug();
     void handleShowFullScreen();
     void handleShowMinimized();

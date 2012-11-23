@@ -752,6 +752,22 @@ Are you shure?</source>
         <source>Minimize</source>
         <translation>Свернуть</translation>
     </message>
+    <message>
+        <source>Export packet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+E</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The packet is empty. There&apos;s nothing to export. Do you want to add images?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not all pages in packet were recognized. Do you want to recognize them before exporting?</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OpenProgressDialog</name>
