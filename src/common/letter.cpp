@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,22 +16,18 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTCEDFRAME_H_
-#define TESTCEDFRAME_H_
+#include <iostream>
 
-#include <cppunit/extensions/HelperMacros.h>
+#include "letter.h"
 
-class TestCEDFrame: public CppUnit::TestFixture
+namespace cf {
+
+std::ostream& operator<<(std::ostream& os, const Letter& letter)
 {
-    CPPUNIT_TEST_SUITE(TestCEDFrame);
-    CPPUNIT_TEST(testSerialize);
-    CPPUNIT_TEST(testSerializeXml);
-    CPPUNIT_TEST(testClone);
-    CPPUNIT_TEST_SUITE_END();
-public:
-    void testSerialize();
-    void testSerializeXml();
-    void testClone();
-};
+    os << "Letter: '" << letter.getChar() << "' (" << (int) letter.getChar() << ") prob: "
+          <<  (int) letter.probability();
+    return os;
+}
 
-#endif /* TESTCEDFRAME_H_ */
+}
+
