@@ -415,10 +415,13 @@ private:
     void setCEDPage(cf::CEDPagePtr page);
     void setChanged();
     void setAnalyzed(bool value = true);
+    void setExported(bool value = true);
     void setRecognized(bool value = true);
     void updateBlocks();
     void updateImageSize() const;
     int userBlocksCount(BlockType type) const;
+
+    friend class Packet;
 private:
     ImageURL image_url_;
     mutable QSize image_size_;

@@ -87,7 +87,8 @@ bool Packet::exportTo(const QString& fullPath, const ExportSettings& settings)
     cf::CEDPageMerge m;
 
     foreach(Page * p, pages_) {
-        m.add(p->cedPage());
+        if(p->isRecognized())
+            m.add(p->cedPage());
     }
 
     try {
@@ -97,6 +98,11 @@ bool Packet::exportTo(const QString& fullPath, const ExportSettings& settings)
     catch(ExporterException& e) {
         qWarning() << Q_FUNC_INFO << e.what();
         return false;
+    }
+
+    foreach(Page * p, pages_) {
+        if(p->isRecognized())
+            p->setExported(true);
     }
 
     return true;

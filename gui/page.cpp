@@ -243,9 +243,7 @@ void Page::exportTo(const QString& file, const ExportSettings& s) {
         throw Exception(e.what());
     }
 
-    state_flags_ |= EXPORTED;
-    state_flags_ &= (~EXPORT_FAILED);
-    emit exported();
+    setExported(true);
 }
 
 Page::PageFlags Page::flags() const {
@@ -476,6 +474,19 @@ void Page::setAnalyzed(bool value)
     else {
         _unsetFlag(ANALYZED);
         _unsetFlag(ANALYZE_FAILED);
+    }
+}
+
+void Page::setExported(bool value)
+{
+    if(value) {
+        _setFlag(EXPORTED);
+        _unsetFlag(EXPORT_FAILED);
+        emit exported();
+    }
+    else {
+        _setFlag(EXPORT_FAILED);
+        _unsetFlag(EXPORTED);
     }
 }
 
