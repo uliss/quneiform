@@ -74,6 +74,13 @@ void CEDLine::setHardBreak(bool value) {
     hard_break_ = value;
 }
 
+CEDLine::CEDLine(const CEDLine& line) :
+    BlockElement(line)
+{
+    hard_break_ = line.hard_break_;
+    default_font_height_ = line.default_font_height_;
+}
+
 CEDChar * CEDLine::insertChar() {
     return insertChar(new CEDChar);
 }
@@ -90,6 +97,11 @@ CEDChar * CEDLine::charAt(size_t pos) {
         return ret;
     else
         throw std::runtime_error("[CEDLine::charAt] invalid cast to CEDChar");
+}
+
+CEDLine * CEDLine::clone() const
+{
+    return new CEDLine(*this);
 }
 
 }

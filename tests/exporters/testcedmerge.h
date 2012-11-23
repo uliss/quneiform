@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,22 +16,20 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTCEDPICTURE_H_
-#define TESTCEDPICTURE_H_
+#ifndef TESTCEDMERGE_H
+#define TESTCEDMERGE_H
 
 #include <cppunit/extensions/HelperMacros.h>
 
-class TestCEDPicture: public CppUnit::TestFixture
+class TestCEDMerge : public CppUnit::TestFixture
 {
-    CPPUNIT_TEST_SUITE(TestCEDPicture);
-    CPPUNIT_TEST(testSerialize);
-    CPPUNIT_TEST(testSerializeXml);
-    CPPUNIT_TEST(testClone);
+    CPPUNIT_TEST_SUITE(TestCEDMerge);
+    CPPUNIT_TEST(testAddPage);
+    CPPUNIT_TEST(testExport);
     CPPUNIT_TEST_SUITE_END();
 public:
-    void testSerialize();
-    void testSerializeXml();
-    void testClone();
+    void testAddPage();
+    void testExport();
 };
 
-#endif /* TESTCEDPICTURE_H_ */
+#endif // TESTCEDMERGE_H

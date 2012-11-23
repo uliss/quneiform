@@ -30,4 +30,14 @@ void CEDTable::exportElement(CEDExporter& exp) {
     exp.exportTable(*this);
 }
 
+CEDTable::CEDTable(const CEDTable& table) :
+    BlockElement(table)
+{
+}
+
+CEDTable * CEDTable::clone() const
+{
+    return new CEDTable(*this);
+}
+
 }

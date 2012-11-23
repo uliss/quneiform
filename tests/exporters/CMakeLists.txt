@@ -3,6 +3,7 @@ add_definitions(-DEXPORTER_TEST_IMAGE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/")
 set(TEST_EXPORTER_SRC
     test_exporters.cpp
     testbmpimageexporter.cpp
+    testcedmerge.cpp
     testcssexporter.cpp
     testgenericexporter.cpp
     testhtmlexporter.cpp
@@ -29,6 +30,7 @@ target_link_libraries(test_exporters
     cuneiform-ced 
     cuneiform-rfrmt 
     cuneiform-export
+    cuneiform-load
     ${CPPUNIT_LIBRARIES}
     ${CF_IMAGE_LIBRARIES}
 )

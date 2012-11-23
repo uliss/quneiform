@@ -23,6 +23,7 @@ set(CF_COMMON_SOURCES
     imagerawdata.cpp
     imageurl.cpp
     language.cpp
+    letter.cpp
     log.cpp
     modules.cpp
     outputformat.cpp

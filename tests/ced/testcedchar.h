@@ -28,12 +28,14 @@ class TestCEDChar: public CppUnit::TestFixture
     CPPUNIT_TEST(testIsHyphen);
     CPPUNIT_TEST(testSerialize);
     CPPUNIT_TEST(testSerializeXml);
+    CPPUNIT_TEST(testClone);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
     void testIsHyphen();
     void testSerialize();
     void testSerializeXml();
+    void testClone();
 };
 
 #endif /* TESTCEDCHAR_H_ */

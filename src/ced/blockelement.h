@@ -58,6 +58,7 @@ class CLA_EXPO BlockElement: public Element
          * Returns pointer to element at given position
          */
         Element * elementAt(size_t pos);
+        const Element * elementAt(size_t pos) const;
 
         /**
          * Returns number of elements
@@ -126,6 +127,8 @@ class CLA_EXPO BlockElement: public Element
         void setMarginBottom(int bottom);
         void setMarginTop(int top);
         void updateBoundingRect();
+    protected:
+        BlockElement(const BlockElement& el);
     private:
 #ifdef CF_SERIALIZE
         friend class boost::serialization::access;

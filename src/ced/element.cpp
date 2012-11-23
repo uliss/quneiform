@@ -26,10 +26,18 @@ Element::Element(Element * parent) :
 
 }
 
+Element::Element(const Element& el)
+{
+    parent_ = el.parent_;
+    color_ = el.color_;
+    bgcolor_ = el.bgcolor_;
+    brect_ = el.brect_;
+}
+
 Element::~Element() {
 }
 
-const Color & Element::backgroundColor() const {
+const Color& Element::backgroundColor() const {
     return bgcolor_;
 }
 
@@ -41,7 +49,7 @@ const Rect& Element::boundingRect() const {
     return brect_;
 }
 
-const Color & Element::color() const {
+const Color& Element::color() const {
     return color_;
 }
 

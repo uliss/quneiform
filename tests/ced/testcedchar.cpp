@@ -89,3 +89,40 @@ void TestCEDChar::testSerializeXml() {
 
 #endif
 }
+
+void TestCEDChar::testClone()
+{
+    CEDChar chr;
+    // char properties
+    chr.addAlternative(Letter('a', 128));
+    chr.setFontHeight(133);
+    chr.setFontStyle(1);
+    chr.setFontNumber(2);
+    chr.setFontLanguage(LANGUAGE_DUTCH);
+    // element properties
+    chr.setParent(NULL);
+    chr.setBackgroundColor(Color(255, 0, 0));
+    chr.setColor(Color(0, 0, 255));
+    chr.setBoundingRect(Rect(Point(1, 2), Point(3, 4)));
+
+    CEDChar * ch_copy = chr.clone();
+    CPPUNIT_ASSERT(ch_copy);
+    CPPUNIT_ASSERT_EQUAL(chr.fontHeight(), ch_copy->fontHeight());
+    CPPUNIT_ASSERT_EQUAL(chr.fontStyle(), ch_copy->fontStyle());
+    CPPUNIT_ASSERT_EQUAL(chr.fontNumber(), ch_copy->fontNumber());
+    CPPUNIT_ASSERT_EQUAL(chr.fontLanguage(), ch_copy->fontLanguage());
+    // element data
+    CPPUNIT_ASSERT_EQUAL(chr.parent(), ch_copy->parent());
+    CPPUNIT_ASSERT_EQUAL(chr.backgroundColor(), ch_copy->backgroundColor());
+    CPPUNIT_ASSERT_EQUAL(chr.color(), ch_copy->color());
+    CPPUNIT_ASSERT_EQUAL(chr.boundingRect(), ch_copy->boundingRect());
+    delete ch_copy;
+
+    // test parent
+    CEDChar ch1;
+    ch1.setParent(&chr);
+    CEDChar * ch1_copy = ch1.clone();
+    CPPUNIT_ASSERT(ch1_copy);
+    CPPUNIT_ASSERT_EQUAL(ch1.parent(), ch1_copy->parent());
+    delete ch1_copy;
+}

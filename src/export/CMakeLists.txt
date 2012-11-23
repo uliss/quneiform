@@ -7,6 +7,7 @@ set(headers
     zipimpl.h)
     
 set(exporters
+    cedpagemerge.cpp
     cssexporter.cpp
     exporter.cpp
     fb2exporter.cpp

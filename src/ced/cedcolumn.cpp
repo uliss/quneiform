@@ -27,9 +27,20 @@ CEDColumn::CEDColumn(CEDSection * parent) :
     BlockElement(parent),
     width_(0),
     space_(0)
-{
+{}
 
+CEDColumn * CEDColumn::clone() const
+{
+    return new CEDColumn(*this);
 }
+
+CEDColumn::CEDColumn(const CEDColumn& col) :
+    BlockElement(col),
+    width_(col.width_),
+    space_(col.space_)
+{}
+
+
 void CEDColumn::exportElement(CEDExporter& exp) {
     exp.exportColumn(*this);
 }

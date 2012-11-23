@@ -59,3 +59,28 @@ void TestCEDPicture::testSerializeXml() {
     CPPUNIT_ASSERT_EQUAL(p.align(), new_p.align());
 #endif
 }
+
+void TestCEDPicture::testClone()
+{
+    CEDPicture pict;
+    pict.setAlign(ED_ALIGN_TOP);
+    pict.setPictureNumber(23);
+    ImagePtr img_ptr(new Image(new uchar[100], 100, Image::AllocatorNew));
+    memset(img_ptr->data(), 0xFF, 100);
+    img_ptr->setFileName("CED picture");
+    pict.setImage(img_ptr);
+
+    CEDPicture * pict_copy = pict.clone();
+    CPPUNIT_ASSERT(pict_copy);
+    CPPUNIT_ASSERT_EQUAL(pict.align(), pict_copy->align());
+    CPPUNIT_ASSERT_EQUAL(pict.pictureNumber(), pict_copy->pictureNumber());
+    ImagePtr img_data_copy = pict_copy->image();
+    CPPUNIT_ASSERT_EQUAL(img_ptr->size(), img_data_copy->size());
+    CPPUNIT_ASSERT_EQUAL(img_ptr->fileName(), img_data_copy->fileName());
+    CPPUNIT_ASSERT_EQUAL(img_ptr->dataSize(), img_data_copy->dataSize());
+    CPPUNIT_ASSERT(img_data_copy->data() != img_ptr->data());
+    for(int i = 0; i < 100; i++) {
+        CPPUNIT_ASSERT_EQUAL((int) img_data_copy->data()[i], (int) 0xFF);
+    }
+    delete pict_copy;
+}

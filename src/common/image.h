@@ -19,7 +19,6 @@
 #ifndef IMAGE_H_
 #define IMAGE_H_
 
-#include <boost/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
 #include <string>
 
@@ -36,11 +35,19 @@
 namespace cf
 {
 
+class Image;
+typedef boost::shared_ptr<Image> ImagePtr;
+
 class CLA_EXPO Image: public ImageRawData
 {
     public:
         Image();
         Image(uchar * src, size_t size, allocator_t allocator);
+
+        /**
+         * Returns pointer to image deep copy
+         */
+        Image * clone() const;
 
         /**
          * Returns image filename
@@ -75,6 +82,8 @@ class CLA_EXPO Image: public ImageRawData
          * @see size()
          */
         int width() const;
+    protected:
+        Image(const Image& image);
     private:
 #ifdef CF_SERIALIZE
         friend class boost::serialization::access;
@@ -90,8 +99,6 @@ class CLA_EXPO Image: public ImageRawData
         std::string fname_;
         Size size_;
 };
-
-typedef boost::shared_ptr<Image> ImagePtr;
 
 }
 

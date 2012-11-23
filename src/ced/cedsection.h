@@ -44,6 +44,11 @@ class CLA_EXPO CEDSection: public BlockElement
         void addColumn(CEDColumn * col);
 
         /**
+         * Returns pointer to deep copy of section
+         */
+        CEDSection * clone() const;
+
+        /**
          * Returns  pointer to column by given position
          */
         CEDColumn * columnAt(size_t pos);
@@ -99,7 +104,9 @@ class CLA_EXPO CEDSection: public BlockElement
 
         CEDParagraph * createParagraph(BlockElement * container, align_t align, const Rect& indent,
                 int UserNum, int FlagBorder, const Rect& layout);
-
+    protected:
+        CEDSection(const CEDSection& sec);
+    private:
 #ifdef CF_SERIALIZE
         friend class boost::serialization::access;
         template<class Archive>
@@ -125,7 +132,6 @@ class CLA_EXPO CEDSection: public BlockElement
         char orientation_;
         std::vector<int> col_wd_;
         std::vector<int> col_space_;
-
 };
 
 }

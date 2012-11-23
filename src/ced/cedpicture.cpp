@@ -23,11 +23,26 @@ namespace cf
 {
 
 CEDPicture::CEDPicture() :
-    align_(ED_ALIGN_MIDDLE), number_(0) {
+    align_(ED_ALIGN_MIDDLE),
+    number_(0)
+{
+}
+
+CEDPicture::CEDPicture(const CEDPicture& pic) :
+    Element(pic),
+    align_(pic.align_),
+    number_(pic.number_)
+{
+    image_ = ImagePtr(pic.image_->clone());
 }
 
 ed_align_t CEDPicture::align() const {
     return align_;
+}
+
+CEDPicture * CEDPicture::clone() const
+{
+    return new CEDPicture(*this);
 }
 
 void CEDPicture::exportElement(CEDExporter& exp) {
