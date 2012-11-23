@@ -16,14 +16,40 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <fstream>
+
 #include "testcedmerge.h"
+#include "common/log.h"
 #include "export/cedpagemerge.h"
+#include "export/htmlexporter.h"
 #include "ced/cedpage.h"
 #include "ced/cedsection.h"
+#include "load/cuneiformtextloader.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestCEDMerge);
 
+#ifndef EXPORTER_TEST_IMAGE_DIR
+#define EXPORTER_TEST_IMAGE_DIR "./"
+#endif
+
+#define NATIVE_SAMPLES_DIR EXPORTER_TEST_IMAGE_DIR "../../images/format/"
+
 using namespace cf;
+
+static CEDPagePtr load(const char * chr)
+{
+    std::string path = NATIVE_SAMPLES_DIR;
+    path += chr;
+    path += ".sample.native";
+    std::ifstream ifs(path.c_str());
+    if(!ifs) {
+        cfWarning() << "not found:" << path;
+        return CEDPagePtr();
+    }
+
+    CuneiformTextLoader loader;
+    return loader.load(ifs);
+}
 
 void TestCEDMerge::testAddPage()
 {
@@ -40,11 +66,26 @@ void TestCEDMerge::testAddPage()
 
     e.add(p);
     CPPUNIT_ASSERT(!e.empty());
+    CPPUNIT_ASSERT_EQUAL(e.get()->imageName(), p->imageName());
 
     // add twice
     e.add(p);
+    CPPUNIT_ASSERT_EQUAL(size_t(4), e.get()->sectionCount());
 }
 
 void TestCEDMerge::testExport()
 {
+    CEDPageMerge merger;
+    CPPUNIT_ASSERT(merger.empty());
+    merger.add(load("italic"));
+    CPPUNIT_ASSERT(!merger.empty());
+    merger.add(load("bold"));
+
+    const char * EXPORT_NAME = "ced_page_merge_export.html";
+    cfInfo() << "exporting to:" << EXPORT_NAME;
+
+    HtmlExporter html_exporter(merger.get());
+    std::ofstream ofs(EXPORT_NAME);
+    CPPUNIT_ASSERT(ofs);
+    html_exporter.exportTo(ofs);
 }

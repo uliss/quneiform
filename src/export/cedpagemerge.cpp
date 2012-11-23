@@ -35,8 +35,10 @@ void CEDPageMerge::add(CEDPagePtr page)
     }
 
     // first time create page clone
-    if(!result_)
+    if(!result_) {
         result_.reset(page->clone());
+        return;
+    }
 
     // append page sections
     for(size_t i = 0; i < page->sectionCount(); i++) {

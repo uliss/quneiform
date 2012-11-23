@@ -30,6 +30,7 @@ target_link_libraries(test_exporters
     cuneiform-ced 
     cuneiform-rfrmt 
     cuneiform-export
+    cuneiform-load
     ${CPPUNIT_LIBRARIES}
     ${CF_IMAGE_LIBRARIES}
 )
