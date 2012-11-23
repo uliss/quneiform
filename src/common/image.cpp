@@ -32,6 +32,17 @@ Image::Image(uchar * src, size_t size, allocator_t allocator) :
     ImageRawData(src, size, allocator) {
 }
 
+Image::Image(const Image& image) :
+    ImageRawData(image),
+    fname_(image.fname_),
+    size_(image.size_)
+{}
+
+Image * Image::clone() const
+{
+    return new Image(*this);
+}
+
 std::string Image::fileName() const {
     return fname_;
 }

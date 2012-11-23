@@ -76,3 +76,31 @@ void TestImage::testSerializeXml() {
 
 #endif
 }
+
+void TestImage::testClone()
+{
+    Image im;
+    im.setSize(Size(10, 20));
+    im.setFileName("test");
+
+    Image * im_copy = im.clone();
+    CPPUNIT_ASSERT(im_copy);
+    CPPUNIT_ASSERT_EQUAL(im.size(), im_copy->size());
+    CPPUNIT_ASSERT_EQUAL(im.fileName(), im_copy->fileName());
+    CPPUNIT_ASSERT(im_copy->isNull());
+    delete im_copy;
+
+    uchar data[100];
+    memset(data, 0xFF, 100);
+    im.set(data, 100, Image::AllocatorNone);
+
+    im_copy = im.clone();
+    CPPUNIT_ASSERT(im_copy);
+    CPPUNIT_ASSERT_EQUAL(im.size(), im_copy->size());
+    CPPUNIT_ASSERT_EQUAL(im.fileName(), im_copy->fileName());
+    CPPUNIT_ASSERT(!im_copy->isNull());
+    CPPUNIT_ASSERT(im.data() != im_copy->data());
+    CPPUNIT_ASSERT_EQUAL(im.dataSize(), im_copy->dataSize());
+    delete im_copy;
+
+}
