@@ -241,11 +241,13 @@ void MainWindow::disableZoomOutAction() {
     ui_->actionZoom_Out->setEnabled(false);
 }
 
-void MainWindow::packetChange() {
+void MainWindow::handlePacketChanged()
+{
     setWindowModified(true);
 }
 
-void MainWindow::packetSave() {
+void MainWindow::handlePacketSaved()
+{
     Q_ASSERT(packet_);
 
     setWindowModified(false);
@@ -787,8 +789,8 @@ void MainWindow::setupPacket() {
     Q_CHECK_PTR(packet_);
 
     setWindowFilePath(packet_->fileName());
-    connect(packet_, SIGNAL(changed()), SLOT(packetChange()));
-    connect(packet_, SIGNAL(saved()), SLOT(packetSave()));
+    connect(packet_, SIGNAL(changed()), SLOT(handlePacketChanged()));
+    connect(packet_, SIGNAL(saved()), SLOT(handlePacketSaved()));
     connect(packet_, SIGNAL(imageDuplicated(QString)), SLOT(imageDuplication(QString)));
 }
 

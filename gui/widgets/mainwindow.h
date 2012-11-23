@@ -74,6 +74,8 @@ private slots:
     void enableViewActions();
     void enableZoomActions();
     void exportPacket();
+    void handlePacketChanged();
+    void handlePacketSaved();
     void handleReportBug();
     void handleShowFullScreen();
     void handleShowMinimized();
@@ -83,8 +85,6 @@ private slots:
     void openPacketDialog();
     void openPacket(const QString& path);
     void openRecentImage(const QString& path);
-    void packetChange();
-    void packetSave();
     void recognitionSettings();
     void recognizePage(Page * page);
     void recognizePages(const QList<Page*>& pages);
