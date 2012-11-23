@@ -41,6 +41,7 @@ CEDPage::CEDPage(const CEDPage& page) :
     image_dpi_(page.image_dpi_),
     page_size_(page.page_size_),
     page_borders_(page.page_borders_),
+    image_name_(page.image_name_),
     turn_(page.turn_),
     page_number_(page.page_number_),
     language_(page.language_)
