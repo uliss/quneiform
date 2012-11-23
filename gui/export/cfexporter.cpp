@@ -38,13 +38,19 @@ void CfExporter::exportCEDPage(cf::CEDPagePtr page, const FormatSettings& s, con
 {
     qDebug() << Q_FUNC_INFO << fullPath;
 
-    cf::FormatOptions opts;
-    s.exportTo(opts);
+    try {
+        cf::FormatOptions opts;
+        s.exportTo(opts);
 
-    cf::ExporterFactory::instance().setPage(page);
-    cf::ExporterFactory::instance().setFormatOptions(opts);
-    cf::ExporterPtr e = cf::ExporterFactory::instance().make(
-                static_cast<cf::format_t>(settings().cfFormatType()));
+        cf::ExporterFactory::instance().setPage(page);
+        cf::ExporterFactory::instance().setFormatOptions(opts);
+        cf::ExporterPtr e = cf::ExporterFactory::instance().make(
+                    static_cast<cf::format_t>(settings().cfFormatType()));
 
-    e->exportTo(fullPath.toLocal8Bit().data());
+        e->exportTo(fullPath.toLocal8Bit().data());
+    }
+    catch(cf::Exporter::Exception& e) {
+        qWarning() << Q_FUNC_INFO << e.what();
+        throw ExporterException(e.what());
+    }
 }
