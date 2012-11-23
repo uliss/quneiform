@@ -752,6 +752,22 @@ Are you shure?</source>
         <source>Minimize</source>
         <translation>Свернуть</translation>
     </message>
+    <message>
+        <source>Export packet</source>
+        <translation>Экспортировать</translation>
+    </message>
+    <message>
+        <source>Ctrl+E</source>
+        <translation>Ctrl+E</translation>
+    </message>
+    <message>
+        <source>The packet is empty. There&apos;s nothing to export. Do you want to add images?</source>
+        <translation>Пакет распознавания пуст. Добавить в него изображения?</translation>
+    </message>
+    <message>
+        <source>Not all pages in packet were recognized. Do you want to recognize them before exporting?</source>
+        <translation>Не все страницы в пакете были распознаны. Распознать их перед экспортом?</translation>
+    </message>
 </context>
 <context>
     <name>OpenProgressDialog</name>

@@ -25,6 +25,7 @@
 
 #include "language.h"
 
+class ExportSettings;
 class ThumbnailGenerator;
 class Page;
 typedef QList<Page*> PageList;
@@ -50,6 +51,12 @@ public:
       * @see remove(), removeSelected()
       */
     void clear();
+
+    /**
+     * Exports packet pages to given document
+     * @return true on success
+     */
+    bool exportTo(const QString& fullPath, const ExportSettings& settings);
 
     /**
       * Returns packet filename
@@ -115,6 +122,11 @@ public:
       * @see page()
       */
     int pageCount() const;
+
+    /**
+     * Returns count of recognized pages
+     */
+    int recognizedPageCount() const;
 
     /**
       * Saves packet to file

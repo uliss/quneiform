@@ -206,6 +206,7 @@ void MainWindow::connectActions() {
     connect(ui_->actionSplitVertical, SIGNAL(triggered()), SLOT(handleViewSplitChange()));
     connect(ui_->actionFullScreen, SIGNAL(triggered()), SLOT(handleShowFullScreen()));
     connect(ui_->actionMinimize, SIGNAL(triggered()), SLOT(handleShowMinimized()));
+    connect(ui_->actionExportPacket, SIGNAL(triggered()), SLOT(exportPacket()));
 
     QActionGroup * view_group = new QActionGroup(this);
     view_group->addAction(ui_->actionViewThumbnails);
@@ -240,11 +241,13 @@ void MainWindow::disableZoomOutAction() {
     ui_->actionZoom_Out->setEnabled(false);
 }
 
-void MainWindow::packetChange() {
+void MainWindow::handlePacketChanged()
+{
     setWindowModified(true);
 }
 
-void MainWindow::packetSave() {
+void MainWindow::handlePacketSaved()
+{
     Q_ASSERT(packet_);
 
     setWindowModified(false);
@@ -267,6 +270,72 @@ void MainWindow::enableZoomActions() {
         ui_->actionZoom_In->setEnabled(true);
     if(!ui_->actionZoom_Out->isEnabled())
         ui_->actionZoom_Out->setEnabled(true);
+}
+
+void MainWindow::exportPacket()
+{
+    Q_CHECK_PTR(packet_);
+    if(packet_->isEmpty()) {
+        QMessageBox::StandardButton answer =
+                QMessageBox::question(this,
+                                      tr("Warning"),
+                                      tr("The packet is empty. There's nothing to export. Do you want to add images?"),
+                                      QMessageBox::Yes | QMessageBox::No);
+
+        switch(answer) {
+        case QMessageBox::Yes:
+            openImagesDialog();
+            return;
+            break;
+        default:
+            return;
+        }
+    }
+
+    const int recognized_count = packet_->recognizedPageCount();
+
+    // recognized completely
+    if(recognized_count == packet_->pageCount()) {
+        QString filename;
+        ExportDialog dialog(packet_->fileName(), this);
+        if(dialog.exec()) {
+            filename = dialog.fileName();
+        }
+
+        if(filename.isEmpty()) {
+            qWarning() << Q_FUNC_INFO << "empty filename given";
+            return;
+        }
+
+        packet_->exportTo(filename, dialog.settings());
+    }
+    else {
+        QMessageBox::StandardButton answer =
+                QMessageBox::question(this,
+                                      tr("Warning"),
+                                      tr("Not all pages in packet were recognized. Do you want to recognize them before exporting?"),
+                                      QMessageBox::Yes | QMessageBox::No);
+        switch(answer) {
+        case QMessageBox::Yes:
+            recognizeOthers();
+            break;
+        default:
+            break;
+        }
+
+        QString filename;
+        ExportDialog dialog(packet_->fileName(), this);
+        if(dialog.exec()) {
+            filename = dialog.fileName();
+        }
+
+        if(filename.isEmpty()) {
+            qWarning() << Q_FUNC_INFO << "empty filename given";
+            return;
+        }
+
+        packet_->exportTo(filename, dialog.settings());
+    }
 }
 
 void MainWindow::handleReportBug()
@@ -553,6 +622,20 @@ void MainWindow::recognizeAll() {
     recognition_queue_->start();
 }
 
+void MainWindow::recognizeOthers()
+{
+    Q_CHECK_PTR(packet_);
+    Q_CHECK_PTR(recognition_queue_);
+
+    for(int i = 0; i < packet_->pageCount(); i++) {
+        Page * p = packet_->pageAt(i);
+        if(!p->isRecognized())
+            recognition_queue_->add(p);
+    }
+
+    recognition_queue_->start();
+}
+
 void MainWindow::recognizePage(Page * page) {
     Q_CHECK_PTR(recognition_queue_);
 
@@ -706,8 +789,8 @@ void MainWindow::setupPacket() {
     Q_CHECK_PTR(packet_);
 
     setWindowFilePath(packet_->fileName());
-    connect(packet_, SIGNAL(changed()), SLOT(packetChange()));
-    connect(packet_, SIGNAL(saved()), SLOT(packetSave()));
+    connect(packet_, SIGNAL(changed()), SLOT(handlePacketChanged()));
+    connect(packet_, SIGNAL(saved()), SLOT(handlePacketSaved()));
     connect(packet_, SIGNAL(imageDuplicated(QString)), SLOT(imageDuplication(QString)));
 }
 

@@ -20,12 +20,15 @@
 #define CFEXPORTER_H
 
 #include "iqfexporter.h"
+#include "formatsettings.h"
+#include "ced/cedpageptr.h"
 
 class CfExporter : public IQfExporter
 {
 public:
     CfExporter(const ExportSettings& s);
-    void exportTo(Page * p, const QString &fname);
+    void exportTo(Page * p, const QString& fname);
+    void exportCEDPage(cf::CEDPagePtr ptr, const FormatSettings& settings, const QString& fullPath);
 };
 
 #endif // CFEXPORTER_H
