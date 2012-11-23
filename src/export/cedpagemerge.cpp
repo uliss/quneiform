@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include "cedpagemerge.h"
+#include "common/log.h"
 #include "ced/cedpage.h"
 #include "ced/cedsection.h"
 
@@ -28,9 +29,29 @@ CEDPageMerge::CEDPageMerge()
 
 void CEDPageMerge::add(CEDPagePtr page)
 {
+    if(!page) {
+        cfWarning(MODULE_CED) << "NULL page pointer given";
+        return;
+    }
+
+    // first time create page clone
+    if(!result_)
+        result_.reset(page->clone());
+
+    // append page sections
     for(size_t i = 0; i < page->sectionCount(); i++) {
         result_->addSection(page->sectionAt(i)->clone());
     }
+}
+
+bool CEDPageMerge::empty() const
+{
+    return !result_ || result_->empty();
+}
+
+CEDPagePtr CEDPageMerge::get()
+{
+    return result_;
 }
 
 }

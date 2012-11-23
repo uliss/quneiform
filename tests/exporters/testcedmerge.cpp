@@ -16,24 +16,35 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef CEDPAGEMERGE_H
-#define CEDPAGEMERGE_H
+#include "testcedmerge.h"
+#include "export/cedpagemerge.h"
+#include "ced/cedpage.h"
+#include "ced/cedsection.h"
 
-#include "ced/cedpageptr.h"
+CPPUNIT_TEST_SUITE_REGISTRATION(TestCEDMerge);
 
-namespace cf {
+using namespace cf;
 
-class CEDPageMerge
+void TestCEDMerge::testAddPage()
 {
-public:
-    CEDPageMerge();
-    void add(CEDPagePtr page);
-    bool empty() const;
-    CEDPagePtr get();
-private:
-    CEDPagePtr result_;
-};
+    CEDPageMerge e;
+    CPPUNIT_ASSERT(e.empty());
 
+    e.add(CEDPagePtr());
+    CPPUNIT_ASSERT(e.empty());
+
+    CEDPagePtr p(new CEDPage);
+    p->setImageName("test");
+    p->addSection(new CEDSection);
+    p->addSection(new CEDSection);
+
+    e.add(p);
+    CPPUNIT_ASSERT(!e.empty());
+
+    // add twice
+    e.add(p);
 }
 
-#endif // CEDPAGEMERGE_H
+void TestCEDMerge::testExport()
+{
+}

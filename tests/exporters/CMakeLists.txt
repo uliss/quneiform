@@ -3,6 +3,7 @@ add_definitions(-DEXPORTER_TEST_IMAGE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/")
 set(TEST_EXPORTER_SRC
     test_exporters.cpp
     testbmpimageexporter.cpp
+    testcedmerge.cpp
     testcssexporter.cpp
     testgenericexporter.cpp
     testhtmlexporter.cpp

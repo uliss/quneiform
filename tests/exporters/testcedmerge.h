@@ -16,24 +16,20 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef CEDPAGEMERGE_H
-#define CEDPAGEMERGE_H
+#ifndef TESTCEDMERGE_H
+#define TESTCEDMERGE_H
 
-#include "ced/cedpageptr.h"
+#include <cppunit/extensions/HelperMacros.h>
 
-namespace cf {
-
-class CEDPageMerge
+class TestCEDMerge : public CppUnit::TestFixture
 {
+    CPPUNIT_TEST_SUITE(TestCEDMerge);
+    CPPUNIT_TEST(testAddPage);
+    CPPUNIT_TEST(testExport);
+    CPPUNIT_TEST_SUITE_END();
 public:
-    CEDPageMerge();
-    void add(CEDPagePtr page);
-    bool empty() const;
-    CEDPagePtr get();
-private:
-    CEDPagePtr result_;
+    void testAddPage();
+    void testExport();
 };
 
-}
-
-#endif // CEDPAGEMERGE_H
+#endif // TESTCEDMERGE_H
