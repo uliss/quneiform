@@ -16,10 +16,12 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 #include <fstream>
+#include <string.h> // for memset
+
 #include "testcedpicture.h"
 #include "../test_common.h"
-#include <ced/cedpicture.h>
-#include <common/tostring.h>
+#include "ced/cedpicture.h"
+#include "common/tostring.h"
 CPPUNIT_TEST_SUITE_REGISTRATION(TestCEDPicture);
 using namespace cf;
 
