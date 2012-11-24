@@ -402,7 +402,7 @@ class Tester:
     ''' returns cuneiform version ''' 
     def version(self):
         if self._version is None:
-            self._version = Popen([CUNEIFORM, '-V'], stdout=PIPE).communicate()[0].split()[-1]
+            self._version = Popen([CUNEIFORM, '-V'], stdout=PIPE).communicate()[0].split('\n')[0].split()[-1]
         
         return self._version
 
