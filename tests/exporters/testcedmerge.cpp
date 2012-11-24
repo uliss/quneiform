@@ -32,7 +32,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestCEDMerge);
 #define EXPORTER_TEST_IMAGE_DIR "./"
 #endif
 
-#define NATIVE_SAMPLES_DIR EXPORTER_TEST_IMAGE_DIR "../../images/format/"
+#define NATIVE_SAMPLES_DIR EXPORTER_TEST_IMAGE_DIR
 
 using namespace cf;
 
@@ -40,7 +40,7 @@ static CEDPagePtr load(const char * chr)
 {
     std::string path = NATIVE_SAMPLES_DIR;
     path += chr;
-    path += ".sample.native";
+    path += ".native";
     std::ifstream ifs(path.c_str());
     if(!ifs) {
         cfWarning() << "not found:" << path;
