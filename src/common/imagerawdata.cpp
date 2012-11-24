@@ -16,6 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <string.h>
+
 #include "imagerawdata.h"
 
 namespace cf
@@ -88,6 +90,6 @@ void ImageRawData::set(unsigned char * data, size_t size, allocator_t allocator)
 }
 
 std::ostream& operator<<(std::ostream& os, const cf::ImageRawData& image) {
-    os.write((char*) image.data(), image.dataSize());
+    os.write((char*) image.data(), static_cast<std::streamsize>(image.dataSize()));
     return os;
 }
