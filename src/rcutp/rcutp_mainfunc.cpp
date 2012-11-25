@@ -75,9 +75,9 @@ extern  int16_t      minrow, bbs1, bbs2, bbs3, bbs4, Nb1, Nb2, Nb3;
 extern  uchar      language;
 
 extern int16_t   up_position, dw_position;
-uchar MemForCutPoints[65536];
-uchar MemForCutPointsTwo[65536];
-uchar ForRaster3[R_S];
+static uchar RCUTP_MemForCutPoints[65536];
+static uchar RCUTP_MemForCutPointsTwo[65536];
+static uchar RCUTP_ForRaster3[R_S];
 extern uchar  db_status;  // snap presence byte
 void snap_clear_screen(void);
 
@@ -108,20 +108,20 @@ int16_t Alik_define_cut_points(
     Z = Z;
     bl_up = bbs2;
     bl_dw = bbs3;
-    adr_cut_points = (pint16_t)ForRaster3;
+    adr_cut_points = (pint16_t)RCUTP_ForRaster3;
     ans_ptr = ans;
     hor_byte = (dx + 7) >> 3;
     ver_byte = (dy + 7) >> 3;
     CP = ver_byte * dx;
     i = hor_byte * dy;
     tret_h = (dy << 1) / 3;
-    adr_raster = (pchar)MemForCutPoints;       /* под исходный транспонированный растр */
+    adr_raster = (pchar)RCUTP_MemForCutPoints;       /* под исходный транспонированный растр */
     adrw = adr_raster + CP;             /* под обработанный транспонированный растр */
     trace = adrw + (CP > i ? CP : i);  /* под обход  */
     penalty = (pint16_t)trace + dx;       /* под штрафы */
     product = (pchar)(penalty + dx);   /* под произведения последовательных столбцов */
     cut_points = (pint16_t)(product + dx); /* под точки разрезания */
-    adrw_two = (pchar)MemForCutPointsTwo;
+    adrw_two = (pchar)RCUTP_MemForCutPointsTwo;
     adr_ras_two = adrw_two + (CP > i ? CP : i);
     product_two = adr_ras_two + (CP > i ? CP : i); /* под произведения последовательных столбцов слева и справа*/
     UpBlackPoint = (puchar)(product_two + dx);
