@@ -19,11 +19,12 @@
 #ifndef CEDPAGEMERGE_H
 #define CEDPAGEMERGE_H
 
+#include "globus.h"
 #include "ced/cedpageptr.h"
 
 namespace cf {
 
-class CEDPageMerge
+class CLA_EXPO CEDPageMerge
 {
 public:
     CEDPageMerge();
