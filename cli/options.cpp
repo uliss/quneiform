@@ -22,6 +22,7 @@
 #include <boost/algorithm/string/split.hpp>
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/preprocessor/control.hpp>
+#include <boost/version.hpp>
 
 #include "options.h"
 #include "config-verbose.h" // for cmake config options
@@ -100,15 +101,19 @@ void printLanguages(std::ostream& os) {
 
 void printVersion(std::ostream& os) {
     os << "Cuneiform " << CF_VERSION << "; build: " << CF_BUILD_NUMBER << "\n"
-       << "system:    " << CMAKE_SYSTEM_NAME << "\n"
+       << "system:    " << CMAKE_SYSTEM << "\n"
        << "build:     " << CMAKE_BUILD_TYPE << "\n"
+       << "cpu:       " << CMAKE_SYSTEM_PROCESSOR << "\n"
+       << "cpu arch:  " << CF_PLATFORM_BIT << "-bit\n"
        << "compiler:  " << CMAKE_CXX_COMPILER << "\n"
+       << "compiler version:  " << CF_COMPILER_VERSION << "\n"
        << "cxx flags: " << CF_CXX_FLAGS << "\n";
 
 #ifdef CMAKE_OSX_SYSROOT
     os << "osx root:  " << CMAKE_OSX_SYSROOT << "\n";
 #endif
 
+    os << "boost version: " << BOOST_VERSION << "\n";
 }
 
 

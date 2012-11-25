@@ -21,5 +21,4 @@ if(CMAKE_BUILD_TYPE STREQUAL Debug)
     endif()
 
     message(STATUS "Debug compiler flags are: ${CMAKE_CXX_FLAGS_DEBUG}")
-    set(CF_CXX_FLAGS ${CMAKE_CXX_FLAGS_DEBUG})
 endif()
