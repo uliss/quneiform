@@ -102,8 +102,11 @@ void printVersion(std::ostream& os) {
     os << "Cuneiform " << CF_VERSION << "; build: " << CF_BUILD_NUMBER << "\n"
        << "system:    " << CMAKE_SYSTEM_NAME << "\n"
        << "build:     " << CMAKE_BUILD_TYPE << "\n"
-       << "compiler:  " << CMAKE_CXX_COMPILER << "\n"
-       << "cxx flags: " << CF_CXX_FLAGS << "\n";
+       << "compiler:  " << CMAKE_CXX_COMPILER << "\n";
+
+#ifdef CF_CXX_FLAGS
+    os << "cxx flags: " << CF_CXX_FLAGS << "\n";
+#endif
 
 #ifdef CMAKE_OSX_SYSROOT
     os << "osx root:  " << CMAKE_OSX_SYSROOT << "\n";
