@@ -882,12 +882,18 @@ void MainWindow::setupRecognitionQueue() {
     r_dlg->connectToQueue(recognition_queue_);
 }
 
-void MainWindow::setupShortcuts() {
+void MainWindow::setupShortcuts()
+{
     // there's no default shortcut for quit action in windows and Qt < 4.6
 #ifdef Q_WS_WIN
     ui_->actionExit->setShortcut(QKeySequence("Ctrl+Q"));
 #else
-    ui_->actionExit->setShortcut(QKeySequence::Quit);
+    QKeySequence shortcut_quit(QKeySequence::Quit);
+
+    if(!shortcut_quit.isEmpty())
+        ui_->actionExit->setShortcut(shortcut_quit);
+    else
+        ui_->actionExit->setShortcut(QKeySequence("Ctrl+Q"));
 #endif
 
     ui_->actionOpen->setShortcut(QKeySequence::Open);
