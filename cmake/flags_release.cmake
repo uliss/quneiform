@@ -10,5 +10,4 @@ if(CMAKE_BUILD_TYPE STREQUAL Release)
     endif()
 
     message(STATUS "Release compiler flags are: ${CMAKE_CXX_FLAGS_RELEASE}")
-    set(CF_CXX_FLAGS ${CMAKE_CXX_FLAGS_RELEASE})
 endif()
