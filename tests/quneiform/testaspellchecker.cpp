@@ -27,17 +27,21 @@ void TestASpellChecker::testConstruct() {
     QCOMPARE(c.language(), Language::english());
 }
 
-void TestASpellChecker::testCheckWord() {
+void TestASpellChecker::testCheckWord()
+{
     ASpellChecker c(Language::english());
 
     QVERIFY(c.checkWord("error"));
     QVERIFY(!c.checkWord("errour"));
 
-    c.setLanguage(Language(LANGUAGE_RUSSIAN));
-    QVERIFY(c.checkWord(QString::fromUtf8("правильно")));
+    if(c.isSupported(Language(LANGUAGE_RUSSIAN))) {
+        c.setLanguage(Language(LANGUAGE_RUSSIAN));
+        QVERIFY(c.checkWord(QString::fromUtf8("правильно")));
+    }
 }
 
-void TestASpellChecker::testSpellErrors() {
+void TestASpellChecker::testSpellErrors()
+{
     ASpellChecker c(Language::english());
 
     QVERIFY(c.spellErrors("no error string").isEmpty());
@@ -46,7 +50,7 @@ void TestASpellChecker::testSpellErrors() {
     QCOMPARE(errors.count(), 1);
     QCOMPARE(errors.first(), Range(0, 6));
 
-    if(c.supportedLanguages().contains(Language(LANGUAGE_RUSSIAN))) {
+    if(c.isSupported(Language(LANGUAGE_RUSSIAN))) {
         c.setLanguage(Language(LANGUAGE_RUSSIAN));
         errors = c.spellErrors(QString::fromUtf8("строка с ошипкой"));
         QCOMPARE(errors.count(), 1);
@@ -54,12 +58,13 @@ void TestASpellChecker::testSpellErrors() {
     }
 }
 
-void TestASpellChecker::testSpellSuggest() {
+void TestASpellChecker::testSpellSuggest()
+{
     ASpellChecker c(Language::english());
 
     QCOMPARE(c.suggest("errror").first(), QString("error"));
 
-    if(c.supportedLanguages().contains(Language(LANGUAGE_RUSSIAN))) {
+    if(c.isSupported(Language(LANGUAGE_RUSSIAN))) {
         c.setLanguage(Language(LANGUAGE_RUSSIAN));
         QCOMPARE(c.suggest(QString::fromUtf8("ошыбка")).first(), QString::fromUtf8("ошибка"));
     }
