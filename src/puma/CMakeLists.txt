@@ -95,6 +95,7 @@ endif()
 cf_install_headers(puma
     abstractrecognitionserver.h
     localrecognitionserver.h
+    layoutblock.h
 )
 
 cf_cppcheck(${CF_PUMA})

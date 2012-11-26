@@ -35,6 +35,8 @@ set(CF_COMMON_SOURCES
 
 set(CF_COMMON_HEADERS
     align.h
+    binarizatordef.h
+    binarizeoptions.h
     bmp.h
     consoleprogresscounter.h
     debug.h
