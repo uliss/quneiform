@@ -64,7 +64,9 @@ endfunction()
 function(cf_install_headers)
     set(dir "include/${CF_HEADER_INSTALL}/${ARGV0}")
     set(files ${ARGN})
-    list(REMOVE_AT files 0)
+    if(NOT "${ARGV0}" STREQUAL "")
+        list(REMOVE_AT files 0)
+    endif()
     foreach(f ${files})
         install(FILES ${f} 
             DESTINATION "${dir}"
