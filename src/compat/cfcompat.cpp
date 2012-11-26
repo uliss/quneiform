@@ -58,7 +58,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#include "config.h" // for INSTALL_PREFIX
+#include "config-paths.h" // for INSTALL_DATADIR
 #include "cfcompat.hpp"
 #include "cfcompat.h"
 

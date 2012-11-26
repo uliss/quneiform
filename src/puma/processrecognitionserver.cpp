@@ -39,7 +39,7 @@
 #include "common/console_messages.h"
 #include "common/imageurl.h"
 #include "puma_debug.h"
-#include "config.h"
+#include "config-paths.h" // for INSTALL_PREFIX
 
 static const std::string makeKey() {
     std::ostringstream buf;
