@@ -1121,7 +1121,8 @@ void MainWindow::debugShowCImage()
 #ifndef NDEBUG
 void MainWindow::addDebugMenu()
 {
-    QMenu * debug_menu = menuBar()->addMenu("Debug");
+    QMenu * debug_menu = new QMenu("Debug");
+    ui_->menuHelp->addMenu(debug_menu);
     debug_menu->addAction("Show CImage", this, SLOT(debugShowCImage()));
     debug_menu->addAction("Log", this, SLOT(showLog()));
 }
