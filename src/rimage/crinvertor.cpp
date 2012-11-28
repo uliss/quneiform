@@ -84,7 +84,9 @@ Bool32 CRInvertor::Invert(cf::CTDIB *Image)
         pData = static_cast<uint32_t*> (Image->lineAt(y));
 
         for (x = 0; x < LineLen; x += 4) {
-            *pData++ = ~(*pData);
+            uint32_t tmp = ~(*pData);
+            *pData = tmp;
+            pData++;
         }
     }
 
