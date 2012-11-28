@@ -2084,19 +2084,20 @@ static int16_t acc_2dot(cell *c, cell *cc, puchar r, uchar let) {
 	}
 
 	// now test two points
-	accadr1=cc;
-	if ((cc1=c->prevl)->col+cc1->w-c->col>=cc->w)
-	if (cc->col>=c->col+c->w/2)
-	if (cc1->row<=c->row-cc->h)
-	if ((d=(cc1->col+cc1->w+cc->col)/2-(c->col+c->w/2))<=4*H/9 && d>=-H/4)
-	if (!memchr("/l()J1It[]VW",(let1=cc1->vers[0].let),12) &&
-	let1!=liga_i &&
-	!(language == LANGUAGE_TURKISH && // 30.05.2002 E.P.
-	(let1==i_sans_accent||let1==II_dot_accent)
-	)
-	)
-	if (let!='i')
-	return 1;
+    accadr1 = cc;
+    cc1 = c->prevl;
+    if (cc1->col + cc1->w - c->col >= cc->w) {
+        if (cc->col >= c->col + c->w/2)
+            if (cc1->row <= c->row - cc->h)
+                if ((d=(cc1->col+cc1->w+cc->col)/2-(c->col+c->w/2))<=4*H/9 && d>=-H/4)
+                    if (!memchr("/l()J1It[]VW",(let1=cc1->vers[0].let),12) &&
+                            let1!=liga_i &&
+                            !(language == LANGUAGE_TURKISH && // 30.05.2002 E.P.
+                              (let1==i_sans_accent||let1==II_dot_accent)))
+                        if (let!='i')
+                            return 1;
+    }
+
 	if (cc->col+cc->w/2<=c->col+c->w/2+((let=='A')?c->h:H)/4)
 	if (c->prevl->flg&c_f_fict || cc->col>c->prevl->col+c->prevl->w ||
 	!memchr("ij",c->prevl->vers[0].let,2) &&
