@@ -522,20 +522,22 @@ Bool32 rsadd_is_upper(uchar Code, uchar language) {
 
 	switch (language) {
 	case LANGUAGE_RUSSIAN:
-		return (code > 191 && code < 224 || code > 47 && code < 58);
+        return ((code > 191 && code < 224) || (code > 47 && code < 58));
 	case LANGUAGE_ENGLISH:
-		return (code > 64 && code < 91 || code > 47 && code < 58);
+        return ((code > 64 && code < 91) || (code > 47 && code < 58));
 	}
 	return FALSE;
 }
 
 Bool32 rsadd_is_thick(uchar Code, uchar language) {
 	int32_t code = (int32_t) Code;
-	if (code > 49 && code < 58 || code == 48)
+    if ((code > 49 && code < 58) || code == 48)
 		return TRUE;
 	switch (language) {
-	case LANGUAGE_RUSSIAN:
-		return (code > 191 && !strchr("шШщЩжЖыЫюЮ", code));
+    case LANGUAGE_RUSSIAN: {
+        // "шШщЩжЖыЫюЮ"
+        return (code > 191 && !strchr("\xF8\xD8\xF9\xD9\xE6\xC6\xFB\xDB\xFE\xDE", code));
+    }
 	case LANGUAGE_ENGLISH:
 		return (strchr("QERTYUOPASDFGHJKLZXCVBNMqeyuopasdghkzxcvbn", code)
 				!= NULL);
