@@ -64,6 +64,8 @@
 #include <cctype>
 #include <cstdlib>
 #include <algorithm> // for std::min/max
+
+#include "common/log.h"
 #include "cstr/cstr.h"
 #include "rsadd.h"
 #include "common/lang_def.h"
@@ -997,17 +999,24 @@ Bool32 rsadd_eng_group_CSTR(CSTR_rast b, CSTR_rast e) {
 	CSTR_rast r;
 	CSTR_rast_attr a;
 	UniVersions u;
-	uchar s[80];
+    char buf[80] = { 0 };
 
-	for (s[0] = 0, r = b; r && r != e; r = CSTR_GetNext(r)) {
+    for (buf[0] = 0, r = b; r && r != e; r = CSTR_GetNext(r)) {
 		CSTR_GetAttr(r, &a);
 		CSTR_GetCollectionUni(r, &u);
 		if (a.language != LANGUAGE_ENGLISH || !u.lnAltCnt)
 			return FALSE;
-		strncat((char*) s, (char*) u.Alt[0].Code, sizeof(s));
+
+        const char * code = (char*) u.Alt[0].Code;
+        const size_t buf_free_space = sizeof(buf) - strlen(buf) - 1;
+
+        if (strlen(code) + 1 > buf_free_space)
+            cfWarning(cf::MODULE_RSADD) << "string would be truncated:" << buf;
+
+        strncat(buf, code, buf_free_space);
 	}
 
-	return rsadd_eng_group(s, 0);
+    return rsadd_eng_group((uchar*) buf, 0);
 }
 
 Bool32 rsadd_represent_word(CSTR_rast b, CSTR_rast e) {
