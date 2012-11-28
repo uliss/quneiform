@@ -2098,44 +2098,56 @@ static int16_t acc_2dot(cell *c, cell *cc, puchar r, uchar let) {
                             return 1;
     }
 
-	if (cc->col+cc->w/2<=c->col+c->w/2+((let=='A')?c->h:H)/4)
-	if (c->prevl->flg&c_f_fict || cc->col>c->prevl->col+c->prevl->w ||
-	!memchr("ij",c->prevl->vers[0].let,2) &&
-	cc->col+cc->w/2>=c->prevl->col+c->prevl->w)
-	if (let!='i' ||
-	cc->row+cc->h<=c->row && (cc->cg_flag&c_cg_cutacc)!=c_cg_cutacc)
-	for (cc1=cc->next; cc1->col<c->col+c->w || cc1->flg&(c_f_dust|c_f_punct);
-	cc1=cc1->next)
-	if (cc1->flg&(c_f_dust|c_f_punct))
-	if (let!='i' || cc1->row+cc1->h<=c->row)
-	if (cc1->row>=bl.b1-1 || cc1->row+cc1->h>=c->row-MAX(4,cc1->h)-2)
-	if (cc1->h+cc1->w>=bl.ps/5)
-	if (c->nextl->flg&c_f_fict ||
-	cc1->col+cc1->w/2<=c->nextl->col+1 ||
-	memchr("fg",(let1=c->nextl->vers[0].let),2) ||
-	let1==liga_fi || let1==liga_fl || is_liga_ff(let1) || //let1==liga_ff ||
-	let1==liga_ffi || is_liga_ffl(let1) || //let1==liga_ffl ||
-	let=='i' && !memchr("ij",let1,2) ||
-	let1=='j' && cc1!=dot_ij(c->nextl))
-	if (cc->cg_flag&c_cg_cutl &&
-	(cc->cg_flag&c_cg_cutacc)!=c_cg_cutacc ||
-	(r1=abs(cc->h-cc1->h))<=(s1=MAX(2,(cc->h+cc1->h+3)/6)) &&
-	(r2=abs(cc->w-cc1->w))<=(s2=MAX(2,(cc->w+cc1->w+3)/6)) &&
-	(r3=abs(cc->row+cc->h/2-(cc1->row+cc1->h/2)))<=s1 &&
-	r1+r2+r3<=s1+s2/2+((let=='i')?0:2))
-	if ((d=(cc1->col+cc1->w+cc->col)/2-(c->col+c->w/2))<=
-	4*((let=='A')?c->h:H)/9 &&
-	(d>=-H/8 || (let!='i' || c->cg_flag&c_cg_cut) && d>-H/6 ||
-	cc1->col+cc1->w/2>c->col && d>-H/5))
-	if (cc1->col+cc1->w-cc->col<=c->w || let=='i')
-	if (!(3*cc->w>2*cc->h && 3*cc1->w<=2*cc1->h &&
-	!(c->prevl->flg&c_f_fict) &&
-	c->prevl->col+c->prevl->w>cc->col &&
-	cc1->col+cc1->w/2-(c->col+c->w/2)<=H/6))
-	if (!memchr("Uu",let,2) || cc1->col+cc1->w-cc->col<3*c->w/4 ||
-	(cc->cg_flag&c_cg_cutacc)!=c_cg_cutacc &&
-	(cc1->cg_flag&c_cg_cutacc)!=c_cg_cutacc)
-	{	accadr2=cc1; return 1;}
+    if (cc->col+cc->w/2<=c->col+c->w/2+((let=='A')?c->h:H)/4) {
+        if (c->prevl->flg&c_f_fict || cc->col>c->prevl->col+c->prevl->w ||
+                !memchr("ij",c->prevl->vers[0].let,2) &&
+                cc->col+cc->w/2>=c->prevl->col+c->prevl->w) {
+            if (let!='i' ||
+                    cc->row+cc->h<=c->row && (cc->cg_flag&c_cg_cutacc)!=c_cg_cutacc) {
+                for (cc1=cc->next; cc1->col<c->col+c->w || cc1->flg&(c_f_dust|c_f_punct);
+                     cc1=cc1->next)
+                    if (cc1->flg&(c_f_dust|c_f_punct)) {
+                        if (let!='i' || cc1->row+cc1->h<=c->row) {
+                            if (cc1->row>=bl.b1-1 || cc1->row+cc1->h>=c->row-MAX(4,cc1->h)-2) {
+                                if (cc1->h+cc1->w>=bl.ps/5) {
+                                    if (c->nextl->flg&c_f_fict ||
+                                            cc1->col+cc1->w/2<=c->nextl->col+1 ||
+                                            memchr("fg",(let1=c->nextl->vers[0].let),2) ||
+                                            let1==liga_fi || let1==liga_fl || is_liga_ff(let1) || //let1==liga_ff ||
+                                            let1==liga_ffi || is_liga_ffl(let1) || //let1==liga_ffl ||
+                                            let=='i' && !memchr("ij",let1,2) ||
+                                            let1=='j' && cc1!=dot_ij(c->nextl)) {
+                                        if (cc->cg_flag&c_cg_cutl &&
+                                                (cc->cg_flag&c_cg_cutacc)!=c_cg_cutacc ||
+                                                (r1=abs(cc->h-cc1->h))<=(s1=MAX(2,(cc->h+cc1->h+3)/6)) &&
+                                                (r2=abs(cc->w-cc1->w))<=(s2=MAX(2,(cc->w+cc1->w+3)/6)) &&
+                                                (r3=abs(cc->row+cc->h/2-(cc1->row+cc1->h/2)))<=s1 &&
+                                                r1+r2+r3<=s1+s2/2+((let=='i')?0:2)) {
+                                            if ((d=(cc1->col+cc1->w+cc->col)/2-(c->col+c->w/2))<=
+                                                    4*((let=='A')?c->h:H)/9 &&
+                                                    (d>=-H/8 || (let!='i' || c->cg_flag&c_cg_cut) && d>-H/6 ||
+                                                     cc1->col+cc1->w/2>c->col && d>-H/5)) {
+                                                if (cc1->col+cc1->w-cc->col<=c->w || let=='i') {
+                                                    if (!(3*cc->w>2*cc->h && 3*cc1->w<=2*cc1->h &&
+                                                          !(c->prevl->flg&c_f_fict) &&
+                                                          c->prevl->col+c->prevl->w>cc->col &&
+                                                          cc1->col+cc1->w/2-(c->col+c->w/2)<=H/6)) {
+                                                        if (!memchr("Uu",let,2) || cc1->col+cc1->w-cc->col<3*c->w/4 ||
+                                                                (cc->cg_flag&c_cg_cutacc)!=c_cg_cutacc &&
+                                                                (cc1->cg_flag&c_cg_cutacc)!=c_cg_cutacc)
+                                                        {	accadr2=cc1; return 1;}
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+            }
+        }
+    }
 	accadr1=NULL;
 	return 0;
 }
