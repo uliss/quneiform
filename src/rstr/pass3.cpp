@@ -1913,7 +1913,7 @@ void dust_ini(CSTR_line lin) {
         c2->bas1 = 0;
         c2->bas2 = 0;
         c2->bas3 = 0;
-        c2->bas3 = 0;
+        c2->bas4 = 0;
         c2->bdiff = 0;
         c2->dens = 255;
         if ((attr.Flags & CSTR_STR_SCALED) && cmp->w > 1 && cmp->h > 1) {
