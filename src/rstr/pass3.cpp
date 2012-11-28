@@ -1908,7 +1908,13 @@ void dust_ini(CSTR_line lin) {
         c2->pos_inc = 0;
         c2->flg = c_f_dust;
         c2->bdiff = 0;
-        c2->cg_flag = c2->basflg = c2->bas1 = c2->bas2 = c2->bas3 = c2->bas3 = c2->bdiff = 0;
+        c2->cg_flag = 0;
+        c2->basflg = 0;
+        c2->bas1 = 0;
+        c2->bas2 = 0;
+        c2->bas3 = 0;
+        c2->bas3 = 0;
+        c2->bdiff = 0;
         c2->dens = 255;
         if ((attr.Flags & CSTR_STR_SCALED) && cmp->w > 1 && cmp->h > 1) {
             RecRaster rs;
