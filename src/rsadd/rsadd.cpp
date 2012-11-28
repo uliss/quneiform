@@ -106,16 +106,19 @@ static uchar buf_for_output1[256];
 static uchar buf_for_output2[256];
 static uchar buf_for_output3[256];
 static uchar left_limit_word[] = " ./\x1e\x1f";
-static uchar right_limit_word[] = " -.,РЭЮ\'\":/";
-static uchar rus_similar[] = "џ18$";
+//static uchar right_limit_word[] = " -.,РЭЮ\'\":/";
+static uchar right_limit_word[] = " \x2D\x2E\x2C\xD0\xDD\xDE\'\":/";
+static uchar rus_similar[] = "\x9F" "18\x24"; // Я18$
 static uchar eng_similar[] = "SISS";
-static uchar rus_alias[] = "ЈЇвЎ‚8";
+static uchar rus_alias[] = "\xA3\xAF\xE2\xA1\x82" "8"; // гптбВ8
 static uchar eng_alias[] = "rnr68B";
-static uchar rus_equal[] = "в®аЄебў¬…’“ЋђЂЌЉ•‘‚ЊҐгЁ®а еб“Ћђ•‘­Јэх123456789031";
-static uchar eng_equal[] = "TOPKXCBMETYOPAHKXCBMeyuopaxcyopxcHIam1234567890‡є";
-static uchar rus_uni_letters[] = "©‰й™д”л›¤„¦†нќпџоћЃ\xf0";
+// static uchar rus_equal[] = "торкхсвмЕТУОРАНКХСВМеуиорахсУОРХСнг¤ї123456789031";
+static uchar rus_equal[] = "\xE2\xAE\xE0\xAA\xE5\xE1\xA2\xAC\x85\x92\x93\x8E\x90\x80\x8D\x8A\x95\x91\x82\x8C\xA5\xE3\xA8\xAE\xE0\xA0\xE5\xE1\x93\x8E\x90\x95\x91\xAD\xA3\xFD\xF5"
+        "123456789031";
+static uchar eng_equal[] = "TOPKXCBMETYOPAHKXCBMeyuopaxcyopxcHIam1234567890\x87\xBA";
+// static uchar rus_uni_letters[] = "йЙщЩфФыЫдДжЖэЭяЯюЮБ\xf0";
+static uchar rus_uni_letters[] = "\xA9\x89\xE9\x99\xE4\x94\xEB\x9B\xA4\x84\xA6\x86\xED\x9D\xEF\x9F\xEE\x9E\x81\xf0";
 static uchar eng_uni_letters[] = "iwWRFGLZz\xb1\xb2\xb3\xb4\xb5\xb6\xb9"; //+N
-static uchar non_letters[] = "«»()";
 static uchar true_terms[] = "/-\x5F";
 
 static Bool16 my_snap_monitor_ori(CSTR_line *snap_line, int32_t num_lines) {
