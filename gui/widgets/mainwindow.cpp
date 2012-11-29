@@ -60,6 +60,9 @@
 #include "settingskeys.h"
 #include "scan/scannerdialog.h"
 
+#ifndef Q_WS_MAC
+#define DISABLE_SCANNER_MENU
+#endif
 
 static const int VERSION_MAJOR = 0;
 static const int VERSION_MINOR = 0;
@@ -949,6 +952,10 @@ void MainWindow::setupUi()
 
 #ifndef NDEBUG
     addDebugMenu();
+#endif
+
+#ifdef DISABLE_SCANNER_MENU
+    ui_->actionScan->setVisible(false);
 #endif
 }
 
