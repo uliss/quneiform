@@ -17,6 +17,9 @@
  ***************************************************************************/
 
 #include <QDebug>
+#include <QWidget>
+
+#include "scannerdialog.h"
 
 #ifdef WITH_SANE
 #include "kscandialog.h"
