@@ -180,7 +180,7 @@ bool GeneralPreferences::saveIconTheme(QWidget * w, const QVariant &data)
     int current_idx = cb->currentIndex();
     QString theme = cb->itemText(current_idx);
 
-    if(QIcon::themeName() != theme) {
+    if(QIcon::themeName() != theme && cb->count() > 1) { // not the only theme
         settings.setValue(KEY_ICON_THEME, theme);
         QIcon::setThemeName(theme);
 
