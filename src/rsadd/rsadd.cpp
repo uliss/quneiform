@@ -1188,8 +1188,8 @@ Bool32 RSADD_take(CSTR_line lrus, CSTR_line leng) {
 		rus = rsadd_get_left_coord(lrus, eattr.col, (int16_t) (eattr.col
 				+ eattr.w));
 		if (!rus) {
-            strlcpy((char*) buf, "can't find russian for ", sizeof(buf));
-            strlcat((char*) buf, (char*) ewrd, sizeof(buf));
+            strncpy((char*) buf, "can't find russian for ", sizeof(buf));
+            strncat((char*) buf, (char*) ewrd, sizeof(buf) - strlen((char*)buf) - 1);
 			if (db_status && snap_activity(etap_name)) {
 				snap_show_text((char*) buf);
 				snap_monitor_ori(sln, 2);
