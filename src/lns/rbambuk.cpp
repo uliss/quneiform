@@ -55,16 +55,13 @@
  */
 
 #include "lnslang.h"
+#include "common/log.h"
 
 #ifndef __SBAMBUK_H
 #   include "sbambuk.h"
 #endif
 #ifndef __RBAMBUK_H
 #   include "rbambuk.h"
-#endif
-
-#ifndef NDEBUG
-
 #endif
 
 TSegBambuk* sb_ = NULL;
@@ -85,7 +82,7 @@ Bool TRasterBambuk::makeIt(TSegBambuk* sb) //build rasters by segbambuk
             return (WRONG());
 
         cur_seg = sb_->nextMember(cur_seg);
-    };
+    }
 
     for (cur_entry = 1; cur_entry <= sb_->lastEntry(); cur_entry++) {
         prev_entry = cur_entry - 1;
@@ -98,7 +95,7 @@ Bool TRasterBambuk::makeIt(TSegBambuk* sb) //build rasters by segbambuk
 
             lower = &((*sb_)[cur_seg]);
             goto UpperLineHasEnded;
-        };
+        }
 
         upper = &((*sb_)[prev_seg]);
 
@@ -113,12 +110,6 @@ Bool TRasterBambuk::makeIt(TSegBambuk* sb) //build rasters by segbambuk
         while (TRUE) {
             assert(prev_seg != NULLBHandle);
             assert(cur_seg != NULLBHandle);
-#ifndef NDEBUG
-            //if (lines_processed ++ > 100){
-            //  lines_processed = 1;
-            //  printf( "." );
-            //};
-#endif
             // both segments are not processed yet,
             // but they adresses are getted
 
@@ -133,7 +124,7 @@ Bool TRasterBambuk::makeIt(TSegBambuk* sb) //build rasters by segbambuk
                 upper = &((*sb_)[prev_seg]);
                 assert( upper->dashHandle != NULLBHandle );
                 continue;
-            };
+            }
 
             if (lower->right < upper->left) {
                 if ((lower->dashHandle = startDash(cur_seg, cur_entry)) == NULLBHandle)
@@ -144,7 +135,7 @@ Bool TRasterBambuk::makeIt(TSegBambuk* sb) //build rasters by segbambuk
 
                 lower = &((*sb_)[cur_seg]);
                 continue;
-            };
+            }
 
             /* Part 2/2 : Intersected segments */
             // first intersection - simple link they...
@@ -167,7 +158,7 @@ Bool TRasterBambuk::makeIt(TSegBambuk* sb) //build rasters by segbambuk
                     upper = &((*sb_)[prev_seg]);
                     assert( upper->dashHandle != NULLBHandle );
                     goto LowerLineHasEnded;
-                };
+                }
 
                 lower = &((*sb_)[cur_seg]);
 
@@ -179,7 +170,8 @@ Bool TRasterBambuk::makeIt(TSegBambuk* sb) //build rasters by segbambuk
                     // assert( lower->dashHandle != NULLBHandle );
 
                     if (lower->dashHandle != NULLBHandle) {
-                        fprintf(stderr, "RBAMBUK: Error! lower->dashHandle != NULLBHandle; lower->dashHandle == %x\n", lower->dashHandle);
+                        cfWarning(cf::MODULE_LNS) << "RBAMBUK: Error! lower->dashHandle != NULLBHandle; lower->dashHandle ==" <<
+                                                     lower->dashHandle;
                         return FALSE;
                     }
 
@@ -190,10 +182,10 @@ Bool TRasterBambuk::makeIt(TSegBambuk* sb) //build rasters by segbambuk
                         upper = &((*sb_)[prev_seg]);
                         assert( upper->dashHandle != NULLBHandle );
                         goto LowerLineHasEnded;
-                    };
+                    }
 
                     lower = &((*sb_)[cur_seg]);
-                };
+                }
 
                 if (upper->right < lower->left) {
                     // skip upper and loop
@@ -203,7 +195,7 @@ Bool TRasterBambuk::makeIt(TSegBambuk* sb) //build rasters by segbambuk
                     upper = &((*sb_)[prev_seg]);
                     assert( upper->dashHandle != NULLBHandle );
                     continue;
-                };
+                }
 
                 // upper->left <= lower->right
                 // start lower line
@@ -212,7 +204,7 @@ Bool TRasterBambuk::makeIt(TSegBambuk* sb) //build rasters by segbambuk
                     return (WRONG());
 
                 goto ProcOtherUpper;
-            };
+            }
 
             if (upper->right < lower->right) {
                 ProcOtherUpper:
