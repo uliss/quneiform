@@ -80,6 +80,12 @@ void ImageWidget::handleActionAddTextBlock()
 void ImageWidget::handleActionSegment()
 {
     Q_CHECK_PTR(view_);
+
+    if(!view_->hasPage()) {
+        qWarning() << Q_FUNC_INFO << "NULL page request";
+        return;
+    }
+
     emit segment(view_->page());
 }
 
@@ -149,7 +155,7 @@ void ImageWidget::setupView() {
     view_ = new ImageView(this);
     view_->setMinScale(0.1);
     view_->setMaxScale(10);
-    connect(view_, SIGNAL(pageDeleted()), SIGNAL(pageDeleted()));
+    connect(view_, SIGNAL(pageDeleted()), SLOT(handlePageDelete()));
     connect(view_, SIGNAL(scaled()), SIGNAL(scaled()));
     connect(view_, SIGNAL(scaleIsTooBig()), SIGNAL(scaleIsTooBig()));
     connect(view_, SIGNAL(scaleIsTooSmall()), SIGNAL(scaleIsTooSmall()));
@@ -225,6 +231,12 @@ void ImageWidget::zoomIn() {
 
 void ImageWidget::zoomOut() {
     zoom(0.8);
+}
+
+void ImageWidget::handlePageDelete()
+{
+    updateActions();
+    emit pageDeleted();
 }
 
 void ImageWidget::updateActions()

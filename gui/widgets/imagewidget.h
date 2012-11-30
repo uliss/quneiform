@@ -89,6 +89,8 @@ public slots:
     void zoom(qreal value);
     void zoomIn();
     void zoomOut();
+private slots:
+    void handlePageDelete();
 private:
     void setupLayout();
     void setupToolBar();

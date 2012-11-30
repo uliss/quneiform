@@ -593,5 +593,10 @@ void ImageView::zoom(qreal factor) {
 
 void ImageView::handleRecognizeRequest()
 {
+    if(!page_) {
+        qWarning() << Q_FUNC_INFO << "NULL page recognition request";
+        return;
+    }
+
     emit recognize(page_);
 }
