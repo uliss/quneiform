@@ -16,6 +16,15 @@ macro(SET_COMPILER_FLAG_RELEASE flag)
     endif()
 endmacro()
 
+macro(SET_COMPILER_FLAG_RELWITHDEBINFO flag)
+    CHECK_CXX_COMPILER_FLAG(${flag} "HAVE_CXX_COMPILER_FLAG${flag}")
+    if("HAVE_CXX_COMPILER_FLAG${flag}")
+        set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} ${flag}")
+    else()
+        message(STATUS "Compiler flag ${flag} is not supported")
+    endif()
+endmacro()
+
 add_definitions("-D_USE_RVERLINE_")
 
 if(MINGW)
