@@ -199,6 +199,7 @@ void MainWindow::connectActions() {
     connect(ui_->actionRotateRight, SIGNAL(triggered()), SLOT(rotateRight()));
     connect(ui_->actionOpenPacket, SIGNAL(triggered()), SLOT(openPacketDialog()));
     connect(ui_->actionSavePacket, SIGNAL(triggered()), SLOT(savePacket()));
+    connect(ui_->actionSavePacketAs, SIGNAL(triggered()), SLOT(savePacketAs()));
     connect(ui_->actionPreferences, SIGNAL(triggered()), SLOT(showPreferences()));
     connect(ui_->actionRecognitionSettings, SIGNAL(triggered()), SLOT(recognitionSettings()));
     connect(ui_->actionScan, SIGNAL(triggered()), SLOT(showScanDialog()));
@@ -727,6 +728,20 @@ void MainWindow::savePacket(const QString& path) {
     recent_packets_->add(path);
 }
 
+void MainWindow::savePacketAs()
+{
+    Q_CHECK_PTR(packet_);
+
+    QFileInfo fi(packet_->fileName());
+
+    QString fname = QFileDialog::getSaveFileName(this,
+                                             tr("Save Quneiform packet as"),
+                                             fi.baseName(),
+                                             tr("Quneiform packets (*.qfp)"));
+
+    savePacket(fname);
+}
+
 void MainWindow::savePage(Page * page) {
     Q_CHECK_PTR(page);
 
@@ -763,6 +778,11 @@ void MainWindow::savePage(Page * page) {
 
 void MainWindow::segmentPage(Page * page)
 {
+    if(!page) {
+        qWarning() << Q_FUNC_INFO << "NULL page given";
+        return;
+    }
+
     Q_CHECK_PTR(recognition_queue_);
     recognition_queue_->add(page);
     recognition_queue_->startSegmentation();
@@ -903,6 +923,7 @@ void MainWindow::setupShortcuts()
     ui_->actionZoom_In->setShortcut(QKeySequence::ZoomIn);
     ui_->actionZoom_Out->setShortcut(QKeySequence::ZoomOut);
     ui_->actionSavePacket->setShortcut(QKeySequence::Save);
+    ui_->actionSavePacketAs->setShortcut(QKeySequence::SaveAs);
 
     ui_->actionFullScreen->setShortcut(QKeySequence("Ctrl+Alt+F"));
 

@@ -772,6 +772,14 @@ Are you shure?</source>
         <source>Not all pages in packet were recognized. Do you want to recognize them before exporting?</source>
         <translation>Не все страницы в пакете были распознаны. Распознать их перед экспортом?</translation>
     </message>
+    <message>
+        <source>Save packet as...</source>
+        <translation>Сохранить пакет как...</translation>
+    </message>
+    <message>
+        <source>Save Quneiform packet as</source>
+        <translation>Сохранить пакет Quneiform как</translation>
+    </message>
 </context>
 <context>
     <name>OpenProgressDialog</name>

@@ -714,6 +714,14 @@ Do you want to save it?</source>
         <source>Not all pages in packet were recognized. Do you want to recognize them before exporting?</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Save packet as...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save Quneiform packet as</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OpenProgressDialog</name>

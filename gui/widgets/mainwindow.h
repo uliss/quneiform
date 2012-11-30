@@ -93,6 +93,7 @@ private slots:
     void rotateRight();
     void savePacket();
     void savePacket(const QString& path);
+    void savePacketAs();
     void savePage(Page * page);
     void segmentPage(Page * page);
     void selectLanguage(const Language& lang);
