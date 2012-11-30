@@ -26,7 +26,7 @@
 #include "thumbnailgenerator.h"
 #include "export/cedpagemerge.h"
 
-static const QString DEFAULT_NAME = "untitled.qpf";
+static const QString DEFAULT_NAME = "untitled.qfp";
 
 Packet::Packet(QObject * parent) :
         QObject(parent),
