@@ -130,7 +130,9 @@ MEMOPS_INLINE
 void __InvertSelf(uchar* dst, const int bytes_cnt)
 {
     for (int i = 0; i < bytes_cnt; i++) {
-        *dst++ = ~*dst;
+        uchar tmp = ~*dst;
+        *dst = tmp;
+        dst++;
     }
 }
 

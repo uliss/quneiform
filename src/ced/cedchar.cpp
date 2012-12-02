@@ -35,6 +35,17 @@ CEDChar::CEDChar(unsigned char chr) :
     addAlternative(chr);
 }
 
+CEDChar::CEDChar(const CEDChar& ch) :
+    Element(ch)
+{
+    font_lang_ = ch.font_lang_;
+    font_height_ = ch.font_height_;
+    font_style_ = ch.font_style_;
+    font_number_ = ch.font_number_;
+    alternatives_.reserve(ch.alternatives_.size());
+    alternatives_ = ch.alternatives_;
+}
+
 void CEDChar::addAlternative(const Letter& letter) {
     alternatives_.push_back(letter);
 }
@@ -45,6 +56,11 @@ Letter CEDChar::alternativeAt(size_t pos) const {
 
 size_t CEDChar::alternativeCount() const {
     return alternatives_.size();
+}
+
+CEDChar * CEDChar::clone() const
+{
+    return new CEDChar(*this);
 }
 
 void CEDChar::exportElement(CEDExporter& exp) {

@@ -3,8 +3,4 @@
 
 #cmakedefine HAVE_STDINT_H
 
-#define INSTALL_PREFIX "@CMAKE_INSTALL_PREFIX@"
-#define INSTALL_DATADIR "@INSTALL_DATADIR@"
-
-
 #endif

@@ -67,30 +67,21 @@ typedef CTIMaskLine *PCTIMaskLine, **PPCTIMaskLine;
 class CTIMaskLine
 {
     public:
-        CTIMaskLine(uint Lenght, uint nLine, CTIMaskLineSegment * pSegm, CTIMaskLine * pcNextLine);
-        CTIMaskLine(uint Lenght, uint nLine, CTIMaskLineSegment * pSegm);
-        CTIMaskLine(uint Lenght, CTIMaskLineSegment * pSegm);
-        CTIMaskLine(uint Lenght);
+        CTIMaskLine(uint lenght, uint nLine, const CTIMaskLineSegment& segm);
+        CTIMaskLine(uint length, const CTIMaskLineSegment& segm);
+        CTIMaskLine(uint length);
         CTIMaskLine();
         ~CTIMaskLine();
 
-        bool isSegmentOnLine(CTIMaskLineSegment * segm) const
+        bool isSegmentOnLine(const CTIMaskLineSegment& segm) const
         {
-            return (segm->start() >= 0
-                    && segm->start() <= (int) length_
-                    && segm->end() <= (int)length_);
+            return (segm.start() >= 0
+                    && segm.start() <= (int) length_
+                    && segm.end() <= (int)length_);
         }
 
-        Bool32 addSegment(CTIMaskLineSegment * pSegm);
-        Bool32 removeSegment(CTIMaskLineSegment * pSegm);
-
-        PCTIMaskLine GetNext() {
-            return next_;
-        }
-
-        void SetNext(PCTIMaskLine pLine) {
-            next_ = pLine;
-        }
+        bool addSegment(const CTIMaskLineSegment& segm);
+        bool removeSegment(const CTIMaskLineSegment& segm);
 
         void setLineNumber(uint nLine) {
             line_ = nLine;
@@ -104,15 +95,12 @@ class CTIMaskLine
             return segments_;
         }
 
-        bool getLeftIntersection(CTIMaskLineSegment * pcSegm);
+        bool getLeftIntersection(CTIMaskLineSegment * segm);
     protected:
         uint length_;
         uint segments_;
         uint line_;
-        CTIMaskLine * next_;
         CTIMaskLineSegment first_;
-    private:
-        Bool32 CheckSegments(void);
 };
 
 }

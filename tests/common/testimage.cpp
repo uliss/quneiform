@@ -15,12 +15,15 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
+
 #include <fstream>
+#include <string.h>
+
 #include "testimage.h"
 #include "../test_common.h"
 CPPUNIT_TEST_SUITE_REGISTRATION(TestImage);
-#include <common/image.h>
-#include <common/tostring.h>
+#include "common/image.h"
+#include "common/tostring.h"
 using namespace cf;
 
 void TestImage::testInit() {
@@ -75,4 +78,32 @@ void TestImage::testSerializeXml() {
     CPPUNIT_ASSERT_EQUAL(im.height(), new_img.height());
 
 #endif
+}
+
+void TestImage::testClone()
+{
+    Image im;
+    im.setSize(Size(10, 20));
+    im.setFileName("test");
+
+    Image * im_copy = im.clone();
+    CPPUNIT_ASSERT(im_copy);
+    CPPUNIT_ASSERT_EQUAL(im.size(), im_copy->size());
+    CPPUNIT_ASSERT_EQUAL(im.fileName(), im_copy->fileName());
+    CPPUNIT_ASSERT(im_copy->isNull());
+    delete im_copy;
+
+    uchar data[100];
+    memset(data, 0xFF, 100);
+    im.set(data, 100, Image::AllocatorNone);
+
+    im_copy = im.clone();
+    CPPUNIT_ASSERT(im_copy);
+    CPPUNIT_ASSERT_EQUAL(im.size(), im_copy->size());
+    CPPUNIT_ASSERT_EQUAL(im.fileName(), im_copy->fileName());
+    CPPUNIT_ASSERT(!im_copy->isNull());
+    CPPUNIT_ASSERT(im.data() != im_copy->data());
+    CPPUNIT_ASSERT_EQUAL(im.dataSize(), im_copy->dataSize());
+    delete im_copy;
+
 }

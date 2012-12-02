@@ -1,0 +1,41 @@
+#ifndef USER_CONFIG_H_CF
+#define USER_CONFIG_H_CF
+
+#include "config.h"
+#include "config-version.h"
+#include "config-serialize.h"
+#include "build_number.h"
+
+// platform
+#define CMAKE_SYSTEM "@CMAKE_SYSTEM@"
+#define CMAKE_SYSTEM_PROCESSOR "@CMAKE_SYSTEM_PROCESSOR@"
+#define CF_PLATFORM_BIT @CF_PLATFORM_BIT@
+#cmakedefine CMAKE_OSX_SYSROOT "@CMAKE_OSX_SYSROOT@"
+
+// compilers
+#define CMAKE_CXX_COMPILER "@CMAKE_CXX_COMPILER@"
+#define CF_COMPILER "@CF_COMPILER@"
+#define CF_COMPILER_VERSION "@CF_COMPILER_VERSION@"
+
+// build type
+#define CMAKE_BUILD_TYPE "@CMAKE_BUILD_TYPE@"
+
+// flags
+#define CF_CXX_FLAGS "@CF_CXX_FLAGS@"
+#define CMAKE_SHARED_LINKER_FLAGS "@CMAKE_SHARED_LINKER_FLAGS@"
+#define CMAKE_EXE_LINKER_FLAGS "@CMAKE_EXE_LINKER_FLAGS@"
+
+// libs
+#define ICONV_INCLUDE_DIR "@ICONV_INCLUDE_DIR@"
+#define ICONV_LIBRARIES "@ICONV_LIBRARIES@"
+
+#define POPPLER_INCLUDE_DIR "@POPPLER_INCLUDE_DIR@"
+#define POPPLER_LIBRARY "@POPPLER_LIBRARY@"
+
+#define TIFF_INCLUDE_DIR "@TIFF_INCLUDE_DIR@"
+#define TIFF_LIBRARIES "@TIFF_LIBRARIES@"
+
+#define Boost_INCLUDE_DIRS "@Boost_INCLUDE_DIRS@"
+#define Boost_LIBRARIES "@Boost_LIBRARIES@"
+
+#endif

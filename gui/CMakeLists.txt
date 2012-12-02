@@ -43,6 +43,8 @@ set(TRANSLATIONS_TS translations/ru.ts translations/ua.ts)
 set(HEADERS 
     packet.h
     page.h
+    pagearea.h
+    pagebinarizator.h
     pagerecognizer.h
     pagerecognitionqueue.h
     selectionlist.h
@@ -79,9 +81,13 @@ set(HEADERS
     widgets/thumbnailwidget.h
     internal/cimageview.h
     quneiformapplication.h
+    thumbnailgenerator.h
 )
 
 set(SOURCES
+    binarizationsettings.cpp
+    block.cpp
+    cfutils.cpp
     exportsettings.cpp
     formatsettings.cpp
     fullscreen.cpp
@@ -94,8 +100,8 @@ set(SOURCES
     metatyperegistrator.cpp
     packet.cpp
     page.cpp
+    pagebinarizator.cpp
     pagearea.cpp
-    pagelayout.cpp
     pagerecognizer.cpp
     pagerecognitionqueue.cpp
     recognitionsettings.cpp
@@ -150,6 +156,7 @@ set(SOURCES
     guilog.cpp
     workspace.cpp
     settingskeys.cpp
+    thumbnailgenerator.cpp
 )
 
 if(APPLE)
@@ -195,7 +202,9 @@ include(${QT_USE_FILE})
 qt4_add_resources(QRC_SOURCES ${RESOURCES})
 qt4_wrap_cpp(MOC_SOURCES ${HEADERS})
 qt4_wrap_ui(UI_HEADERS ${FORMS})
-qt4_create_translation(TRANSLATIONS_QM ${HEADERS} ${SOURCES} ${UI_HEADERS} ${FORMS} ${TRANSLATIONS_TS})
+qt4_create_translation(TRANSLATIONS_QM ${HEADERS} ${SOURCES} ${UI_HEADERS} ${FORMS}
+    ${TRANSLATIONS_TS}
+    OPTIONS -locations none)
 
 source_group("Header Files" FILES ${HEADERS})
 source_group("Source Files" FILES ${SOURCES})

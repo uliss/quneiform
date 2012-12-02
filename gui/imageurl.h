@@ -25,6 +25,7 @@ class ImageURL
 {
 public:
     explicit ImageURL(const QString& path, int imageNumber = 0);
+    bool exists() const;
     bool isEmpty() const;
     bool isSimple() const;
     QString path() const;
@@ -41,6 +42,7 @@ private:
     qint32 image_number_;
 };
 
+QDebug& operator<<(QDebug& dbg, const ImageURL& url);
 QDataStream& operator<<(QDataStream& stream, const ImageURL& imageURL);
 QDataStream& operator>>(QDataStream& stream, ImageURL& imageURL);
 

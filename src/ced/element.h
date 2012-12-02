@@ -32,12 +32,12 @@ class CEDExporter;
 class CLA_EXPO Element
 {
     private:
-        Element(const Element&);
         const Element& operator=(const Element&);
     public:
         Element(Element * parent = NULL);
         virtual ~Element();
     public:
+        virtual Element * clone() const = 0;
         virtual void exportElement(CEDExporter& exp) = 0;
         virtual void exportChildren(CEDExporter& exp);
 
@@ -114,6 +114,8 @@ class CLA_EXPO Element
          * @see height()
          */
         int width() const;
+    protected:
+        Element(const Element& el);
     private:
 #ifdef CF_SERIALIZE
         friend class boost::serialization::access;

@@ -632,12 +632,16 @@ Bool32 OutputFragments(Handle hPage)
     Bool32 rc = TRUE;
     int count;
     uint32_t BlockNumber;
-    int32_t Min, PrevMin;
+    int32_t Min;
+    int32_t PrevMin;
     Handle hBlock = NULL; // ***** Rom 01-03-99
     Handle h;
     Handle h_next;
     //Point16 Point;
-    int i, j, max, nPics;
+    int i;
+    int j;
+    int max;
+    int nPics;
     POLY_ * pPics;
     Bool32 Same;
     POLY_ block;
@@ -674,7 +678,6 @@ Bool32 OutputFragments(Handle hPage)
         all_polys[i].com.type = TYPE_TEXT;//Текст, Картинка, Таблица;
         //all_polys[i].com.number = ++count;//порядковый номер
         all_polys[i].com.number = p->nNumber;//порядковый номер
-        all_polys[i].com.Color = 0;
         all_polys[i].com.count = 4;
         all_polys[i].com.Vertex[0].rx() = p->Rect.xLeft;
         all_polys[i].com.Vertex[0].ry() = p->Rect.yTop;

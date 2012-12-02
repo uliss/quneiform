@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,26 +16,18 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <iostream>
 
-#ifndef TESTPAGELAYOUT_H
-#define TESTPAGELAYOUT_H
+#include "letter.h"
 
-#include <QObject>
+namespace cf {
 
-class TestPageLayout : public QObject
+std::ostream& operator<<(std::ostream& os, const Letter& letter)
 {
-    Q_OBJECT
-public:
-    explicit TestPageLayout(QObject *parent = 0);
-private slots:
-    void testConstruct();
-    void testPopulateChars();
-    void testPopulateColumns();
-    void testPopulateLines();
-    void testPopulateParagraphs();
-    void testPopulatePictures();
-    void testPopulateSections();
-    void testClear();
-};
+    os << "Letter: '" << letter.getChar() << "' (" << (int) letter.getChar() << ") prob: "
+          <<  (int) letter.probability();
+    return os;
+}
 
-#endif // TESTPAGELAYOUT_H
+}
+

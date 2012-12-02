@@ -122,6 +122,11 @@ bool CTIImageList::imageHandle(const std::string& name, BitmapPtr * handle)
     return true;
 }
 
+bool CTIImageList::clearReadMask(const std::string& imageName)
+{
+    return maskAction(imageName, &CTIImageHeader::clearReadMask);
+}
+
 bool CTIImageList::hasImage(const std::string& name) const
 {
     return headers_.find(name) != headers_.end();

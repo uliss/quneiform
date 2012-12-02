@@ -33,4 +33,4 @@ void TestTextEditor::testPageDelete() {
     delete p1;
 }
 
-QTEST_MAIN(TestTextEditor);
+QTEST_MAIN(TestTextEditor)

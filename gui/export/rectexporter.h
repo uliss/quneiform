@@ -21,7 +21,9 @@
 
 #include <QRect>
 #include <QList>
+
 #include "export/genericexporter.h"
+#include "block.h"
 
 namespace cf {
 
@@ -29,14 +31,14 @@ class RectExporter: public GenericExporter
 {
 public:
     RectExporter(CEDPagePtr page);
-    typedef QList<QRect> RectList;
+    typedef QList<Block> BlockList;
     void collect();
-    const RectList& chars() const;
-    const RectList& columns() const;
-    const RectList& lines() const;
-    const RectList& paragraphs() const;
-    const RectList& pictures() const;
-    const RectList& sections() const;
+    const BlockList& chars() const;
+    const BlockList& columns() const;
+    const BlockList& lines() const;
+    const BlockList& paragraphs() const;
+    const BlockList& pictures() const;
+    const BlockList& sections() const;
 protected:
     void doExport(std::ostream& os);
 private:
@@ -51,12 +53,12 @@ private:
     void writeSectionBegin(CEDSection& sect);
     void writeSectionEnd(CEDSection& sect);
 private:
-    RectList sections_;
-    RectList columns_;
-    RectList paragraphs_;
-    RectList lines_;
-    RectList pictures_;
-    RectList chars_;
+    BlockList sections_;
+    BlockList columns_;
+    BlockList paragraphs_;
+    BlockList lines_;
+    BlockList pictures_;
+    BlockList chars_;
     QRect current_column_;
     QRect current_line_;
     QRect current_par_;

@@ -19,12 +19,15 @@
 #ifndef LETTER_H_
 #define LETTER_H_
 
+#include <iosfwd>
+
 #include "common/serialize.h"
+#include "globus.h"
 
 namespace cf
 {
 
-class Letter
+class CLA_EXPO Letter
 {
     public:
         enum
@@ -52,6 +55,12 @@ class Letter
                 alternative_ = ' ';
         }
 
+        bool operator==(const Letter& letter) const
+        {
+            return alternative_ == letter.alternative_ &&
+                    probability_ == letter.probability_;
+        }
+
         unsigned char probability() const {
             return probability_;
         }
@@ -76,6 +85,8 @@ class Letter
         unsigned char alternative_; //  ASCII code.  >= ' '.
         unsigned char probability_;
 };
+
+FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const Letter& letter);
 
 }
 

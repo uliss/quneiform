@@ -41,10 +41,10 @@ PagePropertiesDialog::PagePropertiesDialog(Page * p, QWidget * parent) :
     ui_->recognized->setText(p->isRecognized() ? tr("Yes") : tr("No"));
     ui_->saved->setText(p->isExported() ? tr("Yes") : tr("No"));
     ui_->language->setText(p->language().trName());
-    ui_->sections->setNum(p->blocksCount(Page::SECTION));
-    ui_->paragraphs->setNum(p->blocksCount(Page::PARAGRAPH));
-    ui_->characters->setNum(p->blocksCount(Page::CHAR));
-    ui_->images->setNum(p->blocksCount(Page::PICTURE));
+    ui_->sections->setNum(p->blocksCount(BLOCK_SECTION));
+    ui_->paragraphs->setNum(p->blocksCount(BLOCK_PARAGRAPH));
+    ui_->characters->setNum(p->blocksCount(BLOCK_CHAR));
+    ui_->images->setNum(p->blocksCount(BLOCK_PICTURE));
 #ifndef NDEBUG
     ui_->heightHistogram->setData(RecognitionInternal::instance().componetHeightHistogram(p->imagePath()));
     ui_->widthHistogram->setData(RecognitionInternal::instance().componetWidthHistogram(p->imagePath()));

@@ -81,12 +81,12 @@ QString ASpellChecker::prepareWord(const QString& word) {
     if(!first_chr.isLetter())
         res.remove(0, 1);
 
-    if(word.isEmpty())
-        return QString();
-
-    QChar last_chr = res.at(res.length() - 1);
-    if(!last_chr.isLetter())
-        res.chop(1);
+    while(!res.isEmpty()) {
+        if(!res.right(1)[0].isLetter())
+            res.chop(1); // remove not letters from end of word
+        else
+            break;
+    }
 
     return res;
 }

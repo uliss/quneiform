@@ -107,7 +107,7 @@ size_t StyleExporter::hash(const CEDParagraph& par) const {
     size_t seed = 1;
     boost::hash_combine(seed, par.color().toT<int> ());
     boost::hash_combine(seed, par.backgroundColor().toT<int> ());
-    boost::hash_combine(seed, par.align());
+    boost::hash_combine(seed, static_cast<int>(par.align()));
     boost::hash_combine(seed, par.indent());
     return seed;
 }

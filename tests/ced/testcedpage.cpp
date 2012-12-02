@@ -115,3 +115,30 @@ void TestCEDPage::testSerializeXml() {
     CPPUNIT_ASSERT_EQUAL(borders, new_p.pageBorder());
 #endif
 }
+
+void TestCEDPage::testClone()
+{
+    CEDPage page;
+    page.setImageSize(Size(10, 20));
+    page.setImageDpi(Size(300, 400));
+    page.setPageSize(Size(30, 50));
+    page.setPageBorder(Rect(10, 20, 400, 400));
+    page.setImageName("test page");
+    page.setTurn(70);
+    page.setPageNumber(2);
+    page.setLanguage(LANGUAGE_TURKISH);
+
+
+    CEDPage * page_copy = page.clone();
+    CPPUNIT_ASSERT(page_copy);
+    CPPUNIT_ASSERT_EQUAL(page.imageSize(), page_copy->imageSize());
+    CPPUNIT_ASSERT_EQUAL(page.imageDpi(), page_copy->imageDpi());
+    CPPUNIT_ASSERT_EQUAL(page.pageSize(), page_copy->pageSize());
+    CPPUNIT_ASSERT_EQUAL(page.pageBorder(), page_copy->pageBorder());
+    CPPUNIT_ASSERT_EQUAL(page.imageName(), page_copy->imageName());
+    CPPUNIT_ASSERT_EQUAL(page.turn(), page_copy->turn());
+    CPPUNIT_ASSERT_EQUAL(page.pageNumber(), page_copy->pageNumber());
+    CPPUNIT_ASSERT_EQUAL(page.language(), page_copy->language());
+
+    delete page_copy;
+}

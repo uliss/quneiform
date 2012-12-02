@@ -22,6 +22,8 @@
 #include <QGraphicsRectItem>
 #include <QObject>
 
+#include "blocktype.h"
+
 class SelectionList;
 
 class Selection : public QGraphicsRectItem
@@ -52,13 +54,6 @@ public:
         DIAGONAL_RIGHT = 4
     };
 
-    enum selection_t {
-        AREA = 0,
-        TEXT = 1,
-        IMAGE = 2,
-        TABLE = 3
-    };
-
     /**
       * Returns normalized selection rectange
       * taking into account pos() and rect() values
@@ -69,13 +64,13 @@ public:
       * Sets selection type
       * @see selectionType()
       */
-    void setSelectionType(selection_t t);
+    void setSelectionType(BlockType t);
 
     /**
       * Returns selection type
       * @see setSelectionType()
       */
-    selection_t selectionType() const;
+    BlockType selectionType() const;
 protected:
     void hoverEnterEvent (QGraphicsSceneHoverEvent * event);
     void hoverLeaveEvent(QGraphicsSceneHoverEvent * event);
@@ -85,6 +80,7 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent * event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent * event);
 private:
+    bool isReadOnly() const;
     qreal borderDistance(const QPointF& pt, Selection::border_t border) const;
     int bordersResized(const QPointF& pos) const;
     bool isCloseToBorder(const QPointF& pt, Selection::border_t border) const;
@@ -101,8 +97,8 @@ private:
     void setFinalCursor(Qt::CursorShape cursor);
 private:
     SelectionList * parent_;
-    selection_t type_;
-    char resize_;
+    BlockType type_;
+    int resize_;
 };
 
 #endif // SELECTION_H

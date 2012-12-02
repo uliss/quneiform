@@ -54,6 +54,11 @@ class CLA_EXPO CEDFrame: public BlockElement
         CEDFrame(BlockElement * parent = NULL, hposition_t hpos = HPOS_COLUMN, vposition_t vpos =
                 VPOS_PARAGRAPH);
 
+        /**
+         * Returns pointer to deep frame copy
+         */
+        CEDFrame * clone() const;
+
         void exportElement(CEDExporter& exp);
 
         int dxfrtextx;
@@ -70,6 +75,8 @@ class CLA_EXPO CEDFrame: public BlockElement
          * Sets vertical frame snap position
          */
         void setVPosition(vposition_t pos);
+    protected:
+        CEDFrame(const CEDFrame& frame);
     private:
 #ifdef CF_SERIALIZE
         friend class boost::serialization::access;

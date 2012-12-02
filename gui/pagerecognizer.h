@@ -23,10 +23,12 @@
 #include <QString>
 #include <QImage>
 #include <QMutex>
+#include <QScopedPointer>
 
 class Page;
 
 namespace cf {
+class AbstractRecognitionServer;
 class PercentCounter;
 class RecognitionState;
 }
@@ -36,11 +38,12 @@ class PageRecognizer : public QObject
     Q_OBJECT
 public:
     enum WorkerType {
-        LOCAL, // worker runs in the same process and thread as calling process
-        PROCESS // worker runs in separate process
+        RUNTIME,  // worker can be local or process, depends from QSettings at runtime moment
+        LOCAL,    // worker runs in the same process and thread as calling process
+        PROCESS   // worker runs in separate process
     };
 public:
-    PageRecognizer(QObject * parent = NULL);
+    PageRecognizer(QObject * parent = NULL, WorkerType type = LOCAL);
     ~PageRecognizer();
 
     /**
@@ -58,17 +61,16 @@ public:
      * @see workerType()
      */
     void setWorkerType(WorkerType t);
-
-    /**
-     * Returns worker type
-     * @see setWorkerType()
-     */
-    WorkerType workerType() const;
 public slots:
     /**
       * Tries to abort recognition process
       */
     void abort();
+
+    /**
+     * Analyzes page layout and makes page markup
+     */
+    bool analyze();
 
     /**
       * Starts page recognition thread
@@ -111,21 +113,27 @@ signals:
       * Emitted after page is recognized
       */
     void recognized();
+private slots:
+    void handleFail(const QString& msg);
 private:
     void exportPageText();
+    bool exportPageLayout(cf::AbstractRecognitionServer * server);
+    bool importPageLayout(const cf::AbstractRecognitionServer * server);
     void handleRecognitionProgress(unsigned char percentsDone);
     void handleRecognitionState(int);
-    void loadImage();
+    bool loadImage();
     void setConfigOptions();
     void saveResolutionHeightHistogram(const std::vector<int>& hist);
     void saveResolutionWidthHistogram(const std::vector<int>& hist);
+    WorkerType workerType() const;
 private:
     Page * page_;
-    cf::PercentCounter * counter_;
-    cf::RecognitionState * recog_state_;
+    QScopedPointer<cf::PercentCounter> counter_;
+    QScopedPointer<cf::RecognitionState> recog_state_;
     QMutex lock_;
     volatile bool abort_;
     WorkerType worker_type_;
+    QImage image_;
 };
 
 #endif // PAGERECOGNIZER_H

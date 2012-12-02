@@ -4,6 +4,7 @@ set(CF_WORKER cuneiform-worker)
 
 set(CF_PUMA_SOURCE
     abstractrecognitionserver.cpp
+    layoutblock.cpp
     localrecognitionserver.cpp
     pumaimpl.cpp
     recognitionfactory.cpp
@@ -94,6 +95,7 @@ endif()
 cf_install_headers(puma
     abstractrecognitionserver.h
     localrecognitionserver.h
+    layoutblock.h
 )
 
 cf_cppcheck(${CF_PUMA})

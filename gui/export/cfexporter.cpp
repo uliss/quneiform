@@ -27,19 +27,30 @@ CfExporter::CfExporter(const ExportSettings& s)
     : IQfExporter(s) {
 }
 
-void CfExporter::exportTo(Page * p, const QString& fname) {
+void CfExporter::exportTo(Page * p, const QString& fname)
+{
     Q_CHECK_PTR(p);
 
-    qDebug() << Q_FUNC_INFO << fname;
+    exportCEDPage(p->cedPage(), p->formatSettings(), fname);
+}
 
-    cf::FormatOptions opts;
-    p->formatSettings().exportTo(opts);
+void CfExporter::exportCEDPage(cf::CEDPagePtr page, const FormatSettings& s, const QString& fullPath)
+{
+    qDebug() << Q_FUNC_INFO << fullPath;
 
-    cf::ExporterFactory::instance().setPage(cf::CEDPagePtr(p->cedPage()));
-    cf::ExporterFactory::instance().setFormatOptions(opts);
-    cf::ExporterPtr e = cf::ExporterFactory::instance().make(
-                static_cast<cf::format_t>(settings().cfFormatType()));
-//    e->setOutputPictureDir(output_image_dir_);
+    try {
+        cf::FormatOptions opts;
+        s.exportTo(opts);
 
-    e->exportTo(fname.toLocal8Bit().data());
+        cf::ExporterFactory::instance().setPage(page);
+        cf::ExporterFactory::instance().setFormatOptions(opts);
+        cf::ExporterPtr e = cf::ExporterFactory::instance().make(
+                    static_cast<cf::format_t>(settings().cfFormatType()));
+
+        e->exportTo(fullPath.toLocal8Bit().data());
+    }
+    catch(cf::Exporter::Exception& e) {
+        qWarning() << Q_FUNC_INFO << e.what();
+        throw ExporterException(e.what());
+    }
 }

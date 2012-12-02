@@ -123,6 +123,9 @@ class CLA_EXPO RecognizeOptions
         void setSpellCorrection(bool value);
         void setTableMode(table_mode_t mode);
         void setUserDict(const std::string& user_dict);
+
+        bool manualLayout() const;
+        void setManualLayout(bool value);
     private:
         bool hasFlag(uint flag) const { return flags_ & flag; }
         void setFlag(uint flag, bool value) { value ? setFlag(flag) : unsetFlag(flag); }

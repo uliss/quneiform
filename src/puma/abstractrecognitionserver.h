@@ -19,6 +19,7 @@
 #ifndef ABSTRACTRECOGNITIONSERVER_H
 #define ABSTRACTRECOGNITIONSERVER_H
 
+#include <vector>
 #include <stdexcept>
 #include <string>
 #include <boost/noncopyable.hpp>
@@ -29,6 +30,7 @@
 #include "common/formatoptions.h"
 #include "common/recognizeoptions.h"
 #include "ced/cedpageptr.h"
+#include "layoutblock.h"
 
 namespace cf
 {
@@ -42,6 +44,16 @@ class CLA_EXPO AbstractRecognitionServer : private boost::noncopyable
 public:
     AbstractRecognitionServer();
     virtual ~AbstractRecognitionServer();
+
+    /**
+     * Adds manual layout text block
+     */
+    virtual void addTextBlock(const Rect& r) = 0;
+
+    /**
+     * Adds manual layout image block
+     */
+    virtual void addImageBlock(const Rect& r) = 0;
 
     PercentCounter * counter();
     void setCounter(PercentCounter * counter);
@@ -112,6 +124,11 @@ public:
     virtual CEDPagePtr format() = 0;
 
     /**
+     * Makes document manual layout
+     */
+    virtual bool manualLayout() = 0;
+
+    /**
      * Opens image
      * @param url - image url
      * @return true on success
@@ -158,6 +175,18 @@ public:
                                  const FormatOptions& fopts);
 
     void setStateTracker(RecognitionState * state);
+
+    /**
+     * Returns list of iamge blocks after page layout
+     * @see textBlocks()
+     */
+    virtual LayoutBlockList imageBlocks() const;
+
+    /**
+     * Returns array of text blocks after page layout
+     * @see imageBlocks()
+     */
+    virtual LayoutBlockList textBlocks() const;
 public:
     enum reason_t {
         OK = 0,

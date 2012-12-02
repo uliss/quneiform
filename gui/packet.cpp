@@ -20,16 +20,27 @@
 #include <QFile>
 #include <QCoreApplication>
 
+#include "export/cfexporter.h"
 #include "packet.h"
 #include "page.h"
+#include "thumbnailgenerator.h"
+#include "export/cedpagemerge.h"
 
-static const QString DEFAULT_NAME = "untitled.qpf";
+static const QString DEFAULT_NAME = "untitled.qfp";
 
 Packet::Packet(QObject * parent) :
         QObject(parent),
         filename_(DEFAULT_NAME),
         changed_(false),
-        is_new_(true) {
+        is_new_(true),
+        page_remove_lock_(false)
+{
+}
+
+Packet::~Packet()
+{
+    if(thumb_generator_)
+        thumb_generator_->cancel();
 }
 
 void Packet::append(Page * page, bool allowDuplication) {
@@ -52,24 +63,49 @@ void Packet::append(Page * page, bool allowDuplication) {
     pageChange();
 }
 
-void Packet::clear() {
-    bool has_pages = false;
+void Packet::clear()
+{
+    if(pages_.isEmpty())
+        return;
 
-    if(!pages_.isEmpty()) {
-        changed_ = true;
-        has_pages = true;
-    }
+    if(thumb_generator_)
+        thumb_generator_->cancel();
 
-    for(int i = 0; i < pages_.count(); i++) {
-        Page * p = pages_.at(i);
+    changed_ = true;
+
+    foreach(Page * p, pages_) {
         emit pageRemoved(p);
         delete p;
     }
 
     pages_.clear();
+    emit changed();
+}
 
-    if(has_pages)
-        emit changed();
+bool Packet::exportTo(const QString& fullPath, const ExportSettings& settings)
+{
+    cf::CEDPageMerge m;
+
+    foreach(Page * p, pages_) {
+        if(p->isRecognized())
+            m.add(p->cedPage());
+    }
+
+    try {
+        CfExporter exp(settings);
+        exp.exportCEDPage(m.get(), FormatSettings(), fullPath);
+    }
+    catch(ExporterException& e) {
+        qWarning() << Q_FUNC_INFO << e.what();
+        return false;
+    }
+
+    foreach(Page * p, pages_) {
+        if(p->isRecognized())
+            p->setExported(true);
+    }
+
+    return true;
 }
 
 QString Packet::fileName() const {
@@ -155,19 +191,78 @@ void Packet::pageChange() {
     emit changed();
 }
 
+void Packet::setupThumbGenerator()
+{
+    thumb_generator_.reset(new ThumbnailGenerator(this));
+    connect(thumb_generator_.data(), SIGNAL(started()), SLOT(thumbGeneratorStart()));
+    connect(thumb_generator_.data(), SIGNAL(finished()), SLOT(thumbGeneratorFinish()));
+}
+
+void Packet::thumbGeneratorFinish()
+{
+    qDebug() << Q_FUNC_INFO;
+    page_remove_lock_ = false;
+    removeDelayed();
+}
+
+void Packet::thumbGeneratorStart()
+{
+    qDebug() << Q_FUNC_INFO;
+    page_remove_lock_ = true;
+}
+
+void Packet::removeDelayed()
+{
+    // if no pages were removed during thumb generation
+    if(delayed_remove_.isEmpty())
+        return;
+
+    foreach(Page * p, delayed_remove_) {
+        p->deleteLater();
+    }
+
+    delayed_remove_.clear();
+    pageChange();
+}
+
 int Packet::pageCount() const {
     return pages_.count();
 }
 
-void Packet::remove(Page * page) {
-    if (pages_.indexOf(page) < 0)
+int Packet::recognizedPageCount() const
+{
+    int res = 0;
+    foreach(Page * p, pages_) {
+        if(p->isRecognized())
+            res++;
+    }
+    return res;
+}
+
+void Packet::remove(Page * page)
+{
+    if (pages_.indexOf(page) < 0) {
+        qWarning() << Q_FUNC_INFO << "page not found";
         return;
+    }
 
     emit pageRemoved(page);
     pages_.removeAll(page);
-    delete page;
+
+    // thumb generation is running
+    if(page_remove_lock_) {
+        qWarning() << Q_FUNC_INFO << "delayed page removal:" << page << "cause packet is locked";
+        if(!delayed_remove_.contains(page))
+            delayed_remove_.append(page);
+
+        if(pages_.isEmpty() && thumb_generator_)
+            thumb_generator_->cancel();
+
+        return;
+    }
+
+    page->deleteLater();
     pageChange();
-    qDebug() << "[Packet::remove()]";
 }
 
 bool Packet::save(const QString& filename) {
@@ -196,6 +291,26 @@ bool Packet::save(const QString& filename) {
 
     emit saved();
     return true;
+}
+
+void Packet::updateThumbs()
+{
+    if(!thumb_generator_)
+        setupThumbGenerator();
+
+    PageList target_pages;
+    foreach(Page * p, pages_) {
+        if(p->hasThumb())
+            continue;
+
+        target_pages.append(p);
+    }
+
+    if(target_pages.isEmpty())
+        return;
+
+    thumb_generator_->setPages(target_pages);
+    thumb_generator_->run();
 }
 
 QDataStream& operator<<(QDataStream& os, const Packet& packet) {

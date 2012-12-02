@@ -25,7 +25,6 @@
 #include <boost/shared_ptr.hpp>
 
 #include "cfcompat.h"
-#include "specprj.h"
 #include "common/binarizeoptions.h"
 #include "common/formatoptions.h"
 #include "common/rect.h"
@@ -36,6 +35,7 @@
 #include "common/dib.h"
 #include "export/exporter.h"
 #include "globus.h"
+#include "layoutblock.h"
 
 class CTIControl;
 struct CCOM_cont;
@@ -56,6 +56,12 @@ class PumaImpl
     public:
         PumaImpl();
         ~PumaImpl();
+
+        void addLayoutBlock(const LayoutBlock& block);
+        void addImageBlock(const Rect& rect);
+        void addTextBlock(const Rect& block);
+        LayoutBlockList imageBlocks() const;
+        LayoutBlockList textBlocks() const;
 
         void binarizeImage();
 
@@ -79,6 +85,7 @@ class PumaImpl
          */
         void formatResult();
 
+        void prepare();
         void layout();
 
         /**
@@ -108,14 +115,12 @@ class PumaImpl
          * @see setFormatOptions()
          */
         void setRecognizeOptions(const RecognizeOptions& opt);
-
-        void setSpecialProject(special_project_t SpecialProject);
     private:
         void applyReadMask();
         BackupPage * cpage();
         PAGEINFO * pageInfo();
         void clearAll();
-        void debugPrintCpage();
+        void debugPrintCpage() const;
         void extractComponents();
         void extractStrings();
         void getImageInfo(const std::string& image_name);
@@ -128,7 +133,6 @@ class PumaImpl
         void normalize();
         void pass1();
         void pass2();
-        void pass2special();
         void preOpenInitialize();
         void printResult(std::ostream& os);
         void printResultLine(std::ostream& os, size_t lineNumber);
@@ -137,7 +141,6 @@ class PumaImpl
         void recognizePass1();
         void recognizePass2();
         void recognizeSetup();
-        void recognizeSpecial();
         void rotate(BitmapPtr * dib, Point * p);
         void saveCSTR(int pass);
         void saveLayoutToFile(const std::string& fname);
@@ -173,7 +176,6 @@ class PumaImpl
         Bool32 rc_line_;
         Bool32 need_clean_line_;
         const char * recog_name_;
-        special_project_t special_project_;
         BinarizeOptions binarize_options_;
 };
 

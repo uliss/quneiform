@@ -16,6 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <string.h>
+
 #include "imagerawdata.h"
 
 namespace cf
@@ -23,6 +25,19 @@ namespace cf
 
 ImageRawData::ImageRawData() :
     data_(NULL), allocator_(AllocatorNone), data_size_(0) {
+}
+
+ImageRawData::ImageRawData(const ImageRawData& data) :
+    data_(NULL),
+    allocator_(AllocatorNone),
+    data_size_(0)
+{
+    if(!data.isNull()) {
+        data_size_ = data.data_size_;
+        allocator_ = AllocatorNew;
+        data_ = new uchar[data.data_size_];
+        memcpy(data_, data.data_, data_size_);
+    }
 }
 
 ImageRawData::ImageRawData(unsigned char * data, size_t size, allocator_t allocator) :
@@ -51,6 +66,11 @@ void ImageRawData::clear() {
     data_size_ = 0;
 }
 
+ImageRawData * ImageRawData::clone() const
+{
+    return new ImageRawData(*this);
+}
+
 unsigned char * ImageRawData::data() const {
     return data_;
 }
@@ -70,6 +90,6 @@ void ImageRawData::set(unsigned char * data, size_t size, allocator_t allocator)
 }
 
 std::ostream& operator<<(std::ostream& os, const cf::ImageRawData& image) {
-    os.write((char*) image.data(), image.dataSize());
+    os.write((char*) image.data(), static_cast<std::streamsize>(image.dataSize()));
     return os;
 }

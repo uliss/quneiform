@@ -28,9 +28,11 @@ class CEDSection;
 
 class CLA_EXPO CEDColumn: public BlockElement
 {
+    private:
+        CEDColumn(const CEDColumn& col);
     public:
         CEDColumn(CEDSection * parent = NULL);
-
+        CEDColumn * clone() const;
         void exportElement(CEDExporter& exp);
         void setSpace(int space);
         void setWidth(int width);

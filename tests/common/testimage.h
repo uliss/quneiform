@@ -27,11 +27,13 @@ class TestImage: public CppUnit::TestFixture
     CPPUNIT_TEST(testInit);
     CPPUNIT_TEST(testSerialize);
     CPPUNIT_TEST(testSerializeXml);
+    CPPUNIT_TEST(testClone);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
     void testSerialize();
     void testSerializeXml();
+    void testClone();
 };
 
 #endif /* TESTIMAGE_H_ */

@@ -651,7 +651,6 @@ Bool32 RPIC_SearchPictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, Handle hCPA
 		}
 		block.com.type = TYPE_TEXT;//Текст, Картинка, Таблица;
 		block.com.number = 0;//порядковый номер
-		block.com.Color = 0;
 		block.com.count = 4;
 		block.com.Flags = 0;
 		block.com.Vertex[0].rx() = pPics[i].left;

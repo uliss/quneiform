@@ -39,6 +39,7 @@ class TextEditor;
 class QProgressDialog;
 class QHBoxLayout;
 class QSplitter;
+class QTimer;
 
 class MainWindow: public QMainWindow {
     Q_OBJECT
@@ -53,17 +54,28 @@ public slots:
 
     /**
       * Recognizes all opened images
+      * @see recognizeOthers()
       */
     void recognizeAll();
+
+    /**
+     * Recognizes all pages that were not recognized
+     * @see recognizeAll()
+     */
+    void recognizeOthers();
 protected:
     void closeEvent(QCloseEvent * event);
 private slots:
     void about();
+    void autosavePacket();
     void disableViewActions();
     void disableZoomInAction();
     void disableZoomOutAction();
     void enableViewActions();
     void enableZoomActions();
+    void exportPacket();
+    void handlePacketChanged();
+    void handlePacketSaved();
     void handleReportBug();
     void handleShowFullScreen();
     void handleShowMinimized();
@@ -73,8 +85,6 @@ private slots:
     void openPacketDialog();
     void openPacket(const QString& path);
     void openRecentImage(const QString& path);
-    void packetChange();
-    void packetSave();
     void recognitionSettings();
     void recognizePage(Page * page);
     void recognizePages(const QList<Page*>& pages);
@@ -83,13 +93,15 @@ private slots:
     void rotateRight();
     void savePacket();
     void savePacket(const QString& path);
+    void savePacketAs();
     void savePage(Page * page);
+    void segmentPage(Page * page);
     void selectLanguage(const Language& lang);
     void showLog();
     void showPageFault(Page * page);
     void showPageImage(Page * page);
     void showPageText(Page * page);
-    void showSettings();
+    void showPreferences();
     void showScanDialog();
     void showViewContentOnly();
     void showViewThumbnails();
@@ -116,6 +128,7 @@ private:
     QString openPacketDefaultDir() const;
     bool openMultiPage(const QString& path);
     void readSettings();
+    void setupAutosaveTimer();
     void setupDefaultLanguage();
     void setupPacket();
     void setupIcons();
@@ -135,6 +148,9 @@ private:
     void setupUi();
     void setupUiLayout();
     QStringList supportedImagesFilter() const;
+    void updateAutosaveTimer();
+    void updateLayoutVisibility();
+    void updatePreferences();
     void writeSettings();
 protected:
     void showEvent(QShowEvent * event);
@@ -152,6 +168,7 @@ private:
     RecentMenu * recent_packets_;
     RecentMenu * recent_images_;
     QSplitter * view_splitter_;
+    QTimer * autosave_timer_;
 };
 
 #endif // MAINWINDOW_H

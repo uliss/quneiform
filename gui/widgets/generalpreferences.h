@@ -30,6 +30,7 @@ class GeneralPreferences : public PreferencesWidget
 public:
     GeneralPreferences(QWidget * parent = NULL);
 private:
+    void setupAutosave();
     void setupExternalEditor();
     void setupIconTheme();
     void setupLayout();
@@ -40,6 +41,8 @@ private:
     static bool saveExternalEditor(QWidget * w, const QVariant& data);
     static bool loadIconTheme(QWidget * w, const QVariant& data);
     static bool saveIconTheme(QWidget * w, const QVariant& data);
+    static bool loadAutosaveInterval(QWidget * w, const QVariant& data);
+    static bool saveAutosaveInterval(QWidget * w, const QVariant& data);
 private:
     QFormLayout * layout_;
     QLineEdit * ext_editor_;

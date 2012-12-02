@@ -26,12 +26,33 @@ namespace cf
 {
 
 CEDParagraph::CEDParagraph() :
-    BlockElement(), align_(ALIGN_LEFT), line_space_(-1), indent_(0), padding_left_(0),
-            padding_right_(0), user_number_(0) {
-}
+    BlockElement(),
+    align_(ALIGN_LEFT),
+    line_space_(-1),
+    indent_(0),
+    padding_left_(0),
+    padding_right_(0),
+    user_number_(0)
+{}
+
+
+CEDParagraph::CEDParagraph(const CEDParagraph& par) :
+    BlockElement(par),
+    align_(par.align_),
+    line_space_(par.line_space_),
+    indent_(par.indent_),
+    padding_left_(par.padding_left_),
+    padding_right_(par.padding_right_),
+    user_number_(par.user_number_)
+{}
 
 align_t CEDParagraph::align() const {
     return align_;
+}
+
+CEDParagraph * CEDParagraph::clone() const
+{
+    return new CEDParagraph(*this);
 }
 
 void CEDParagraph::exportElement(CEDExporter& exp) {

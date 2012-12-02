@@ -114,6 +114,7 @@ class CLA_EXPO CTIControl
         bool disableWriteMask(const std::string& imageName);
         bool enableReadMask(const std::string& imageName);
         bool enableWriteMask(const std::string& imageName);
+        bool clearReadMasks(const std::string& name);
 
         /**
           * Adds image handle into container
@@ -256,7 +257,7 @@ class CLA_EXPO CTIControl
           * @param name - file name
           * @param pDib - given image
           */
-        static bool writeDIBtoBMP(const std::string& name, CTDIB * pDIB);
+        static bool writeDIBtoBMP(const std::string& name, CTDIB * dib);
         static bool writeDIBtoBMP(const std::string& name, BitmapPtr h);
     private:
         static bool copyDIB(const BitmapPtr src, BitmapPtr * dest);

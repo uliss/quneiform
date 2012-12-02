@@ -22,7 +22,11 @@
 
 #include <QWidget>
 
+#include "blocktype.h"
+
 class QVBoxLayout;
+class QToolBar;
+class QAction;
 class ImageView;
 class Page;
 
@@ -33,6 +37,7 @@ public:
     explicit ImageWidget(QWidget * parent = 0);
 
     void showPage(Page * p);
+    void showPageBinarized();
     QSize sizeHint () const;
 signals:
     /**
@@ -64,22 +69,44 @@ signals:
       * Emitted after scale attempt if scale is too small
       */
     void scaleIsTooSmall();
+
+    /**
+     * Emmitted on segmentation request
+     */
+    void segment(Page * p);
 public slots:
     void fitPage();
     void fitWidth();
+    void handleActionBinarize(bool checked);
+    void handleActionAddImageBlock();
+    void handleActionAddTextBlock();
+    void handleActionSegment();
+    void handleActionSelectArea();
     void originalSize();
     void showChar(const QRect& bbox);
+    void toggleLayoutBlocks();
     void updateSettings();
     void zoom(qreal value);
     void zoomIn();
     void zoomOut();
+private slots:
+    void handlePageDelete();
 private:
     void setupLayout();
+    void setupToolBar();
     void setupView();
+    void updateActions();
     void updateFormatLayout();
 private:
     QVBoxLayout * layout_;
     ImageView * view_;
+    QToolBar * toolbar_;
+    QAction * act_bin_;
+    QAction * act_add_area_;
+    QAction * act_add_image_;
+    QAction * act_add_text_;
+    QAction * act_toggle_layout_;
+    QAction * act_segment_;
 };
 
 #endif // IMAGEWIDGET_H

@@ -9,7 +9,11 @@
     </message>
     <message>
         <source>Quneiform OCR&lt;br/&gt;Author: Serge Poltavski&lt;br/&gt;Email: &lt;a href=&quot;mailto:serge.poltavski@gmail.com&quot;&gt;serge.poltavski@gmail.com&lt;/a&gt;&lt;br/&gt;Translator: Serge Poltavski&lt;br/&gt;License: &lt;a href=&quot;http://www.gnu.org/licenses/gpl.html&quot;&gt;GPL v.3&lt;/a&gt;&lt;br/&gt;Version: %1&lt;br/&gt;Build number: %2&lt;br/&gt;&lt;br/&gt;This program uses refactoring version of libcuneiform from &lt;a href=&quot;https://github.com/uliss/quneiform&quot;&gt;GitHub&lt;/a&gt; released under GPL v.3 license.&lt;br/&gt;Cuneiform was originally released by Congitive Technologies under BSD license.&lt;br/&gt;&lt;br/&gt;Uses icons from &lt;a href=&quot;http://www.oxygen-icons.org/&quot;&gt;Oxygen&lt;/a&gt; theme.</source>
-        <translation>Quneiform OCR&lt;br/&gt;Автор: Сергей Полтавский&lt;br/&gt;Email: &lt;a href=&quot;mailto:serge.poltavski@gmail.com&quot;&gt;serge.poltavski@gmail.com&lt;/a&gt;&lt;br/&gt;Перевод: Сергей Полтавский&lt;br/&gt;Лицензия: &lt;a href=&quot;http://www.gnu.org/licenses/gpl.html&quot;&gt;GPL v.3&lt;/a&gt;&lt;br/&gt;Версия: %1&lt;br/&gt;Номер сборки: %2&lt;br/&gt;&lt;br/&gt;Программа использует рефакторинг-версию библиотеки cuneiform, распространяемой по GPL лицензии, исходный код которой доступен на сервисе &lt;a href=&quot;https://github.com/uliss/quneiform&quot;&gt;GitHub&lt;/a&gt;.&lt;br/&gt;Cuneiform была изначально разработана и открыта под BSD лицензией компанией Congitive Technologies.&lt;br/&gt;&lt;br/&gt;Использованы иконки из темы &lt;a href=&quot;http://www.oxygen-icons.org/&quot;&gt;Oxygen&lt;/a&gt;.</translation>
+        <translation type="obsolete">Quneiform OCR&lt;br/&gt;Автор: Сергей Полтавский&lt;br/&gt;Email: &lt;a href=&quot;mailto:serge.poltavski@gmail.com&quot;&gt;serge.poltavski@gmail.com&lt;/a&gt;&lt;br/&gt;Перевод: Сергей Полтавский&lt;br/&gt;Лицензия: &lt;a href=&quot;http://www.gnu.org/licenses/gpl.html&quot;&gt;GPL v.3&lt;/a&gt;&lt;br/&gt;Версия: %1&lt;br/&gt;Номер сборки: %2&lt;br/&gt;&lt;br/&gt;Программа использует рефакторинг-версию библиотеки cuneiform, распространяемой по GPL лицензии, исходный код которой доступен на сервисе &lt;a href=&quot;https://github.com/uliss/quneiform&quot;&gt;GitHub&lt;/a&gt;.&lt;br/&gt;Cuneiform была изначально разработана и открыта под BSD лицензией компанией Congitive Technologies.&lt;br/&gt;&lt;br/&gt;Использованы иконки из темы &lt;a href=&quot;http://www.oxygen-icons.org/&quot;&gt;Oxygen&lt;/a&gt;.</translation>
+    </message>
+    <message>
+        <source>Quneiform OCR&lt;br/&gt;Author: Serge Poltavski&lt;br/&gt;Email: &lt;a href=&quot;mailto:serge.poltavski@gmail.com&quot;&gt;serge.poltavski@gmail.com&lt;/a&gt;&lt;br/&gt;Translator: Serge Poltavski&lt;br/&gt;License: &lt;a href=&quot;http://www.gnu.org/licenses/gpl.html&quot;&gt;GPL v.3&lt;/a&gt;&lt;br/&gt;Version: %1&lt;br/&gt;Build number: %2&lt;br/&gt;Qt version: %3&lt;br/&gt;&lt;br/&gt;This program uses refactoring version of libcuneiform from &lt;a href=&quot;https://github.com/uliss/quneiform&quot;&gt;GitHub&lt;/a&gt; released under GPL v.3 license.&lt;br/&gt;Cuneiform was originally released by Congitive Technologies under BSD license.&lt;br/&gt;&lt;br/&gt;Uses icons from &lt;a href=&quot;http://www.oxygen-icons.org/&quot;&gt;Oxygen&lt;/a&gt; theme.</source>
+        <translation>Quneiform OCR&lt;br/&gt;Автор: Сергей Полтавский&lt;br/&gt;Email: &lt;a href=&quot;mailto:serge.poltavski@gmail.com&quot;&gt;serge.poltavski@gmail.com&lt;/a&gt;&lt;br/&gt;Перевод: Сергей Полтавский&lt;br/&gt;Лицензия: &lt;a href=&quot;http://www.gnu.org/licenses/gpl.html&quot;&gt;GPL v.3&lt;/a&gt;&lt;br/&gt;Версия: %1&lt;br/&gt;Номер сборки: %2&lt;br/&gt;Версия Qt: %3&lt;br/&gt;&lt;br/&gt;Программа использует рефакторинг-версию библиотеки cuneiform, распространяемой по GPL лицензии, исходный код которой доступен на сервисе &lt;a href=&quot;https://github.com/uliss/quneiform&quot;&gt;GitHub&lt;/a&gt;.&lt;br/&gt;Cuneiform была изначально разработана и открыта под BSD лицензией компанией Congitive Technologies.&lt;br/&gt;&lt;br/&gt;Использованы иконки из темы &lt;a href=&quot;http://www.oxygen-icons.org/&quot;&gt;Oxygen&lt;/a&gt;.</translation>
     </message>
 </context>
 <context>
@@ -233,12 +237,40 @@
         <source>Theme changed</source>
         <translation>Тема изменена</translation>
     </message>
+    <message>
+        <source>Autosave:</source>
+        <translation>Автосохранение:</translation>
+    </message>
+    <message>
+        <source>Autosave interval:</source>
+        <translation>Сохранять каждые:</translation>
+    </message>
+    <message>
+        <source>1 min</source>
+        <translation>1 мин</translation>
+    </message>
+    <message>
+        <source>3 min</source>
+        <translation>3 мин</translation>
+    </message>
+    <message>
+        <source>5 min</source>
+        <translation>5 мин</translation>
+    </message>
+    <message>
+        <source>10 min</source>
+        <translation>10 мин</translation>
+    </message>
+    <message>
+        <source>20 min</source>
+        <translation>20 мин</translation>
+    </message>
 </context>
 <context>
     <name>ImageView</name>
     <message>
         <source>Select recognize area</source>
-        <translation>Выбрать область распознавания</translation>
+        <translation type="obsolete">Выбрать область распознавания</translation>
     </message>
     <message>
         <source>Fit to width</source>
@@ -255,6 +287,69 @@
     <message>
         <source>Recognize</source>
         <translation>Распознать</translation>
+    </message>
+    <message>
+        <source>Add text block</source>
+        <translation>Добавить текстовый блок</translation>
+    </message>
+    <message>
+        <source>Add image block</source>
+        <translation>Выделить изображение</translation>
+    </message>
+    <message>
+        <source>Select recognition area</source>
+        <translation>Выбрать область распознавания</translation>
+    </message>
+    <message>
+        <source>Delete text area</source>
+        <translation type="obsolete">Удалить область распознавания</translation>
+    </message>
+    <message>
+        <source>Delete recognition area</source>
+        <translation>Удалить область распознавания</translation>
+    </message>
+    <message>
+        <source>Delete text block</source>
+        <translation>Удалить текстовый блок</translation>
+    </message>
+    <message>
+        <source>Delete image block</source>
+        <translation>Удалить область изображения</translation>
+    </message>
+    <message>
+        <source>Delete table block</source>
+        <translation>Удалить табличный блок</translation>
+    </message>
+</context>
+<context>
+    <name>ImageWidget</name>
+    <message>
+        <source>Binarize</source>
+        <translation>Бинаризация</translation>
+    </message>
+    <message>
+        <source>Add image block</source>
+        <translation>Выделить изображение</translation>
+    </message>
+    <message>
+        <source>Add text block</source>
+        <translation>Добавить текстовый блок</translation>
+    </message>
+    <message>
+        <source>Select recognition area</source>
+        <translation>Выбрать область распознавания</translation>
+    </message>
+    <message>
+        <source>Show layout</source>
+        <translation type="obsolete">Показать макет страницы</translation>
+    </message>
+    <message>
+        <source>Analyze</source>
+        <translation>Анализировать</translation>
+    </message>
+    <message>
+        <source>Perform page layout analysis</source>
+        <translation>Произвести анализ макета страницы</translation>
     </message>
 </context>
 <context>
@@ -660,6 +755,30 @@ Are you shure?</source>
     <message>
         <source>Minimize</source>
         <translation>Свернуть</translation>
+    </message>
+    <message>
+        <source>Export packet</source>
+        <translation>Экспортировать</translation>
+    </message>
+    <message>
+        <source>Ctrl+E</source>
+        <translation>Ctrl+E</translation>
+    </message>
+    <message>
+        <source>The packet is empty. There&apos;s nothing to export. Do you want to add images?</source>
+        <translation>Пакет распознавания пуст. Добавить в него изображения?</translation>
+    </message>
+    <message>
+        <source>Not all pages in packet were recognized. Do you want to recognize them before exporting?</source>
+        <translation>Не все страницы в пакете были распознаны. Распознать их перед экспортом?</translation>
+    </message>
+    <message>
+        <source>Save packet as...</source>
+        <translation>Сохранить пакет как...</translation>
+    </message>
+    <message>
+        <source>Save Quneiform packet as</source>
+        <translation>Сохранить пакет Quneiform как</translation>
     </message>
 </context>
 <context>

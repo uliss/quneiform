@@ -33,12 +33,13 @@ RecognitionProgressDialog::RecognitionProgressDialog(QWidget * parent) :
     setupLabel();
 }
 
-void RecognitionProgressDialog::connectToQueue(PageRecognitionQueue * queue) {
+void RecognitionProgressDialog::connectToQueue(PageRecognitionQueue * queue)
+{
     if(!queue)
         return;
 
     connect(queue, SIGNAL(started()), SLOT(show()));
-//    connect(queue, SIGNAL(finished(int)), SLOT(close()));
+    connect(queue, SIGNAL(finished(int)), SLOT(close()));
     connect(queue, SIGNAL(percentDone(int)), SLOT(setValue(int)));
     connect(queue, SIGNAL(pageStarted(QString)), SLOT(setCurrentPage(QString)));
     connect(this, SIGNAL(canceled()), queue, SLOT(abort()));

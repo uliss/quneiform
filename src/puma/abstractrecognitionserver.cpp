@@ -78,8 +78,16 @@ CEDPagePtr AbstractRecognitionServer::recognizeImagePrivate()
 {
     if(!binarize())
         throw RecognitionException(EXCEPT_BUFFER() << "binarization error", BINARIZATION_ERROR);
-    if(!analyze())
-        throw RecognitionException(EXCEPT_BUFFER() << "layout error", LAYOUT_ERROR);
+
+    if(rec_options_.manualLayout()) {
+        if(!manualLayout())
+            throw RecognitionException(EXCEPT_BUFFER() << "manual layout error", LAYOUT_ERROR);
+    }
+    else {
+        if(!analyze())
+            throw RecognitionException(EXCEPT_BUFFER() << "auto layout error", LAYOUT_ERROR);
+    }
+
     if(!recognize())
         throw RecognitionException(EXCEPT_BUFFER() << "recognition buffer", RECOGNITION_ERROR);
 
@@ -142,6 +150,16 @@ void AbstractRecognitionServer::setCounter(PercentCounter * counter)
 void AbstractRecognitionServer::setStateTracker(RecognitionState * state)
 {
     state_ = state;
+}
+
+LayoutBlockList AbstractRecognitionServer::imageBlocks() const
+{
+    return LayoutBlockList();
+}
+
+LayoutBlockList AbstractRecognitionServer::textBlocks() const
+{
+    return LayoutBlockList();
 }
 
 void AbstractRecognitionServer::counterAdd(int value)

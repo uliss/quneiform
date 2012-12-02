@@ -29,11 +29,31 @@ namespace cf
 {
 
 CEDPage::CEDPage() :
-    turn_(0), page_number_(0), language_(LANGUAGE_RUS_ENG) {
-}
+    turn_(0),
+    page_number_(0),
+    language_(LANGUAGE_RUS_ENG)
+{}
+
+
+CEDPage::CEDPage(const CEDPage& page) :
+    BlockElement(page),
+    image_size_(page.image_size_),
+    image_dpi_(page.image_dpi_),
+    page_size_(page.page_size_),
+    page_borders_(page.page_borders_),
+    image_name_(page.image_name_),
+    turn_(page.turn_),
+    page_number_(page.page_number_),
+    language_(page.language_)
+{}
 
 void CEDPage::addSection(CEDSection * sect) {
     addElement(sect);
+}
+
+CEDPage * CEDPage::clone() const
+{
+    return new CEDPage(*this);
 }
 
 void CEDPage::exportElement(CEDExporter& exp) {

@@ -23,7 +23,7 @@
 #include <QDebug>
 #include <QApplication>
 
-#include "config.h" // for INSTALL_DATADIR
+#include "config-paths.h" // for INSTALL_DATADIR
 #include "translationloader.h"
 
 #ifdef Q_WS_MAC

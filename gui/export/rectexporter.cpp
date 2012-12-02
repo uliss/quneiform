@@ -17,7 +17,9 @@
  ***************************************************************************/
 
 #include <iostream>
+
 #include "rectexporter.h"
+#include "cfutils.h"
 #include "ced/cedchar.h"
 #include "ced/cedline.h"
 #include "ced/cedparagraph.h"
@@ -30,16 +32,12 @@ namespace cf {
 static const int BAD_RECT_VALUE = 65535;
 
 // spaces have invalid bounding rectangle
-inline bool isValid(const QRect& rc) {
+inline bool isValid(const cf::Rect& rc) {
     return rc.left() != -1 && //
             rc.left() != BAD_RECT_VALUE && //
             rc.right() != BAD_RECT_VALUE && //
             rc.top() != BAD_RECT_VALUE && //
             rc.bottom() != BAD_RECT_VALUE;
-}
-
-inline QRect cf2qt(const cf::Rect& rect) {
-    return QRect(rect.left(), rect.top() - 1, rect.width(), rect.height());
 }
 
 RectExporter::RectExporter(CEDPagePtr page)
@@ -54,7 +52,7 @@ RectExporter::RectExporter(CEDPagePtr page)
     setSkipEmptyParagraphs(false);
 }
 
-const RectExporter::RectList& RectExporter::chars() const {
+const RectExporter::BlockList& RectExporter::chars() const {
     return chars_;
 }
 
@@ -62,7 +60,7 @@ void RectExporter::collect() {
     doExport(std::cerr);
 }
 
-const RectExporter::RectList& RectExporter::columns() const {
+const RectExporter::BlockList& RectExporter::columns() const {
     return columns_;
 }
 
@@ -72,31 +70,30 @@ void RectExporter::doExport(std::ostream&) {
     page()->exportElement(*this);
 }
 
-const RectExporter::RectList& RectExporter::lines() const {
+const RectExporter::BlockList& RectExporter::lines() const {
     return lines_;
 }
 
-const RectExporter::RectList& RectExporter::paragraphs() const {
+const RectExporter::BlockList& RectExporter::paragraphs() const {
     return paragraphs_;
 }
 
-const RectExporter::RectList& RectExporter::pictures() const {
+const RectExporter::BlockList& RectExporter::pictures() const {
     return pictures_;
 }
 
-const RectExporter::RectList& RectExporter::sections() const {
+const RectExporter::BlockList& RectExporter::sections() const {
     return sections_;
 }
 
-void RectExporter::writeCharacterEnd(CEDChar& chr) {
-    QRect current_char = cf2qt(chr.boundingRect());
-
-    if(isValid(current_char)) {
-        chars_.append(current_char);
-    }
+void RectExporter::writeCharacterEnd(CEDChar& chr)
+{
     // skip spaces
-    else
+    if(!isValid(chr.boundingRect()))
         return;
+
+    QRect current_char = toQRect(chr.boundingRect());
+    chars_.append(Block(BLOCK_CHAR, current_char));
 
     if(line_begin_) {
         current_line_ = current_char;
@@ -110,8 +107,9 @@ void RectExporter::writeColumnBegin(CEDColumn&) {
     column_begin_ = true;
 }
 
-void RectExporter::writeColumnEnd(CEDColumn&) {
-    columns_.append(current_column_);
+void RectExporter::writeColumnEnd(CEDColumn&)
+{
+    columns_.append(Block(BLOCK_COLUMN, current_column_));
 
     if(section_begin_) {
         current_section_ = current_column_;
@@ -125,7 +123,8 @@ void RectExporter::writeLineBegin(CEDLine&) {
     line_begin_ = true;
 }
 
-void RectExporter::writeLineEnd(CEDLine&) {
+void RectExporter::writeLineEnd(CEDLine&)
+{
     // start new paragraph
     if(par_begin_) {
         current_par_ = current_line_;
@@ -134,15 +133,16 @@ void RectExporter::writeLineEnd(CEDLine&) {
     else
         current_par_ |= current_line_;
 
-    lines_.append(current_line_);
+    lines_.append(Block(BLOCK_LINE, current_line_));
 }
 
 void RectExporter::writeParagraphBegin(CEDParagraph&) {
     par_begin_ = true;
 }
 
-void RectExporter::writeParagraphEnd(CEDParagraph&) {
-    paragraphs_.append(current_par_);
+void RectExporter::writeParagraphEnd(CEDParagraph&)
+{
+    paragraphs_.append(Block(BLOCK_PARAGRAPH, current_par_));
 
     // start new column
     if(column_begin_) {
@@ -153,17 +153,18 @@ void RectExporter::writeParagraphEnd(CEDParagraph&) {
         current_column_ |= current_par_;
 }
 
-void RectExporter::writePicture(CEDPicture& pict) {
-    QRect r = cf2qt(pict.boundingRect());
-    pictures_.append(r);
+void RectExporter::writePicture(CEDPicture& pict)
+{
+    pictures_.append(Block(BLOCK_PICTURE, toQRect(pict.boundingRect())));
 }
 
 void RectExporter::writeSectionBegin(CEDSection&) {
     section_begin_ = true;
 }
 
-void RectExporter::writeSectionEnd(CEDSection&) {
-    sections_.append(current_section_);
+void RectExporter::writeSectionEnd(CEDSection&)
+{
+    sections_.append(Block(BLOCK_SECTION, current_section_));
 }
 
 }

@@ -191,7 +191,7 @@ static Bool badcell(cell *c) {
 	uchar let, prob;
 
 	if (c->flg & (c_f_dust | c_f_punct | c_f_bad) || c->w - c->h / WHPROP <= 3
-			|| (prob = c->vers[0].prob) < PRBAD || (strchr("fijlrtIL1/()", (let
+            || (prob = c->vers[0].prob) < PRBAD || (strchr("fijlrtIL1/()", (let
 			= c->vers[0].let)) || let == liga_i || language == LANGUAGE_TURKISH && // 30.05.2002 E.P.
 			(let == i_sans_accent || let == II_dot_accent)) && prob < PRSTBAD
 			|| strchr("<>%", let))
@@ -199,17 +199,21 @@ static Bool badcell(cell *c) {
 	return FALSE;
 }
 
-static Bool near_garb(cell *c) {
-	int16_t i, imi, ima, j, jmi, jma, n;
+static Bool near_garb(cell *c)
+{
+    int imi = (c->row << line_scale) / BXSZ;
+    int ima = ((c->row + c->h - 1) << line_scale) / BXSZ;
+    int jmi = (c->col << line_scale) / BXSZ;
+    int jma = ((c->col + c->w - 1) << line_scale) / BXSZ;
 
-	imi = (c->row << line_scale) / BXSZ;
-	ima = ((c->row + c->h - 1) << line_scale) / BXSZ;
-	jmi = (c->col << line_scale) / BXSZ;
-	jma = ((c->col + c->w - 1) << line_scale) / BXSZ;
-	for (i = imi; i <= ima; i++)
-		for (j = jmi; j <= jma; j++)
-			if (scsweep[(n = i * nx + j) / 8] & (128 >> (n % 8)))
-				return TRUE;
+    for (int i = imi; i <= ima; i++) {
+        for (int j = jmi; j <= jma; j++) {
+            int n = i * nx + j;
+            assert((n / 8) < 512);
+            if (scsweep[n / 8] & (128 >> (n % 8)))
+                return TRUE;
+        }
+    }
 	return FALSE;
 }
 

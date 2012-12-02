@@ -31,7 +31,8 @@ enum {
     FAX              = 0x008,
     ONE_COLUMN       = 0x010,
     FIND_PICTURES    = 0x020,
-    CLEANUP_DELAYED  = 0x040
+    CLEANUP_DELAYED  = 0x040,
+    MANUAL_LAYOUT    = 0x080
 };
 
 RecognizeOptions::RecognizeOptions() :
@@ -47,11 +48,12 @@ RecognizeOptions::RecognizeOptions() :
     setFax(false);
     setOneColumn(false);
     setPictureSearch(true);
+    setManualLayout(false);
 }
 
 void RecognizeOptions::addReadRect(const Rect &r)
 {
-    read_rects_.push_back(r);
+    read_rects_.push_back(r.normalized());
 }
 
 std::vector<Rect> RecognizeOptions::readRects() const
@@ -154,6 +156,16 @@ void RecognizeOptions::setUserDict(const std::string& user_dict) {
     user_dict_name_ = user_dict;
 }
 
+bool RecognizeOptions::manualLayout() const
+{
+    return hasFlag(MANUAL_LAYOUT);
+}
+
+void RecognizeOptions::setManualLayout(bool value)
+{
+    setFlag(MANUAL_LAYOUT, value);
+}
+
 bool RecognizeOptions::spellCorection() const {
     return hasFlag(SPELL_CORRECTION);
 }
@@ -208,6 +220,7 @@ std::ostream& operator<<(std::ostream& os, const RecognizeOptions& opts) {
     OPT(os, "User dictionary", opts.userDict());
     OPT(os, "Turn angle", opts.turnAngle());
     OPT(os, "Image number", opts.imageNumber());
+    OPT(os, "Manual layout", opts.manualLayout());
     printRects(os, opts.readRects());
     os << std::noboolalpha;
     return os;

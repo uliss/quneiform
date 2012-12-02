@@ -45,7 +45,7 @@ public:
       * Loads image from QImage
       * @note caller should free pointer
       */
-    ImagePtr fromQImage(const QImage& image);
+    static ImagePtr fromQImage(const QImage& image);
 
     /**
       * Returns list of supported formats

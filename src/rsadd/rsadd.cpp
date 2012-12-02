@@ -64,6 +64,8 @@
 #include <cctype>
 #include <cstdlib>
 #include <algorithm> // for std::min/max
+
+#include "common/log.h"
 #include "cstr/cstr.h"
 #include "rsadd.h"
 #include "common/lang_def.h"
@@ -106,16 +108,19 @@ static uchar buf_for_output1[256];
 static uchar buf_for_output2[256];
 static uchar buf_for_output3[256];
 static uchar left_limit_word[] = " ./\x1e\x1f";
-static uchar right_limit_word[] = " -.,РЭЮ\'\":/";
-static uchar rus_similar[] = "џ18$";
+//static uchar right_limit_word[] = " -.,РЭЮ\'\":/";
+static uchar right_limit_word[] = " \x2D\x2E\x2C\xD0\xDD\xDE\'\":/";
+static uchar rus_similar[] = "\x9F" "18\x24"; // Я18$
 static uchar eng_similar[] = "SISS";
-static uchar rus_alias[] = "ЈЇвЎ‚8";
+static uchar rus_alias[] = "\xA3\xAF\xE2\xA1\x82" "8"; // гптбВ8
 static uchar eng_alias[] = "rnr68B";
-static uchar rus_equal[] = "в®аЄебў¬…’“ЋђЂЌЉ•‘‚ЊҐгЁ®а еб“Ћђ•‘­Јэх123456789031";
-static uchar eng_equal[] = "TOPKXCBMETYOPAHKXCBMeyuopaxcyopxcHIam1234567890‡є";
-static uchar rus_uni_letters[] = "©‰й™д”л›¤„¦†нќпџоћЃ\xf0";
+// static uchar rus_equal[] = "торкхсвмЕТУОРАНКХСВМеуиорахсУОРХСнг¤ї123456789031";
+static uchar rus_equal[] = "\xE2\xAE\xE0\xAA\xE5\xE1\xA2\xAC\x85\x92\x93\x8E\x90\x80\x8D\x8A\x95\x91\x82\x8C\xA5\xE3\xA8\xAE\xE0\xA0\xE5\xE1\x93\x8E\x90\x95\x91\xAD\xA3\xFD\xF5"
+        "123456789031";
+static uchar eng_equal[] = "TOPKXCBMETYOPAHKXCBMeyuopaxcyopxcHIam1234567890\x87\xBA";
+// static uchar rus_uni_letters[] = "йЙщЩфФыЫдДжЖэЭяЯюЮБ\xf0";
+static uchar rus_uni_letters[] = "\xA9\x89\xE9\x99\xE4\x94\xEB\x9B\xA4\x84\xA6\x86\xED\x9D\xEF\x9F\xEE\x9E\x81\xf0";
 static uchar eng_uni_letters[] = "iwWRFGLZz\xb1\xb2\xb3\xb4\xb5\xb6\xb9"; //+N
-static uchar non_letters[] = "«»()";
 static uchar true_terms[] = "/-\x5F";
 
 static Bool16 my_snap_monitor_ori(CSTR_line *snap_line, int32_t num_lines) {
@@ -519,20 +524,22 @@ Bool32 rsadd_is_upper(uchar Code, uchar language) {
 
 	switch (language) {
 	case LANGUAGE_RUSSIAN:
-		return (code > 191 && code < 224 || code > 47 && code < 58);
+        return ((code > 191 && code < 224) || (code > 47 && code < 58));
 	case LANGUAGE_ENGLISH:
-		return (code > 64 && code < 91 || code > 47 && code < 58);
+        return ((code > 64 && code < 91) || (code > 47 && code < 58));
 	}
 	return FALSE;
 }
 
 Bool32 rsadd_is_thick(uchar Code, uchar language) {
 	int32_t code = (int32_t) Code;
-	if (code > 49 && code < 58 || code == 48)
+    if ((code > 49 && code < 58) || code == 48)
 		return TRUE;
 	switch (language) {
-	case LANGUAGE_RUSSIAN:
-		return (code > 191 && !strchr("шШщЩжЖыЫюЮ", code));
+    case LANGUAGE_RUSSIAN: {
+        // "шШщЩжЖыЫюЮ"
+        return (code > 191 && !strchr("\xF8\xD8\xF9\xD9\xE6\xC6\xFB\xDB\xFE\xDE", code));
+    }
 	case LANGUAGE_ENGLISH:
 		return (strchr("QERTYUOPASDFGHJKLZXCVBNMqeyuopasdghkzxcvbn", code)
 				!= NULL);
@@ -992,17 +999,24 @@ Bool32 rsadd_eng_group_CSTR(CSTR_rast b, CSTR_rast e) {
 	CSTR_rast r;
 	CSTR_rast_attr a;
 	UniVersions u;
-	uchar s[80];
+    char buf[80] = { 0 };
 
-	for (s[0] = 0, r = b; r && r != e; r = CSTR_GetNext(r)) {
+    for (buf[0] = 0, r = b; r && r != e; r = CSTR_GetNext(r)) {
 		CSTR_GetAttr(r, &a);
 		CSTR_GetCollectionUni(r, &u);
 		if (a.language != LANGUAGE_ENGLISH || !u.lnAltCnt)
 			return FALSE;
-		strncat((char*) s, (char*) u.Alt[0].Code, sizeof(s));
+
+        const char * code = (char*) u.Alt[0].Code;
+        const size_t buf_free_space = sizeof(buf) - strlen(buf) - 1;
+
+        if (strlen(code) + 1 > buf_free_space)
+            cfWarning(cf::MODULE_RSADD) << "string would be truncated:" << buf;
+
+        strncat(buf, code, buf_free_space);
 	}
 
-	return rsadd_eng_group(s, 0);
+    return rsadd_eng_group((uchar*) buf, 0);
 }
 
 Bool32 rsadd_represent_word(CSTR_rast b, CSTR_rast e) {
@@ -1174,8 +1188,8 @@ Bool32 RSADD_take(CSTR_line lrus, CSTR_line leng) {
 		rus = rsadd_get_left_coord(lrus, eattr.col, (int16_t) (eattr.col
 				+ eattr.w));
 		if (!rus) {
-			strncpy((char*) buf, "can't find russian for ", sizeof(buf) - 1);
-			strncat((char*) buf, (char*) ewrd, sizeof(buf) - 1);
+            strncpy((char*) buf, "can't find russian for ", sizeof(buf));
+            strncat((char*) buf, (char*) ewrd, sizeof(buf) - strlen((char*)buf) - 1);
 			if (db_status && snap_activity(etap_name)) {
 				snap_show_text((char*) buf);
 				snap_monitor_ori(sln, 2);

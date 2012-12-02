@@ -21,18 +21,26 @@
 #include <QPen>
 #include <QGraphicsScene>
 
+#include "page.h"
 #include "pagearea.h"
-#include "pagelayout.h"
+#include "selectionlist.h"
 #include "settingskeys.h"
 
+static const int SELECTION_ZVALUE = 10;
+
 PageArea::PageArea() :
-        layout_(NULL),
-        current_char_bbox_(NULL)
+    page_(NULL),
+    current_char_bbox_(NULL),
+    selections_(NULL)
 {}
 
-void PageArea::clear() {
+PageArea::~PageArea()
+{
+}
+
+void PageArea::clear()
+{
     clearCurrentChar();
-    clearLayout();
 }
 
 void PageArea::clearCurrentChar() {
@@ -40,61 +48,138 @@ void PageArea::clearCurrentChar() {
     current_char_bbox_ = NULL;
 }
 
-void PageArea::clearLayout() {
-    delete layout_;
-    layout_ = NULL;
+void PageArea::fillSelections()
+{
+    selections_->blockSignals(true);
+    selections_->populateFromPage(page_);
+
+    foreach(QRect r, page_->readAreas()) {
+        selections_->addSelection(r);
+    }
+
+    selections_->blockSignals(false);
 }
 
-void PageArea::hideLayout() {
-    if(layout_)
-        layout_->hide();
+void PageArea::resetSelections()
+{
+    if(!selections_) {
+        selections_ = new SelectionList(this);
+        connect(selections_, SIGNAL(changed()), SLOT(saveSelections()));
+    }
+
+    selections_->blockSignals(true);
+    selections_->clearSelections();
+    selections_->setRect(scene()->sceneRect());
+    selections_->setZValue(SELECTION_ZVALUE);
+    selections_->blockSignals(false);
 }
 
-void PageArea::show(Page * page) {
-    updateLayout(page);
+void PageArea::saveSelections()
+{
+    if(!page_) {
+        qWarning() << Q_FUNC_INFO << "NULL page";
+        return;
+    }
+
+    if(!selections_) {
+        page_->clearReadAreas();
+        return;
+    }
+
+    page_->setReadAreas(selections_->readAreas());
+    page_->setImageBlocks(selections_->imageBlocks());
+    page_->setTextBlocks(selections_->textBlocks());
 }
 
-QRect PageArea::showChar(const QRect& bbox) {
-    QSettings settings;
-    QPen p(settings.value(KEY_CURRENT_CHAR_COLOR, Qt::red).value<QColor>());
+void PageArea::show(Page * page)
+{
+    page_ = page;
+    updateLayout();
+}
 
-    QRect r;
+QRect PageArea::showChar(const QRect& bbox)
+{
+    QPen pen(QSettings().value(KEY_CURRENT_CHAR_COLOR, Qt::red).value<QColor>());
 
-    if(layout_)
-        r = layout_->mapFromPage(bbox);
-    else
-        r = bbox;
+    QRect view_bbox = mapFromPage(bbox);
 
     if(!current_char_bbox_) {
-        current_char_bbox_ = new QGraphicsRectItem(r, this);
-        current_char_bbox_->setPen(p);
-        QColor background = p.color();
+        current_char_bbox_ = new QGraphicsRectItem(view_bbox, this);
+        current_char_bbox_->setPen(pen);
+        QColor background = pen.color();
         background.setAlpha(20);
         current_char_bbox_->setBrush(background);
     }
     else {
-        current_char_bbox_->setRect(r);
+        current_char_bbox_->setRect(view_bbox);
     }
 
-    return r;
+    return view_bbox;
 }
 
-void PageArea::showLayout() {
-    if(layout_)
-        layout_->show();
+bool PageArea::isBlockVisible(BlockType t) const
+{
+    if(!selections_)
+        return false;
+
+    return selections_->isBlocksVisible(t);
 }
 
-void PageArea::updateLayout(Page * page) {
-    if(!page) {
+void PageArea::hideBlocks(BlockType t)
+{
+    if(!selections_)
+        return;
+
+    selections_->hideBlocks(t);
+}
+
+void PageArea::showBlocks(BlockType t)
+{
+    if(!selections_)
+        return;
+
+    selections_->showBlocks(t);
+}
+
+void PageArea::startImageBlockSelection()
+{
+    if(!selections_)
+        resetSelections();
+
+    selections_->set(SelectionList::SELECT_IMAGE, SelectionList::MODE_ADD);
+}
+
+void PageArea::startPageAreaSelection()
+{
+    if(!selections_)
+        resetSelections();
+
+    selections_->set(SelectionList::SELECT_AREA, SelectionList::MODE_REPLACE);
+}
+
+void PageArea::startTextBlockSelection()
+{
+    if(!selections_)
+        resetSelections();
+
+    selections_->set(SelectionList::SELECT_TEXT, SelectionList::MODE_ADD);
+}
+
+void PageArea::updateLayout()
+{
+    if(!page_) {
         qDebug() << "[Error]" << Q_FUNC_INFO << "null page pointer";
         return;
     }
 
-    if(!layout_)
-        layout_ = new PageLayout();
-    else
-        layout_->clear();
+    resetSelections();
+    fillSelections();
+}
 
-    layout_->setParentItem(this);
-    layout_->populate(*page);
+QRect PageArea::mapFromPage(const QRect& r) const
+{
+    if(!page_)
+        return r.normalized();
+
+    return page_->mapFromBackend(r).normalized();
 }

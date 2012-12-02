@@ -68,7 +68,7 @@ void TestPageRecognizer::testRecognize() {
     // non-exist page
     Page * none = new Page("none");
     r.setPage(none);
-    r.recognize();
+    QVERIFY(!r.recognize());
     QVERIFY(failed.count() > 0);
     QCOMPARE(opened.count(), 0);
     QCOMPARE(formatted.count(), 0);
@@ -82,8 +82,7 @@ void TestPageRecognizer::testRecognize() {
     r.setPage(invalid);
     r.recognize();
     QVERIFY(failed.count() > 0);
-    // we can't garantee that file opened until it recevies worker
-    QCOMPARE(opened.count(), 1);
+    QCOMPARE(opened.count(), 0);
     QCOMPARE(formatted.count(), 0);
     QCOMPARE(recognized.count(), 0);
     QVERIFY(invalid->hasFlag(Page::RECOGNITION_FAILED));

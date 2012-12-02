@@ -57,6 +57,8 @@
 #ifndef _CTIMASK_H_
 #define _CTIMASK_H_
 
+#include <map>
+
 #include "common/rect.h"
 #include "ctimaskline.h"
 
@@ -66,22 +68,21 @@ namespace cf
 class CTIMask
 {
     public:
-        CTIMask(int width, int Height);
+        CTIMask(int width, int height);
         CTIMask();
         ~CTIMask();
 
         bool addRectangle(const Rect& r);
+        void clear();
         bool isRectOnMask(const Rect& r) const;
         bool removeRectangle(const Rect& r);
 
-        Bool32 GetLine(int wLine, PPCTIMaskLine ppcLine);
+        CTIMaskLine * findLine(uint number);
     private:
-        CTIMaskLine line_;
+        typedef std::map<uint, CTIMaskLine*> LinesMap;
+        LinesMap lines_;
         int width_;
         int height_;
-        int mwSegments;
-    private:
-        Bool32 SetPtrToPrevLine(uint32_t wLine, PPCTIMaskLine ppLine);
 };
 
 }

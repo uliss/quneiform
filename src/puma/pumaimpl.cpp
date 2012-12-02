@@ -62,11 +62,7 @@
 #include "rstuff/rstuff_struct.h"
 #include "rverline/rverline.h"
 #include "common/modules.h"
-
-#define PUMA_ERROR Debug() << "[PUMA] ERROR "
-#define PUMA_ERROR_FUNC PUMA_ERROR << BOOST_CURRENT_FUNCTION << ' '
-#define PUMA_DEBUG Debug() << "[PUMA] "
-#define PUMA_DEBUG_FUNC PUMA_DEBUG << BOOST_CURRENT_FUNCTION << ' '
+#include "puma_debug.h"
 
 // 1. Отладочная информаци
 static Handle hDebugCancelRemoveLines = NULL;
@@ -82,47 +78,7 @@ static Handle hDebugEnableSearchSegment = NULL;
 static Handle hDebugStrings = NULL;
 static Handle hDebugCancelTurn = NULL;
 
-static double portion_of_rus_letters(CSTR_line lin_ruseng) {
-    if (!lin_ruseng)
-        return 0;
-
-    CSTR_rast_attr attr;
-    CSTR_rast rast = CSTR_GetFirstRaster(lin_ruseng);
-    UniVersions uv;
-    int nRus = 0, nAll = 0;
-
-    for (rast = CSTR_GetNext(rast); rast; rast = CSTR_GetNext(rast)) {
-        CSTR_GetAttr(rast, &attr);
-        CSTR_GetCollectionUni(rast, &uv);
-
-        if (attr.flg & (CSTR_f_let)) {
-            if (attr.language == LANGUAGE_RUSSIAN && uv.lnAltCnt
-                    && uv.Alt[0].Prob > 100 && !strchr("0123456789/%",
-                    uv.Alt[0].Code[0]))
-                nRus++;
-
-            nAll++;
-        }
-    }
-
-    if (!nAll)
-        return 0;
-
-    return (double) nRus / (double) nAll;
-}
-
-using namespace std;
-
-#ifndef NDEBUG
-#define DBG(msg) cerr << msg << endl;
-#else
-#define DBG(msg) ;
-#endif
-
 namespace cf {
-
-static char global_buf[64000]; // OLEG fot Consistent
-static int32_t global_buf_len = 0; // OLEG fot Consistent
 
 uint32_t PumaImpl::update_flags_ = 0;
 
@@ -153,14 +109,97 @@ PumaImpl::PumaImpl() :
     cline_(NULL),
     rc_line_(TRUE),
     need_clean_line_(FALSE),
-    recog_name_(NULL),
-    special_project_(SPEC_PRJ_NO)
+    recog_name_(NULL)
 {
     modulesInit();
 }
 
 PumaImpl::~PumaImpl() {
     modulesDone();
+}
+
+void PumaImpl::addLayoutBlock(const LayoutBlock &block)
+{
+    switch(block.type()) {
+    case LayoutBlock::TEXT:
+        addTextBlock(block.rect());
+        break;
+    case LayoutBlock::IMAGE:
+        addImageBlock(block.rect());
+        break;
+    default:
+        PUMA_WARNING_FUNC() << "unknown block type:" << block.type();
+    }
+}
+
+void PumaImpl::addImageBlock(const Rect& rect)
+{
+    PUMA_TRACE_FUNC() << rect;
+
+    if(!cpage_)
+        return;
+
+    POLY_ poly;
+    poly.com.setRect(rect);
+    poly.com.setFlag(CPAGE_BLOCK_USER);
+    uint count = CPAGE_GetCountBlock(cpage_);
+    CPAGE_CreateBlock(cpage_, TYPE_IMAGE, ++count, 0, &poly, sizeof(poly));
+
+    unsetUpdateFlag(FLG_UPDATE_CPAGE);
+}
+
+void PumaImpl::addTextBlock(const Rect& block)
+{
+    PUMA_TRACE_FUNC() << block;
+
+    if(!cpage_)
+        return;
+
+    POLY_ poly;
+    poly.com.setRect(block);
+    poly.com.setFlag(CPAGE_BLOCK_USER);
+    uint count = CPAGE_GetCountBlock(cpage_);
+    CPAGE_CreateBlock(cpage_, TYPE_TEXT, ++count, 0, &poly, sizeof(poly));
+
+    unsetUpdateFlag(FLG_UPDATE_CPAGE);
+}
+
+LayoutBlockList PumaImpl::textBlocks() const
+{
+    LayoutBlockList res;
+    if(!cpage_)
+        return res;
+
+    Handle block = CPAGE_GetBlockFirst(cpage_, TYPE_TEXT);
+
+    while (block) {
+        POLY_ poly;
+        CPAGE_GetBlockData(cpage_, block, TYPE_TEXT, &poly, sizeof(poly));
+        res.push_back(LayoutBlock(poly.rect(), LayoutBlock::TEXT));
+        block = CPAGE_GetBlockNext(cpage_, block, TYPE_TEXT);
+    }
+
+    return res;
+}
+
+LayoutBlockList PumaImpl::imageBlocks() const
+{
+    LayoutBlockList res;
+    if(!cpage_)
+        return res;
+
+    Handle block = CPAGE_GetBlockFirst(cpage_, TYPE_IMAGE);
+
+    while (block) {
+        POLY_ poly;
+        CPAGE_GetBlockData(cpage_, block, TYPE_IMAGE, &poly, sizeof(poly));
+        res.push_back(LayoutBlock(poly.rect(), LayoutBlock::IMAGE));
+        block = CPAGE_GetBlockNext(cpage_, block, TYPE_IMAGE);
+    }
+
+    debugPrintCpage();
+
+    return res;
 }
 
 void PumaImpl::binarizeImage()
@@ -232,8 +271,7 @@ CEDPagePtr PumaImpl::cedPage() {
 }
 
 void PumaImpl::close() {
-    if (Config::doDebug())
-        PUMA_DEBUG_FUNC << "\n";
+    PUMA_TRACE_FUNC();
 
     CLINE_Reset();
     clearAll();
@@ -244,15 +282,15 @@ void PumaImpl::close() {
     input_dib_ = NULL;
 }
 
-void PumaImpl::debugPrintCpage() {
-    Debug() << "Container CPAGE has: \n name : size\n";
+void PumaImpl::debugPrintCpage() const
+{
+    PUMA_DEBUG_FUNC() << "Container CPAGE has: \n name : size";
     Handle block = CPAGE_GetBlockFirst(cpage_, 0);
 
     while (block) {
-        Debug() << CPAGE_GetNameInternalType(CPAGE_GetBlockType(cpage_, block))
+        cfDebug() << CPAGE_GetNameInternalType(CPAGE_GetBlockType(cpage_, block))
                 << " : "
-                << CPAGE_GetBlockData(cpage_, block, CPAGE_GetBlockType(cpage_, block), NULL, 0)
-                << "\n";
+                << CPAGE_GetBlockData(cpage_, block, CPAGE_GetBlockType(cpage_, block), NULL, 0);
         block = CPAGE_GetBlockNext(cpage_, block, 0);
     }
 }
@@ -323,7 +361,7 @@ void PumaImpl::getImageInfo(const std::string& image_name) {
         throw PumaException("CIMAGE_GetImageInfo failed");
 }
 
-void PumaImpl::layout()
+void PumaImpl::prepare()
 {
     RSPreProcessImage DataforRS;
 
@@ -355,18 +393,20 @@ void PumaImpl::layout()
     rstuff_->setImageData(&DataforRS);
     rstuff_->setRecognizeOptions(recognize_options_);
     rstuff_->normalize();
+}
 
+void PumaImpl::layout()
+{
+    PUMA_TRACE_FUNC();
+    prepare();
     markup();
 }
 
 void PumaImpl::loadLayoutFromFile(const std::string& fname) {
     cpage_ = CPAGE_RestorePage(TRUE, fname.c_str());
 
-    if (cpage_ == NULL) {
-        ostringstream os;
-        os << "CPAGE_RestorePage failed from '" << fname << "'";
-        throw PumaException(os.str());
-    }
+    if(cpage_ == NULL)
+        throw PumaException() << "CPAGE_RestorePage failed from'" << fname << "'";
 
     CPAGE_SetCurrentPage(CPAGE_GetNumberPage(cpage_));
 }
@@ -380,7 +420,7 @@ void PumaImpl::markup() {
     marker_->markupPage();
     cpage_ = marker_->cpage();
 
-    if (Config::instance().debug())
+    if(Config::instance().debug())
         debugPrintCpage();
 
     unsetUpdateFlag(FLG_UPDATE_CPAGE);
@@ -491,12 +531,12 @@ void PumaImpl::modulesInit() {
     }
 }
 
-void PumaImpl::open(ImagePtr img) {
+void PumaImpl::open(ImagePtr img)
+{
+    PUMA_TRACE_FUNC();
+
     if (!img || !img->data())
         throw PumaException("[PumaImpl::open] invalid image given");
-
-    if (Config::doDebug())
-        PUMA_DEBUG_FUNC << "\n";
 
     preOpenInitialize();
 
@@ -535,41 +575,10 @@ void PumaImpl::pass2() {
     if (Config::instance().debugDump())
         saveCSTR(2);
 
-    if (SPEC_PRJ_GIP == special_project_ && recognize_options_.language()
-            == LANGUAGE_RUS_ENG)
-        pass2special();
-
     if (RSTR_NeedPass2())
         recognizePass2();
     else
         Debug() << "RSTR said that second pass is not needed.\n";
-}
-
-void PumaImpl::pass2special() {
-    double s = 0;
-    int n = CSTR_GetMaxNumber();
-    for (int i = 1; i <= n; i++) {
-        CSTR_line lin_ruseng = CSTR_GetLineHandle(i, 1);
-        s += portion_of_rus_letters(lin_ruseng);
-    }
-
-    if (n)
-        s /= (double) n;
-
-    if (n && s < 0.4) {
-        for (int i = 0; i <= n; i++) {
-            for (int j = 1; j < 10; j++) {
-                CSTR_line lin_ruseng = CSTR_GetLineHandle(i, j);
-
-                if (lin_ruseng)
-                    CSTR_DeleteLine(lin_ruseng);
-            }
-        }
-
-        recognize_options_.setLanguage(LANGUAGE_ENGLISH);
-        recognizeSetup();
-        recognizePass1();
-    }
 }
 
 void PumaImpl::spellCorrection() {
@@ -659,7 +668,7 @@ void PumaImpl::printResultLine(std::ostream& os, size_t lineNumber) {
         }
     }
 
-    os << "Fragment" << setw(2) << line_attr.fragment << " Line" << setw(3)
+    os << "Fragment" << std::setw(2) << line_attr.fragment << " Line" << std::setw(3)
             << lineNumber << ": <";
 
     if (start && stop) {
@@ -691,20 +700,22 @@ void PumaImpl::postOpenInitialize() {
     getImageInfo(PUMA_IMAGE_USER);
 }
 
-void PumaImpl::recognize() {
+void PumaImpl::recognize()
+{
+    PUMA_TRACE_FUNC() << '\n' << recognize_options_;
+
     assert(cpage_);
     // Проверим: выделены ли фрагменты.
-    if (!CPAGE_GetCountBlock(cpage_) || hasUpdateFlag(FLG_UPDATE_CPAGE))
-        layout();
+    if (!CPAGE_GetCountBlock(cpage_) || hasUpdateFlag(FLG_UPDATE_CPAGE)) {
+        if(!CPAGE_GetCountBlock(cpage_))
+            PUMA_WARNING_FUNC() << "empty page layout";
 
-    if (Config::instance().debug()) {
-        PUMA_DEBUG_FUNC << '\n' << recognize_options_;
+        PUMA_WARNING_FUNC() << "update layout";
+        layout();
     }
 
     CSTR_DeleteAll();
-
-    if (cpage_)
-        CPAGE_UpdateBlocks(cpage_, TYPE_CPAGE_TABLE);
+    CPAGE_UpdateBlocks(cpage_, TYPE_CPAGE_TABLE);
 
     if (Config::instance().debugDump())
         saveLayoutToFile(layout_filename_);
@@ -771,10 +782,7 @@ void PumaImpl::recognize() {
     recognizeCorrection();
 
     if (Config::instance().debug())
-        printResult(cerr);
-
-    if (SPEC_PRJ_CONS == special_project_)
-        recognizeSpecial();
+        printResult(std::cerr);
 
     normalize();
 }
@@ -878,7 +886,6 @@ void PumaImpl::recognizeSetup() {
     opt.pageSkew2048 = info.Incline2048;//0
     int32_t nResolutionY = info.DPIY;//300;
     opt.language = recognize_options_.language();
-    global_buf_len = 0; // OLEG fot Consistent
 
     if (!RSTR_NewPage(nResolutionY, cpage_))
         throw PumaException("RSTR_NewPage failed");
@@ -912,24 +919,6 @@ void PumaImpl::recognizeSetup() {
         RPSTR_SetImportData(RPSTR_FNIMP_LANGUAGE, &w8);
         RCORRKEGL_SetImportData(RCORRKEGL_FNIMP_LANGUAGE, &w8);
     }
-}
-
-void PumaImpl::recognizeSpecial() {
-    char * buf = &global_buf[0], buf_str[1024];
-    char * pb = buf;
-    global_buf_len = 0;
-
-    for (int i = 1, count = CSTR_GetMaxNumber(); i <= count; i++) {
-        CSTR_line buf_line = CSTR_GetLineHandle(i, 1);
-        CSTR_LineToTxt_Coord(buf_line, buf_str, 1023);
-        strcpy(pb, buf_str);
-        int len = strlen(pb);
-        pb += len + 1;
-        global_buf_len += len + 1;
-    }
-
-    *pb = 0;
-    global_buf_len++;
 }
 
 void PumaImpl::rotate(BitmapPtr * dib, Point * p) {
@@ -977,7 +966,7 @@ void PumaImpl::rotate(BitmapPtr * dib, Point * p) {
 }
 
 void PumaImpl::saveCSTR(int pass) {
-    ostringstream os;
+    std::ostringstream os;
     os << "cuneiform_pass_" << pass << ".cst";
     CSTR_SaveCont(os.str().c_str());
 }
@@ -985,14 +974,11 @@ void PumaImpl::saveCSTR(int pass) {
 void PumaImpl::saveLayoutToFile(const std::string& fname) {
     CPAGE_ClearBackUp(cpage_);
 
-    if (!CPAGE_SavePage(cpage_, fname.c_str())) {
-        ostringstream os;
-        os << "CPAGE_SavePage to '" << fname << "' failed.";
-        throw PumaException(os.str());
-    }
+    if (!CPAGE_SavePage(cpage_, fname.c_str()))
+        throw PumaException() << "CPAGE_SavePage to '" << fname << "' failed.";
 }
 
-void PumaImpl::saveToText(ostream& os) const {
+void PumaImpl::saveToText(std::ostream& os) const {
     for (int i = 1, count = CSTR_GetMaxNumber(); i <= count; i++) {
         CSTR_line lin_out = CSTR_GetLineHandle(i, 1); // OLEG
 
@@ -1004,7 +990,7 @@ void PumaImpl::saveToText(ostream& os) const {
 }
 
 void PumaImpl::saveToText(const std::string& filename) const {
-    ofstream of(filename.c_str());
+    std::ofstream of(filename.c_str());
 
     if (!of)
         return;
@@ -1031,11 +1017,6 @@ static inline bool isValidPageTemplate(const Rect& r)
             r.top() >= 0;
 }
 
-void PumaImpl::setSpecialProject(special_project_t SpecialProject) {
-    special_project_ = SpecialProject;
-    RSTR_SetSpecPrj(SpecialProject);
-}
-
 void PumaImpl::applyReadMask()
 {
     if(!recognize_options_.hasReadRects())
@@ -1043,7 +1024,7 @@ void PumaImpl::applyReadMask()
 
     BitmapPtr image = CImage::instance().image(recog_name_);
     if(!image) {
-        PUMA_ERROR_FUNC << "image not found: " << recog_name_ << "\n";
+        PUMA_ERROR_FUNC() << "image not found:" << recog_name_;
         return;
     }
 
@@ -1057,17 +1038,17 @@ void PumaImpl::applyReadMask()
 
     std::vector<Rect> read_masks = recognize_options_.readRects();
     for(size_t i = 0; i < read_masks.size(); i++) {
-        Rect r = read_masks.at(i).intersected(full_page).normalized();
-        CImage::instance().removeRectFromReadMask(recog_name_, r);
+        Rect r = read_masks.at(i).normalized().intersected(full_page);
+        if(!CImage::instance().removeRectFromReadMask(recog_name_, r))
+            PUMA_WARNING_FUNC() << "can't remove rectangle from mask:" << r;
 
-        if(Config::instance().debugHigh())
-            PUMA_DEBUG << "mask rect added: " << r << "\n";
+        PUMA_TRACE_FUNC() << "mask rect added:" << r;
     }
 
     CImage::instance().enableReadMask(recog_name_);
     CImage::instance().applyReadMask(recog_name_);
 
-    PUMA_DEBUG_FUNC << "masks applied to: " << recog_name_ << "\n";
+    PUMA_TRACE_FUNC() << "masks applied to: " << recog_name_;
 
     if(Config::doDump())
         CIMAGE_Dump(recog_name_, "ImageAfterMasks.bmp");

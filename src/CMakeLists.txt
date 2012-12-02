@@ -141,7 +141,6 @@ set(CF_GLOBAL_HEADERS
     include/minmax.h
     include/filestuff.h
     ${CMAKE_BINARY_DIR}/src/include/config.h
-    ${CMAKE_BINARY_DIR}/src/include/config-user.h
     ${CMAKE_BINARY_DIR}/src/include/config-serialize.h
 )
     

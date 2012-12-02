@@ -409,7 +409,6 @@ Bool32 PicturesSecondStage(CCOM_handle hCCOM, Handle hCPAGE)
     for (i = 0; i < nPics && bSearchPicture; i++) {
         block.com.type = TYPE_TEXT;//Текст, Картинка, Таблица;
         block.com.number = 0;//порядковый номер
-        block.com.Color = 0;
         block.com.count = 4;
         block.com.Flags = pPics[i].nl;
         block.com.Vertex[0].rx() = pPics[i].left;

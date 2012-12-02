@@ -23,6 +23,7 @@ set(CF_COMMON_SOURCES
     imagerawdata.cpp
     imageurl.cpp
     language.cpp
+    letter.cpp
     log.cpp
     modules.cpp
     outputformat.cpp
@@ -34,6 +35,8 @@ set(CF_COMMON_SOURCES
 
 set(CF_COMMON_HEADERS
     align.h
+    binarizatordef.h
+    binarizeoptions.h
     bmp.h
     consoleprogresscounter.h
     debug.h

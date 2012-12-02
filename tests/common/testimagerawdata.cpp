@@ -110,3 +110,42 @@ void TestImageRawData::testSerializeXml() {
     }
 #endif
 }
+
+void TestImageRawData::testClone()
+{
+    ImageRawData data;
+    CPPUNIT_ASSERT(data.isNull());
+
+    ImageRawData * data_copy = data.clone();
+    CPPUNIT_ASSERT(data_copy);
+    CPPUNIT_ASSERT(data_copy->isNull());
+    delete data_copy;
+
+    data.set(new uchar[100], 100, ImageRawData::AllocatorNew);
+    memset(data.data(), 0x9, 10);
+    data_copy = data.clone();
+    CPPUNIT_ASSERT(data_copy);
+    CPPUNIT_ASSERT_EQUAL(data.dataSize(), data_copy->dataSize());
+    for(int i = 0; i < 10; i++) {
+        CPPUNIT_ASSERT_EQUAL((int) 0x9, (int) data_copy->data()[i]);
+    }
+    delete data_copy;
+
+    {
+        ImageRawData data2;
+        uchar array[100];
+        memset(array, 0xFF, 100);
+        data2.set(array, 100, ImageRawData::AllocatorNone);
+        data_copy = data2.clone();
+    }
+
+    // test after data2 destructor
+    CPPUNIT_ASSERT(data_copy);
+    CPPUNIT_ASSERT_EQUAL(data.dataSize(), data_copy->dataSize());
+    for(int i = 0; i < 10; i++) {
+        CPPUNIT_ASSERT_EQUAL((int) 0xFF, (int) data_copy->data()[i]);
+        data_copy->data()[i] = 0;
+    }
+    delete data_copy;
+
+}

@@ -2917,9 +2917,9 @@ Bool stick_online(cell * c) {
 			if (nstick > 0 && nstick < 4) {
 				c->n_baton = (uchar) nstick;
 				memcpy(c->save_baton, s, nstick * sizeof(STICK));
-			} else if (nstick == 0)
-				c->n_baton = c->n_baton = NO_BATONS;
-			;
+            } else if (nstick == 0) {
+                c->n_baton = NO_BATONS;
+            }
 		}
 	} else {
 		nstick = c->n_baton;

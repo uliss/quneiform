@@ -167,7 +167,7 @@ class Tester:
             first_xml = os.path.basename(first) + '.xml'
             f = open(first_xml,'w')
             f.write(first_content)
-            f.close
+            f.close()
                 
             second_xml = second + '.xml'
             f = open(second_xml, 'w')
@@ -191,7 +191,8 @@ class Tester:
         if res == True:
             return 0
         else:
-            return 1;
+            self.diff(xml1, xml2, **kwargs)
+            return 1
 
     def diffTestContent(self, img, content):
         if not self.cuneiformTest(img):
@@ -273,15 +274,21 @@ class Tester:
 
     def isEqualElement(self, a, b):
         if a.tagName != b.tagName:
+            print "          [XML] Different tag names: %s %s" % (a.tagName, b.tagName)
             return False
+
         if sorted(a.attributes.items()) != sorted(b.attributes.items()):
+            print "          [XML] Different attributes..."
             return False
+
         if len(a.childNodes) != len(b.childNodes):
             return False
+
         for ac, bc in zip(a.childNodes, b.childNodes):
             if ac.nodeType != bc.nodeType:
                 return False
             if ac.nodeType == ac.TEXT_NODE and ac.data != bc.data:
+                print "        [XML] Different values: '%s' and '%s' in tag <%s>" % (ac.data, bc.data, a.tagName)
                 return False
             if ac.nodeType == ac.ELEMENT_NODE and not self.isEqualElement(ac, bc):
                 return False
@@ -395,7 +402,7 @@ class Tester:
     ''' returns cuneiform version ''' 
     def version(self):
         if self._version is None:
-            self._version = Popen([CUNEIFORM, '-V'], stdout=PIPE).communicate()[0].split()[-1]
+            self._version = Popen([CUNEIFORM, '-V'], stdout=PIPE).communicate()[0].split('\n')[0].split()[-1]
         
         return self._version
 

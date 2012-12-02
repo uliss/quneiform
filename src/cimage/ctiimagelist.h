@@ -136,6 +136,7 @@ class CTIImageList
           */
         bool imageHandle(const std::string& name, BitmapPtr * handle);
 
+        bool clearReadMask(const std::string& imageName);
         bool disableReadMask(const std::string& imageName);
         bool disableWriteMask(const std::string& imageName);
         bool enableReadMask(const std::string& imageName);

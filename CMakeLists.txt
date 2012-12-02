@@ -75,6 +75,7 @@ else()
 endif()
 
 include(use_doxygen)
+include(system_info)
 include(make_config)
 include(make_package)
 include(scanner)

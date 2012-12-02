@@ -30,6 +30,7 @@
 
 #include "selection.h"
 #include "selectionlist.h"
+#include "blocktype.h"
 
 static const int THRESHOLD = 5;
 static const int MIN_WIDTH = 20;
@@ -37,22 +38,44 @@ static const int MIN_HEIGHT = 20;
 static const int MOVE_STEP = 3;
 static const int MOVE_FAST_FACTOR = 6;
 
-static const QColor TYPE_MAP_COLOR[] = {
-    QColor(0, 0, 0, 150), // AREA
-    QColor(100, 255, 100, 150), // TEXT
-    QColor(255, 0, 0, 150), // IMAGE
-    QColor(0, 0, 255, 150) // TABLE
-};
+namespace
+{
 
-static const int PEN_WIDTH = 2;
+QMap<BlockType, QPen> PEN_MAP;
+QMap<BlockType, QBrush> BRUSH_MAP;
+
+bool initMaps()
+{
+    PEN_MAP[BLOCK_CHAR] = QPen(Qt::cyan);
+    PEN_MAP[BLOCK_LINE] = QPen(Qt::green);
+    PEN_MAP[BLOCK_PARAGRAPH] = QPen(Qt::yellow);
+    PEN_MAP[BLOCK_COLUMN] = QPen(Qt::red);
+    PEN_MAP[BLOCK_PICTURE] = QPen(Qt::blue);
+    PEN_MAP[BLOCK_SECTION] = QPen(Qt::gray);
+
+    PEN_MAP[BLOCK_LAYOUT_AREA] = QPen(Qt::gray);
+    BRUSH_MAP[BLOCK_LAYOUT_AREA] = QBrush(QColor(100, 100, 100, 20), Qt::SolidPattern);
+
+    PEN_MAP[BLOCK_LAYOUT_TEXT] = QPen(QBrush(QColor::fromHsv(120, 255, 127, 127), Qt::Dense2Pattern), 8);
+    BRUSH_MAP[BLOCK_LAYOUT_TEXT] = QBrush(QColor(0, 255, 0, 20), Qt::SolidPattern);
+
+    PEN_MAP[BLOCK_LAYOUT_IMAGE] = QPen(QBrush(QColor(255, 0, 0, 127), Qt::Dense2Pattern), 8);
+    BRUSH_MAP[BLOCK_LAYOUT_IMAGE] = QBrush(QColor(255, 0, 0, 20), Qt::SolidPattern);
+
+    return true;
+}
+
+bool init_maps = initMaps();
+
+}
 
 Selection::Selection(SelectionList * parent, const QRectF& area) :
     QGraphicsRectItem(area, parent),
     parent_(parent),
-    type_(AREA),
+    type_(BLOCK_LAYOUT_AREA),
     resize_(NONE)
 {
-    setSelectionType(AREA);
+    setSelectionType(BLOCK_LAYOUT_AREA);
     setRect(area);
 
     setAcceptHoverEvents(true);
@@ -77,7 +100,8 @@ qreal Selection::borderDistance(const QPointF& pt, Selection::border_t border) c
     }
 }
 
-int Selection::bordersResized(const QPointF& pos) const {
+int Selection::bordersResized(const QPointF& pos) const
+{
     corner_t corner = nearestCorner(pos);
     border_t border = nearestBorder(pos);
 
@@ -89,18 +113,30 @@ int Selection::bordersResized(const QPointF& pos) const {
         return NONE;
 }
 
-void Selection::hoverEnterEvent(QGraphicsSceneHoverEvent * event) {
+void Selection::hoverEnterEvent(QGraphicsSceneHoverEvent * event)
+{
+    if(isReadOnly())
+        return;
+
     setResizeCursor(event->pos());
 }
 
-void Selection::hoverMoveEvent(QGraphicsSceneHoverEvent * event) {
+void Selection::hoverMoveEvent(QGraphicsSceneHoverEvent * event)
+{
+    if(isReadOnly())
+        return;
+
     if(rect().adjusted(THRESHOLD, THRESHOLD, -THRESHOLD, -THRESHOLD).contains(event->pos()))
         unsetCursor();
     else
         setResizeCursor(event->pos());
 }
 
-void Selection::hoverLeaveEvent(QGraphicsSceneHoverEvent * event) {
+void Selection::hoverLeaveEvent(QGraphicsSceneHoverEvent * event)
+{
+    if(isReadOnly())
+        return;
+
    unsetCursor();
    event->accept();
 }
@@ -154,7 +190,8 @@ bool distCmp(const border_dist_t& d0, const border_dist_t& d1) {
     return d0.second < d1.second;
 }
 
-Selection::border_t Selection::nearestBorder(const QPointF& pt) const {
+Selection::border_t Selection::nearestBorder(const QPointF& pt) const
+{
     dist_map_t map;
 
     map[Selection::LEFT] = borderDistance(pt, Selection::LEFT);
@@ -167,14 +204,16 @@ Selection::border_t Selection::nearestBorder(const QPointF& pt) const {
                             distCmp)->first;
 }
 
-qreal Selection::nearestBorderDistance(const QPointF& pt) const {
+qreal Selection::nearestBorderDistance(const QPointF& pt) const
+{
     return qMin(borderDistance(pt, Selection::LEFT),
                 qMin(borderDistance(pt, Selection::RIGHT),
                      qMin(borderDistance(pt, Selection::TOP),
                           borderDistance(pt, Selection::BOTTOM))));
 }
 
-Selection::corner_t Selection::nearestCorner(const QPointF& pt) const {
+Selection::corner_t Selection::nearestCorner(const QPointF& pt) const
+{
     QPointF rel = pt - rect().center();
     if(rel.x() > 0)
         return rel.y() < 0 ? RIGHT_TOP : RIGHT_BOTTOM;
@@ -182,7 +221,11 @@ Selection::corner_t Selection::nearestCorner(const QPointF& pt) const {
         return rel.y() < 0 ? LEFT_TOP : LEFT_BOTTOM;
 }
 
-void Selection::keyPressEvent(QKeyEvent * event) {
+void Selection::keyPressEvent(QKeyEvent * event)
+{
+    if(isReadOnly())
+        return;
+
     QGraphicsRectItem::keyPressEvent(event);
 
     qreal step = MOVE_STEP;
@@ -215,7 +258,8 @@ void Selection::keyPressEvent(QKeyEvent * event) {
     }
 }
 
-void Selection::moveBy(qreal dX, qreal dY) {
+void Selection::moveBy(qreal dX, qreal dY)
+{
     QRectF new_r = rect();
     new_r.moveTo(rect().topLeft() + QPointF(dX, dY));
 
@@ -242,7 +286,11 @@ void Selection::moveBy(const QPointF& p)
     moveBy(p.x(), p.y());
 }
 
-void Selection::mouseMoveEvent(QGraphicsSceneMouseEvent * event) {
+void Selection::mouseMoveEvent(QGraphicsSceneMouseEvent * event)
+{
+    if(isReadOnly())
+        return;
+
     QPointF move_delta = event->pos() - event->lastPos();
 
     if(isResizing())
@@ -253,7 +301,11 @@ void Selection::mouseMoveEvent(QGraphicsSceneMouseEvent * event) {
     event->accept();
 }
 
-void Selection::mousePressEvent(QGraphicsSceneMouseEvent * event) {
+void Selection::mousePressEvent(QGraphicsSceneMouseEvent * event)
+{
+    if(isReadOnly())
+        return;
+
     QGraphicsRectItem::mousePressEvent(event);
     if(event->button() != Qt::LeftButton)
         return;
@@ -266,10 +318,29 @@ void Selection::mousePressEvent(QGraphicsSceneMouseEvent * event) {
     event->accept();
 }
 
-void Selection::mouseReleaseEvent(QGraphicsSceneMouseEvent * event) {
+void Selection::mouseReleaseEvent(QGraphicsSceneMouseEvent * event)
+{
+    if(isReadOnly())
+        return;
+
     QGraphicsRectItem::mouseReleaseEvent(event);
 
     parent_->updateSelections();
+}
+
+bool Selection::isReadOnly() const
+{
+    switch(type_) {
+    case BLOCK_SECTION:
+    case BLOCK_COLUMN:
+    case BLOCK_PARAGRAPH:
+    case BLOCK_LINE:
+    case BLOCK_CHAR:
+    case BLOCK_PICTURE:
+        return true;
+    default:
+        return false;
+    }
 }
 
 QRect Selection::normalRect() const {
@@ -280,23 +351,22 @@ QRect Selection::normalRect() const {
     return QRect(x, y, w, h).normalized();
 }
 
-void Selection::setSelectionType(Selection::selection_t t)
+void Selection::setSelectionType(BlockType t)
 {
     type_ = t;
 
-    QPen p(TYPE_MAP_COLOR[t]);
-    p.setWidth(PEN_WIDTH);
-    setPen(p);
-
+    setPen(PEN_MAP[type_]);
+    setBrush(BRUSH_MAP[type_]);
     update();
 }
 
-Selection::selection_t Selection::selectionType() const
+BlockType Selection::selectionType() const
 {
     return type_;
 }
 
-void Selection::resizeBy(const QPointF& delta) {
+void Selection::resizeBy(const QPointF& delta)
+{
     QRectF new_r = rect();
 
     if(resize_ & LEFT) {

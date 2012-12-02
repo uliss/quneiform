@@ -33,6 +33,7 @@
 #include "ced/cedcolumn.h"
 #include "common/fontstyle.h"
 #include "rdib/qtimageloader.h"
+#include "cfutils.h"
 
 #include "testqtextdocumentexporter.h"
 
@@ -310,7 +311,7 @@ void TestQTextDocumentExporter::testWriteCharBBox() {
     CEDChar ch('t');
 
     exp.exportChar(ch);
-    QCOMPARE(exp.cursor().charFormat().property(QTextDocumentExporter::BBOX).toRect(), QRect());
+    QCOMPARE(exp.cursor().charFormat().property(QTextDocumentExporter::BBOX).toRect(), toQRect(cf::Rect()));
     exp.clear();
 
     ch.setBoundingRect(cf::Rect(cf::Point(1, 2), 300, 400));
@@ -318,7 +319,7 @@ void TestQTextDocumentExporter::testWriteCharBBox() {
     exp.cursor().movePosition(QTextCursor::PreviousCharacter);
     QCOMPARE(exp.cursor().charFormat().toCharFormat().propertyCount(), 1);
     QCOMPARE(exp.cursor().charFormat().property(QTextDocumentExporter::BBOX).toRect(),
-             QRect(1, 2 - 1, 300, 400));
+             toQRect(cf::Rect(cf::Point(1, 2), 300, 400)));
 }
 
 void TestQTextDocumentExporter::testWritePage() {

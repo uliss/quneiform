@@ -98,6 +98,7 @@ cf_hide_visibility(${CF_RSTR})
 set_property(TARGET ${CF_RSTR} PROPERTY COMPILE_DEFINITIONS __RSTR__)
 
 target_link_libraries(${CF_RSTR}
+    ${CF_COMMON}
     ${CF_CCOM}
     ${CF_CLINE}
     ${CF_CSTR}

@@ -78,9 +78,11 @@ void TestGenericExporter::testCreatePicturesFolder() {
     CPPUNIT_ASSERT_EQUAL(0, _access("test_page_2_files", 0));
     RemoveDirectory("test_page_2_files");
 
-    // assumed that tests not runs under root))))))))
+    // assumed that tests not runs under root)))))))) (unless Windows)
+#ifndef _WIN32
     p->setOutputFilename("/test");
     CPPUNIT_ASSERT_THROW(p->createPicturesFolder(), Exporter::Exception);
+#endif
 
     delete p;
 }

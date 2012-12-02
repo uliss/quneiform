@@ -22,53 +22,66 @@
 #include <QCursor>
 #include <QDebug>
 #include <QKeyEvent>
+#include <QSettings>
 
 #include "selectionlist.h"
 #include "selection.h"
+#include "page.h"
+#include "settingskeys.h"
 
 #include "resources/cursor_selection_area.xpm"
 #include "resources/cursor_selection_area_add.xpm"
+#include "resources/cursor_selection_text_add.xpm"
+#include "resources/cursor_selection_image_add.xpm"
 
 static const QColor SHADOW(0, 0, 0, 30);
 static const int MIN_SELECTION_WIDTH = 8;
 static const int MIN_SELECTION_HEIGHT = 8;
 
-SelectionList::SelectionList(const QRectF& rect, QGraphicsItem * parent) :
-    QGraphicsRectItem(rect, parent),
+static QRect toQRect(const QRectF& r)
+{
+    return QRect(qRound(r.left()), qRound(r.top()), qRound(r.width()), qRound(r.height()));
+}
+
+SelectionList::SelectionList(QGraphicsItem * parent) :
+    QGraphicsRectItem(QRectF(), parent),
     rubber_band_(NULL),
-    selection_type_(SELECT_NONE),
+    type_(SELECT_NONE),
     mode_(MODE_NONE),
-    turned_(false)
+    page_(NULL)
 {
     setActive(true);
     setPen(QPen(Qt::NoPen));
     setFlag(QGraphicsItem::ItemIsFocusable, true);
 }
 
-void SelectionList::setSelectionType(SelectionList::selection_t type)
+void SelectionList::populateFromPage(const Page * p)
 {
-    selection_type_ = type;
-}
-
-void SelectionList::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget)
-{
-    QGraphicsRectItem::paint(painter, option, widget);
-
-    if(selections_.empty())
+    if(!p) {
+        qWarning() << Q_FUNC_INFO << "NULL page pointer given";
         return;
-
-    QPainterPath path;
-    path.addRect(scene()->sceneRect());
-
-    foreach(Selection * s, selections_) {
-        path.addRect(s->rect());
     }
 
-    painter->save();
-    painter->setPen(Qt::NoPen);
-    painter->setBrush(SHADOW);
-    painter->drawPath(path);
-    painter->restore();
+    page_ = p;
+
+    populateChars();
+    populateLines();
+    populateParagraphs();
+    populateColumns();
+    populateSections();
+    populatePictures();
+
+    foreach(Block block, page_->blocks(BLOCK_LAYOUT_TEXT)) {
+        addLayoutBlock(block);
+    }
+
+    foreach(Block block, page_->blocks(BLOCK_LAYOUT_IMAGE)) {
+        addLayoutBlock(block);
+    }
+
+    foreach(Block block, page_->blocks(BLOCK_LAYOUT_TABLE)) {
+        addLayoutBlock(block);
+    }
 }
 
 QRect SelectionList::selectionBoundingRect() const
@@ -85,13 +98,69 @@ QRect SelectionList::selectionBoundingRect() const
     return QRect((int) res.left(), (int) res.top(), (int) res.width(), (int) res.height());
 }
 
-QList<QRect> SelectionList::selectionRects() const
+bool SelectionList::isBlocksVisible(BlockType t) const
+{
+    foreach(Selection * s, selections_) {
+        if(s->selectionType() == t)
+            return s->isVisible();
+    }
+
+    return false;
+}
+
+void SelectionList::hideBlocks(BlockType t)
+{
+    foreach(Selection * s, selections_) {
+        if(s->selectionType() == t)
+            s->hide();
+    }
+}
+
+void SelectionList::showBlocks(BlockType t)
+{
+    foreach(Selection * s, selections_) {
+        if(s->selectionType() == t)
+            s->show();
+    }
+}
+
+QList<Block> SelectionList::imageBlocks() const
+{
+    QList<Block> res;
+
+    foreach(Selection * s, selections_) {
+        if(s->selectionType() != BLOCK_LAYOUT_IMAGE)
+            continue;
+
+        res.append(Block(s->selectionType(), toQRect(s->normalRect())));
+    }
+
+    return res;
+}
+
+QList<Block> SelectionList::textBlocks() const
+{
+    QList<Block> res;
+
+    foreach(Selection * s, selections_) {
+        if(s->selectionType() != BLOCK_LAYOUT_TEXT)
+            continue;
+
+        res.append(Block(s->selectionType(), toQRect(s->normalRect())));
+    }
+
+    return res;
+}
+
+QList<QRect> SelectionList::readAreas() const
 {
     QList<QRect> res;
 
     foreach(Selection * s, selections_) {
-        QRectF rf = s->normalRect();
-        res.append(QRect((int) rf.left(), (int) rf.top(), (int) rf.width(), (int) rf.height()));
+        if(s->selectionType() != BLOCK_LAYOUT_AREA)
+            continue;
+
+        res.append(toQRect(s->normalRect()));
     }
 
     return res;
@@ -103,7 +172,7 @@ void SelectionList::mouseMoveEvent(QGraphicsSceneMouseEvent * event)
     if(event->button() & Qt::LeftButton)
         return;
 
-    if(selection_type_ != SELECT_NONE) {
+    if(type_ != SELECT_NONE) {
         resizeSelection(event);
         event->accept();
     }
@@ -118,7 +187,7 @@ void SelectionList::mousePressEvent(QGraphicsSceneMouseEvent * event)
     if(event->button() != Qt::LeftButton)
         return;
 
-    if(selection_type_ != SELECT_NONE) {
+    if(type_ != SELECT_NONE) {
         startSelection(event);
         event->accept();
     }
@@ -132,7 +201,7 @@ void SelectionList::mouseReleaseEvent(QGraphicsSceneMouseEvent * event)
     if(event->button() != Qt::LeftButton)
         return;
 
-    if(selection_type_ != SELECT_NONE) {
+    if(type_ != SELECT_NONE) {
         finishSelection(event);
         event->accept();
     }
@@ -141,11 +210,21 @@ void SelectionList::mouseReleaseEvent(QGraphicsSceneMouseEvent * event)
     }
 }
 
+void SelectionList::addLayoutBlock(const Block& block)
+{
+    if(!page_)
+        return;
+
+    Selection * s = new Selection(this, page_->mapFromBackend(block.rect()));
+    s->setSelectionType(block.type());
+    selections_.append(s);
+}
+
 void SelectionList::addSelection(const QRectF& r)
 {
     foreach(Selection * s, selections_) {
         if(s->rect().intersects(r)) {
-            qDebug() << Q_FUNC_INFO << "intersected selection\n";
+            qDebug() << Q_FUNC_INFO << "intersected selection";
         }
     }
 
@@ -167,29 +246,54 @@ void SelectionList::clearSelections()
 
 bool SelectionList::isTurned() const
 {
-    return turned_;
+    if(!page_)
+        return false;
+
+    return page_->angle() % 180 != 0;
 }
 
-void SelectionList::setTurned(bool value)
+void SelectionList::set(SelectionList::selection_t type, SelectionList::selection_mode_t mode)
 {
-    turned_ = value;
-}
-
-void SelectionList::setSelectionMode(SelectionList::selection_mode_t mode)
-{
+    type_ = type;
     mode_ = mode;
 
-    switch(mode) {
-    case MODE_ADD:
-        setCursor(QCursor(QPixmap(cursor_selection_area_add_xpm)));
+    switch(type_) {
+    case SELECT_AREA:
+        switch(mode_) {
+        case MODE_ADD:
+            setCursor(QCursor(QPixmap(cursor_selection_area_add_xpm)));
+            return;
+        case MODE_REPLACE:
+            setCursor(QCursor(QPixmap(cursor_selection_area_xpm)));
+            return;
+        default:
+            break;
+        }
+    case SELECT_IMAGE:
+        switch(mode_) {
+        case MODE_ADD:
+        case MODE_REPLACE:
+            setCursor(QCursor(QPixmap(cursor_selection_image_add_xpm)));
+            return;
+        default:
+            break;
+        }
         break;
-    case MODE_REPLACE:
-        setCursor(QCursor(QPixmap(cursor_selection_area_xpm)));
+    case SELECT_TEXT:
+        switch(mode_) {
+        case MODE_ADD:
+        case MODE_REPLACE:
+            setCursor(QCursor(QPixmap(cursor_selection_text_add_xpm)));
+            return;
+        default:
+            break;
+        }
         break;
     default:
-        unsetCursor();
-        break;
+        break; // go to unset
     }
+
+    unsetCursor();
 }
 
 void SelectionList::setSelection(const QRectF& r)
@@ -216,21 +320,25 @@ Selection * SelectionList::makeSelection(const QRectF& r)
     s->setAcceptHoverEvents(true);
     s->setZValue(1);
 
-    switch(selection_type_) {
+    switch(type_) {
     case SELECT_AREA:
-        s->setSelectionType(Selection::AREA);
+        s->setSelectionType(BLOCK_LAYOUT_AREA);
+        qDebug() << Q_FUNC_INFO << "area selection";
         break;
     case SELECT_TEXT:
-        s->setSelectionType(Selection::TEXT);
+        s->setSelectionType(BLOCK_LAYOUT_TEXT);
+        qDebug() << Q_FUNC_INFO << "text selection";
         break;
     case SELECT_IMAGE:
-        s->setSelectionType(Selection::IMAGE);
+        s->setSelectionType(BLOCK_LAYOUT_IMAGE);
+        qDebug() << Q_FUNC_INFO << "image selection";
         break;
     case SELECT_TABLE:
-        s->setSelectionType(Selection::TABLE);
+        s->setSelectionType(BLOCK_LAYOUT_TABLE);
         break;
     default:
-        s->setSelectionType(Selection::AREA);
+        qDebug() << Q_FUNC_INFO << "default selection";
+        s->setSelectionType(BLOCK_LAYOUT_AREA);
         break;
     }
 
@@ -257,8 +365,6 @@ void SelectionList::finishSelection(QGraphicsSceneMouseEvent * event)
     rect = rect.normalized();
     rect = scene()->sceneRect().intersected(rect);
 
-    qDebug() << Q_FUNC_INFO << "selection created: " << rect;
-
     if(rect.width() < MIN_SELECTION_WIDTH)
         rect.adjust(-MIN_SELECTION_WIDTH, 0, MIN_SELECTION_WIDTH, 0);
     if(rect.height() < MIN_SELECTION_HEIGHT)
@@ -276,7 +382,7 @@ void SelectionList::finishSelection(QGraphicsSceneMouseEvent * event)
         break;
     }
 
-    selection_type_ = SELECT_NONE;
+    type_ = SELECT_NONE;
     mode_ = MODE_NONE;
     unsetCursor();
 }
@@ -305,6 +411,84 @@ void SelectionList::removeRubberBand()
     }
 }
 
+void SelectionList::populateChars()
+{
+    if(!page_)
+        return;
+
+    if(!QSettings().value(KEY_DEBUG_CHARACTERS_BBOX, false).toBool())
+        return;
+
+    foreach(Block block, page_->blocks(BLOCK_CHAR)) {
+        addLayoutBlock(block);
+    }
+}
+
+void SelectionList::populateLines()
+{
+    if(!page_)
+        return;
+
+    if(!QSettings().value(KEY_DEBUG_LINES_BBOX, false).toBool())
+        return;
+
+    foreach(Block block, page_->blocks(BLOCK_LINE)) {
+        addLayoutBlock(block);
+    }
+}
+
+void SelectionList::populateParagraphs()
+{
+    if(!page_)
+        return;
+
+    if(!QSettings().value(KEY_DEBUG_PARAGRAPHS_BBOX, false).toBool())
+        return;
+
+    foreach(Block block, page_->blocks(BLOCK_PARAGRAPH)) {
+        addLayoutBlock(block);
+    }
+}
+
+void SelectionList::populateColumns()
+{
+    if(!page_)
+        return;
+
+    if(!QSettings().value(KEY_DEBUG_COLUMNS_BBOX, false).toBool())
+        return;
+
+    foreach(Block block, page_->blocks(BLOCK_COLUMN)) {
+        addLayoutBlock(block);
+    }
+}
+
+void SelectionList::populateSections()
+{
+    if(!page_)
+        return;
+
+    if(!QSettings().value(KEY_DEBUG_SECTIONS_BBOX, false).toBool())
+        return;
+
+    foreach(Block block, page_->blocks(BLOCK_SECTION)) {
+        addLayoutBlock(block);
+    }
+}
+
+void SelectionList::populatePictures()
+{
+    if(!page_)
+        return;
+
+    if(!QSettings().value(KEY_DEBUG_PICTURES_BBOX, false).toBool())
+        return;
+
+    foreach(Block block, page_->blocks(BLOCK_PICTURE)) {
+        addLayoutBlock(block);
+    }
+}
+
 void SelectionList::resizeSelection(QGraphicsSceneMouseEvent * event)
 {
     Q_CHECK_PTR(rubber_band_);
@@ -316,20 +500,24 @@ void SelectionList::keyPressEvent(QKeyEvent * event)
 {
     QGraphicsRectItem::keyPressEvent(event);
 
-    if(selection_type_ == SELECT_NONE)
-        return setSelectionMode(MODE_NONE);
+    if(type_ == SELECT_NONE | event->key() == Qt::Key_Escape) {
+        set(SELECT_NONE, MODE_NONE);
+        return;
+    }
 
     if(event->key() == Qt::Key_Control)
-        setSelectionMode(MODE_ADD);
+        set(type_, MODE_ADD);
 }
 
 void SelectionList::keyReleaseEvent(QKeyEvent *event)
 {
     QGraphicsRectItem::keyReleaseEvent(event);
 
-    if(selection_type_ == SELECT_NONE)
-        return setSelectionMode(MODE_NONE);
+    if(type_ == SELECT_NONE) {
+        set(SELECT_NONE, MODE_NONE);
+        return;
+    }
 
     if(event->key() == Qt::Key_Control)
-        setSelectionMode(MODE_REPLACE);
+        set(type_, MODE_REPLACE);
 }

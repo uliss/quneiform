@@ -219,7 +219,7 @@ static void set_word_keg(uchar keg);
 static uchar get_word_keg();
 static Bool contain(Rect32 *b, Rect32 *s);
 static void to_real(Rect32 *rect);
-static void to_real16(Rect16 *rect);
+static void to_real16(::Rect16 *rect);
 
 static Handle find_hBlock(int32_t fragment);
 static void pull_rect(Rect32 *rect, Point *point);
@@ -820,7 +820,7 @@ static void mark_word(uint32_t color)
             return;
 
         for (; cur != cur_word.end; cur = CSTR_GetNextRaster(cur, flg_all)) {
-            Rect16 box;
+            ::Rect16 box;
             CSTR_GetAttr(cur, &attr);
             box.left = attr.r_col;
             box.right = box.left + attr.w - 1;
@@ -1700,7 +1700,7 @@ static void to_real(Rect32 *rect)
     IDEAL_XY(rect->bottom, rect->right);
 }
 
-static void to_real16(Rect16 *rect)
+static void to_real16(::Rect16 *rect)
 {
     IDEAL_XY(rect->top, rect->left);
     IDEAL_XY(rect->bottom, rect->right);
@@ -1769,7 +1769,7 @@ static void draw_keg(const char *str)
                     CSTR_GetAttr(rst, &attr);
 
                     if (attr.keg) {
-                        Rect16 box;
+                        ::Rect16 box;
                         int32_t keg = attr.keg;
                         uchar green;
                         //             if (j==1)  keg /= 2;

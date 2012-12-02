@@ -60,6 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "table.h"
 #include "common/point.h"
+#include "common/rect.h"
 
 # define  TYPE_TEXT         CPAGE_GetInternalType("TYPE_TEXT")
 # define  TYPE_IMAGE        CPAGE_GetInternalType("TYPE_IMAGE")
@@ -74,14 +75,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //константы аттрибутов фрагментов (к текстовому фрагменту и к ячейке таблицы) типа: негатив - позитив для представлени
 //01.01.01 Логинов
-# define TYPE_NEGATIVE 1
-# define TYPE_POSITIVE 0
+enum block_light_t {
+    TYPE_NEGATIVE = 1,
+    TYPE_POSITIVE = 0
+};
 
 //константы ориентации содержимого фрагментов (к текстовому фрагменту и к ячейке таблицы)
 //01.01.01 Логинов
-# define TYPE_LEFTRIGHT 0
-# define TYPE_UPDOWN    1
-# define TYPE_DOWNUP    2
+enum block_orientation_t {
+    TYPE_LEFTRIGHT = 0,
+    TYPE_UPDOWN    = 1,
+    TYPE_DOWNUP    = 2
+};
 
 
 //Значения нижеследующих констант нельзя менять. Они используются для побитового сравнени
@@ -116,29 +121,47 @@ typedef struct tagVertex {
     int32_t mark;
 } VERTEX;
 
-typedef struct tagCommon {
-    Handle type;//Текст, Картинка, Таблица;
-    int16_t number;//порядковый номер
-    int16_t Color;
-    Bool Select;//
+struct COMMON {
+    Handle type;    //Текст, Картинка, Таблица;
+    int16_t number; //порядковый номер
     int16_t count;
     cf::Point Vertex[MaxNum];
-// Almi 18.04.00
-#define POS_NEGTABCAP   0x00000001 // Вероятный негативный заголовок таблицы
-#define POS_NEGTXTCAP   0x00000002 // Вероятный негативный заголовок текста
-#define POS_MATCH       0x00000004 // Используется в программе сравнения фрагментации
     uint32_t Flags;
-} COMMON;
 
-typedef struct tagPOLY {
+    void setFlag(uint32_t flag)  {
+        Flags |= flag;
+    }
+
+    void addVertex(const cf::Point& pt)
+    {
+        Vertex[count] = pt;
+        count++;
+    }
+
+    void setRect(const cf::Rect& r)
+    {
+        Vertex[0] = r.leftTop();
+        Vertex[1] = r.rightTop();
+        Vertex[2] = r.rightBottom();
+        Vertex[3] = r.leftBottom();
+        count = 4;
+    }
+public:
+    COMMON() : type(0), number(0), count(0), Flags(0) {}
+};
+
+struct POLY_ {
     COMMON com;
-
     int32_t mark[MaxNum];
-
     int32_t alphabet;//Цифры,Цифры и буквы, Буквы
-    Bool16 negative;//Негатив = TYPE_NEGATIVE, Позитив = TYPE_POSITIVE;//     01.01.01 Логинов
-    int16_t orient;//TYPE_NORD- Сверху вниз (нормальное), TYPE_WEST- лежит на левом боку, TYPE_OST- лежит на правом боку.
-} POLY_;
+    block_light_t negative; //Негатив = TYPE_NEGATIVE, Позитив = TYPE_POSITIVE;//     01.01.01 Логинов
+    block_orientation_t orient; //TYPE_NORD- Сверху вниз (нормальное), TYPE_WEST- лежит на левом боку, TYPE_OST- лежит на правом боку.
+public:
+    POLY_() : negative(TYPE_POSITIVE), orient(TYPE_LEFTRIGHT) {}
+    bool isNegative() const { return negative == TYPE_NEGATIVE; }
+    block_orientation_t orientation() const { return orient; }
+    cf::Rect rect() const { return cf::Rect(com.Vertex[0], com.Vertex[2]); }
+};
 
 typedef struct tagTABLE {
     COMMON com;

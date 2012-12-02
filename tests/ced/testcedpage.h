@@ -26,10 +26,12 @@ class TestCEDPage: public CppUnit::TestFixture
     CPPUNIT_TEST_SUITE(TestCEDPage);
     CPPUNIT_TEST(testSerialize);
     CPPUNIT_TEST(testSerializeXml);
+    CPPUNIT_TEST(testClone);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testSerialize();
     void testSerializeXml();
+    void testClone();
 };
 
 #endif /* TESTCEDPAGE_H_ */

@@ -38,6 +38,8 @@ namespace cf
 
 class CLA_EXPO CEDChar: public Element
 {
+    private:
+        CEDChar(const CEDChar& ch);
     public:
         explicit CEDChar(Element * parent = NULL);
         explicit CEDChar(unsigned char chr);
@@ -57,6 +59,11 @@ class CLA_EXPO CEDChar: public Element
          * Returns number of alternatives
          */
         size_t alternativeCount() const;
+
+        /**
+         * Returns pointer to char deep copy
+         */
+        CEDChar * clone() const;
 
         void exportElement(CEDExporter& exp);
 

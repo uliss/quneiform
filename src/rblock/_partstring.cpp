@@ -100,7 +100,7 @@ void PageLayoutStrings(CCOM_handle hCCOM, Handle hCPAGE)
 void file_string(STRING * s)
 {
     CSTR_line lin_in;
-    Rect16 r = { s->xLeft, s->yTop, s->xRight, s->yBottom };
+    ::Rect16 r = { s->xLeft, s->yTop, s->xRight, s->yBottom };
     Rect32 left, right;
     Bool32 filtr = FALSE;
     nStrings++;

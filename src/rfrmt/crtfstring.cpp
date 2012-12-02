@@ -24,6 +24,7 @@
 #include "crtfstruct.h"
 #include "crtffunc.h"
 #include "rfrmtoptions.h"
+#include "rfrmtfile.h"
 
 // ced
 #include "ced/cedchar.h"
@@ -297,20 +298,19 @@ void CRtfString::print(std::ostream& os) const {
 
 CRtfString * CRtfString::read(FILE * in) {
     assert(in);
-
-    int16_t tmp;
-    ::Rect16 SRect;
+    InternalRect SRect;
 
     CRtfString * str = new CRtfString;
 
-    fread(&SRect, sizeof(Rect16), 1, in);
+    fread(&SRect, sizeof(InternalRect), 1, in);
     //Реальные коор. строки!
-    fread(&SRect, sizeof(Rect16), 1, in);
-    fread(&tmp, 2, 1, in);
-    const int word_count = tmp;
+    fread(&SRect, sizeof(InternalRect), 1, in);
+    uint16_t word_count;
+    fread(&word_count, sizeof(uint16_t), 1, in);
+    uint32_t tmp;
     fread(&tmp, sizeof(uint32_t), 1, in);//NEGA_STR
 
-    for (int nw = 0; nw < word_count; ++nw) {
+    for (uint16_t nw = 0; nw < word_count; ++nw) {
         CRtfWord * word = CRtfWord::read(in);
         str->addWord(word);
     }

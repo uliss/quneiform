@@ -31,6 +31,10 @@ private slots:
     void testFind();
     void testInsert();
     void testLoad();
+    void testFindImage();
+    void testInsertImage();
+    void testLoadImage();
+    void testMultiThred();
 };
 
 #endif // TESTIMAGECACHE_H

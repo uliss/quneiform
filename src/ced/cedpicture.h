@@ -43,6 +43,12 @@ class CLA_EXPO CEDPicture: public Element
          */
         ed_align_t align() const;
 
+        /**
+         * Returns pointer to deep picture copy
+         * @note image pointer stays shared
+         */
+        CEDPicture * clone() const;
+
         void exportElement(CEDExporter& exp);
 
         /**
@@ -75,6 +81,8 @@ class CLA_EXPO CEDPicture: public Element
          * @see pictureNumber()
          */
         void setPictureNumber(int number);
+    protected:
+        CEDPicture(const CEDPicture& pic);
     private:
 #ifdef CF_SERIALIZE
         friend class boost::serialization::access;
@@ -85,14 +93,12 @@ class CLA_EXPO CEDPicture: public Element
             ar & make_nvp("align", align_);
             ar & make_nvp("number", number_);
             ar & make_nvp("image", image_);
-            //            ar & make_nvp("goal", goal_);
         }
 #endif
     private:
         ed_align_t align_;
         int number_;
         ImagePtr image_;
-        Size goal_;
 };
 
 }

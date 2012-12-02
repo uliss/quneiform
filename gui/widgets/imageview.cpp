@@ -40,6 +40,7 @@
 #include "selection.h"
 #include "selectionlist.h"
 #include "iconutils.h"
+#include "pagebinarizator.h"
 
 #define HAS_PAGE() {\
     if(!page_) {\
@@ -60,7 +61,7 @@ ImageView::ImageView(QWidget * parent) :
         max_scale_(100),
         pixmap_(NULL),
         area_(NULL),
-        selections_(NULL)
+        current_selection_(NULL)
 {
     setupView();
     setupScene();
@@ -68,6 +69,16 @@ ImageView::ImageView(QWidget * parent) :
 
 ImageView::~ImageView() {    
     delete scene_;
+}
+
+bool ImageView::hasPage() const
+{
+    return page_ != NULL;
+}
+
+Page * ImageView::page()
+{
+    return page_;
 }
 
 void ImageView::activate(bool value) {
@@ -78,44 +89,88 @@ void ImageView::activate(bool value) {
 #endif
 }
 
-void ImageView::clearPageLayout() {
-    deletePageArea();
-    selections_->clearSelections();
+void ImageView::appendBlockContextMenu(const QPoint& pos)
+{
+    if(!context_menu_)
+        return;
+
+    QGraphicsItem * item = itemAt(pos);
+    if(!item)
+        return;
+
+    Selection * selection = dynamic_cast<Selection*>(item);
+    if(!selection)
+        return;
+
+    current_selection_ = selection;
+
+    if(selection->selectionType() == BLOCK_LAYOUT_TEXT)
+        context_menu_->addAction(tr("Delete text block"), this, SLOT(removeLayoutBlock()));
+
+    if(selection->selectionType() == BLOCK_LAYOUT_IMAGE)
+        context_menu_->addAction(tr("Delete image block"), this, SLOT(removeLayoutBlock()));
+
+    if(selection->selectionType() == BLOCK_LAYOUT_AREA)
+        context_menu_->addAction(tr("Delete recognition area"), this, SLOT(removeLayoutBlock()));
+
+    if(selection->selectionType() == BLOCK_LAYOUT_TABLE)
+        context_menu_->addAction(tr("Delete table block"), this, SLOT(removeLayoutBlock()));
+
+    context_menu_->addSeparator();
 }
 
-void ImageView::clearScene() {
+void ImageView::clearPageArea()
+{
+    if(scene())
+        scene()->removeItem(area_);
+
+    delete area_;
+    area_ = NULL;
+    area_ = new PageArea;
+
+    if(scene())
+        scene()->addItem(area_);
+}
+
+void ImageView::clearScene()
+{
     if(!scene()) {
         qDebug() << Q_FUNC_INFO << "no scene";
         return;
     }
 
     scene()->clear();
-    selections_ = NULL;
-    pixmap_ = NULL;
     area_ = NULL;
+    pixmap_ = NULL;
     scene()->setSceneRect(QRect());
 }
 
-void ImageView::connectPageSignals(Page * page) {
+void ImageView::connectPageSignals(Page * page)
+{
     Q_CHECK_PTR(page);
 
     connect(page, SIGNAL(viewScaled()), SLOT(updatePageView()));
     connect(page, SIGNAL(rotated(int)), SLOT(updatePageView()));
     connect(page, SIGNAL(recognized()), SLOT(updatePageArea()));
+    connect(page, SIGNAL(analyzed()), SLOT(updatePageArea()));
     connect(page, SIGNAL(destroyed()), SLOT(deletePage()));
-    connect(page, SIGNAL(layoutCleared()), SLOT(clearPageLayout()));
+    connect(page, SIGNAL(layoutCleared()), SLOT(clearPageArea()));
 }
 
-void ImageView::contextMenuEvent(QContextMenuEvent * event) {
+void ImageView::contextMenuEvent(QContextMenuEvent * event)
+{
     QGraphicsView::contextMenuEvent(event);
 
     if(!context_menu_)
-        createContextMenu();
+        createContextMenu(event->pos());
 
     context_menu_->exec(event->globalPos());
+    delete context_menu_;
+    context_menu_ = NULL;
 }
 
-void ImageView::createContextMenu() {
+void ImageView::createContextMenu(const QPoint& pos)
+{
     context_menu_ = new QMenu(this);
     context_menu_->addAction(iconFromTheme("recognize"),
                              tr("Recognize"),
@@ -126,11 +181,22 @@ void ImageView::createContextMenu() {
     context_menu_->addSeparator();
 
     context_menu_->addAction(iconFromTheme("select-rectangular"),
-                             tr("Select recognize area"),
+                             tr("Select recognition area"),
                              this,
-                             SLOT(startPageSelection()));
+                             SLOT(startPageAreaSelection()));
+
+    context_menu_->addAction(iconFromTheme("insert-text"),
+                             tr("Add text block"),
+                             this,
+                             SLOT(startTextBlockSelection()));
+
+    context_menu_->addAction(iconFromTheme("insert-image"),
+                             tr("Add image block"),
+                             this,
+                             SLOT(startImageBlockSelection()));
 
     context_menu_->addSeparator();
+    appendBlockContextMenu(pos);
 
     context_menu_->addAction(iconFromTheme("zoom-fit-width"),
                              tr("Fit to width"),
@@ -158,9 +224,9 @@ void ImageView::deletePage() {
     }
 }
 
-void ImageView::deletePageArea() {
-    delete area_;
-    area_ = NULL;
+void ImageView::removeLayoutBlock()
+{
+    scene()->removeItem(current_selection_);
 }
 
 void ImageView::disconnectPageSignals(Page * page) {
@@ -169,7 +235,7 @@ void ImageView::disconnectPageSignals(Page * page) {
     disconnect(page, SIGNAL(viewScaled()), this, SLOT(updatePageView()));
     disconnect(page, SIGNAL(rotated(int)), this, SLOT(updatePageView()));
     disconnect(page, SIGNAL(destroyed()), this, SLOT(deletePage()));
-    disconnect(page, SIGNAL(layoutCleared()), this, SLOT(clearPageLayout()));
+    disconnect(page, SIGNAL(layoutCleared()), this, SLOT(clearPageArea()));
 } 
 
 bool ImageView::event(QEvent * event) {
@@ -225,9 +291,18 @@ bool ImageView::gestureEvent(QGestureEvent * event) {
 #endif
 }
 
-void ImageView::hideFormatLayout() {
+void ImageView::hideLayoutBlocks(BlockType t)
+{
     if(area_)
-        area_->hideLayout();
+        area_->hideBlocks(t);
+}
+
+bool ImageView::isLayoutBlockVisible(BlockType t) const
+{
+    if(!area_)
+        return false;
+
+    return area_->isBlockVisible(t);
 }
 
 bool ImageView::isSceneSizeSmaller(){
@@ -282,29 +357,6 @@ void ImageView::pinchTriggered(QPinchGesture * gesture) {
 #endif
 }
 
-void ImageView::updatePageSelection() {
-    HAS_PAGE()
-
-    if(!selections_) {
-        selections_ = new SelectionList(scene()->sceneRect());
-        connect(selections_, SIGNAL(changed()), SLOT(savePageSelections()));
-        scene()->addItem(selections_);
-    }
-
-    selections_->blockSignals(true);
-
-    selections_->clearSelections();
-    selections_->setRect(scene()->sceneRect());
-    selections_->setZValue(10);
-    selections_->setTurned(transform().isRotating());
-
-    foreach(QRect r, page_->readAreas()) {
-        selections_->addSelection(r);
-    }
-
-    selections_->blockSignals(false);
-}
-
 void ImageView::updatePageScroll() {
     HAS_PAGE()
 
@@ -347,12 +399,24 @@ void ImageView::unsetPreviousPage()
     }
 }
 
-void ImageView::startPageSelection()
+void ImageView::startPageAreaSelection()
 {
-    if(selections_) {
-        selections_->setSelectionType(SelectionList::SELECT_AREA);
-        selections_->setSelectionMode(SelectionList::MODE_REPLACE);
-    }
+    if(area_)
+        area_->startPageAreaSelection();
+}
+
+void ImageView::startTextBlockSelection()
+{
+    if(area_)
+        area_->startTextBlockSelection();
+    else
+        qDebug() << Q_FUNC_INFO << "NULL area";
+}
+
+void ImageView::startImageBlockSelection()
+{
+    if(area_)
+        area_->startImageBlockSelection();
 }
 
 void ImageView::updatePageView()
@@ -394,9 +458,10 @@ void ImageView::showChar(const QRect& bbox) {
     centerOn(view_bbox.center());
 }
 
-void ImageView::showFormatLayout() {
+void ImageView::showLayoutBlocks(BlockType t)
+{
     if(area_)
-         area_->showLayout();
+        area_->showBlocks(t);
 }
 
 void ImageView::showImage()
@@ -439,16 +504,53 @@ void ImageView::showPage(Page * page) {
     showImage();
     updatePageView();
     updatePageArea();
-    updatePageSelection();
     updatePageScroll();
     activate(true);
 }
 
-void ImageView::updatePageArea() {
-    Q_CHECK_PTR(scene());
-
-    if(!page_)
+void ImageView::showPageOriginal()
+{
+    if(!page_) {
+        qDebug() << Q_FUNC_INFO << "attempt to show NULL page";
         return;
+    }
+
+    QPixmap image;
+    if(!ImageCache::load(page_->imageURL(), &image)) {
+        qDebug() << "[Error]" << Q_FUNC_INFO << "can't load image";
+        return;
+    }
+
+    pixmap_->setPixmap(image);
+    pixmap_->setZValue(0);
+}
+
+void ImageView::showPageBinarized()
+{
+    if(!page_) {
+        qDebug() << Q_FUNC_INFO << "attempt to show NULL page";
+        return;
+    }
+
+    if(!page_->isBinarized()) {
+        PageBinarizator b;
+        b.binarize(page_);
+    }
+
+    pixmap_->setPixmap(QPixmap::fromImage(page_->binarizedImage()));
+}
+
+void ImageView::updatePageArea()
+{
+    if(!scene()) {
+        qWarning() << Q_FUNC_INFO << "no scene";
+        return;
+    }
+
+    if(!page_) {
+        qWarning() << Q_FUNC_INFO << "NULL page";
+        return;
+    }
 
     if(!area_)
         area_ = new PageArea();
@@ -458,19 +560,6 @@ void ImageView::updatePageArea() {
         scene()->addItem(area_);
 
     area_->show(page_);
-}
-
-void ImageView::savePageSelections()
-{
-    HAS_PAGE();
-
-    if(!selections_) {
-        page_->clearReadAreas();
-        return;
-    }
-
-    selections_->setTurned(transform().isRotating());
-    page_->setReadAreas(selections_->selectionRects());
 }
 
 void ImageView::wheelEvent(QWheelEvent * event) {
@@ -504,5 +593,10 @@ void ImageView::zoom(qreal factor) {
 
 void ImageView::handleRecognizeRequest()
 {
+    if(!page_) {
+        qWarning() << Q_FUNC_INFO << "NULL page recognition request";
+        return;
+    }
+
     emit recognize(page_);
 }

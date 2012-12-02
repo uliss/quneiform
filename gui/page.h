@@ -28,11 +28,16 @@
 #include <QColor>
 #include <QMutex>
 #include <QFlags>
+#include <QSharedPointer>
+#include <QScopedPointer>
 
-#include "recognitionsettings.h"
+#include "binarizationsettings.h"
 #include "formatsettings.h"
+#include "recognitionsettings.h"
 #include "imageurl.h"
 #include "language.h"
+#include "blocktype.h"
+#include "block.h"
 
 #include "ced/cedpageptr.h"
 
@@ -44,17 +49,19 @@ class QPixmap;
 class Page: public QObject {
     Q_OBJECT
 public:
-    explicit Page(const QString& image_path = "");
-    explicit Page(const ImageURL& imageUrl);
+    explicit Page(const QString& image_path = "", bool load = true);
+    explicit Page(const ImageURL& imageUrl, bool load = true);
     ~Page();
 
     enum PageFlag {
-        NONE = 0,
-        RECOGNIZED = 1,
-        RECOGNITION_FAILED = (1 << 1),
-        EXPORTED = (1 << 2),
-        EXPORT_FAILED = (1 << 3),
-        CHANGED = (1 << 4)
+        NONE               = 0,
+        RECOGNIZED         = 0x1,
+        RECOGNITION_FAILED = 0x2,
+        EXPORTED           = 0x4,
+        EXPORT_FAILED      = 0x8,
+        CHANGED            = 0x10,
+        ANALYZED           = 0x20,
+        ANALYZE_FAILED     = 0x40
     };
 
     Q_DECLARE_FLAGS(PageFlags, PageFlag)
@@ -68,24 +75,18 @@ public:
         }
     };
 
-    typedef QList<QRect> Rectangles;
-    typedef QList<Rectangles> RectList;
-
-    /* do no change values! */
-    enum BlockType {
-        PICTURE = 0,
-        CHAR = 1,
-        LINE = 2,
-        PARAGRAPH = 3,
-        COLUMN = 4,
-        SECTION = 5
-    };
+    typedef QList<Block> BlockList;
 
     /**
       * Adds read area to page
       * @see clearReadAreas()
       */
     void addReadArea(const QRect& r);
+
+    void appendTextBlock(const QRect& r);
+    void appendImageBlock(const QRect& r);
+
+    bool manualLayout() const;
 
     /**
       * Removes all read areas
@@ -99,14 +100,26 @@ public:
     bool hasReadAreas() const;
 
     /**
+     * Returns true if page has generated thumb
+     */
+    bool hasThumb() const;
+
+    /**
       * Returns read areas
       */
     QList<QRect> readAreas() const;
 
     /**
+     * Returns bounding rect of all read areas
+     */
+    QRect readBoundingRect() const;
+
+    /**
       * Sets read areas
       */
     void setReadAreas(const QList<QRect>& rects);
+    void setImageBlocks(const BlockList& blocks);
+    void setTextBlocks(const BlockList& blocks);
 
     /**
       * Returns page rotation angle in degrees
@@ -118,7 +131,7 @@ public:
       * Returns list of blocks rectangles
       * @see setBlocks(), blocksCount()
       */
-    const Rectangles& blocks(BlockType t) const;
+    BlockList blocks(BlockType t) const;
 
     /**
       * Returns number of blocks by given type
@@ -126,10 +139,17 @@ public:
       */
     int blocksCount(BlockType t) const;
 
+    /**
+     * Returns page binarization settings
+     */
+    const BinarizationSettings& binarizationSettings() const;
+
    /**
      * Returns pointer to cf::CEDPage
      */
     cf::CEDPagePtr cedPage();
+
+    void clearBlocks(BlockType type);
 
     /**
       * Clears page blocks and area
@@ -208,14 +228,17 @@ public:
       */
     QString name() const;
 
-    QRect mapFromPage(const QRect& r) const;
-    QRect mapToPage(const QRect &r) const;
+    /**
+     * Maps point from backend to page view coords
+     */
+    QPoint mapFromBackend(const QPoint& p) const;
+    QRect mapFromBackend(const QRect& r) const;
 
     /**
-      * Returns page area on image
-      * @see setPageArea()
-      */
-    QRect pageArea() const;
+     * Maps given point or rect to backend coordinates
+     */
+    QPoint mapToBackend(const QPoint& pt) const;
+    QRect mapToBackend(const QRect& r) const;
 
     /**
       * Returns page recognize settings
@@ -270,6 +293,12 @@ public:
     void setFormatSettings(const FormatSettings& settings);
 
     /**
+     * Sets page image size
+     * @see imageSize()
+     */
+    void setImageSize(const QSize& sz);
+
+    /**
       * Sets page language
       */
     void setLanguage(const Language& lang);
@@ -284,7 +313,7 @@ public:
     /**
       * Sets thumb pixmap
       */
-    void setThumb(const QPixmap& thumb);
+    void setThumb(const QImage &thumb);
 
     /**
       * Sets page view scale
@@ -302,7 +331,7 @@ public:
       * Returns pointer to thumb pixmap
       * or NULL if no pixmap yet
       */
-    const QPixmap * thumb() const;
+    QPixmap thumb() const;
 
     /**
       * Unsets page state flag
@@ -327,7 +356,14 @@ public:
       */
     QPoint viewScroll() const;
     bool isFirstViewScroll() const;
+
+    QImage binarizedImage() const;
+    bool isBinarized() const;
+    void setBinarizedImage(const QImage& image);
 signals:
+    void analyzed();
+    void binarized();
+
     /**
       * Emmitted when some page data changed, such as
       * scale, angle, flags, selection etc.
@@ -351,51 +387,67 @@ signals:
     void recognized();
 
     /**
-      * Emmitted when page is rotated
+      * Emitted when page is rotated
       */
     void rotated(int angle);
+
+    /**
+     * Emitted when page thumb nail is changed
+     */
+    void thumbChanged();
 
     /**
       * Emmited when page is transformed
       */
     void viewScaled();
+public:
+    static QSize maxThumbnailSize();
 private:
     void _setFlag(PageFlag flag) { state_flags_ |= flag; }
     void _unsetFlag(PageFlag flag) { state_flags_ &= (~flag); }
 
-    void appendBlock(const QRect& rect, BlockType type);
+    void appendBlock(const Block& block);
     void clearBlocks();
-    void clearBlocks(BlockType type);
     void initDocument();
-    void initRects();
-    void initThumb();
-    void setBlocks(const Rectangles& rects, BlockType type);
+    QTransform fromBackendMatrix() const;
+    QTransform toBackendMatrix() const;
+    void setBlocks(const BlockList& blocks, BlockType type);
     void setCEDPage(cf::CEDPagePtr page);
     void setChanged();
+    void setAnalyzed(bool value = true);
+    void setExported(bool value = true);
     void setRecognized(bool value = true);
     void updateBlocks();
+    void updateImageSize() const;
+    int userBlocksCount(BlockType type) const;
+
+    friend class Packet;
 private:
     ImageURL image_url_;
-    QSize image_size_;
+    mutable QSize image_size_;
     PageFlags state_flags_;
     qint32 angle_;
     float view_scale_;
     QPoint view_scroll_;
-    bool is_null_;
+    mutable bool is_null_;
     mutable QMutex mutex_;
     RecognitionSettings rec_settings_;
-    RectList blocks_;
+    QMap<int, BlockList> blocks_;
     QTextDocument * doc_;
     FormatSettings format_settings_;
     Language language_;
     cf::CEDPagePtr cedpage_;
-    QPixmap * thumb_;
+    QImage * thumb_;
     QList<QRect> read_areas_;
+    QScopedPointer<QImage> binarized_;
+    BinarizationSettings bin_settings_;
 public:
     friend QDataStream& operator<<(QDataStream& stream, const Page& page);
     friend QDataStream& operator>>(QDataStream& stream, Page& page);
     friend class PageRecognizer;
 };
+
+typedef QSharedPointer<Page> PagePtr;
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(Page::PageFlags)
 

@@ -59,41 +59,37 @@
 #include "resource.h"
 #include "ctimaskline.h"
 #include "ctimemory.h"
+#include "cimage_debug.h"
 
 namespace cf
 {
 
 CTIMaskLine::CTIMaskLine() :
-        length_(0), segments_(0), line_(-1), next_(NULL)
+        length_(0), segments_(0), line_(-1)
 {
 }
 
-CTIMaskLine::CTIMaskLine(uint Lenght) :
-        length_(Lenght), segments_(0), line_(-1), next_(NULL)
+CTIMaskLine::CTIMaskLine(uint length) :
+        length_(length),
+        segments_(0),
+        line_(-1)
 {
 }
 
-CTIMaskLine::CTIMaskLine(uint Lenght, CTIMaskLineSegment *pSegm) :
-        length_(Lenght),
-        segments_(0), line_(-1), next_(NULL)
+CTIMaskLine::CTIMaskLine(uint length, const CTIMaskLineSegment& segm) :
+        length_(length),
+        segments_(0),
+        line_(-1)
 {
-    addSegment(pSegm);
+    addSegment(segm);
 }
 
-CTIMaskLine::CTIMaskLine(uint Lenght, uint nLine,
-                         CTIMaskLineSegment * pSegm) :
-        length_(Lenght),
-        segments_(0), line_(nLine), next_(NULL)
+CTIMaskLine::CTIMaskLine(uint lenght, uint nLine, const CTIMaskLineSegment& segm) :
+        length_(lenght),
+        segments_(0),
+        line_(nLine)
 {
-    addSegment(pSegm);
-}
-
-CTIMaskLine::CTIMaskLine(uint Lenght, uint nLine,
-                         CTIMaskLineSegment * pSegm, CTIMaskLine * pcNextLine) :
-        length_(Lenght),
-        segments_(0), line_(nLine), next_(pcNextLine)
-{
-    addSegment(pSegm);
+    addSegment(segm);
 }
 
 CTIMaskLine::~CTIMaskLine()
@@ -108,7 +104,7 @@ CTIMaskLine::~CTIMaskLine()
     }
 }
 
-Bool32 CTIMaskLine::addSegment(CTIMaskLineSegment *pSegm)
+bool CTIMaskLine::addSegment(const CTIMaskLineSegment& segm)
 {
     CTIMaskLineSegment * pS = &first_;
     CTIMaskLineSegment * pL;
@@ -116,119 +112,116 @@ Bool32 CTIMaskLine::addSegment(CTIMaskLineSegment *pSegm)
     Bool32 Added = FALSE;
     Bool32 Check = FALSE;
 
-    if (isSegmentOnLine(pSegm)) {
-        pL = pS;
-
-        while (pS && !Added) {
-            switch (pS->isIntersectWith(pSegm)) {
-                case CTIMaskLineSegment::INTERSECTION_FULL_LEFT:
-                    pS = NULL;
-                    break;
-                case CTIMaskLineSegment::INTERSECTION_FULL_RIGHT:
-                    pL = pS;
-                    pS = pS->next();
-                    break;
-                case CTIMaskLineSegment::INTERSECTION_IN:
-                case CTIMaskLineSegment::INTERSECTION_EQUAL:
-                    bRet = Added = TRUE;
-                    break;
-                case CTIMaskLineSegment::INTERSECTION_OVER:
-                    Check = TRUE;
-                case CTIMaskLineSegment::INTERSECTION_LEFT:
-                case CTIMaskLineSegment::INTERSECTION_RIGHT:
-                    bRet = pS->addWith(pSegm);
-                    Added = TRUE;
-                    break;
-                default:
-                    return FALSE;
-            }
-        }
-
-        if (!Added) {
-            pS = pL->next();
-            pL->setNext(new CTIMaskLineSegment(pSegm->start(),
-                                               pSegm->end()));
-            (pL->next())->setNext(pS);
-            segments_++;
-            bRet = TRUE;
-        }
-
-        if (Check)
-            CheckSegments();
+    if(!isSegmentOnLine(segm)) {
+        CIMAGE_DEBUG_FUNC << "given segment not on line:" << segm;
+        return false;
     }
 
-    else
-        SetReturnCode_cimage(IDS_CIMAGE_INVALID_MASK_LAGER_IMAGE);
+    pL = pS;
+
+    while (pS && !Added) {
+        switch (pS->isIntersectWith(segm)) {
+        case CTIMaskLineSegment::INTERSECTION_FULL_LEFT:
+            pS = NULL;
+            break;
+        case CTIMaskLineSegment::INTERSECTION_FULL_RIGHT:
+            pL = pS;
+            pS = pS->next();
+            break;
+        case CTIMaskLineSegment::INTERSECTION_IN:
+        case CTIMaskLineSegment::INTERSECTION_EQUAL:
+            bRet = Added = TRUE;
+            break;
+        case CTIMaskLineSegment::INTERSECTION_OVER:
+            Check = TRUE;
+        case CTIMaskLineSegment::INTERSECTION_LEFT:
+        case CTIMaskLineSegment::INTERSECTION_RIGHT:
+            bRet = pS->addWith(segm);
+            Added = TRUE;
+            break;
+        default:
+            return FALSE;
+        }
+    }
+
+    if (!Added) {
+        pS = pL->next();
+        pL->setNext(new CTIMaskLineSegment(segm.start(),
+                                           segm.end()));
+        (pL->next())->setNext(pS);
+        segments_++;
+        bRet = TRUE;
+    }
 
     return bRet;
 }
 
-Bool32 CTIMaskLine::removeSegment(CTIMaskLineSegment * pSegm)
+bool CTIMaskLine::removeSegment(const CTIMaskLineSegment& segm)
 {
+    if(!segments_) {
+        CIMAGE_DEBUG_FUNC << "empty mask line: no segments";
+        return false;
+    }
+
+    if(!isSegmentOnLine(segm)) {
+        CIMAGE_DEBUG_FUNC << "given segment is not on line: " << segm;
+        return false;
+    }
+
     CTIMaskLineSegment * pPS = &first_;
     CTIMaskLineSegment * pS = pPS->next();
     Bool32 Remed = FALSE;
 
-    if (segments_) {
-        if (isSegmentOnLine(pSegm)) {
-            while (pS && !Remed) {
-                switch (pS->isIntersectWith(pSegm)) {
-                        // pSegm равен pS
-                    case CTIMaskLineSegment::INTERSECTION_EQUAL:
-                        pPS->setNext(pS->next());
-                        delete pS;
-                        Remed = TRUE;
-                        segments_--;
-                        pS = pPS->next();
-                        break;
-                        // pSegm перекывает pS
-                    case CTIMaskLineSegment::INTERSECTION_OVER:
-                        pPS->setNext(pS->next());
-                        delete pS;
-                        segments_--;
-                        pS = pPS->next();
-                        break;
-                        // pSegm перекрывает правую часть pS
-                    case CTIMaskLineSegment::INTERSECTION_RIGHT:
-                        pS->cutLeftTo(pSegm);
-                        pPS = pPS->next();
-                        pS = pPS->next();
-                        break;
-                        // pSegm перекрывает левую часть pS
-                    case CTIMaskLineSegment::INTERSECTION_LEFT:
-                        pS->cutRightTo(pSegm);
-                        pPS = pPS->next();
-                        pS = pPS->next();
-                        break;
-                        // pSegm лежит внутри pS
-                    case CTIMaskLineSegment::INTERSECTION_IN:
-                        pS->setNext(new CTIMaskLineSegment(pS));
-                        pS->cutLeftTo(pSegm);
-                        pS = (pPS = pS)->next();
-                        pS->cutRightTo(pSegm);
-                        segments_++;
-                        pPS = pPS->next();
-                        pS = pPS->next();
-                        break;
-                    case CTIMaskLineSegment::INTERSECTION_FULL_LEFT:
-                        pS = NULL;
-                        break;
-                    case CTIMaskLineSegment::INTERSECTION_FULL_RIGHT:
-                        pPS = pS;
-                        pS = pS->next();
-                        break;
-                }
-            }
+    while (pS && !Remed) {
+        switch (pS->isIntersectWith(segm)) {
+        // pSegm равен pS
+        case CTIMaskLineSegment::INTERSECTION_EQUAL:
+            pPS->setNext(pS->next());
+            delete pS;
+            Remed = TRUE;
+            segments_--;
+            pS = pPS->next();
+            break;
+            // pSegm перекывает pS
+        case CTIMaskLineSegment::INTERSECTION_OVER:
+            pPS->setNext(pS->next());
+            delete pS;
+            segments_--;
+            pS = pPS->next();
+            break;
+            // pSegm перекрывает правую часть pS
+        case CTIMaskLineSegment::INTERSECTION_RIGHT:
+            pS->cutLeftTo(segm);
+            pPS = pPS->next();
+            pS = pPS->next();
+            break;
+            // pSegm перекрывает левую часть pS
+        case CTIMaskLineSegment::INTERSECTION_LEFT:
+            pS->cutRightTo(segm);
+            pPS = pPS->next();
+            pS = pPS->next();
+            break;
+            // pSegm лежит внутри pS
+        case CTIMaskLineSegment::INTERSECTION_IN:
+            pS->setNext(new CTIMaskLineSegment(*pS));
+            pS->cutLeftTo(segm);
+            pS = (pPS = pS)->next();
+            pS->cutRightTo(segm);
+            segments_++;
+            pPS = pPS->next();
+            pS = pPS->next();
+            break;
+        case CTIMaskLineSegment::INTERSECTION_FULL_LEFT:
+            pS = NULL;
+            break;
+        case CTIMaskLineSegment::INTERSECTION_FULL_RIGHT:
+            pPS = pS;
+            pS = pS->next();
+            break;
         }
-
-        else
-            SetReturnCode_cimage(IDS_CIMAGE_INVALID_MASK_LAGER_IMAGE);
     }
 
-    else
-        SetReturnCode_cimage(IDS_CIMAGE_NO_MASK_ON_THIS_LINE);
-
-    return TRUE;
+    return true;
 }
 
 bool CTIMaskLine::getLeftIntersection(CTIMaskLineSegment * segm)
@@ -236,11 +229,11 @@ bool CTIMaskLine::getLeftIntersection(CTIMaskLineSegment * segm)
     CTIMaskLineSegment * s = first_.next();
 
     while (s) {
-        CTIMaskLineSegment::intersection_t type = segm->isIntersectWith(s);
+        CTIMaskLineSegment::intersection_t type = segm->isIntersectWith(*s);
 
         if (!(type == CTIMaskLineSegment::INTERSECTION_FULL_RIGHT ||
               type == CTIMaskLineSegment::INTERSECTION_FULL_LEFT)) {
-            segm->intersectWith(s);
+            segm->intersectWith(*s);
             return true;
         }
 
@@ -248,11 +241,6 @@ bool CTIMaskLine::getLeftIntersection(CTIMaskLineSegment * segm)
     }
 
     return false;
-}
-
-Bool32 CTIMaskLine::CheckSegments()
-{
-    return TRUE;
 }
 
 }

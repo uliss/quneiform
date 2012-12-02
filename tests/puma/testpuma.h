@@ -23,13 +23,19 @@
 
 class TestPuma: public CppUnit::TestFixture
 {
-        CPPUNIT_TEST_SUITE( TestPuma);
-        CPPUNIT_TEST(testInit);
-        CPPUNIT_TEST(testOpen);
-        CPPUNIT_TEST_SUITE_END();
-    public:
-        void testInit();
-        void testOpen();
+    CPPUNIT_TEST_SUITE(TestPuma);
+    CPPUNIT_TEST(testInit);
+    CPPUNIT_TEST(testOpen);
+    CPPUNIT_TEST(testLayoutTextBlocks);
+    CPPUNIT_TEST(testAddTextBlock);
+    CPPUNIT_TEST(testAddImageBlock);
+    CPPUNIT_TEST_SUITE_END();
+public:
+    void testInit();
+    void testOpen();
+    void testLayoutTextBlocks();
+    void testAddTextBlock();
+    void testAddImageBlock();
 };
 
 #endif /* TESTPUMA_H_ */

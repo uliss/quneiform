@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,42 +16,18 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#ifndef CFUTILS_H
+#define CFUTILS_H
 
-#ifndef PAGELAYOUT_H
-#define PAGELAYOUT_H
+#include <QRect>
+#include <QColor>
 
-#include <QGraphicsItemGroup>
+#include "common/rect.h"
+#include "common/color.h"
 
-class Page;
+QRect toQRect(const cf::Rect& r);
+cf::Rect toRect(const QRect& r);
+QColor toQColor(const cf::Color& c);
 
-class PageLayout : public QGraphicsItemGroup
-{
-public:
-    PageLayout();
-    QGraphicsItemGroup * charBlocks();
-    void clear();
-    QGraphicsItemGroup * columnBlocks();
-    QGraphicsItemGroup * lineBlocks();
-    QGraphicsItemGroup * paragraphBlocks();
-    QGraphicsItemGroup * pictureBlocks();
-    void populate(const Page& page);
-    QGraphicsItemGroup * sectionBlocks();
-    QRect mapFromPage(const QRect& r) const;
-public:
-    typedef QGraphicsItemGroup * PageLayout::*GroupMember;
-private:
-    QColor blockColor(int type) const;
-    void clearGroupBlocks(GroupMember ptr);
-    QGraphicsRectItem * createBlock(const QRect& r, const QColor& color);
-    void populateGroup(QGraphicsItemGroup * group, int group_type);
-private:
-    const Page * page_;
-    QGraphicsItemGroup * chars_;
-    QGraphicsItemGroup * columns_;
-    QGraphicsItemGroup * lines_;
-    QGraphicsItemGroup * paragraphs_;
-    QGraphicsItemGroup * pictures_;
-    QGraphicsItemGroup * sections_;
-};
 
-#endif // PAGELAYOUT_H
+#endif // CFUTILS_H

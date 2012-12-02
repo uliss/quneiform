@@ -27,6 +27,7 @@
 #include "resolutionchecker.h"
 #include "common/recognizeoptions.h"
 #include "common/debug.h"
+#include "common/log.h"
 #include "puma/pumadef.h"
 #include "smetric/smetric.h"
 #include "rline/rline.h"
@@ -202,8 +203,7 @@ void RStuff::searchLines()
 
     if (!RLINE_SearchLines(image_data_->hCPAGE, image_data_->phCLINE)) {
         *(image_data_->pgrc_line) = FALSE;
-        Debug() << "[RStuff] Warning: RLINE_SearchLines code " << RLINE_GetReturnCode()
-                << "; \"" << RLINE_GetReturnString(RLINE_GetReturnCode()) << "\"\n";
+        cfWarning(MODULE_RSTUFF) << "RLINE_SearchLines return code:" << RLINE_GetReturnCode();
     }
 }
 

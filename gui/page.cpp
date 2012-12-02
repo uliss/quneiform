@@ -23,6 +23,7 @@
 #include <QMutexLocker>
 #include <QPixmap>
 #include <QTextDocument>
+#include <QTransform>
 
 #include <string>
 #include <sstream>
@@ -38,9 +39,6 @@
 #include "export/rectexporter.h"
 #include "export/exporterfactory.h"
 
-static const int THUMB_IMAGE_HEIGHT = 100;
-static const int THUMB_IMAGE_WIDTH = 100;
-
 static const QPoint INVALID_POINT(std::numeric_limits<int>::max(), std::numeric_limits<int>::min());
 
 static language_t languageToType(const Language& lang) {
@@ -53,7 +51,7 @@ static language_t languageToType(const Language& lang) {
     }
 }
 
-Page::Page(const QString& image_path) :
+Page::Page(const QString& image_path, bool load) :
     image_url_(image_path, 0),
     state_flags_(NONE),
     angle_(0),
@@ -62,12 +60,15 @@ Page::Page(const QString& image_path) :
     doc_(NULL),
     thumb_(NULL)
 {
-    initThumb();
-    initRects();
+    is_null_ = !image_url_.exists();
+
+    if(load)
+        updateImageSize();
+
     initDocument();
 }
 
-Page::Page(const ImageURL& imageUrl) :
+Page::Page(const ImageURL& imageUrl, bool load) :
     image_url_(imageUrl),
     state_flags_(NONE),
     angle_(0),
@@ -76,8 +77,11 @@ Page::Page(const ImageURL& imageUrl) :
     doc_(NULL),
     thumb_(NULL)
 {
-    initThumb();
-    initRects();
+    is_null_ = !image_url_.exists();
+
+    if(load)
+        updateImageSize();
+
     initDocument();
 }
 
@@ -94,6 +98,21 @@ void Page::addReadArea(const QRect& r)
     setChanged();
 }
 
+void Page::appendTextBlock(const QRect& r)
+{
+    appendBlock(Block(BLOCK_LAYOUT_TEXT, r));
+}
+
+void Page::appendImageBlock(const QRect& r)
+{
+    appendBlock(Block(BLOCK_LAYOUT_IMAGE, r));
+}
+
+bool Page::manualLayout() const
+{
+    return userBlocksCount(BLOCK_LAYOUT_IMAGE) > 0 || userBlocksCount(BLOCK_LAYOUT_TEXT) > 0;
+}
+
 void Page::clearReadAreas()
 {
     QMutexLocker lock(&mutex_);
@@ -108,16 +127,66 @@ bool Page::hasReadAreas() const
     return !read_areas_.isEmpty();
 }
 
+bool Page::hasThumb() const
+{
+    return thumb_ && (!thumb_->isNull());
+}
+
 QList<QRect> Page::readAreas() const
 {
     return read_areas_;
 }
 
+QRect Page::readBoundingRect() const
+{
+    QRect full_image(QPoint(), imageSize());
+    if(read_areas_.isEmpty())
+        return full_image;
+
+    QRect res;
+    for(int i = 0; i < read_areas_.size(); i++) {
+        if(i == 0)
+            res = read_areas_[i];
+        else
+            res |= read_areas_[i];
+    }
+
+    return res & full_image;
+}
+
 void Page::setReadAreas(const QList<QRect>& rects)
 {
     QMutexLocker lock(&mutex_);
-
     read_areas_ = rects;
+    setChanged();
+}
+
+void Page::setImageBlocks(const BlockList& blocks)
+{
+    QMutexLocker lock(&mutex_);
+    setBlocks(blocks, BLOCK_LAYOUT_IMAGE);
+
+    for(BlockList::iterator it = blocks_[BLOCK_LAYOUT_IMAGE].begin(), end = blocks_[BLOCK_LAYOUT_IMAGE].end();
+        it != end;
+        ++it)
+    {
+        it->setUser(true);
+    }
+
+    setChanged();
+}
+
+void Page::setTextBlocks(const BlockList& blocks)
+{
+    QMutexLocker lock(&mutex_);
+    setBlocks(blocks, BLOCK_LAYOUT_TEXT);
+
+    for(BlockList::iterator it = blocks_[BLOCK_LAYOUT_TEXT].begin(), end = blocks_[BLOCK_LAYOUT_TEXT].end();
+        it != end;
+        ++it)
+    {
+        it->setUser(true);
+    }
 
     setChanged();
 }
@@ -126,23 +195,25 @@ int Page::angle() const {
     return angle_;
 }
 
-void Page::appendBlock(const QRect& rect, BlockType type) {
-    Q_ASSERT(type < blocks_.size());
-    blocks_[type].append(rect);
+void Page::appendBlock(const Block& block)
+{
+    blocks_[block.type()].append(block);
+    setChanged();
 }
 
-cf::CEDPagePtr Page::cedPage() {
+cf::CEDPagePtr Page::cedPage()
+{
     return cedpage_;
 }
 
-void Page::clearBlocks() {
-    for(int i = 0; i < blocks_.count(); i++)
-        blocks_[i].clear();
+void Page::clearBlocks()
+{
+    blocks_.clear();
 }
 
-void Page::clearBlocks(BlockType type) {
-    Q_ASSERT(type < blocks_.size());
-    blocks_[type].clear();
+void Page::clearBlocks(BlockType type)
+{
+    blocks_.remove(type);
 }
 
 void Page::clearLayout() {
@@ -172,9 +243,7 @@ void Page::exportTo(const QString& file, const ExportSettings& s) {
         throw Exception(e.what());
     }
 
-    state_flags_ |= EXPORTED;
-    state_flags_ &= (~EXPORT_FAILED);
-    emit exported();
+    setExported(true);
 }
 
 Page::PageFlags Page::flags() const {
@@ -198,24 +267,80 @@ ImageURL Page::imageURL() const
     return image_url_;
 }
 
-QSize Page::imageSize() const {
+QSize Page::imageSize() const
+{
+    if(image_size_.isNull())
+        updateImageSize();
+
     return image_size_;
 }
 
-void Page::initRects() {
-    blocks_.clear();
-    // pictures
-    blocks_ << Rectangles();
-    // chars
-    blocks_ << Rectangles();
-    // lines
-    blocks_ << Rectangles();
-    // paragraphs
-    blocks_ << Rectangles();
-    // columns
-    blocks_ << Rectangles();
-    // sections
-    blocks_ << Rectangles();
+QTransform Page::fromBackendMatrix() const
+{
+    if(image_size_.isNull())
+        updateImageSize();
+
+    int width = image_size_.width();
+    int height = image_size_.height();
+
+    QTransform  matrix;
+    QRect read_area = readBoundingRect();
+
+    switch(angle_) {
+    case 0:
+        matrix.translate(read_area.left(), read_area.top());
+        break;
+    case 90:
+        matrix.rotate(-90);
+        matrix.translate(-(height-1), 0);
+        if(hasReadAreas())
+            matrix.translate((height-1) - read_area.bottom(), read_area.left());
+        break;
+    case 180:
+        matrix.rotate(180);
+        matrix.translate(-(width-1), -(height-1));
+        if(hasReadAreas())
+            matrix.translate((width-1) - read_area.right(), (height-1) - read_area.bottom());
+        break;
+    case 270:
+        matrix.rotate(-270);
+        matrix.translate(0, -(width-1));
+        if(hasReadAreas())
+            matrix.translate(read_area.top(), (width-1) - read_area.right());
+        break;
+    default:
+        qWarning() << Q_FUNC_INFO << "invalid turn angle:" << angle_;
+        break;
+    }
+
+    return matrix;
+}
+
+QTransform Page::toBackendMatrix() const
+{
+    if(image_size_.isNull())
+        updateImageSize();
+
+    QTransform matrix;
+    QRect read_bbox = readBoundingRect();
+
+    switch(angle_) {
+    case 90:
+        matrix.rotate(90);
+        matrix.translate(0, -(read_bbox.height()-1));
+        break;
+    case 180:
+        matrix.rotate(180);
+        matrix.translate(-(read_bbox.width()-1), -(read_bbox.height()-1));
+        break;
+    case 270:
+        matrix.rotate(270);
+        matrix.translate(-(read_bbox.width()-1), 0);
+    default:
+        break;
+    }
+
+    return matrix;
 }
 
 bool Page::isNull() const {
@@ -239,75 +364,49 @@ QString Page::name() const
     return QFileInfo(image_url_.path()).fileName();
 }
 
-QRect Page::mapFromPage(const QRect &r) const
+QPoint Page::mapFromBackend(const QPoint& pt) const
 {
-    int width = image_size_.width();
-    int height = image_size_.height();
-
-    switch(angle_) {
-    case 0:
-        return r;
-    case 90:
-        height--;
-        return QRect(QPoint(r.top(), height - r.right()),
-                     QPoint(r.bottom(), height - r.left()));
-    case 180:
-        height--;
-        width--;
-        return QRect(QPoint(width - r.right(), height - r.bottom()),
-                     QPoint(width - r.left(), height - r.top()));
-    case 270:
-        width--;
-        return QRect(QPoint(width - r.bottom(), r.left()),
-                     QPoint(width - r.top(), r.right()));
-    default:
-        return r;
-    }
+    return fromBackendMatrix().map(pt);
 }
 
-QRect Page::mapToPage(const QRect& r) const
+QRect Page::mapFromBackend(const QRect& rect) const
 {
-    int width = image_size_.width();
-    int height = image_size_.height();
-
-    switch(angle_) {
-    case 0:
-        return r;
-    case 270:
-        height--;
-        return QRect(QPoint(r.top(), width - r.right()),
-                     QPoint(r.bottom(), width - r.left()));
-    case 180:
-        height--;
-        width--;
-        return QRect(QPoint(width - r.right(), height - r.bottom()),
-                     QPoint(width - r.left(), height - r.top()));
-    case 90:
-        height--;
-        return QRect(QPoint(height - r.bottom(), r.left()),
-                     QPoint(height - r.top(), r.right()));
-    default:
-        return r;
-    }
+    QTransform matrix = fromBackendMatrix();
+    QPoint pt0 = matrix.map(rect.topLeft());
+    QPoint pt1 = matrix.map(rect.bottomRight());
+    return QRect(pt0, pt1).normalized();
 }
 
-QRect Page::pageArea() const {
-    return QRect();
+QPoint Page::mapToBackend(const QPoint& pt) const
+{
+    QPoint offset = readBoundingRect().topLeft();
+    return toBackendMatrix().map(pt - offset);
+}
+
+QRect Page::mapToBackend(const QRect& r) const
+{
+    QPoint pt0 = mapToBackend(r.topLeft());
+    QPoint pt1 = mapToBackend(r.bottomRight());
+    return QRect(pt0, pt1).normalized();
 }
 
 const RecognitionSettings& Page::recognitionSettings() const {
     return rec_settings_;
 }
 
-const Page::Rectangles& Page::blocks(BlockType t) const {
-    Q_ASSERT(t < blocks_.size());
-
-    return blocks_.at(t);
+Page::BlockList Page::blocks(BlockType t) const
+{
+    return blocks_[t];
 }
 
-int Page::blocksCount(BlockType t) const {
-    Q_ASSERT(t < blocks_.size());
-    return blocks_.at(t).count();
+int Page::blocksCount(BlockType t) const
+{
+    return blocks_[t].count();
+}
+
+const BinarizationSettings& Page::binarizationSettings() const
+{
+    return bin_settings_;
 }
 
 void Page::resetViewScale() {
@@ -322,15 +421,18 @@ void Page::scaleView(qreal factor) {
     setViewScale(view_scale_ * factor);
 }
 
-void Page::setAngle(int angle) {
-    QMutexLocker lock(&mutex_);
-
+void Page::setAngle(int angle)
+{
     const int new_angle = (360 + (angle % 360)) % 360;
 
-    if(thumb_)
-        setThumb(thumb_->transformed(QTransform().rotate(new_angle - angle_)));
+    {
+        QMutexLocker lock(&mutex_);
+        if(thumb_)
+            *thumb_ = thumb_->transformed(QTransform().rotate(new_angle - angle_));
 
-    angle_ = new_angle;
+        angle_ = new_angle;
+    }
+
     emit changed();
     emit rotated(angle_);
 }
@@ -361,7 +463,35 @@ void Page::setChanged() {
     emit changed();
 }
 
-void Page::setRecognized(bool value) {
+void Page::setAnalyzed(bool value)
+{
+    if(value) {
+        _unsetFlag(ANALYZE_FAILED);
+        _setFlag(ANALYZED);
+        emit analyzed();
+        emit changed();
+    }
+    else {
+        _unsetFlag(ANALYZED);
+        _unsetFlag(ANALYZE_FAILED);
+    }
+}
+
+void Page::setExported(bool value)
+{
+    if(value) {
+        _setFlag(EXPORTED);
+        _unsetFlag(EXPORT_FAILED);
+        emit exported();
+    }
+    else {
+        _setFlag(EXPORT_FAILED);
+        _unsetFlag(EXPORTED);
+    }
+}
+
+void Page::setRecognized(bool value)
+{
     if(value) {
         _unsetFlag(RECOGNITION_FAILED);
         _setFlag(RECOGNIZED);
@@ -395,6 +525,12 @@ void Page::setFormatSettings(const FormatSettings& s) {
     setChanged();
 }
 
+void Page::setImageSize(const QSize& sz)
+{
+    QMutexLocker lock(&mutex_);
+    image_size_ = sz;
+}
+
 void Page::setLanguage(const Language& lang) {
     QMutexLocker lock(&mutex_);
 
@@ -417,14 +553,9 @@ void Page::setRecognitionSettings(const RecognitionSettings& opts) {
     setChanged();
 }
 
-void Page::setBlocks(const QList<QRect>& rects, BlockType type) {
-    Q_ASSERT(type < blocks_.size());
-
-    clearBlocks(type);
-
-    foreach(QRect r, rects) {
-        blocks_[type].append(r);
-    }
+void Page::setBlocks(const BlockList& blocks, BlockType type)
+{
+    blocks_[type] = blocks;
 }
 
 void Page::setViewScale(float scale) {
@@ -443,21 +574,50 @@ void Page::unsetFlag(PageFlag flag) {
     }
 }
 
-void Page::updateBlocks() {
+void Page::updateBlocks()
+{
     Q_CHECK_PTR(cedpage_);
 
     cf::RectExporter exp(cedpage_);
     exp.collect();
 
     blockSignals(true);
-    clearBlocks();
-    setBlocks(exp.pictures(), PICTURE);
-    setBlocks(exp.chars(), CHAR);
-    setBlocks(exp.lines(), LINE);
-    setBlocks(exp.paragraphs(), PARAGRAPH);
-    setBlocks(exp.columns(), COLUMN);
-    setBlocks(exp.sections(), SECTION);
+    clearBlocks(BLOCK_PICTURE);
+    setBlocks(exp.pictures(), BLOCK_PICTURE);
+    clearBlocks(BLOCK_CHAR);
+    setBlocks(exp.chars(), BLOCK_CHAR);
+    clearBlocks(BLOCK_LINE);
+    setBlocks(exp.lines(), BLOCK_LINE);
+    clearBlocks(BLOCK_PARAGRAPH);
+    setBlocks(exp.paragraphs(), BLOCK_PARAGRAPH);
+    clearBlocks(BLOCK_COLUMN);
+    setBlocks(exp.columns(), BLOCK_COLUMN);
+    clearBlocks(BLOCK_SECTION);
+    setBlocks(exp.sections(), BLOCK_SECTION);
     blockSignals(false);
+}
+
+void Page::updateImageSize() const
+{
+    QImage image;
+    if(ImageCache::load(image_url_, &image)) {
+        image_size_ = image.size();
+        is_null_ = false;
+    }
+    else {
+        is_null_ = true;
+        image_size_ = QSize();
+    }
+}
+
+int Page::userBlocksCount(BlockType type) const
+{
+    int res = 0;
+    foreach(Block b, blocks_[type]) {
+        if(b.isUser())
+            res++;
+    }
+    return res;
 }
 
 void Page::updateTextDocument() {
@@ -483,6 +643,25 @@ QPoint Page::viewScroll() const {
 bool Page::isFirstViewScroll() const
 {
     return view_scroll_ == INVALID_POINT;
+}
+
+QImage Page::binarizedImage() const
+{
+    if(binarized_)
+        return *binarized_;
+
+    return QImage();
+}
+
+bool Page::isBinarized() const
+{
+    return binarized_ && !binarized_->isNull();
+}
+
+void Page::setBinarizedImage(const QImage& image)
+{
+    binarized_.reset(new QImage(image));
+    emit binarized();
 }
 
 QDataStream& operator<<(QDataStream& os, const Page& page) {
@@ -511,6 +690,7 @@ QDataStream& operator<<(QDataStream& os, const Page& page) {
     }
 
     os << page.read_areas_;
+    os << page.bin_settings_;
 
     return os;
 }
@@ -533,16 +713,21 @@ QDataStream& operator>>(QDataStream& is, Page& page) {
     is >> ced;
     page.cedpage_ = ced.page();
 
-    bool has_pixmap = false;
-    is >> has_pixmap;
+    bool has_thumb = false;
+    is >> has_thumb;
 
-    if(has_pixmap) {
-        QPixmap thumb;
+    if(has_thumb) {
+        QImage thumb;
         is >> thumb;
-        page.setThumb(thumb);
+
+        if(page.thumb_)
+            *(page.thumb_) = thumb;
+        else
+            page.thumb_ = new QImage(thumb);
     }
 
     is >> page.read_areas_;
+    is >> page.bin_settings_;
 
     return is;
 }
@@ -560,34 +745,28 @@ QDataStream& operator>>(QDataStream& is, Page::PageFlags& flags) {
     return is;
 }
 
-const QPixmap * Page::thumb() const
+QPixmap Page::thumb() const
 {
-    return thumb_;
+    QMutexLocker lock(&mutex_);
+
+    if(!thumb_)
+        return QPixmap();
+
+    return QPixmap::fromImage(*thumb_);
 }
 
-void Page::setThumb(const QPixmap& thumb)
+void Page::setThumb(const QImage& thumb)
 {
-    if(thumb_)
-        *thumb_ = thumb;
-    else
-        thumb_ = new QPixmap(thumb);
-}
+    {
+        QMutexLocker lock(&mutex_);
 
-void Page::initThumb()
-{
-    QPixmap pixmap;
-    if(ImageCache::load(image_url_, &pixmap)) {
-        is_null_ = false;
-        image_size_ = pixmap.size();
-
-        if(pixmap.height() > pixmap.width())
-            setThumb(pixmap.scaledToHeight(THUMB_IMAGE_HEIGHT));
+        if(thumb_)
+            *thumb_ = thumb;
         else
-            setThumb(pixmap.scaledToWidth(THUMB_IMAGE_WIDTH));
+            thumb_ = new QImage(thumb);
     }
-    else {
-        is_null_ = true;
-    }
+
+    emit thumbChanged();
 }
 
 void Page::initDocument()
@@ -596,4 +775,9 @@ void Page::initDocument()
         delete doc_;
 
     doc_ = new QTextDocument(this);
+}
+
+QSize Page::maxThumbnailSize()
+{
+    return QSize(200, 200);
 }

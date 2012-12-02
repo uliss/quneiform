@@ -29,6 +29,7 @@
 #include <QImageReader>
 #include <QUrl>
 #include <QDesktopServices>
+#include <QTimer>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -59,11 +60,15 @@
 #include "settingskeys.h"
 #include "scan/scannerdialog.h"
 
+#ifndef Q_WS_MAC
+#define DISABLE_SCANNER_MENU
+#endif
 
 static const int VERSION_MAJOR = 0;
 static const int VERSION_MINOR = 0;
 static const int VERSION_PATCH = 1;
 static const int MAX_RECENT_FILES = 5;
+static const int AUTOSAVE_INTERVAL = 5;
 
 MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent),
@@ -71,7 +76,8 @@ MainWindow::MainWindow(QWidget *parent) :
         packet_(new Packet(this)),
         progress_(new OpenProgressDialog(this)),
         image_widget_(NULL),
-        view_splitter_(NULL)
+        view_splitter_(NULL),
+        autosave_timer_(NULL)
 {
     setupUi();
     setupPacket();
@@ -82,6 +88,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setupRecent();
     setupViewSplit();
     readSettings();
+    setupAutosaveTimer();
 
     utils::addFullScreenWidget(this);
 }
@@ -93,6 +100,17 @@ MainWindow::~MainWindow() {
 void MainWindow::about() {
     AboutDialog about;
     about.exec();
+}
+
+void MainWindow::autosavePacket()
+{
+    Q_CHECK_PTR(packet_);
+
+    // autosave not for new packets
+    if(packet_->isNew() || packet_->fileName().isEmpty())
+        return;
+
+    savePacket(packet_->fileName());
 }
 
 void MainWindow::addRecentMenu(QMenu * menu) {
@@ -181,7 +199,8 @@ void MainWindow::connectActions() {
     connect(ui_->actionRotateRight, SIGNAL(triggered()), SLOT(rotateRight()));
     connect(ui_->actionOpenPacket, SIGNAL(triggered()), SLOT(openPacketDialog()));
     connect(ui_->actionSavePacket, SIGNAL(triggered()), SLOT(savePacket()));
-    connect(ui_->actionPreferences, SIGNAL(triggered()), SLOT(showSettings()));
+    connect(ui_->actionSavePacketAs, SIGNAL(triggered()), SLOT(savePacketAs()));
+    connect(ui_->actionPreferences, SIGNAL(triggered()), SLOT(showPreferences()));
     connect(ui_->actionRecognitionSettings, SIGNAL(triggered()), SLOT(recognitionSettings()));
     connect(ui_->actionScan, SIGNAL(triggered()), SLOT(showScanDialog()));
     connect(ui_->actionViewThumbnails, SIGNAL(triggered()), SLOT(showViewThumbnails()));
@@ -191,6 +210,7 @@ void MainWindow::connectActions() {
     connect(ui_->actionSplitVertical, SIGNAL(triggered()), SLOT(handleViewSplitChange()));
     connect(ui_->actionFullScreen, SIGNAL(triggered()), SLOT(handleShowFullScreen()));
     connect(ui_->actionMinimize, SIGNAL(triggered()), SLOT(handleShowMinimized()));
+    connect(ui_->actionExportPacket, SIGNAL(triggered()), SLOT(exportPacket()));
 
     QActionGroup * view_group = new QActionGroup(this);
     view_group->addAction(ui_->actionViewThumbnails);
@@ -225,11 +245,13 @@ void MainWindow::disableZoomOutAction() {
     ui_->actionZoom_Out->setEnabled(false);
 }
 
-void MainWindow::packetChange() {
+void MainWindow::handlePacketChanged()
+{
     setWindowModified(true);
 }
 
-void MainWindow::packetSave() {
+void MainWindow::handlePacketSaved()
+{
     Q_ASSERT(packet_);
 
     setWindowModified(false);
@@ -252,6 +274,72 @@ void MainWindow::enableZoomActions() {
         ui_->actionZoom_In->setEnabled(true);
     if(!ui_->actionZoom_Out->isEnabled())
         ui_->actionZoom_Out->setEnabled(true);
+}
+
+void MainWindow::exportPacket()
+{
+    Q_CHECK_PTR(packet_);
+    if(packet_->isEmpty()) {
+        QMessageBox::StandardButton answer =
+                QMessageBox::question(this,
+                                      tr("Warning"),
+                                      tr("The packet is empty. There's nothing to export. Do you want to add images?"),
+                                      QMessageBox::Yes | QMessageBox::No);
+
+        switch(answer) {
+        case QMessageBox::Yes:
+            openImagesDialog();
+            return;
+            break;
+        default:
+            return;
+        }
+    }
+
+    const int recognized_count = packet_->recognizedPageCount();
+
+    // recognized completely
+    if(recognized_count == packet_->pageCount()) {
+        QString filename;
+        ExportDialog dialog(packet_->fileName(), this);
+        if(dialog.exec()) {
+            filename = dialog.fileName();
+        }
+
+        if(filename.isEmpty()) {
+            qWarning() << Q_FUNC_INFO << "empty filename given";
+            return;
+        }
+
+        packet_->exportTo(filename, dialog.settings());
+    }
+    else {
+        QMessageBox::StandardButton answer =
+                QMessageBox::question(this,
+                                      tr("Warning"),
+                                      tr("Not all pages in packet were recognized. Do you want to recognize them before exporting?"),
+                                      QMessageBox::Yes | QMessageBox::No);
+        switch(answer) {
+        case QMessageBox::Yes:
+            recognizeOthers();
+            break;
+        default:
+            break;
+        }
+
+        QString filename;
+        ExportDialog dialog(packet_->fileName(), this);
+        if(dialog.exec()) {
+            filename = dialog.fileName();
+        }
+
+        if(filename.isEmpty()) {
+            qWarning() << Q_FUNC_INFO << "empty filename given";
+            return;
+        }
+
+        packet_->exportTo(filename, dialog.settings());
+    }
 }
 
 void MainWindow::handleReportBug()
@@ -316,7 +404,7 @@ bool MainWindow::openImage(const QString& path, bool allowDuplication)
     if(utils::looksLikeMultiPageDocument(path))
         return openMultiPage(path);
 
-    Page * p = new Page(path);
+    Page * p = new Page(path, false); // cause we use thumb generation
     p->setLanguage(lang_select_->currentLanguage());
 
     if(p->isNull()) {
@@ -394,7 +482,7 @@ bool MainWindow::openMultiPage(const QString& path)
 
         progress_->load(path, i);
 
-        Page * p = new Page(ImageURL(path, i));
+        Page * p = new Page(ImageURL(path, i), false); // do not load, cause we using thumb generator
         p->setLanguage(lang_select_->currentLanguage());
 
         if(p->isNull()) {
@@ -437,6 +525,10 @@ void MainWindow::open(const QStringList& paths) {
     }
 
     progress_->stop();
+
+    QApplication::processEvents();
+
+    packet_->updateThumbs();
 }
 
 void MainWindow::openImagesDialog()
@@ -534,6 +626,20 @@ void MainWindow::recognizeAll() {
     recognition_queue_->start();
 }
 
+void MainWindow::recognizeOthers()
+{
+    Q_CHECK_PTR(packet_);
+    Q_CHECK_PTR(recognition_queue_);
+
+    for(int i = 0; i < packet_->pageCount(); i++) {
+        Page * p = packet_->pageAt(i);
+        if(!p->isRecognized())
+            recognition_queue_->add(p);
+    }
+
+    recognition_queue_->start();
+}
+
 void MainWindow::recognizePage(Page * page) {
     Q_CHECK_PTR(recognition_queue_);
 
@@ -622,6 +728,20 @@ void MainWindow::savePacket(const QString& path) {
     recent_packets_->add(path);
 }
 
+void MainWindow::savePacketAs()
+{
+    Q_CHECK_PTR(packet_);
+
+    QFileInfo fi(packet_->fileName());
+
+    QString fname = QFileDialog::getSaveFileName(this,
+                                             tr("Save Quneiform packet as"),
+                                             fi.baseName(),
+                                             tr("Quneiform packets (*.qfp)"));
+
+    savePacket(fname);
+}
+
 void MainWindow::savePage(Page * page) {
     Q_CHECK_PTR(page);
 
@@ -656,6 +776,18 @@ void MainWindow::savePage(Page * page) {
     }
 }
 
+void MainWindow::segmentPage(Page * page)
+{
+    if(!page) {
+        qWarning() << Q_FUNC_INFO << "NULL page given";
+        return;
+    }
+
+    Q_CHECK_PTR(recognition_queue_);
+    recognition_queue_->add(page);
+    recognition_queue_->startSegmentation();
+}
+
 void MainWindow::selectLanguage(const Language& lang) {
     Q_CHECK_PTR(lang_select_);
     Q_CHECK_PTR(lang_menu_);
@@ -680,8 +812,8 @@ void MainWindow::setupPacket() {
     Q_CHECK_PTR(packet_);
 
     setWindowFilePath(packet_->fileName());
-    connect(packet_, SIGNAL(changed()), SLOT(packetChange()));
-    connect(packet_, SIGNAL(saved()), SLOT(packetSave()));
+    connect(packet_, SIGNAL(changed()), SLOT(handlePacketChanged()));
+    connect(packet_, SIGNAL(saved()), SLOT(handlePacketSaved()));
     connect(packet_, SIGNAL(imageDuplicated(QString)), SLOT(imageDuplication(QString)));
 }
 
@@ -717,6 +849,7 @@ void MainWindow::setupImageView() {
     connect(image_widget_, SIGNAL(scaled()), SLOT(enableZoomActions()));
     connect(image_widget_, SIGNAL(gestureRotateAttempt(int)), SLOT(rotate(int)));
     connect(image_widget_, SIGNAL(recognize(Page*)), SLOT(recognizePage(Page*)));
+    connect(image_widget_, SIGNAL(segment(Page*)), SLOT(segmentPage(Page*)));
 }
 
 void MainWindow::setupLanguageMenu() {
@@ -772,18 +905,25 @@ void MainWindow::setupRecognitionQueue() {
     r_dlg->connectToQueue(recognition_queue_);
 }
 
-void MainWindow::setupShortcuts() {
+void MainWindow::setupShortcuts()
+{
     // there's no default shortcut for quit action in windows and Qt < 4.6
 #ifdef Q_WS_WIN
     ui_->actionExit->setShortcut(QKeySequence("Ctrl+Q"));
 #else
-    ui_->actionExit->setShortcut(QKeySequence::Quit);
+    QKeySequence shortcut_quit(QKeySequence::Quit);
+
+    if(!shortcut_quit.isEmpty())
+        ui_->actionExit->setShortcut(shortcut_quit);
+    else
+        ui_->actionExit->setShortcut(QKeySequence("Ctrl+Q"));
 #endif
 
     ui_->actionOpen->setShortcut(QKeySequence::Open);
     ui_->actionZoom_In->setShortcut(QKeySequence::ZoomIn);
     ui_->actionZoom_Out->setShortcut(QKeySequence::ZoomOut);
     ui_->actionSavePacket->setShortcut(QKeySequence::Save);
+    ui_->actionSavePacketAs->setShortcut(QKeySequence::SaveAs);
 
     ui_->actionFullScreen->setShortcut(QKeySequence("Ctrl+Alt+F"));
 
@@ -795,6 +935,15 @@ void MainWindow::setupShortcuts() {
 void MainWindow::setupTextView() {
     text_view_ = new TextEditor(this);
     connect(text_view_, SIGNAL(charSelected(QRect)), image_widget_, SLOT(showChar(QRect)));
+}
+
+void MainWindow::setupAutosaveTimer()
+{
+    autosave_timer_ = new QTimer(this);
+    autosave_timer_->setSingleShot(false);
+    connect(autosave_timer_, SIGNAL(timeout()), SLOT(autosavePacket()));
+
+    updateAutosaveTimer();
 }
 
 void MainWindow::setupThumbs() {
@@ -824,6 +973,10 @@ void MainWindow::setupUi()
 
 #ifndef NDEBUG
     addDebugMenu();
+#endif
+
+#ifdef DISABLE_SCANNER_MENU
+    ui_->actionScan->setVisible(false);
 #endif
 }
 
@@ -865,6 +1018,40 @@ QStringList MainWindow::supportedImagesFilter() const
     return res;
 }
 
+void MainWindow::updateAutosaveTimer()
+{
+    if(!autosave_timer_) {
+        qWarning() << Q_FUNC_INFO << "NULL autosave timer";
+        return;
+    }
+
+    int interval = QSettings().value(KEY_AUTOSAVE_INTERVAL, AUTOSAVE_INTERVAL).toInt();
+    if(interval <= 0)
+        interval = AUTOSAVE_INTERVAL;
+
+    autosave_timer_->stop();
+    autosave_timer_->setInterval(interval  * 1000); // in milliseconds
+
+    if(QSettings().value(KEY_AUTOSAVE).toBool()) {
+        qDebug() << Q_FUNC_INFO << "autosave timer:" << interval << "seconds";
+        autosave_timer_->start();
+    }
+}
+
+void MainWindow::updateLayoutVisibility()
+{
+    if(!image_widget_)
+        return;
+
+    image_widget_->updateSettings();
+}
+
+void MainWindow::updatePreferences()
+{
+    updateAutosaveTimer();
+    updateLayoutVisibility();
+}
+
 void MainWindow::showPageImage(Page * page) {
     Q_CHECK_PTR(page);
 
@@ -887,11 +1074,13 @@ void MainWindow::showPageFault(Page * page) {
     QMessageBox::critical(this, tr("Recognition error"), msg);
 }
 
-void MainWindow::showSettings()
+void MainWindow::showPreferences()
 {
     AbstractPreferencesDialog * prefs = PreferencesDialogFactory::make();
     prefs->exec();
     delete prefs;
+
+    updatePreferences();
 }
 
 void MainWindow::showScanDialog()
@@ -960,7 +1149,8 @@ void MainWindow::debugShowCImage()
 #ifndef NDEBUG
 void MainWindow::addDebugMenu()
 {
-    QMenu * debug_menu = menuBar()->addMenu("Debug");
+    QMenu * debug_menu = new QMenu("Debug");
+    ui_->menuHelp->addMenu(debug_menu);
     debug_menu->addAction("Show CImage", this, SLOT(debugShowCImage()));
     debug_menu->addAction("Log", this, SLOT(showLog()));
 }
