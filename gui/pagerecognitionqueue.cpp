@@ -46,8 +46,12 @@ void PageRecognitionQueue::add(Packet * packet) {
         add(packet->pageAt(i));
 }
 
-void PageRecognitionQueue::add(Page * p) {
-    Q_CHECK_PTR(p);
+void PageRecognitionQueue::add(Page * p)
+{
+    if(!p) {
+        qCritical() << Q_FUNC_INFO << "NULL page given";
+        return;
+    }
 
     QMutexLocker l(&queue_lock_);
 

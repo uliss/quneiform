@@ -32,7 +32,9 @@ set_property(TARGET ${CF_LNS} PROPERTY COMPILE_DEFINITIONS __LNS__)
 target_link_libraries(${CF_LNS}
     ${CF_CLINE}
     ${CF_STD}
-    ${CF_COMPAT})
+    ${CF_COMPAT}
+    ${CF_COMMON}
+)
 
 cf_install_library(${CF_LNS})
 cf_cppcheck(${CF_LNS})

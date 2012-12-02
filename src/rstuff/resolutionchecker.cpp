@@ -21,12 +21,10 @@
 
 #include "resolutionchecker.h"
 #include "componenthistogram.h"
-#include "common/debug.h"
+#include "common/log.h"
 #include "cpage/cpage.h"
 
 namespace cf {
-
-#define MSG_PREFIX "[RStuff::ResolutionChecker] "
 
 static inline bool isValidResolution(const PAGEINFO& info)
 {
@@ -49,8 +47,8 @@ void ResolutionChecker::check()
         return;
 
     if(isValidResolution(page_info)) {
-        cf::Debug() << MSG_PREFIX << "no resolution correction needed: "
-                    << page_info.DPIX << "x" << page_info.DPIY << "\n";
+        cfDebug(cf::MODULE_RSTUFF) << "no resolution correction needed: "
+                                   << page_info.DPIX << "x" << page_info.DPIY;
         return;
     }
 
@@ -72,8 +70,8 @@ void ResolutionChecker::check()
 
     if(changed) {
         SetPageInfo(cpage_, page_info);
-        cf::Debug() << MSG_PREFIX << "new resolution: " << page_info.DPIX
-                    << "x" << page_info.DPIY << "\n";
+        cfDebug(cf::MODULE_RSTUFF) << "new resolution: "
+                                   << page_info.DPIX << "x" << page_info.DPIY;
     }
 
     if(hist_height_callback_)

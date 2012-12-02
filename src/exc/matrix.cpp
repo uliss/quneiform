@@ -191,12 +191,19 @@ static void matrix_process()
     int16_t j, k;
     memcpy(grim2, grim1, nsb1 * ls);
 
-    for (bw1 = grim1 + ls + 1, bw2 = grim2 + ls + 1, j = 1; j < nsb1 - 1; j++, bw1
-            += 2, bw2 += 2)
-        for (k = 1; k < ls - 1; k++, bw1++, bw2++)
-            *bw2 |= ((a = *bw1) >> 1) | (a << 1) | (*(bw1 - 1) << 7) | (*(bw1
-                                                                          + 1) >> 7) | (a = *(p = bw1 - ls)) | /*(a>>1)|(a<<1)|(*(p-1)<<7)|(*(p+1)>>7)|*/
-                    (a = *(p = bw1 + ls)) /*|(a>>1)|(a<<1)|(*(p-1)<<7)|(*(p+1)>>7)*/;
+    for (bw1 = grim1 + ls + 1, bw2 = grim2 + ls + 1, j = 1;
+         j < nsb1 - 1;
+         j++, bw1 += 2, bw2 += 2) {
+
+        for (k = 1; k < ls - 1; k++, bw1++, bw2++) {
+            *bw2 |= (*bw1 >> 1)
+                    | (*bw1 << 1)
+                    | (*(bw1 - 1) << 7)
+                    | (*(bw1 + 1) >> 7)
+                    | *(bw1 - ls)
+                    | *(bw1 + ls); /*(a>>1)|(a<<1)|(*(p-1)<<7)|(*(p+1)>>7)|*/
+        }
+    }
 
     memcpy(grim1, grim2, nsb1 * ls);
 

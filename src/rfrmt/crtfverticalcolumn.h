@@ -30,7 +30,7 @@
 namespace cf
 {
 
-class SectorInfo;
+struct SectorInfo;
 class CRtfPage;
 class CRtfFragment;
 class CRtfVerticalColumn;

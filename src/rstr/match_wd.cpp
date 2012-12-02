@@ -59,6 +59,7 @@
 #include <stdio.h>
 
 #include "common/interval.h"
+#include "common/log.h"
 #include "struct.h"
 #include "ligas.h"
 #include "func.h"
@@ -108,14 +109,21 @@ typedef struct tagGraphNode {
 	// SVERS  vers;  //versions for segment from prev to current
 } GraphNode;
 
-typedef struct tagStrRaster //растр строки
+struct StrRaster //растр строки
 {
+public:
 	int32_t w; //ширина
 	int32_t h; //высота
 	int32_t top; //строка левого верхнего угла
 	int32_t left; //столбец  -""-
 	uchar pict[LINE_WIDTH * LINE_HEIGHT / 8]; //растр
-} StrRaster;
+public:
+    void clearRaster() {
+        memset(&pict, 0x0, sizeof(pict));
+        if((w + 7) / 8 * h > sizeof(pict))
+            cfError(MODULE_RSTR) << "invalid raster size:" << w << "x" << h;
+    }
+};
 
 typedef struct tagCutAdd {
 	int16_t top;
@@ -389,7 +397,7 @@ static int16_t compose_inc(cell *wb, cell *we) {
 
 static Bool make_str_raster(cell *wb, cell *we, StrRaster *str_raster) {
 	cell *c;
-	int16_t left = MAXINT, top = MAXINT, right = 0, bottom = 0;
+    int16_t left = MAXINT, top = MAXINT, right = 0, bottom = 0;
 
 	//raster size
 	for (c = wb; c != we; c = c->next) {
@@ -406,7 +414,7 @@ static Bool make_str_raster(cell *wb, cell *we, StrRaster *str_raster) {
 	if (str_raster->w > LINE_WIDTH || str_raster->h > LINE_HEIGHT)
 		return FALSE;
 
-	memset(&str_raster->pict, 0, (str_raster->w + 7) / 8* str_raster ->h);
+    str_raster->clearRaster();
 
 	//cells to raster
 	for (c = wb; c != we; c = c->next)

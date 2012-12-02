@@ -60,6 +60,9 @@
 #include "settingskeys.h"
 #include "scan/scannerdialog.h"
 
+#ifndef Q_WS_MAC
+#define DISABLE_SCANNER_MENU
+#endif
 
 static const int VERSION_MAJOR = 0;
 static const int VERSION_MINOR = 0;
@@ -196,6 +199,7 @@ void MainWindow::connectActions() {
     connect(ui_->actionRotateRight, SIGNAL(triggered()), SLOT(rotateRight()));
     connect(ui_->actionOpenPacket, SIGNAL(triggered()), SLOT(openPacketDialog()));
     connect(ui_->actionSavePacket, SIGNAL(triggered()), SLOT(savePacket()));
+    connect(ui_->actionSavePacketAs, SIGNAL(triggered()), SLOT(savePacketAs()));
     connect(ui_->actionPreferences, SIGNAL(triggered()), SLOT(showPreferences()));
     connect(ui_->actionRecognitionSettings, SIGNAL(triggered()), SLOT(recognitionSettings()));
     connect(ui_->actionScan, SIGNAL(triggered()), SLOT(showScanDialog()));
@@ -724,6 +728,20 @@ void MainWindow::savePacket(const QString& path) {
     recent_packets_->add(path);
 }
 
+void MainWindow::savePacketAs()
+{
+    Q_CHECK_PTR(packet_);
+
+    QFileInfo fi(packet_->fileName());
+
+    QString fname = QFileDialog::getSaveFileName(this,
+                                             tr("Save Quneiform packet as"),
+                                             fi.baseName(),
+                                             tr("Quneiform packets (*.qfp)"));
+
+    savePacket(fname);
+}
+
 void MainWindow::savePage(Page * page) {
     Q_CHECK_PTR(page);
 
@@ -760,6 +778,11 @@ void MainWindow::savePage(Page * page) {
 
 void MainWindow::segmentPage(Page * page)
 {
+    if(!page) {
+        qWarning() << Q_FUNC_INFO << "NULL page given";
+        return;
+    }
+
     Q_CHECK_PTR(recognition_queue_);
     recognition_queue_->add(page);
     recognition_queue_->startSegmentation();
@@ -882,18 +905,25 @@ void MainWindow::setupRecognitionQueue() {
     r_dlg->connectToQueue(recognition_queue_);
 }
 
-void MainWindow::setupShortcuts() {
+void MainWindow::setupShortcuts()
+{
     // there's no default shortcut for quit action in windows and Qt < 4.6
 #ifdef Q_WS_WIN
     ui_->actionExit->setShortcut(QKeySequence("Ctrl+Q"));
 #else
-    ui_->actionExit->setShortcut(QKeySequence::Quit);
+    QKeySequence shortcut_quit(QKeySequence::Quit);
+
+    if(!shortcut_quit.isEmpty())
+        ui_->actionExit->setShortcut(shortcut_quit);
+    else
+        ui_->actionExit->setShortcut(QKeySequence("Ctrl+Q"));
 #endif
 
     ui_->actionOpen->setShortcut(QKeySequence::Open);
     ui_->actionZoom_In->setShortcut(QKeySequence::ZoomIn);
     ui_->actionZoom_Out->setShortcut(QKeySequence::ZoomOut);
     ui_->actionSavePacket->setShortcut(QKeySequence::Save);
+    ui_->actionSavePacketAs->setShortcut(QKeySequence::SaveAs);
 
     ui_->actionFullScreen->setShortcut(QKeySequence("Ctrl+Alt+F"));
 
@@ -943,6 +973,10 @@ void MainWindow::setupUi()
 
 #ifndef NDEBUG
     addDebugMenu();
+#endif
+
+#ifdef DISABLE_SCANNER_MENU
+    ui_->actionScan->setVisible(false);
 #endif
 }
 
@@ -1115,7 +1149,8 @@ void MainWindow::debugShowCImage()
 #ifndef NDEBUG
 void MainWindow::addDebugMenu()
 {
-    QMenu * debug_menu = menuBar()->addMenu("Debug");
+    QMenu * debug_menu = new QMenu("Debug");
+    ui_->menuHelp->addMenu(debug_menu);
     debug_menu->addAction("Show CImage", this, SLOT(debugShowCImage()));
     debug_menu->addAction("Log", this, SLOT(showLog()));
 }

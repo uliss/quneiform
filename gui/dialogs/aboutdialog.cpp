@@ -41,11 +41,12 @@ void AboutDialog::setText() {
     "Translator: Serge Poltavski<br/>"
     "License: <a href=\"http://www.gnu.org/licenses/gpl.html\">GPL v.3</a><br/>"
     "Version: %1<br/>"
-    "Build number: %2<br/><br/>"
+    "Build number: %2<br/>"
+    "Qt version: %3<br/><br/>"
     "This program uses refactoring version of libcuneiform from "
         "<a href=\"https://github.com/uliss/quneiform\">GitHub</a> "
         "released under GPL v.3 license.<br/>"
     "Cuneiform was originally released by Congitive Technologies under BSD license.<br/><br/>"
     "Uses icons from <a href=\"http://www.oxygen-icons.org/\">Oxygen</a> theme.")
-                               .arg(CF_VERSION).arg(CF_BUILD_NUMBER));
+                               .arg(CF_VERSION).arg(CF_BUILD_NUMBER).arg(QT_VERSION_STR));
 }

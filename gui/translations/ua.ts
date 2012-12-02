@@ -8,7 +8,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Quneiform OCR&lt;br/&gt;Author: Serge Poltavski&lt;br/&gt;Email: &lt;a href=&quot;mailto:serge.poltavski@gmail.com&quot;&gt;serge.poltavski@gmail.com&lt;/a&gt;&lt;br/&gt;Translator: Serge Poltavski&lt;br/&gt;License: &lt;a href=&quot;http://www.gnu.org/licenses/gpl.html&quot;&gt;GPL v.3&lt;/a&gt;&lt;br/&gt;Version: %1&lt;br/&gt;Build number: %2&lt;br/&gt;&lt;br/&gt;This program uses refactoring version of libcuneiform from &lt;a href=&quot;https://github.com/uliss/quneiform&quot;&gt;GitHub&lt;/a&gt; released under GPL v.3 license.&lt;br/&gt;Cuneiform was originally released by Congitive Technologies under BSD license.&lt;br/&gt;&lt;br/&gt;Uses icons from &lt;a href=&quot;http://www.oxygen-icons.org/&quot;&gt;Oxygen&lt;/a&gt; theme.</source>
+        <source>Quneiform OCR&lt;br/&gt;Author: Serge Poltavski&lt;br/&gt;Email: &lt;a href=&quot;mailto:serge.poltavski@gmail.com&quot;&gt;serge.poltavski@gmail.com&lt;/a&gt;&lt;br/&gt;Translator: Serge Poltavski&lt;br/&gt;License: &lt;a href=&quot;http://www.gnu.org/licenses/gpl.html&quot;&gt;GPL v.3&lt;/a&gt;&lt;br/&gt;Version: %1&lt;br/&gt;Build number: %2&lt;br/&gt;Qt version: %3&lt;br/&gt;&lt;br/&gt;This program uses refactoring version of libcuneiform from &lt;a href=&quot;https://github.com/uliss/quneiform&quot;&gt;GitHub&lt;/a&gt; released under GPL v.3 license.&lt;br/&gt;Cuneiform was originally released by Congitive Technologies under BSD license.&lt;br/&gt;&lt;br/&gt;Uses icons from &lt;a href=&quot;http://www.oxygen-icons.org/&quot;&gt;Oxygen&lt;/a&gt; theme.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -712,6 +712,14 @@ Do you want to save it?</source>
     </message>
     <message>
         <source>Not all pages in packet were recognized. Do you want to recognize them before exporting?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save packet as...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save Quneiform packet as</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

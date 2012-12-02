@@ -31,7 +31,7 @@ TestPacket::TestPacket(QObject *parent) :
 
 void TestPacket::testConstruct() {
     Packet packet;
-    QCOMPARE(packet.fileName(), QString("untitled.qpf"));
+    QCOMPARE(packet.fileName(), QString("untitled.qfp"));
     QVERIFY(!packet.isChanged());
     QVERIFY(packet.isNew());
 }

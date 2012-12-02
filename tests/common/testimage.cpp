@@ -15,12 +15,15 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
+
 #include <fstream>
+#include <string.h>
+
 #include "testimage.h"
 #include "../test_common.h"
 CPPUNIT_TEST_SUITE_REGISTRATION(TestImage);
-#include <common/image.h>
-#include <common/tostring.h>
+#include "common/image.h"
+#include "common/tostring.h"
 using namespace cf;
 
 void TestImage::testInit() {

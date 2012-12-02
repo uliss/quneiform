@@ -32,7 +32,7 @@
 namespace cf
 {
 
-class SectorInfo;
+struct SectorInfo;
 class CEDChar;
 class CEDLine;
 class CEDParagraph;

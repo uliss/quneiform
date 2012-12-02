@@ -35,6 +35,7 @@
     <addaction name="actionOpenPacket"/>
     <addaction name="separator"/>
     <addaction name="actionSavePacket"/>
+    <addaction name="actionSavePacketAs"/>
     <addaction name="actionExportPacket"/>
     <addaction name="actionPreferences"/>
     <addaction name="separator"/>
@@ -317,6 +318,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+E</string>
+   </property>
+  </action>
+  <action name="actionSavePacketAs">
+   <property name="text">
+    <string>Save packet as...</string>
    </property>
   </action>
  </widget>

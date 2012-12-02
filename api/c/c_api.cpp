@@ -429,7 +429,7 @@ int cf_recognition_has_read_rects(cf_recognition_options opts)
 
 int cf_recognition_clear_read_rects(cf_recognition_options opts)
 {
-    if(opts)
+    if(!opts)
         return -1;
 
     opts->clearReadRects();

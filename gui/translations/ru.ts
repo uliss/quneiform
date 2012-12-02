@@ -9,7 +9,11 @@
     </message>
     <message>
         <source>Quneiform OCR&lt;br/&gt;Author: Serge Poltavski&lt;br/&gt;Email: &lt;a href=&quot;mailto:serge.poltavski@gmail.com&quot;&gt;serge.poltavski@gmail.com&lt;/a&gt;&lt;br/&gt;Translator: Serge Poltavski&lt;br/&gt;License: &lt;a href=&quot;http://www.gnu.org/licenses/gpl.html&quot;&gt;GPL v.3&lt;/a&gt;&lt;br/&gt;Version: %1&lt;br/&gt;Build number: %2&lt;br/&gt;&lt;br/&gt;This program uses refactoring version of libcuneiform from &lt;a href=&quot;https://github.com/uliss/quneiform&quot;&gt;GitHub&lt;/a&gt; released under GPL v.3 license.&lt;br/&gt;Cuneiform was originally released by Congitive Technologies under BSD license.&lt;br/&gt;&lt;br/&gt;Uses icons from &lt;a href=&quot;http://www.oxygen-icons.org/&quot;&gt;Oxygen&lt;/a&gt; theme.</source>
-        <translation>Quneiform OCR&lt;br/&gt;Автор: Сергей Полтавский&lt;br/&gt;Email: &lt;a href=&quot;mailto:serge.poltavski@gmail.com&quot;&gt;serge.poltavski@gmail.com&lt;/a&gt;&lt;br/&gt;Перевод: Сергей Полтавский&lt;br/&gt;Лицензия: &lt;a href=&quot;http://www.gnu.org/licenses/gpl.html&quot;&gt;GPL v.3&lt;/a&gt;&lt;br/&gt;Версия: %1&lt;br/&gt;Номер сборки: %2&lt;br/&gt;&lt;br/&gt;Программа использует рефакторинг-версию библиотеки cuneiform, распространяемой по GPL лицензии, исходный код которой доступен на сервисе &lt;a href=&quot;https://github.com/uliss/quneiform&quot;&gt;GitHub&lt;/a&gt;.&lt;br/&gt;Cuneiform была изначально разработана и открыта под BSD лицензией компанией Congitive Technologies.&lt;br/&gt;&lt;br/&gt;Использованы иконки из темы &lt;a href=&quot;http://www.oxygen-icons.org/&quot;&gt;Oxygen&lt;/a&gt;.</translation>
+        <translation type="obsolete">Quneiform OCR&lt;br/&gt;Автор: Сергей Полтавский&lt;br/&gt;Email: &lt;a href=&quot;mailto:serge.poltavski@gmail.com&quot;&gt;serge.poltavski@gmail.com&lt;/a&gt;&lt;br/&gt;Перевод: Сергей Полтавский&lt;br/&gt;Лицензия: &lt;a href=&quot;http://www.gnu.org/licenses/gpl.html&quot;&gt;GPL v.3&lt;/a&gt;&lt;br/&gt;Версия: %1&lt;br/&gt;Номер сборки: %2&lt;br/&gt;&lt;br/&gt;Программа использует рефакторинг-версию библиотеки cuneiform, распространяемой по GPL лицензии, исходный код которой доступен на сервисе &lt;a href=&quot;https://github.com/uliss/quneiform&quot;&gt;GitHub&lt;/a&gt;.&lt;br/&gt;Cuneiform была изначально разработана и открыта под BSD лицензией компанией Congitive Technologies.&lt;br/&gt;&lt;br/&gt;Использованы иконки из темы &lt;a href=&quot;http://www.oxygen-icons.org/&quot;&gt;Oxygen&lt;/a&gt;.</translation>
+    </message>
+    <message>
+        <source>Quneiform OCR&lt;br/&gt;Author: Serge Poltavski&lt;br/&gt;Email: &lt;a href=&quot;mailto:serge.poltavski@gmail.com&quot;&gt;serge.poltavski@gmail.com&lt;/a&gt;&lt;br/&gt;Translator: Serge Poltavski&lt;br/&gt;License: &lt;a href=&quot;http://www.gnu.org/licenses/gpl.html&quot;&gt;GPL v.3&lt;/a&gt;&lt;br/&gt;Version: %1&lt;br/&gt;Build number: %2&lt;br/&gt;Qt version: %3&lt;br/&gt;&lt;br/&gt;This program uses refactoring version of libcuneiform from &lt;a href=&quot;https://github.com/uliss/quneiform&quot;&gt;GitHub&lt;/a&gt; released under GPL v.3 license.&lt;br/&gt;Cuneiform was originally released by Congitive Technologies under BSD license.&lt;br/&gt;&lt;br/&gt;Uses icons from &lt;a href=&quot;http://www.oxygen-icons.org/&quot;&gt;Oxygen&lt;/a&gt; theme.</source>
+        <translation>Quneiform OCR&lt;br/&gt;Автор: Сергей Полтавский&lt;br/&gt;Email: &lt;a href=&quot;mailto:serge.poltavski@gmail.com&quot;&gt;serge.poltavski@gmail.com&lt;/a&gt;&lt;br/&gt;Перевод: Сергей Полтавский&lt;br/&gt;Лицензия: &lt;a href=&quot;http://www.gnu.org/licenses/gpl.html&quot;&gt;GPL v.3&lt;/a&gt;&lt;br/&gt;Версия: %1&lt;br/&gt;Номер сборки: %2&lt;br/&gt;Версия Qt: %3&lt;br/&gt;&lt;br/&gt;Программа использует рефакторинг-версию библиотеки cuneiform, распространяемой по GPL лицензии, исходный код которой доступен на сервисе &lt;a href=&quot;https://github.com/uliss/quneiform&quot;&gt;GitHub&lt;/a&gt;.&lt;br/&gt;Cuneiform была изначально разработана и открыта под BSD лицензией компанией Congitive Technologies.&lt;br/&gt;&lt;br/&gt;Использованы иконки из темы &lt;a href=&quot;http://www.oxygen-icons.org/&quot;&gt;Oxygen&lt;/a&gt;.</translation>
     </message>
 </context>
 <context>
@@ -767,6 +771,14 @@ Are you shure?</source>
     <message>
         <source>Not all pages in packet were recognized. Do you want to recognize them before exporting?</source>
         <translation>Не все страницы в пакете были распознаны. Распознать их перед экспортом?</translation>
+    </message>
+    <message>
+        <source>Save packet as...</source>
+        <translation>Сохранить пакет как...</translation>
+    </message>
+    <message>
+        <source>Save Quneiform packet as</source>
+        <translation>Сохранить пакет Quneiform как</translation>
     </message>
 </context>
 <context>
