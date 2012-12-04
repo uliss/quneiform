@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include <cstdio>
+#include <string.h>
 
 #include "testbackuppage.h"
 #include "cpage/backup.h"
@@ -52,6 +53,7 @@ void TestBackupPage::testRestore()
     fclose(f);
 
     char data[10];
+    memset(&data, 0, sizeof(data));
     p.GetData(CPAGE_GetInternalType("data"), data, 9);
     CPPUNIT_ASSERT_EQUAL(std::string("some data"), std::string(data));
 }
