@@ -76,8 +76,26 @@ class CLA_EXPO Data
         Data();
         virtual ~Data();
 
-        Bool32 SetData(Handle type, void * data_, uint32_t Size);
-        uint32_t GetData(Handle type, void * data_, uint32_t Size);
+        /**
+         * Copies data to given destination memory
+         * @param dest - destination memory
+         * @param size - destination size
+         * @return data size
+         */
+        uint32_t getData(Handle type, void * dest, uint32_t size);
+
+        /**
+         * Copies data from source memory
+         * @param src - source memory
+         * @param size - source memory size
+         */
+        void setData(Handle type, const void * src, uint32_t size);
+
+        /**
+         *
+         */
+        bool empty() const;
+
         inline Bool32 GetDataPtr(Handle type, void ** lpdata) {
             Bool32 rc = FALSE;
             assert(lpdata);
@@ -100,8 +118,8 @@ class CLA_EXPO Data
             return old;
         }
 
-        Data & operator =(Data & data);
-        Bool32 operator ==(Data & data);
+        Data& operator=(const Data& data);
+        bool operator==(const Data& data);
     public:
         virtual uint32_t Convert(Handle type, void * lpdata, uint32_t size) = 0;
         Bool32 Save(Handle to);

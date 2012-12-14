@@ -62,6 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "data.h"
 #include "mymem.h"
 #include "backup.h"
+#include "common/log.h"
 
 namespace cf {
 namespace cpage {
@@ -78,7 +79,7 @@ Data::~Data()
     delete []data_;
 }
 
-Bool32 Data::SetData(Handle type, void * lpdata, uint32_t size)
+void Data::setData(Handle type, const void * src, uint32_t size)
 {
     type_ = type;
     size_ = size;
@@ -88,53 +89,45 @@ Bool32 Data::SetData(Handle type, void * lpdata, uint32_t size)
         data_ = NULL;
     }
 
-    if (lpdata && size) {
+    if (src && size) {
         data_ = new char[size];
-
-        if (data_ == NULL) {
-            size_ = 0;
-            return FALSE;
-        }
-
-        memcpy(data_, lpdata, size);
+        memcpy(data_, src, size);
     }
-
-    return TRUE;
 }
 
-uint32_t   Data::GetData(Handle type, void * lpdata, uint32_t size)
+uint32_t Data::getData(Handle type, void * dest, uint32_t size)
 {
     if (type == type_) {
-        if (lpdata == NULL)
-            return size_;
+        if (dest == NULL) {
+            cfError(MODULE_CPAGE) << "NULL destination pointer given";
+            return 0;
+        }
 
         if (size_ && data_)
-            memcpy(lpdata, data_, size_);
+            memcpy(dest, data_, size_);
     }
-
     else
-        return Convert(type, lpdata, size);
+        return Convert(type, dest, size);
 
     return size_;
 }
 
-Data & Data::operator = (Data & data)
+Data& Data::operator=(const Data& data)
 {
-    SetData(data.type_, data.data_, data.size_);
+    setData(data.type_, data.data_, data.size_);
     return *this;
 }
 
-Bool32 Data::operator == (Data & data)
+bool Data::operator==(const Data& data)
 {
-    if ( type_ == data.type_ &&
-            size_ == data.size_) {
+    if (type_ == data.type_ && size_ == data.size_) {
         if (data_ == data.data_ && data_ == NULL)
-            return TRUE;
+            return true;
 
         return memcmp(data_, data.data_, size_) == 0;
     }
 
-    return FALSE;
+    return false;
 }
 
 Bool32 Data::Save(Handle to)

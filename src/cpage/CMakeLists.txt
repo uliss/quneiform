@@ -21,6 +21,10 @@ add_library(${CF_CPAGE} ${LIBTYPE} ${CF_CPAGE_SOURCES})
 
 set_property(TARGET ${CF_CPAGE} PROPERTY COMPILE_DEFINITIONS __CPAGE__)
 
-target_link_libraries(${CF_CPAGE} ${CF_COMPAT})
+target_link_libraries(${CF_CPAGE}
+    ${CF_COMPAT}
+    ${CF_COMMON}
+)
+
 cf_install_library(${CF_CPAGE})
 cf_cppcheck(${CF_CPAGE})

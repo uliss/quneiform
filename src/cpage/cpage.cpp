@@ -78,16 +78,8 @@ Handle CPAGE_CreatePage(Handle type, void * lpdata, uint32_t size)
     Handle hPage = cf::PageStorage::append(tail);
 
     if (hPage) {
-        if (!cf::PageStorage::page(hPage).SetData(type, lpdata, size)) {
-            cf::PageStorage::remove(hPage);
-            hPage = NULL;
-
-            if (hCurPage == hPage)
-                hCurPage = NULL;
-        }
-
-        else
-            hCurPage = hPage;
+        cf::PageStorage::page(hPage).setData(type, lpdata, size);
+        hCurPage = hPage;
     }
 
     EPILOG;
@@ -240,9 +232,9 @@ Bool32 CPAGE_SetPageData(Handle page, Handle type, void * lpdata, uint32_t size)
 #ifdef _DEBUG
     assert(CPAGE_GetNameInternalType(type));
 #endif
-    Bool32 rc = cf::PageStorage::page(page).SetData(type, lpdata, size);
+    cf::PageStorage::page(page).setData(type, lpdata, size);
     EPILOG;
-    return rc;
+    return TRUE;
 }
 
 uint32_t CPAGE_GetPageData(Handle page, Handle type, void * lpdata,
@@ -254,7 +246,7 @@ uint32_t CPAGE_GetPageData(Handle page, Handle type, void * lpdata,
     assert(CPAGE_GetNameInternalType(type));
 #endif
     DefConvertInit();
-    uint32_t rc = cf::PageStorage::page(page).GetData(type, lpdata, size);
+    uint32_t rc = cf::PageStorage::page(page).getData(type, lpdata, size);
     EPILOG;
     return rc;
 }
@@ -320,9 +312,9 @@ Bool32 CPAGE_SetBlockData(Handle page, Handle block, Handle Type,
 #ifdef _DEBUG
     assert(CPAGE_GetNameInternalType(Type));
 #endif
-    Bool32 rc = BLOCK_H_H(page, block).SetData(Type, lpData, Size);
+    BLOCK_H_H(page, block).setData(Type, lpData, Size);
     EPILOG;
-    return rc;
+    return TRUE;
 }
 
 uint32_t CPAGE_GetBlockData(Handle page, Handle block, Handle Type,
@@ -334,7 +326,7 @@ uint32_t CPAGE_GetBlockData(Handle page, Handle block, Handle Type,
     assert(CPAGE_GetNameInternalType(Type));
 #endif
     DefConvertInit();
-    uint32_t rc = BLOCK_H_H(page, block).GetData(Type, lpData, Size);
+    uint32_t rc = BLOCK_H_H(page, block).getData(Type, lpData, Size);
     EPILOG;
     return rc;
 }

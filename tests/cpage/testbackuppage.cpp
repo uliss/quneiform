@@ -37,7 +37,7 @@ void TestBackupPage::testSave()
     const char * data = "some data";
     BackupPage p;
     p.SetType(CPAGE_GetInternalType("page"));
-    p.SetData(CPAGE_GetInternalType("data"), (void*) data, strlen(data));
+    p.setData(CPAGE_GetInternalType("data"), (void*) data, strlen(data));
     FILE * f = fopen("test.cpage", "w");
     CPPUNIT_ASSERT(f);
     p.Save(f);
@@ -54,6 +54,6 @@ void TestBackupPage::testRestore()
 
     char data[10];
     memset(&data, 0, sizeof(data));
-    p.GetData(CPAGE_GetInternalType("data"), data, 9);
+    p.getData(CPAGE_GetInternalType("data"), data, 9);
     CPPUNIT_ASSERT_EQUAL(std::string("some data"), std::string(data));
 }

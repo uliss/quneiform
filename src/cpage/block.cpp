@@ -78,7 +78,7 @@ Bool32  BLOCK::Create(Handle type, uint32_t usernum , uint32_t flags , void * lp
     UserNum = usernum;
     Flags = flags;
     InterNum = 0;
-    SetData(type, lpdata, size);
+    setData(type, lpdata, size);
     return TRUE;
 }
 //##############################
