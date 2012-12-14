@@ -41,7 +41,7 @@ void TestBackupPage::testSave()
     p.setData(CPAGE_GetInternalType("data"), (void*) data, strlen(data));
     FILE * f = fopen("test.cpage", "w");
     CPPUNIT_ASSERT(f);
-    p.Save(f);
+    p.save(f);
     fclose(f);
 }
 

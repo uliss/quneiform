@@ -75,7 +75,7 @@ public:
     Bool32 Redo(Handle backup);
     Bool32 Undo(Handle backup);
 
-    Bool32 Save(Handle to);
+    Bool32 save(Handle to);
     Bool32 SaveCompress(Handle to);
     Bool32 Restore(Handle from);
     Bool32 RestoreCompress(Handle from);

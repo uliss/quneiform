@@ -95,7 +95,7 @@ PAGE & PAGE::operator = (PAGE & Page)
 }
 
 //#################################
-Bool32  PAGE::Save(Handle to)
+Bool32  PAGE::save(Handle to)
 {
     int count = Block.GetCount();
     Bool32 rc = FALSE;
@@ -104,10 +104,10 @@ Bool32  PAGE::Save(Handle to)
 
     if (rc == TRUE && count)
         for (i = 0; i < count; i++)
-            Block.GetItem(Block.GetHandle(i)).Save(to);
+            Block.GetItem(Block.GetHandle(i)).save(to);
 
     if (rc)
-        rc = Data::Save(to);
+        rc = Data::save(to);
 
     return rc;
 }

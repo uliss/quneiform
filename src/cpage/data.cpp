@@ -145,19 +145,24 @@ bool Data::operator==(const Data& data)
     return false;
 }
 
-Bool32 Data::Save(Handle to)
+bool Data::save(Handle to) const
 {
-    char * lpName = CPAGE_GetNameInternalType(type_);
-    assert(lpName);
-    uint32_t len = strlen(lpName) + 1;
+    const char * name = CPAGE_GetNameInternalType(type_);
+    if(!name) {
+        cfError(MODULE_CPAGE) << "NULL internal name";
+        return false;
+    }
 
-    if (myWrite(to, &len, sizeof(len)) == sizeof(len) &&
-            myWrite(to, lpName, len) == len &&
-            myWrite(to, &size_, sizeof(size_)) == sizeof(size_) &&
-            (size_ == 0 ||  myWrite(to, data_, size_) == size_))
-        return TRUE;
+    const uint32_t len = strlen(name) + 1;
+    FILE * f = static_cast<FILE*>(to);
 
-    return FALSE;
+    if (fwrite(&len, 1, sizeof(len), f) == sizeof(len) &&
+            fwrite(name, 1, len, f) == len &&
+            fwrite(&size_, 1, sizeof(size_), f) == sizeof(size_) &&
+            (size_ == 0 ||  fwrite(data_, 1, size_, f) == size_))
+        return true;
+
+    return false;
 }
 
 Bool32 Data::Restore(Handle from)
@@ -197,7 +202,7 @@ Bool32 Data::Restore(Handle from)
 Bool32 Data::SaveCompress(Handle to)
 {
     if (size_ == 0)
-        return  Save(to);
+        return  save(to);
 
     Bool32 rv;
     char *compressedData, *lpDataSave = data_;
@@ -209,7 +214,7 @@ Bool32 Data::SaveCompress(Handle to)
 
     data_ = compressedData;
     size_ = compressedSize;
-    rv = Save(to);
+    rv = save(to);
     data_ = lpDataSave;
     size_ = SizeSave;
     delete []compressedData;

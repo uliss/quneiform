@@ -102,11 +102,11 @@ Bool32 BLOCK::operator == (BLOCK & Block)
     return FALSE;
 }
 //##############################
-Bool32 BLOCK::Save(Handle to)
+Bool32 BLOCK::save(Handle to)
 {
     if ( myWrite(to, &UserNum, sizeof(UserNum)) == sizeof(UserNum) &&
             myWrite(to, &Flags, sizeof(Flags)) == sizeof(Flags) &&
-            Data::Save(to) &&
+            Data::save(to) &&
             myWrite(to, &InterNum, sizeof(InterNum)) == sizeof(InterNum))
         return TRUE;
 

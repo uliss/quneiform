@@ -143,7 +143,7 @@ Bool32 BackupPage::Undo(Handle backup)
     return FALSE;
 }
 //#################################
-Bool32 BackupPage::Save(Handle to)
+Bool32 BackupPage::save(Handle to)
 {
     int count = backups_.GetCount();
     Bool32 rc = FALSE;
@@ -157,11 +157,11 @@ Bool32 BackupPage::Save(Handle to)
 
         if (rc == TRUE && count)
             for (i = 0; i < count; i++)
-                backups_.GetItem(backups_.GetHandle(i)).Save(to);
+                backups_.GetItem(backups_.GetHandle(i)).save(to);
     }
 
     if (rc)
-        rc = PAGE::Save(to);
+        rc = PAGE::save(to);
 
     return rc;
 }
