@@ -74,8 +74,8 @@ class CLA_EXPO BLOCK: public cf::cpage::Data
 
         Bool32  Create(Handle Type, uint32_t UserNum = 0, uint32_t Flags = 0, void * lpData = NULL, uint32_t Size = 0);
 
-        Handle  GetType() {
-            return Data::GetType();
+        Handle  type() {
+            return Data::type();
         };
         uint32_t  GetUserNum() {
             return UserNum;

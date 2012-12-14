@@ -265,7 +265,7 @@ Handle CPAGE_GetBlockType(Handle page, Handle block)
 {
     PROLOG;
     SetReturnCode_cpage(IDS_ERR_NO);
-    Handle rc = BLOCK_H_H(page, block).GetType();
+    Handle rc = BLOCK_H_H(page, block).type();
     EPILOG;
     return rc;
 }
@@ -526,7 +526,7 @@ Handle CPAGE_GetPageFirst(Handle type)
 
     for (i = 0; i < count; i++) {
         if (!type ||
-                cf::PageStorage::pageAt(i).GetType() == type ||
+                cf::PageStorage::pageAt(i).type() == type ||
                 cf::PageStorage::pageAt(i).Convert(type, NULL, 0))
             break;
     }
@@ -549,7 +549,7 @@ Handle CPAGE_GetPageNext(Handle page, Handle type)
 
     for (i = pos; i < count && i >= 0; i++) {
         if (!type ||
-                cf::PageStorage::pageAt(i).GetType() == type ||
+                cf::PageStorage::pageAt(i).type() == type ||
                 cf::PageStorage::pageAt(i).Convert(type, NULL, 0))
             break;
     }
@@ -572,7 +572,7 @@ Handle CPAGE_GetBlockFirst(Handle page, Handle type)
     DefConvertInit();
 
     for (i = 0; i < count; i++) {
-        if (!type || BLOCK_H_N(page, i).GetType() == type
+        if (!type || BLOCK_H_N(page, i).type() == type
                 || BLOCK_H_N(page, i).Convert(type, NULL, 0))
             break;
     }
@@ -596,7 +596,7 @@ Handle CPAGE_GetBlockNext(Handle page, Handle block, Handle type)
     DefConvertInit();
 
     for (i = pos; i < count && i >= 0; i++) {
-        if (!type || BLOCK_H_N(page, i).GetType() == type
+        if (!type || BLOCK_H_N(page, i).type() == type
                 || BLOCK_H_N(page, i).Convert(type, NULL, 0))
             break;
     }

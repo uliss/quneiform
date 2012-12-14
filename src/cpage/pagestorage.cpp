@@ -72,7 +72,7 @@ Handle PageStorage::pageHandleAt(size_t pos)
 
 Handle PageStorage::pageType(Handle p)
 {
-    return page(p).GetType();
+    return page(p).type();
 }
 
 size_t PageStorage::pagePosition(Handle p)

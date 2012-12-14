@@ -108,7 +108,7 @@ class CLA_EXPO Data
             return rc;
         }
 
-        inline Handle GetType() {
+        Handle type() const {
             return type_;
         }
 
