@@ -104,7 +104,7 @@ Handle myOpenRestore(const char * lpName)
 
     return rc;
 }
-unsigned int myWrite(Handle h, void * lpdata, unsigned int size)
+unsigned int myWrite(Handle h, const void *lpdata, unsigned int size)
 {
     uint32_t rc = 0;
     //#ifdef _DEBUG

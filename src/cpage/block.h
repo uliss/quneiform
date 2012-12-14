@@ -98,10 +98,10 @@ class CLA_EXPO Block: public Data
         Block& operator=(const Block& block);
         bool operator==(const Block& block);
 
-        Bool32 save(Handle to);
-        Bool32 restore(Handle from);
-        Bool32 saveCompress(Handle to);
-        Bool32 restoreCompress(Handle from);
+        bool save(Handle to) const;
+        bool restore(Handle from);
+        bool saveCompress(Handle to);
+        bool restoreCompress(Handle from);
 
         virtual uint32_t Convert(Handle type, void * lpdata, uint32_t size);
     private:

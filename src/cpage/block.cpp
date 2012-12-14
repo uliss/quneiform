@@ -102,51 +102,51 @@ bool Block::operator==(const Block& block)
     return false;
 }
 
-Bool32 Block::save(Handle to)
+bool Block::save(Handle to) const
 {
-    if ( myWrite(to, &user_num_, sizeof(user_num_)) == sizeof(user_num_) &&
+    if (myWrite(to, &user_num_, sizeof(user_num_)) == sizeof(user_num_) &&
             myWrite(to, &flags_, sizeof(flags_)) == sizeof(flags_) &&
             Data::save(to) &&
             myWrite(to, &internal_num_, sizeof(internal_num_)) == sizeof(internal_num_))
-        return TRUE;
+        return true;
 
-    return FALSE;
+    return false;
 }
 
-Bool32 Block::restore(Handle from)
+bool Block::restore(Handle from)
 {
-    if ( myRead(from, &user_num_, sizeof(user_num_)) == sizeof(user_num_) &&
+    if (myRead(from, &user_num_, sizeof(user_num_)) == sizeof(user_num_) &&
             myRead(from, &flags_, sizeof(flags_)) == sizeof(flags_) &&
             Data::restore(from) &&
             myRead(from, &internal_num_, sizeof(internal_num_)) == sizeof(internal_num_))
-        return TRUE;
+        return true;
 
-    return FALSE;
+    return false;
 }
 
-Bool32 Block::saveCompress(Handle to)
+bool Block::saveCompress(Handle to)
 {
-    if ( myWrite(to, &user_num_, sizeof(user_num_)) == sizeof(user_num_) &&
+    if (myWrite(to, &user_num_, sizeof(user_num_)) == sizeof(user_num_) &&
             myWrite(to, &flags_, sizeof(flags_)) == sizeof(flags_) &&
             Data::saveCompress(to) &&
             myWrite(to, &internal_num_, sizeof(internal_num_)) == sizeof(internal_num_))
-        return TRUE;
+        return true;
 
-    return FALSE;
+    return false;
 }
 
-Bool32 Block::restoreCompress(Handle from)
+bool Block::restoreCompress(Handle from)
 {
-    if ( myRead(from, &user_num_, sizeof(user_num_)) == sizeof(user_num_) &&
+    if (myRead(from, &user_num_, sizeof(user_num_)) == sizeof(user_num_) &&
             myRead(from, &flags_, sizeof(flags_)) == sizeof(flags_) &&
             Data::restoreCompress(from) &&
             myRead(from, &internal_num_, sizeof(internal_num_)) == sizeof(internal_num_))
-        return TRUE;
+        return true;
 
-    return FALSE;
+    return false;
 }
 
-static  CPAGE_CONVERTOR s_ConvertorBlocks = {0, DefConvertBlock};
+static CPAGE_CONVERTOR s_ConvertorBlocks = { 0, DefConvertBlock };
 
 CPAGE_CONVERTOR SetConvertorBlocks(CPAGE_CONVERTOR convertor)
 {

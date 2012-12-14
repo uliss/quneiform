@@ -75,7 +75,7 @@ void    myFree(void * mem);
 
 Handle  myOpenSave(const char * lpName);
 Handle  myOpenRestore(const char * lpName);
-unsigned int  myWrite(Handle h, void * lpdata, unsigned int size);
+unsigned int  myWrite(Handle h, const void * lpdata, unsigned int size);
 unsigned int  myRead(Handle h, void * lpdata, unsigned int size);
 void    myClose(Handle h);
 
