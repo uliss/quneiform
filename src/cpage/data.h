@@ -74,6 +74,8 @@ class CLA_EXPO Data
 {
     public:
         Data();
+        Data& operator=(const Data& data);
+        bool operator==(const Data& data);
         virtual ~Data();
 
         /**
@@ -108,18 +110,8 @@ class CLA_EXPO Data
             return rc;
         }
 
-        Handle type() const {
-            return type_;
-        }
-
-        inline Handle SetType(Handle dwType) {
-            Handle old = type_;
-            type_ = dwType;
-            return old;
-        }
-
-        Data& operator=(const Data& data);
-        bool operator==(const Data& data);
+        Handle type() const;
+        void setType(Handle type);
     public:
         virtual uint32_t Convert(Handle type, void * lpdata, uint32_t size) = 0;
         Bool32 Save(Handle to);

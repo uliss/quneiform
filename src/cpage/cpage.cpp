@@ -731,7 +731,7 @@ Bool32 CPAGE_UpdateBlocks(Handle hPage, Handle type)
 
         for (hBlock = CPAGE_GetBlockFirst(hPage, temporaray); hBlock; hBlock
                 = CPAGE_GetBlockNext(hPage, hBlock, temporaray)) {
-            BLOCK_H_H(hPage, hBlock).SetType(type);
+            BLOCK_H_H(hPage, hBlock).setType(type);
         }
     }
 

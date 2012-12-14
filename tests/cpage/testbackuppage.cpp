@@ -37,7 +37,7 @@ void TestBackupPage::testSave()
 {
     const char * data = "some data";
     BackupPage p;
-    p.SetType(CPAGE_GetInternalType("page"));
+    p.setType(CPAGE_GetInternalType("page"));
     p.setData(CPAGE_GetInternalType("data"), (void*) data, strlen(data));
     FILE * f = fopen("test.cpage", "w");
     CPPUNIT_ASSERT(f);
