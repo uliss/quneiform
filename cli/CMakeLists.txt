@@ -38,4 +38,7 @@ if(CF_USE_SHMEM)
     target_link_libraries(cuneiform-process ${CLI_LIBS})
 endif()
 
+add_executable(cf-layout cf-layout.cpp)
+target_link_libraries(cf-layout cuneiform)
+
 cf_cppcheck(cuneiform-cli)

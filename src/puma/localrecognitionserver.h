@@ -31,6 +31,7 @@ public:
     ~LocalRecognitionServer();
 
     void addImageBlock(const Rect& r);
+    void addTableBlock(const Rect& r);
     void addTextBlock(const Rect& r);
 
     /**
@@ -78,10 +79,21 @@ public:
     LayoutBlockList imageBlocks() const;
 
     /**
+     * Returns array of table blocks after page layout
+     * @see imageBlocks()
+     */
+    LayoutBlockList tableBlocks() const;
+
+    /**
      * Returns array of text blocks after page layout
      * @see imageBlocks()
      */
     LayoutBlockList textBlocks() const;
+
+    /**
+     * Saves pages layout to file
+     */
+    void saveLayout(const std::string& filename);
 private:
     void close();
     void handleExceptionCommon(std::exception& e);

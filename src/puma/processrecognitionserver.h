@@ -36,6 +36,7 @@ public:
     ~ProcessRecognitionServer();
 
     void addImageBlock(const Rect& r);
+    void addTableBlock(const Rect& r);
     void addTextBlock(const Rect& r);
     bool analyze();
     bool binarize();

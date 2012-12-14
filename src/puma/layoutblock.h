@@ -20,6 +20,7 @@
 #define LAYOUTBLOCK_H
 
 #include <vector>
+#include <iosfwd>
 
 #include "globus.h"
 #include "common/rect.h"
@@ -80,6 +81,8 @@ private:
 };
 
 typedef std::vector<LayoutBlock> LayoutBlockList;
+
+FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const LayoutBlock& block);
 
 }
 

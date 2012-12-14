@@ -148,6 +148,22 @@ void PumaImpl::addImageBlock(const Rect& rect)
     unsetUpdateFlag(FLG_UPDATE_CPAGE);
 }
 
+void PumaImpl::addTableBlock(const Rect& block)
+{
+    PUMA_TRACE_FUNC() << block;
+
+    if(!cpage_)
+        return;
+
+    POLY_ poly;
+    poly.com.setRect(block);
+    poly.com.setFlag(CPAGE_BLOCK_USER);
+    uint count = CPAGE_GetCountBlock(cpage_);
+    CPAGE_CreateBlock(cpage_, TYPE_TABLE, ++count, 0, &poly, sizeof(poly));
+
+    unsetUpdateFlag(FLG_UPDATE_CPAGE);
+}
+
 void PumaImpl::addTextBlock(const Rect& block)
 {
     PUMA_TRACE_FUNC() << block;
@@ -197,7 +213,23 @@ LayoutBlockList PumaImpl::imageBlocks() const
         block = CPAGE_GetBlockNext(cpage_, block, TYPE_IMAGE);
     }
 
-    debugPrintCpage();
+    return res;
+}
+
+LayoutBlockList PumaImpl::tableBlocks() const
+{
+    LayoutBlockList res;
+    if(!cpage_)
+        return res;
+
+    Handle block = CPAGE_GetBlockFirst(cpage_, TYPE_TABLE);
+
+    while (block) {
+        POLY_ poly;
+        CPAGE_GetBlockData(cpage_, block, TYPE_TABLE, &poly, sizeof(poly));
+        res.push_back(LayoutBlock(poly.rect(), LayoutBlock::IMAGE));
+        block = CPAGE_GetBlockNext(cpage_, block, TYPE_TABLE);
+    }
 
     return res;
 }
@@ -1007,6 +1039,17 @@ void PumaImpl::setRecognizeOptions(const RecognizeOptions& opt) {
     setUpdateFlag(FLG_UPDATE);
     setUpdateFlag(FLG_UPDATE_CCOM);
     setUpdateFlag(FLG_UPDATE_CPAGE);
+}
+
+void PumaImpl::dumpComponents()
+{
+    if(!ccom_)
+        return;
+
+    CCOM_comp * pcomp = CCOM_GetFirst(ccom_, NULL);
+    while(pcomp != NULL) {
+//        std::cerr <<
+    }
 }
 
 static inline bool isValidPageTemplate(const Rect& r)

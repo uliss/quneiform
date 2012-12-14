@@ -55,6 +55,12 @@ void LocalRecognitionServer::addImageBlock(const Rect& r)
     Puma::instance().addImageBlock(r);
 }
 
+void LocalRecognitionServer::addTableBlock(const Rect &r)
+{
+    PUMA_TRACE_FUNC() << r;
+    Puma::instance().addTableBlock(r);
+}
+
 void LocalRecognitionServer::addTextBlock(const Rect& r)
 {
     PUMA_TRACE_FUNC() << r;
@@ -227,9 +233,19 @@ LayoutBlockList LocalRecognitionServer::imageBlocks() const
     return Puma::instance().imageBlocks();
 }
 
+LayoutBlockList LocalRecognitionServer::tableBlocks() const
+{
+    return Puma::instance().tableBlocks();
+}
+
 LayoutBlockList LocalRecognitionServer::textBlocks() const
 {
     return Puma::instance().textBlocks();
+}
+
+void LocalRecognitionServer::saveLayout(const std::string& filename)
+{
+    Puma::instance().saveLayoutToFile(filename);
 }
 
 void LocalRecognitionServer::setOptions()

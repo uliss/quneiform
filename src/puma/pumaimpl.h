@@ -59,8 +59,10 @@ class PumaImpl
 
         void addLayoutBlock(const LayoutBlock& block);
         void addImageBlock(const Rect& rect);
+        void addTableBlock(const Rect& block);
         void addTextBlock(const Rect& block);
         LayoutBlockList imageBlocks() const;
+        LayoutBlockList tableBlocks() const;
         LayoutBlockList textBlocks() const;
 
         void binarizeImage();
@@ -99,6 +101,11 @@ class PumaImpl
         void recognize();
 
         /**
+         * Saves CPAGE page layout to file
+         */
+        void saveLayoutToFile(const std::string& fname);
+
+        /**
          * Sets binarize options
          * @see setFormatOptions(), setRecognizeOptions()
          */
@@ -115,6 +122,8 @@ class PumaImpl
          * @see setFormatOptions()
          */
         void setRecognizeOptions(const RecognizeOptions& opt);
+
+        void dumpComponents();
     private:
         void applyReadMask();
         BackupPage * cpage();
@@ -143,7 +152,6 @@ class PumaImpl
         void recognizeSetup();
         void rotate(BitmapPtr * dib, Point * p);
         void saveCSTR(int pass);
-        void saveLayoutToFile(const std::string& fname);
         void saveToText(std::ostream& os) const;
         void saveToText(const std::string& filename) const;
         void spellCorrection();

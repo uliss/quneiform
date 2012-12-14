@@ -46,14 +46,19 @@ public:
     virtual ~AbstractRecognitionServer();
 
     /**
-     * Adds manual layout text block
-     */
-    virtual void addTextBlock(const Rect& r) = 0;
-
-    /**
      * Adds manual layout image block
      */
     virtual void addImageBlock(const Rect& r) = 0;
+
+    /**
+     * Adds manual layout table block
+     */
+    virtual void addTableBlock(const Rect& r) = 0;
+
+    /**
+     * Adds manual layout text block
+     */
+    virtual void addTextBlock(const Rect& r) = 0;
 
     PercentCounter * counter();
     void setCounter(PercentCounter * counter);
@@ -181,6 +186,12 @@ public:
      * @see textBlocks()
      */
     virtual LayoutBlockList imageBlocks() const;
+
+    /**
+     * Returns array of table blocks after page layout
+     * @see imageBlocks()
+     */
+    virtual LayoutBlockList tableBlocks() const;
 
     /**
      * Returns array of text blocks after page layout
