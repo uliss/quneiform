@@ -159,7 +159,7 @@ uint32_t BLOCK::Convert(Handle type, void * lpdata, uint32_t size)
 {
     uint32_t rc = 0;
     rc = (*s_ConvertorBlocks.fnConvertor)(s_ConvertorBlocks.dwContext,
-                                          Type, lpData, Size,
+                                          type_, data_, size_,
                                           type, lpdata, size);
     return rc;
 }

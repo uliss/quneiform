@@ -66,38 +66,38 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 namespace cf {
 namespace cpage {
 
-Data::Data()
+Data::Data() :
+    size_(0),
+    data_(NULL)
 {
-    Type = reinterpret_cast<void*> (-1);
-    Size = 0;
-    lpData = NULL;
+    type_ = reinterpret_cast<void*> (-1);
 }
 
 Data::~Data()
 {
-    if (lpData)
-        delete []lpData;
+    if (data_)
+        delete []data_;
 }
 
-Bool32   Data::SetData(Handle type, void * lpdata, uint32_t size)
+Bool32 Data::SetData(Handle type, void * lpdata, uint32_t size)
 {
-    Type = type;
-    Size = size;
+    type_ = type;
+    size_ = size;
 
-    if (lpData) {
-        delete [] lpData;
-        lpData = NULL;
+    if (data_) {
+        delete [] data_;
+        data_ = NULL;
     }
 
     if (lpdata && size) {
-        lpData = new char[size];
+        data_ = new char[size];
 
-        if (lpData == NULL) {
-            Size = 0;
+        if (data_ == NULL) {
+            size_ = 0;
             return FALSE;
         }
 
-        memcpy(lpData, lpdata, size);
+        memcpy(data_, lpdata, size);
     }
 
     return TRUE;
@@ -105,34 +105,34 @@ Bool32   Data::SetData(Handle type, void * lpdata, uint32_t size)
 
 uint32_t   Data::GetData(Handle type, void * lpdata, uint32_t size)
 {
-    if (type == Type) {
+    if (type == type_) {
         if (lpdata == NULL)
-            return Size;
+            return size_;
 
-        if (Size && lpData)
-            memcpy(lpdata, lpData, Size);
+        if (size_ && data_)
+            memcpy(lpdata, data_, size_);
     }
 
     else
         return Convert(type, lpdata, size);
 
-    return Size;
+    return size_;
 }
 
 Data & Data::operator = (Data & data)
 {
-    SetData(data.Type, data.lpData, data.Size);
+    SetData(data.type_, data.data_, data.size_);
     return *this;
 }
 
 Bool32 Data::operator == (Data & data)
 {
-    if ( Type == data.Type &&
-            Size == data.Size) {
-        if (lpData == data.lpData && lpData == NULL)
+    if ( type_ == data.type_ &&
+            size_ == data.size_) {
+        if (data_ == data.data_ && data_ == NULL)
             return TRUE;
 
-        return memcmp(lpData, data.lpData, Size) == 0;
+        return memcmp(data_, data.data_, size_) == 0;
     }
 
     return FALSE;
@@ -140,14 +140,14 @@ Bool32 Data::operator == (Data & data)
 
 Bool32 Data::Save(Handle to)
 {
-    char * lpName = CPAGE_GetNameInternalType(Type);
+    char * lpName = CPAGE_GetNameInternalType(type_);
     assert(lpName);
     uint32_t len = strlen(lpName) + 1;
 
     if (myWrite(to, &len, sizeof(len)) == sizeof(len) &&
             myWrite(to, lpName, len) == len &&
-            myWrite(to, &Size, sizeof(Size)) == sizeof(Size) &&
-            (Size == 0 ||  myWrite(to, lpData, Size) == Size))
+            myWrite(to, &size_, sizeof(size_)) == sizeof(size_) &&
+            (size_ == 0 ||  myWrite(to, data_, size_) == size_))
         return TRUE;
 
     return FALSE;
@@ -160,24 +160,24 @@ Bool32 Data::Restore(Handle from)
 
     if (myRead(from, &len, sizeof(len)) == sizeof(len) &&
             myRead(from, Name, len) == len) {
-        Type = CPAGE_GetInternalType(Name);
+        type_ = CPAGE_GetInternalType(Name);
 
-        if (myRead(from, &Size, sizeof(Size)) == sizeof(Size)) {
+        if (myRead(from, &size_, sizeof(size_)) == sizeof(size_)) {
             Bool32 rc = FALSE;
 
-            if (!Size)
+            if (!size_)
                 rc = TRUE;
 
             else {
-                if (lpData) {
-                    delete [] lpData;
-                    lpData = NULL;
+                if (data_) {
+                    delete [] data_;
+                    data_ = NULL;
                 }
 
-                lpData = new char[Size];
+                data_ = new char[size_];
 
-                if (lpData)
-                    rc = myRead(from, lpData, Size) == Size;
+                if (data_)
+                    rc = myRead(from, data_, size_) == size_;
             }
 
             return rc;
@@ -189,22 +189,22 @@ Bool32 Data::Restore(Handle from)
 
 Bool32 Data::SaveCompress(Handle to)
 {
-    if (Size == 0)
+    if (size_ == 0)
         return  Save(to);
 
     Bool32 rv;
-    char *compressedData, *lpDataSave = lpData;
-    uint32_t compressedSize, SizeSave = Size;
-    CleanData(Type, lpData, Size);
+    char *compressedData, *lpDataSave = data_;
+    uint32_t compressedSize, SizeSave = size_;
+    CleanData(type_, data_, size_);
 
-    if (!Compress(lpData, Size, &compressedData, &compressedSize))
+    if (!Compress(data_, size_, &compressedData, &compressedSize))
         return FALSE;
 
-    lpData = compressedData;
-    Size = compressedSize;
+    data_ = compressedData;
+    size_ = compressedSize;
     rv = Save(to);
-    lpData = lpDataSave;
-    Size = SizeSave;
+    data_ = lpDataSave;
+    size_ = SizeSave;
     delete []compressedData;
     return rv;
 }
@@ -214,21 +214,21 @@ Bool32 Data::RestoreCompress(Handle from)
     if (!Restore(from))
         return FALSE;
 
-    if (Size == 0)
+    if (size_ == 0)
         return TRUE;
 
     char *decomData;
     uint32_t decomSize;
 
-    if (!Decompress(lpData, Size, &decomData, &decomSize))
+    if (!Decompress(data_, size_, &decomData, &decomSize))
         return FALSE;
 
-    if (lpData)  delete [] lpData;
+    if (data_)  delete [] data_;
 
-    lpData = decomData;
-    Size = decomSize;
+    data_ = decomData;
+    size_ = decomSize;
 
-    if (!ComplianceVersions(Type, &lpData, &Size))
+    if (!ComplianceVersions(type_, &data_, &size_))
         return FALSE;
 
     return TRUE;

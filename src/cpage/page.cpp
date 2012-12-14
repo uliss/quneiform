@@ -183,19 +183,19 @@ uint32_t PAGE::Convert(Handle type, void * lpdata, uint32_t size)
 {
     uint32_t rc = 0;
     rc = (*s_ConvertorPages.fnConvertor)(s_ConvertorPages.dwContext,
-                                         Type, lpData, Size,
+                                         type_, data_, size_,
                                          type, lpdata, size);
     return rc;
 }
 
 PAGEINFO * PAGE::pageInfo()
 {
-    if(Type != PT_PAGEINFO)
+    if(type_ != PT_PAGEINFO)
         return NULL;
 
-    if(Size != sizeof(PAGEINFO))
+    if(size_ != sizeof(PAGEINFO))
         return NULL;
 
-    return (PAGEINFO*) lpData;
+    return (PAGEINFO*) data_;
 }
 

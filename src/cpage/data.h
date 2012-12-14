@@ -76,14 +76,14 @@ class CLA_EXPO Data
         Data();
         virtual ~Data();
 
-        Bool32 SetData(Handle type, void * lpData, uint32_t Size);
-        uint32_t GetData(Handle type, void * lpData, uint32_t Size);
+        Bool32 SetData(Handle type, void * data_, uint32_t Size);
+        uint32_t GetData(Handle type, void * data_, uint32_t Size);
         inline Bool32 GetDataPtr(Handle type, void ** lpdata) {
             Bool32 rc = FALSE;
             assert(lpdata);
 
-            if (type == Type) {
-                *lpdata = lpData;
+            if (type == type_) {
+                *lpdata = data_;
                 rc = TRUE;
             }
 
@@ -91,12 +91,12 @@ class CLA_EXPO Data
         }
 
         inline Handle GetType() {
-            return Type;
+            return type_;
         }
 
         inline Handle SetType(Handle dwType) {
-            Handle old = Type;
-            Type = dwType;
+            Handle old = type_;
+            type_ = dwType;
             return old;
         }
 
@@ -109,9 +109,9 @@ class CLA_EXPO Data
         Bool32 SaveCompress(Handle to);
         Bool32 RestoreCompress(Handle from);
     protected:
-        Handle Type;
-        uint32_t Size;
-        char * lpData;
+        Handle type_;
+        uint32_t size_;
+        char * data_;
 };
 
 }
