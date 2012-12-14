@@ -478,7 +478,7 @@ Handle CPAGE_GetHandleBlock(Handle page, uint32_t block)
 CPAGE_CONVERTOR CPAGE_SetConvertorPages(CPAGE_CONVERTOR data)
 {
     PROLOG;
-    CPAGE_CONVERTOR rc = SetConvertorPages(data);
+    CPAGE_CONVERTOR rc = cf::cpage::SetConvertorPages(data);
     EPILOG;
     return rc;
 }
@@ -613,7 +613,7 @@ Bool32 CPAGE_DeleteAll()
     Bool32 rc = TRUE;
     cf::PageStorage::clear();//Page.Clear();
     NameData.Clear();
-    SetConvertorPages(ConvertorPages); // Piter
+    cf::cpage::SetConvertorPages(ConvertorPages); // Piter
     hCurPage = NULL;
     EPILOG;
     return rc;

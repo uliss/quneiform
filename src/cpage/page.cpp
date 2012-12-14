@@ -59,6 +59,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "backup.h"
 #include "page.h"
 
+namespace cf {
+namespace cpage {
+
+
 //#################################
 PAGE::PAGE()
 {
@@ -197,5 +201,8 @@ PAGEINFO * PAGE::pageInfo()
         return NULL;
 
     return (PAGEINFO*) data_;
+}
+
+}
 }
 

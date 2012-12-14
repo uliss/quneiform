@@ -56,12 +56,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifndef __PAGE_H__
 #define __PAGE_H__
-#include <stdio.h>
 
 #include "cpage.h"
 #include "cpagetyps.h"
 #include "block.h"
 #include "ptrlist.h"
+
+namespace cf {
+namespace cpage {
 
 class CLA_EXPO PAGE: public cf::cpage::Data
 {
@@ -85,5 +87,8 @@ class CLA_EXPO PAGE: public cf::cpage::Data
 };
 
 CPAGE_CONVERTOR SetConvertorPages(CPAGE_CONVERTOR convertor);
+
+}
+}
 
 #endif
