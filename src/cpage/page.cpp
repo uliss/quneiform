@@ -90,7 +90,7 @@ PAGE & PAGE::operator = (PAGE & Page)
     for (int i = 0; i < count; i++)
         Block.AddTail(Page.Block.GetItem(Page.Block.GetHandle(i)));
 
-    *(DATA *)this = Page;
+    *(Data *)this = Page;
     return *this;
 }
 
@@ -107,7 +107,7 @@ Bool32  PAGE::Save(Handle to)
             Block.GetItem(Block.GetHandle(i)).Save(to);
 
     if (rc)
-        rc = DATA::Save(to);
+        rc = Data::Save(to);
 
     return rc;
 }
@@ -128,7 +128,7 @@ Bool32  PAGE::Restore(Handle from)
     }
 
     if (rc)
-        rc = DATA::Restore(from);
+        rc = Data::Restore(from);
 
     return rc;
 }
@@ -145,7 +145,7 @@ Bool32  PAGE::SaveCompress(Handle to)
             Block.GetItem(Block.GetHandle(i)).SaveCompress(to);
 
     if (rc)
-        rc = DATA::SaveCompress(to);
+        rc = Data::SaveCompress(to);
 
     return rc;
 }
@@ -166,7 +166,7 @@ Bool32  PAGE::RestoreCompress(Handle from)
     }
 
     if (rc)
-        rc = DATA::RestoreCompress(from);
+        rc = Data::RestoreCompress(from);
 
     return rc;
 }

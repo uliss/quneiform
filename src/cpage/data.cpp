@@ -67,20 +67,20 @@ namespace cf {
 namespace cpage {
 
 //##############################
-DATA::DATA()
+Data::Data()
 {
     Type = reinterpret_cast<void*> (-1);
     Size = 0;
     lpData = NULL;
 }
 //##############################
-DATA::~DATA()
+Data::~Data()
 {
     if (lpData)
         delete []lpData;
 }
 //##############################
-Bool32   DATA::SetData(Handle type, void * lpdata, uint32_t size)
+Bool32   Data::SetData(Handle type, void * lpdata, uint32_t size)
 {
     Type = type;
     Size = size;
@@ -104,7 +104,7 @@ Bool32   DATA::SetData(Handle type, void * lpdata, uint32_t size)
     return TRUE;
 }
 //##############################
-uint32_t   DATA::GetData(Handle type, void * lpdata, uint32_t size)
+uint32_t   Data::GetData(Handle type, void * lpdata, uint32_t size)
 {
     if (type == Type) {
         if (lpdata == NULL)
@@ -120,13 +120,13 @@ uint32_t   DATA::GetData(Handle type, void * lpdata, uint32_t size)
     return Size;
 }
 //#################################
-DATA & DATA::operator = (DATA & data)
+Data & Data::operator = (Data & data)
 {
     SetData(data.Type, data.lpData, data.Size);
     return *this;
 }
 //#################################
-Bool32 DATA::operator == (DATA & data)
+Bool32 Data::operator == (Data & data)
 {
     if ( Type == data.Type &&
             Size == data.Size) {
@@ -139,7 +139,7 @@ Bool32 DATA::operator == (DATA & data)
     return FALSE;
 }
 //#################################
-Bool32 DATA::Save(Handle to)
+Bool32 Data::Save(Handle to)
 {
     char * lpName = CPAGE_GetNameInternalType(Type);
     assert(lpName);
@@ -154,7 +154,7 @@ Bool32 DATA::Save(Handle to)
     return FALSE;
 }
 //#################################
-Bool32 DATA::Restore(Handle from)
+Bool32 Data::Restore(Handle from)
 {
     uint32_t len = 0;
     char Name[260];
@@ -188,7 +188,7 @@ Bool32 DATA::Restore(Handle from)
     return FALSE;
 }
 //#################################
-Bool32 DATA::SaveCompress(Handle to)
+Bool32 Data::SaveCompress(Handle to)
 {
     if (Size == 0)
         return  Save(to);
@@ -211,7 +211,7 @@ Bool32 DATA::SaveCompress(Handle to)
 }
 
 //#################################
-Bool32 DATA::RestoreCompress(Handle from)
+Bool32 Data::RestoreCompress(Handle from)
 {
     if (!Restore(from))
         return FALSE;

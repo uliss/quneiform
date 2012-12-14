@@ -70,15 +70,15 @@ typedef struct tagCompressHeader {
 namespace cf {
 namespace cpage {
 
-class CLA_EXPO DATA
+class CLA_EXPO Data
 {
     protected:
         Handle Type;
         uint32_t Size;
         char * lpData;
     public:
-        DATA();
-        virtual ~DATA();
+        Data();
+        virtual ~Data();
 
         Bool32 SetData(Handle type, void * lpData, uint32_t Size);
         uint32_t GetData(Handle type, void * lpData, uint32_t Size);
@@ -104,8 +104,8 @@ class CLA_EXPO DATA
             return old;
         }
 
-        DATA & operator =(DATA & data);
-        Bool32 operator ==(DATA & data);
+        Data & operator =(Data & data);
+        Bool32 operator ==(Data & data);
 
     public:
         virtual uint32_t Convert(Handle type, void * lpdata, uint32_t size) = 0;

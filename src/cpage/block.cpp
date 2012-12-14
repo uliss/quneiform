@@ -87,7 +87,7 @@ BLOCK & BLOCK::operator = (BLOCK & Block)
     UserNum = Block.UserNum;
     Flags = Block.Flags;
     InterNum = Block.InterNum;
-    *(DATA *)this = Block;
+    *(Data *)this = Block;
     return *this;
 }
 //##############################
@@ -96,7 +96,7 @@ Bool32 BLOCK::operator == (BLOCK & Block)
     if ( UserNum == Block.UserNum &&
             Flags == Block.Flags &&
             InterNum == Block.InterNum &&
-            *(DATA *)this == Block)
+            *(Data *)this == Block)
         return TRUE;
 
     return FALSE;
@@ -106,7 +106,7 @@ Bool32 BLOCK::Save(Handle to)
 {
     if ( myWrite(to, &UserNum, sizeof(UserNum)) == sizeof(UserNum) &&
             myWrite(to, &Flags, sizeof(Flags)) == sizeof(Flags) &&
-            DATA::Save(to) &&
+            Data::Save(to) &&
             myWrite(to, &InterNum, sizeof(InterNum)) == sizeof(InterNum))
         return TRUE;
 
@@ -117,7 +117,7 @@ Bool32 BLOCK::Restore(Handle from)
 {
     if ( myRead(from, &UserNum, sizeof(UserNum)) == sizeof(UserNum) &&
             myRead(from, &Flags, sizeof(Flags)) == sizeof(Flags) &&
-            DATA::Restore(from) &&
+            Data::Restore(from) &&
             myRead(from, &InterNum, sizeof(InterNum)) == sizeof(InterNum))
         return TRUE;
 
@@ -128,7 +128,7 @@ Bool32 BLOCK::SaveCompress(Handle to)
 {
     if ( myWrite(to, &UserNum, sizeof(UserNum)) == sizeof(UserNum) &&
             myWrite(to, &Flags, sizeof(Flags)) == sizeof(Flags) &&
-            DATA::SaveCompress(to) &&
+            Data::SaveCompress(to) &&
             myWrite(to, &InterNum, sizeof(InterNum)) == sizeof(InterNum))
         return TRUE;
 
@@ -139,7 +139,7 @@ Bool32 BLOCK::RestoreCompress(Handle from)
 {
     if ( myRead(from, &UserNum, sizeof(UserNum)) == sizeof(UserNum) &&
             myRead(from, &Flags, sizeof(Flags)) == sizeof(Flags) &&
-            DATA::RestoreCompress(from) &&
+            Data::RestoreCompress(from) &&
             myRead(from, &InterNum, sizeof(InterNum)) == sizeof(InterNum))
         return TRUE;
 

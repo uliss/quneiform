@@ -60,7 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cpage.h"
 #include "data.h"
 
-class CLA_EXPO BLOCK: public cf::cpage::DATA
+class CLA_EXPO BLOCK: public cf::cpage::Data
 {
     public:
         uint32_t UserNum;
@@ -75,7 +75,7 @@ class CLA_EXPO BLOCK: public cf::cpage::DATA
         Bool32  Create(Handle Type, uint32_t UserNum = 0, uint32_t Flags = 0, void * lpData = NULL, uint32_t Size = 0);
 
         Handle  GetType() {
-            return DATA::GetType();
+            return Data::GetType();
         };
         uint32_t  GetUserNum() {
             return UserNum;
