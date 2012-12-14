@@ -70,14 +70,15 @@ namespace cpage {
 class CLA_EXPO Page: public Data
 {
     public:
-//        std::vector<cf::cpage::Block*> Block;
-        PtrList<cf::cpage::Block> Block;
+        PtrList<cf::cpage::Block> blocks;
     public:
         Handle createBlock(Handle Type, uint32_t UserNum = 0, uint32_t Flags = 0, void * lpData = NULL, uint32_t Size = 0);
     public:
         Page();
         ~Page();
         Page& operator=(Page& page);
+
+        size_t blockCount() const;
 
         bool save(Handle to);
         Bool32 restore(Handle from);

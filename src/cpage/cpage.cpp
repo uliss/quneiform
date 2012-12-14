@@ -64,8 +64,8 @@
 extern Handle hCurPage;
 extern PtrList<NAMEDATA> NameData;
 
-#define _BLOCK_H(page, block) page.Block.GetItem(block)
-#define _BLOCK_N(page, block) _BLOCK_H(page, page.Block.GetHandle(block))
+#define _BLOCK_H(page, block) page.blocks.GetItem(block)
+#define _BLOCK_N(page, block) _BLOCK_H(page, page.blocks.GetHandle(block))
 
 #define BLOCK_H_H(p, block) _BLOCK_H(cf::cpage::PageStorage::page(p), block)
 #define BLOCK_H_N(p, block) _BLOCK_N(cf::cpage::PageStorage::page(p), block)
@@ -362,7 +362,7 @@ uint32_t CPAGE_GetCountBlock(Handle page)
     PROLOG;
     using namespace cf::cpage;
     SetReturnCode_cpage(IDS_ERR_NO);
-    uint32_t rc = PageStorage::page(page).Block.GetCount();
+    uint32_t rc = PageStorage::page(page).blocks.GetCount();
     EPILOG;
     return rc;
 }
@@ -372,7 +372,7 @@ void CPAGE_DeleteBlock(Handle page, Handle block)
     PROLOG;
     using namespace cf::cpage;
     SetReturnCode_cpage(IDS_ERR_NO);
-    PageStorage::page(page).Block.Del(block);
+    PageStorage::page(page).blocks.Del(block);
     EPILOG;
 }
 
@@ -490,7 +490,7 @@ Handle CPAGE_GetHandleBlock(Handle page, uint32_t block)
 {
     PROLOG;
     using namespace cf::cpage;
-    Handle rc = PageStorage::page(page).Block.GetHandle(block);
+    Handle rc = PageStorage::page(page).blocks.GetHandle(block);
     EPILOG;
     return rc;
 }
@@ -583,7 +583,7 @@ Handle CPAGE_GetBlockFirst(Handle page, Handle type)
 {
     PROLOG;
     using namespace cf::cpage;
-    int count = PageStorage::page(page).Block.GetCount();
+    int count = PageStorage::page(page).blocks.GetCount();
     int i;
     /*
      #ifdef _DEBUG
@@ -598,7 +598,7 @@ Handle CPAGE_GetBlockFirst(Handle page, Handle type)
             break;
     }
 
-    Handle rc = i < count ? PageStorage::page(page).Block.GetHandle(i) : NULL;
+    Handle rc = i < count ? PageStorage::page(page).blocks.GetHandle(i) : NULL;
     EPILOG;
     return rc;
 }
@@ -607,8 +607,8 @@ Handle CPAGE_GetBlockNext(Handle page, Handle block, Handle type)
 {
     PROLOG;
     using namespace cf::cpage;
-    int count = PageStorage::page(page).Block.GetCount();
-    int pos = PageStorage::page(page).Block.GetPos(block) + 1;
+    int count = PageStorage::page(page).blocks.GetCount();
+    int pos = PageStorage::page(page).blocks.GetPos(block) + 1;
     int i;
 
     DefConvertInit();
@@ -619,7 +619,7 @@ Handle CPAGE_GetBlockNext(Handle page, Handle block, Handle type)
             break;
     }
 
-    Handle rc = i < count ? PageStorage::page(page).Block.GetHandle(i) : NULL;
+    Handle rc = i < count ? PageStorage::page(page).blocks.GetHandle(i) : NULL;
     EPILOG;
     return rc;
 }
