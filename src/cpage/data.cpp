@@ -66,20 +66,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 namespace cf {
 namespace cpage {
 
-//##############################
 Data::Data()
 {
     Type = reinterpret_cast<void*> (-1);
     Size = 0;
     lpData = NULL;
 }
-//##############################
+
 Data::~Data()
 {
     if (lpData)
         delete []lpData;
 }
-//##############################
+
 Bool32   Data::SetData(Handle type, void * lpdata, uint32_t size)
 {
     Type = type;
@@ -103,7 +102,7 @@ Bool32   Data::SetData(Handle type, void * lpdata, uint32_t size)
 
     return TRUE;
 }
-//##############################
+
 uint32_t   Data::GetData(Handle type, void * lpdata, uint32_t size)
 {
     if (type == Type) {
@@ -119,13 +118,13 @@ uint32_t   Data::GetData(Handle type, void * lpdata, uint32_t size)
 
     return Size;
 }
-//#################################
+
 Data & Data::operator = (Data & data)
 {
     SetData(data.Type, data.lpData, data.Size);
     return *this;
 }
-//#################################
+
 Bool32 Data::operator == (Data & data)
 {
     if ( Type == data.Type &&
@@ -138,7 +137,7 @@ Bool32 Data::operator == (Data & data)
 
     return FALSE;
 }
-//#################################
+
 Bool32 Data::Save(Handle to)
 {
     char * lpName = CPAGE_GetNameInternalType(Type);
@@ -153,7 +152,7 @@ Bool32 Data::Save(Handle to)
 
     return FALSE;
 }
-//#################################
+
 Bool32 Data::Restore(Handle from)
 {
     uint32_t len = 0;
@@ -187,7 +186,7 @@ Bool32 Data::Restore(Handle from)
 
     return FALSE;
 }
-//#################################
+
 Bool32 Data::SaveCompress(Handle to)
 {
     if (Size == 0)
@@ -210,7 +209,6 @@ Bool32 Data::SaveCompress(Handle to)
     return rv;
 }
 
-//#################################
 Bool32 Data::RestoreCompress(Handle from)
 {
     if (!Restore(from))

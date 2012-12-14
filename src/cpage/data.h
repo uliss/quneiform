@@ -72,10 +72,6 @@ namespace cpage {
 
 class CLA_EXPO Data
 {
-    protected:
-        Handle Type;
-        uint32_t Size;
-        char * lpData;
     public:
         Data();
         virtual ~Data();
@@ -106,14 +102,16 @@ class CLA_EXPO Data
 
         Data & operator =(Data & data);
         Bool32 operator ==(Data & data);
-
     public:
         virtual uint32_t Convert(Handle type, void * lpdata, uint32_t size) = 0;
-
         Bool32 Save(Handle to);
         Bool32 Restore(Handle from);
         Bool32 SaveCompress(Handle to);
         Bool32 RestoreCompress(Handle from);
+    protected:
+        Handle Type;
+        uint32_t Size;
+        char * lpData;
 };
 
 }
