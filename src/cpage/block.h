@@ -76,25 +76,31 @@ class CLA_EXPO BLOCK: public cf::cpage::Data
 
         Handle  type() {
             return Data::type();
-        };
+        }
+
         uint32_t  GetUserNum() {
             return UserNum;
-        };
+        }
+
         void    SetUserNum(uint32_t user) {
             UserNum = user;
-        };
+        }
+
         uint32_t  GetFlags() {
             return Flags;
-        };
+        }
+
         void    SetFlags(uint32_t flags) {
             Flags = flags;
-        };
+        }
+
         uint32_t  GetInterNum() {
             return InterNum;
-        };
+        }
+
         void    SetInterNum(uint32_t user) {
             InterNum = user;
-        };
+        }
 
         BLOCK & operator = (BLOCK & Block);
         Bool32  operator == (BLOCK & Block);
