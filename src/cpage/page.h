@@ -57,6 +57,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __PAGE_H__
 #define __PAGE_H__
 
+#include <vector>
+
 #include "cpage.h"
 #include "cpagetyps.h"
 #include "block.h"
@@ -68,16 +70,16 @@ namespace cpage {
 class CLA_EXPO Page: public Data
 {
     public:
-        PtrList<cf::cpage::Block>  Block;
+//        std::vector<cf::cpage::Block*> Block;
+        PtrList<cf::cpage::Block> Block;
     public:
-        Handle  CreateBlock(Handle Type, uint32_t UserNum = 0, uint32_t Flags = 0, void * lpData = NULL, uint32_t Size = 0);
+        Handle createBlock(Handle Type, uint32_t UserNum = 0, uint32_t Flags = 0, void * lpData = NULL, uint32_t Size = 0);
     public:
-        Page ();
-        virtual ~Page();
+        Page();
+        ~Page();
+        Page& operator=(Page& page);
 
-        Page & operator = (Page & Page);
-
-        Bool32 save(Handle to);
+        bool save(Handle to);
         Bool32 restore(Handle from);
         Bool32 saveCompress(Handle to);
         Bool32 restoreCompress(Handle from);

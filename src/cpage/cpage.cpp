@@ -231,7 +231,7 @@ Handle CPAGE_CreateBlock(Handle page, Handle Type, uint32_t UserNum,
 
     assert(CPAGE_GetNameInternalType(Type));
 
-    Handle rc = PageStorage::page(page).CreateBlock(Type, UserNum, Flags, lpData, Size);
+    Handle rc = PageStorage::page(page).createBlock(Type, UserNum, Flags, lpData, Size);
     EPILOG;
     return rc;
 }

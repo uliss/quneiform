@@ -100,7 +100,7 @@ template<class TYPE> class PtrList
 
         TYPE & GetItem(Handle hPos);
         int    GetPos(Handle hPos);
-        Handle GetHandle(int Number);
+        Handle GetHandle(int Number) const;
 
         Handle FindFirst(TYPE & type);
         Handle FindNext(TYPE & type, Handle hPos);
@@ -236,7 +236,7 @@ template<class TYPE> TYPE & PtrList<TYPE>::GetPrev(Handle & pos)
     return tmp->Data;
 }
 //#################################
-template<class TYPE> Handle PtrList<TYPE>::GetHandle(int pos)
+template<class TYPE> Handle PtrList<TYPE>::GetHandle(int pos) const
 {
     int i;
     PtrList * rc = NULL;

@@ -71,41 +71,41 @@ Page::~Page()
     Block.Clear();
 }
 
-Handle  Page::CreateBlock(Handle Type, uint32_t UserNum , uint32_t Flags , void * lpData , uint32_t Size )
+Handle Page::createBlock(Handle Type, uint32_t UserNum , uint32_t Flags , void * lpData , uint32_t Size )
 {
     cf::cpage::Block tmp;
     Handle hBlock = Block.AddTail(tmp);
 
     if (hBlock) {
-        if (!Block.GetItem(hBlock).create(Type, UserNum , Flags , lpData , Size))
+        if (!Block.GetItem(hBlock).create(Type, UserNum, Flags, lpData, Size))
             return NULL;
     }
 
     return hBlock;
 }
 
-Page & Page::operator = (Page & Page)
+Page& Page::operator=(Page& page)
 {
-    int count = Page.Block.GetCount();
+    int count = page.Block.GetCount();
     Block.Clear();
 
     for (int i = 0; i < count; i++)
-        Block.AddTail(Page.Block.GetItem(Page.Block.GetHandle(i)));
+        Block.AddTail(page.Block.GetItem(page.Block.GetHandle(i)));
 
-    *(Data *)this = Page;
+    *(Data *)this = page;
     return *this;
 }
 
-Bool32  Page::save(Handle to)
+bool Page::save(Handle to)
 {
     int count = Block.GetCount();
-    Bool32 rc = FALSE;
-    int i;
+    bool rc = FALSE;
     rc = myWrite(to, &count, sizeof(count)) == sizeof(count);
 
-    if (rc == TRUE && count)
-        for (i = 0; i < count; i++)
+    if (rc == TRUE && count) {
+        for (int i = 0; i < count; i++)
             Block.GetItem(Block.GetHandle(i)).save(to);
+    }
 
     if (rc)
         rc = Data::save(to);
