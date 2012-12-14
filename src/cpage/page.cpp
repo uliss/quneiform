@@ -68,16 +68,16 @@ Page::Page()
 
 Page::~Page()
 {
-    blocks.Clear();
+    blocks_.Clear();
 }
 
 Handle Page::createBlock(Handle Type, uint32_t UserNum , uint32_t Flags , void * lpData , uint32_t Size )
 {
     cf::cpage::Block tmp;
-    Handle hBlock = blocks.AddTail(tmp);
+    Handle hBlock = blocks_.AddTail(tmp);
 
     if (hBlock) {
-        if (!blocks.GetItem(hBlock).create(Type, UserNum, Flags, lpData, Size))
+        if (!blocks_.GetItem(hBlock).create(Type, UserNum, Flags, lpData, Size))
             return NULL;
     }
 
@@ -86,30 +86,50 @@ Handle Page::createBlock(Handle Type, uint32_t UserNum , uint32_t Flags , void *
 
 Page& Page::operator=(Page& page)
 {
-    int count = page.blocks.GetCount();
-    blocks.Clear();
+    int count = page.blocks_.GetCount();
+    blocks_.Clear();
 
     for (int i = 0; i < count; i++)
-        blocks.AddTail(page.blocks.GetItem(page.blocks.GetHandle(i)));
+        blocks_.AddTail(page.blocks_.GetItem(page.blocks_.GetHandle(i)));
 
     *(Data *)this = page;
     return *this;
 }
 
+Block &Page::blockData(Handle b)
+{
+    return blocks_.GetItem(b);
+}
+
+Block *Page::blockAt(int pos)
+{
+    return (Block*) blocks_.GetHandle(pos);
+}
+
 size_t Page::blockCount() const
 {
-    return blocks.GetCount();
+    return blocks_.GetCount();
+}
+
+int Page::findBlockPos(Handle b)
+{
+    return blocks_.GetPos(b);
+}
+
+bool Page::removeBlock(Block *b)
+{
+    return blocks_.Del(b);
 }
 
 bool Page::save(Handle to)
 {
-    int count = blocks.GetCount();
+    int count = blocks_.GetCount();
     bool rc = FALSE;
     rc = myWrite(to, &count, sizeof(count)) == sizeof(count);
 
     if (rc == TRUE && count) {
         for (int i = 0; i < count; i++)
-            blocks.GetItem(blocks.GetHandle(i)).save(to);
+            blocks_.GetItem(blocks_.GetHandle(i)).save(to);
     }
 
     if (rc)
@@ -122,7 +142,7 @@ Bool32  Page::restore(Handle from)
 {
     Bool32 rc = FALSE;
     int count, i;
-    blocks.Clear();
+    blocks_.Clear();
     rc = myRead(from, &count, sizeof(count)) == sizeof(count);
 
     for (i = 0; i < count && rc == TRUE; i++) {
@@ -130,7 +150,7 @@ Bool32  Page::restore(Handle from)
         rc = block.restore(from);
 
         if (rc)
-            blocks.AddTail(block);
+            blocks_.AddTail(block);
     }
 
     if (rc)
@@ -141,14 +161,14 @@ Bool32  Page::restore(Handle from)
 
 Bool32  Page::saveCompress(Handle to)
 {
-    int count = blocks.GetCount();
+    int count = blocks_.GetCount();
     Bool32 rc = FALSE;
     int i;
     rc = myWrite(to, &count, sizeof(count)) == sizeof(count);
 
     if (rc == TRUE && count)
         for (i = 0; i < count; i++)
-            blocks.GetItem(blocks.GetHandle(i)).saveCompress(to);
+            blocks_.GetItem(blocks_.GetHandle(i)).saveCompress(to);
 
     if (rc)
         rc = Data::saveCompress(to);
@@ -160,7 +180,7 @@ Bool32  Page::restoreCompress(Handle from)
 {
     Bool32 rc = FALSE;
     int count, i;
-    blocks.Clear();
+    blocks_.Clear();
     rc = myRead(from, &count, sizeof(count)) == sizeof(count);
 
     for (i = 0; i < count && rc == TRUE; i++) {
@@ -168,7 +188,7 @@ Bool32  Page::restoreCompress(Handle from)
         rc = block.restoreCompress(from);
 
         if (rc)
-            blocks.AddTail(block);
+            blocks_.AddTail(block);
     }
 
     if (rc)

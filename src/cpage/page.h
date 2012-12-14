@@ -69,8 +69,8 @@ namespace cpage {
 
 class CLA_EXPO Page: public Data
 {
-    public:
-        PtrList<cf::cpage::Block> blocks;
+    private:
+        PtrList<cf::cpage::Block> blocks_;
     public:
         Handle createBlock(Handle Type, uint32_t UserNum = 0, uint32_t Flags = 0, void * lpData = NULL, uint32_t Size = 0);
     public:
@@ -78,7 +78,11 @@ class CLA_EXPO Page: public Data
         ~Page();
         Page& operator=(Page& page);
 
+        Block& blockData(Handle b);
+        Block * blockAt(int pos);
         size_t blockCount() const;
+        int findBlockPos(Handle b);
+        bool removeBlock(Block * b);
 
         bool save(Handle to);
         Bool32 restore(Handle from);
