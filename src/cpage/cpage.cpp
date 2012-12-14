@@ -486,7 +486,7 @@ CPAGE_CONVERTOR CPAGE_SetConvertorPages(CPAGE_CONVERTOR data)
 CPAGE_CONVERTOR CPAGE_SetConvertorBlocks(Handle page, CPAGE_CONVERTOR data)
 {
     PROLOG;
-    CPAGE_CONVERTOR rc = SetConvertorBlocks(data);
+    CPAGE_CONVERTOR rc = cf::cpage::SetConvertorBlocks(data);
     EPILOG;
     return rc;
 }

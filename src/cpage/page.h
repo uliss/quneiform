@@ -66,7 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 class CLA_EXPO PAGE: public cf::cpage::Data
 {
     public:
-        PtrList<BLOCK>  Block;
+        PtrList<cf::cpage::BLOCK>  Block;
     public:
         Handle  CreateBlock(Handle Type, uint32_t UserNum = 0, uint32_t Flags = 0, void * lpData = NULL, uint32_t Size = 0);
     public:

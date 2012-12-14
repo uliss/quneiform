@@ -61,18 +61,20 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "block.h"
 #include "mymem.h"
 
-//##############################
+namespace cf {
+namespace cpage {
+
 BLOCK::BLOCK()
 {
     UserNum = 0;
     Flags = 0;
     InterNum = 0;
 }
-//##############################
+
 BLOCK::~BLOCK()
 {
 }
-//##############################
+
 Bool32  BLOCK::Create(Handle type, uint32_t usernum , uint32_t flags , void * lpdata , uint32_t size )
 {
     UserNum = usernum;
@@ -81,7 +83,7 @@ Bool32  BLOCK::Create(Handle type, uint32_t usernum , uint32_t flags , void * lp
     setData(type, lpdata, size);
     return TRUE;
 }
-//##############################
+
 BLOCK & BLOCK::operator = (BLOCK & Block)
 {
     UserNum = Block.UserNum;
@@ -90,7 +92,7 @@ BLOCK & BLOCK::operator = (BLOCK & Block)
     *(Data *)this = Block;
     return *this;
 }
-//##############################
+
 Bool32 BLOCK::operator == (BLOCK & Block)
 {
     if ( UserNum == Block.UserNum &&
@@ -101,7 +103,7 @@ Bool32 BLOCK::operator == (BLOCK & Block)
 
     return FALSE;
 }
-//##############################
+
 Bool32 BLOCK::save(Handle to)
 {
     if ( myWrite(to, &UserNum, sizeof(UserNum)) == sizeof(UserNum) &&
@@ -112,7 +114,7 @@ Bool32 BLOCK::save(Handle to)
 
     return FALSE;
 }
-//##############################
+
 Bool32 BLOCK::restore(Handle from)
 {
     if ( myRead(from, &UserNum, sizeof(UserNum)) == sizeof(UserNum) &&
@@ -123,7 +125,7 @@ Bool32 BLOCK::restore(Handle from)
 
     return FALSE;
 }
-//##############################
+
 Bool32 BLOCK::saveCompress(Handle to)
 {
     if ( myWrite(to, &UserNum, sizeof(UserNum)) == sizeof(UserNum) &&
@@ -134,7 +136,7 @@ Bool32 BLOCK::saveCompress(Handle to)
 
     return FALSE;
 }
-//##############################
+
 Bool32 BLOCK::restoreCompress(Handle from)
 {
     if ( myRead(from, &UserNum, sizeof(UserNum)) == sizeof(UserNum) &&
@@ -147,14 +149,14 @@ Bool32 BLOCK::restoreCompress(Handle from)
 }
 
 static  CPAGE_CONVERTOR s_ConvertorBlocks = {0, DefConvertBlock};
-//#################################
+
 CPAGE_CONVERTOR SetConvertorBlocks(CPAGE_CONVERTOR convertor)
 {
     CPAGE_CONVERTOR old = s_ConvertorBlocks;
     s_ConvertorBlocks = convertor;
     return old;
 }
-//#################################
+
 uint32_t BLOCK::Convert(Handle type, void * lpdata, uint32_t size)
 {
     uint32_t rc = 0;
@@ -162,4 +164,7 @@ uint32_t BLOCK::Convert(Handle type, void * lpdata, uint32_t size)
                                           type_, data_, size_,
                                           type, lpdata, size);
     return rc;
+}
+
+}
 }

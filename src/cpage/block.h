@@ -60,14 +60,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cpage.h"
 #include "data.h"
 
-class CLA_EXPO BLOCK: public cf::cpage::Data
+namespace cf {
+namespace cpage {
+
+class CLA_EXPO BLOCK: public Data
 {
     public:
         uint32_t UserNum;
         uint32_t Flags;
         uint32_t InterNum;
-
-
     public:
         BLOCK();
         virtual ~BLOCK();
@@ -114,5 +115,8 @@ class CLA_EXPO BLOCK: public cf::cpage::Data
 };
 
 CPAGE_CONVERTOR SetConvertorBlocks(CPAGE_CONVERTOR convertor);
+
+}
+}
 
 #endif
