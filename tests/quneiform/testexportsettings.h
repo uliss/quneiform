@@ -29,6 +29,7 @@ public:
     explicit TestExportSettings(QObject *parent = 0);
 private slots:
     void testExtension();
+    void testCfFormat();
 };
 
 #endif // TESTEXPORTSETTINGS_H
