@@ -63,11 +63,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 namespace cf {
 namespace cpage {
 
-class CLA_EXPO BLOCK: public Data
+class CLA_EXPO Block: public Data
 {
     public:
-        BLOCK();
-        virtual ~BLOCK();
+        Block();
+        virtual ~Block();
 
         Bool32  Create(Handle Type, uint32_t user_num_ = 0, uint32_t flags_ = 0, void * lpData = NULL, uint32_t Size = 0);
 
@@ -99,8 +99,8 @@ class CLA_EXPO BLOCK: public Data
             internal_num_ = user;
         }
 
-        BLOCK & operator = (BLOCK & Block);
-        Bool32  operator == (BLOCK & Block);
+        Block & operator = (Block & Block);
+        Bool32  operator == (Block & Block);
 
         Bool32 save(Handle to);
         Bool32 restore(Handle from);

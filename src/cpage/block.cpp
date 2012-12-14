@@ -64,16 +64,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 namespace cf {
 namespace cpage {
 
-BLOCK::BLOCK() :
+Block::Block() :
     user_num_(0),
     flags_(0),
     internal_num_(0)
 {}
 
-BLOCK::~BLOCK()
+Block::~Block()
 {}
 
-Bool32  BLOCK::Create(Handle type, uint32_t usernum , uint32_t flags , void * lpdata , uint32_t size )
+Bool32  Block::Create(Handle type, uint32_t usernum , uint32_t flags , void * lpdata , uint32_t size )
 {
     user_num_ = usernum;
     flags_ = flags;
@@ -82,7 +82,7 @@ Bool32  BLOCK::Create(Handle type, uint32_t usernum , uint32_t flags , void * lp
     return TRUE;
 }
 
-BLOCK & BLOCK::operator = (BLOCK & Block)
+Block & Block::operator = (Block & Block)
 {
     user_num_ = Block.user_num_;
     flags_ = Block.flags_;
@@ -91,7 +91,7 @@ BLOCK & BLOCK::operator = (BLOCK & Block)
     return *this;
 }
 
-Bool32 BLOCK::operator == (BLOCK & Block)
+Bool32 Block::operator == (Block & Block)
 {
     if ( user_num_ == Block.user_num_ &&
             flags_ == Block.flags_ &&
@@ -102,7 +102,7 @@ Bool32 BLOCK::operator == (BLOCK & Block)
     return FALSE;
 }
 
-Bool32 BLOCK::save(Handle to)
+Bool32 Block::save(Handle to)
 {
     if ( myWrite(to, &user_num_, sizeof(user_num_)) == sizeof(user_num_) &&
             myWrite(to, &flags_, sizeof(flags_)) == sizeof(flags_) &&
@@ -113,7 +113,7 @@ Bool32 BLOCK::save(Handle to)
     return FALSE;
 }
 
-Bool32 BLOCK::restore(Handle from)
+Bool32 Block::restore(Handle from)
 {
     if ( myRead(from, &user_num_, sizeof(user_num_)) == sizeof(user_num_) &&
             myRead(from, &flags_, sizeof(flags_)) == sizeof(flags_) &&
@@ -124,7 +124,7 @@ Bool32 BLOCK::restore(Handle from)
     return FALSE;
 }
 
-Bool32 BLOCK::saveCompress(Handle to)
+Bool32 Block::saveCompress(Handle to)
 {
     if ( myWrite(to, &user_num_, sizeof(user_num_)) == sizeof(user_num_) &&
             myWrite(to, &flags_, sizeof(flags_)) == sizeof(flags_) &&
@@ -135,7 +135,7 @@ Bool32 BLOCK::saveCompress(Handle to)
     return FALSE;
 }
 
-Bool32 BLOCK::restoreCompress(Handle from)
+Bool32 Block::restoreCompress(Handle from)
 {
     if ( myRead(from, &user_num_, sizeof(user_num_)) == sizeof(user_num_) &&
             myRead(from, &flags_, sizeof(flags_)) == sizeof(flags_) &&
@@ -155,7 +155,7 @@ CPAGE_CONVERTOR SetConvertorBlocks(CPAGE_CONVERTOR convertor)
     return old;
 }
 
-uint32_t BLOCK::Convert(Handle type, void * lpdata, uint32_t size)
+uint32_t Block::Convert(Handle type, void * lpdata, uint32_t size)
 {
     uint32_t rc = 0;
     rc = (*s_ConvertorBlocks.fnConvertor)(s_ConvertorBlocks.dwContext,

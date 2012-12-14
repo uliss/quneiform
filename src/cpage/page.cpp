@@ -71,7 +71,7 @@ PAGE::~PAGE()
 //#################################
 Handle  PAGE::CreateBlock(Handle Type, uint32_t UserNum , uint32_t Flags , void * lpData , uint32_t Size )
 {
-    cf::cpage::BLOCK tmp;
+    cf::cpage::Block tmp;
     Handle hBlock = Block.AddTail(tmp);
 
     if (hBlock) {
@@ -120,7 +120,7 @@ Bool32  PAGE::restore(Handle from)
     rc = myRead(from, &count, sizeof(count)) == sizeof(count);
 
     for (i = 0; i < count && rc == TRUE; i++) {
-        cf::cpage::BLOCK block;
+        cf::cpage::Block block;
         rc = block.restore(from);
 
         if (rc)
@@ -158,7 +158,7 @@ Bool32  PAGE::restoreCompress(Handle from)
     rc = myRead(from, &count, sizeof(count)) == sizeof(count);
 
     for (i = 0; i < count && rc == TRUE; i++) {
-        cf::cpage::BLOCK block;
+        cf::cpage::Block block;
         rc = block.restoreCompress(from);
 
         if (rc)
