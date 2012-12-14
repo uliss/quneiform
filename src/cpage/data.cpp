@@ -75,8 +75,7 @@ Data::Data() :
 
 Data::~Data()
 {
-    if (data_)
-        delete []data_;
+    delete []data_;
 }
 
 Bool32 Data::SetData(Handle type, void * lpdata, uint32_t size)
