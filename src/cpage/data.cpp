@@ -95,6 +95,11 @@ void Data::setData(Handle type, const void * src, uint32_t size)
     }
 }
 
+bool Data::empty() const
+{
+    return !size_ || !data_;
+}
+
 uint32_t Data::getData(Handle type, void * dest, uint32_t size)
 {
     if (type == type_) {

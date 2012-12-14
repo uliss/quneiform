@@ -29,6 +29,7 @@ using namespace cf;
 void TestBackupPage::testInit()
 {
     BackupPage p;
+    CPPUNIT_ASSERT(p.empty());
     p.Clear();
 }
 

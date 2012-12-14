@@ -92,7 +92,7 @@ class CLA_EXPO Data
         void setData(Handle type, const void * src, uint32_t size);
 
         /**
-         *
+         * Returns true if data is empty
          */
         bool empty() const;
 
