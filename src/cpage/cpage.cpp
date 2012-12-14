@@ -274,7 +274,7 @@ uint32_t CPAGE_GetBlockUserNum(Handle page, Handle block)
 {
     PROLOG;
     SetReturnCode_cpage(IDS_ERR_NO);
-    uint32_t rc = BLOCK_H_H(page, block).GetUserNum();
+    uint32_t rc = BLOCK_H_H(page, block).userNum();
     EPILOG;
     return rc;
 }
@@ -283,7 +283,7 @@ void CPAGE_SetBlockUserNum(Handle page, Handle block, uint32_t user)
 {
     PROLOG;
     SetReturnCode_cpage(IDS_ERR_NO);
-    BLOCK_H_H(page, block).SetUserNum(user);
+    BLOCK_H_H(page, block).setUserNum(user);
     EPILOG;
 }
 
@@ -291,7 +291,7 @@ uint32_t CPAGE_GetBlockFlags(Handle page, Handle block)
 {
     PROLOG;
     SetReturnCode_cpage(IDS_ERR_NO);
-    uint32_t rc = BLOCK_H_H(page, block).GetFlags();
+    uint32_t rc = BLOCK_H_H(page, block).flags();
     EPILOG;
     return rc;
 }
@@ -300,7 +300,7 @@ void CPAGE_SetBlockFlags(Handle page, Handle block, uint32_t flags)
 {
     PROLOG;
     SetReturnCode_cpage(IDS_ERR_NO);
-    BLOCK_H_H(page, block).SetFlags(flags);
+    BLOCK_H_H(page, block).setFlags(flags);
     EPILOG;
 }
 
@@ -744,7 +744,7 @@ uint32_t CPAGE_GetBlockInterNum(Handle page, Handle block)
 {
     PROLOG;
     SetReturnCode_cpage(IDS_ERR_NO);
-    uint32_t rc = BLOCK_H_H(page, block).GetInterNum();
+    uint32_t rc = BLOCK_H_H(page, block).interNum();
     EPILOG;
     return rc;
 }
@@ -753,7 +753,7 @@ void CPAGE_SetBlockInterNum(Handle page, Handle block, uint32_t inter)
 {
     PROLOG;
     SetReturnCode_cpage(IDS_ERR_NO);
-    BLOCK_H_H(page, block).SetInterNum(inter);
+    BLOCK_H_H(page, block).setInterNum(inter);
     EPILOG;
 }
 

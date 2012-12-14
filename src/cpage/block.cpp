@@ -73,33 +73,33 @@ Block::Block() :
 Block::~Block()
 {}
 
-Bool32  Block::Create(Handle type, uint32_t usernum , uint32_t flags , void * lpdata , uint32_t size )
+bool Block::create(Handle type, uint32_t userNum , uint32_t flags , const void * src , uint32_t size)
 {
-    user_num_ = usernum;
+    user_num_ = userNum;
     flags_ = flags;
     internal_num_ = 0;
-    setData(type, lpdata, size);
-    return TRUE;
+    setData(type, src, size);
+    return true;
 }
 
-Block & Block::operator = (Block & Block)
+Block& Block::operator=(const Block& block)
 {
-    user_num_ = Block.user_num_;
-    flags_ = Block.flags_;
-    internal_num_ = Block.internal_num_;
-    *(Data *)this = Block;
+    user_num_ = block.user_num_;
+    flags_ = block.flags_;
+    internal_num_ = block.internal_num_;
+    *(Data *)this = block;
     return *this;
 }
 
-Bool32 Block::operator == (Block & Block)
+bool Block::operator==(const Block& block)
 {
-    if ( user_num_ == Block.user_num_ &&
-            flags_ == Block.flags_ &&
-            internal_num_ == Block.internal_num_ &&
-            *(Data *)this == Block)
-        return TRUE;
+    if (user_num_ == block.user_num_ &&
+            flags_ == block.flags_ &&
+            internal_num_ == block.internal_num_ &&
+            *(Data*)this == block)
+        return true;
 
-    return FALSE;
+    return false;
 }
 
 Bool32 Block::save(Handle to)

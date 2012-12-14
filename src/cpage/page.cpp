@@ -75,7 +75,7 @@ Handle  PAGE::CreateBlock(Handle Type, uint32_t UserNum , uint32_t Flags , void 
     Handle hBlock = Block.AddTail(tmp);
 
     if (hBlock) {
-        if (!Block.GetItem(hBlock).Create(Type, UserNum , Flags , lpData , Size))
+        if (!Block.GetItem(hBlock).create(Type, UserNum , Flags , lpData , Size))
             return NULL;
     }
 

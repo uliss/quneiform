@@ -69,38 +69,34 @@ class CLA_EXPO Block: public Data
         Block();
         virtual ~Block();
 
-        Bool32  Create(Handle Type, uint32_t user_num_ = 0, uint32_t flags_ = 0, void * lpData = NULL, uint32_t Size = 0);
+        bool create(Handle type, uint32_t userNum = 0, uint32_t flags = 0, const void * src = NULL, uint32_t size = 0);
 
-        Handle  type() {
-            return Data::type();
-        }
-
-        uint32_t  GetUserNum() {
+        uint32_t userNum() const {
             return user_num_;
         }
 
-        void    SetUserNum(uint32_t user) {
+        void setUserNum(uint32_t user) {
             user_num_ = user;
         }
 
-        uint32_t  GetFlags() {
+        uint32_t flags() const {
             return flags_;
         }
 
-        void    SetFlags(uint32_t flags) {
+        void setFlags(uint32_t flags) {
             flags_ = flags;
         }
 
-        uint32_t  GetInterNum() {
+        uint32_t interNum() const {
             return internal_num_;
         }
 
-        void    SetInterNum(uint32_t user) {
+        void setInterNum(uint32_t user) {
             internal_num_ = user;
         }
 
-        Block & operator = (Block & Block);
-        Bool32  operator == (Block & Block);
+        Block& operator=(const Block& block);
+        bool operator==(const Block& block);
 
         Bool32 save(Handle to);
         Bool32 restore(Handle from);
