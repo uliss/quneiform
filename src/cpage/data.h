@@ -68,6 +68,7 @@ typedef struct tagCompressHeader {
 } CompressHeader;
 
 namespace cf {
+namespace cpage {
 
 class CLA_EXPO DATA
 {
@@ -115,6 +116,7 @@ class CLA_EXPO DATA
         Bool32 RestoreCompress(Handle from);
 };
 
+}
 }
 
 #endif

@@ -64,6 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "backup.h"
 
 namespace cf {
+namespace cpage {
 
 //##############################
 DATA::DATA()
@@ -233,6 +234,7 @@ Bool32 DATA::RestoreCompress(Handle from)
         return FALSE;
 
     return TRUE;
+}
 }
 
 }
