@@ -64,40 +64,38 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 namespace cf {
 namespace cpage {
 
-BLOCK::BLOCK()
-{
-    UserNum = 0;
-    Flags = 0;
-    InterNum = 0;
-}
+BLOCK::BLOCK() :
+    user_num_(0),
+    flags_(0),
+    internal_num_(0)
+{}
 
 BLOCK::~BLOCK()
-{
-}
+{}
 
 Bool32  BLOCK::Create(Handle type, uint32_t usernum , uint32_t flags , void * lpdata , uint32_t size )
 {
-    UserNum = usernum;
-    Flags = flags;
-    InterNum = 0;
+    user_num_ = usernum;
+    flags_ = flags;
+    internal_num_ = 0;
     setData(type, lpdata, size);
     return TRUE;
 }
 
 BLOCK & BLOCK::operator = (BLOCK & Block)
 {
-    UserNum = Block.UserNum;
-    Flags = Block.Flags;
-    InterNum = Block.InterNum;
+    user_num_ = Block.user_num_;
+    flags_ = Block.flags_;
+    internal_num_ = Block.internal_num_;
     *(Data *)this = Block;
     return *this;
 }
 
 Bool32 BLOCK::operator == (BLOCK & Block)
 {
-    if ( UserNum == Block.UserNum &&
-            Flags == Block.Flags &&
-            InterNum == Block.InterNum &&
+    if ( user_num_ == Block.user_num_ &&
+            flags_ == Block.flags_ &&
+            internal_num_ == Block.internal_num_ &&
             *(Data *)this == Block)
         return TRUE;
 
@@ -106,10 +104,10 @@ Bool32 BLOCK::operator == (BLOCK & Block)
 
 Bool32 BLOCK::save(Handle to)
 {
-    if ( myWrite(to, &UserNum, sizeof(UserNum)) == sizeof(UserNum) &&
-            myWrite(to, &Flags, sizeof(Flags)) == sizeof(Flags) &&
+    if ( myWrite(to, &user_num_, sizeof(user_num_)) == sizeof(user_num_) &&
+            myWrite(to, &flags_, sizeof(flags_)) == sizeof(flags_) &&
             Data::save(to) &&
-            myWrite(to, &InterNum, sizeof(InterNum)) == sizeof(InterNum))
+            myWrite(to, &internal_num_, sizeof(internal_num_)) == sizeof(internal_num_))
         return TRUE;
 
     return FALSE;
@@ -117,10 +115,10 @@ Bool32 BLOCK::save(Handle to)
 
 Bool32 BLOCK::restore(Handle from)
 {
-    if ( myRead(from, &UserNum, sizeof(UserNum)) == sizeof(UserNum) &&
-            myRead(from, &Flags, sizeof(Flags)) == sizeof(Flags) &&
+    if ( myRead(from, &user_num_, sizeof(user_num_)) == sizeof(user_num_) &&
+            myRead(from, &flags_, sizeof(flags_)) == sizeof(flags_) &&
             Data::restore(from) &&
-            myRead(from, &InterNum, sizeof(InterNum)) == sizeof(InterNum))
+            myRead(from, &internal_num_, sizeof(internal_num_)) == sizeof(internal_num_))
         return TRUE;
 
     return FALSE;
@@ -128,10 +126,10 @@ Bool32 BLOCK::restore(Handle from)
 
 Bool32 BLOCK::saveCompress(Handle to)
 {
-    if ( myWrite(to, &UserNum, sizeof(UserNum)) == sizeof(UserNum) &&
-            myWrite(to, &Flags, sizeof(Flags)) == sizeof(Flags) &&
+    if ( myWrite(to, &user_num_, sizeof(user_num_)) == sizeof(user_num_) &&
+            myWrite(to, &flags_, sizeof(flags_)) == sizeof(flags_) &&
             Data::saveCompress(to) &&
-            myWrite(to, &InterNum, sizeof(InterNum)) == sizeof(InterNum))
+            myWrite(to, &internal_num_, sizeof(internal_num_)) == sizeof(internal_num_))
         return TRUE;
 
     return FALSE;
@@ -139,10 +137,10 @@ Bool32 BLOCK::saveCompress(Handle to)
 
 Bool32 BLOCK::restoreCompress(Handle from)
 {
-    if ( myRead(from, &UserNum, sizeof(UserNum)) == sizeof(UserNum) &&
-            myRead(from, &Flags, sizeof(Flags)) == sizeof(Flags) &&
+    if ( myRead(from, &user_num_, sizeof(user_num_)) == sizeof(user_num_) &&
+            myRead(from, &flags_, sizeof(flags_)) == sizeof(flags_) &&
             Data::restoreCompress(from) &&
-            myRead(from, &InterNum, sizeof(InterNum)) == sizeof(InterNum))
+            myRead(from, &internal_num_, sizeof(internal_num_)) == sizeof(internal_num_))
         return TRUE;
 
     return FALSE;

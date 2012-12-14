@@ -66,41 +66,37 @@ namespace cpage {
 class CLA_EXPO BLOCK: public Data
 {
     public:
-        uint32_t UserNum;
-        uint32_t Flags;
-        uint32_t InterNum;
-    public:
         BLOCK();
         virtual ~BLOCK();
 
-        Bool32  Create(Handle Type, uint32_t UserNum = 0, uint32_t Flags = 0, void * lpData = NULL, uint32_t Size = 0);
+        Bool32  Create(Handle Type, uint32_t user_num_ = 0, uint32_t flags_ = 0, void * lpData = NULL, uint32_t Size = 0);
 
         Handle  type() {
             return Data::type();
         }
 
         uint32_t  GetUserNum() {
-            return UserNum;
+            return user_num_;
         }
 
         void    SetUserNum(uint32_t user) {
-            UserNum = user;
+            user_num_ = user;
         }
 
         uint32_t  GetFlags() {
-            return Flags;
+            return flags_;
         }
 
         void    SetFlags(uint32_t flags) {
-            Flags = flags;
+            flags_ = flags;
         }
 
         uint32_t  GetInterNum() {
-            return InterNum;
+            return internal_num_;
         }
 
         void    SetInterNum(uint32_t user) {
-            InterNum = user;
+            internal_num_ = user;
         }
 
         BLOCK & operator = (BLOCK & Block);
@@ -112,7 +108,12 @@ class CLA_EXPO BLOCK: public Data
         Bool32 restoreCompress(Handle from);
 
         virtual uint32_t Convert(Handle type, void * lpdata, uint32_t size);
+    private:
+        uint32_t user_num_;
+        uint32_t flags_;
+        uint32_t internal_num_;
 };
+
 
 CPAGE_CONVERTOR SetConvertorBlocks(CPAGE_CONVERTOR convertor);
 
