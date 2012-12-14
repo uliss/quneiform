@@ -60,7 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cpage.h"
 #include "data.h"
 
-class CLA_EXPO BLOCK: public DATA
+class CLA_EXPO BLOCK: public cf::DATA
 {
     public:
         uint32_t UserNum;

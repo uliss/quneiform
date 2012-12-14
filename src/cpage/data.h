@@ -57,8 +57,8 @@
 #ifndef __DATA_H__
 #define __DATA_H__
 
-#include <cassert>
 #include "cttypes.h"
+#include "globus.h"
 
 typedef struct tagCompressHeader {
     Bool16 bCompressed;
@@ -67,13 +67,14 @@ typedef struct tagCompressHeader {
     uint32_t wCount;
 } CompressHeader;
 
+namespace cf {
+
 class CLA_EXPO DATA
 {
     protected:
         Handle Type;
         uint32_t Size;
         char * lpData;
-
     public:
         DATA();
         virtual ~DATA();
@@ -113,5 +114,7 @@ class CLA_EXPO DATA
         Bool32 SaveCompress(Handle to);
         Bool32 RestoreCompress(Handle from);
 };
+
+}
 
 #endif

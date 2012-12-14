@@ -63,6 +63,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "mymem.h"
 #include "backup.h"
 
+namespace cf {
+
 //##############################
 DATA::DATA()
 {
@@ -231,4 +233,6 @@ Bool32 DATA::RestoreCompress(Handle from)
         return FALSE;
 
     return TRUE;
+}
+
 }
