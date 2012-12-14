@@ -49,7 +49,10 @@ class CEDPage;
 class Formatter;
 class CRtfPage;
 class RStuff;
+
+namespace cpage {
 class BackupPage;
+}
 
 class PumaImpl
 {
@@ -126,7 +129,7 @@ class PumaImpl
         void dumpComponents();
     private:
         void applyReadMask();
-        BackupPage * cpage();
+        cpage::BackupPage * cpage();
         PAGEINFO * pageInfo();
         void clearAll();
         void debugPrintCpage() const;

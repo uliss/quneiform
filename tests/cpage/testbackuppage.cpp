@@ -24,7 +24,7 @@
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestBackupPage);
 
-using namespace cf;
+using namespace cf::cpage;
 
 void TestBackupPage::testInit()
 {

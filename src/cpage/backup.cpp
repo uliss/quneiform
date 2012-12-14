@@ -59,6 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 Handle hCurPage = NULL;
 
 namespace cf {
+namespace cpage {
 
 BackupPage::BackupPage()
 {
@@ -94,7 +95,7 @@ Handle BackupPage::BackUp(Handle backup)
 
     while (hBackupPage != prevPage) {
         prevPage = hBackupPage;
-        PAGE & p = backups_.GetNext(hBackupPage);
+        Page & p = backups_.GetNext(hBackupPage);
 
         if (hCurBackUp != prevPage)
             backups_.Del(prevPage);
@@ -113,12 +114,12 @@ Bool32 BackupPage::Redo(Handle backup)
 {
     if (hCurBackUp) {
         if (backup) {
-            *(PAGE*)this = backups_.GetItem(backup);
+            *(Page*)this = backups_.GetItem(backup);
             hCurBackUp = backup;
         }
 
         else
-            *(PAGE*)this = backups_.GetNext(hCurBackUp);
+            *(Page*)this = backups_.GetNext(hCurBackUp);
 
         return TRUE;
     }
@@ -130,12 +131,12 @@ Bool32 BackupPage::Undo(Handle backup)
 {
     if (hCurBackUp) {
         if (backup) {
-            *(PAGE*)this = backups_.GetItem(backup);
+            *(Page*)this = backups_.GetItem(backup);
             hCurBackUp = backup;
         }
 
         else
-            *(PAGE*)this = backups_.GetPrev(hCurBackUp);
+            *(Page*)this = backups_.GetPrev(hCurBackUp);
 
         return TRUE;
     }
@@ -161,7 +162,7 @@ Bool32 BackupPage::save(Handle to)
     }
 
     if (rc)
-        rc = PAGE::save(to);
+        rc = Page::save(to);
 
     return rc;
 }
@@ -177,7 +178,7 @@ Bool32 BackupPage::restore(Handle from)
         if (rc) rc = myRead(from, &position, sizeof(position)) == sizeof(position);
 
         for (i = 0; i < count && rc == TRUE; i++) {
-            PAGE page;
+            Page page;
             rc = page.restore(from);
 
             if (rc)
@@ -189,7 +190,7 @@ Bool32 BackupPage::restore(Handle from)
     }
 
     if (rc)
-        rc = PAGE::restore(from);
+        rc = Page::restore(from);
 
     return rc;
 }
@@ -212,7 +213,7 @@ Bool32 BackupPage::saveCompress(Handle to)
     }
 
     if (rc)
-        rc = PAGE::saveCompress(to);
+        rc = Page::saveCompress(to);
 
     return rc;
 }
@@ -228,7 +229,7 @@ Bool32 BackupPage::restoreCompress(Handle from)
         if (rc) rc = myRead(from, &position, sizeof(position)) == sizeof(position);
 
         for (i = 0; i < count && rc == TRUE; i++) {
-            PAGE page;
+            Page page;
             rc = page.restoreCompress(from);
 
             if (rc)
@@ -240,27 +241,28 @@ Bool32 BackupPage::restoreCompress(Handle from)
     }
 
     if (rc)
-        rc = PAGE::restoreCompress(from);
+        rc = Page::restoreCompress(from);
 
     return rc;
 }
 
-BackupPage & BackupPage::operator = (BackupPage & Page)
-{
-    int count = Page.backups_.GetCount();
+BackupPage & BackupPage::operator = (BackupPage& page) {
+
+    int count = page.backups_.GetCount();
     backups_.Clear();
 
     for (int i = 0; i < count; i++)
-        backups_.AddTail(Page.backups_.GetItem(Page.backups_.GetHandle(i)));
+        backups_.AddTail(page.backups_.GetItem(page.backups_.GetHandle(i)));
 
     if (count) {
-        int curr = Page.backups_.GetPos(Page.hCurBackUp);
+        int curr = page.backups_.GetPos(page.hCurBackUp);
         hCurBackUp = backups_.GetHandle(curr);
     }
 
-    *(PAGE *)this = Page;
+    *(Page *)this = page;
     return *this;
 }
 
+}
 }
 

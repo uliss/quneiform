@@ -62,18 +62,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 namespace cf {
 namespace cpage {
 
-
-//#################################
-PAGE::PAGE()
+Page::Page()
 {
 }
-//#################################
-PAGE::~PAGE()
+
+Page::~Page()
 {
     Block.Clear();
 }
-//#################################
-Handle  PAGE::CreateBlock(Handle Type, uint32_t UserNum , uint32_t Flags , void * lpData , uint32_t Size )
+
+Handle  Page::CreateBlock(Handle Type, uint32_t UserNum , uint32_t Flags , void * lpData , uint32_t Size )
 {
     cf::cpage::Block tmp;
     Handle hBlock = Block.AddTail(tmp);
@@ -85,8 +83,8 @@ Handle  PAGE::CreateBlock(Handle Type, uint32_t UserNum , uint32_t Flags , void 
 
     return hBlock;
 }
-//#################################
-PAGE & PAGE::operator = (PAGE & Page)
+
+Page & Page::operator = (Page & Page)
 {
     int count = Page.Block.GetCount();
     Block.Clear();
@@ -98,8 +96,7 @@ PAGE & PAGE::operator = (PAGE & Page)
     return *this;
 }
 
-//#################################
-Bool32  PAGE::save(Handle to)
+Bool32  Page::save(Handle to)
 {
     int count = Block.GetCount();
     Bool32 rc = FALSE;
@@ -115,8 +112,8 @@ Bool32  PAGE::save(Handle to)
 
     return rc;
 }
-//#################################
-Bool32  PAGE::restore(Handle from)
+
+Bool32  Page::restore(Handle from)
 {
     Bool32 rc = FALSE;
     int count, i;
@@ -136,8 +133,8 @@ Bool32  PAGE::restore(Handle from)
 
     return rc;
 }
-//#################################
-Bool32  PAGE::saveCompress(Handle to)
+
+Bool32  Page::saveCompress(Handle to)
 {
     int count = Block.GetCount();
     Bool32 rc = FALSE;
@@ -153,8 +150,8 @@ Bool32  PAGE::saveCompress(Handle to)
 
     return rc;
 }
-//#################################
-Bool32  PAGE::restoreCompress(Handle from)
+
+Bool32  Page::restoreCompress(Handle from)
 {
     Bool32 rc = FALSE;
     int count, i;
@@ -174,16 +171,17 @@ Bool32  PAGE::restoreCompress(Handle from)
 
     return rc;
 }
+
 static  CPAGE_CONVERTOR s_ConvertorPages = {0, DefConvertPage};
-//#################################
+
 CPAGE_CONVERTOR SetConvertorPages(CPAGE_CONVERTOR convertor)
 {
     CPAGE_CONVERTOR old = s_ConvertorPages;
     s_ConvertorPages = convertor;
     return old;
 }
-//#################################
-uint32_t PAGE::Convert(Handle type, void * lpdata, uint32_t size)
+
+uint32_t Page::Convert(Handle type, void * lpdata, uint32_t size)
 {
     uint32_t rc = 0;
     rc = (*s_ConvertorPages.fnConvertor)(s_ConvertorPages.dwContext,
@@ -192,7 +190,7 @@ uint32_t PAGE::Convert(Handle type, void * lpdata, uint32_t size)
     return rc;
 }
 
-PAGEINFO * PAGE::pageInfo()
+PAGEINFO * Page::pageInfo()
 {
     if(type_ != PT_PAGEINFO)
         return NULL;

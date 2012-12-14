@@ -1100,12 +1100,12 @@ void PumaImpl::applyReadMask()
     setUpdateFlag(FLG_UPDATE);
 }
 
-BackupPage * PumaImpl::cpage()
+cpage::BackupPage * PumaImpl::cpage()
 {
     if(!cpage_)
         return NULL;
 
-    return &PageStorage::page(cpage_);
+    return &cpage::PageStorage::page(cpage_);
 }
 
 PAGEINFO * PumaImpl::pageInfo()

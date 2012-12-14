@@ -23,6 +23,7 @@
 #include "globus.h"
 
 namespace cf {
+namespace cpage {
 
 class CLA_EXPO PageStorage 
 {
@@ -46,6 +47,7 @@ private:
     PageList pages_;
 };
 
+}
 }
 
 #endif // PAGESTORAGE_H

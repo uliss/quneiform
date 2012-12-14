@@ -60,8 +60,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "page.h"
 
 namespace cf {
+namespace cpage {
 
-class CLA_EXPO BackupPage : public cpage::PAGE
+class CLA_EXPO BackupPage : public cpage::Page
 {
 public:
     BackupPage();
@@ -85,11 +86,12 @@ public:
         return backups_.GetPos(hCurBackUp);
     }
 private:
-    PtrList<PAGE> backups_;
+    PtrList<Page> backups_;
     Handle hCurBackUp;
 };
 
 typedef PtrList<BackupPage> PageList;
+}
 }
 
 void   SetReturnCode_cpage(uint16_t rc);

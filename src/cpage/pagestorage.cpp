@@ -19,6 +19,7 @@
 #include "pagestorage.h"
 
 namespace cf {
+namespace cpage {
 
 PageStorage::PageStorage()
 {
@@ -95,4 +96,5 @@ bool PageStorage::undo(Handle p, Handle num)
     return page(p).Undo(num);
 }
 
+}
 }

@@ -65,17 +65,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 namespace cf {
 namespace cpage {
 
-class CLA_EXPO PAGE: public cf::cpage::Data
+class CLA_EXPO Page: public Data
 {
     public:
         PtrList<cf::cpage::Block>  Block;
     public:
         Handle  CreateBlock(Handle Type, uint32_t UserNum = 0, uint32_t Flags = 0, void * lpData = NULL, uint32_t Size = 0);
     public:
-        PAGE ();
-        virtual ~PAGE();
+        Page ();
+        virtual ~Page();
 
-        PAGE & operator = (PAGE & Page);
+        Page & operator = (Page & Page);
 
         Bool32 save(Handle to);
         Bool32 restore(Handle from);

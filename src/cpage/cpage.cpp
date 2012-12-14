@@ -67,18 +67,19 @@ extern PtrList<NAMEDATA> NameData;
 #define _BLOCK_H(page, block) page.Block.GetItem(block)
 #define _BLOCK_N(page, block) _BLOCK_H(page, page.Block.GetHandle(block))
 
-#define BLOCK_H_H(p, block) _BLOCK_H(cf::PageStorage::page(p), block)
-#define BLOCK_H_N(p, block) _BLOCK_N(cf::PageStorage::page(p), block)
+#define BLOCK_H_H(p, block) _BLOCK_H(cf::cpage::PageStorage::page(p), block)
+#define BLOCK_H_N(p, block) _BLOCK_N(cf::cpage::PageStorage::page(p), block)
 
 Handle CPAGE_CreatePage(Handle type, void * lpdata, uint32_t size)
 {
     PROLOG;
-    cf::BackupPage tail;
+    using namespace cf::cpage;
+    BackupPage tail;
     SetReturnCode_cpage(IDS_ERR_NO);
-    Handle hPage = cf::PageStorage::append(tail);
+    Handle hPage = PageStorage::append(tail);
 
     if (hPage) {
-        cf::PageStorage::page(hPage).setData(type, lpdata, size);
+        PageStorage::page(hPage).setData(type, lpdata, size);
         hCurPage = hPage;
     }
 
@@ -89,8 +90,9 @@ Handle CPAGE_CreatePage(Handle type, void * lpdata, uint32_t size)
 Handle CPAGE_GetPageType(Handle page)
 {
     PROLOG;
+    using namespace cf::cpage;
     SetReturnCode_cpage(IDS_ERR_NO);
-    Handle rc = cf::PageStorage::pageType(page);
+    Handle rc = PageStorage::pageType(page);
     EPILOG;
     return rc;
 }
@@ -98,8 +100,9 @@ Handle CPAGE_GetPageType(Handle page)
 void CPAGE_DeletePage(Handle page)
 {
     PROLOG;
+    using namespace cf::cpage;
     SetReturnCode_cpage(IDS_ERR_NO);
-    cf::PageStorage::remove(page);
+    PageStorage::remove(page);
 
     if (hCurPage == page)
         hCurPage = NULL;
@@ -110,16 +113,18 @@ void CPAGE_DeletePage(Handle page)
 void CPAGE_ClearBackUp(Handle page)
 {
     PROLOG;
+    using namespace cf::cpage;
     SetReturnCode_cpage(IDS_ERR_NO);
-    cf::PageStorage::clearPage(page);
+    PageStorage::clearPage(page);
     EPILOG;
 }
 
 Handle CPAGE_BackUp(Handle page)
 {
     PROLOG;
+    using namespace cf::cpage;
     SetReturnCode_cpage(IDS_ERR_NO);
-    Handle rc = cf::PageStorage::backupPage(page);
+    Handle rc = PageStorage::backupPage(page);
     EPILOG;
     return rc;
 }
@@ -127,6 +132,7 @@ Handle CPAGE_BackUp(Handle page)
 bool CPAGE_Undo(Handle page, Handle num)
 {
     PROLOG;
+    using namespace cf::cpage;
     bool rc = FALSE;
     SetReturnCode_cpage(IDS_ERR_NO);
 
@@ -150,7 +156,7 @@ bool CPAGE_Undo(Handle page, Handle num)
         }
     }
 
-    rc = cf::PageStorage::undo(page, num);
+    rc = PageStorage::undo(page, num);
 lOut:
     EPILOG;
     return rc;
@@ -159,6 +165,7 @@ lOut:
 Bool32 CPAGE_Redo(Handle page, Handle num)
 {
     PROLOG;
+    using namespace cf::cpage;
     Bool32 rc = FALSE;
     SetReturnCode_cpage(IDS_ERR_NO);
 
@@ -182,7 +189,7 @@ Bool32 CPAGE_Redo(Handle page, Handle num)
         }
     }
 
-    rc = cf::PageStorage::page(page).Redo(num);
+    rc = PageStorage::page(page).Redo(num);
 lOut:
     EPILOG;
     return rc;
@@ -191,7 +198,8 @@ lOut:
 uint32_t CPAGE_GetBuckUpCount(Handle page)
 {
     PROLOG;
-    size_t rc = cf::PageStorage::page(page).backupCount();
+    using namespace cf::cpage;
+    size_t rc = PageStorage::page(page).backupCount();
     EPILOG;
     return rc;
 }
@@ -199,7 +207,8 @@ uint32_t CPAGE_GetBuckUpCount(Handle page)
 Handle CPAGE_GetBuckUpHandle(Handle page, uint32_t number)
 {
     PROLOG;
-    Handle rc = cf::PageStorage::page(page).backupAt(number);
+    using namespace cf::cpage;
+    Handle rc = PageStorage::page(page).backupAt(number);
     EPILOG;
     return rc;
 }
@@ -207,7 +216,8 @@ Handle CPAGE_GetBuckUpHandle(Handle page, uint32_t number)
 uint32_t CPAGE_GetBuckUpCurPos(Handle page)
 {
     PROLOG;
-    uint32_t rc = cf::PageStorage::page(page).GetCurPos();
+    using namespace cf::cpage;
+    uint32_t rc = PageStorage::page(page).GetCurPos();
     EPILOG;
     return rc;
 }
@@ -216,11 +226,12 @@ Handle CPAGE_CreateBlock(Handle page, Handle Type, uint32_t UserNum,
                          uint32_t Flags, void * lpData, uint32_t Size)
 {
     PROLOG;
+    using namespace cf::cpage;
     SetReturnCode_cpage(IDS_ERR_NO);
 
     assert(CPAGE_GetNameInternalType(Type));
 
-    Handle rc = cf::PageStorage::page(page).CreateBlock(Type, UserNum, Flags, lpData, Size);
+    Handle rc = PageStorage::page(page).CreateBlock(Type, UserNum, Flags, lpData, Size);
     EPILOG;
     return rc;
 }
@@ -228,11 +239,12 @@ Handle CPAGE_CreateBlock(Handle page, Handle Type, uint32_t UserNum,
 Bool32 CPAGE_SetPageData(Handle page, Handle type, void * lpdata, uint32_t size)
 {
     PROLOG;
+    using namespace cf::cpage;
     SetReturnCode_cpage(IDS_ERR_NO);
 #ifdef _DEBUG
     assert(CPAGE_GetNameInternalType(type));
 #endif
-    cf::PageStorage::page(page).setData(type, lpdata, size);
+    PageStorage::page(page).setData(type, lpdata, size);
     EPILOG;
     return TRUE;
 }
@@ -241,12 +253,13 @@ uint32_t CPAGE_GetPageData(Handle page, Handle type, void * lpdata,
                            uint32_t size)
 {
     PROLOG;
+    using namespace cf::cpage;
     SetReturnCode_cpage(IDS_ERR_NO);
 #ifdef _DEBUG
     assert(CPAGE_GetNameInternalType(type));
 #endif
     DefConvertInit();
-    uint32_t rc = cf::PageStorage::page(page).getData(type, lpdata, size);
+    uint32_t rc = PageStorage::page(page).getData(type, lpdata, size);
     EPILOG;
     return rc;
 }
@@ -334,8 +347,9 @@ uint32_t CPAGE_GetBlockData(Handle page, Handle block, Handle Type,
 uint32_t CPAGE_GetCountPage()
 {
     PROLOG;
+    using namespace cf::cpage;
     SetReturnCode_cpage(IDS_ERR_NO);
-    uint32_t rc = cf::PageStorage::size();
+    uint32_t rc = PageStorage::size();
     EPILOG;
     return rc;
 }
@@ -346,8 +360,9 @@ uint32_t CPAGE_GetCountBlock(Handle page)
         return 0;
 
     PROLOG;
+    using namespace cf::cpage;
     SetReturnCode_cpage(IDS_ERR_NO);
-    uint32_t rc = cf::PageStorage::page(page).Block.GetCount();
+    uint32_t rc = PageStorage::page(page).Block.GetCount();
     EPILOG;
     return rc;
 }
@@ -355,8 +370,9 @@ uint32_t CPAGE_GetCountBlock(Handle page)
 void CPAGE_DeleteBlock(Handle page, Handle block)
 {
     PROLOG;
+    using namespace cf::cpage;
     SetReturnCode_cpage(IDS_ERR_NO);
-    cf::PageStorage::page(page).Block.Del(block);
+    PageStorage::page(page).Block.Del(block);
     EPILOG;
 }
 
@@ -366,6 +382,7 @@ void CPAGE_DeleteBlock(Handle page, Handle block)
 Bool32 CPAGE_SavePage(Handle page, const char * lpName)
 {
     PROLOG;
+    using namespace cf::cpage;
     Bool32 rc = FALSE;
     SetReturnCode_cpage(IDS_ERR_NO);
     Handle file = myOpenSave(lpName);
@@ -382,22 +399,22 @@ Bool32 CPAGE_SavePage(Handle page, const char * lpName)
                 int count = 1;
                 rc = myWrite(file, &count, sizeof(count)) == sizeof(count);
 #ifdef SAVE_COMPRESSED
-                rc = cf::PageStorage::page(page).saveCompress(file);
+                rc = PageStorage::page(page).saveCompress(file);
 #else
-                rc = cf::PageStorage::page(page).save(file);
+                rc = PageStorage::page(page).save(file);
 #endif
             }
 
             else {
                 int i;
-                int count = cf::PageStorage::size();
+                int count = PageStorage::size();
                 rc = myWrite(file, &count, sizeof(count)) == sizeof(count);
 
                 for (i = 0; i < count && rc == TRUE; i++)
 #ifdef SAVE_COMPRESSED
-                    rc = cf::PageStorage::pageAt(i).saveCompress(file);
+                    rc = PageStorage::pageAt(i).saveCompress(file);
 #else
-                    rc = cf::PageStorage::pageAt(i).save(file);
+                    rc = PageStorage::pageAt(i).save(file);
 #endif
             }
         }
@@ -412,6 +429,7 @@ Bool32 CPAGE_SavePage(Handle page, const char * lpName)
 Handle CPAGE_RestorePage(Bool32 remove, const char * lpName)
 {
     PROLOG;
+    using namespace cf::cpage;
     Handle rc = NULL;
     Bool decompress = FALSE;
     SetReturnCode_cpage(IDS_ERR_NO);
@@ -434,17 +452,17 @@ Handle CPAGE_RestorePage(Bool32 remove, const char * lpName)
 
             {
                 if (remove) {
-                    cf::PageStorage::clear();
+                    PageStorage::clear();
                     NameData.Clear();
                 }
 
                 if (myRead(file, &count, sizeof(count)) == sizeof(count))
                     for (i = 0; i < count; i++) {
-                        cf::BackupPage page;
+                        BackupPage page;
 
                         if (decompress ? page.restoreCompress(file)
                                 : page.restore(file))
-                            rc = cf::PageStorage::append(page);//Page.AddTail(page);
+                            rc = PageStorage::append(page);//Page.AddTail(page);
 
                         else
                             break;
@@ -462,7 +480,8 @@ Handle CPAGE_RestorePage(Bool32 remove, const char * lpName)
 Handle CPAGE_GetHandlePage(uint32_t pos)
 {
     PROLOG;
-    Handle rc = cf::PageStorage::pageHandleAt(pos);
+    using namespace cf::cpage;
+    Handle rc = PageStorage::pageHandleAt(pos);
     EPILOG;
     return rc;
 }
@@ -470,7 +489,8 @@ Handle CPAGE_GetHandlePage(uint32_t pos)
 Handle CPAGE_GetHandleBlock(Handle page, uint32_t block)
 {
     PROLOG;
-    Handle rc = cf::PageStorage::page(page).Block.GetHandle(block);
+    using namespace cf::cpage;
+    Handle rc = PageStorage::page(page).Block.GetHandle(block);
     EPILOG;
     return rc;
 }
@@ -478,7 +498,8 @@ Handle CPAGE_GetHandleBlock(Handle page, uint32_t block)
 CPAGE_CONVERTOR CPAGE_SetConvertorPages(CPAGE_CONVERTOR data)
 {
     PROLOG;
-    CPAGE_CONVERTOR rc = cf::cpage::SetConvertorPages(data);
+    using namespace cf::cpage;
+    CPAGE_CONVERTOR rc = SetConvertorPages(data);
     EPILOG;
     return rc;
 }
@@ -486,7 +507,8 @@ CPAGE_CONVERTOR CPAGE_SetConvertorPages(CPAGE_CONVERTOR data)
 CPAGE_CONVERTOR CPAGE_SetConvertorBlocks(Handle page, CPAGE_CONVERTOR data)
 {
     PROLOG;
-    CPAGE_CONVERTOR rc = cf::cpage::SetConvertorBlocks(data);
+    using namespace cf::cpage;
+    CPAGE_CONVERTOR rc = SetConvertorBlocks(data);
     EPILOG;
     return rc;
 }
@@ -494,10 +516,6 @@ CPAGE_CONVERTOR CPAGE_SetConvertorBlocks(Handle page, CPAGE_CONVERTOR data)
 Handle CPAGE_GetUserPageType()
 {
     PROLOG;
-    /*
-     static uint32_t number = 0x10000000;
-     return number++;
-     */
     Handle rc = CPAGE_GetUserBlockType();
     EPILOG;
     return rc;
@@ -517,7 +535,8 @@ Handle CPAGE_GetUserBlockType()
 Handle CPAGE_GetPageFirst(Handle type)
 {
     PROLOG;
-    int count = cf::PageStorage::size();
+    using namespace cf::cpage;
+    int count = PageStorage::size();
     int i;
 #ifdef _DEBUG
     assert(CPAGE_GetNameInternalType(type));
@@ -526,12 +545,12 @@ Handle CPAGE_GetPageFirst(Handle type)
 
     for (i = 0; i < count; i++) {
         if (!type ||
-                cf::PageStorage::pageAt(i).type() == type ||
-                cf::PageStorage::pageAt(i).Convert(type, NULL, 0))
+                PageStorage::pageAt(i).type() == type ||
+                PageStorage::pageAt(i).Convert(type, NULL, 0))
             break;
     }
 
-    Handle rc = i < count ? cf::PageStorage::pageHandleAt(i) : NULL;
+    Handle rc = i < count ? PageStorage::pageHandleAt(i) : NULL;
     EPILOG;
     return rc;
 }
@@ -539,8 +558,9 @@ Handle CPAGE_GetPageFirst(Handle type)
 Handle CPAGE_GetPageNext(Handle page, Handle type)
 {
     PROLOG;
-    int count = cf::PageStorage::size();
-    int pos = cf::PageStorage::pagePosition(page) + 1;
+    using namespace cf::cpage;
+    int count = PageStorage::size();
+    int pos = PageStorage::pagePosition(page) + 1;
     int i;
 #ifdef _DEBUG
     assert(CPAGE_GetNameInternalType(type));
@@ -549,12 +569,12 @@ Handle CPAGE_GetPageNext(Handle page, Handle type)
 
     for (i = pos; i < count && i >= 0; i++) {
         if (!type ||
-                cf::PageStorage::pageAt(i).type() == type ||
-                cf::PageStorage::pageAt(i).Convert(type, NULL, 0))
+                PageStorage::pageAt(i).type() == type ||
+                PageStorage::pageAt(i).Convert(type, NULL, 0))
             break;
     }
 
-    Handle rc = i < count ? cf::PageStorage::pageHandleAt(i) /*Page.GetHandle(i)*/ : NULL;
+    Handle rc = i < count ? PageStorage::pageHandleAt(i) /*Page.GetHandle(i)*/ : NULL;
     EPILOG;
     return rc;
 }
@@ -562,7 +582,8 @@ Handle CPAGE_GetPageNext(Handle page, Handle type)
 Handle CPAGE_GetBlockFirst(Handle page, Handle type)
 {
     PROLOG;
-    int count = cf::PageStorage::page(page).Block.GetCount();
+    using namespace cf::cpage;
+    int count = PageStorage::page(page).Block.GetCount();
     int i;
     /*
      #ifdef _DEBUG
@@ -577,7 +598,7 @@ Handle CPAGE_GetBlockFirst(Handle page, Handle type)
             break;
     }
 
-    Handle rc = i < count ? cf::PageStorage::page(page).Block.GetHandle(i) : NULL;
+    Handle rc = i < count ? PageStorage::page(page).Block.GetHandle(i) : NULL;
     EPILOG;
     return rc;
 }
@@ -585,14 +606,11 @@ Handle CPAGE_GetBlockFirst(Handle page, Handle type)
 Handle CPAGE_GetBlockNext(Handle page, Handle block, Handle type)
 {
     PROLOG;
-    int count = cf::PageStorage::page(page).Block.GetCount();
-    int pos = cf::PageStorage::page(page).Block.GetPos(block) + 1;
+    using namespace cf::cpage;
+    int count = PageStorage::page(page).Block.GetCount();
+    int pos = PageStorage::page(page).Block.GetPos(block) + 1;
     int i;
-    /*
-     #ifdef _DEBUG
-     assert(CPAGE_GetNameInternalType(type));
-     #endif
-     */
+
     DefConvertInit();
 
     for (i = pos; i < count && i >= 0; i++) {
@@ -601,7 +619,7 @@ Handle CPAGE_GetBlockNext(Handle page, Handle block, Handle type)
             break;
     }
 
-    Handle rc = i < count ? cf::PageStorage::page(page).Block.GetHandle(i) : NULL;
+    Handle rc = i < count ? PageStorage::page(page).Block.GetHandle(i) : NULL;
     EPILOG;
     return rc;
 }
@@ -610,10 +628,11 @@ Bool32 CPAGE_DeleteAll()
 {
     CPAGE_CONVERTOR ConvertorPages = { 0, DefConvertPage }; // Piter
     PROLOG;
+    using namespace cf::cpage;
     Bool32 rc = TRUE;
-    cf::PageStorage::clear();//Page.Clear();
+    PageStorage::clear();
     NameData.Clear();
-    cf::cpage::SetConvertorPages(ConvertorPages); // Piter
+    SetConvertorPages(ConvertorPages); // Piter
     hCurPage = NULL;
     EPILOG;
     return rc;
@@ -647,10 +666,11 @@ Bool32 CPAGE_SetCurrentPage(uint32_t page)
 uint32_t CPAGE_GetNumberPage(Handle hPage)
 {
     PROLOG;
+    using namespace cf::cpage;
     uint32_t rc = (uint32_t) - 1;
 
     if (hPage)
-        rc = (uint32_t) cf::PageStorage::pages().GetPos(hPage);
+        rc = (uint32_t) PageStorage::pages().GetPos(hPage);
 
     EPILOG;
     return rc;
