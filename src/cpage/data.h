@@ -60,13 +60,6 @@
 #include "cttypes.h"
 #include "globus.h"
 
-typedef struct tagCompressHeader {
-    Bool16 bCompressed;
-    uchar cRepeater;
-    uchar reserved;
-    uint32_t wCount;
-} CompressHeader;
-
 namespace cf {
 namespace cpage {
 

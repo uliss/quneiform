@@ -60,6 +60,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "polyblock.h"
 #include "resource.h"
 
+typedef struct tagCompressHeader {
+    Bool16 bCompressed;
+    uchar cRepeater;
+    uchar reserved;
+    uint32_t wCount;
+} CompressHeader;
+
 void CleanData(Handle Type, void * lpData, uint32_t Size)
 // Неиспользуемые части массивов заполняем нулями для лучшей упаковки
 {
