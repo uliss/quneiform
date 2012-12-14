@@ -443,7 +443,7 @@ Handle CPAGE_RestorePage(Bool32 remove, const char * lpName)
                         cf::BackupPage page;
 
                         if (decompress ? page.RestoreCompress(file)
-                                : page.Restore(file))
+                                : page.restore(file))
                             rc = cf::PageStorage::append(page);//Page.AddTail(page);
 
                         else

@@ -115,7 +115,7 @@ class CLA_EXPO Data
     public:
         virtual uint32_t Convert(Handle type, void * lpdata, uint32_t size) = 0;
         bool save(Handle to) const;
-        Bool32 Restore(Handle from);
+        bool restore(Handle from);
         Bool32 SaveCompress(Handle to);
         Bool32 RestoreCompress(Handle from);
     protected:

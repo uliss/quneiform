@@ -113,11 +113,11 @@ Bool32 BLOCK::save(Handle to)
     return FALSE;
 }
 //##############################
-Bool32 BLOCK::Restore(Handle from)
+Bool32 BLOCK::restore(Handle from)
 {
     if ( myRead(from, &UserNum, sizeof(UserNum)) == sizeof(UserNum) &&
             myRead(from, &Flags, sizeof(Flags)) == sizeof(Flags) &&
-            Data::Restore(from) &&
+            Data::restore(from) &&
             myRead(from, &InterNum, sizeof(InterNum)) == sizeof(InterNum))
         return TRUE;
 

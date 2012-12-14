@@ -77,7 +77,7 @@ public:
 
     Bool32 save(Handle to);
     Bool32 SaveCompress(Handle to);
-    Bool32 Restore(Handle from);
+    Bool32 restore(Handle from);
     Bool32 RestoreCompress(Handle from);
 
     BackupPage & operator = (BackupPage & Page);

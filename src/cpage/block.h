@@ -100,7 +100,7 @@ class CLA_EXPO BLOCK: public cf::cpage::Data
         Bool32  operator == (BLOCK & Block);
 
         Bool32 save(Handle to);
-        Bool32 Restore(Handle from);
+        Bool32 restore(Handle from);
         Bool32 SaveCompress(Handle to);
         Bool32 RestoreCompress(Handle from);
 

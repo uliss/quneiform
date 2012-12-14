@@ -166,7 +166,7 @@ Bool32 BackupPage::save(Handle to)
     return rc;
 }
 //#################################
-Bool32 BackupPage::Restore(Handle from)
+Bool32 BackupPage::restore(Handle from)
 {
     Bool32 rc = FALSE;
     int count, i, position;
@@ -178,7 +178,7 @@ Bool32 BackupPage::Restore(Handle from)
 
         for (i = 0; i < count && rc == TRUE; i++) {
             PAGE page;
-            rc = page.Restore(from);
+            rc = page.restore(from);
 
             if (rc)
                 backups_.AddTail(page);
@@ -189,7 +189,7 @@ Bool32 BackupPage::Restore(Handle from)
     }
 
     if (rc)
-        rc = PAGE::Restore(from);
+        rc = PAGE::restore(from);
 
     return rc;
 }

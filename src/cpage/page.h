@@ -76,7 +76,7 @@ class CLA_EXPO PAGE: public cf::cpage::Data
         PAGE & operator = (PAGE & Page);
 
         Bool32 save(Handle to);
-        Bool32 Restore(Handle from);
+        Bool32 restore(Handle from);
         Bool32 SaveCompress(Handle to);
         Bool32 RestoreCompress(Handle from);
         virtual uint32_t Convert(Handle type, void * lpdata, uint32_t size);

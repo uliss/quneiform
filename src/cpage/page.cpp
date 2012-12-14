@@ -112,7 +112,7 @@ Bool32  PAGE::save(Handle to)
     return rc;
 }
 //#################################
-Bool32  PAGE::Restore(Handle from)
+Bool32  PAGE::restore(Handle from)
 {
     Bool32 rc = FALSE;
     int count, i;
@@ -121,14 +121,14 @@ Bool32  PAGE::Restore(Handle from)
 
     for (i = 0; i < count && rc == TRUE; i++) {
         BLOCK block;
-        rc = block.Restore(from);
+        rc = block.restore(from);
 
         if (rc)
             Block.AddTail(block);
     }
 
     if (rc)
-        rc = Data::Restore(from);
+        rc = Data::restore(from);
 
     return rc;
 }

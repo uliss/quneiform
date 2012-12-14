@@ -50,7 +50,7 @@ void TestBackupPage::testRestore()
     BackupPage p;
     FILE * f = fopen("test.cpage", "r");
     CPPUNIT_ASSERT(f);
-    p.Restore(f);
+    p.restore(f);
     fclose(f);
 
     char data[10];

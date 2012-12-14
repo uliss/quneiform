@@ -165,38 +165,37 @@ bool Data::save(Handle to) const
     return false;
 }
 
-Bool32 Data::Restore(Handle from)
+bool Data::restore(Handle from)
 {
     uint32_t len = 0;
-    char Name[260];
+    char name[260] = { 0 };
 
-    if (myRead(from, &len, sizeof(len)) == sizeof(len) &&
-            myRead(from, Name, len) == len) {
-        type_ = CPAGE_GetInternalType(Name);
+    if (myRead(from, &len, sizeof(len)) != sizeof(len))
+        return false;
 
-        if (myRead(from, &size_, sizeof(size_)) == sizeof(size_)) {
-            Bool32 rc = FALSE;
-
-            if (!size_)
-                rc = TRUE;
-
-            else {
-                if (data_) {
-                    delete [] data_;
-                    data_ = NULL;
-                }
-
-                data_ = new char[size_];
-
-                if (data_)
-                    rc = myRead(from, data_, size_) == size_;
-            }
-
-            return rc;
-        }
+    if(len >= sizeof(name)) {
+        cfError(MODULE_CPAGE) << "data name is too long:" << len;
+        return false;
     }
 
-    return FALSE;
+    if(myRead(from, name, len) != len)
+        return false;
+
+    type_ = CPAGE_GetInternalType(name);
+
+    if (myRead(from, &size_, sizeof(size_)) != sizeof(size_))
+        return false;
+
+    if (!size_)
+        return true;
+
+    if (data_) {
+        delete [] data_;
+        data_ = NULL;
+    }
+
+    data_ = new char[size_];
+    return myRead(from, data_, size_) == size_;
 }
 
 Bool32 Data::SaveCompress(Handle to)
@@ -223,7 +222,7 @@ Bool32 Data::SaveCompress(Handle to)
 
 Bool32 Data::RestoreCompress(Handle from)
 {
-    if (!Restore(from))
+    if (!restore(from))
         return FALSE;
 
     if (size_ == 0)
