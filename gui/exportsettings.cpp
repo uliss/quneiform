@@ -45,6 +45,7 @@ void ExportSettings::initFormatMap() {
     format_map_.insert(PLAINTEXT, cf::FORMAT_TEXT);
     format_map_.insert(SMARTTEXT, cf::FORMAT_SMARTTEXT);
     format_map_.insert(HTML, cf::FORMAT_HTML);
+    format_map_.insert(HOCR, cf::FORMAT_HOCR);
     format_map_.insert(ODF, cf::FORMAT_ODF);
     format_map_.insert(DJVUTXT, cf::FORMAT_DJVUTXT);
     format_map_.insert(DJVUXML, cf::FORMAT_DJVUXML);
