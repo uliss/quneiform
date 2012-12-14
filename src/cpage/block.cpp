@@ -124,22 +124,22 @@ Bool32 BLOCK::restore(Handle from)
     return FALSE;
 }
 //##############################
-Bool32 BLOCK::SaveCompress(Handle to)
+Bool32 BLOCK::saveCompress(Handle to)
 {
     if ( myWrite(to, &UserNum, sizeof(UserNum)) == sizeof(UserNum) &&
             myWrite(to, &Flags, sizeof(Flags)) == sizeof(Flags) &&
-            Data::SaveCompress(to) &&
+            Data::saveCompress(to) &&
             myWrite(to, &InterNum, sizeof(InterNum)) == sizeof(InterNum))
         return TRUE;
 
     return FALSE;
 }
 //##############################
-Bool32 BLOCK::RestoreCompress(Handle from)
+Bool32 BLOCK::restoreCompress(Handle from)
 {
     if ( myRead(from, &UserNum, sizeof(UserNum)) == sizeof(UserNum) &&
             myRead(from, &Flags, sizeof(Flags)) == sizeof(Flags) &&
-            Data::RestoreCompress(from) &&
+            Data::restoreCompress(from) &&
             myRead(from, &InterNum, sizeof(InterNum)) == sizeof(InterNum))
         return TRUE;
 

@@ -211,51 +211,51 @@ bool Data::restore(Handle from)
     return myRead(from, data_, size_) == size_;
 }
 
-Bool32 Data::SaveCompress(Handle to)
+bool Data::saveCompress(Handle to)
 {
     if (size_ == 0)
-        return  save(to);
+        return save(to);
 
-    Bool32 rv;
     char *compressedData, *lpDataSave = data_;
     uint32_t compressedSize, SizeSave = size_;
     CleanData(type_, data_, size_);
 
     if (!Compress(data_, size_, &compressedData, &compressedSize))
-        return FALSE;
+        return false;
 
     data_ = compressedData;
     size_ = compressedSize;
-    rv = save(to);
+    bool rv = save(to);
     data_ = lpDataSave;
     size_ = SizeSave;
     delete []compressedData;
     return rv;
 }
 
-Bool32 Data::RestoreCompress(Handle from)
+bool Data::restoreCompress(Handle from)
 {
     if (!restore(from))
-        return FALSE;
+        return false;
 
     if (size_ == 0)
-        return TRUE;
+        return true;
 
     char *decomData;
     uint32_t decomSize;
 
     if (!Decompress(data_, size_, &decomData, &decomSize))
-        return FALSE;
+        return false;
 
-    if (data_)  delete [] data_;
+    if (data_)
+        delete [] data_;
 
     data_ = decomData;
     size_ = decomSize;
 
     if (!ComplianceVersions(type_, &data_, &size_))
-        return FALSE;
+        return false;
 
-    return TRUE;
+    return true;
 }
 }
 

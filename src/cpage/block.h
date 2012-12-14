@@ -101,8 +101,8 @@ class CLA_EXPO BLOCK: public cf::cpage::Data
 
         Bool32 save(Handle to);
         Bool32 restore(Handle from);
-        Bool32 SaveCompress(Handle to);
-        Bool32 RestoreCompress(Handle from);
+        Bool32 saveCompress(Handle to);
+        Bool32 restoreCompress(Handle from);
 
         virtual uint32_t Convert(Handle type, void * lpdata, uint32_t size);
 };

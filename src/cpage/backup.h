@@ -76,9 +76,9 @@ public:
     Bool32 Undo(Handle backup);
 
     Bool32 save(Handle to);
-    Bool32 SaveCompress(Handle to);
+    Bool32 saveCompress(Handle to);
     Bool32 restore(Handle from);
-    Bool32 RestoreCompress(Handle from);
+    Bool32 restoreCompress(Handle from);
 
     BackupPage & operator = (BackupPage & Page);
     inline uint32_t GetCurPos() {

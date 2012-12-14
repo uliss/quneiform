@@ -194,7 +194,7 @@ Bool32 BackupPage::restore(Handle from)
     return rc;
 }
 //#################################
-Bool32 BackupPage::SaveCompress(Handle to)
+Bool32 BackupPage::saveCompress(Handle to)
 {
     int count = backups_.GetCount();
     Bool32 rc = FALSE;
@@ -208,16 +208,16 @@ Bool32 BackupPage::SaveCompress(Handle to)
 
         if (rc == TRUE && count)
             for (i = 0; i < count; i++)
-                backups_.GetItem(backups_.GetHandle(i)).SaveCompress(to);
+                backups_.GetItem(backups_.GetHandle(i)).saveCompress(to);
     }
 
     if (rc)
-        rc = PAGE::SaveCompress(to);
+        rc = PAGE::saveCompress(to);
 
     return rc;
 }
 //#################################
-Bool32 BackupPage::RestoreCompress(Handle from)
+Bool32 BackupPage::restoreCompress(Handle from)
 {
     Bool32 rc = FALSE;
     int count, i, position;
@@ -229,7 +229,7 @@ Bool32 BackupPage::RestoreCompress(Handle from)
 
         for (i = 0; i < count && rc == TRUE; i++) {
             PAGE page;
-            rc = page.RestoreCompress(from);
+            rc = page.restoreCompress(from);
 
             if (rc)
                 backups_.AddTail(page);
@@ -240,7 +240,7 @@ Bool32 BackupPage::RestoreCompress(Handle from)
     }
 
     if (rc)
-        rc = PAGE::RestoreCompress(from);
+        rc = PAGE::restoreCompress(from);
 
     return rc;
 }

@@ -382,9 +382,9 @@ Bool32 CPAGE_SavePage(Handle page, const char * lpName)
                 int count = 1;
                 rc = myWrite(file, &count, sizeof(count)) == sizeof(count);
 #ifdef SAVE_COMPRESSED
-                rc = cf::PageStorage::page(page).SaveCompress(file);
+                rc = cf::PageStorage::page(page).saveCompress(file);
 #else
-                rc = cf::PageStorage::page(page).Save(file);
+                rc = cf::PageStorage::page(page).save(file);
 #endif
             }
 
@@ -395,9 +395,9 @@ Bool32 CPAGE_SavePage(Handle page, const char * lpName)
 
                 for (i = 0; i < count && rc == TRUE; i++)
 #ifdef SAVE_COMPRESSED
-                    rc = cf::PageStorage::pageAt(i).SaveCompress(file);
+                    rc = cf::PageStorage::pageAt(i).saveCompress(file);
 #else
-                    rc = cf::PageStorage::pageAt(i).Save(file);
+                    rc = cf::PageStorage::pageAt(i).save(file);
 #endif
             }
         }
@@ -442,7 +442,7 @@ Handle CPAGE_RestorePage(Bool32 remove, const char * lpName)
                     for (i = 0; i < count; i++) {
                         cf::BackupPage page;
 
-                        if (decompress ? page.RestoreCompress(file)
+                        if (decompress ? page.restoreCompress(file)
                                 : page.restore(file))
                             rc = cf::PageStorage::append(page);//Page.AddTail(page);
 
