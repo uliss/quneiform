@@ -765,7 +765,7 @@ Bool32 CPAGE_GetBlockDataPtr(Handle page, Handle block, Handle Type,
 #ifdef _DEBUG
     assert(CPAGE_GetNameInternalType(Type));
 #endif
-    Bool32 rc = BLOCK_H_H(page, block).GetDataPtr(Type, lpData);
+    Bool32 rc = BLOCK_H_H(page, block).getDataPtr(Type, lpData);
     EPILOG;
     return rc;
 }

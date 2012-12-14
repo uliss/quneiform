@@ -57,6 +57,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdio.h>
 #include <memory.h>
 #include <string.h>
+#include <cassert>
 
 #include "cpage.h"
 #include "data.h"
@@ -98,6 +99,18 @@ void Data::setData(Handle type, const void * src, uint32_t size)
 bool Data::empty() const
 {
     return !size_ || !data_;
+}
+
+bool Data::getDataPtr(Handle type, void **lpdata)
+{
+    assert(lpdata);
+
+    if (type == type_) {
+        *lpdata = data_;
+        return true;
+    }
+
+    return false;
 }
 
 Handle Data::type() const

@@ -91,17 +91,7 @@ class CLA_EXPO Data
          */
         bool empty() const;
 
-        inline Bool32 GetDataPtr(Handle type, void ** lpdata) {
-            Bool32 rc = FALSE;
-            assert(lpdata);
-
-            if (type == type_) {
-                *lpdata = data_;
-                rc = TRUE;
-            }
-
-            return rc;
-        }
+        bool getDataPtr(Handle type, void ** lpdata);
 
         Handle type() const;
         void setType(Handle type);
