@@ -73,13 +73,10 @@ Page::~Page()
 
 Handle Page::createBlock(Handle Type, uint32_t UserNum , uint32_t Flags , void * lpData , uint32_t Size )
 {
-    Block tmp;
-    Handle hBlock = appendBlock(tmp);
+    Block * hBlock = appendBlock(Block());
 
-    if (hBlock) {
-        if (!blocks_.GetItem(hBlock).create(Type, UserNum, Flags, lpData, Size))
-            return NULL;
-    }
+    if (!hBlock->create(Type, UserNum, Flags, lpData, Size))
+        return NULL;
 
     return hBlock;
 }
@@ -96,44 +93,59 @@ Page& Page::operator=(Page& page)
     return *this;
 }
 
-Handle Page::appendBlock(Block &b)
+Block * Page::appendBlock(const Block &b)
 {
-    return blocks_.AddTail(b);
+    blocks_.push_back(new Block(b));
+    return blocks_.back();
 }
 
 Block& Page::blockData(Handle b)
 {
-    return blocks_.GetItem(b);
+    return * (Block*) b;
 }
 
-Handle Page::blockHandle(int pos)
+Block * Page::blockHandle(int pos)
 {
-    return blocks_.GetHandle(pos);
+    return blocks_.at(pos);
 }
 
 Block& Page::blockAt(int pos)
 {
-    return blocks_.GetItem(blocks_.GetHandle(pos));
+    return *blocks_.at(pos);
 }
 
 size_t Page::blockCount() const
 {
-    return blocks_.GetCount();
+    return blocks_.size();
 }
 
 void Page::clearBlocks()
 {
-    blocks_.Clear();
+    for(size_t i = 0; i < blocks_.size(); i++)
+        delete blocks_[i];
+
+    blocks_.clear();
 }
 
 int Page::findBlockPos(Handle b)
 {
-    return blocks_.GetPos(b);
+    for(int i = 0; i < blocks_.size(); i++) {
+        if(blocks_[i] == b)
+            return i;
+    }
+
+    return -1;
 }
 
 bool Page::removeBlock(Block *b)
 {
-    return blocks_.Del(b);
+    int pos = findBlockPos(b);
+    if(pos == -1)
+        return false;
+
+    blocks_.erase(blocks_.begin() + pos);
+    delete b;
+    return true;
 }
 
 bool Page::save(Handle to)

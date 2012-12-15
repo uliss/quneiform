@@ -76,9 +76,9 @@ class CLA_EXPO Page: public Data
         ~Page();
         Page& operator=(Page& page);
 
-        Handle appendBlock(Block &b);
+        Block * appendBlock(const Block &b);
         Block& blockData(Handle b);
-        Handle blockHandle(int pos);
+        Block * blockHandle(int pos);
         Block& blockAt(int pos);
         size_t blockCount() const;
         void clearBlocks();
@@ -92,7 +92,7 @@ class CLA_EXPO Page: public Data
         virtual uint32_t Convert(Handle type, void * lpdata, uint32_t size);
         PAGEINFO * pageInfo();
     private:
-        PtrList<cf::cpage::Block> blocks_;
+        std::vector<cf::cpage::Block*> blocks_;
 };
 
 CPAGE_CONVERTOR SetConvertorPages(CPAGE_CONVERTOR convertor);
