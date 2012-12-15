@@ -100,7 +100,11 @@ class CLA_EXPO Page: public Data
          */
         void clearBlocks();
 
-        int findBlockPos(Handle b);
+        /**
+         * Searches for given block pointer in block list
+         * @return block index or -1 if not found
+         */
+        int findBlock(Block *b) const;
 
         /**
          * Removes block

@@ -125,19 +125,19 @@ void Page::clearBlocks()
     blocks_.clear();
 }
 
-int Page::findBlockPos(Handle b)
+int Page::findBlock(Block * b) const
 {
-    for(int i = 0; i < blocks_.size(); i++) {
+    for(size_t i = 0; i < blocks_.size(); i++) {
         if(blocks_[i] == b)
-            return i;
+            return static_cast<int>(i);
     }
 
     return -1;
 }
 
-bool Page::removeBlock(Block *b)
+bool Page::removeBlock(Block * b)
 {
-    int pos = findBlockPos(b);
+    int pos = findBlock(b);
     if(pos == -1)
         return false;
 

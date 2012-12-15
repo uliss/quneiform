@@ -590,7 +590,7 @@ Handle CPAGE_GetBlockNext(Handle p, Handle block, Handle type)
     PROLOG;
     using namespace cf::cpage;
     int count = PageStorage::page(p).blockCount();
-    int pos = PageStorage::page(p).findBlockPos(block) + 1;
+    int pos = PageStorage::page(p).findBlock((Block*) block) + 1;
     int i;
 
     DefConvertInit();
