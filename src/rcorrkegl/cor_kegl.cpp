@@ -1561,11 +1561,11 @@ static void draw_fragment(Handle hBlock, uint32_t color, uint32_t key)
         LDPUMA_DrawLine(NULL, &v0, &cv, 0, color, 1, key);
 
         if (snap_enable && !LDPUMA_SkipEx(hSnapGarbage, FALSE, TRUE, 1)) {
-            char msg[80];
-            sprintf(msg, "draw=%d handle=%x\n", com->number,
-                    CPAGE_GetHandleBlock(hCPAGE, com->number));
-            LDPUMA_Console(msg);
-            LDPUMA_RasterText(msg);
+//            char msg[80];
+//            sprintf(msg, "draw=%d handle=%x\n", com->number,
+//                    CPAGE_GetBlockData(hCPAGE, com->number));
+//            LDPUMA_Console(msg);
+//            LDPUMA_RasterText(msg);
         }
     }
 

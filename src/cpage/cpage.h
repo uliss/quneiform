@@ -200,7 +200,6 @@ CPAGE_FUNC Bool32 CPAGE_Redo(Handle page, Handle backup);
 CPAGE_FUNC Handle CPAGE_CreateBlock(Handle page, Handle Type, uint32_t UserNum , uint32_t Flags, void * lpData, uint32_t Size);
 CPAGE_FUNC void CPAGE_DeleteBlock(Handle page, Handle block);
 CPAGE_FUNC uint32_t CPAGE_GetCountBlock(Handle page);
-CPAGE_FUNC Handle CPAGE_GetHandleBlock(Handle page, uint32_t number);
 CPAGE_FUNC Handle CPAGE_GetBlockType(Handle page, Handle block);
 CPAGE_FUNC uint32_t CPAGE_GetBlockUserNum(Handle page, Handle block);
 CPAGE_FUNC void CPAGE_SetBlockUserNum(Handle page, Handle block, uint32_t user);

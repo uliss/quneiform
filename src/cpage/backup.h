@@ -62,7 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 namespace cf {
 namespace cpage {
 
-class CLA_EXPO BackupPage : public cpage::Page
+class CLA_EXPO BackupPage : public Page
 {
 public:
     BackupPage();

@@ -64,11 +64,7 @@
 extern Handle hCurPage;
 extern PtrList<NAMEDATA> NameData;
 
-#define _BLOCK_H(page, block) page.blocks.GetItem(block)
-#define _BLOCK_N(page, block) _BLOCK_H(page, page.blocks.GetHandle(block))
-
 #define BLOCK_H_H(p, block) cf::cpage::PageStorage::page(p).blockData(block)
-#define BLOCK_H_N(p, block) cf::cpage::PageStorage::page(p).blockAt(block)
 
 Handle CPAGE_CreatePage(Handle type, void * lpdata, uint32_t size)
 {
@@ -362,7 +358,7 @@ uint32_t CPAGE_GetCountBlock(Handle page)
     PROLOG;
     using namespace cf::cpage;
     SetReturnCode_cpage(IDS_ERR_NO);
-    uint32_t rc = PageStorage::page(page).backupCount();
+    uint32_t rc = PageStorage::page(page).blockCount();
     EPILOG;
     return rc;
 }
@@ -486,15 +482,6 @@ Handle CPAGE_GetHandlePage(uint32_t pos)
     return rc;
 }
 
-Handle CPAGE_GetHandleBlock(Handle page, uint32_t pos)
-{
-    PROLOG;
-    using namespace cf::cpage;
-    Handle rc = PageStorage::page(page).blockAt(pos);
-    EPILOG;
-    return rc;
-}
-
 CPAGE_CONVERTOR CPAGE_SetConvertorPages(CPAGE_CONVERTOR data)
 {
     PROLOG;
@@ -579,47 +566,45 @@ Handle CPAGE_GetPageNext(Handle page, Handle type)
     return rc;
 }
 
-Handle CPAGE_GetBlockFirst(Handle page, Handle type)
+Handle CPAGE_GetBlockFirst(Handle p, Handle type)
 {
     PROLOG;
     using namespace cf::cpage;
-    int count = PageStorage::page(page).blockCount();
+    int count = PageStorage::page(p).blockCount();
     int i;
-    /*
-     #ifdef _DEBUG
-     assert(CPAGE_GetNameInternalType(type));
-     #endif
-     */
+
     DefConvertInit();
 
     for (i = 0; i < count; i++) {
-        if (!type || BLOCK_H_N(page, i)->type() == type
-                || BLOCK_H_N(page, i)->Convert(type, NULL, 0))
+        if (!type ||
+                PageStorage::page(p).blockAt(i).type() == type ||
+                PageStorage::page(p).blockAt(i).Convert(type, NULL, 0))
             break;
     }
 
-    Handle rc = i < count ? PageStorage::page(page).blockAt(i) : NULL;
+    Handle rc = i < count ? PageStorage::page(p).blockHandle(i) : NULL;
     EPILOG;
     return rc;
 }
 
-Handle CPAGE_GetBlockNext(Handle page, Handle block, Handle type)
+Handle CPAGE_GetBlockNext(Handle p, Handle block, Handle type)
 {
     PROLOG;
     using namespace cf::cpage;
-    int count = PageStorage::page(page).blockCount();
-    int pos = PageStorage::page(page).findBlockPos(block) + 1;
+    int count = PageStorage::page(p).blockCount();
+    int pos = PageStorage::page(p).findBlockPos(block) + 1;
     int i;
 
     DefConvertInit();
 
     for (i = pos; i < count && i >= 0; i++) {
-        if (!type || BLOCK_H_N(page, i)->type() == type
-                || BLOCK_H_N(page, i)->Convert(type, NULL, 0))
+        if (!type ||
+                PageStorage::page(p).blockAt(i).type() == type ||
+                PageStorage::page(p).blockAt(i).Convert(type, NULL, 0))
             break;
     }
 
-    Handle rc = i < count ? PageStorage::page(page).blockAt(i) : NULL;
+    Handle rc = i < count ? PageStorage::page(p).blockHandle(i) : NULL;
     EPILOG;
     return rc;
 }

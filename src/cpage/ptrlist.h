@@ -86,7 +86,7 @@ template<class TYPE> class PtrList
 
         void Clear();
 
-        Handle AddTail(TYPE & Data);
+        Handle AddTail(TYPE &Data);
         Handle AddHead(TYPE & Data);
 
         bool   Del(Handle ptr);
@@ -126,7 +126,7 @@ template<class TYPE> int PtrList<TYPE>::GetCount() const
     return i;
 }
 //#################################
-template<class TYPE> Handle PtrList<TYPE>::AddTail(TYPE & tpData)
+template<class TYPE> Handle PtrList<TYPE>::AddTail(TYPE &tpData)
 {
     PtrList * NewItem = new PtrList;
 
