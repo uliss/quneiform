@@ -62,7 +62,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cpage.h"
 #include "cpagetyps.h"
 #include "block.h"
-#include "ptrlist.h"
 
 namespace cf {
 namespace cpage {
