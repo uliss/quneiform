@@ -58,6 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "backup.h"
 #include "page.h"
+#include "block.h"
 #include "common/log.h"
 
 namespace cf {

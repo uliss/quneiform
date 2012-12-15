@@ -59,12 +59,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <vector>
 
-#include "cpage.h"
+#include "data.h"
 #include "cpagetyps.h"
-#include "block.h"
+#include "cpage.h"
 
 namespace cf {
 namespace cpage {
+
+class Block;
 
 class CLA_EXPO Page: public Data
 {
@@ -120,7 +122,7 @@ class CLA_EXPO Page: public Data
         virtual uint32_t Convert(Handle type, void * lpdata, uint32_t size);
         PAGEINFO * pageInfo();
     private:
-        std::vector<cf::cpage::Block*> blocks_;
+        std::vector<Block*> blocks_;
 };
 
 CPAGE_CONVERTOR SetConvertorPages(CPAGE_CONVERTOR convertor);

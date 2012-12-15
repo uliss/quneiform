@@ -56,6 +56,7 @@
 
 #include "resource.h"
 #include "cpage.h"
+#include "block.h"
 #include "backup.h"
 #include "namedata.h"
 #include "pagestorage.h"
