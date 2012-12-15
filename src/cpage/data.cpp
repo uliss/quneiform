@@ -211,7 +211,7 @@ bool Data::restore(Handle from)
     return myRead(from, data_, size_) == size_;
 }
 
-bool Data::saveCompress(Handle to)
+bool Data::saveCompress(Handle to) const
 {
     if (size_ == 0)
         return save(to);

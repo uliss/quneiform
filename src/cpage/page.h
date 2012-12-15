@@ -115,12 +115,24 @@ class CLA_EXPO Page: public Data
          */
         bool removeBlock(Block * b);
 
-        bool save(Handle to);
-        Bool32 restore(Handle from);
-        Bool32 saveCompress(Handle to);
-        Bool32 restoreCompress(Handle from);
+        /**
+         * Writes page into given file handle
+         * @return true on success, false on error
+         * @see restore()
+         */
+        bool save(Handle to) const;
+
+        /**
+         * Reads page data from given file
+         * @return true on success, false on error
+         * @see save()
+         */
+        bool restore(Handle from);
+
+        bool saveCompress(Handle to) const;
+        bool restoreCompress(Handle from);
         virtual uint32_t Convert(Handle type, void * lpdata, uint32_t size);
-        PAGEINFO * pageInfo();
+        const PAGEINFO * pageInfo() const;
     private:
         std::vector<Block*> blocks_;
 };

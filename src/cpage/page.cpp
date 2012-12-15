@@ -147,83 +147,94 @@ bool Page::removeBlock(Block * b)
     return true;
 }
 
-bool Page::save(Handle to)
+bool Page::save(Handle to) const
 {
-    int count = blockCount();
-    bool rc = FALSE;
-    rc = myWrite(to, &count, sizeof(count)) == sizeof(count);
+    uint32_t count = blockCount();
+    bool rc = myWrite(to, &count, sizeof(count)) == sizeof(count);
 
-    if (rc == TRUE && count) {
-        for (int i = 0; i < count; i++) {
-            blocks_[i]->save(to);
+    if(!rc) {
+        cfError(MODULE_CPAGE) << "save failed";
+        return false;
+    }
+
+    for (uint32_t i = 0; i < count; i++)
+        blocks_[i]->save(to);
+
+    return Data::save(to);
+}
+
+bool Page::restore(Handle from)
+{
+    clearBlocks();
+    uint32_t count = 0;
+
+    if(myRead(from, &count, sizeof(count)) != sizeof(count)) {
+        cfError(MODULE_CPAGE) << "restore failed.";
+        return false;
+    }
+
+    for(uint32_t i = 0; i < count; i++) {
+        Block block;
+
+        if(block.restore(from)) {
+            appendBlock(block);
+        }
+        else {
+            cfError(MODULE_CPAGE) << "restore failed.";
+            return false;
         }
     }
 
-    if (rc)
-        rc = Data::save(to);
-
-    return rc;
+    return Data::restore(from);
 }
 
-Bool32  Page::restore(Handle from)
+bool Page::saveCompress(Handle to) const
 {
-    Bool32 rc = FALSE;
-    int count, i;
-    clearBlocks();
-    rc = myRead(from, &count, sizeof(count)) == sizeof(count);
+    uint32_t count = blockCount();
 
-    for (i = 0; i < count && rc == TRUE; i++) {
-        Block block;
-        rc = block.restore(from);
-
-        if (rc)
-            appendBlock(block);
+    if(myWrite(to, &count, sizeof(count)) != sizeof(count)) {
+        cfError(MODULE_CPAGE) << "save compressed failed";
+        return false;
     }
 
-    if (rc)
-        rc = Data::restore(from);
+    for (uint32_t i = 0; i < count; i++)
+        blocks_[i]->saveCompress(to);
 
-    return rc;
+    return Data::saveCompress(to);
 }
 
-Bool32  Page::saveCompress(Handle to)
+bool Page::restoreCompress(Handle from)
 {
-    int count = blockCount();
-    Bool32 rc = FALSE;
-    int i;
-    rc = myWrite(to, &count, sizeof(count)) == sizeof(count);
+    clearBlocks();
+    uint32_t count = 0;
+    if(myRead(from, &count, sizeof(count)) != sizeof(count)) {
+        cfError(MODULE_CPAGE) << "restore compressed failed.";
+        return false;
+    }
 
-    if (rc == TRUE && count) {
-        for (i = 0; i < count; i++) {
-            blocks_[i]->saveCompress(to);
+    for (uint32_t i = 0; i < count; i++) {
+        Block block;
+        if(block.restoreCompress(from)) {
+            appendBlock(block);
+        }
+        else {
+            cfError(MODULE_CPAGE) << "restore compressed failed.";
+            return false;
         }
     }
 
-    if (rc)
-        rc = Data::saveCompress(to);
-
-    return rc;
+    return Data::restoreCompress(from);
 }
 
-Bool32  Page::restoreCompress(Handle from)
+const PAGEINFO * Page::pageInfo() const
 {
-    Bool32 rc = FALSE;
-    int count, i;
-    clearBlocks();
-    rc = myRead(from, &count, sizeof(count)) == sizeof(count);
+    if(type_ != PT_PAGEINFO)
+        return NULL;
 
-    for (i = 0; i < count && rc == TRUE; i++) {
-        Block block;
-        rc = block.restoreCompress(from);
+    if(size_ != sizeof(PAGEINFO))
+        return NULL;
 
-        if (rc)
-            appendBlock(block);
-    }
-
-    if (rc)
-        rc = Data::restoreCompress(from);
-
-    return rc;
+    return (PAGEINFO*) data_;
 }
 
 static  CPAGE_CONVERTOR s_ConvertorPages = {0, DefConvertPage};
@@ -242,17 +253,6 @@ uint32_t Page::Convert(Handle type, void * lpdata, uint32_t size)
                                          type_, data_, size_,
                                          type, lpdata, size);
     return rc;
-}
-
-PAGEINFO * Page::pageInfo()
-{
-    if(type_ != PT_PAGEINFO)
-        return NULL;
-
-    if(size_ != sizeof(PAGEINFO))
-        return NULL;
-
-    return (PAGEINFO*) data_;
 }
 
 }
