@@ -1108,12 +1108,12 @@ cpage::BackupPage * PumaImpl::cpage()
     return &cpage::PageStorage::page(cpage_);
 }
 
-PAGEINFO * PumaImpl::pageInfo()
+const PAGEINFO * PumaImpl::pageInfo() const
 {
     if(!cpage_)
         return NULL;
 
-    return cpage()->pageInfo();
+    return cpage::PageStorage::page(cpage_).pageInfo();
 }
 
 }

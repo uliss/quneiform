@@ -130,7 +130,7 @@ class PumaImpl
     private:
         void applyReadMask();
         cpage::BackupPage * cpage();
-        PAGEINFO * pageInfo();
+        const PAGEINFO * pageInfo() const;
         void clearAll();
         void debugPrintCpage() const;
         void extractComponents();

@@ -67,6 +67,7 @@ class CLA_EXPO Data
 {
     public:
         Data();
+        Data(const Data& data);
         Data& operator=(const Data& data);
         bool operator==(const Data& data);
         virtual ~Data();

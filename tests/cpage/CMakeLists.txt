@@ -1,6 +1,7 @@
 add_executable(test_cpage
     test_cpage.cpp
     testbackuppage.cpp
+    testblock.cpp
 )
 
 target_link_libraries(test_cpage

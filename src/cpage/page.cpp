@@ -76,10 +76,7 @@ Page::~Page()
 Block * Page::createBlock(Handle Type, uint32_t UserNum , uint32_t Flags , void * lpData , uint32_t Size )
 {
     blocks_.push_back(new Block);
-
-    if (!blocks_.back()->create(Type, UserNum, Flags, lpData, Size))
-        return NULL;
-
+    blocks_.back()->set(Type, UserNum, Flags, lpData, Size);
     return blocks_.back();
 }
 

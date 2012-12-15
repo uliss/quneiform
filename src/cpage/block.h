@@ -67,9 +67,10 @@ class CLA_EXPO Block: public Data
 {
     public:
         Block();
+        Block(const Block& b);
         virtual ~Block();
 
-        bool create(Handle type, uint32_t userNum = 0, uint32_t flags = 0, const void * src = NULL, uint32_t size = 0);
+        void set(Handle type, uint32_t userNum = 0, uint32_t flags = 0, const void * src = NULL, uint32_t size = 0);
 
         uint32_t userNum() const {
             return user_num_;

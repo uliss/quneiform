@@ -70,16 +70,22 @@ Block::Block() :
     internal_num_(0)
 {}
 
+Block::Block(const Block& b) :
+    Data(b),
+    user_num_(b.user_num_),
+    flags_(b.flags_),
+    internal_num_(b.internal_num_)
+{}
+
 Block::~Block()
 {}
 
-bool Block::create(Handle type, uint32_t userNum , uint32_t flags , const void * src , uint32_t size)
+void Block::set(Handle type, uint32_t userNum , uint32_t flags , const void * src , uint32_t size)
 {
     user_num_ = userNum;
     flags_ = flags;
     internal_num_ = 0;
     setData(type, src, size);
-    return true;
 }
 
 Block& Block::operator=(const Block& block)

@@ -75,6 +75,14 @@ Data::Data() :
     type_ = reinterpret_cast<void*> (-1);
 }
 
+Data::Data(const Data& data) :
+    size_(data.size_),
+    type_(data.type_),
+    data_(NULL)
+{
+    setData(data.type_, data.data_, data.size_);
+}
+
 Data::~Data()
 {
     delete []data_;
