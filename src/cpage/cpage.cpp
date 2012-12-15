@@ -575,12 +575,12 @@ Handle CPAGE_GetBlockFirst(Handle p, Handle type)
 
     for (i = 0; i < count; i++) {
         if (!type ||
-                PageStorage::page(p).blockAt(i).type() == type ||
-                PageStorage::page(p).blockAt(i).Convert(type, NULL, 0))
+                PageStorage::page(p).blockAt(i)->type() == type ||
+                PageStorage::page(p).blockAt(i)->Convert(type, NULL, 0))
             break;
     }
 
-    Handle rc = i < count ? PageStorage::page(p).blockHandle(i) : NULL;
+    Handle rc = i < count ? PageStorage::page(p).blockAt(i) : NULL;
     EPILOG;
     return rc;
 }
@@ -597,12 +597,12 @@ Handle CPAGE_GetBlockNext(Handle p, Handle block, Handle type)
 
     for (i = pos; i < count && i >= 0; i++) {
         if (!type ||
-                PageStorage::page(p).blockAt(i).type() == type ||
-                PageStorage::page(p).blockAt(i).Convert(type, NULL, 0))
+                PageStorage::page(p).blockAt(i)->type() == type ||
+                PageStorage::page(p).blockAt(i)->Convert(type, NULL, 0))
             break;
     }
 
-    Handle rc = i < count ? PageStorage::page(p).blockHandle(i) : NULL;
+    Handle rc = i < count ? PageStorage::page(p).blockAt(i) : NULL;
     EPILOG;
     return rc;
 }

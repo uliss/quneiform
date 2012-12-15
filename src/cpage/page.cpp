@@ -58,6 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "backup.h"
 #include "page.h"
+#include "common/log.h"
 
 namespace cf {
 namespace cpage {
@@ -71,14 +72,14 @@ Page::~Page()
     clearBlocks();
 }
 
-Handle Page::createBlock(Handle Type, uint32_t UserNum , uint32_t Flags , void * lpData , uint32_t Size )
+Block * Page::createBlock(Handle Type, uint32_t UserNum , uint32_t Flags , void * lpData , uint32_t Size )
 {
-    Block * hBlock = appendBlock(Block());
+    blocks_.push_back(new Block);
 
-    if (!hBlock->create(Type, UserNum, Flags, lpData, Size))
+    if (!blocks_.back()->create(Type, UserNum, Flags, lpData, Size))
         return NULL;
 
-    return hBlock;
+    return blocks_.back();
 }
 
 Page& Page::operator=(Page& page)
@@ -87,16 +88,15 @@ Page& Page::operator=(Page& page)
     clearBlocks();
 
     for (int i = 0; i < count; i++)
-        appendBlock(page.blockAt(i));
+        appendBlock(*page.blockAt(i));
 
     *(Data *)this = page;
     return *this;
 }
 
-Block * Page::appendBlock(const Block &b)
+void Page::appendBlock(const Block& b)
 {
     blocks_.push_back(new Block(b));
-    return blocks_.back();
 }
 
 Block& Page::blockData(Handle b)
@@ -104,14 +104,12 @@ Block& Page::blockData(Handle b)
     return * (Block*) b;
 }
 
-Block * Page::blockHandle(int pos)
+Block * Page::blockAt(size_t pos)
 {
-    return blocks_.at(pos);
-}
+    if(pos >= blocks_.size())
+        cfError(cf::MODULE_CPAGE) << "invalid block index:" << pos;
 
-Block& Page::blockAt(int pos)
-{
-    return *blocks_.at(pos);
+    return blocks_.at(pos);
 }
 
 size_t Page::blockCount() const
@@ -155,8 +153,9 @@ bool Page::save(Handle to)
     rc = myWrite(to, &count, sizeof(count)) == sizeof(count);
 
     if (rc == TRUE && count) {
-        for (int i = 0; i < count; i++)
-            blockAt(i).save(to);
+        for (int i = 0; i < count; i++) {
+            blocks_[i]->save(to);
+        }
     }
 
     if (rc)
@@ -194,8 +193,9 @@ Bool32  Page::saveCompress(Handle to)
     rc = myWrite(to, &count, sizeof(count)) == sizeof(count);
 
     if (rc == TRUE && count) {
-        for (i = 0; i < count; i++)
-            blockAt(i).saveCompress(to);
+        for (i = 0; i < count; i++) {
+            blocks_[i]->saveCompress(to);
+        }
     }
 
     if (rc)

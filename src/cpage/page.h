@@ -70,19 +70,44 @@ namespace cpage {
 class CLA_EXPO Page: public Data
 {
     public:
-        Handle createBlock(Handle Type, uint32_t UserNum = 0, uint32_t Flags = 0, void * lpData = NULL, uint32_t Size = 0);
+        Block * createBlock(Handle Type, uint32_t UserNum = 0, uint32_t Flags = 0, void * lpData = NULL, uint32_t Size = 0);
     public:
         Page();
         ~Page();
         Page& operator=(Page& page);
 
-        Block * appendBlock(const Block &b);
-        Block& blockData(Handle b);
-        Block * blockHandle(int pos);
-        Block& blockAt(int pos);
+        /**
+         * Appends block to the end of block list
+         */
+        void appendBlock(const Block& b);
+
+        /**
+         * Returns pointer to block at given position
+         * @see appendBlock(), blockCount()
+         */
+        Block * blockAt(size_t pos);
+
+        /**
+         * Returns block count
+         * @see blockAt(), appendBlock()
+         */
         size_t blockCount() const;
+
+        Block& blockData(Handle b);
+
+        /**
+         * Deletes all blocks
+         * @see removeBlock
+         */
         void clearBlocks();
+
         int findBlockPos(Handle b);
+
+        /**
+         * Removes block
+         * @return true on success, false if block not found
+         * @see clearBlocks()
+         */
         bool removeBlock(Block * b);
 
         bool save(Handle to);
