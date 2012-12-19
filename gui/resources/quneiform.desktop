@@ -11,4 +11,4 @@ X-MultipleArgs=false
 Type=Application
 Categories=Graphics;Scanning;OCR;Qt;
 StartupNotify=true
-MimeType=application/x-quneiform;
+MimeType=application/x-quneiform;image/png;image/jpeg;image/bmp;image/tiff;image/gif;image/x-portable-pixmap;image/x-portable-graymap;image/x-portable-bitmap;
