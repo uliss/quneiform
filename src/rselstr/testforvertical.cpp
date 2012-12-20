@@ -504,7 +504,7 @@ Bool InitPrepList(Handle hCPAGE) {
         CPrepHstr* add = prelist->Add();
         CPrepHstr* temp = add->next;
         if (add) {
-            CPAGE_GetBlockData(hCPAGE, pBlock, TYPE_RSELSTR_TEMP_PHSTR, add, size_phstr);
+            CPAGE_GetBlockData(pBlock, TYPE_RSELSTR_TEMP_PHSTR, add, size_phstr);
 
             add->begx = NULL;
             add->flmovey = NULL;
@@ -541,7 +541,7 @@ Bool InitPrepList(Handle hCPAGE) {
         CPrepHstr* add = prelist->Add();
         CPrepHstr* temp = add->next;
         if (add) {
-            CPAGE_GetBlockData(hCPAGE, pBlock, TYPE_RNEG_TEMP_PHSTR, &neg_tmp, size_neg);
+            CPAGE_GetBlockData(pBlock, TYPE_RNEG_TEMP_PHSTR, &neg_tmp, size_neg);
 
             add->begx = NULL;
             add->flmovey = NULL;

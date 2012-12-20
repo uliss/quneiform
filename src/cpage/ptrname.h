@@ -166,7 +166,7 @@ template<class TYPE> Bool32     PtrName<TYPE>::Attach(Handle hPage)
     if (!hBlock)
         return FALSE;
 
-    m_bAttach = CPAGE_GetBlockDataPtr(hPage, hBlock, m_Type, (void **) & m_Ptr);
+    m_bAttach = CPAGE_GetBlockDataPtr(hBlock, m_Type, (void **) & m_Ptr);
     return m_bAttach;
 }
 ///////////////////////////////////////////////////////////

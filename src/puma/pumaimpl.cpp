@@ -190,7 +190,7 @@ LayoutBlockList PumaImpl::textBlocks() const
 
     while (block) {
         POLY_ poly;
-        CPAGE_GetBlockData(cpage_, block, TYPE_TEXT, &poly, sizeof(poly));
+        CPAGE_GetBlockData(block, TYPE_TEXT, &poly, sizeof(poly));
         res.push_back(LayoutBlock(poly.rect(), LayoutBlock::TEXT));
         block = CPAGE_GetBlockNext(cpage_, block, TYPE_TEXT);
     }
@@ -208,7 +208,7 @@ LayoutBlockList PumaImpl::imageBlocks() const
 
     while (block) {
         POLY_ poly;
-        CPAGE_GetBlockData(cpage_, block, TYPE_IMAGE, &poly, sizeof(poly));
+        CPAGE_GetBlockData(block, TYPE_IMAGE, &poly, sizeof(poly));
         res.push_back(LayoutBlock(poly.rect(), LayoutBlock::IMAGE));
         block = CPAGE_GetBlockNext(cpage_, block, TYPE_IMAGE);
     }
@@ -226,7 +226,7 @@ LayoutBlockList PumaImpl::tableBlocks() const
 
     while (block) {
         POLY_ poly;
-        CPAGE_GetBlockData(cpage_, block, TYPE_TABLE, &poly, sizeof(poly));
+        CPAGE_GetBlockData(block, TYPE_TABLE, &poly, sizeof(poly));
         res.push_back(LayoutBlock(poly.rect(), LayoutBlock::IMAGE));
         block = CPAGE_GetBlockNext(cpage_, block, TYPE_TABLE);
     }
@@ -320,9 +320,9 @@ void PumaImpl::debugPrintCpage() const
     Handle block = CPAGE_GetBlockFirst(cpage_, 0);
 
     while (block) {
-        cfDebug() << CPAGE_GetNameInternalType(CPAGE_GetBlockType(cpage_, block))
+        cfDebug() << CPAGE_GetNameInternalType(CPAGE_GetBlockType(block))
                 << " : "
-                << CPAGE_GetBlockData(cpage_, block, CPAGE_GetBlockType(cpage_, block), NULL, 0);
+                << CPAGE_GetBlockData(block, CPAGE_GetBlockType(block), NULL, 0);
         block = CPAGE_GetBlockNext(cpage_, block, 0);
     }
 }
@@ -690,8 +690,7 @@ void PumaImpl::printResultLine(std::ostream& os, size_t lineNumber) {
         Handle hBlock = CPAGE_GetBlockFirst(cpage_, 0);
 
         while (hBlock) {
-            if ((int) CPAGE_GetBlockInterNum(cpage_, hBlock)
-                    == line_attr.fragment) {
+            if ((int) CPAGE_GetBlockInterNum(hBlock) == line_attr.fragment) {
                 nFragment = line_attr.fragment;
                 break;
             }
@@ -777,7 +776,7 @@ void PumaImpl::recognize()
         AutoBuffer<int, InitZero> flagfrag(nf);
 
         for (int i = 0; hBlock && i < nf; i++) {
-            flagfrag[i] = CPAGE_GetBlockFlags(cpage_, hBlock);
+            flagfrag[i] = CPAGE_GetBlockFlags(hBlock);
             hBlock = CPAGE_GetBlockNext(cpage_, hBlock, TYPE_TEXT);
         }
 

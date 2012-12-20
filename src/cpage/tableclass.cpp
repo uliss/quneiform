@@ -193,7 +193,7 @@ TableClass * TableClass::Attach(Handle hPage, Handle hBlock)
     TableClass * rc = NULL;
     Handle Type = CPAGE_GetInternalType("TableClass");
 
-    if (CPAGE_GetBlockDataPtr(hPage, hBlock, Type, (void**) &rc)
+    if (CPAGE_GetBlockDataPtr(hBlock, Type, (void**) &rc)
             && rc->m_lpVerLines.GetSize() && rc->m_lpHorLines.GetSize()) {
         uint32_t i = 0;
         rc->m_lpVerLines.Attach(hPage);

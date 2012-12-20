@@ -703,7 +703,7 @@ Bool32 RPIC_SearchPictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, Handle hCPA
 		for (h = CPAGE_GetBlockFirst(hCPAGE, TYPE_IMAGE); h != NULL; h
 				= CPAGE_GetBlockNext(hCPAGE, h, TYPE_IMAGE)) {
 			nPics++;
-			CPAGE_GetBlockData(hCPAGE, h, TYPE_IMAGE, &block, sizeof(block));
+            CPAGE_GetBlockData(h, TYPE_IMAGE, &block, sizeof(block));
 			rect.left = block.com.Vertex[0].x();
 			rect.top = block.com.Vertex[0].y();
 			rect.right = block.com.Vertex[1].x();
@@ -723,8 +723,7 @@ Bool32 RPIC_SearchPictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, Handle hCPA
 		for (h = CPAGE_GetBlockFirst(hCPAGE, POSSIBLE_PICTURES); h != NULL; h
 				= CPAGE_GetBlockNext(hCPAGE, h, POSSIBLE_PICTURES)) {
 			nPics++;
-			CPAGE_GetBlockData(hCPAGE, h, POSSIBLE_PICTURES, &block,
-					sizeof(block));
+            CPAGE_GetBlockData(h, POSSIBLE_PICTURES, &block, sizeof(block));
 			rect.left = block.com.Vertex[0].x();
 			rect.top = block.com.Vertex[0].y();
 			rect.right = block.com.Vertex[1].x();
@@ -746,8 +745,7 @@ Bool32 RPIC_SearchPictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, Handle hCPA
 		for (h = CPAGE_GetBlockFirst(hCPAGE, BlockType); h != NULL; h
 				= CPAGE_GetBlockNext(hCPAGE, h, BlockType)) {
 			nPics++;
-			CPAGE_GetBlockData(hCPAGE, h, BlockType, &CompRect,
-					sizeof(CompRect));
+            CPAGE_GetBlockData(h, BlockType, &CompRect,	sizeof(CompRect));
 			rect.left = CompRect.left;
 			rect.top = CompRect.upper;
 			rect.right = CompRect.left + CompRect.w - 1;

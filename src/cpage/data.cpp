@@ -104,6 +104,11 @@ void Data::setData(Handle type, const void * src, uint32_t size)
     }
 }
 
+uint32_t Data::dataSize() const
+{
+    return size_;
+}
+
 bool Data::empty() const
 {
     return !size_ || !data_;

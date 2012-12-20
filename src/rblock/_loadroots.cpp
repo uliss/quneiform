@@ -294,7 +294,7 @@ Bool32 PicturesSecondStage(CCOM_handle hCCOM, Handle hCPAGE)
             //  h = CPAGE_GetBlockNext(hCPAGE,h,TYPE_IMAGE) Paul 02-04-2002
         ) {
         Handle hNext = CPAGE_GetBlockNext(hCPAGE, h, TYPE_IMAGE); // Paul 02-04-2002
-        CPAGE_GetBlockData(hCPAGE, h, TYPE_IMAGE, &block, sizeof(block));
+        CPAGE_GetBlockData(h, TYPE_IMAGE, &block, sizeof(block));
         CPAGE_DeleteBlock(hCPAGE, h);
         h = hNext; // Paul 02-04-2002
 
@@ -466,8 +466,7 @@ Bool32 FillBigLetters(Handle hCCOM, Handle hCPAGE)
                                                                           * BIG_LETTERS_QUANTUM * sizeof(RPIC_Comp_Rect))));
         }
 
-        CPAGE_GetBlockData(hCPAGE, pBlock, BlockType, &CompRect,
-                           sizeof(CompRect));
+        CPAGE_GetBlockData(pBlock, BlockType, &CompRect, sizeof(CompRect));
         nBigLetters++;
         pBigLetters[nBigLetters - 1] = CompRect;
         pBlock = CPAGE_GetBlockNext(hCPAGE, pBlock, BlockType);
@@ -484,7 +483,7 @@ Bool32 FillPicsInTables(Handle hCCOM, Handle hCPAGE)
 
     for (h = CPAGE_GetBlockFirst(hCPAGE, POSSIBLE_PICTURES); h != NULL;) {
         Handle hNext = CPAGE_GetBlockNext(hCPAGE, h, POSSIBLE_PICTURES); // Paul 02-04-2002
-        CPAGE_GetBlockData(hCPAGE, h, POSSIBLE_PICTURES, &block, sizeof(block));
+        CPAGE_GetBlockData(h, POSSIBLE_PICTURES, &block, sizeof(block));
         CPAGE_DeleteBlock(hCPAGE, h);
         h = hNext; // Paul 02-04-2002
 

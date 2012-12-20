@@ -318,11 +318,10 @@ static void LayoutFromCPAGE(Handle hCPAGE)
 
     for (h = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT); h != NULL; h
             = CPAGE_GetBlockNext(hCPAGE, h, TYPE_TEXT)) {
-        uint32_t f = CPAGE_GetBlockFlags(hCPAGE, h);
+        uint32_t f = CPAGE_GetBlockFlags(h);
 
         //BlockNumber = CPAGE_GetBlockUserNum(hCPAGE,h)*64000;// Piter 030399
-        if (CPAGE_GetBlockData(hCPAGE, h, TYPE_TEXT, &block, sizeof(block))
-                != sizeof(block)) {
+        if (CPAGE_GetBlockData(h, TYPE_TEXT, &block, sizeof(block)) != sizeof(block)) {
             SetReturnCode_rblock(CPAGE_GetReturnCode());
             longjmp(fatal_error_exit, -1);
         }
@@ -349,7 +348,7 @@ static void LayoutFromCPAGE(Handle hCPAGE)
         }
 
         //CPAGE_SetBlockUserNum(hCPAGE,h,BlockNumber);// Piter 030399
-        CPAGE_SetBlockInterNum(hCPAGE, h, BlockNumber);
+        CPAGE_SetBlockInterNum(h, BlockNumber);
         BlockNumber++;
     }
 

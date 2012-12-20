@@ -186,7 +186,7 @@ void SeparatorsGet (void)
                                     * PICS_QUANTUM * sizeof (POLY_))));
         }
 
-        CPAGE_GetBlockData(hPage, hBlock, TYPE_IMAGE, &pPics[nPics++], sizeof(POLY_));
+        CPAGE_GetBlockData(hBlock, TYPE_IMAGE, &pPics[nPics++], sizeof(POLY_));
     }
 
     for (i = 0; i < nPics; i++) {

@@ -443,7 +443,7 @@ Bool32 PageRoatateBlocks(Handle hPage)
 
     while (hBlock != NULL) {
         j++;
-        CPAGE_GetBlockData(hPage, hBlock, TYPE_IMAGE, &block, sizeof(block));
+        CPAGE_GetBlockData(hBlock, TYPE_IMAGE, &block, sizeof(block));
 
         if (block.com.count == 4) {
             if (nIncline >= 0) {
@@ -499,7 +499,7 @@ Bool32 PageRoatateBlocks(Handle hPage)
                 block.com.Vertex[2].y() - block.com.Vertex[1].y());
         LDPUMA_FPuts(resFile_pict, tmp_str);
         /*********************/
-        CPAGE_SetBlockData(hPage, hBlock, TYPE_IMAGE, &block, sizeof(block));
+        CPAGE_SetBlockData(hBlock, TYPE_IMAGE, &block, sizeof(block));
         hBlock = CPAGE_GetBlockNext(hPage, hBlock, TYPE_IMAGE);
     }
 
@@ -666,7 +666,7 @@ Bool32 OutputFragments(Handle hPage)
 
     for (p = pTopBlocksList; p != NULL; p = p -> pDown) {
         if (p->Type == 111) {
-            CPAGE_SetBlockUserNum(hPage, p->pHystogram, ++BlockNumber);
+            CPAGE_SetBlockUserNum(p->pHystogram, ++BlockNumber);
             continue;
         }
 
@@ -710,7 +710,7 @@ Bool32 OutputFragments(Handle hPage)
                                                                    / COMPS_QUANTUM + 1) * COMPS_QUANTUM * sizeof(POLY_))));
         }
 
-        CPAGE_GetBlockData(hPage, h, TYPE_IMAGE, &pPics[i++], sizeof(POLY_));
+        CPAGE_GetBlockData(h, TYPE_IMAGE, &pPics[i++], sizeof(POLY_));
     }
 
     nPics = i;
@@ -900,7 +900,7 @@ AGAIN:
             break;
         }
 
-        CPAGE_SetBlockUserNum(hPage, hBlock, BlockNumber);
+        CPAGE_SetBlockUserNum(hBlock, BlockNumber);
     }
 
     sprintf(tmp_str, "  <4 Р %d %d %d \n", j, 0, 0);
@@ -932,7 +932,7 @@ AGAIN:
 
     for (h = CPAGE_GetBlockFirst(hPage, TYPE_IMAGE); h != NULL; h
             = CPAGE_GetBlockNext(hPage, h, TYPE_IMAGE)) {
-        CPAGE_GetBlockData(hPage, h, TYPE_IMAGE, &block, sizeof(POLY_));
+        CPAGE_GetBlockData(h, TYPE_IMAGE, &block, sizeof(POLY_));
 
         for (i = 0; i < nPics; i++) {
             Same = TRUE;
@@ -948,7 +948,7 @@ AGAIN:
             if (Same) {
                 BlockNumber = pPics[i].com.number;
                 pPics[i].com.number = 0;
-                CPAGE_SetBlockUserNum(hPage, h, BlockNumber);
+                CPAGE_SetBlockUserNum(h, BlockNumber);
             }
         }
     }
@@ -958,16 +958,16 @@ AGAIN:
 
     while (h) {
         h_next = CPAGE_GetBlockNext(hPage, h, TYPE_IMAGE);
-        CPAGE_GetBlockData(hPage, h, TYPE_IMAGE, &block, sizeof(POLY_));
+        CPAGE_GetBlockData(h, TYPE_IMAGE, &block, sizeof(POLY_));
 
         if (block.negative == TYPE_NEGATIVE) {
-            BlockNumber = CPAGE_GetBlockUserNum(hPage, h);
+            BlockNumber = CPAGE_GetBlockUserNum(h);
             CPAGE_DeleteBlock(hPage, h);
             block.alphabet = 0;
             block.com.number = 0;
             hBlock = CPAGE_CreateBlock(hPage, TYPE_TEXT, 0, 0, &block,
                                        sizeof(POLY_));
-            CPAGE_SetBlockUserNum(hPage, hBlock, BlockNumber);
+            CPAGE_SetBlockUserNum(hBlock, BlockNumber);
         }
 
         h = h_next;

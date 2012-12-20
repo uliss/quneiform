@@ -492,8 +492,7 @@ Bool32 MyGetZher(void **vvZher, int32_t *nZher, int32_t MaxZher, Handle hCPage) 
 			break;
 		if (i >= MaxZher)
 			return FALSE;
-		nReal = CPAGE_GetBlockData(hCPage, hBlockZher, RVERLINE_ZHERTVY_LINIY,
-				(void *) &(vvZher[i]), nTeor);
+        nReal = CPAGE_GetBlockData(hBlockZher, RVERLINE_ZHERTVY_LINIY, (void *) &(vvZher[i]), nTeor);
 		err32 = CPAGE_GetReturnCode();
 		if (!nReal || (err32 != 0)) {
 			//Error_CPage ("[SetBlockData]");

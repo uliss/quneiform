@@ -121,7 +121,7 @@ Rect GetPictRect(uint NumberPict, uint32_t * UserNumber) {
     if (!h_Pict)
         throw std::runtime_error("[GetPictRect] can't get picture");
 
-    *UserNumber = (uint32_t) CPAGE_GetBlockUserNum(h_Page, h_Pict);
+    *UserNumber = (uint32_t) CPAGE_GetBlockUserNum(h_Pict);
 
     Point Lr, Wh;
     if (CPAGE_PictureGetPlace(h_Page, h_Pict, 0, &Lr, &Wh))

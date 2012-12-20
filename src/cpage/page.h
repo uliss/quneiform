@@ -94,8 +94,6 @@ class CLA_EXPO Page: public Data
          */
         size_t blockCount() const;
 
-        Block& blockData(Handle b);
-
         /**
          * Deletes all blocks
          * @see removeBlock

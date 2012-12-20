@@ -97,11 +97,6 @@ void Page::appendBlock(const Block& b)
     blocks_.push_back(new Block(b));
 }
 
-Block& Page::blockData(Handle b)
-{
-    return * (Block*) b;
-}
-
 Block * Page::blockAt(size_t pos)
 {
     if(pos >= blocks_.size())

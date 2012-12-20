@@ -60,12 +60,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "polyblock.h"
 #include "resource.h"
 
-typedef struct tagCompressHeader {
+struct CompressHeader {
     Bool16 bCompressed;
     uchar cRepeater;
     uchar reserved;
     uint32_t wCount;
-} CompressHeader;
+public:
+    CompressHeader() :
+        bCompressed(0),
+        cRepeater(0),
+        reserved(0),
+        wCount(0) {}
+};
 
 void CleanData(Handle Type, void * lpData, uint32_t Size)
 // Неиспользуемые части массивов заполняем нулями для лучшей упаковки
@@ -167,7 +173,7 @@ Bool32 Compress(char * lpData, uint32_t Size, char ** compressedData, uint32_t *
         }
 
         if (repeating > ordinary) { //обычный фрагмент
-            CompressHeader head = {0};
+            CompressHeader head;
             head.bCompressed = FALSE;
             head.wCount = repeating - ordinary;
             memcpy(lpNewData, &head, sizeof(head));
@@ -177,7 +183,7 @@ Bool32 Compress(char * lpData, uint32_t Size, char ** compressedData, uint32_t *
         }
 
         if (count) {             //фрагмент, заполненный символом (*repeated)
-            CompressHeader head = {0};
+            CompressHeader head;
             head.bCompressed = TRUE;
             head.cRepeater = *repeating;
             head.wCount = count;

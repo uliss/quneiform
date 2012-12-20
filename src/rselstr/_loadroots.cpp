@@ -213,7 +213,7 @@ Bool32 FillBigLetters(Handle hCCOM, Handle hCPAGE)
                     / BIG_LETTERS_QUANTUM + 1) * BIG_LETTERS_QUANTUM * sizeof(RPIC_Comp_Rect)));
         }
 
-        CPAGE_GetBlockData(hCPAGE, pBlock, BlockType, &CompRect, sizeof(CompRect));
+        CPAGE_GetBlockData(pBlock, BlockType, &CompRect, sizeof(CompRect));
         nBigLetters++;
         pBigLetters[nBigLetters - 1] = CompRect;
 
@@ -232,7 +232,7 @@ Bool32 FillPicsInTables(Handle hCCOM, Handle hCPAGE)
 
     for (h = CPAGE_GetBlockFirst(hCPAGE, POSSIBLE_PICTURES); h != NULL; h = CPAGE_GetBlockNext(
             hCPAGE, h, POSSIBLE_PICTURES)) {
-        CPAGE_GetBlockData(hCPAGE, h, POSSIBLE_PICTURES, &block, sizeof(block));
+        CPAGE_GetBlockData(h, POSSIBLE_PICTURES, &block, sizeof(block));
         CPAGE_DeleteBlock(hCPAGE, h);
 
         if (nPics % PICS_QUANTUM == 0) {

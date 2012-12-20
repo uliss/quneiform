@@ -88,6 +88,11 @@ class CLA_EXPO Data
         void setData(Handle type, const void * src, uint32_t size);
 
         /**
+         * Returns data size
+         */
+        uint32_t dataSize() const;
+
+        /**
          * Returns true if data is empty
          */
         bool empty() const;

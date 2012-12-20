@@ -237,8 +237,8 @@ void LayoutFromCPAGE(Handle hCPAGE, CCOM_handle hCCOM)
 
     for (h = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT); h != NULL; h = CPAGE_GetBlockNext(hCPAGE, h,
             TYPE_TEXT)) {
-        uint32_t f = CPAGE_GetBlockFlags(hCPAGE, h);
-        if (CPAGE_GetBlockData(hCPAGE, h, TYPE_TEXT, &block, sizeof(block)) != sizeof(block)) {
+        uint32_t f = CPAGE_GetBlockFlags(h);
+        if (CPAGE_GetBlockData(h, TYPE_TEXT, &block, sizeof(block)) != sizeof(block)) {
             SetReturnCode_rselstr(CPAGE_GetReturnCode());
             longjmp(fatal_error_exit, -1);
         }
@@ -267,7 +267,7 @@ void LayoutFromCPAGE(Handle hCPAGE, CCOM_handle hCCOM)
                 pRoot->nUserNum = BlockNumber;
             }
         }
-        CPAGE_SetBlockInterNum(hCPAGE, h, BlockNumber);
+        CPAGE_SetBlockInterNum(h, BlockNumber);
         BlockNumber++;
     }
 
@@ -299,7 +299,7 @@ void LayoutFromCPAGE(Handle hCPAGE, CCOM_handle hCCOM)
     ::Rect16 Rc;
     for (h = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT); h != NULL; h = CPAGE_GetBlockNext(hCPAGE, h,
             TYPE_TEXT)) {
-        CPAGE_GetBlockData(hCPAGE, h, TYPE_TEXT, &block, sizeof(POLY_));
+        CPAGE_GetBlockData(h, TYPE_TEXT, &block, sizeof(POLY_));
         if (block.negative == TYPE_NEGATIVE || block.orient == TYPE_UPDOWN || block.orient
                 == TYPE_DOWNUP) {
             Rc.bottom = block.com.Vertex[2].y();
@@ -361,7 +361,7 @@ void LayoutFromCPAGE(Handle hCPAGE, CCOM_handle hCCOM)
                 else
                     Hstr[nObjects].ImageName[0] = '\0';
 
-                CPAGE_SetBlockInterNum(hCPAGE, h, BlockNumber);
+                CPAGE_SetBlockInterNum(h, BlockNumber);
                 BlockNumber++;
                 nObjects++;
             }

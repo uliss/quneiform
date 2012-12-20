@@ -225,8 +225,8 @@ void CFPage::CreateArray_For_TextFragments() {
     Handle hBlock = CPAGE_GetBlockFirst(hPage, 0);
 
     while (hBlock) {
-        if (CPAGE_GetBlockType(hPage, hBlock) == TYPE_TEXT) {
-            uint32_t BlockNumber = CPAGE_GetBlockInterNum(hPage, hBlock);
+        if (CPAGE_GetBlockType(hBlock) == TYPE_TEXT) {
+            uint32_t BlockNumber = CPAGE_GetBlockInterNum(hBlock);
             FragmentsArray.push_back(BlockNumber);
         }
 
@@ -289,12 +289,12 @@ void CFPage::ProcessingComingLine(CSTR_line* Comingline) {
         hBlock = CPAGE_GetBlockFirst(hCPAGE, NULL);
 
         while (hBlock) {
-            if (CPAGE_GetBlockInterNum(hCPAGE, hBlock) == (uint32_t) m_nCurFragNumber) {
-                Fragment->m_wUserNumber = (uint32_t) CPAGE_GetBlockUserNum(hCPAGE, hBlock);
+            if (CPAGE_GetBlockInterNum(hBlock) == (uint32_t) m_nCurFragNumber) {
+                Fragment->m_wUserNumber = (uint32_t) CPAGE_GetBlockUserNum(hBlock);
                 Fragment->m_Flags = attr.Flags; //nega
 
                 if (attr.Flags == CSTR_STR_NEGATIVE) { //nega_str
-                    CPAGE_GetBlockData(hCPAGE, hBlock, TYPE_TEXT, &poly, sizeof(POLY_));
+                    CPAGE_GetBlockData(hBlock, TYPE_TEXT, &poly, sizeof(POLY_));
                     Fragment->m_rectFrag.left = poly.com.Vertex[0].x() - TemplateOffset.x();
                     Fragment->m_rectFrag.right = poly.com.Vertex[2].x() - TemplateOffset.x();
                     Fragment->m_rectFrag.top = poly.com.Vertex[0].y() - TemplateOffset.y();

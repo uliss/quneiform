@@ -235,8 +235,7 @@ Bool LoadPicts_rv(Handle hC, void *vB, char *pStr) {
 			return FALSE;
 		}
 		/*  собственно данные  */
-		nReal = CPAGE_GetBlockData(hC, hBlockPictSpec, TYPE_IMAGE,
-				(void *) (&Pict), nTeor);
+        nReal = CPAGE_GetBlockData(hBlockPictSpec, TYPE_IMAGE, (void *) (&Pict), nTeor);
 		err32 = CPAGE_GetReturnCode();
 		if ((nReal != nTeor) || (err32 != 0)) {
 			sprintf(pStr, "[GetBlockData]");

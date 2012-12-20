@@ -79,7 +79,7 @@ public:
         Handle h = CPAGE_GetBlockFirst(page, CPAGE_GetInternalType("TYPE_BIG_COMP"));
 
         if (h) {
-            CPAGE_GetBlockData(page, h, CPAGE_GetInternalType("TYPE_BIG_COMP"), this, sizeof(BigImage));
+            CPAGE_GetBlockData(h, CPAGE_GetInternalType("TYPE_BIG_COMP"), this, sizeof(BigImage));
             CPAGE_DeleteBlock(page, h);
         }
     }

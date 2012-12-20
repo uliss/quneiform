@@ -1155,7 +1155,7 @@ static void garbage_fragments()
         if (!rsti->hBlock)
             continue;
 
-        bl_flg = CPAGE_GetBlockFlags(hCPAGE, rsti->hBlock);
+        bl_flg = CPAGE_GetBlockFlags(rsti->hBlock);
 
         if (bl_flg & USER_FRAG) //выделен вручную
             rsti->flag = RS_GOOD;
@@ -1172,7 +1172,7 @@ static void garbage_fragments()
             rsti->flag = RS_BAD;
 
         else
-            CPAGE_SetBlockFlags(hCPAGE, rsti->hBlock, bl_flg | UNCERTAIN_FRAG);
+            CPAGE_SetBlockFlags(rsti->hBlock, bl_flg | UNCERTAIN_FRAG);
 
         //min и max кегли и охватывающий прямоугольник сегмента
         *rect = hole;
@@ -1412,7 +1412,7 @@ static void garbage_fragments()
     while (hBlock) {
         Handle hNext = CPAGE_GetBlockNext(hCPAGE, hBlock, TYPE_TEXT);
         int32_t i;
-        uint32_t bl_flg = CPAGE_GetBlockFlags(hCPAGE, hBlock);
+        uint32_t bl_flg = CPAGE_GetBlockFlags(hBlock);
 
         if (!(bl_flg & USER_FRAG) || rsti->flag == RS_STRANGE) {
             for (i = 0, rsti = recstat; i < num_frag; i++, rsti++)
@@ -1538,7 +1538,7 @@ static void draw_fragment(Handle hBlock, uint32_t color, uint32_t key)
     if (!hBlock)
         return;
 
-    v = CPAGE_GetBlockData(hCPAGE, hBlock, TYPE_TEXT, &poly, sizeof(POLY_));
+    v = CPAGE_GetBlockData(hBlock, TYPE_TEXT, &poly, sizeof(POLY_));
 
     if (v == sizeof(POLY_)) {
         //....
@@ -1587,7 +1587,7 @@ static Handle find_hBlock(int32_t fragment)
 
         for (i = 0; hBlock && i < BIG_FRAG_PAGE; i++) {
             *h++ = hBlock;
-            *n++ = CPAGE_GetBlockInterNum(hCPAGE, hBlock);
+            *n++ = CPAGE_GetBlockInterNum(hBlock);
             hBlock = CPAGE_GetBlockNext(hCPAGE, hBlock, TYPE_TEXT);
         }
 
@@ -1614,7 +1614,7 @@ static Bool set_frag_ptrs(int32_t *num_frag, Handle frag_hdl[],
             return FALSE;
 
         frag_hdl[*num_frag] = hBlock;
-        frag_num[*num_frag] = CPAGE_GetBlockInterNum(hCPAGE, hBlock);
+        frag_num[*num_frag] = CPAGE_GetBlockInterNum(hBlock);
         (*num_frag)++;
         hBlock = CPAGE_GetBlockNext(hCPAGE, hBlock, TYPE_TEXT);
     }

@@ -141,8 +141,7 @@ Bool MyGetLines(LinesTotalInfo *pLti, int MaxNumLin, Handle *hCPage,
 		return FALSE;
 	}
 	nTeor = sizeof(LinesTotalInfo);
-	nReal = CPAGE_GetBlockData(hCPage, hBlockLine, RLINE_BLOCK_TYPE,
-			(void *) pLti, nTeor);
+    nReal = CPAGE_GetBlockData(hBlockLine, RLINE_BLOCK_TYPE, (void *) pLti, nTeor);
 	err32 = CPAGE_GetReturnCode();
 	if ((nReal != nTeor) || (err32 != 0)) {
 		Error_CPage("[GetBlockData]");
@@ -173,8 +172,7 @@ Bool MyGetLines(LinesTotalInfo *pLti, int MaxNumLin, Handle *hCPage,
 			return FALSE;
 		}
 		nTeor = sizeof(LineInfo);
-		nReal = CPAGE_GetBlockData(hCPage, hBlockLineHor, (pLti->Hor.Lns),
-				(void *) &(pLHor[i]), nTeor);
+        nReal = CPAGE_GetBlockData(hBlockLineHor, (pLti->Hor.Lns), (void *) &(pLHor[i]), nTeor);
 		err32 = CPAGE_GetReturnCode();
 		if ((nReal != nTeor) || (err32 != 0)) {
 			Error_CPage("[GetBlockData]");
@@ -198,8 +196,7 @@ Bool MyGetLines(LinesTotalInfo *pLti, int MaxNumLin, Handle *hCPage,
 			return FALSE;
 		}
 		nTeor = sizeof(LineInfo);
-		nReal = CPAGE_GetBlockData(hCPage, hBlockLineVer, (pLti->Ver.Lns),
-				(void *) &(pLVer[i]), nTeor);
+        nReal = CPAGE_GetBlockData(hBlockLineVer, (pLti->Ver.Lns), (void *) &(pLVer[i]), nTeor);
 		err32 = CPAGE_GetReturnCode();
 		if ((nReal != nTeor) || (err32 != 0)) {
 			Error_CPage("[GetBlockData]");
@@ -302,8 +299,7 @@ Bool MyReSetLines(void *vLti, int MaxNumLin, Handle hCPage, Handle HoriType,
 		return FALSE;
 	}
 	nTeor = sizeof(LinesTotalInfo);
-	nReal = CPAGE_SetBlockData(hCPage, hBlockLine, RLINE_BLOCK_TYPE,
-			(void *) pLti, nTeor);
+    nReal = CPAGE_SetBlockData(hBlockLine, RLINE_BLOCK_TYPE, (void *) pLti, nTeor);
 	err32 = CPAGE_GetReturnCode();
 	//	if ((nReal!=nTeor)||(err32!=0))
 	if (!nReal || (err32 != 0)) {
@@ -330,8 +326,7 @@ Bool MyReSetLines(void *vLti, int MaxNumLin, Handle hCPage, Handle HoriType,
 		nTeor = sizeof(LineInfo);
 		if (pLti->Hor.Lns[i].Flags & LI_Pointed)
 			pLti->Hor.Lns[i].Flags |= LI_IsTrue;
-		nReal = CPAGE_SetBlockData(hCPage, hBlockLineHor, HoriType,
-				(void *) &(pLti->Hor.Lns[i]), nTeor);
+        nReal = CPAGE_SetBlockData(hBlockLineHor, HoriType, (void *) &(pLti->Hor.Lns[i]), nTeor);
 		err32 = CPAGE_GetReturnCode();
 		//		if ((nReal!=nTeor)||(err32!=0))
 		if (!nReal || (err32 != 0)) {
@@ -358,8 +353,7 @@ Bool MyReSetLines(void *vLti, int MaxNumLin, Handle hCPage, Handle HoriType,
 		nTeor = sizeof(LineInfo);
 		if (pLti->Ver.Lns[i].Flags & LI_Pointed)
 			pLti->Ver.Lns[i].Flags |= LI_IsTrue;
-		nReal = CPAGE_SetBlockData(hCPage, hBlockLineVer, VertType,
-				(void *) &(pLti->Ver.Lns[i]), nTeor);
+        nReal = CPAGE_SetBlockData(hBlockLineVer, VertType, (void *) &(pLti->Ver.Lns[i]), nTeor);
 		err32 = CPAGE_GetReturnCode();
 		//		if ((nReal!=nTeor)||(err32!=0))
 		if (!nReal || (err32 != 0)) {
@@ -582,8 +576,7 @@ Bool MyGetZher(void **vvZher, int *nZher, int MaxZher, Handle hCPage) {
 			break;
 		if (i >= MaxZher)
 			return FALSE;
-		nReal = CPAGE_GetBlockData(hCPage, hBlockZher, RVERLINE_ZHERTVY_LINIY,
-				(void *) &(vvZher[i]), nTeor);
+        nReal = CPAGE_GetBlockData(hBlockZher, RVERLINE_ZHERTVY_LINIY, (void *) &(vvZher[i]), nTeor);
 		err32 = CPAGE_GetReturnCode();
 		//		if ((nReal!=nTeor)||(err32!=0))
 		if (!nReal || (err32 != 0)) {

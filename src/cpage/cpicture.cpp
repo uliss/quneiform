@@ -106,8 +106,7 @@ Bool32 CPAGE_PictureGetPlace(Handle hPage, Handle hPicture, int32_t Skew2048, Po
     assert(lpLr);
     assert(lpWh);
 
-    if (CPAGE_GetBlockData(hPage, hPicture, TYPE_CPAGE_PICTURE, &pict, sizeof(pict))
-            == sizeof(pict)) {
+    if (CPAGE_GetBlockData(hPicture, TYPE_CPAGE_PICTURE, &pict, sizeof(pict)) == sizeof(pict)) {
         lt = pict.Corner[0];
         rb = pict.Corner[0];
         ROTATE_2048(lt, Skew2048);
@@ -169,8 +168,7 @@ Bool32 CPAGE_PictureGetMask(Handle hPage, Handle hPicture, int32_t Skew2048, cha
     assert(lpSize);
     CPAGE_PICTURE pict = { 0 };
 
-    if (CPAGE_GetBlockData(hPage, hPicture, TYPE_CPAGE_PICTURE, &pict, sizeof(pict))
-            == sizeof(pict)) {
+    if (CPAGE_GetBlockData(hPicture, TYPE_CPAGE_PICTURE, &pict, sizeof(pict)) == sizeof(pict)) {
         int i, j;
         int nVer, nHor, sz_x, sz_y;
         int nMaxVer = 0;
