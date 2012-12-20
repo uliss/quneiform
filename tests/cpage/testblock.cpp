@@ -27,6 +27,8 @@ void TestBlock::testInit()
 {
     Block b;
     CPPUNIT_ASSERT(b.empty());
+    CPPUNIT_ASSERT(b.dataPtr() == NULL);
+    CPPUNIT_ASSERT(b.dataSize() == 0);
     CPPUNIT_ASSERT_EQUAL(uint32_t(0), b.userNum());
     CPPUNIT_ASSERT_EQUAL(uint32_t(0), b.interNum());
     CPPUNIT_ASSERT_EQUAL(uint32_t(0), b.flags());
@@ -42,21 +44,59 @@ void TestBlock::testSet()
     CPPUNIT_ASSERT_EQUAL(uint32_t(2), b.flags());
     CPPUNIT_ASSERT_EQUAL((Handle) 0x1, b.type());
 
-    char data[100] = { 0xff };
+    uchar data[100];
+    memset(data, 0xff, sizeof(data));
     b.set(0, 2, 3, &data, sizeof(data));
     CPPUNIT_ASSERT(!b.empty());
+    CPPUNIT_ASSERT_EQUAL(uint32_t(sizeof(data)), b.dataSize());
+    CPPUNIT_ASSERT(b.dataPtr());
+    CPPUNIT_ASSERT(b.dataPtr() != data);
+    CPPUNIT_ASSERT(b.dataPtr()[0] == 0xff);
+    CPPUNIT_ASSERT(b.dataPtr()[1] == 0xff);
+
+    data[0] = 0;
+
+    CPPUNIT_ASSERT(b.dataPtr()[0] == 0xff);
+    CPPUNIT_ASSERT(b.dataPtr()[1] == 0xff);
 }
 
 void TestBlock::testCopy()
 {
-    char data[100] = { 0xf0 };
+    char data[100];
+    memset(data, 0xff, sizeof(data));
     Block b;
     b.set(0, 2, 3, &data, sizeof(data));
 
     // copy ctor
     Block b_copy = b;
     CPPUNIT_ASSERT(!b_copy.empty());
-    CPPUNIT_ASSERT_EQUAL(uint32_t(2), b.userNum());
-    CPPUNIT_ASSERT_EQUAL(uint32_t(0), b.interNum());
-    CPPUNIT_ASSERT_EQUAL(uint32_t(3), b.flags());
+    CPPUNIT_ASSERT_EQUAL(b_copy.userNum(), b.userNum());
+    CPPUNIT_ASSERT_EQUAL(b_copy.interNum(), b.interNum());
+    CPPUNIT_ASSERT_EQUAL(b_copy.flags(), b.flags());
+    CPPUNIT_ASSERT(b.dataPtr() != b_copy.dataPtr());
+    CPPUNIT_ASSERT_EQUAL(b.dataSize(), b_copy.dataSize());
+    CPPUNIT_ASSERT(b.dataPtr()[0] == 0xff);
+    CPPUNIT_ASSERT(b.dataPtr()[1] == 0xff);
+    CPPUNIT_ASSERT(b_copy.dataPtr()[0] == 0xff);
+    CPPUNIT_ASSERT(b_copy.dataPtr()[1] == 0xff);
+
+    b.dataPtr()[0] = 0;
+    CPPUNIT_ASSERT(b.dataPtr()[0] == 0x0);
+    CPPUNIT_ASSERT(b_copy.dataPtr()[0] == 0xff);
+
+    // operator=
+    Block b3;
+    CPPUNIT_ASSERT(b3.empty());
+    b3 = b;
+    CPPUNIT_ASSERT(!b3.empty());
+    CPPUNIT_ASSERT_EQUAL(b3.userNum(), b.userNum());
+    CPPUNIT_ASSERT_EQUAL(b3.interNum(), b.interNum());
+    CPPUNIT_ASSERT_EQUAL(b3.flags(), b.flags());
+    CPPUNIT_ASSERT(b.dataPtr() != b3.dataPtr());
+    CPPUNIT_ASSERT_EQUAL(b.dataSize(), b3.dataSize());
+    CPPUNIT_ASSERT(b.dataPtr()[0] == 0x0);
+    CPPUNIT_ASSERT(b.dataPtr()[1] == 0xff);
+    CPPUNIT_ASSERT(b3.dataPtr()[0] == 0x0);
+    CPPUNIT_ASSERT(b3.dataPtr()[1] == 0xff);
+
 }

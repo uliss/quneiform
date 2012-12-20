@@ -84,13 +84,22 @@ class CLA_EXPO Data
          * Copies data from source memory
          * @param src - source memory
          * @param size - source memory size
+         * @see dataSize(), dataPtr()
          */
         void setData(Handle type, const void * src, uint32_t size);
 
         /**
          * Returns data size
+         * @see dataPtr()
          */
         uint32_t dataSize() const;
+
+        /**
+         * Returns pointer to data
+         * @see dataSize()
+         */
+        uchar * dataPtr();
+        const uchar * dataPtr() const;
 
         /**
          * Returns true if data is empty
@@ -110,7 +119,7 @@ class CLA_EXPO Data
     protected:
         Handle type_;
         mutable uint32_t size_;
-        mutable char * data_;
+        mutable uchar * data_;
 };
 
 }

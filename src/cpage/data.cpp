@@ -99,7 +99,7 @@ void Data::setData(Handle type, const void * src, uint32_t size)
     }
 
     if (src && size) {
-        data_ = new char[size];
+        data_ = new uchar[size];
         memcpy(data_, src, size);
     }
 }
@@ -107,6 +107,16 @@ void Data::setData(Handle type, const void * src, uint32_t size)
 uint32_t Data::dataSize() const
 {
     return size_;
+}
+
+uchar * Data::dataPtr()
+{
+    return data_;
+}
+
+const uchar * Data::dataPtr() const
+{
+    return data_;
 }
 
 bool Data::empty() const
@@ -220,7 +230,7 @@ bool Data::restore(Handle from)
         data_ = NULL;
     }
 
-    data_ = new char[size_];
+    data_ = new uchar[size_];
     return myRead(from, data_, size_) == size_;
 }
 
@@ -229,7 +239,8 @@ bool Data::saveCompress(Handle to) const
     if (size_ == 0)
         return save(to);
 
-    char *compressedData, *lpDataSave = data_;
+    uchar *compressedData;
+    uchar *lpDataSave = data_;
     uint32_t compressedSize, SizeSave = size_;
     CleanData(type_, data_, size_);
 
@@ -253,7 +264,7 @@ bool Data::restoreCompress(Handle from)
     if (size_ == 0)
         return true;
 
-    char *decomData;
+    uchar *decomData;
     uint32_t decomSize;
 
     if (!Decompress(data_, size_, &decomData, &decomSize))

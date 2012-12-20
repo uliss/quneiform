@@ -100,7 +100,7 @@ void CleanData(Handle Type, void * lpData, uint32_t Size)
     }
 }
 
-Bool32 ComplianceVersions(Handle Type, char ** lpData, uint32_t *Size)
+Bool32 ComplianceVersions(Handle Type, uchar **lpData, uint32_t *Size)
 //Сравнивает размер блока данных с размером структуры;
 // если структура больше - дополняется нулями, если меньше - ошибка
 {
@@ -116,7 +116,7 @@ Bool32 ComplianceVersions(Handle Type, char ** lpData, uint32_t *Size)
         return FALSE;
 
     if (NewSize > *Size) {
-        char *lpNewData = new char[NewSize];
+        uchar *lpNewData = new uchar[NewSize];
 
         if (!lpNewData)
             return FALSE;
@@ -131,7 +131,7 @@ Bool32 ComplianceVersions(Handle Type, char ** lpData, uint32_t *Size)
     return TRUE;
 }
 
-Bool32 Compress(char * lpData, uint32_t Size, char ** compressedData, uint32_t * compressedSize)
+Bool32 Compress(uchar * lpData, uint32_t Size, uchar **compressedData, uint32_t * compressedSize)
 {
 // Заменяем группу из не менее MIN_REPEAT одинаковых символов на счетчик повторений
 #define MIN_REPEAT 2*sizeof(CompressHeader)
@@ -139,21 +139,21 @@ Bool32 Compress(char * lpData, uint32_t Size, char ** compressedData, uint32_t *
     if (Size == 0)
         return FALSE;
 
-    char *newData = new char[Size+sizeof(CompressHeader)]; //размер станет таким, если уплотнить не получилось,
+    uchar *newData = new uchar[Size+sizeof(CompressHeader)]; //размер станет таким, если уплотнить не получилось,
 
     if (!newData)                                          //иначе - не больше исходного
         return FALSE;
 
-    char *lpNewData = newData;
+    uchar *lpNewData = newData;
     // Находим пару - обычный фрагмент и фрагмент, заполненный одинаковыми символами;
     // затем оба отписываем
-    char * ordinary = lpData, //обычный фрагмент
-                      * end = ordinary + Size;
+    uchar * ordinary = lpData;
+    uchar * end = ordinary + Size;
 
     do {
         uint32_t count = 1;
-        char * current = ordinary + 1,
-                         * repeating = ordinary; //фрагмент, заполненный одинаковыми символами;
+        uchar * current = ordinary + 1;
+        uchar * repeating = ordinary; //фрагмент, заполненный одинаковыми символами;
 
         while (current < end) {
             if (*current != *repeating) {
@@ -201,12 +201,13 @@ Bool32 Compress(char * lpData, uint32_t Size, char ** compressedData, uint32_t *
 }
 
 //#################################
-Bool32 Decompress(char * lpData, uint32_t Size, char ** decomData, uint32_t * decomSize)
+Bool32 Decompress(uchar *lpData, uint32_t Size, uchar ** decomData, uint32_t * decomSize)
 {
     if (Size == 0)
         return FALSE;
 
-    char * old = lpData, *end = lpData + Size;
+    uchar * old = lpData;
+    uchar *end = lpData + Size;
     //Определяем размер после декомпрессии
     uint32_t newSize = 0;
 
@@ -220,7 +221,8 @@ Bool32 Decompress(char * lpData, uint32_t Size, char ** decomData, uint32_t * de
     }
 
     //Распаковываем
-    char *newData = new char[newSize], *modern = newData;
+    uchar *newData = new uchar[newSize];
+    uchar *modern = newData;
 
     if (!newData)
         return FALSE;
