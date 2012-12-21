@@ -54,14 +54,13 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <stdio.h>
 #include <memory.h>
 #include <string.h>
-#include <cassert>
+#include <iostream>
+#include <boost/current_function.hpp>
 
 #include "cpage.h"
 #include "data.h"
-#include "mymem.h"
 #include "backup.h"
 #include "common/log.h"
 
@@ -69,6 +68,7 @@ namespace cf {
 namespace cpage {
 
 Data::Data() :
+    type_(0),
     size_(0),
     data_(NULL)
 {
@@ -76,8 +76,8 @@ Data::Data() :
 }
 
 Data::Data(const Data& data) :
-    size_(data.size_),
     type_(data.type_),
+    size_(data.size_),
     data_(NULL)
 {
     setData(data.type_, data.data_, data.size_);
@@ -181,47 +181,61 @@ bool Data::operator==(const Data& data)
     return false;
 }
 
-bool Data::save(Handle to) const
+bool Data::save(std::ostream& os) const
 {
+    if(os.bad()) {
+        cfError(MODULE_CPAGE) << BOOST_CURRENT_FUNCTION << ": bad stream";
+        return false;
+    }
+
     const char * name = CPAGE_GetNameInternalType(type_);
     if(!name) {
-        cfError(MODULE_CPAGE) << "NULL internal name";
+        cfError(MODULE_CPAGE) << BOOST_CURRENT_FUNCTION << "NULL internal name";
         return false;
     }
 
     const uint32_t len = strlen(name) + 1;
-    FILE * f = static_cast<FILE*>(to);
 
-    if (fwrite(&len, 1, sizeof(len), f) == sizeof(len) &&
-            fwrite(name, 1, len, f) == len &&
-            fwrite(&size_, 1, sizeof(size_), f) == sizeof(size_) &&
-            (size_ == 0 ||  fwrite(data_, 1, size_, f) == size_))
-        return true;
+    os.write((char*) &len, sizeof(len));
+    os.write(name, len);
+    os.write((char*) &size_, sizeof(size_));
+    if(size_ > 0)
+        os.write((char*) data_, size_);
 
-    return false;
-}
-
-bool Data::restore(Handle from)
-{
-    uint32_t len = 0;
-    char name[260] = { 0 };
-
-    if (myRead(from, &len, sizeof(len)) != sizeof(len))
-        return false;
-
-    if(len >= sizeof(name)) {
-        cfError(MODULE_CPAGE) << "data name is too long:" << len;
+    if(os.fail()) {
+        cfError(MODULE_CPAGE) << BOOST_CURRENT_FUNCTION << ": failed";
         return false;
     }
 
-    if(myRead(from, name, len) != len)
+    return true;
+}
+
+bool Data::restore(std::istream& is)
+{
+    if(is.bad()) {
+        cfError(MODULE_CPAGE) << BOOST_CURRENT_FUNCTION << ": bad stream";
         return false;
+    }
+
+    uint32_t len = 0;
+    is.read((char*) &len, sizeof(len));
+
+    if(is.fail()) {
+        cfError(MODULE_CPAGE) << BOOST_CURRENT_FUNCTION << ": failed";
+        return false;
+    }
+
+    char name[260] = { 0 };
+    if(len >= sizeof(name)) {
+        cfError(MODULE_CPAGE) << BOOST_CURRENT_FUNCTION << "data name is too long:" << len;
+        return false;
+    }
+
+    is.read(name, len);
 
     type_ = CPAGE_GetInternalType(name);
 
-    if (myRead(from, &size_, sizeof(size_)) != sizeof(size_))
-        return false;
-
+    is.read((char*) &size_, sizeof(size_));
     if (!size_)
         return true;
 
@@ -231,55 +245,9 @@ bool Data::restore(Handle from)
     }
 
     data_ = new uchar[size_];
-    return myRead(from, data_, size_) == size_;
-}
+    is.read((char*) data_, size_);
 
-bool Data::saveCompress(Handle to) const
-{
-    if (size_ == 0)
-        return save(to);
-
-    uchar *compressedData;
-    uchar *lpDataSave = data_;
-    uint32_t compressedSize, SizeSave = size_;
-    CleanData(type_, data_, size_);
-
-    if (!Compress(data_, size_, &compressedData, &compressedSize))
-        return false;
-
-    data_ = compressedData;
-    size_ = compressedSize;
-    bool rv = save(to);
-    data_ = lpDataSave;
-    size_ = SizeSave;
-    delete []compressedData;
-    return rv;
-}
-
-bool Data::restoreCompress(Handle from)
-{
-    if (!restore(from))
-        return false;
-
-    if (size_ == 0)
-        return true;
-
-    uchar *decomData;
-    uint32_t decomSize;
-
-    if (!Decompress(data_, size_, &decomData, &decomSize))
-        return false;
-
-    if (data_)
-        delete [] data_;
-
-    data_ = decomData;
-    size_ = decomSize;
-
-    if (!ComplianceVersions(type_, &data_, &size_))
-        return false;
-
-    return true;
+    return is.good();
 }
 }
 

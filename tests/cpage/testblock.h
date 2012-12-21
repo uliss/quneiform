@@ -29,6 +29,8 @@ class TestBlock : public CppUnit::TestFixture
     CPPUNIT_TEST(testCopy);
     CPPUNIT_TEST(testGet);
     CPPUNIT_TEST(testCompare);
+    CPPUNIT_TEST(testSave);
+    CPPUNIT_TEST(testRestore);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
@@ -36,6 +38,8 @@ public:
     void testGet();
     void testCopy();
     void testCompare();
+    void testSave();
+    void testRestore();
 };
 
 

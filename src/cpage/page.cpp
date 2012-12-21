@@ -139,36 +139,31 @@ bool Page::removeBlock(Block * b)
     return true;
 }
 
-bool Page::save(Handle to) const
+bool Page::save(std::ostream& os) const
 {
     uint32_t count = blockCount();
-    bool rc = myWrite(to, &count, sizeof(count)) == sizeof(count);
-
-    if(!rc) {
-        cfError(MODULE_CPAGE) << "save failed";
-        return false;
-    }
+    os.write((char*) &count, sizeof(count));
 
     for (uint32_t i = 0; i < count; i++)
-        blocks_[i]->save(to);
+        blocks_[i]->save(os);
 
-    return Data::save(to);
+    return Data::save(os);
 }
 
-bool Page::restore(Handle from)
+bool Page::restore(std::istream& is)
 {
+    if(is.fail())
+        return false;
+
     clearBlocks();
     uint32_t count = 0;
 
-    if(myRead(from, &count, sizeof(count)) != sizeof(count)) {
-        cfError(MODULE_CPAGE) << "restore failed.";
-        return false;
-    }
+    is.read((char*) &count, sizeof(count));
 
     for(uint32_t i = 0; i < count; i++) {
         Block block;
 
-        if(block.restore(from)) {
+        if(block.restore(is)) {
             appendBlock(block);
         }
         else {
@@ -177,45 +172,7 @@ bool Page::restore(Handle from)
         }
     }
 
-    return Data::restore(from);
-}
-
-bool Page::saveCompress(Handle to) const
-{
-    uint32_t count = blockCount();
-
-    if(myWrite(to, &count, sizeof(count)) != sizeof(count)) {
-        cfError(MODULE_CPAGE) << "save compressed failed";
-        return false;
-    }
-
-    for (uint32_t i = 0; i < count; i++)
-        blocks_[i]->saveCompress(to);
-
-    return Data::saveCompress(to);
-}
-
-bool Page::restoreCompress(Handle from)
-{
-    clearBlocks();
-    uint32_t count = 0;
-    if(myRead(from, &count, sizeof(count)) != sizeof(count)) {
-        cfError(MODULE_CPAGE) << "restore compressed failed.";
-        return false;
-    }
-
-    for (uint32_t i = 0; i < count; i++) {
-        Block block;
-        if(block.restoreCompress(from)) {
-            appendBlock(block);
-        }
-        else {
-            cfError(MODULE_CPAGE) << "restore compressed failed.";
-            return false;
-        }
-    }
-
-    return Data::restoreCompress(from);
+    return Data::restore(is);
 }
 
 const PAGEINFO * Page::pageInfo() const

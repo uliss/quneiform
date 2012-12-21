@@ -77,9 +77,8 @@ public:
     Bool32 Redo(Handle backup);
     Bool32 Undo(Handle backup);
 
-    Bool32 save(Handle to);
-    Bool32 saveCompress(Handle to);
-    Bool32 restore(Handle from);
+    bool save(std::ostream& os);
+    bool restore(std::istream& is);
     Bool32 restoreCompress(Handle from);
 
     BackupPage & operator = (BackupPage & Page);

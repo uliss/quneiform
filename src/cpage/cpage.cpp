@@ -62,7 +62,6 @@
 #include "pagestorage.h"
 #include "common/log.h"
 
-#define SAVE_COMPRESSED  // Сохранять данные в блоках в упакованном виде
 extern Handle hCurPage;
 extern PtrList<NAMEDATA> NameData;
 
@@ -381,48 +380,31 @@ void CPAGE_DeleteBlock(Handle page, Handle block)
 }
 
 #define VERSION_FILE            0xF002
-#define VERSION_FILE_COMPRESSED 0xF003
 
 Bool32 CPAGE_SavePage(Handle page, const char * lpName)
 {
     PROLOG;
     Bool32 rc = FALSE;
     SetReturnCode_cpage(IDS_ERR_NO);
-    Handle file = myOpenSave(lpName);
+    std::ofstream os(lpName);
 
-    if (file) {
-#ifdef SAVE_COMPRESSED
-        uint32_t vers = VERSION_FILE_COMPRESSED;
-#else
+    if (os) {
         uint32_t vers = VERSION_FILE;
-#endif
+        os.write((char*) &vers, sizeof(vers));
 
-        if (myWrite(file, &vers, sizeof(vers)) == sizeof(vers)) {
-            if (page) {
-                int count = 1;
-                rc = myWrite(file, &count, sizeof(count)) == sizeof(count);
-#ifdef SAVE_COMPRESSED
-                rc = PageStorage::page(page).saveCompress(file);
-#else
-                rc = PageStorage::page(page).save(file);
-#endif
-            }
-
-            else {
-                int i;
-                int count = PageStorage::size();
-                rc = myWrite(file, &count, sizeof(count)) == sizeof(count);
-
-                for (i = 0; i < count && rc == TRUE; i++)
-#ifdef SAVE_COMPRESSED
-                    rc = PageStorage::pageAt(i).saveCompress(file);
-#else
-                    rc = PageStorage::pageAt(i).save(file);
-#endif
-            }
+        if (page) {
+            uint32_t count = 1;
+            os.write((char*) &count, sizeof(count));
+            rc = PageStorage::page(page).save(os);
+        }
+        else {
+            uint32_t count = PageStorage::size();
+            os.write((char*) &count, sizeof(count));
+            for (int i = 0; i < count && rc == TRUE; i++)
+                rc = PageStorage::pageAt(i).save(os);
         }
 
-        myClose(file);
+        os.close();
     }
 
     EPILOG;
@@ -433,46 +415,37 @@ Handle CPAGE_RestorePage(Bool32 remove, const char * lpName)
 {
     PROLOG;
     Handle rc = NULL;
-    Bool decompress = FALSE;
     SetReturnCode_cpage(IDS_ERR_NO);
-    Handle file = myOpenRestore(lpName);
 
-    if (file) {
-        int i;
-        int count;
+    std::ifstream is(lpName);
+
+    if (is) {
         uint32_t vers = 0;
+        is.read((char*) &vers, sizeof(vers));
 
-        if (myRead(file, &vers, sizeof(vers)) == sizeof(vers)) {
-            if (vers == VERSION_FILE_COMPRESSED)
-                decompress = TRUE;
-
-            else if (vers != VERSION_FILE) {
-                SetReturnCode_cpage(IDS_ERR_OLDFILEVERSION);
-                myClose(file);
-                return FALSE;
-            }
-
-            {
-                if (remove) {
-                    PageStorage::clear();
-                    NameData.Clear();
-                }
-
-                if (myRead(file, &count, sizeof(count)) == sizeof(count))
-                    for (i = 0; i < count; i++) {
-                        BackupPage page;
-
-                        if (decompress ? page.restoreCompress(file)
-                                : page.restore(file))
-                            rc = PageStorage::append(page);//Page.AddTail(page);
-
-                        else
-                            break;
-                    }
-            }
+        if (vers != VERSION_FILE) {
+            SetReturnCode_cpage(IDS_ERR_OLDFILEVERSION);
+            is.close();
+            return FALSE;
         }
 
-        myClose(file);
+        if (remove) {
+            PageStorage::clear();
+            NameData.Clear();
+        }
+
+        uint32_t count = 0;
+        is.read((char*) &count, sizeof(count));
+
+        for (int i = 0; i < count; i++) {
+            BackupPage page;
+            if(page.restore(is))
+                rc = PageStorage::append(page);
+            else
+                break;
+        }
+
+        is.close();
     }
 
     EPILOG;
@@ -795,13 +768,8 @@ Handle CPAGE_GetInternalType(const char * name)
 
 char * CPAGE_GetNameInternalType(Handle type)
 {
-    char * rc = NULL;
-    PROLOG;
-    SetReturnCode_cpage(IDS_ERR_NO);
+    if (type == NULL || type == reinterpret_cast<void*>(-1))
+        return NULL;
 
-    if (type != NULL)
-        rc = NameData.GetItem(type);
-
-    EPILOG;
-    return rc;
+    return NameData.GetItem(type);
 }

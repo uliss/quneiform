@@ -114,21 +114,19 @@ class CLA_EXPO Page: public Data
         bool removeBlock(Block * b);
 
         /**
-         * Writes page into given file handle
+         * Writes page into given output stream
          * @return true on success, false on error
          * @see restore()
          */
-        bool save(Handle to) const;
+        bool save(std::ostream& os) const;
 
         /**
-         * Reads page data from given file
+         * Reads page data from given input stream
          * @return true on success, false on error
          * @see save()
          */
-        bool restore(Handle from);
+        bool restore(std::istream& from);
 
-        bool saveCompress(Handle to) const;
-        bool restoreCompress(Handle from);
         virtual uint32_t Convert(Handle type, void * lpdata, uint32_t size);
         const PAGEINFO * pageInfo() const;
     private:

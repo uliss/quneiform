@@ -54,12 +54,12 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <stdio.h>
 #include <memory.h>
+#include <boost/current_function.hpp>
 
 #include "backup.h"
 #include "block.h"
-#include "mymem.h"
+#include "common/log.h"
 
 namespace cf {
 namespace cpage {
@@ -113,48 +113,42 @@ bool Block::operator!=(const Block& block)
     return ! this->operator==(block);
 }
 
-bool Block::save(Handle to) const
+bool Block::save(std::ostream& os) const
 {
-    if (myWrite(to, &user_num_, sizeof(user_num_)) == sizeof(user_num_) &&
-            myWrite(to, &flags_, sizeof(flags_)) == sizeof(flags_) &&
-            Data::save(to) &&
-            myWrite(to, &internal_num_, sizeof(internal_num_)) == sizeof(internal_num_))
-        return true;
+    if(os.bad()) {
+        cfError(cf::MODULE_CPAGE) << BOOST_CURRENT_FUNCTION << ": bad stream";
+        return false;
+    }
 
-    return false;
+    os.write((char*) &user_num_, sizeof(user_num_));
+    os.write((char*) &flags_, sizeof(flags_));
+    os.write((char*) &internal_num_, sizeof(internal_num_));
+
+    if(os.fail()) {
+        cfError(cf::MODULE_CPAGE) << BOOST_CURRENT_FUNCTION << ": failed";
+        return false;
+    }
+
+    return Data::save(os);
 }
 
-bool Block::restore(Handle from)
+bool Block::restore(std::istream& is)
 {
-    if (myRead(from, &user_num_, sizeof(user_num_)) == sizeof(user_num_) &&
-            myRead(from, &flags_, sizeof(flags_)) == sizeof(flags_) &&
-            Data::restore(from) &&
-            myRead(from, &internal_num_, sizeof(internal_num_)) == sizeof(internal_num_))
-        return true;
+    if(is.bad()) {
+        cfError(cf::MODULE_CPAGE) << BOOST_CURRENT_FUNCTION << ": bad stream";
+        return false;
+    }
 
-    return false;
-}
+    is.read((char*) &user_num_, sizeof(user_num_));
+    is.read((char*) &flags_, sizeof(flags_));
+    is.read((char*) &internal_num_, sizeof(internal_num_));
 
-bool Block::saveCompress(Handle to)
-{
-    if (myWrite(to, &user_num_, sizeof(user_num_)) == sizeof(user_num_) &&
-            myWrite(to, &flags_, sizeof(flags_)) == sizeof(flags_) &&
-            Data::saveCompress(to) &&
-            myWrite(to, &internal_num_, sizeof(internal_num_)) == sizeof(internal_num_))
-        return true;
+    if(is.fail()) {
+        cfError(cf::MODULE_CPAGE) << BOOST_CURRENT_FUNCTION << ": failed";
+        return false;
+    }
 
-    return false;
-}
-
-bool Block::restoreCompress(Handle from)
-{
-    if (myRead(from, &user_num_, sizeof(user_num_)) == sizeof(user_num_) &&
-            myRead(from, &flags_, sizeof(flags_)) == sizeof(flags_) &&
-            Data::restoreCompress(from) &&
-            myRead(from, &internal_num_, sizeof(internal_num_)) == sizeof(internal_num_))
-        return true;
-
-    return false;
+    return Data::restore(is);
 }
 
 static CPAGE_CONVERTOR s_ConvertorBlocks = { 0, DefConvertBlock };

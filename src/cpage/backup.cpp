@@ -54,6 +54,8 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <iostream>
+
 #include "backup.h"
 
 Handle hCurPage = NULL;
@@ -144,106 +146,47 @@ Bool32 BackupPage::Undo(Handle backup)
     return FALSE;
 }
 //#################################
-Bool32 BackupPage::save(Handle to)
+bool BackupPage::save(std::ostream& os)
 {
-    int count = backups_.GetCount();
-    Bool32 rc = FALSE;
-    int i, position;
-    rc = myWrite(to, &count, sizeof(count)) == sizeof(count);
+    uint32_t count = backups_.GetCount();
+
+    os.write((char*) &count, sizeof(count));
+    if(os.fail())
+        return false;
 
     if (count) {
-        position = backups_.GetPos(hCurBackUp);
+        uint32_t position = backups_.GetPos(hCurBackUp);
 
-        if (rc) rc = myWrite(to, &position, sizeof(position)) == sizeof(position);
+        os.write((char*) &position, sizeof(position));
 
-        if (rc == TRUE && count)
-            for (i = 0; i < count; i++)
-                backups_.GetItem(backups_.GetHandle(i)).save(to);
+        for (uint32_t i = 0; i < count; i++)
+            backups_.GetItem(backups_.GetHandle(i)).save(os);
     }
 
-    if (rc)
-        rc = Page::save(to);
-
-    return rc;
+    return Page::save(os);
 }
-//#################################
-Bool32 BackupPage::restore(Handle from)
+
+bool BackupPage::restore(std::istream& is)
 {
-    Bool32 rc = FALSE;
-    int count, i, position;
     backups_.Clear();
-    rc = myRead(from, &count, sizeof(count)) == sizeof(count);
+
+    uint32_t count = 0;
+    is.read((char*) &count, sizeof(count));
 
     if (count) {
-        if (rc) rc = myRead(from, &position, sizeof(position)) == sizeof(position);
+        uint32_t position = 0;
+        is.read((char*) &position, sizeof(position));
 
-        for (i = 0; i < count && rc == TRUE; i++) {
+        for (uint32_t i = 0; i < count; i++) {
             Page page;
-            rc = page.restore(from);
-
-            if (rc)
+            if(page.restore(is))
                 backups_.AddTail(page);
         }
 
-        if (rc && position >= 0)
-            hCurBackUp = backups_.GetHandle(position);
+        hCurBackUp = backups_.GetHandle(position);
     }
 
-    if (rc)
-        rc = Page::restore(from);
-
-    return rc;
-}
-//#################################
-Bool32 BackupPage::saveCompress(Handle to)
-{
-    int count = backups_.GetCount();
-    Bool32 rc = FALSE;
-    int i, position;
-    rc = myWrite(to, &count, sizeof(count)) == sizeof(count);
-
-    if (count) {
-        position = backups_.GetPos(hCurBackUp);
-
-        if (rc) rc = myWrite(to, &position, sizeof(position)) == sizeof(position);
-
-        if (rc == TRUE && count)
-            for (i = 0; i < count; i++)
-                backups_.GetItem(backups_.GetHandle(i)).saveCompress(to);
-    }
-
-    if (rc)
-        rc = Page::saveCompress(to);
-
-    return rc;
-}
-//#################################
-Bool32 BackupPage::restoreCompress(Handle from)
-{
-    Bool32 rc = FALSE;
-    int count, i, position;
-    backups_.Clear();
-    rc = myRead(from, &count, sizeof(count)) == sizeof(count);
-
-    if (count) {
-        if (rc) rc = myRead(from, &position, sizeof(position)) == sizeof(position);
-
-        for (i = 0; i < count && rc == TRUE; i++) {
-            Page page;
-            rc = page.restoreCompress(from);
-
-            if (rc)
-                backups_.AddTail(page);
-        }
-
-        if (rc && position >= 0)
-            hCurBackUp = backups_.GetHandle(position);
-    }
-
-    if (rc)
-        rc = Page::restoreCompress(from);
-
-    return rc;
+    return Page::restore(is);
 }
 
 BackupPage & BackupPage::operator = (BackupPage& page) {

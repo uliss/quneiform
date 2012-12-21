@@ -100,10 +100,8 @@ class CLA_EXPO Block: public Data
         bool operator==(const Block& block);
         bool operator!=(const Block& block);
 
-        bool save(Handle to) const;
-        bool restore(Handle from);
-        bool saveCompress(Handle to);
-        bool restoreCompress(Handle from);
+        bool save(std::ostream& os) const;
+        bool restore(std::istream& is);
 
         virtual uint32_t Convert(Handle type, void * lpdata, uint32_t size);
     private:

@@ -16,7 +16,7 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <cstdio>
+#include <fstream>
 #include <string.h>
 
 #include "testbackuppage.h"
@@ -39,19 +39,19 @@ void TestBackupPage::testSave()
     BackupPage p;
     p.setType(CPAGE_GetInternalType("page"));
     p.setData(CPAGE_GetInternalType("data"), (void*) data, strlen(data));
-    FILE * f = fopen("test.cpage", "w");
-    CPPUNIT_ASSERT(f);
-    p.save(f);
-    fclose(f);
+    std::ofstream os("test.cpage");
+    CPPUNIT_ASSERT(os);
+    p.save(os);
+    os.close();
 }
 
 void TestBackupPage::testRestore()
 {
     BackupPage p;
-    FILE * f = fopen("test.cpage", "r");
-    CPPUNIT_ASSERT(f);
-    p.restore(f);
-    fclose(f);
+    std::ifstream is("test.cpage");
+    CPPUNIT_ASSERT(is);
+    p.restore(is);
+    is.close();
 
     char data[10];
     memset(&data, 0, sizeof(data));

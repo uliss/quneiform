@@ -57,6 +57,8 @@
 #ifndef __DATA_H__
 #define __DATA_H__
 
+#include <iosfwd>
+
 #include "cttypes.h"
 #include "globus.h"
 
@@ -112,10 +114,8 @@ class CLA_EXPO Data
         void setType(Handle type);
     public:
         virtual uint32_t Convert(Handle type, void * lpdata, uint32_t size) = 0;
-        bool save(Handle to) const;
-        bool restore(Handle from);
-        bool saveCompress(Handle to) const;
-        bool restoreCompress(Handle from);
+        bool save(std::ostream& os) const;
+        bool restore(std::istream& is);
     protected:
         Handle type_;
         mutable uint32_t size_;

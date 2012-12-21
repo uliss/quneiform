@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include <string.h>
+#include <fstream>
 
 #include "testblock.h"
 #include "cpage/block.h"
@@ -142,4 +143,58 @@ void TestBlock::testCompare()
 
     b1.setType((Handle) 1);
     CPPUNIT_ASSERT(b1 != b2);
+}
+
+void TestBlock::testSave()
+{
+    Block b;
+    b.setUserNum(1);
+    b.setInterNum(2);
+    b.setFlags(0xff);
+    b.setType((Handle) 0);
+
+    uchar data[10];
+    memset(data, 0xff, sizeof(data));
+    b.setData(0, data, sizeof(data));
+
+    std::ofstream bad;
+    bad << 0xDEADBEEF;
+    CPPUNIT_ASSERT(!b.save(bad));
+
+    std::ofstream null;
+    CPPUNIT_ASSERT(!b.save(null));
+
+    std::ofstream os("test_block.dat");
+    CPPUNIT_ASSERT(!b.save(os));
+    CPPUNIT_ASSERT(os.good());
+    os.seekp(0);
+
+    Handle t = CPAGE_GetInternalType("user type");
+    b.setType(t);
+    CPPUNIT_ASSERT(b.save(os));
+    CPPUNIT_ASSERT(os.good());
+    os.close();
+}
+
+void TestBlock::testRestore()
+{
+    Block b;
+    int tmp;
+    std::ifstream bad;
+    bad >> tmp;
+    CPPUNIT_ASSERT(!b.restore(bad));
+
+    std::ifstream null;
+    CPPUNIT_ASSERT(!b.restore(null));
+
+    std::ifstream is("test_block.dat");
+    CPPUNIT_ASSERT(is);
+    CPPUNIT_ASSERT(b.restore(is));
+
+    CPPUNIT_ASSERT_EQUAL(uint32_t(1), b.userNum());
+    CPPUNIT_ASSERT_EQUAL(uint32_t(2), b.interNum());
+    CPPUNIT_ASSERT_EQUAL(uint32_t(0xff), b.flags());
+
+    is.close();
+    CPPUNIT_ASSERT(!b.restore(is));
 }
