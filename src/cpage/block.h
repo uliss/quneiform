@@ -98,6 +98,7 @@ class CLA_EXPO Block: public Data
 
         Block& operator=(const Block& block);
         bool operator==(const Block& block);
+        bool operator!=(const Block& block);
 
         bool save(Handle to) const;
         bool restore(Handle from);

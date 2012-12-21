@@ -35,6 +35,7 @@ Configuration
    -DWITH_PERL=Yes             - enable Perl binding
    -DWITH_PHP=Yes              - enable PHP binding
    -DWITH_JAVA=Yes             - enable Java binding
+   -DWITH_COVERAGE=Yes         - build with coverage anaysys support
 
 Contact information
 ===================

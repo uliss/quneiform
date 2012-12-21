@@ -16,6 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <string.h>
+
 #include "testblock.h"
 #include "cpage/block.h"
 
@@ -28,6 +30,8 @@ void TestBlock::testInit()
     Block b;
     CPPUNIT_ASSERT(b.empty());
     CPPUNIT_ASSERT(b.dataPtr() == NULL);
+    const Block * bptr = &b;
+    CPPUNIT_ASSERT(bptr->dataPtr() == NULL);
     CPPUNIT_ASSERT(b.dataSize() == 0);
     CPPUNIT_ASSERT_EQUAL(uint32_t(0), b.userNum());
     CPPUNIT_ASSERT_EQUAL(uint32_t(0), b.interNum());
@@ -58,6 +62,21 @@ void TestBlock::testSet()
 
     CPPUNIT_ASSERT(b.dataPtr()[0] == 0xff);
     CPPUNIT_ASSERT(b.dataPtr()[1] == 0xff);
+
+    uchar data2[20];
+    b.setData(0, data2, sizeof(data2));
+
+    b.setUserNum(100);
+    CPPUNIT_ASSERT_EQUAL(uint32_t(100), b.userNum());
+    b.setInterNum(200);
+    CPPUNIT_ASSERT_EQUAL(uint32_t(200), b.interNum());
+}
+
+void TestBlock::testGet()
+{
+    Block b;
+    b.setType(0);
+    CPPUNIT_ASSERT(b.getData(0, NULL, 0) == 0);
 }
 
 void TestBlock::testCopy()
@@ -99,4 +118,28 @@ void TestBlock::testCopy()
     CPPUNIT_ASSERT(b3.dataPtr()[0] == 0x0);
     CPPUNIT_ASSERT(b3.dataPtr()[1] == 0xff);
 
+}
+
+void TestBlock::testCompare()
+{
+    uchar data[10];
+    memset(data, 0xff, sizeof(data));
+
+    Block b1, b2;
+    CPPUNIT_ASSERT(b1 == b2);
+
+    b1.setData(0, data, sizeof(data));
+    b2.setData(0, data, sizeof(data));
+
+    CPPUNIT_ASSERT(b1 == b2);
+    b1.setUserNum(1);
+    CPPUNIT_ASSERT(b1 != b2);
+    b2.setUserNum(1);
+    CPPUNIT_ASSERT(b1 == b2);
+
+    b1.dataPtr()[0] = 0;
+    CPPUNIT_ASSERT(b1 != b2);
+
+    b1.setType((Handle) 1);
+    CPPUNIT_ASSERT(b1 != b2);
 }

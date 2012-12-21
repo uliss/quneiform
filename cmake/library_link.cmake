@@ -13,5 +13,5 @@ endif()
 
 
 if(APPLE)
-    set(CMAKE_EXE_LINKER_FLAGS "-framework Carbon")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework Carbon")
 endif()

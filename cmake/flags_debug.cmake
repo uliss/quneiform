@@ -15,6 +15,17 @@ if(CMAKE_BUILD_TYPE STREQUAL Debug)
         SET_COMPILER_FLAG_DEBUG(-Winit-self)
     endif()
 
+    if(TESTS)
+        if(WITH_COVERAGE)
+            # enable coverage analysis using GCC and GCOV
+            if(CMAKE_COMPILER_IS_GNUCC)
+                set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -fprofile-arcs -ftest-coverage")
+                set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fprofile-arcs -ftest-coverage")
+                set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -ftest-coverage -lgcov")
+            endif()
+        endif()
+    endif()
+
     if(CMAKE_SYSTEM_NAME STREQUAL Linux)
         # setting linker warning flags
         set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--warn-common")

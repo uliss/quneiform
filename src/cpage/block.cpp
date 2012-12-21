@@ -108,6 +108,11 @@ bool Block::operator==(const Block& block)
     return false;
 }
 
+bool Block::operator!=(const Block& block)
+{
+    return ! this->operator==(block);
+}
+
 bool Block::save(Handle to) const
 {
     if (myWrite(to, &user_num_, sizeof(user_num_)) == sizeof(user_num_) &&

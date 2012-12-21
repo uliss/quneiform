@@ -16,27 +16,22 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTBLOCK_H
-#define TESTBLOCK_H
+#ifndef TESTPAGE_H
+#define TESTPAGE_H
 
 #include <cppunit/extensions/HelperMacros.h>
 
-class TestBlock : public CppUnit::TestFixture
+class TestPage : public CppUnit::TestFixture
 {
-    CPPUNIT_TEST_SUITE(TestBlock);
+    CPPUNIT_TEST_SUITE(TestPage);
     CPPUNIT_TEST(testInit);
-    CPPUNIT_TEST(testSet);
-    CPPUNIT_TEST(testCopy);
-    CPPUNIT_TEST(testGet);
-    CPPUNIT_TEST(testCompare);
+    CPPUNIT_TEST(appendBlock);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
-    void testSet();
-    void testGet();
-    void testCopy();
-    void testCompare();
+    void appendBlock();
 };
 
 
-#endif // TESTBLOCK_H
+
+#endif // TESTPAGE_H
