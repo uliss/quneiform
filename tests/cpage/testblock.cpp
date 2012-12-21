@@ -198,3 +198,20 @@ void TestBlock::testRestore()
     is.close();
     CPPUNIT_ASSERT(!b.restore(is));
 }
+
+uint32_t convert(uint32_t,
+                 Handle /*typeIn*/, void * /*dataIn*/, uint32_t /*sizeIn*/,
+                 Handle /*typeOut*/, void * /*dataOut*/, uint32_t sizeOut) {
+    return sizeOut * 2;
+}
+
+void TestBlock::testConvert()
+{
+    Block b;
+    CPPUNIT_ASSERT(b.Convert(0, NULL, 100) == 0);
+
+    DataConvertor c(&convert);
+    Block::setConvertor(c);
+
+    CPPUNIT_ASSERT(b.Convert(0, NULL, 100) == 100 * 2);
+}

@@ -67,6 +67,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 namespace cf {
 namespace cpage {
 
+DataConvertor::DataConvertor(const ConverterFunc& f, uint32_t context) :
+    context_(context),
+    fnConvertor(f)
+{}
+
+uint32_t DataConvertor::operator()(Handle TypeIn,  void * src,  uint32_t srcSize,
+                                   Handle TypeOut, void * dest, uint32_t destSize)
+{
+    return (*fnConvertor)(context_, TypeIn, src, srcSize, TypeOut, dest, destSize);
+}
+
 Data::Data() :
     type_(0),
     size_(0),
@@ -249,6 +260,7 @@ bool Data::restore(std::istream& is)
 
     return is.good();
 }
+
 }
 
 }

@@ -100,18 +100,31 @@ class CLA_EXPO Block: public Data
         bool operator==(const Block& block);
         bool operator!=(const Block& block);
 
+        /**
+         * Saves block to given stream
+         * @return true on success
+         */
         bool save(std::ostream& os) const;
+
+        /**
+         * Reads block from given stream
+         * @return true on success
+         */
         bool restore(std::istream& is);
 
         virtual uint32_t Convert(Handle type, void * lpdata, uint32_t size);
+    public:
+        /**
+         * Sets new block convertor
+         * @return old convertor
+         */
+        static DataConvertor setConvertor(const DataConvertor& convertor);
     private:
         uint32_t user_num_;
         uint32_t flags_;
         uint32_t internal_num_;
 };
 
-
-CPAGE_CONVERTOR SetConvertorBlocks(CPAGE_CONVERTOR convertor);
 
 }
 }

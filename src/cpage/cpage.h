@@ -73,15 +73,6 @@ CPAGE_FUNC Bool32 CPAGE_Done();
 CPAGE_FUNC uint32_t CPAGE_GetReturnCode();
 CPAGE_FUNC Bool32 CPAGE_GetExportData(uint32_t dwType, void * pData);
 
-typedef uint32_t (*CPAGE_ExtConvert)(uint32_t dwContext, Handle TypeIn,
-                                     void * lpDataIn, uint32_t SizeIn, Handle TypeOut, void * LpDataOut,
-                                     uint32_t SizeOut);
-
-typedef struct {
-    uint32_t dwContext; // Контекст конвертора
-    CPAGE_ExtConvert fnConvertor; // Функция конвертировани
-} CPAGE_CONVERTOR;
-
 enum CPAGE_EXPORT_ENTRIES {
     CPAGE_FNCPAGE_CreatePage = 1,
     CPAGE_FNCPAGE_DeletePage,
@@ -216,8 +207,6 @@ typedef Handle (*FNCPAGE_GetBlockFirst)(Handle page, Handle type);
 CPAGE_FUNC Handle CPAGE_GetBlockFirst(Handle page, Handle type);
 typedef Handle (*FNCPAGE_GetBlockNext)(Handle page, Handle block, Handle type);
 CPAGE_FUNC Handle CPAGE_GetBlockNext(Handle page, Handle block, Handle type);
-CPAGE_FUNC CPAGE_CONVERTOR CPAGE_SetConvertorPages(CPAGE_CONVERTOR func);
-CPAGE_FUNC CPAGE_CONVERTOR CPAGE_SetConvertorBlocks(CPAGE_CONVERTOR func);
 CPAGE_FUNC Handle CPAGE_GetUserPageType();
 CPAGE_FUNC Handle CPAGE_GetUserBlockType();
 CPAGE_FUNC uint32_t CPAGE_GetBuckUpCount(Handle page);

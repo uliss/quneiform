@@ -186,22 +186,20 @@ const PAGEINFO * Page::pageInfo() const
     return (PAGEINFO*) data_;
 }
 
-static  CPAGE_CONVERTOR s_ConvertorPages = {0, DefConvertPage};
+namespace {
+DataConvertor pageConvertor(DefConvertPage);
+}
 
-CPAGE_CONVERTOR SetConvertorPages(CPAGE_CONVERTOR convertor)
+DataConvertor Page::setConvertor(const DataConvertor& convertor)
 {
-    CPAGE_CONVERTOR old = s_ConvertorPages;
-    s_ConvertorPages = convertor;
+    DataConvertor old = pageConvertor;
+    pageConvertor = convertor;
     return old;
 }
 
 uint32_t Page::Convert(Handle type, void * lpdata, uint32_t size)
 {
-    uint32_t rc = 0;
-    rc = (*s_ConvertorPages.fnConvertor)(s_ConvertorPages.dwContext,
-                                         type_, data_, size_,
-                                         type, lpdata, size);
-    return rc;
+    return pageConvertor(type_, data_, size_, type, lpdata, size);
 }
 
 }

@@ -129,11 +129,11 @@ class CLA_EXPO Page: public Data
 
         virtual uint32_t Convert(Handle type, void * lpdata, uint32_t size);
         const PAGEINFO * pageInfo() const;
+    public:
+        static DataConvertor setConvertor(const DataConvertor& convertor);
     private:
         std::vector<Block*> blocks_;
 };
-
-CPAGE_CONVERTOR SetConvertorPages(CPAGE_CONVERTOR convertor);
 
 }
 }

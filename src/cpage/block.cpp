@@ -151,22 +151,20 @@ bool Block::restore(std::istream& is)
     return Data::restore(is);
 }
 
-static CPAGE_CONVERTOR s_ConvertorBlocks = { 0, DefConvertBlock };
+namespace {
+DataConvertor blockConvertor(DefConvertBlock);
+}
 
-CPAGE_CONVERTOR SetConvertorBlocks(CPAGE_CONVERTOR convertor)
+DataConvertor Block::setConvertor(const DataConvertor& convertor)
 {
-    CPAGE_CONVERTOR old = s_ConvertorBlocks;
-    s_ConvertorBlocks = convertor;
+    DataConvertor old = blockConvertor;
+    blockConvertor = convertor;
     return old;
 }
 
 uint32_t Block::Convert(Handle type, void * lpdata, uint32_t size)
 {
-    uint32_t rc = 0;
-    rc = (*s_ConvertorBlocks.fnConvertor)(s_ConvertorBlocks.dwContext,
-                                          type_, data_, size_,
-                                          type, lpdata, size);
-    return rc;
+    return blockConvertor(type_, data_, size_, type, lpdata, size);
 }
 
 }
