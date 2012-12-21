@@ -68,24 +68,55 @@ void TestData::testSave()
 
 void TestData::testRestore()
 {
-    TData s;
-    Handle t = CPAGE_GetInternalType("new type");
-    s.setType(t);
-
     {
-        std::ofstream os("test_cpage_data.dat");
-        CPPUNIT_ASSERT(os);
-        CPPUNIT_ASSERT(s.save(os));
-        os.close();
+        TData data_source_1;
+        Handle t = CPAGE_GetInternalType("new type");
+        data_source_1.setType(t);
+        std::ofstream out_file_1("test_cpage_data.dat");
+        CPPUNIT_ASSERT(out_file_1);
+        CPPUNIT_ASSERT(data_source_1.save(out_file_1));
+        out_file_1.close();
     }
 
-    TData d;
+    TData destination_data;
     std::ifstream null;
-    CPPUNIT_ASSERT(!d.restore(null));
-    std::ifstream is("test_cpage_data.dat");
-    CPPUNIT_ASSERT(is);
-    CPPUNIT_ASSERT(d.restore(is));
+    CPPUNIT_ASSERT(!destination_data.restore(null));
+    std::ifstream in_file_1("test_cpage_data.dat");
+    CPPUNIT_ASSERT(in_file_1);
+    CPPUNIT_ASSERT(destination_data.restore(in_file_1));
+    in_file_1.close();
 
+    CPPUNIT_ASSERT(destination_data.dataSize() == 0);
+    uchar buffer_1[10];
+    memset(buffer_1, 0xff, sizeof(buffer_1));
+    destination_data.setData(0, buffer_1, sizeof(buffer_1));
+    CPPUNIT_ASSERT(destination_data.dataSize() == 10);
 
-    is.close();
+    {
+        TData data_source_2;
+        Handle t = CPAGE_GetInternalType("new type2");
+        uchar buffer_2[5];
+        memset(buffer_2, 0xff, sizeof(buffer_2));
+        data_source_2.setData(t, buffer_2, sizeof(buffer_2));
+        CPPUNIT_ASSERT(data_source_2.dataPtr());
+        CPPUNIT_ASSERT(data_source_2.dataSize() == 5);
+        std::ofstream out_file_2("test_cpage_data2.dat");
+        CPPUNIT_ASSERT(out_file_2);
+        CPPUNIT_ASSERT(data_source_2.save(out_file_2));
+        out_file_2.close();
+    }
+
+    std::ifstream in_file_2("test_cpage_data2.dat");
+    CPPUNIT_ASSERT(in_file_2);
+    CPPUNIT_ASSERT(destination_data.restore(in_file_2));
+    CPPUNIT_ASSERT(destination_data.dataPtr());
+    CPPUNIT_ASSERT(destination_data.dataSize() == 5);
+
+    // double restore
+    in_file_2.seekg(0);
+    CPPUNIT_ASSERT(destination_data.restore(in_file_2));
+    // double restore
+    in_file_2.seekg(0);
+    CPPUNIT_ASSERT(destination_data.restore(in_file_2));
+    in_file_2.close();
 }
