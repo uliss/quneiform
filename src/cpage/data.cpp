@@ -137,7 +137,10 @@ bool Data::empty() const
 
 bool Data::getDataPtr(Handle type, void **lpdata)
 {
-    assert(lpdata);
+    if(!lpdata) {
+        cfError(MODULE_CPAGE) << BOOST_CURRENT_FUNCTION << ": null pointer";
+        return false;
+    }
 
     if (type == type_) {
         *lpdata = data_;
@@ -201,7 +204,7 @@ bool Data::save(std::ostream& os) const
 
     const char * name = CPAGE_GetNameInternalType(type_);
     if(!name) {
-        cfError(MODULE_CPAGE) << BOOST_CURRENT_FUNCTION << "NULL internal name";
+        cfError(MODULE_CPAGE) << BOOST_CURRENT_FUNCTION << ": NULL internal name";
         return false;
     }
 

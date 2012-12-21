@@ -2,6 +2,7 @@ add_executable(test_cpage
     test_cpage.cpp
     testbackuppage.cpp
     testblock.cpp
+    testdata.cpp
     testpage.cpp
 )
 
