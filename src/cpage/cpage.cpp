@@ -74,16 +74,6 @@ Handle CPAGE_CreatePage(Handle type, const void * lpdata, uint32_t size)
     return p;
 }
 
-Handle CPAGE_GetPageType(Handle page)
-{
-    PROLOG;
-    using namespace cf::cpage;
-    SetReturnCode_cpage(IDS_ERR_NO);
-    Handle rc = PageStorage::pageType(page);
-    EPILOG;
-    return rc;
-}
-
 void CPAGE_DeletePage(Handle page)
 {
     PageStorage::remove((PageHandle) page);
@@ -96,12 +86,10 @@ void CPAGE_ClearBackUp(Handle page)
 
 Handle CPAGE_BackUp(Handle page)
 {
-    PROLOG;
-    using namespace cf::cpage;
-    SetReturnCode_cpage(IDS_ERR_NO);
-    Handle rc = PageStorage::backupPage(page);
-    EPILOG;
-    return rc;
+    if(page)
+        return NULL;
+
+    return ((PageHandle) page)->BackUp();
 }
 
 bool CPAGE_Undo(Handle page, Handle num)

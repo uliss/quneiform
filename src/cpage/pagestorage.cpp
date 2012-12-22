@@ -49,11 +49,6 @@ PageHandle PageStorage::append(const BackupPage& p)
     return pages().back();
 }
 
-Handle PageStorage::backupPage(Handle p)
-{
-    return page(p).BackUp();
-}
-
 void PageStorage::clear()
 {
     instance().clearPages();
@@ -106,11 +101,6 @@ PageHandle PageStorage::pageAt(size_t pos)
     return NULL;
 }
 
-Handle PageStorage::pageType(Handle p)
-{
-    return page(p).type();
-}
-
 size_t PageStorage::pageCount()
 {
     return pages().size();
@@ -147,8 +137,11 @@ void PageStorage::clearPages()
 
 void PageStorage::removePage(PageHandle p)
 {
-    std::remove(pages_.begin(), pages_.end(), p);
-    delete p;
+    PageList::iterator it = std::find(pages_.begin(), pages_.end(), p);
+    if(it != pages_.end()) {
+        pages_.erase(it);
+        delete p;
+    }
 
     if(current_ == p)
         current_ = NULL;

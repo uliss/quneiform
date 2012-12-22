@@ -26,10 +26,12 @@ class TestPageStorage : public CppUnit::TestFixture
     CPPUNIT_TEST_SUITE(TestPageStorage);
     CPPUNIT_TEST(testInit);
     CPPUNIT_TEST(testAppend);
+    CPPUNIT_TEST(testRemove);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
     void testAppend();
+    void testRemove();
 };
 
 #endif // TESTPAGESTORAGE_H

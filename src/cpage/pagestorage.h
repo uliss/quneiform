@@ -36,16 +36,12 @@ class CLA_EXPO PageStorage
 public:
     ~PageStorage();
 public:
-    static PageStorage& instance();
-
     /**
      * Appends page to storage
      * @return pointer to added page
      * @see pageAt()
      */
     static PageHandle append(const BackupPage& p);
-
-    static Handle backupPage(Handle p);
 
     /**
      * Removes all pages from storage
@@ -85,7 +81,6 @@ public:
      * Returns page count
      */
     static size_t pageCount();
-    static Handle pageType(Handle p);
 
     /**
      * Removes page from storage
@@ -103,6 +98,7 @@ public:
 
     static bool undo(Handle p, Handle num);
 private:
+    static PageStorage& instance();
     static PageList& pages();
     void clearPages();
     int find(PageHandle page) const;

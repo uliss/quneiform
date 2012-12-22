@@ -29,6 +29,11 @@ using namespace cf::cpage;
 void TestPageStorage::testInit()
 {
     CPPUNIT_ASSERT(!PageStorage::pageCount());
+    CPPUNIT_ASSERT(!PageStorage::currentPage());
+    CPPUNIT_ASSERT_EQUAL(int(-1), PageStorage::currentPageNumber());
+    CPPUNIT_ASSERT_EQUAL(int(-1), PageStorage::findPage(NULL));
+    CPPUNIT_ASSERT_EQUAL(PageHandle(0), PageStorage::pageAt(0));
+    CPPUNIT_ASSERT(!PageStorage::setCurrentPage(0));
 }
 
 void TestPageStorage::testAppend()
@@ -44,6 +49,27 @@ void TestPageStorage::testAppend()
     CPPUNIT_ASSERT(new_p->dataSize() == sizeof(data));
     CPPUNIT_ASSERT(new_p->dataPtr()[0] == 0xff);
     CPPUNIT_ASSERT_EQUAL(PageStorage::currentPage(), new_p);
+    CPPUNIT_ASSERT_EQUAL(PageStorage::pageAt(0), new_p);
     CPPUNIT_ASSERT_EQUAL(int(0), PageStorage::currentPageNumber());
     PageStorage::clear();
+}
+
+void TestPageStorage::testRemove()
+{
+    PageStorage::remove((PageHandle) 0xffff);
+    CPPUNIT_ASSERT_EQUAL(size_t(0), PageStorage::pageCount());
+
+    PageStorage::append(BackupPage());
+    PageStorage::append(BackupPage());
+    CPPUNIT_ASSERT_EQUAL(size_t(2), PageStorage::pageCount());
+
+    PageStorage::remove(NULL);
+    CPPUNIT_ASSERT_EQUAL(size_t(2), PageStorage::pageCount());
+    CPPUNIT_ASSERT_EQUAL(PageStorage::pageAt(1), PageStorage::currentPage());
+    PageStorage::remove(PageStorage::pageAt(1));
+    CPPUNIT_ASSERT_EQUAL(size_t(1), PageStorage::pageCount());
+    CPPUNIT_ASSERT_EQUAL(PageHandle(0), PageStorage::currentPage());
+    CPPUNIT_ASSERT(PageStorage::setCurrentPage(0));
+    PageStorage::remove(PageStorage::pageAt(0));
+    CPPUNIT_ASSERT_EQUAL(size_t(0), PageStorage::pageCount());
 }
