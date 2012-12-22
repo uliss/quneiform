@@ -1,7 +1,6 @@
 set(CF_CPAGE_SOURCES
     backup.cpp
     block.cpp
-    compress.cpp
     cpage.cpp
     cpicture.cpp
     ctablex.cpp

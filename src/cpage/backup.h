@@ -103,10 +103,6 @@ uint32_t DefConvertBlock( uint32_t dwContext,
 uint32_t DefConvertPage( uint32_t dwContext,
                          Handle TypeIn, void * lpDataIn, uint32_t SizeIn,
                          Handle TypeOut, void * LpDataOut, uint32_t SizeOut);
-void CleanData(Handle Type, void * lpData, uint32_t Size);
-Bool32 ComplianceVersions(Handle Type, uchar ** lpData, uint32_t *Size);
-Bool32 Compress(uchar *lpData, uint32_t Size, uchar ** compressedData, uint32_t * compressedSize);
-Bool32 Decompress(uchar * lpData, uint32_t Size, uchar **decomData, uint32_t * decomSize);
 
 uint32_t TYPE_DESK_to_CPAGE_TABLE(TABLE_DESC * lpDataIn, uint32_t SizeIn, CPAGE_TABLE * LpDataOut, uint32_t SizeOut);
 uint32_t CPAGE_TABLE_to_TYPE_DESK( CPAGE_TABLE * lpDataIn, uint32_t SizeIn, TABLE_DESC * LpDataOut, uint32_t SizeOut);
