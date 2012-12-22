@@ -350,13 +350,9 @@ uint32_t CPAGE_GetBlockData(Handle block, Handle type, void * data, uint32_t siz
     return b->getData(type, data, size);
 }
 
-uint32_t CPAGE_GetCountPage()
+size_t CPAGE_GetCountPage()
 {
-    PROLOG;
-    SetReturnCode_cpage(IDS_ERR_NO);
-    uint32_t rc = PageStorage::size();
-    EPILOG;
-    return rc;
+    return PageStorage::pageCount();
 }
 
 uint32_t CPAGE_GetCountBlock(Handle page)
@@ -398,10 +394,10 @@ Bool32 CPAGE_SavePage(Handle page, const char * lpName)
             rc = PageStorage::page(page).save(os);
         }
         else {
-            uint32_t count = PageStorage::size();
+            uint32_t count = PageStorage::pageCount();
             os.write((char*) &count, sizeof(count));
-            for (int i = 0; i < count && rc == TRUE; i++)
-                rc = PageStorage::pageAt(i).save(os);
+            for (uint32_t i = 0; i < count && rc == TRUE; i++)
+                rc = PageStorage::pageAt(i)->save(os);
         }
 
         os.close();
@@ -437,7 +433,7 @@ Handle CPAGE_RestorePage(Bool32 remove, const char * lpName)
         uint32_t count = 0;
         is.read((char*) &count, sizeof(count));
 
-        for (int i = 0; i < count; i++) {
+        for (uint32_t i = 0; i < count; i++) {
             BackupPage page;
             if(page.restore(is))
                 rc = PageStorage::append(page);
@@ -482,7 +478,7 @@ Handle CPAGE_GetUserBlockType()
 Handle CPAGE_GetPageFirst(Handle type)
 {
     PROLOG;
-    int count = PageStorage::size();
+    int count = PageStorage::pageCount();
     int i;
 #ifdef _DEBUG
     assert(CPAGE_GetNameInternalType(type));
@@ -491,8 +487,8 @@ Handle CPAGE_GetPageFirst(Handle type)
 
     for (i = 0; i < count; i++) {
         if (!type ||
-                PageStorage::pageAt(i).type() == type ||
-                PageStorage::pageAt(i).Convert(type, NULL, 0))
+                PageStorage::pageAt(i)->type() == type ||
+                PageStorage::pageAt(i)->Convert(type, NULL, 0))
             break;
     }
 
@@ -504,7 +500,7 @@ Handle CPAGE_GetPageFirst(Handle type)
 Handle CPAGE_GetPageNext(Handle page, Handle type)
 {
     PROLOG;
-    int count = PageStorage::size();
+    int count = PageStorage::pageCount();
     int pos = PageStorage::pagePosition(page) + 1;
     int i;
 #ifdef _DEBUG
@@ -514,12 +510,12 @@ Handle CPAGE_GetPageNext(Handle page, Handle type)
 
     for (i = pos; i < count && i >= 0; i++) {
         if (!type ||
-                PageStorage::pageAt(i).type() == type ||
-                PageStorage::pageAt(i).Convert(type, NULL, 0))
+                PageStorage::pageAt(i)->type() == type ||
+                PageStorage::pageAt(i)->Convert(type, NULL, 0))
             break;
     }
 
-    Handle rc = i < count ? PageStorage::pageHandleAt(i) /*Page.GetHandle(i)*/ : NULL;
+    Handle rc = i < count ? PageStorage::pageHandleAt(i) : NULL;
     EPILOG;
     return rc;
 }

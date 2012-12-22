@@ -26,6 +26,11 @@ PageStorage::PageStorage()
 {
 }
 
+PageStorage::~PageStorage()
+{
+    clearPages();
+}
+
 PageStorage& PageStorage::instance()
 {
     static PageStorage s;
@@ -37,7 +42,7 @@ PageList& PageStorage::pages()
     return instance().pages_;
 }
 
-Handle PageStorage::append(BackupPage& p)
+PageHandle PageStorage::append(BackupPage& p)
 {
     pages().push_back(new BackupPage(p));
     return pages().back();
@@ -74,14 +79,17 @@ BackupPage& PageStorage::page(Handle p)
     return *res;
 }
 
-BackupPage& PageStorage::pageAt(size_t pos)
+PageHandle PageStorage::pageAt(size_t pos)
 {
-    return page(pageHandleAt(pos));
+    if(pos < pageCount())
+        return pages().at(pos);
+
+    return NULL;
 }
 
 Handle PageStorage::pageHandleAt(size_t pos)
 {
-    if(pos < size())
+    if(pos < pageCount())
         return pages().at(pos);
     return NULL;
 }
@@ -96,7 +104,7 @@ size_t PageStorage::pagePosition(Handle p)
     return instance().find(p);
 }
 
-size_t PageStorage::size()
+size_t PageStorage::pageCount()
 {
     return pages().size();
 }

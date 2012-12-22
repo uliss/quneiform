@@ -16,65 +16,20 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef PAGESTORAGE_H
-#define PAGESTORAGE_H
+#ifndef TESTPAGESTORAGE_H
+#define TESTPAGESTORAGE_H
 
-#include <vector>
+#include <cppunit/extensions/HelperMacros.h>
 
-#include "globus.h"
-
-namespace cf {
-namespace cpage {
-
-class BackupPage;
-typedef BackupPage * PageHandle;
-typedef std::vector<PageHandle> PageList;
-
-class CLA_EXPO PageStorage 
+class TestPageStorage : public CppUnit::TestFixture
 {
-    PageStorage();
+    CPPUNIT_TEST_SUITE(TestPageStorage);
+    CPPUNIT_TEST(testInit);
+    CPPUNIT_TEST(testAppend);
+    CPPUNIT_TEST_SUITE_END();
 public:
-    ~PageStorage();
-    int find(Handle page) const;
-public:
-    static PageStorage& instance();
-    static PageList& pages();
-
-    /**
-     * Appends page to storage
-     * @return pointer to added page
-     * @see pageAt()
-     */
-    static PageHandle append(BackupPage& p);
-
-    static Handle backupPage(Handle p);
-    static void clear();
-    static void clearPage(Handle p);
-    static BackupPage& page(Handle p);
-
-    /**
-     * Returns page handle at given position
-     * @return NULL if not found
-     */
-    static PageHandle pageAt(size_t pos);
-
-    /**
-     * Returns page count
-     */
-    static size_t pageCount();
-    static Handle pageHandleAt(size_t pos);
-    static Handle pageType(Handle p);
-    static size_t pagePosition(Handle p);
-    static void remove(Handle p);
-    static bool undo(Handle p, Handle num);
-private:
-    void clearPages();
-    void removePage(BackupPage * p);
-private:
-    PageList pages_;
+    void testInit();
+    void testAppend();
 };
 
-}
-}
-
-#endif // PAGESTORAGE_H
+#endif // TESTPAGESTORAGE_H

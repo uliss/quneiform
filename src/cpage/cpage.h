@@ -171,7 +171,7 @@ enum CPAGE_EXPORT_ENTRIES {
 
 CPAGE_FUNC Handle CPAGE_CreatePage(Handle Type, void * lpData, uint32_t Size);
 CPAGE_FUNC void CPAGE_DeletePage(Handle hPage);
-CPAGE_FUNC uint32_t CPAGE_GetCountPage();
+CPAGE_FUNC size_t CPAGE_GetCountPage();
 CPAGE_FUNC Handle CPAGE_GetHandlePage(uint32_t number);
 CPAGE_FUNC uint32_t CPAGE_GetCurrentPage();
 CPAGE_FUNC Bool32 CPAGE_SetCurrentPage(uint32_t page);

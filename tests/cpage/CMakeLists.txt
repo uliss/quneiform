@@ -4,6 +4,7 @@ add_executable(test_cpage
     testblock.cpp
     testdata.cpp
     testpage.cpp
+    testpagestorage.cpp
 )
 
 set(TEST_CPAGE_LIBS cuneiform-cpage ${CPPUNIT_LIBRARIES})
