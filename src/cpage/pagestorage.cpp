@@ -54,11 +54,6 @@ void PageStorage::clear()
     instance().clearPages();
 }
 
-void PageStorage::clearPage(Handle p)
-{
-    page(p).Clear();
-}
-
 PageHandle PageStorage::currentPage()
 {
     return instance().current_;
@@ -119,11 +114,6 @@ bool PageStorage::setCurrentPage(size_t pos)
     }
 
     return false;
-}
-
-bool PageStorage::undo(Handle p, Handle num)
-{
-    return page(p).Undo(num);
 }
 
 void PageStorage::clearPages()

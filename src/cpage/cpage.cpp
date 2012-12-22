@@ -81,12 +81,15 @@ void CPAGE_DeletePage(Handle page)
 
 void CPAGE_ClearBackUp(Handle page)
 {
-    PageStorage::clearPage(page);
+    if(!page)
+        return;
+
+    static_cast<PageHandle>(page)->Clear();
 }
 
 Handle CPAGE_BackUp(Handle page)
 {
-    if(page)
+    if(!page)
         return NULL;
 
     return ((PageHandle) page)->BackUp();
@@ -119,7 +122,7 @@ bool CPAGE_Undo(Handle page, Handle num)
         }
     }
 
-    rc = PageStorage::undo(page, num);
+    rc = ((PageHandle) page)->Undo(num);
 lOut:
     EPILOG;
     return rc;

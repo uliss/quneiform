@@ -49,8 +49,6 @@ public:
      */
     static void clear();
 
-    static void clearPage(Handle p);
-
     /**
      * Returns current page handle
      * @see currentPageNumber()
@@ -95,8 +93,6 @@ public:
      * @return true on success
      */
     static bool setCurrentPage(size_t pos);
-
-    static bool undo(Handle p, Handle num);
 private:
     static PageStorage& instance();
     static PageList& pages();
