@@ -76,11 +76,6 @@ FNCPAGE_HL_TableExtract CPAGE_HL_TableExtract = NULL;
 static uint16_t gwHeightRC = 0;
 static uint16_t gwLowRC = 0;
 
-#ifdef DPUMA_ON
-Handle hSnapTimerBeg = NULL;
-Handle hSnapTimerEnd = NULL;
-#endif
-
 Bool32 CPAGE_Init(uint16_t wHeightCode, Handle hStorage)
 {
     gwHeightRC = wHeightCode;
@@ -147,49 +142,3 @@ uint16_t GetReturnCode_cpage()
 {
     return gwLowRC;
 }
-
-#ifdef DPUMA_ON
-
-//#define TIMECONTROL 1
-
-static int s_prolog = 0;
-#ifdef TIMECONTROL
-static clock_t s_tbeg = 0;
-#endif
-
-Handle ProfileProlog()
-{
-    Handle rc = NULL;
-
-    if (!s_prolog) {
-#ifdef TIMECONTROL
-        s_tbeg = clock();
-#endif
-        rc = LDPUMA_GetPrevSkipOwner();
-        LDPUMA_Skip(hSnapTimerBeg);
-
-        // Проверим - используется ли эта вершина на самом деле.
-        if (LDPUMA_GetPrevSkipOwner() == rc)
-            rc = NULL;// Нет. Иначе, она равнялась бы hSnapTimerBeg
-    }
-
-    s_prolog++;
-    return rc;
-}
-
-void ProfileEpilog(Handle prev)
-{
-    if (s_prolog > 0) {
-        s_prolog--;
-
-        if (!s_prolog && prev) {
-#ifdef TIMECONTROL
-            uint32_t c = clock() - s_tbeg;
-            assert(c < 99);
-#endif
-            LDPUMA_Skip(prev);
-        }
-    }
-}
-#endif
-
