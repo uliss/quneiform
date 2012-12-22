@@ -73,11 +73,12 @@ class DataConvertor
 {
     private:
         uint32_t context_; // Контекст конвертора
-        ConverterFunc fnConvertor; // Функция конвертирования
+        ConverterFunc func_; // Функция конвертирования
     public:
         DataConvertor(const ConverterFunc& f, uint32_t context = 0);
         uint32_t operator()(Handle TypeIn,  void * lpDataIn,  uint32_t SizeIn,
                             Handle TypeOut, void * LpDataOut, uint32_t SizeOut);
+        ConverterFunc func();
 };
 
 class CLA_EXPO Data

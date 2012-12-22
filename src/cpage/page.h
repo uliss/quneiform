@@ -75,6 +75,8 @@ class CLA_EXPO Page: public Data
     public:
         Page();
         ~Page();
+
+        Page(const Page& p);
         Page& operator=(Page& page);
 
         /**
@@ -87,6 +89,7 @@ class CLA_EXPO Page: public Data
          * @see appendBlock(), blockCount()
          */
         Block * blockAt(size_t pos);
+        const Block * blockAt(size_t pos) const;
 
         /**
          * Returns block count

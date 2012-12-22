@@ -69,13 +69,18 @@ namespace cpage {
 
 DataConvertor::DataConvertor(const ConverterFunc& f, uint32_t context) :
     context_(context),
-    fnConvertor(f)
+    func_(f)
 {}
 
 uint32_t DataConvertor::operator()(Handle TypeIn,  void * src,  uint32_t srcSize,
                                    Handle TypeOut, void * dest, uint32_t destSize)
 {
-    return (*fnConvertor)(context_, TypeIn, src, srcSize, TypeOut, dest, destSize);
+    return (*func_)(context_, TypeIn, src, srcSize, TypeOut, dest, destSize);
+}
+
+ConverterFunc DataConvertor::func()
+{
+    return func_;
 }
 
 Data::Data() :

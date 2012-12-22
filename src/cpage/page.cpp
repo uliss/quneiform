@@ -73,6 +73,13 @@ Page::~Page()
     clearBlocks();
 }
 
+Page::Page(const Page& p) :
+    Data(p)
+{
+    for (size_t i = 0; i < p.blockCount(); i++)
+        appendBlock(*p.blockAt(i));
+}
+
 Block * Page::createBlock(Handle Type, uint32_t UserNum , uint32_t Flags , void * lpData , uint32_t Size )
 {
     blocks_.push_back(new Block);
@@ -99,10 +106,18 @@ void Page::appendBlock(const Block& b)
 
 Block * Page::blockAt(size_t pos)
 {
-    if(pos >= blocks_.size())
-        cfError(cf::MODULE_CPAGE) << "invalid block index:" << pos;
+    if(pos < blocks_.size())
+        return blocks_.at(pos);
 
-    return blocks_.at(pos);
+    return NULL;
+}
+
+const Block * Page::blockAt(size_t pos) const
+{
+    if(pos < blocks_.size())
+        return blocks_.at(pos);
+
+    return NULL;
 }
 
 size_t Page::blockCount() const
@@ -141,6 +156,9 @@ bool Page::removeBlock(Block * b)
 
 bool Page::save(std::ostream& os) const
 {
+    if(os.bad())
+        return false;
+
     uint32_t count = blockCount();
     os.write((char*) &count, sizeof(count));
 

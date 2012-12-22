@@ -26,10 +26,18 @@ class TestPage : public CppUnit::TestFixture
     CPPUNIT_TEST_SUITE(TestPage);
     CPPUNIT_TEST(testInit);
     CPPUNIT_TEST(appendBlock);
+    CPPUNIT_TEST(testSaveRestore);
+    CPPUNIT_TEST(testCopy);
+    CPPUNIT_TEST(testPageInfo);
+    CPPUNIT_TEST(testConvertor);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
     void appendBlock();
+    void testSaveRestore();
+    void testCopy();
+    void testPageInfo();
+    void testConvertor();
 };
 
 
