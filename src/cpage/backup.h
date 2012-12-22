@@ -90,7 +90,6 @@ private:
     Handle hCurBackUp;
 };
 
-typedef PtrList<BackupPage> PageList;
 }
 }
 

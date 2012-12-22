@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include "pagestorage.h"
+#include "backup.h"
 
 namespace cf {
 namespace cpage {
@@ -36,9 +37,10 @@ PageList& PageStorage::pages()
     return instance().pages_;
 }
 
-Handle PageStorage::append(BackupPage &p)
+Handle PageStorage::append(BackupPage& p)
 {
-    return pages().AddTail(p);
+    pages().push_back(new BackupPage(p));
+    return pages().back();
 }
 
 Handle PageStorage::backupPage(Handle p)
@@ -48,7 +50,7 @@ Handle PageStorage::backupPage(Handle p)
 
 void PageStorage::clear()
 {
-    pages().Clear();
+    instance().clearPages();
 }
 
 void PageStorage::clearPage(Handle p)
@@ -56,9 +58,20 @@ void PageStorage::clearPage(Handle p)
     page(p).Clear();
 }
 
+int PageStorage::find(Handle page) const
+{
+    for(size_t i = 0; i < pages_.size(); i++) {
+        if(pages_[i] == page)
+            return i;
+    }
+
+    return -1;
+}
+
 BackupPage& PageStorage::page(Handle p)
 {
-    return pages().GetItem(p);
+    BackupPage * res = (BackupPage*) (p);
+    return *res;
 }
 
 BackupPage& PageStorage::pageAt(size_t pos)
@@ -68,7 +81,9 @@ BackupPage& PageStorage::pageAt(size_t pos)
 
 Handle PageStorage::pageHandleAt(size_t pos)
 {
-    return pages().GetHandle(pos);
+    if(pos < size())
+        return pages().at(pos);
+    return NULL;
 }
 
 Handle PageStorage::pageType(Handle p)
@@ -78,22 +93,36 @@ Handle PageStorage::pageType(Handle p)
 
 size_t PageStorage::pagePosition(Handle p)
 {
-    return pages().GetPos(p);
+    return instance().find(p);
 }
 
 size_t PageStorage::size()
 {
-    return pages().GetCount();
+    return pages().size();
 }
 
 void PageStorage::remove(Handle p)
 {
-    pages().Del(p);
+    instance().removePage((BackupPage*) p);
 }
 
 bool PageStorage::undo(Handle p, Handle num)
 {
     return page(p).Undo(num);
+}
+
+void PageStorage::clearPages()
+{
+    for(size_t i = 0; i < pages_.size(); i++)
+        delete pages_[i];
+
+    pages_.clear();
+}
+
+void PageStorage::removePage(BackupPage * p)
+{
+    std::remove(pages_.begin(), pages_.end(), p);
+    delete p;
 }
 
 }

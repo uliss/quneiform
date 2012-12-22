@@ -19,15 +19,21 @@
 #ifndef PAGESTORAGE_H
 #define PAGESTORAGE_H
 
-#include "backup.h"
+#include <vector>
+
 #include "globus.h"
 
 namespace cf {
 namespace cpage {
 
+class BackupPage;
+typedef std::vector<BackupPage*> PageList;
+
 class CLA_EXPO PageStorage 
 {
     PageStorage();
+public:
+    int find(Handle page) const;
 public:
     static PageStorage& instance();
     static PageList& pages();
@@ -43,6 +49,9 @@ public:
     static size_t size();
     static void remove(Handle p);
     static bool undo(Handle p, Handle num);
+private:
+    void clearPages();
+    void removePage(BackupPage * p);
 private:
     PageList pages_;
 };

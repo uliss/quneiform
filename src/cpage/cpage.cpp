@@ -611,7 +611,7 @@ uint32_t CPAGE_GetNumberPage(Handle hPage)
     uint32_t rc = (uint32_t) - 1;
 
     if (hPage)
-        rc = (uint32_t) PageStorage::pages().GetPos(hPage);
+        rc = (uint32_t) PageStorage::instance().find(hPage);
 
     EPILOG;
     return rc;

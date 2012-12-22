@@ -43,6 +43,7 @@
 #include "cstr/cstr.h"
 #include "cpage/cpage.h"
 #include "cpage/pagestorage.h"
+#include "cpage/backup.h"
 #include "dpuma.h"
 #include "exc/exc.h"
 #include "export/exporterfactory.h"
