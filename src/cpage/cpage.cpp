@@ -349,7 +349,7 @@ Handle CPAGE_RestorePage(Bool32 remove, const char * lpName)
         if (vers != VERSION_FILE) {
             SetReturnCode_cpage(IDS_ERR_OLDFILEVERSION);
             is.close();
-            return FALSE;
+            return NULL;
         }
 
         if (remove) {
@@ -371,7 +371,6 @@ Handle CPAGE_RestorePage(Bool32 remove, const char * lpName)
         is.close();
     }
 
-    EPILOG;
     return rc;
 }
 
@@ -382,10 +381,7 @@ Handle CPAGE_GetHandlePage(uint32_t pos)
 
 Handle CPAGE_GetUserPageType()
 {
-    PROLOG;
-    Handle rc = CPAGE_GetUserBlockType();
-    EPILOG;
-    return rc;
+    return CPAGE_GetUserBlockType();
 }
 
 Handle CPAGE_GetUserBlockType()
@@ -399,7 +395,6 @@ Handle CPAGE_GetUserBlockType()
 
 Handle CPAGE_GetPageFirst(Handle type)
 {
-    PROLOG;
     int count = PageStorage::pageCount();
     int i;
     DefConvertInit();
@@ -412,13 +407,11 @@ Handle CPAGE_GetPageFirst(Handle type)
     }
 
     Handle rc = i < count ? PageStorage::pageAt(i) : NULL;
-    EPILOG;
     return rc;
 }
 
 Handle CPAGE_GetPageNext(Handle page, Handle type)
 {
-    PROLOG;
     int count = PageStorage::pageCount();
     int pos = PageStorage::findPage((PageHandle) page) + 1;
     int i;
@@ -433,7 +426,6 @@ Handle CPAGE_GetPageNext(Handle page, Handle type)
     }
 
     Handle rc = i < count ? PageStorage::pageAt(i) : NULL;
-    EPILOG;
     return rc;
 }
 
@@ -479,7 +471,6 @@ Handle CPAGE_GetBlockNext(Handle p, Handle block, Handle type)
     }
 
     Handle rc = i < count ? page->blockAt(i) : NULL;
-    EPILOG;
     return rc;
 }
 
@@ -515,7 +506,6 @@ uint32_t CPAGE_GetNumberPage(Handle hPage)
 //
 Bool32 CPAGE_UpdateBlocks(Handle hPage, Handle type)
 {
-    PROLOG;
     Bool32 rc = TRUE;
     uint32_t size = 0;
     char * lpData = NULL;
@@ -591,7 +581,6 @@ Bool32 CPAGE_UpdateBlocks(Handle hPage, Handle type)
     }
 
 lOut:
-    EPILOG;
     return rc;
 }
 
@@ -630,7 +619,6 @@ bool CPAGE_GetBlockDataPtr(Handle block, Handle type, void ** data)
 
 Handle CPAGE_GetInternalType(const char * name)
 {
-    PROLOG;
     Handle rc = 0;
     NAMEDATA nd(name);
     SetReturnCode_cpage(IDS_ERR_NO);
@@ -639,11 +627,10 @@ Handle CPAGE_GetInternalType(const char * name)
     if (!rc)
         rc = NameData.AddTail(nd);
 
-    EPILOG;
     return rc;
 }
 
-char * CPAGE_GetNameInternalType(Handle type)
+const char * CPAGE_GetNameInternalType(Handle type)
 {
     if (type == NULL || type == reinterpret_cast<void*>(-1))
         return NULL;

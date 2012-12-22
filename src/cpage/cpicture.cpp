@@ -68,20 +68,12 @@ using namespace cf;
 // extern functions
 Handle CPAGE_PictureGetFirst(Handle hPage)
 {
-    PROLOG;
-    SetReturnCode_cpage(IDS_ERR_NO);
-    Handle rc = CPAGE_GetBlockFirst(hPage, TYPE_CPAGE_PICTURE);
-    EPILOG;
-    return rc;
+    return CPAGE_GetBlockFirst(hPage, TYPE_CPAGE_PICTURE);
 }
 
 Handle CPAGE_PictureGetNext(Handle hPage, Handle hPicture)
 {
-    PROLOG;
-    SetReturnCode_cpage(IDS_ERR_NO);
-    Handle rc = CPAGE_GetBlockNext(hPage, hPicture, TYPE_CPAGE_PICTURE);
-    EPILOG;
-    return rc;
+    return CPAGE_GetBlockNext(hPage, hPicture, TYPE_CPAGE_PICTURE);
 }
 
 //template<size_t N>
@@ -98,7 +90,6 @@ Handle CPAGE_PictureGetNext(Handle hPage, Handle hPicture)
 Bool32 CPAGE_PictureGetPlace(Handle hPage, Handle hPicture, int32_t Skew2048, Point * lpLr,
                              Point * lpWh)
 {
-    PROLOG;
     Bool32 rc = FALSE;
     SetReturnCode_cpage(IDS_ERR_NO);
     CPAGE_PICTURE pict = { 0 };
@@ -135,7 +126,6 @@ Bool32 CPAGE_PictureGetPlace(Handle hPage, Handle hPicture, int32_t Skew2048, Po
         rc = TRUE;
     }
 
-    EPILOG;
     return rc;
 }
 
@@ -162,7 +152,6 @@ static int GetIndex(long * lpLong, long nLong, long n)
 Bool32 CPAGE_PictureGetMask(Handle hPage, Handle hPicture, int32_t Skew2048, char * lpData,
                             uint32_t * lpSize)
 {
-    PROLOG;
     Bool32 rc = FALSE;
     SetReturnCode_cpage(IDS_ERR_NO);
     assert(lpSize);
@@ -312,6 +301,5 @@ Bool32 CPAGE_PictureGetMask(Handle hPage, Handle hPicture, int32_t Skew2048, cha
             free(lpMatrix);
     }
 
-    EPILOG;
     return rc;
 }

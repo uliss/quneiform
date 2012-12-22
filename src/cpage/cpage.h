@@ -232,7 +232,7 @@ CPAGE_FUNC uint32_t CPAGE_GetBlockInterNum(Handle block);
 CPAGE_FUNC void CPAGE_SetBlockInterNum(Handle block, uint32_t inter);
 CPAGE_FUNC bool CPAGE_GetBlockDataPtr(Handle block, Handle Type, void ** lpData);
 CPAGE_FUNC Handle CPAGE_GetInternalType(const char * name);
-CPAGE_FUNC char * CPAGE_GetNameInternalType(Handle type);
+CPAGE_FUNC const char * CPAGE_GetNameInternalType(Handle type);
 
 // Виртуальные функции:
 // Они доступны только через непосредственный вызов функций

@@ -109,19 +109,4 @@ uint32_t CPAGE_TABLE_to_TYPE_DESK( CPAGE_TABLE * lpDataIn, uint32_t SizeIn, TABL
 uint32_t TYPE_PICTURE_to_CPAGE_PICTURE(POLY_ * lpDataIn, uint32_t SizeIn, CPAGE_PICTURE * LpDataOut, uint32_t SizeOut);
 uint32_t CPAGE_PICTURE_to_TYPE_PICTURE( CPAGE_PICTURE * lpDataIn, uint32_t SizeIn, POLY_ * LpDataOut, uint32_t SizeOut);
 
-#ifdef DPUMA_ON
-Handle  ProfileProlog();
-void    ProfileEpilog(Handle prev);
-
-#define PROLOG Handle   hProfile = ProfileProlog()
-#define EPILOG ProfileEpilog(hProfile)
-
-#else
-
-#define PROLOG
-#define EPILOG
-
-#endif
-
-
 #endif
