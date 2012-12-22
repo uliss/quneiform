@@ -82,12 +82,6 @@ int PageStorage::find(PageHandle page) const
     return -1;
 }
 
-BackupPage& PageStorage::page(Handle p)
-{
-    BackupPage * res = (BackupPage*) (p);
-    return *res;
-}
-
 PageHandle PageStorage::pageAt(size_t pos)
 {
     if(pos < pageCount())

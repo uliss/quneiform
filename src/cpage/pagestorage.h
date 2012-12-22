@@ -67,8 +67,6 @@ public:
      */
     static int findPage(PageHandle p);
 
-    static BackupPage& page(Handle p);
-
     /**
      * Returns page handle at given position
      * @return NULL if not found

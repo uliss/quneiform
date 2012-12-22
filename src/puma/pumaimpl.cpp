@@ -1105,7 +1105,7 @@ cpage::BackupPage * PumaImpl::cpage()
     if(!cpage_)
         return NULL;
 
-    return &cpage::PageStorage::page(cpage_);
+    return static_cast<cpage::PageHandle>(cpage_);
 }
 
 const PAGEINFO * PumaImpl::pageInfo() const
@@ -1113,7 +1113,7 @@ const PAGEINFO * PumaImpl::pageInfo() const
     if(!cpage_)
         return NULL;
 
-    return cpage::PageStorage::page(cpage_).pageInfo();
+    return static_cast<cpage::PageHandle>(cpage_)->pageInfo();
 }
 
 }
