@@ -35,21 +35,44 @@ class CLA_EXPO PageStorage
     PageStorage();
 public:
     ~PageStorage();
-    int find(Handle page) const;
 public:
     static PageStorage& instance();
-    static PageList& pages();
 
     /**
      * Appends page to storage
      * @return pointer to added page
      * @see pageAt()
      */
-    static PageHandle append(BackupPage& p);
+    static PageHandle append(const BackupPage& p);
 
     static Handle backupPage(Handle p);
+
+    /**
+     * Removes all pages from storage
+     * @see remove()
+     */
     static void clear();
+
     static void clearPage(Handle p);
+
+    /**
+     * Returns current page handle
+     * @see currentPageNumber()
+     */
+    static PageHandle currentPage();
+
+    /**
+     * Returns current page number or -1 if not found
+     * @see currentPage()
+     */
+    static int currentPageNumber();
+
+    /**
+     * Search for given page handle in storage
+     * @return handle position or -1 if not found
+     */
+    static int findPage(PageHandle p);
+
     static BackupPage& page(Handle p);
 
     /**
@@ -62,16 +85,31 @@ public:
      * Returns page count
      */
     static size_t pageCount();
-    static Handle pageHandleAt(size_t pos);
     static Handle pageType(Handle p);
-    static size_t pagePosition(Handle p);
-    static void remove(Handle p);
+
+    /**
+     * Removes page from storage
+     * @param page - page handle
+     * @see clear()
+     */
+    static void remove(PageHandle page);
+
+    /**
+     * Sets current page
+     * @param pos - page position in storage
+     * @return true on success
+     */
+    static bool setCurrentPage(size_t pos);
+
     static bool undo(Handle p, Handle num);
 private:
+    static PageList& pages();
     void clearPages();
-    void removePage(BackupPage * p);
+    int find(PageHandle page) const;
+    void removePage(PageHandle p);
 private:
     PageList pages_;
+    PageHandle current_;
 };
 
 }

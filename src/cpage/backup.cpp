@@ -58,8 +58,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "backup.h"
 
-Handle hCurPage = NULL;
-
 namespace cf {
 namespace cpage {
 

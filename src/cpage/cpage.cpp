@@ -62,26 +62,16 @@
 #include "pagestorage.h"
 #include "common/log.h"
 
-extern Handle hCurPage;
 extern PtrList<NAMEDATA> NameData;
 
 using namespace cf;
 using namespace cf::cpage;
 
-Handle CPAGE_CreatePage(Handle type, void * lpdata, uint32_t size)
+Handle CPAGE_CreatePage(Handle type, const void * lpdata, uint32_t size)
 {
-    PROLOG;
-    BackupPage tail;
-    SetReturnCode_cpage(IDS_ERR_NO);
-    Handle hPage = PageStorage::append(tail);
-
-    if (hPage) {
-        PageStorage::page(hPage).setData(type, lpdata, size);
-        hCurPage = hPage;
-    }
-
-    EPILOG;
-    return hPage;
+    PageHandle p = PageStorage::append(BackupPage());
+    p->setData(type, lpdata, size);
+    return p;
 }
 
 Handle CPAGE_GetPageType(Handle page)
@@ -96,24 +86,12 @@ Handle CPAGE_GetPageType(Handle page)
 
 void CPAGE_DeletePage(Handle page)
 {
-    PROLOG;
-    using namespace cf::cpage;
-    SetReturnCode_cpage(IDS_ERR_NO);
-    PageStorage::remove(page);
-
-    if (hCurPage == page)
-        hCurPage = NULL;
-
-    EPILOG;
+    PageStorage::remove((PageHandle) page);
 }
 
 void CPAGE_ClearBackUp(Handle page)
 {
-    PROLOG;
-    using namespace cf::cpage;
-    SetReturnCode_cpage(IDS_ERR_NO);
     PageStorage::clearPage(page);
-    EPILOG;
 }
 
 Handle CPAGE_BackUp(Handle page)
@@ -450,10 +428,7 @@ Handle CPAGE_RestorePage(Bool32 remove, const char * lpName)
 
 Handle CPAGE_GetHandlePage(uint32_t pos)
 {
-    PROLOG;
-    Handle rc = PageStorage::pageHandleAt(pos);
-    EPILOG;
-    return rc;
+    return PageStorage::pageAt(pos);
 }
 
 Handle CPAGE_GetUserPageType()
@@ -480,9 +455,6 @@ Handle CPAGE_GetPageFirst(Handle type)
     PROLOG;
     int count = PageStorage::pageCount();
     int i;
-#ifdef _DEBUG
-    assert(CPAGE_GetNameInternalType(type));
-#endif
     DefConvertInit();
 
     for (i = 0; i < count; i++) {
@@ -492,7 +464,7 @@ Handle CPAGE_GetPageFirst(Handle type)
             break;
     }
 
-    Handle rc = i < count ? PageStorage::pageHandleAt(i) : NULL;
+    Handle rc = i < count ? PageStorage::pageAt(i) : NULL;
     EPILOG;
     return rc;
 }
@@ -501,11 +473,9 @@ Handle CPAGE_GetPageNext(Handle page, Handle type)
 {
     PROLOG;
     int count = PageStorage::pageCount();
-    int pos = PageStorage::pagePosition(page) + 1;
+    int pos = PageStorage::findPage((PageHandle) page) + 1;
     int i;
-#ifdef _DEBUG
-    assert(CPAGE_GetNameInternalType(type));
-#endif
+
     DefConvertInit();
 
     for (i = pos; i < count && i >= 0; i++) {
@@ -515,7 +485,7 @@ Handle CPAGE_GetPageNext(Handle page, Handle type)
             break;
     }
 
-    Handle rc = i < count ? PageStorage::pageHandleAt(i) : NULL;
+    Handle rc = i < count ? PageStorage::pageAt(i) : NULL;
     EPILOG;
     return rc;
 }
@@ -561,56 +531,31 @@ Handle CPAGE_GetBlockNext(Handle p, Handle block, Handle type)
     return rc;
 }
 
-Bool32 CPAGE_DeleteAll()
+bool CPAGE_DeleteAll()
 {
     DataConvertor ConvertorPages(DefConvertPage);
-    PROLOG;
-    using namespace cf::cpage;
-    Bool32 rc = TRUE;
     PageStorage::clear();
     NameData.Clear();
     Page::setConvertor(ConvertorPages);
-    hCurPage = NULL;
-    EPILOG;
-    return rc;
+    return true;
 }
 
 uint32_t CPAGE_GetCurrentPage()
 {
-    PROLOG;
-    uint32_t rc = CPAGE_GetNumberPage(hCurPage);
-    EPILOG;
-    return rc;
+    return (uint32_t) PageStorage::currentPageNumber();
 }
 
-Bool32 CPAGE_SetCurrentPage(uint32_t page)
+bool CPAGE_SetCurrentPage(uint32_t number)
 {
-    PROLOG;
-    Bool32 rc = TRUE;
-
-    if (page >= CPAGE_GetCountPage() || page == (uint32_t) - 1) {
-        SetReturnCode_cpage(IDS_ERR_NOPAGE);
-        rc = FALSE;
-    }
-
-    else
-        hCurPage = CPAGE_GetHandlePage(page);
-
-    EPILOG;
-    return rc;
+    return PageStorage::setCurrentPage(number);
 }
 
 uint32_t CPAGE_GetNumberPage(Handle hPage)
 {
-    PROLOG;
-    using namespace cf::cpage;
-    uint32_t rc = (uint32_t) - 1;
+    if(!hPage)
+        return (uint32_t) - 1;
 
-    if (hPage)
-        rc = (uint32_t) PageStorage::instance().find(hPage);
-
-    EPILOG;
-    return rc;
+    return PageStorage::findPage((PageHandle) hPage);
 }
 
 // Если блоки конвертируемы один в другой, тогда имеет смысл оставить только один,

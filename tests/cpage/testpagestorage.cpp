@@ -43,5 +43,7 @@ void TestPageStorage::testAppend()
     CPPUNIT_ASSERT(new_p->dataPtr());
     CPPUNIT_ASSERT(new_p->dataSize() == sizeof(data));
     CPPUNIT_ASSERT(new_p->dataPtr()[0] == 0xff);
+    CPPUNIT_ASSERT_EQUAL(PageStorage::currentPage(), new_p);
+    CPPUNIT_ASSERT_EQUAL(int(0), PageStorage::currentPageNumber());
     PageStorage::clear();
 }

@@ -68,8 +68,17 @@
 #define CPAGE_FUNC  FUN_IMPO__
 #endif
 
+namespace cf
+{
+namespace cpage
+{
+class BackupPage;
+typedef BackupPage * PageHandle;
+}
+}
+
 CPAGE_FUNC Bool32 CPAGE_Init(uint16_t wHeightCode, Handle hStorage);
-CPAGE_FUNC Bool32 CPAGE_Done();
+CPAGE_FUNC bool CPAGE_Done();
 CPAGE_FUNC uint32_t CPAGE_GetReturnCode();
 CPAGE_FUNC Bool32 CPAGE_GetExportData(uint32_t dwType, void * pData);
 
@@ -169,12 +178,12 @@ enum CPAGE_EXPORT_ENTRIES {
 };
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; CPAGE_FUNC a b c;
 
-CPAGE_FUNC Handle CPAGE_CreatePage(Handle Type, void * lpData, uint32_t Size);
+CPAGE_FUNC Handle CPAGE_CreatePage(Handle Type, const void *lpData, uint32_t Size);
 CPAGE_FUNC void CPAGE_DeletePage(Handle hPage);
 CPAGE_FUNC size_t CPAGE_GetCountPage();
 CPAGE_FUNC Handle CPAGE_GetHandlePage(uint32_t number);
 CPAGE_FUNC uint32_t CPAGE_GetCurrentPage();
-CPAGE_FUNC Bool32 CPAGE_SetCurrentPage(uint32_t page);
+CPAGE_FUNC bool CPAGE_SetCurrentPage(uint32_t number);
 CPAGE_FUNC uint32_t CPAGE_GetNumberPage(Handle hPage);
 CPAGE_FUNC Bool32 CPAGE_SavePage(Handle page, const char * lpName);
 CPAGE_FUNC Handle CPAGE_RestorePage(Bool32 remove, const char * lpName);
@@ -214,7 +223,7 @@ CPAGE_FUNC Handle CPAGE_GetBuckUpHandle(Handle page, uint32_t number);
 CPAGE_FUNC uint32_t CPAGE_GetBuckUpCurPos(Handle page);
 CPAGE_FUNC Handle CPAGE_GetPageFirst(Handle type);
 CPAGE_FUNC Handle CPAGE_GetPageNext(Handle page, Handle type);
-CPAGE_FUNC Bool32 CPAGE_DeleteAll();
+CPAGE_FUNC bool CPAGE_DeleteAll();
 CPAGE_FUNC Bool32 CPAGE_UpdateBlocks(Handle hPage, Handle type);
 CPAGE_FUNC Handle CPAGE_PictureGetFirst(Handle hPage);
 CPAGE_FUNC Handle CPAGE_PictureGetNext(Handle hPage, Handle hPicture);

@@ -94,13 +94,9 @@ Bool32 CPAGE_Init(uint16_t wHeightCode, Handle hStorage)
     return TRUE;
 }
 
-Bool32 CPAGE_Done()
+bool CPAGE_Done()
 {
-    Bool32 rc = CPAGE_DeleteAll();
-#ifdef DPUMA_ON
-    LDPUMA_Done();
-#endif
-    return rc;
+    return CPAGE_DeleteAll();
 }
 
 uint32_t CPAGE_GetReturnCode()

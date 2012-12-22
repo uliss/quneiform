@@ -22,9 +22,9 @@
 namespace cf {
 namespace cpage {
 
-PageStorage::PageStorage()
-{
-}
+PageStorage::PageStorage() :
+    current_(NULL)
+{}
 
 PageStorage::~PageStorage()
 {
@@ -42,9 +42,10 @@ PageList& PageStorage::pages()
     return instance().pages_;
 }
 
-PageHandle PageStorage::append(BackupPage& p)
+PageHandle PageStorage::append(const BackupPage& p)
 {
     pages().push_back(new BackupPage(p));
+    instance().current_ = pages().back();
     return pages().back();
 }
 
@@ -63,7 +64,25 @@ void PageStorage::clearPage(Handle p)
     page(p).Clear();
 }
 
-int PageStorage::find(Handle page) const
+PageHandle PageStorage::currentPage()
+{
+    return instance().current_;
+}
+
+int PageStorage::currentPageNumber()
+{
+    if(!currentPage())
+        return -1;
+
+    return findPage(currentPage());
+}
+
+int PageStorage::findPage(PageHandle p)
+{
+    return instance().find(p);
+}
+
+int PageStorage::find(PageHandle page) const
 {
     for(size_t i = 0; i < pages_.size(); i++) {
         if(pages_[i] == page)
@@ -87,21 +106,9 @@ PageHandle PageStorage::pageAt(size_t pos)
     return NULL;
 }
 
-Handle PageStorage::pageHandleAt(size_t pos)
-{
-    if(pos < pageCount())
-        return pages().at(pos);
-    return NULL;
-}
-
 Handle PageStorage::pageType(Handle p)
 {
     return page(p).type();
-}
-
-size_t PageStorage::pagePosition(Handle p)
-{
-    return instance().find(p);
 }
 
 size_t PageStorage::pageCount()
@@ -109,9 +116,19 @@ size_t PageStorage::pageCount()
     return pages().size();
 }
 
-void PageStorage::remove(Handle p)
+void PageStorage::remove(PageHandle p)
 {
-    instance().removePage((BackupPage*) p);
+    instance().removePage(p);
+}
+
+bool PageStorage::setCurrentPage(size_t pos)
+{
+    if(pos < pageCount()) {
+        instance().current_ = pages().at(pos);
+        return true;
+    }
+
+    return false;
 }
 
 bool PageStorage::undo(Handle p, Handle num)
@@ -125,12 +142,16 @@ void PageStorage::clearPages()
         delete pages_[i];
 
     pages_.clear();
+    current_ = NULL;
 }
 
-void PageStorage::removePage(BackupPage * p)
+void PageStorage::removePage(PageHandle p)
 {
     std::remove(pages_.begin(), pages_.end(), p);
     delete p;
+
+    if(current_ == p)
+        current_ = NULL;
 }
 
 }
