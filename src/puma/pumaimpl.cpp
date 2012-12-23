@@ -1003,9 +1003,8 @@ void PumaImpl::saveCSTR(int pass) {
     CSTR_SaveCont(os.str().c_str());
 }
 
-void PumaImpl::saveLayoutToFile(const std::string& fname) {
-    CPAGE_ClearBackUp(cpage_);
-
+void PumaImpl::saveLayoutToFile(const std::string& fname)
+{
     if (!CPAGE_SavePage(cpage_, fname.c_str()))
         throw PumaException() << "CPAGE_SavePage to '" << fname << "' failed.";
 }

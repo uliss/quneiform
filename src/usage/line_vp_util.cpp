@@ -331,7 +331,7 @@ Bool MyReSetLines(void *vLti, int MaxNumLin, CPageHandle hCPage, Handle HoriType
 	int i;
 	uint32_t err32, nTeor;//, nReal;
 	Bool32 nReal;//differ
-	Handle hBlockLine;
+    CBlockHandle hBlockLine;
     CBlockHandle hBlockLineHor;
     CBlockHandle hBlockLineVer;
     CBlockHandle hBlockLinePrev;

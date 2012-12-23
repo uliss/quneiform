@@ -61,146 +61,164 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 namespace cf {
 namespace cpage {
 
-BackupPage::BackupPage()
+BackupPage::BackupPage() :
+    current_(NULL)
+{}
+
+BackupPage::BackupPage(const BackupPage& page) :
+    Page(page)
 {
-    hCurBackUp = NULL;
+    const size_t count = page.backupCount();
+
+    for (size_t i = 0; i < count; i++)
+        backups_.push_back(new Page(*page.backups_.at(i)));
+
+    if (count) {
+        PageList::const_iterator it = std::find(page.backups_.begin(), page.backups_.end(), page.current_);
+        if(it != page.backups_.end()) {
+            PageList::iterator curr_it = backups_.begin() + (it - page.backups_.begin());
+            current_ = *curr_it;
+        }
+        else
+            current_ = NULL;
+    }
 }
 
 BackupPage::~BackupPage()
 {
-    backups_.Clear();
+    clear();
 }
 
 size_t BackupPage::backupCount() const
 {
-    return backups_.GetCount();
+    return backups_.size();
 }
 
-Handle BackupPage::backupAt(size_t pos)
+Page * BackupPage::backupAt(size_t pos)
 {
-    return backups_.GetHandle(pos);
+    if(pos < backups_.size())
+        return backups_.at(pos);
+    return NULL;
 }
 
-void BackupPage::Clear()
+void BackupPage::clear()
 {
-    backups_.Clear();
-    hCurBackUp = NULL;
+    for(size_t i = 0 ; i < backups_.size(); i++)
+        delete backups_[i];
+
+    backups_.clear();
+    current_ = NULL;
 }
-//#################################
-Handle BackupPage::BackUp(Handle backup)
+
+Page * BackupPage::current()
 {
-    Handle hBackupPage = backup == NULL ? hCurBackUp : backup;
-// Удалить все страницы позднее текущей.
-    Handle prevPage  = NULL;
+    return current_;
+}
 
-    while (hBackupPage != prevPage) {
-        prevPage = hBackupPage;
-        Page & p = backups_.GetNext(hBackupPage);
+Page * BackupPage::makeBackup()
+{
+    backups_.push_back(new Page(*this));
+    current_ = backups_.back();
+    return backups_.back();
+}
 
-        if (hCurBackUp != prevPage)
-            backups_.Del(prevPage);
+bool BackupPage::redo()
+{
+    if(backups_.empty())
+        return false;
+
+    PageList::iterator curr_it;
+    if(current_ == NULL) {
+        curr_it = backups_.begin();
     }
-
-    Handle hPage = backups_.AddTail(*this);
-
-    if (hPage == NULL)
-        return NULL;
-
-    hCurBackUp = hPage;
-    return  hCurBackUp;
-}
-//#################################
-Bool32 BackupPage::Redo(Handle backup)
-{
-    if (hCurBackUp) {
-        if (backup) {
-            *(Page*)this = backups_.GetItem(backup);
-            hCurBackUp = backup;
+    else {
+        curr_it = std::find(backups_.begin(), backups_.end(), current_);
+        if(curr_it == backups_.end()) {
+            current_ = NULL;
+            return false;
         }
-
-        else
-            *(Page*)this = backups_.GetNext(hCurBackUp);
-
-        return TRUE;
     }
 
-    return FALSE;
+    curr_it++;
+    if(curr_it == backups_.end())
+        return false;
+
+    current_ = *curr_it;
+    Page::operator=(*current_);
+    return true;
 }
-//#################################
-Bool32 BackupPage::Undo(Handle backup)
+
+bool BackupPage::undo()
 {
-    if (hCurBackUp) {
-        if (backup) {
-            *(Page*)this = backups_.GetItem(backup);
-            hCurBackUp = backup;
-        }
+    if(backups_.empty())
+        return false;
 
-        else
-            *(Page*)this = backups_.GetPrev(hCurBackUp);
+    PageList::iterator curr_it = std::find(backups_.begin(), backups_.end(), current_);
+    if(curr_it == backups_.end())
+        return false;
 
-        return TRUE;
+    if(curr_it == backups_.begin()) {
+        current_ = NULL;
+    }
+    else {
+        curr_it--;
+        current_ = *curr_it;
     }
 
-    return FALSE;
+    Page::operator=(*(*curr_it));
+
+    return true;
 }
-//#################################
-bool BackupPage::save(std::ostream& os)
+
+bool BackupPage::save(std::ostream& os) const
 {
-    uint32_t count = backups_.GetCount();
+    uint32_t count = backupCount();
 
     os.write((char*) &count, sizeof(count));
     if(os.fail())
         return false;
 
-    if (count) {
-        uint32_t position = backups_.GetPos(hCurBackUp);
-
-        os.write((char*) &position, sizeof(position));
-
-        for (uint32_t i = 0; i < count; i++)
-            backups_.GetItem(backups_.GetHandle(i)).save(os);
-    }
+    for (uint32_t i = 0; i < count; i++)
+        backups_.at(i)->save(os);
 
     return Page::save(os);
 }
 
 bool BackupPage::restore(std::istream& is)
 {
-    backups_.Clear();
+    clear();
 
     uint32_t count = 0;
     is.read((char*) &count, sizeof(count));
 
-    if (count) {
-        uint32_t position = 0;
-        is.read((char*) &position, sizeof(position));
-
-        for (uint32_t i = 0; i < count; i++) {
-            Page page;
-            if(page.restore(is))
-                backups_.AddTail(page);
-        }
-
-        hCurBackUp = backups_.GetHandle(position);
+    for (uint32_t i = 0; i < count; i++) {
+        Page page;
+        if(page.restore(is))
+            backups_.push_back(new Page(page));
     }
 
     return Page::restore(is);
 }
 
-BackupPage & BackupPage::operator = (BackupPage& page) {
+BackupPage& BackupPage::operator=(const BackupPage& page)
+{
+    clear();
+    size_t count = page.backupCount();
 
-    int count = page.backups_.GetCount();
-    backups_.Clear();
-
-    for (int i = 0; i < count; i++)
-        backups_.AddTail(page.backups_.GetItem(page.backups_.GetHandle(i)));
+    for (size_t i = 0; i < count; i++)
+        backups_.push_back(new Page(*page.backups_.at(i)));
 
     if (count) {
-        int curr = page.backups_.GetPos(page.hCurBackUp);
-        hCurBackUp = backups_.GetHandle(curr);
+        PageList::const_iterator it = std::find(page.backups_.begin(), page.backups_.end(), page.current_);
+        if(it != page.backups_.end()) {
+            PageList::iterator curr_it = backups_.begin() + (it - page.backups_.begin());
+            current_ = *curr_it;
+        }
+        else
+            current_ = NULL;
     }
 
-    *(Page *)this = page;
+    Page::operator =((const Page&) page);
     return *this;
 }
 

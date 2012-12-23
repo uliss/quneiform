@@ -27,11 +27,17 @@ class TestBackupPage : public CppUnit::TestFixture
     CPPUNIT_TEST(testInit);
     CPPUNIT_TEST(testSave);
     CPPUNIT_TEST(testRestore);
+    CPPUNIT_TEST(testMakeBackup);
+    CPPUNIT_TEST(testUndoRedo);
+    CPPUNIT_TEST(testCopy);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
     void testSave();
     void testRestore();
+    void testMakeBackup();
+    void testUndoRedo();
+    void testCopy();
 };
 
 #endif // TESTBACKUPPAGE_H

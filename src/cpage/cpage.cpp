@@ -61,6 +61,7 @@
 #include "namedata.h"
 #include "pagestorage.h"
 #include "common/log.h"
+#include "ptrlist.h"
 
 extern PtrList<NAMEDATA> NameData;
 
@@ -84,79 +85,7 @@ void CPAGE_ClearBackUp(CPageHandle page)
     if(!page)
         return;
 
-    page->Clear();
-}
-
-Handle CPAGE_BackUp(CPageHandle page)
-{
-    if(!page)
-        return NULL;
-
-    return page->BackUp();
-}
-
-bool CPAGE_Undo(CPageHandle page, Handle num)
-{
-    if (num == NULL) {
-        uint32_t number = CPAGE_GetBackupCount(page);
-
-        if (number) {
-            uint32_t cur = CPAGE_GetBackupCurPos(page);
-
-            if (cur == 0)
-                return false;
-
-            num = CPAGE_GetBackupHandle(page, cur - 1);
-        }
-        else
-            return false;
-    }
-
-    return page->Undo(num);
-}
-
-bool CPAGE_Redo(CPageHandle page, Handle num)
-{
-    if (num == NULL) {
-        uint32_t number = CPAGE_GetBackupCount(page);
-
-        if (number) {
-            uint32_t cur = CPAGE_GetBackupCurPos(page);
-
-            if (cur == (number - 1))
-                return false;
-
-            num = CPAGE_GetBackupHandle(page, cur + 1);
-        }
-        else
-            return false;
-    }
-
-    return page->Redo(num);
-}
-
-uint32_t CPAGE_GetBackupCount(Handle page)
-{
-    if(!page)
-        return 0;
-
-    return static_cast<PageHandle>(page)->backupCount();
-}
-
-Handle CPAGE_GetBackupHandle(Handle page, uint32_t number)
-{
-    if(!page)
-        return 0;
-
-    return static_cast<PageHandle>(page)->backupAt(number);
-}
-
-uint32_t CPAGE_GetBackupCurPos(Handle page)
-{
-    if(!page)
-        return 0;
-
-    return static_cast<PageHandle>(page)->GetCurPos();
+    page->clear();
 }
 
 CBlockHandle CPAGE_CreateBlock(CPageHandle page, Handle Type, uint32_t UserNum,
@@ -170,13 +99,13 @@ CBlockHandle CPAGE_CreateBlock(CPageHandle page, Handle Type, uint32_t UserNum,
     return page->createBlock(Type, UserNum, Flags, lpData, Size);
 }
 
-bool CPAGE_SetPageData(CPageHandle page, Handle type, void * lpdata, uint32_t size)
+bool CPAGE_SetPageData(CPageHandle page, Handle type, const void * data, uint32_t size)
 {
     if(!page)
         return false;
 
     assert(CPAGE_GetNameInternalType(type));
-    page->setData(type, lpdata, size);
+    page->setData(type, data, size);
     return true;
 }
 
@@ -201,74 +130,68 @@ bool CPAGE_SetPageInfo(CPageHandle page, const PAGEINFO& info)
     return CPAGE_SetPageData(page, PT_PAGEINFO, (void*) &info, sizeof(PAGEINFO));
 }
 
-Handle CPAGE_GetBlockType(Handle block)
+Handle CPAGE_GetBlockType(CBlockHandle block)
 {
     if(!block) {
         cfError(MODULE_CPAGE) << "NULL block handle given";
         return NULL;
     }
 
-    Block * b = static_cast<Block*>(block);
-    return b->type();
+    return block->type();
 }
 
-uint32_t CPAGE_GetBlockUserNum(Handle block)
+uint32_t CPAGE_GetBlockUserNum(CBlockHandle block)
 {
     if(!block) {
         cfError(MODULE_CPAGE) << "NULL block handle given";
         return (uint32_t) -1;
     }
 
-    Block * b = static_cast<Block*>(block);
-    return b->userNum();
+    return block->userNum();
 }
 
-void CPAGE_SetBlockUserNum(Handle block, uint32_t number)
+void CPAGE_SetBlockUserNum(CBlockHandle block, uint32_t number)
 {
     if(!block) {
         cfError(MODULE_CPAGE) << "NULL block handle given";
         return;
     }
 
-    Block * b = static_cast<Block*>(block);
-    b->setUserNum(number);
+    block->setUserNum(number);
 }
 
-uint32_t CPAGE_GetBlockFlags(Handle block)
+uint32_t CPAGE_GetBlockFlags(CBlockHandle block)
 {
     if(!block) {
         cfError(MODULE_CPAGE) << "NULL block handle given";
         return 0;
     }
 
-    Block * b = static_cast<Block*>(block);
-    return b->flags();
+    return block->flags();
 }
 
-void CPAGE_SetBlockFlags(Handle block, uint32_t flags)
+void CPAGE_SetBlockFlags(CBlockHandle block, uint32_t flags)
 {
     if(!block) {
         cfError(MODULE_CPAGE) << "NULL block handle given";
         return;
     }
 
-    Block * b = static_cast<Block*>(block);
-    b->setFlags(flags);
+    block->setFlags(flags);
 }
 
-bool CPAGE_SetBlockData(Handle block, Handle type, const void * data, uint32_t size)
+bool CPAGE_SetBlockData(CBlockHandle block, Handle type, const void * data, uint32_t size)
 {
     if(!block) {
         cfError(MODULE_CPAGE) << "NULL block handle given";
         return false;
     }
 
-    Block * b = static_cast<Block*>(block);
-    b->setData(type, data, size);
+    block->setData(type, data, size);
     return true;
 }
 
-uint32_t CPAGE_GetBlockData(Handle block, Handle type, void * data, uint32_t size)
+uint32_t CPAGE_GetBlockData(CBlockHandle block, Handle type, void * data, uint32_t size)
 {
     if(!block) {
         cfError(MODULE_CPAGE) << "NULL block handle given";
@@ -276,8 +199,7 @@ uint32_t CPAGE_GetBlockData(Handle block, Handle type, void * data, uint32_t siz
     }
 
     DefConvertInit();
-    Block * b = static_cast<Block*>(block);
-    return b->getData(type, data, size);
+    return block->getData(type, data, size);
 }
 
 size_t CPAGE_GetPageCount()
@@ -285,20 +207,20 @@ size_t CPAGE_GetPageCount()
     return PageStorage::pageCount();
 }
 
-uint32_t CPAGE_GetCountBlock(Handle page)
+uint32_t CPAGE_GetCountBlock(CPageHandle page)
 {
     if(!page)
         return 0;
 
-    return static_cast<PageHandle>(page)->blockCount();
+    return page->blockCount();
 }
 
-void CPAGE_DeleteBlock(Handle page, Handle block)
+void CPAGE_DeleteBlock(CPageHandle page, CBlockHandle block)
 {
     if(!page)
         return;
 
-    static_cast<PageHandle>(page)->removeBlock(static_cast<Block*>(block));
+    page->removeBlock(block);
 }
 
 #define VERSION_FILE            0xF002
@@ -387,8 +309,7 @@ Handle CPAGE_GetUserBlockType()
     static uint32_t number = 1;
     char Name[260];
     sprintf(Name, "UserType:%i", number++);
-    Handle rc = CPAGE_GetInternalType(Name);
-    return rc;
+    return CPAGE_GetInternalType(Name);
 }
 
 CPageHandle CPAGE_GetPageFirst(Handle type)
@@ -407,7 +328,7 @@ CPageHandle CPAGE_GetPageFirst(Handle type)
     return i < count ? PageStorage::pageAt(i) : NULL;
 }
 
-Handle CPAGE_GetPageNext(Handle page, Handle type)
+CPageHandle CPAGE_GetPageNext(CPageHandle page, Handle type)
 {
     int count = PageStorage::pageCount();
     int pos = PageStorage::findPage((PageHandle) page) + 1;
@@ -422,8 +343,7 @@ Handle CPAGE_GetPageNext(Handle page, Handle type)
             break;
     }
 
-    Handle rc = i < count ? PageStorage::pageAt(i) : NULL;
-    return rc;
+    return (i < count) ? PageStorage::pageAt(i) : NULL;
 }
 
 CBlockHandle CPAGE_GetBlockFirst(CPageHandle p, Handle type)
@@ -578,37 +498,34 @@ lOut:
     return rc;
 }
 
-uint32_t CPAGE_GetBlockInterNum(Handle block)
+uint32_t CPAGE_GetBlockInterNum(CBlockHandle block)
 {
     if(!block) {
         cfError(MODULE_CPAGE) << "NULL block handle given";
         return (uint32_t) -1;
     }
 
-    Block * b = static_cast<Block*>(block);
-    return b->interNum();
+    return block->interNum();
 }
 
-void CPAGE_SetBlockInterNum(Handle block, uint32_t inter)
+void CPAGE_SetBlockInterNum(CBlockHandle block, uint32_t inter)
 {
     if(!block) {
         cfError(MODULE_CPAGE) << "NULL block handle given";
         return;
     }
 
-    Block * b = static_cast<Block*>(block);
-    b->setInterNum(inter);
+    block->setInterNum(inter);
 }
 
-bool CPAGE_GetBlockDataPtr(Handle block, Handle type, void ** data)
+bool CPAGE_GetBlockDataPtr(CBlockHandle block, Handle type, void ** data)
 {
     if(!block) {
         cfError(MODULE_CPAGE) << "NULL block handle given";
         return false;
     }
 
-    Block * b = static_cast<Block*>(block);
-    return  b->getDataPtr(type, data);
+    return block->getDataPtr(type, data);
 }
 
 Handle CPAGE_GetInternalType(const char * name)

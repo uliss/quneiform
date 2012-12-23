@@ -30,4 +30,9 @@ typedef cf::cpage::BackupPage * PageHandle;
 typedef cf::cpage::PageHandle CPageHandle;
 typedef cf::cpage::Block * CBlockHandle;
 
+enum cpage_block_flag_t {
+    CPAGE_BLOCK_USER = 0x1,  //выделен пользователем
+    CPAGE_BLOCK_UNCERTAIN = 0x2  //грязь или нет ?
+};
+
 #endif // CPAGEDEFS_H

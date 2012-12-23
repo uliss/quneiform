@@ -139,7 +139,7 @@ Bool32 SearchNewLines(PRSPreProcessImage Image) {
 	Bool32 ret = TRUE;
 	bool searchlines = LDPUMA_Skip(Image->hDebugCancelSearchDotLines)
 			&& !LDPUMA_Skip(hDotLine);
-	Handle hSaveImage = CPAGE_CreateBlock(Image->hCPAGE, RSL_VERLINE, 0, 0,
+    CBlockHandle hSaveImage = CPAGE_CreateBlock(Image->hCPAGE, RSL_VERLINE, 0, 0,
 			Image, sizeof(RSPreProcessImage));
 
 	if (LDPUMA_Skip(Image->hDebugCancelVerifyLines)) {

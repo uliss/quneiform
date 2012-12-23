@@ -57,8 +57,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __BACKUP_H__
 #define __BACKUP_H__
 
+#include <vector>
+
 #include "page.h"
-#include "ptrlist.h"
 
 namespace cf {
 namespace cpage {
@@ -67,27 +68,49 @@ class CLA_EXPO BackupPage : public Page
 {
 public:
     BackupPage();
-    virtual ~BackupPage();
+    BackupPage(const BackupPage& p);
+    ~BackupPage();
 
+    /**
+      * Returns pointer to page backup
+      * @see backupCount()
+      */
+    Page * backupAt(size_t pos);
+
+    /**
+     * Returns number of backups
+     * @see backupAt()
+     */
     size_t backupCount() const;
-    Handle backupAt(size_t pos);
 
-    void Clear();
-    Handle BackUp(Handle backup = NULL);
-    Bool32 Redo(Handle backup);
-    Bool32 Undo(Handle backup);
+    /**
+     * Remove all backup data
+     */
+    void clear();
 
-    bool save(std::ostream& os);
+    /**
+     * Returns pointer to current backup or NULL if no backups exists
+     * @see backupCount()
+     */
+    Page * current();
+
+    /**
+     * Makes page backup
+     * @return pointer to backuped page
+     */
+    Page * makeBackup();
+
+    bool redo();
+    bool undo();
+
+    bool save(std::ostream& os) const;
     bool restore(std::istream& is);
-    Bool32 restoreCompress(Handle from);
 
-    BackupPage & operator = (BackupPage & Page);
-    inline uint32_t GetCurPos() {
-        return backups_.GetPos(hCurBackUp);
-    }
+    BackupPage& operator=(const BackupPage& page);
 private:
-    PtrList<Page> backups_;
-    Handle hCurBackUp;
+    typedef std::vector<Page*> PageList;
+    PageList backups_;
+    Page * current_;
 };
 
 }

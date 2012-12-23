@@ -87,7 +87,7 @@ Block * Page::createBlock(Handle Type, uint32_t UserNum , uint32_t Flags , void 
     return blocks_.back();
 }
 
-Page& Page::operator=(Page& page)
+Page& Page::operator=(const Page& page)
 {
     int count = page.blockCount();
     clearBlocks();
@@ -95,7 +95,7 @@ Page& Page::operator=(Page& page)
     for (int i = 0; i < count; i++)
         appendBlock(*page.blockAt(i));
 
-    *(Data *)this = page;
+    Data::operator =(page);
     return *this;
 }
 

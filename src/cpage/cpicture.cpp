@@ -87,7 +87,7 @@ CBlockHandle CPAGE_PictureGetNext(CPageHandle hPage, CBlockHandle hPicture)
              p.rx() = (int32_t) (p.x() + (int32_t) p.y() * a / 2048);\
         }
 
-Bool32 CPAGE_PictureGetPlace(Handle hPage, Handle hPicture, int32_t Skew2048, Point * lpLr,
+Bool32 CPAGE_PictureGetPlace(CPageHandle hPage, CBlockHandle hPicture, int32_t Skew2048, Point * lpLr,
                              Point * lpWh)
 {
     Bool32 rc = FALSE;
@@ -149,7 +149,7 @@ static int GetIndex(long * lpLong, long nLong, long n)
     return i;
 }
 
-Bool32 CPAGE_PictureGetMask(Handle hPage, Handle hPicture, int32_t Skew2048, char * lpData,
+Bool32 CPAGE_PictureGetMask(CPageHandle hPage, CBlockHandle hPicture, int32_t Skew2048, char * lpData,
                             uint32_t * lpSize)
 {
     Bool32 rc = FALSE;

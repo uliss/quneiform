@@ -77,7 +77,7 @@ class CLA_EXPO Page: public Data
         ~Page();
 
         Page(const Page& p);
-        Page& operator=(Page& page);
+        Page& operator=(const Page& page);
 
         /**
          * Appends block to the end of block list

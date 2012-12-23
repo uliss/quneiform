@@ -634,10 +634,9 @@ Bool32 OutputFragments(CPageHandle hPage)
     uint32_t BlockNumber;
     int32_t Min;
     int32_t PrevMin;
-    Handle hBlock = NULL; // ***** Rom 01-03-99
+    CBlockHandle hBlock = NULL; // ***** Rom 01-03-99
     CBlockHandle h;
     CBlockHandle h_next;
-    //Point16 Point;
     int i;
     int j;
     int max;
@@ -665,8 +664,10 @@ Bool32 OutputFragments(CPageHandle hPage)
     i = 0;
 
     for (p = pTopBlocksList; p != NULL; p = p -> pDown) {
+        //// uliss NOTE: very strange magic number
         if (p->Type == 111) {
-            CPAGE_SetBlockUserNum(p->pHystogram, ++BlockNumber);
+            //// NOTE: very strange cast
+            CPAGE_SetBlockUserNum((CBlockHandle) p->pHystogram, ++BlockNumber);
             continue;
         }
 

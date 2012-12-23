@@ -30,7 +30,12 @@ void TestBackupPage::testInit()
 {
     BackupPage p;
     CPPUNIT_ASSERT(p.empty());
-    p.Clear();
+    CPPUNIT_ASSERT(!p.backupCount());
+    CPPUNIT_ASSERT(!p.backupAt(0));
+    CPPUNIT_ASSERT(!p.current());
+    CPPUNIT_ASSERT(!p.undo());
+    CPPUNIT_ASSERT(!p.redo());
+    p.clear();
 }
 
 void TestBackupPage::testSave()
@@ -39,6 +44,9 @@ void TestBackupPage::testSave()
     BackupPage p;
     p.setType(CPAGE_GetInternalType("page"));
     p.setData(CPAGE_GetInternalType("data"), (void*) data, strlen(data));
+    p.makeBackup();
+    p.makeBackup();
+    p.backupAt(0)->setType(CPAGE_GetInternalType("backup"));
     std::ofstream os("test.cpage");
     CPPUNIT_ASSERT(os);
     p.save(os);
@@ -57,4 +65,83 @@ void TestBackupPage::testRestore()
     memset(&data, 0, sizeof(data));
     p.getData(CPAGE_GetInternalType("data"), data, 9);
     CPPUNIT_ASSERT_EQUAL(std::string("some data"), std::string(data));
+    CPPUNIT_ASSERT_EQUAL(size_t(2), p.backupCount());
+    CPPUNIT_ASSERT_EQUAL(std::string("backup"), std::string(CPAGE_GetNameInternalType(p.backupAt(0)->type())));
+}
+
+void TestBackupPage::testMakeBackup()
+{
+    BackupPage p;
+    Page * bak1 = p.makeBackup();
+    CPPUNIT_ASSERT(bak1);
+    CPPUNIT_ASSERT_EQUAL(bak1, p.current());
+    CPPUNIT_ASSERT_EQUAL(bak1, p.backupAt(0));
+    CPPUNIT_ASSERT_EQUAL(size_t(1), p.backupCount());
+
+    p.clear();
+    CPPUNIT_ASSERT(!p.backupCount());
+    CPPUNIT_ASSERT(!p.backupAt(0));
+    CPPUNIT_ASSERT(!p.current());
+}
+
+void TestBackupPage::testUndoRedo()
+{
+    BackupPage p;
+    p.setType((Handle) 0xf);
+    Page * bak1 = p.makeBackup();
+    CPPUNIT_ASSERT_EQUAL(bak1, p.current());
+    p.setType((Handle) 0xff);
+    Page * bak2 = p.makeBackup();
+    CPPUNIT_ASSERT_EQUAL(bak2, p.current());
+    p.setType((Handle) 0xfff);
+    Page * bak3 = p.makeBackup();
+    CPPUNIT_ASSERT_EQUAL((Handle) 0xfff, p.type());
+
+    // 3 backups: 0xf and 0xff and 0xfff
+
+    CPPUNIT_ASSERT_EQUAL(Handle(0xfff), bak3->type());
+    CPPUNIT_ASSERT_EQUAL(Handle(0xff), bak2->type());
+    CPPUNIT_ASSERT_EQUAL(Handle(0xf), bak1->type());
+
+    CPPUNIT_ASSERT(p.undo());
+    CPPUNIT_ASSERT_EQUAL(Handle(0xff), p.type());
+    CPPUNIT_ASSERT(p.undo());
+    CPPUNIT_ASSERT_EQUAL(Handle(0xf), p.type());
+    CPPUNIT_ASSERT(p.undo());
+    CPPUNIT_ASSERT(!p.undo());
+    CPPUNIT_ASSERT_EQUAL(Handle(0xf), p.type());
+
+    CPPUNIT_ASSERT(p.redo());
+    CPPUNIT_ASSERT_EQUAL(Handle(0xff), p.type());
+    CPPUNIT_ASSERT(p.redo());
+    CPPUNIT_ASSERT_EQUAL((Handle) 0xfff, p.type());
+    CPPUNIT_ASSERT(!p.redo());
+
+    CPPUNIT_ASSERT(p.undo());
+    CPPUNIT_ASSERT_EQUAL(Handle(0xff), p.type());
+
+    CPPUNIT_ASSERT(p.undo());
+    CPPUNIT_ASSERT_EQUAL(Handle(0xf), p.type());
+    CPPUNIT_ASSERT(p.undo());
+    CPPUNIT_ASSERT_EQUAL(Handle(0xf), p.type());
+    CPPUNIT_ASSERT(!p.undo());
+
+}
+
+void TestBackupPage::testCopy()
+{
+    BackupPage p1;
+    p1.makeBackup();
+    p1.makeBackup();
+
+    BackupPage p2(p1);
+    CPPUNIT_ASSERT_EQUAL(p1.backupCount(), p2.backupCount());
+    CPPUNIT_ASSERT(p2.current() == p2.backupAt(1));
+
+    BackupPage p3;
+    p3 = p1;
+
+    CPPUNIT_ASSERT_EQUAL(p3.backupCount(), p1.backupCount());
+    CPPUNIT_ASSERT(p3.current() == p3.backupAt(1));
+
 }

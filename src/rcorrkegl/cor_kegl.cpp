@@ -115,7 +115,7 @@ typedef struct tagFontStat { //для определения серифност�
 } FontStat;
 
 typedef struct tagFragStat { //для выявления мусора
-    Handle hBlock;
+    CBlockHandle hBlock;
     Rect32 rect; //охватывающий прямоугольник
     int16_t nsym; //всего символов во фрагменте
     int16_t nbig; //больших (буквы, цифры, "?" и т.д.)
@@ -198,7 +198,7 @@ static Bool rtf_correct();
 
 static void garbage_fragments();
 static void draw_fragments(uint32_t color);
-static void draw_fragment(Handle hBlock, uint32_t color, uint32_t key);
+static void draw_fragment(CBlockHandle hBlock, uint32_t color, uint32_t key);
 static void display_fragment(RecStat *rsti, uint32_t color, uint32_t key);
 static Bool in_gap(int32_t top, int32_t bottom, uchar *proj);
 static Bool condition1(RecStat *rsti);
@@ -221,7 +221,7 @@ static Bool contain(Rect32 *b, Rect32 *s);
 static void to_real(Rect32 *rect);
 static void to_real16(::Rect16 *rect);
 
-static Handle find_hBlock(int32_t fragment);
+static CBlockHandle find_hBlock(int32_t fragment);
 static void pull_rect(Rect32 *rect, Point *point);
 static void cover_rect(Rect32 *main_area, Rect32 *rect);
 static int32_t rect_dist(Rect32 *main, Rect32 *test);
@@ -1530,7 +1530,7 @@ static void display_fragment(RecStat *rsti, uint32_t color, uint32_t key)
     }
 }
 
-static void draw_fragment(Handle hBlock, uint32_t color, uint32_t key)
+static void draw_fragment(CBlockHandle hBlock, uint32_t color, uint32_t key)
 {
     POLY_ poly;
     uint32_t v;
@@ -1574,12 +1574,12 @@ static void draw_fragment(Handle hBlock, uint32_t color, uint32_t key)
     }
 }
 
-static Handle find_hBlock(int32_t fragment)
+static CBlockHandle find_hBlock(int32_t fragment)
 {
     static int32_t number[BIG_FRAG_PAGE + 1];
     int32_t *n = number;
-    static Handle handle[BIG_FRAG_PAGE + 1];
-    Handle *h = handle;
+    static CBlockHandle handle[BIG_FRAG_PAGE + 1];
+    CBlockHandle *h = handle;
 
     if (fragment < 0) { //инициализация
         int32_t i;
