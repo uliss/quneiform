@@ -213,9 +213,9 @@ Bool GetSomeKeys_rv(void *vB, Handle *pKeyHor, Handle *pKeyVer, int *pCntHor,
 	return RV_TRUE;
 }
 /*---------------------------------------------------------------------------*/
-Bool LoadLinesTotalInfo_rv(Handle hC, void *vB, char *pStr) {
+Bool LoadLinesTotalInfo_rv(CPageHandle hC, void *vB, char *pStr) {
 	uint32_t err32, nTeor, nReal;
-	Handle hBlockLine;
+    CBlockHandle hBlockLine;
 	UN_BUFF *pB;
 	pB = (UN_BUFF *) vB;
 	/*  ключ к данным  */
@@ -284,11 +284,11 @@ Bool LoadLinesInfo_rv(CLINE_handle hC, void *vB, char *pStr, Bool Hori) {
 	return TRUE;
 }
 /*---------------------------------------------------------------------------*/
-Bool LoadLinesSpecInfo(Handle hC, void *vB, Handle Key, int Cnt) {
+Bool LoadLinesSpecInfo(CPageHandle hC, void *vB, Handle Key, int Cnt) {
 	int i;
 	uint32_t err32, nTeor, nReal;
-	Handle hBlockLineSpec;
-	Handle hBlockLinePrev;
+    CBlockHandle hBlockLineSpec;
+    CBlockHandle hBlockLinePrev;
 	UN_BUFF *pB;
 	char *vCurr;
 	pB = (UN_BUFF *) vB;
@@ -326,15 +326,15 @@ Bool LoadLinesSpecInfo(Handle hC, void *vB, Handle Key, int Cnt) {
 	return TRUE;
 }
 /*---------------------------------------------------------------------------*/
-Bool MyReSetLines(void *vLti, int MaxNumLin, Handle hCPage, Handle HoriType,
+Bool MyReSetLines(void *vLti, int MaxNumLin, CPageHandle hCPage, Handle HoriType,
 		Handle VertType, char *pStr) {
 	int i;
 	uint32_t err32, nTeor;//, nReal;
 	Bool32 nReal;//differ
 	Handle hBlockLine;
-	Handle hBlockLineHor;
-	Handle hBlockLineVer;
-	Handle hBlockLinePrev;
+    CBlockHandle hBlockLineHor;
+    CBlockHandle hBlockLineVer;
+    CBlockHandle hBlockLinePrev;
 	void *Hor, *Ver;
 	LinesTotalInfo *pLti;
 	pLti = (LinesTotalInfo *) vLti;

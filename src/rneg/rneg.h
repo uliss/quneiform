@@ -59,6 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "globus.h"
 #include "ccom/ccom.h"
+#include "cpage/cpagedefs.h"
 
 #ifdef __RNEG__
 #define RNEG_FUNC  FUN_EXPO
@@ -102,8 +103,8 @@ typedef enum {
 
 /*  Описание функций  */
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; RNEG_FUNC(a) b c
-DEC_FUN(void, RNEG_RecogNeg, (CCOM_handle hCComp, Handle hCPage, uchar* pImageName, int skew));
-DEC_FUN(Bool32, RNEG_TestForNegative, (CCOM_handle hCComp, Handle hCPage, uchar* pImageName, Rect16 Rc));
+DEC_FUN(void, RNEG_RecogNeg, (CCOM_handle hCComp, CPageHandle hCPage, uchar* pImageName, int skew));
+DEC_FUN(Bool32, RNEG_TestForNegative, (CCOM_handle hCComp, CPageHandle hCPage, uchar* pImageName, Rect16 Rc));
 
 #undef DEC_FUN
 

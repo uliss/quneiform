@@ -97,7 +97,7 @@ void CleanCont(void);
 Bool StrGetRaster(Handle, uchar*, Rect16, CCOM_comp*, RecRaster*, Bool, Bool,
                   int);
 void StrAr2(uchar*, int, int);
-Bool GetMasP(Handle, uchar*, Rect16, uchar**);
+Bool GetMasP(CPageHandle, uchar*, Rect16, uchar**);
 void Invert(RecRaster*);
 int MyGetMaxFragment(int);
 void StrDrawRect(Handle, uint32_t, uint32_t, Rect16);
@@ -112,8 +112,6 @@ void StrMoveMas(int*, int&, int);
 void StrMoveMas(CCOM_comp**, int&, int);
 void StrMoveMasR(Rect16*, int&, int);
 int IfStr(Rect16*, int, Bool);
-Bool GetMasP(Handle, uchar*, Rect16, uchar**);
-CCOM_handle GetStrCCOM(Handle, uchar*, Rect16, Bool, Bool);
 Bool InitStrMas(Rect16**, int);
 Bool InitStrMas(CCOM_comp***, int);
 void InitRc(Rect16*, int, CCOM_comp *);
@@ -139,13 +137,13 @@ int GetMaxSize(CCOM_handle hCCOM, Rect16 Rc, int& num, Bool vert);
 CCOM_handle CreateContainer(Handle hCPage, CCOM_handle hCCOM_old, Rect16 Rc);
 int GetMinCol(CCOM_comp** pC, int nN, Bool vert);
 Bool AddToPrepList(CPrepHstr* temp);
-Bool AddToCpage(Handle hCPAGE, CPrepHstr* temp);
-Bool InitPrepList(Handle hCPAGE);
+Bool AddToCpage(CPageHandle hCPAGE, CPrepHstr* temp);
+Bool InitPrepList(CPageHandle hCPAGE);
 CPrepHstr* WasAlreadyPrep(CHstr* my_str);
 void GetIdealRect(CCOM_handle HCCOM, Rect16 Rc, Rect16* Rect);
 void GetStrBounds(CCOM_handle hCCOM, Rect16* pRc, int nRc, int num, int* ptop,
                   int* pbottom, Bool vert, Rect16 Rc);
-Bool MainVertDiagnostic(Handle hCPage, CCOM_handle hCCOM, CPrepHstr* temp,
+Bool MainVertDiagnostic(CPageHandle hCPage, CCOM_handle hCCOM, CPrepHstr* temp,
                         Rect16* pRc, int nRc, int param);
 Bool NotIn(CCOM_handle, Rect16 Rc, Rect16* pRc, int nRc, Bool vert, int);
 Bool NotInAll(CCOM_handle, Rect16 Rc, Rect16* pRc, int& nRc, Bool vert);

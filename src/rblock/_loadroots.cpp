@@ -172,12 +172,12 @@ Bool32 MyFiltrateIn(int32_t upper, int32_t left, int32_t w, int32_t h)
     return TRUE;
 }
 
-Bool32 PicturesSecondStage(CCOM_handle hCCOM, Handle hCPAGE)
+Bool32 PicturesSecondStage(CCOM_handle hCCOM, CPageHandle hCPAGE)
 {
     /************** final union all crossed and included pictures ******************/
     CCOM_comp common;
     POLY_ block;
-    Handle h = NULL;
+    CBlockHandle h = NULL;
     uint32_t i, j;
     CCOM_comp pic;
     CCOM_comp * comp;
@@ -293,7 +293,7 @@ Bool32 PicturesSecondStage(CCOM_handle hCCOM, Handle hCPAGE)
     for (h = CPAGE_GetBlockFirst(hCPAGE, TYPE_IMAGE); h != NULL;
             //  h = CPAGE_GetBlockNext(hCPAGE,h,TYPE_IMAGE) Paul 02-04-2002
         ) {
-        Handle hNext = CPAGE_GetBlockNext(hCPAGE, h, TYPE_IMAGE); // Paul 02-04-2002
+        CBlockHandle hNext = CPAGE_GetBlockNext(hCPAGE, h, TYPE_IMAGE); // Paul 02-04-2002
         CPAGE_GetBlockData(h, TYPE_IMAGE, &block, sizeof(block));
         CPAGE_DeleteBlock(hCPAGE, h);
         h = hNext; // Paul 02-04-2002
@@ -451,10 +451,10 @@ Bool32 PicturesSecondStage(CCOM_handle hCCOM, Handle hCPAGE)
     return TRUE;
 }
 
-Bool32 FillBigLetters(Handle hCCOM, Handle hCPAGE)
+Bool32 FillBigLetters(Handle hCCOM, CPageHandle hCPAGE)
 {
     Handle BlockType;
-    Handle pBlock;
+    CBlockHandle pBlock;
     RPIC_Comp_Rect CompRect; // типичный Rect16
     BlockType = CPAGE_GetInternalType("pic's to letters boxes");
     pBlock = CPAGE_GetBlockFirst(hCPAGE, BlockType);
@@ -475,14 +475,14 @@ Bool32 FillBigLetters(Handle hCCOM, Handle hCPAGE)
     return TRUE;
 }
 
-Bool32 FillPicsInTables(Handle hCCOM, Handle hCPAGE)
+Bool32 FillPicsInTables(Handle hCCOM, CPageHandle hCPAGE)
 {
     POLY_ block;
-    Handle h = NULL;
+    CBlockHandle h = NULL;
     CCOM_comp * comp;
 
     for (h = CPAGE_GetBlockFirst(hCPAGE, POSSIBLE_PICTURES); h != NULL;) {
-        Handle hNext = CPAGE_GetBlockNext(hCPAGE, h, POSSIBLE_PICTURES); // Paul 02-04-2002
+        CBlockHandle hNext = CPAGE_GetBlockNext(hCPAGE, h, POSSIBLE_PICTURES); // Paul 02-04-2002
         CPAGE_GetBlockData(h, POSSIBLE_PICTURES, &block, sizeof(block));
         CPAGE_DeleteBlock(hCPAGE, h);
         h = hNext; // Paul 02-04-2002
@@ -524,7 +524,7 @@ Bool32 IsNotBigLetter(CCOM_comp *comp)
 Bool32 ReadRoots(CCOM_handle hCCOM, Bool32 BLOCKS)
 {
     CCOM_comp * comp = NULL;
-    Handle pPage;
+    CPageHandle pPage;
     PAGEINFO pInfo;
     uint32_t i;
     exthCCOM = hCCOM;
@@ -540,7 +540,7 @@ Bool32 ReadRoots(CCOM_handle hCCOM, Bool32 BLOCKS)
         nPics = 0;
     }
 
-    pPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
+    pPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPageNumber());
     CPAGE_GetPageData(pPage, PT_PAGEINFO, (void*) &pInfo, sizeof(pInfo));
     nBigLetters = 0;
     pBigLetters = NULL;

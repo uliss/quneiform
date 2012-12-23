@@ -94,7 +94,7 @@ Bool CreateInternalFileForFormatter(FILE *pIFName) {
     CSTR_line line;
     CFPage Page;
     PAGEINFO PageInfo;
-    Handle hCPAGE = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
+    CPageHandle hCPAGE = CPAGE_GetHandlePage(CPAGE_GetCurrentPageNumber());
     GetPageInfo(hCPAGE, &PageInfo);
 
     if (PageInfo.X && PageInfo.Y) {
@@ -221,8 +221,8 @@ CFPage::~CFPage() {
 /////////////////////////////////////////////////////////////////////////////
 //                    CFPage::CreateArray_For_TextFragments
 void CFPage::CreateArray_For_TextFragments() {
-    Handle hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
-    Handle hBlock = CPAGE_GetBlockFirst(hPage, 0);
+    CPageHandle hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPageNumber());
+    CBlockHandle hBlock = CPAGE_GetBlockFirst(hPage, 0);
 
     while (hBlock) {
         if (CPAGE_GetBlockType(hBlock) == TYPE_TEXT) {
@@ -271,8 +271,8 @@ void CFPage::ProcessingComingLine(CSTR_line* Comingline) {
     CSTR_line line;
     CSTR_attr attr;
     CFragment* Fragment;
-    Handle hCPAGE;
-    Handle hBlock;
+    CPageHandle hCPAGE;
+    CBlockHandle hBlock;
     POLY_ poly;
     line = *Comingline;
 
@@ -285,7 +285,7 @@ void CFPage::ProcessingComingLine(CSTR_line* Comingline) {
         m_arFrags.push_back(new CFragment());
         Fragment = m_arFrags[Count.Frags];
         assert(Fragment);
-        hCPAGE = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
+        hCPAGE = CPAGE_GetHandlePage(CPAGE_GetCurrentPageNumber());
         hBlock = CPAGE_GetBlockFirst(hCPAGE, NULL);
 
         while (hBlock) {

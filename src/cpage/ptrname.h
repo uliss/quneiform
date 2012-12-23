@@ -93,12 +93,12 @@ template<class TYPE> class PtrName
         Bool32      Create(size_t nItem);
         void        Delete();
 
-        Bool32      Attach(Handle hPage);
-        Bool32      Store(Handle hPage);
-        void        Remove(Handle hPage);
+        Bool32      Attach(CPageHandle hPage);
+        Bool32      Store(CPageHandle hPage);
+        void        Remove(CPageHandle hPage);
         inline uint32_t     GetSize() {
             return m_Size / sizeof(TYPE);
-        };
+        }
 
 };
 ///////////////////////////////////////////////////////////
@@ -158,10 +158,10 @@ template<class TYPE> void PtrName<TYPE>::Delete()
     m_Ptr = NULL;
 }
 ///////////////////////////////////////////////////////////
-template<class TYPE> Bool32     PtrName<TYPE>::Attach(Handle hPage)
+template<class TYPE> Bool32     PtrName<TYPE>::Attach(CPageHandle hPage)
 {
     assert(m_Ptr);
-    Handle hBlock = CPAGE_GetBlockFirst(hPage, m_Type);
+    CBlockHandle hBlock = CPAGE_GetBlockFirst(hPage, m_Type);
 
     if (!hBlock)
         return FALSE;
@@ -170,9 +170,9 @@ template<class TYPE> Bool32     PtrName<TYPE>::Attach(Handle hPage)
     return m_bAttach;
 }
 ///////////////////////////////////////////////////////////
-template<class TYPE> void       PtrName<TYPE>::Remove(Handle hPage)
+template<class TYPE> void       PtrName<TYPE>::Remove(CPageHandle hPage)
 {
-    Handle hBlock = CPAGE_GetBlockFirst(hPage, m_Type);
+    CBlockHandle hBlock = CPAGE_GetBlockFirst(hPage, m_Type);
 
     if (!hBlock)
         return ;
@@ -187,9 +187,9 @@ template<class TYPE> void       PtrName<TYPE>::Remove(Handle hPage)
     }
 }
 ///////////////////////////////////////////////////////////
-template<class TYPE> Bool32     PtrName<TYPE>::Store(Handle hPage)
+template<class TYPE> Bool32     PtrName<TYPE>::Store(CPageHandle hPage)
 {
-    Handle hBlock = CPAGE_GetBlockFirst(hPage, m_Type);
+    CBlockHandle hBlock = CPAGE_GetBlockFirst(hPage, m_Type);
 
     if (hBlock)
         CPAGE_DeleteBlock(hPage, hBlock);

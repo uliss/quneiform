@@ -77,6 +77,7 @@
 #include "myraster.h"
 /*  interface my-my      */
 #include "am_buff.h"
+#include "internal.h"
 
 /*------------own objects-----------------------------------------------------*/
 FNCPAGE_GetBlockFirst GetBlockFirst;
@@ -87,15 +88,14 @@ void MyErrorNoMem(const char* str);
 void SetReturnCode_rverline(uint16_t rc);
 /*------------own functions---------------------------------------------------*/
 Bool MyInit_CPage();
-Bool MyGetLines(LinesTotalInfo *pLti, int MaxNumLin, Handle hCPage,
+Bool MyGetLines(LinesTotalInfo *pLti, int MaxNumLin, CPageHandle hCPage,
 		uint32_t *pHoriType, uint32_t *pVertType, char *pStr);
 Bool MyGetComp(CCOM_handle hCCOM, Rect16 *pRc, int *nRC, int MyMaxC, int Filter);
 void Error_CPage(const char *str);
 Bool MyFormZhertvy(CCOM_handle hCCOM, void **vvZher, int *iZher, int nZher,
 		int Filter);
-Bool MySetZher(void **vvZher, int nZher, Handle hCPage);
-Bool MyGetZher(void **vvZher, int *nZher, int MaxZher, Handle hCPage);
-Bool MyGetRaster(Handle hCPage, VL_I_TASK *pTask, uchar **ppData);
+Bool MySetZher(void **vvZher, int nZher, CPageHandle hCPage);
+Bool MyGetZher(void **vvZher, int *nZher, int MaxZher, CPageHandle hCPage);
 /*----------------------------------------------------------------------------*/
 Bool MyInit_CPage() {
 	Bool ret;
@@ -117,14 +117,14 @@ Bool MyInit_CPage() {
 	return TRUE;
 }
 /*----------------------------------------------------------------------------*/
-Bool MyGetLines(LinesTotalInfo *pLti, int MaxNumLin, Handle *hCPage,
+Bool MyGetLines(LinesTotalInfo *pLti, int MaxNumLin, CPageHandle hCPage,
 		Handle *pHoriType, Handle *pVertType, char *pStr) {
 	int i;
 	uint32_t err32, nTeor, nReal;
-	Handle hBlockLine;
-	Handle hBlockLineHor;
-	Handle hBlockLineVer;
-	Handle hBlockLinePrev;
+    CBlockHandle hBlockLine;
+    CBlockHandle hBlockLineHor;
+    CBlockHandle hBlockLineVer;
+    CBlockHandle hBlockLinePrev;
 	LineInfo *pLHor, *pLVer;
 	/***    ***/
 	pLHor = pLti->Hor.Lns;
@@ -275,15 +275,15 @@ Bool MyGetLines(LinesTotalInfo *pLti, int MaxNumLin, CLINE_handle hCLINE,
 	return TRUE;
 }
 /*----------------------------------------------------------------------------*/
-Bool MyReSetLines(void *vLti, int MaxNumLin, Handle hCPage, Handle HoriType,
+Bool MyReSetLines(void *vLti, int MaxNumLin, CPageHandle hCPage, Handle HoriType,
 		Handle VertType) {
 	int i;
 	uint32_t err32, nTeor;//, nReal;
 	Bool32 nReal;//differ
-	Handle hBlockLine;
-	Handle hBlockLineHor;
-	Handle hBlockLineVer;
-	Handle hBlockLinePrev;
+    CBlockHandle hBlockLine;
+    CBlockHandle hBlockLineHor;
+    CBlockHandle hBlockLineVer;
+    CBlockHandle hBlockLinePrev;
 	void *Hor, *Ver;
 	LinesTotalInfo *pLti;
 	pLti = (LinesTotalInfo *) vLti;
@@ -526,7 +526,7 @@ Bool MyFormZhertvy(CCOM_handle hCCOM, void **vvZher, int *iZher, int nZher,
 		return FALSE;
 }
 /*----------------------------------------------------------------------------*/
-Bool MySetZher(void **vvZher, int nZher, Handle hCPage) {
+Bool MySetZher(void **vvZher, int nZher, CPageHandle hCPage) {
 	uint32_t err32, nTeor;//, nReal;//dwTableType
 	Handle hBlockZher;
 	int i;
@@ -551,10 +551,10 @@ Bool MySetZher(void **vvZher, int nZher, Handle hCPage) {
 	return TRUE;
 }
 /*----------------------------------------------------------------------------*/
-Bool MyGetZher(void **vvZher, int *nZher, int MaxZher, Handle hCPage) {
+Bool MyGetZher(void **vvZher, int *nZher, int MaxZher, CPageHandle hCPage) {
 	uint32_t err32, nTeor, nReal;
-	Handle hBlockZher;
-	Handle hBlockPrev;
+    CBlockHandle hBlockZher;
+    CBlockHandle hBlockPrev;
 	int i;
 	nTeor = sizeof(void *);
 	i = 0;
@@ -590,7 +590,7 @@ Bool MyGetZher(void **vvZher, int *nZher, int MaxZher, Handle hCPage) {
 	return TRUE;
 }
 /*----------------------------------------------------------------------------*/
-Bool MyGetRaster(Handle hCPage, VL_I_TASK *pTask, uchar **ppData) {
+Bool MyGetRaster(CPageHandle hCPage, VL_I_TASK *pTask, uchar **ppData) {
 	PAGEINFO info;
     CIMAGE_InfoDataInGet DataInto;
     CIMAGE_InfoDataOutGet DataOut;

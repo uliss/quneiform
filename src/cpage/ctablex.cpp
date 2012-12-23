@@ -63,18 +63,19 @@
 
 using namespace cf;
 
-Handle CPAGE_ExTableCreate(Handle hPage, int32_t Skew2048, uint32_t nVer,
+Handle CPAGE_ExTableCreate(CPageHandle hPage, int32_t Skew2048, uint32_t nVer,
                            int32_t * lpVCor, uint32_t nHor, int32_t * lpHCor)
 {
     SetReturnCode_cpage(IDS_ERR_NO);
+    CBlockHandle block = NULL;
     Handle rc = NULL;
     Bool32 res = FALSE;
     TableClass tc;
 
     if (tc.Create(Skew2048, nVer, lpVCor, nHor, lpHCor))
-        rc = tc.Store(hPage);
+        block = tc.Store(hPage);
 
-    rc = rc ? TableClass::Attach(hPage, rc) : NULL;
+    rc = block ? TableClass::Attach(hPage, block) : NULL;
     return rc;
 }
 
@@ -87,10 +88,10 @@ void CPAGE_ExTableDelete(Handle hTable)
         tc->Remove();
 }
 
-Handle CPAGE_ExTableGetFirst(Handle hPage)
+Handle CPAGE_ExTableGetFirst(CPageHandle hPage)
 {
     Handle rc = NULL;
-    Handle hBlock = NULL;
+    CBlockHandle hBlock = NULL;
     SetReturnCode_cpage(IDS_ERR_NO);
     Handle Type = CPAGE_GetInternalType("TableClass");
 

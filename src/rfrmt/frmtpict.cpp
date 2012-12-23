@@ -94,9 +94,9 @@ namespace cf
 
 size_t GetPictCount() {
     size_t res = 0;
-    uint32_t NumberPage = CPAGE_GetCurrentPage();
-    Handle h_Page = CPAGE_GetHandlePage(NumberPage);
-    Handle h_Pict = CPAGE_PictureGetFirst(h_Page);
+    uint32_t NumberPage = CPAGE_GetCurrentPageNumber();
+    CPageHandle h_Page = CPAGE_GetHandlePage(NumberPage);
+    CBlockHandle h_Pict = CPAGE_PictureGetFirst(h_Page);
 
     while (h_Pict) {
         res++;
@@ -109,9 +109,9 @@ size_t GetPictCount() {
 Rect GetPictRect(uint NumberPict, uint32_t * UserNumber) {
     uint PictCount = 0;
 
-    uint NumberPage = CPAGE_GetCurrentPage();
-    Handle h_Page = CPAGE_GetHandlePage(NumberPage);
-    Handle h_Pict = CPAGE_PictureGetFirst(h_Page);
+    uint NumberPage = CPAGE_GetCurrentPageNumber();
+    CPageHandle h_Page = CPAGE_GetHandlePage(NumberPage);
+    CBlockHandle h_Pict = CPAGE_PictureGetFirst(h_Page);
 
     while (h_Pict && PictCount < NumberPict) {
         PictCount++;
@@ -134,9 +134,9 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
     uint32_t PictNumber = 0;
     Point RtfLt;
     CPAGE_PICTURE pict;
-    uint32_t NumberPage = CPAGE_GetCurrentPage();
-    Handle h_Page = CPAGE_GetHandlePage(NumberPage);
-    Handle h_Pict = CPAGE_PictureGetFirst(h_Page);
+    uint32_t NumberPage = CPAGE_GetCurrentPageNumber();
+    CPageHandle h_Page = CPAGE_GetHandlePage(NumberPage);
+    CBlockHandle h_Pict = CPAGE_PictureGetFirst(h_Page);
 
     while (h_Pict) {
         if (++PictNumber > IndexPict)

@@ -124,7 +124,7 @@ Bool CheckLines(RECT* Rect, Bool FlagVer, cf::SectorInfo *SectorInfo) {
     if (FlagVer == TRUE && Rect->bottom - Rect->top < LMin / 2)
         return FALSE;
 
-    Handle hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
+    Handle hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPageNumber());
     CLINE_handle hCLINE = CLINE_GetMainContainer();
     int VCentre = Rect->top + (Rect->bottom - Rect->top) / 2;
     CLINE_handle hline = CLINE_GetFirstLine(hCLINE);

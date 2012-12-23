@@ -322,7 +322,7 @@ Bool32 IsNotGoodComp(PAGEINFO pInfo, CCOM_comp *comp) {
 /*                              Main function                                 */
 /******************************************************************************/
 
-Bool32 RPIC_SearchPictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, Handle hCPAGE) {
+Bool32 RPIC_SearchPictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, CPageHandle hCPAGE) {
 	CCOM_comp * comp = NULL;
 	CCOM_comp common;
 	PAGEINFO pInfo;
@@ -695,7 +695,7 @@ Bool32 RPIC_SearchPictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, Handle hCPA
 
 	CloseLogRes();
 
-	Handle h = NULL;
+    CBlockHandle h = NULL;
 
 	if (!LDPUMA_Skip(hShowFirstAttempt)) {
 		h = NULL;

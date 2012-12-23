@@ -86,11 +86,11 @@ Bool32 DeleteRootsFromTables(void)
 
 Bool32 DeleteRootsFromPictures(void)
 {
-    Handle pPage;
-    Handle h = NULL;
+    CPageHandle pPage;
+    CBlockHandle h = NULL;
     POLY_ block;
     ROOT * pRoot;
-    pPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
+    pPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPageNumber());
 
     for (h = CPAGE_GetBlockFirst(pPage, TYPE_IMAGE); h != NULL; h = CPAGE_GetBlockNext(pPage, h,
             TYPE_IMAGE)) {

@@ -101,7 +101,6 @@ void DelNegMas(UniVersions*);
 void DelNegMas(CCOM_comp**);
 Bool AddLenNegMas(Rect16**, int&, int);
 Bool AddLenNegMas(CCOM_comp***, int&, int);
-Bool GetMasP(Handle, Rect16, uchar**);
 Bool GetMasP(Rect16*, uchar**);
 Bool NegGetRaster(Handle, Rect16, RecRaster*, Bool);
 void InitRc(Rect16*, int, CCOM_comp *);

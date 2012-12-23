@@ -104,11 +104,11 @@ void SeparatorsGet (void)
 #define ABS1 10
 #define ABS2 40
     PAGEINFO pInfo;
-    Handle pPage;
+    CPageHandle pPage;
     uint32_t ResolutionCoeff;
     uint32_t i, j;
-    Handle hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage( ));
-    Handle hBlock;
+    CPageHandle hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPageNumber());
+    CBlockHandle hBlock;
     uint32_t key;
     uint32_t color;
     int32_t nPics;
@@ -116,7 +116,7 @@ void SeparatorsGet (void)
     uint32_t size_line_com = sizeof(LINE_COM);
     CLINE_handle hline;
     extern CLINE_handle HCLINE;
-    pPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage( ));
+    pPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPageNumber());
     CPAGE_GetPageData( pPage, PT_PAGEINFO, (void*)&pInfo, sizeof(pInfo));
     ResolutionCoeff = pInfo.DPIY / 2;
     SeparatorsFreeData ();

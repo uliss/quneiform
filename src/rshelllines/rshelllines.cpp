@@ -262,14 +262,14 @@ RSL_FUNC(Bool32) RSL_SetImportData(uint32_t dwType, void * pData) {
     if (dwType != RSL_HANDLE)
         return FALSE;
 
-    Handle* phCPage = (Handle*) pData;
+    CPageHandle* phCPage = (CPageHandle*) pData;
 
     RSPreProcessImage IImage;
     PRSPreProcessImage Image = &IImage;
 
     uint32_t nTeor = sizeof(RSPreProcessImage);
-    Handle hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
-    Handle VerifyN = CPAGE_GetBlockFirst(*phCPage, RSL_VERLINE);//hPage, RSL_VERLINE);
+    CPageHandle hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPageNumber());
+    CBlockHandle VerifyN = CPAGE_GetBlockFirst(*phCPage, RSL_VERLINE);//hPage, RSL_VERLINE);
     uint32_t nReal = CPAGE_GetBlockData(VerifyN, RSL_VERLINE, Image, nTeor);
     //     uint32_t err32 = CPAGE_GetReturnCode ();
     //     if (err32)

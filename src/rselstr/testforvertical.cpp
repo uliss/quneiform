@@ -58,6 +58,7 @@
 #include <string.h>
 #include "puttocstr.h"
 #include "rselstr.h"
+#include "cutstr.h"
 #include "rneg/rneg.h"
 
 extern int32_t my_top;
@@ -75,7 +76,7 @@ extern int DPIY;
 
 CCOM_handle hCCOM_new;
 
-RSELSTR_FUNC(Bool32) RSELSTR_TestForVertical(CCOM_handle hCCOM, Handle hCPage, Rect16 RC,
+RSELSTR_FUNC(Bool32) RSELSTR_TestForVertical(CCOM_handle hCCOM, CPageHandle hCPage, Rect16 RC,
         Bool32 neg, int param) {
     if (RC.top < 0 || RC.left < 0 || RC.bottom <= RC.top || RC.right <= RC.left)
         return FALSE;
@@ -462,7 +463,7 @@ CCOM_handle CreateContainer(Handle hCPage, CCOM_handle hCCOM_old, Rect16 Rc) {
     return hCCOM_new;
 }
 
-Bool AddToCpage(Handle hCPAGE, CPrepHstr* temp) {
+Bool AddToCpage(CPageHandle hCPAGE, CPrepHstr* temp) {
     int size_phstr = sizeof(CPrepHstr);
     int i;
     if (temp->nRc > MAX_STR_COUNT)
@@ -486,14 +487,14 @@ Bool AddToCpage(Handle hCPAGE, CPrepHstr* temp) {
         return FALSE;
 }
 
-Bool InitPrepList(Handle hCPAGE) {
+Bool InitPrepList(CPageHandle hCPAGE) {
     prelist = NULL;
     prelist = new CLPrepHstr;
     if (!prelist)
         return FALSE;
 
-    Handle pBlock;
-    Handle pBlock_prev;
+    CBlockHandle pBlock;
+    CBlockHandle pBlock_prev;
     int size_phstr = sizeof(CPrepHstr);
     int size_neg = sizeof(NegTemp);
     NegTemp neg_tmp;
@@ -766,7 +767,7 @@ int GetMinCol(CCOM_comp** pC, int nN, Bool vert) {
     }
 }
 
-Bool MainVertDiagnostic(Handle hCPage, CCOM_handle hCCOM, CPrepHstr* temp, Rect16* pRc, int nRc,
+Bool MainVertDiagnostic(CPageHandle hCPage, CCOM_handle hCCOM, CPrepHstr* temp, Rect16* pRc, int nRc,
         int param) {
 
     PAGEINFO info;

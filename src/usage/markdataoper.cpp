@@ -202,13 +202,13 @@ Bool MakeRectFromPict(Rect16 *pCurr, void *vPict) {
 	return TRUE;
 }
 /*---------------------------------------------------------------------------*/
-Bool LoadPicts_rv(Handle hC, void *vB, char *pStr) {
+Bool LoadPicts_rv(CPageHandle hC, void *vB, char *pStr) {
 	int SizeCurr, Deficit, nRc;
 	uint32_t err32, nTeor, nReal;
 	Bool ret;
 	POLY_ Pict;
-	Handle hBlockPictSpec;
-	Handle hBlockPictPrev;
+    CBlockHandle hBlockPictSpec;
+    CBlockHandle hBlockPictPrev;
 	UN_BUFF *pB;
 	Rect16 *pCurr;
 	pB = (UN_BUFF *) vB;

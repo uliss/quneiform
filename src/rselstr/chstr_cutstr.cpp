@@ -113,8 +113,8 @@ void StrDrawRect(Handle wnd, uint32_t OperCode, uint32_t color, Rect16 Rc) {
 
 }
 
-CCOM_handle GetStrCCOM(Handle hCPage, uchar* ImageName, Rect16 Rc, Bool neg,
-		Bool vertical) {
+CCOM_handle GetStrCCOM(CPageHandle hCPage, uchar* ImageName, Rect16 Rc, Bool neg,
+        Bool vertical) {
 	int min_h, min_w, max_h, max_w;
 	int j;
 	PAGEINFO info;
@@ -627,7 +627,7 @@ void StrMoveMasR(Rect16* pRc, int& nRc, int num) {
 	nRc++;
 }
 
-Bool GetMasP(Handle hCPage, uchar* ImageName, Rect16 Rc, uchar** ppmasp) {
+Bool GetMasP(CPageHandle hCPage, uchar* ImageName, Rect16 Rc, uchar** ppmasp) {
 	int prewide;
 	int left = Rc.left;
 	int h = Rc.bottom - Rc.top + 1;

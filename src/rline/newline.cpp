@@ -188,7 +188,7 @@ CLINE_handle FindLine(CLINE_handle hContainer, CLINE_handle processedline,
 //Bool AddLenLineMas(LineInfo** ppRc,int& len,int add);
 //void DelLineMas(LineInfo* masp);
 Bool MyPutLines(CLINE_handle hContainerOut, CLINE_handle hCLINE, Bool dotline);
-void DeleteBadDotLine(CLINE_handle hCLINE, CCOM_handle hCCOM, Handle hCPAGE);
+void DeleteBadDotLine(CLINE_handle hCLINE, CCOM_handle hCCOM, CPageHandle hCPAGE);
 void SetLineDegree(DLine* line);
 //void DeletePLines(CPageLines* PLines);
 Bool MyGetLines(
@@ -215,7 +215,7 @@ void getLineIdealStrictRectangular(const NR_SimpLine *pdLine, Rect32* pRect,
 		bool is_horiz, int32_t nIncline, int32_t spread = 0);
 int32_t findLostLines(CLINE_handle hCLINE, PAGEINFO* info);
 
-Bool32 RLINE_LinesPass1(Handle hCPage, Handle hCCOM, void* phCLINE,
+Bool32 RLINE_LinesPass1(CPageHandle hCPage, Handle hCCOM, void* phCLINE,
 		PBool32 pgneed_clean_line, Bool32 sdl, uchar lang) {
 	LDPUMA_Skip(Prep2);
 
@@ -225,7 +225,7 @@ Bool32 RLINE_LinesPass1(Handle hCPage, Handle hCCOM, void* phCLINE,
 	/// BogDmitry
 	if (gbRSLT) {
 		uint32_t type = RSL_HANDLE;
-		Handle* phCPAGE = &hCPage;
+        CPageHandle* phCPAGE = &hCPage;
 		void* aa = (void*) phCPAGE;
 		RSL_SetImportData(type, aa);
 		return RESULT;
@@ -596,7 +596,7 @@ Bool32 RLINE_LinesPass1(Handle hCPage, Handle hCCOM, void* phCLINE,
 	return TRUE;
 }
 
-Bool32 RLINE_LinesPass3(Handle /*hCPAGE*/, CLINE_handle/* hCLINE*/,
+Bool32 RLINE_LinesPass3(CPageHandle /*hCPAGE*/, CLINE_handle/* hCLINE*/,
 		Handle /*hCCOM*/, uchar /*lang*/) {
 	return TRUE;
 }
@@ -1088,7 +1088,7 @@ Bool MyPutLines(CLINE_handle hContainerOut, CLINE_handle hCLINE, Bool dotline) {
 	return TRUE;
 }
 
-void DeleteBadDotLine(CLINE_handle hCLINE, CCOM_handle hCCOM, Handle hCPAGE) {
+void DeleteBadDotLine(CLINE_handle hCLINE, CCOM_handle hCCOM, CPageHandle hCPAGE) {
 
 	int count_comp = 0;
 	const int My_False = ~((int) LI_IsTrue);
@@ -1306,7 +1306,7 @@ static int CompareCompByUpper(const void *elem1, const void *elem2) {
 	return pcomp1->upper - pcomp2->upper;
 }
 
-Bool32 RLINE_LinesPass2(CCOM_handle hCCOM, void* phCLINE, Handle hCPAGE) {
+Bool32 RLINE_LinesPass2(CCOM_handle hCCOM, void* phCLINE, CPageHandle hCPAGE) {
 	if (!LDPUMA_Skip(hLinesPass2))
 		return TRUE;
 
@@ -1372,8 +1372,8 @@ Bool32 CorrectDoubleLines(CLINE_handle hContainer) {
 
 	CLINE_handle hLine1, hLine2;
 	CPDLine cpLine1, cpLine2;
-	uint32_t PageNumber = CPAGE_GetCurrentPage();
-	Handle h_Page = CPAGE_GetHandlePage(PageNumber);
+	uint32_t PageNumber = CPAGE_GetCurrentPageNumber();
+    CPageHandle h_Page = CPAGE_GetHandlePage(PageNumber);
 	PAGEINFO page_info;
 
 	if (!GetPageInfo(h_Page, &page_info))
@@ -1655,8 +1655,8 @@ Bool32 FindExtLines(CLINE_handle* hLinesMass, int32_t CountLines,
 	CLINE_handle hLineExt = NULL;
 	int32_t LineBeg, LineEnd, LineBegS, LineEndS, LineLen, spread = 0,
 			simple_shift = 0;
-	uint32_t PageNumber = CPAGE_GetCurrentPage();
-	Handle h_Page = CPAGE_GetHandlePage(PageNumber);
+	uint32_t PageNumber = CPAGE_GetCurrentPageNumber();
+    CPageHandle h_Page = CPAGE_GetHandlePage(PageNumber);
 	PAGEINFO page_info;
 	int32_t dpi;
 

@@ -70,13 +70,13 @@
 struct BigImage
 {
 public:
-    BigImage(Handle page) : hCCOM(NULL)
+    BigImage(CPageHandle page) : hCCOM(NULL)
     {
         PAGEINFO info;
         GetPageInfo(page, &info);
         setImageName(info.szImageName);
 
-        Handle h = CPAGE_GetBlockFirst(page, CPAGE_GetInternalType("TYPE_BIG_COMP"));
+        CBlockHandle h = CPAGE_GetBlockFirst(page, CPAGE_GetInternalType("TYPE_BIG_COMP"));
 
         if (h) {
             CPAGE_GetBlockData(h, CPAGE_GetInternalType("TYPE_BIG_COMP"), this, sizeof(BigImage));
@@ -103,7 +103,7 @@ struct RMPreProcessImage
     Bool32 gbOneColumn;
     bool gKillVSLComponents;
     language_t gnLanguage;
-    Handle hCPAGE;
+    CPageHandle hCPAGE;
     CCOM_cont * hCCOM;
     Handle hCLINE;
     bool hDebugSVLines;

@@ -100,7 +100,7 @@ Bool DelOneVerLine(uchar* pmasp, const int bytewide, int num_str, int begx,
 Bool DelLineFromInside(uchar* pmasp, const int bytewide, int num_str,
 		CLINE_handle hline);
 
-Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines) {
+Bool32 DeleteLines(CPageHandle hCPage, void* phCLINE, const char* ImageDelLines) {
 	//	LDPUMA_ConsoleN("Активизируется функция тривиального удаления линий");
 	int time = clock();
 	CLINE_handle* pCLINE = (CLINE_handle*) phCLINE;

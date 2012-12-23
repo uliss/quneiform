@@ -63,5 +63,5 @@ Bool FullRotatedRects_rv (void *vB, UN_DATAAIMS OldAim, UN_DATAAIMS NewAim
 Bool CompIsGood (CCOM_comp * pcomp, int16_t Filter);
 FUN_EXPO__ Bool LoadComps_rv (CCOM_handle hC, void *vB, char *pStr, int Filter);
 Bool MakeRectFromPict (Rect16 *pCurr, void *vPict);
-Bool LoadPicts_rv (Handle hC, void *vB, char *pStr);
+Bool LoadPicts_rv (CPageHandle hC, void *vB, char *pStr);
 /*----------------------------------------------------------------------------*/

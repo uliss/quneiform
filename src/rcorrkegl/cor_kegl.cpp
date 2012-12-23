@@ -157,7 +157,7 @@ Handle hSnapGarbage = 0;
 Handle hSnapGarbageLine = 0;
 Handle hSnapTable = 0;
 
-static Handle hCPAGE;
+static CPageHandle hCPAGE;
 static int nIncline;
 static KegTab keg_tab;
 static int32_t num_keg, num_keg_opt; //количество кеглей на странице исходное и оптимальное
@@ -239,7 +239,7 @@ static void keg_frag_stats();
 Bool32 CorrectKegl(int32_t ver)
 {
     uint32_t key = 1;
-    hCPAGE = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
+    hCPAGE = CPAGE_GetHandlePage(CPAGE_GetCurrentPageNumber());
     version = ver;
     get_stats();
     draw_keg("");
@@ -1134,7 +1134,7 @@ static void garbage_fragments()
     Bool main_found = FALSE;
     int32_t mainsize;
     Bool add = FALSE, ingap;
-    Handle hBlock;
+    CBlockHandle hBlock;
     uint32_t k_cur = key + 1;
     uchar vproj[V_SIZE] = { 0 };
     min_keg = 255, max_keg = 0;
@@ -1410,7 +1410,7 @@ static void garbage_fragments()
     hBlock = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT);
 
     while (hBlock) {
-        Handle hNext = CPAGE_GetBlockNext(hCPAGE, hBlock, TYPE_TEXT);
+        CBlockHandle hNext = CPAGE_GetBlockNext(hCPAGE, hBlock, TYPE_TEXT);
         int32_t i;
         uint32_t bl_flg = CPAGE_GetBlockFlags(hBlock);
 
@@ -1498,7 +1498,7 @@ static Bool condition34(RecStat *rsti, int32_t ngood)
 static void draw_fragments(uint32_t color)
 {
     if (hCPAGE) {
-        Handle hBlock = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT);
+        CBlockHandle hBlock = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT);
 
         while (hBlock) {
             draw_fragment(hBlock, color, key);
@@ -1583,7 +1583,7 @@ static Handle find_hBlock(int32_t fragment)
 
     if (fragment < 0) { //инициализация
         int32_t i;
-        Handle hBlock = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT);
+        CBlockHandle hBlock = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT);
 
         for (i = 0; hBlock && i < BIG_FRAG_PAGE; i++) {
             *h++ = hBlock;
@@ -1606,7 +1606,7 @@ static Handle find_hBlock(int32_t fragment)
 static Bool set_frag_ptrs(int32_t *num_frag, Handle frag_hdl[],
                           int32_t frag_num[])
 {
-    Handle hBlock = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT);
+    CBlockHandle hBlock = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT);
     *num_frag = 0;
 
     while (hBlock) {

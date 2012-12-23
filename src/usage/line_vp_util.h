@@ -63,17 +63,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*----------------------------------------------------------------------------*/
 #include "cline/cline.h"
 #include "globus.h"
+#include "cpage/cpagedefs.h"
+
 /* !!! Bool LoadLinesVP_rv (Handle hC, int Type, void *vB, char *pStr, uint16_t *pCode); */
 FUN_EXPO__ Bool LoadLinesVP_rv (CLINE_handle hC, int Type, void *vB, char *pStr, uint16_t *pCode);
 /* !!! только для вызова MyReSetLines */
 void GetKeysPumaVP (void *vLti, uint32_t *pKeyHor, uint32_t *pKeyVer);
 FUN_EXPO__ Bool GetSomeKeys_rv (void *vB, Handle *pKeyHor, Handle *pKeyVer
                      , int *pCntHor, int *pCntVer, char *pStr);
-FUN_EXPO__ Bool LoadLinesTotalInfo_rv (Handle hC, void *vB, char *pStr);
-FUN_EXPO__ Bool LoadLinesSpecInfo (Handle hC, void *vB, Handle Key, int Cnt);
+FUN_EXPO__ Bool LoadLinesTotalInfo_rv (CPageHandle hC, void *vB, char *pStr);
+FUN_EXPO__ Bool LoadLinesSpecInfo (CPageHandle hC, void *vB, Handle Key, int Cnt);
 Bool LoadLinesInfo_rv (CLINE_handle hC, void *vB, char *pStr, Bool Hori);
 /* !!! */
-Bool MyReSetLines (void *vLti, int MaxNumLin, Handle hCPage, Handle HoriType
+Bool MyReSetLines (void *vLti, int MaxNumLin, CPageHandle hCPage, Handle HoriType
                    , Handle VertType, char *pStr);
 Bool MyReSetLines(void* vLines, int Count, CLINE_handle hCLINE, char *pStr);
 FUN_EXPO__ Bool ReferForLinesVP (void *vLti, void *vB);

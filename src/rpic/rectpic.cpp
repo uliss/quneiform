@@ -211,7 +211,7 @@ if(!LDPUMA_Skip(hShowCheckLetters))
 return TRUE;
 }
 
-Bool32 SearchRectanglePictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, Handle hCPAGE) {
+Bool32 SearchRectanglePictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, CPageHandle hCPAGE) {
 	uint32_t i, j;
 	CCOM_comp pic;
 	CCOM_comp * comp;

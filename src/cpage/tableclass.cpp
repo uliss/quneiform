@@ -102,17 +102,17 @@ void TableLine::Delete()
     m_lpProperty.Delete();
 }
 //////////////////////////////////////////////////////////////////////
-Bool32 TableLine::Attach(Handle hPage)
+Bool32 TableLine::Attach(CPageHandle hPage)
 {
     return m_lpProperty.Attach(hPage);
 }
 //////////////////////////////////////////////////////////////////////
-Bool32 TableLine::Store(Handle hPage)
+Bool32 TableLine::Store(CPageHandle hPage)
 {
     return m_lpProperty.Store(hPage);
 }
 //////////////////////////////////////////////////////////////////////
-void TableLine::Remove(Handle hPage)
+void TableLine::Remove(CPageHandle hPage)
 {
     m_lpProperty.Remove(hPage);
 }
@@ -188,7 +188,7 @@ void TableClass::Delete()
     m_hPage = NULL;
 }
 //////////////////////////////////////////////////////////////////////
-TableClass * TableClass::Attach(Handle hPage, Handle hBlock)
+TableClass * TableClass::Attach(CPageHandle hPage, CBlockHandle hBlock)
 {
     TableClass * rc = NULL;
     Handle Type = CPAGE_GetInternalType("TableClass");
@@ -214,7 +214,7 @@ TableClass * TableClass::Attach(Handle hPage, Handle hBlock)
     return rc;
 }
 //////////////////////////////////////////////////////////////////////
-Handle TableClass::Store(Handle hPage)
+CBlockHandle TableClass::Store(CPageHandle hPage)
 {
     Bool32 res = FALSE;
     Handle Type = CPAGE_GetInternalType("TableClass");
@@ -274,7 +274,7 @@ TableClass * TableClass::GetNext()
 {
     Handle Type = CPAGE_GetInternalType("TableClass");
     TableClass * rc = NULL;
-    Handle hBlock = CPAGE_GetBlockNext(m_hPage, m_hBlock, Type);
+    CBlockHandle hBlock = CPAGE_GetBlockNext(m_hPage, m_hBlock, Type);
 
     if (hBlock)
         rc = Attach(m_hPage, hBlock);

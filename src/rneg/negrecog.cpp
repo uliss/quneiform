@@ -1441,7 +1441,7 @@ void NegMoveMas(CCOM_handle* hCCOM, int n, int num) {
 	hCCOM[n - 1] = 0;
 }
 
-void PutTempToCPAGE(Handle hCPage, NegList* root) {
+void PutTempToCPAGE(CPageHandle hCPage, NegList* root) {
 	NegList* now;
 	NegTemp temp;
 	Bool fl_cont;

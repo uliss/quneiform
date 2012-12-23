@@ -443,7 +443,7 @@ Bool IfNegIn(NegList* root, int nRc, int top, int bottom, int left, int right)
     return FALSE;
 }
 
-Bool SearchNegBySize(CCOM_handle hCCOM, Handle hCPage, NegList** ROOT, int& nRC)
+Bool SearchNegBySize(CCOM_handle hCCOM, CPageHandle hCPage, NegList** ROOT, int& nRC)
 {
     NegList* root = NULL;
     NegList* temp = NULL;
@@ -997,7 +997,7 @@ Bool IsNegBlack(Handle hCPage, NegList* now)
         return FALSE;
 }
 
-Bool GetMasP(Handle hCPage, Rect16 Rc, uchar** ppmasp)
+Bool GetMasP(CPageHandle hCPage, Rect16 Rc, uchar** ppmasp)
 {
     int prewide;
     int left = Rc.left;

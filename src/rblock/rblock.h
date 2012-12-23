@@ -59,6 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "globus.h"
 #include "ccom/ccom.h"
+#include "cpage/cpagedefs.h"
 
 #ifdef __RBLOCK__
 #define RBLOCK_FUNC  FUN_EXPO__
@@ -83,8 +84,8 @@ typedef enum {
 
 } RBLOCK_EXPORT_ENTRIES;
 
-RBLOCK_FUNC Bool32 RBLOCK_ExtractTextBlocks(CCOM_handle hCCOM, Handle hCPAGE, Handle hCLINE);
-RBLOCK_FUNC Bool32 RBLOCK_ExtractTextStrings(CCOM_handle hCCOM, Handle hCPAGE);
+RBLOCK_FUNC Bool32 RBLOCK_ExtractTextBlocks(CCOM_handle hCCOM, CPageHandle hCPAGE, Handle hCLINE);
+RBLOCK_FUNC Bool32 RBLOCK_ExtractTextStrings(CCOM_handle hCCOM, CPageHandle hCPAGE);
 RBLOCK_FUNC Bool32 RBLOCK_GetAnglePage(Handle hCCOM, int32_t * lpNominator, int32_t * lpDenominator);
 
 typedef void   (*FNRBLOCK_ProgressStart)( void );

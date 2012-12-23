@@ -35,7 +35,7 @@ static inline bool isValidResolution(const PAGEINFO& info)
 ResolutionChecker::HistogramCallback ResolutionChecker::hist_height_callback_;
 ResolutionChecker::HistogramCallback ResolutionChecker::hist_width_callback_;
 
-ResolutionChecker::ResolutionChecker(CCOM_handle ccom, Handle cpage) :
+ResolutionChecker::ResolutionChecker(CCOM_handle ccom, CPageHandle cpage) :
     ccom_(ccom), cpage_(cpage)
 {
 }

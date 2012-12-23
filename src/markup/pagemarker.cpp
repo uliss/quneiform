@@ -102,7 +102,7 @@ PageMarker::~PageMarker()
     delete image_data_;
 }
 
-Handle PageMarker::cpage() {
+CPageHandle PageMarker::cpage() {
     return cpage_;
 }
 
@@ -166,7 +166,7 @@ void PageMarker::restoreLayout()
         throw Exception("CPAGE_RestorePage failed");
     }
 
-    CPAGE_SetCurrentPage(CPAGE_GetNumberPage(image_data_->hCPAGE));
+    CPAGE_SetCurrentPage(CPAGE_GetPageNumber(image_data_->hCPAGE));
     Debug() << "Layout restored from file: \"" << layout_filename_ << "\"\n";
 }
 
@@ -219,7 +219,7 @@ void PageMarker::setCLine(Handle cline) {
     cline_ = cline;
 }
 
-void PageMarker::setCPage(Handle cpage) {
+void PageMarker::setCPage(CPageHandle cpage) {
     cpage_ = cpage;
 }
 

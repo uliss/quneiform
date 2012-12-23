@@ -180,7 +180,7 @@ class PumaImpl
         void * recog_dib_;
         int tables_num_;
         CCOM_cont * ccom_;
-        Handle cpage_;
+        cpage::BackupPage * cpage_;
         Handle lines_ccom_;
         Handle cline_;
         CEDPagePtr ed_page_;

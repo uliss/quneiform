@@ -110,7 +110,7 @@ Bool dpRecOneLetter;
 
 NegImage* pNegImage;
 
-void RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage, uchar* pImageName,
+void RNEG_RecogNeg(CCOM_handle hCCOM, CPageHandle hCPage, uchar* pImageName,
 		int skew) {
 
 	MainWindowD = NULL;

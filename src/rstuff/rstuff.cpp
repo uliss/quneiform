@@ -135,7 +135,7 @@ void RStuff::ortoMove()
 
 void RStuff::preProcessImage()
 {
-    Handle cpage = image_data_->hCPAGE;
+    CPageHandle cpage = image_data_->hCPAGE;
     const char * glpRecogName = *image_data_->pglpRecogName;
     BitmapInfoHeader * info = image_data_->pinfo;
     uint32_t Angle = 0;

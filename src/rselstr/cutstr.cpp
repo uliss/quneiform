@@ -60,6 +60,7 @@
 #include <cstring>
 
 #include "rselstr.h"
+#include "cutstr.h"
 #include "roots.h"
 #include "layout.h"
 #include "recdefs.h"
@@ -88,7 +89,7 @@ int sup_dust_w = 5;
 int min_cut_down_let_w = 3;
 int sup_prob_w = 20;
 Bool type_let;
-extern Handle HCPAGE;
+extern CPageHandle HCPAGE;
 extern Handle hDebugCutStr;
 extern Handle CutStrD;
 extern Handle MainWindowD;
@@ -112,7 +113,6 @@ extern FILE* f_temp_cut;
 extern FILE* f_old_cut;
 
 int GetMediumHeight(POLY_*);
-Bool GetMasP(Handle hCPage, Rect16 Rc, uchar** ppmasp);
 Bool Increase2(RecRaster* rast, CCOM_comp* comp);
 int GetCountNumbers(int num);
 void StrDrawRect(Handle wnd, uint32_t OperCode, uint32_t color, int top,
@@ -123,11 +123,11 @@ Bool AddLenBlockMas(POLY_** ppRc, int& len, int add);
 void DelBlockMas(POLY_* masp);
 Bool InitBlockMas(POLY_** ppRc, int len);
 int IsInPoly(const cf::Point16& a, POLY_* pPoly);
-Bool CutComp(Handle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound,
+Bool CutComp(CPageHandle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound,
 		Bool fl_cut);
 void UndoCutInRect(Handle hCPAGE, CCOM_handle hCCOM, Rect32* Rc);
 
-void RSELSTR_CutCompInTableZones(Handle hCPAGE, CCOM_handle hCCOM) {
+void RSELSTR_CutCompInTableZones(CPageHandle hCPAGE, CCOM_handle hCCOM) {
 }
 
 
@@ -390,7 +390,7 @@ int GetStatisticsH() {
 	return sum / count;
 }
 
-Bool GetMasP(Handle hCPage, Rect16 Rc, uchar** ppmasp) {
+Bool GetMasP(CPageHandle hCPage, Rect16 Rc, uchar** ppmasp) {
 	int prewide;
 	int left = Rc.left;
 	int h = Rc.bottom - Rc.top + 1;

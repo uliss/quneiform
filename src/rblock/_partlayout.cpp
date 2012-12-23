@@ -430,9 +430,9 @@ Bool32 PolysIsCrossed(POLY_ * poly1, POLY_ * poly2, Bool32 pic)
     return TRUE;
 }
 
-Bool32 PageRoatateBlocks(Handle hPage)
+Bool32 PageRoatateBlocks(CPageHandle hPage)
 {
-    Handle hBlock;
+    CBlockHandle hBlock;
     POLY_ block;
     int i, j;
     div_t d1;
@@ -510,7 +510,7 @@ Bool32 PageRoatateBlocks(Handle hPage)
 
 void PageLayoutBlocks(CCOM_handle hCCOM)
 {
-    Handle hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
+    CPageHandle hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPageNumber());
     file_name = LDPUMA_GetFileName(NULL);
     hCcom = hCCOM;
 
@@ -625,7 +625,7 @@ AGAIN_PQ:
     return TRUE;
 }
 
-Bool32 OutputFragments(Handle hPage)
+Bool32 OutputFragments(CPageHandle hPage)
 {
     extern BLOCK *pBlocksList;
     BLOCK * p = NULL;
@@ -635,8 +635,8 @@ Bool32 OutputFragments(Handle hPage)
     int32_t Min;
     int32_t PrevMin;
     Handle hBlock = NULL; // ***** Rom 01-03-99
-    Handle h;
-    Handle h_next;
+    CBlockHandle h;
+    CBlockHandle h_next;
     //Point16 Point;
     int i;
     int j;

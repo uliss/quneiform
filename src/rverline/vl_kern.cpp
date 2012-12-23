@@ -79,6 +79,7 @@
 /*  interface my-my      */
 #include "am_buff.h"
 #include "amt_geom.h"
+#include "internal.h"
 /*----------------------------------------------------------------------------*/
 #define       MaxComps       25000//12000
 #define       MaxLines        2000
@@ -96,26 +97,23 @@ void SetReturnCode_rverline(uint16_t rc);
 uint16_t GetReturnCode_rverline();
 Bool WasInitRVERLINE();
 void GiveMemFor_FWP_Inst(int **ppWhatDo, int *nLimComp);
-Bool MyGetLines(LinesTotalInfo *pLti, int MaxNumLin, Handle hCPage,
+Bool MyGetLines(LinesTotalInfo *pLti, int MaxNumLin, CPageHandle hCPage,
 		uint32_t *pHoriType, uint32_t *pVertType, char *pStr);
-Bool MyReSetLines(void *vLti, int MaxNumLin, Handle hCPage, uint32_t HoriType,
+Bool MyReSetLines(void *vLti, int MaxNumLin, CPageHandle hCPage, uint32_t HoriType,
 		uint32_t VertType);
 Bool MyGetLines(LinesTotalInfo *pLti, int MaxNumLin, CLINE_handle hCLINE,
 		char *pStr);
 Bool MyReSetLines(void *vLti, int MaxNumLin, CLINE_handle hCLINE);
 void MySetNegative(void *vB, Handle hCPage);
 Bool MyGetComp(CCOM_handle hCCOM, Rect16 *pRc, int *nRC, int MyMaxC, int Filter);
-void New_MarkVerifiedLines(void *vLti, Handle hCPage, Rect16 *pRc,
-		int *pWhatDo, int nComp, int *nZher, int *iZher, int MaxZher,
-		Bool AbleShortVert);
 void AnyWarning(char *pStr);
 Bool MyFormZhertvy(CCOM_handle hCCOM, void **vvZher, int *iZher, int nZher,
 		int Filter);
 void WriteResForLines(void *vLti);
-Bool MySetZher(void **vvZher, int nZher, Handle hCPage);
-Bool MyGetZher(void **vvZher, int *nZher, int MaxZher, Handle hCPage);
+Bool MySetZher(void **vvZher, int nZher, CPageHandle hCPage);
+Bool MyGetZher(void **vvZher, int *nZher, int MaxZher, CPageHandle hCPage);
 
-Bool32 RVERLINE_MarkLines(CCOM_handle hCComp, Handle hCPage) {
+Bool32 RVERLINE_MarkLines(CCOM_handle hCComp, CPageHandle hCPage) {
 	uchar err8;
 	uint16_t Code;
 	//	uint32_t HoriType, VertType;

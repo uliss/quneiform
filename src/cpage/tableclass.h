@@ -123,9 +123,9 @@ class TableLine
         Bool32 Create(int32_t nCoord, uint32_t nItems);
         void Delete();
 
-        Bool32 Attach(Handle hPage);
-        Bool32 Store(Handle hPage);
-        void Remove(Handle hPage);
+        Bool32 Attach(CPageHandle hPage);
+        Bool32 Store(CPageHandle hPage);
+        void Remove(CPageHandle hPage);
 
         inline void SetRealy(uint32_t nItem, Bool32 b) {
             if (b)
@@ -165,8 +165,8 @@ class TableClass
         //uint32_t      m_nVer;         // число вертикальных линий
         //uint32_t      m_nHor;         // число горизонтальных линий
         int32_t m_nSkew2048; // наклон таблицы
-        Handle m_hBlock;
-        Handle m_hPage;
+        CBlockHandle m_hBlock;
+        CPageHandle m_hPage;
         uint32_t m_nPhNumber; // число физических ячеек
 
         PtrName<TableLine> m_lpVerLines;// горизонтальные координаты вертикальных линий
@@ -182,8 +182,8 @@ class TableClass
         void Delete();// Освободить занимаемую память.
         void Update();// Создать внутренние связи.
 
-        static TableClass * Attach(Handle hPage, Handle hBlock);// Связать указатель со структурой хранящейчя в CPAGE
-        Handle Store(Handle hPage); // Сохранить таблицу в заданной странице. Возвращает дескриптор структуры
+        static TableClass * Attach(CPageHandle hPage, CBlockHandle hBlock);// Связать указатель со структурой хранящейчя в CPAGE
+        CBlockHandle Store(CPageHandle hPage); // Сохранить таблицу в заданной странице. Возвращает дескриптор структуры
         void Remove(); // Удалить из CPAGE
         TableClass * GetNext();// Получить следующую таблицу
 

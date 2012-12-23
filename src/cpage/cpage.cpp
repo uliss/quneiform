@@ -67,35 +67,35 @@ extern PtrList<NAMEDATA> NameData;
 using namespace cf;
 using namespace cf::cpage;
 
-Handle CPAGE_CreatePage(Handle type, const void * lpdata, uint32_t size)
+CPageHandle CPAGE_CreatePage(Handle type, const void * data, uint32_t size)
 {
     PageHandle p = PageStorage::append(BackupPage());
-    p->setData(type, lpdata, size);
+    p->setData(type, data, size);
     return p;
 }
 
-void CPAGE_DeletePage(Handle page)
+void CPAGE_DeletePage(CPageHandle page)
 {
-    PageStorage::remove((PageHandle) page);
+    PageStorage::remove(page);
 }
 
-void CPAGE_ClearBackUp(Handle page)
+void CPAGE_ClearBackUp(CPageHandle page)
 {
     if(!page)
         return;
 
-    static_cast<PageHandle>(page)->Clear();
+    page->Clear();
 }
 
-Handle CPAGE_BackUp(Handle page)
+Handle CPAGE_BackUp(CPageHandle page)
 {
     if(!page)
         return NULL;
 
-    return static_cast<PageHandle>(page)->BackUp();
+    return page->BackUp();
 }
 
-bool CPAGE_Undo(Handle page, Handle num)
+bool CPAGE_Undo(CPageHandle page, Handle num)
 {
     if (num == NULL) {
         uint32_t number = CPAGE_GetBackupCount(page);
@@ -112,13 +112,11 @@ bool CPAGE_Undo(Handle page, Handle num)
             return false;
     }
 
-    return static_cast<PageHandle>(page)->Undo(num);
+    return page->Undo(num);
 }
 
-bool CPAGE_Redo(Handle page, Handle num)
+bool CPAGE_Redo(CPageHandle page, Handle num)
 {
-    Bool32 rc = FALSE;
-
     if (num == NULL) {
         uint32_t number = CPAGE_GetBackupCount(page);
 
@@ -134,7 +132,7 @@ bool CPAGE_Redo(Handle page, Handle num)
             return false;
     }
 
-    return static_cast<PageHandle>(page)->Redo(num);
+    return page->Redo(num);
 }
 
 uint32_t CPAGE_GetBackupCount(Handle page)
@@ -161,7 +159,7 @@ uint32_t CPAGE_GetBackupCurPos(Handle page)
     return static_cast<PageHandle>(page)->GetCurPos();
 }
 
-Handle CPAGE_CreateBlock(Handle page, Handle Type, uint32_t UserNum,
+CBlockHandle CPAGE_CreateBlock(CPageHandle page, Handle Type, uint32_t UserNum,
                          uint32_t Flags, void * lpData, uint32_t Size)
 {
     if(!page)
@@ -169,20 +167,20 @@ Handle CPAGE_CreateBlock(Handle page, Handle Type, uint32_t UserNum,
 
     assert(CPAGE_GetNameInternalType(Type));
 
-    return static_cast<PageHandle>(page)->createBlock(Type, UserNum, Flags, lpData, Size);
+    return page->createBlock(Type, UserNum, Flags, lpData, Size);
 }
 
-bool CPAGE_SetPageData(Handle page, Handle type, void * lpdata, uint32_t size)
+bool CPAGE_SetPageData(CPageHandle page, Handle type, void * lpdata, uint32_t size)
 {
     if(!page)
         return false;
 
     assert(CPAGE_GetNameInternalType(type));
-    static_cast<PageHandle>(page)->setData(type, lpdata, size);
+    page->setData(type, lpdata, size);
     return true;
 }
 
-uint32_t CPAGE_GetPageData(Handle page, Handle type, void * lpdata,
+uint32_t CPAGE_GetPageData(CPageHandle page, Handle type, void * lpdata,
                            uint32_t size)
 {
     if(!page)
@@ -190,15 +188,15 @@ uint32_t CPAGE_GetPageData(Handle page, Handle type, void * lpdata,
 
     assert(CPAGE_GetNameInternalType(type));
     DefConvertInit();
-    return static_cast<PageHandle>(page)->getData(type, lpdata, size);
+    return page->getData(type, lpdata, size);
 }
 
-bool CPAGE_GetPageInfo(Handle page, PAGEINFO * info)
+bool CPAGE_GetPageInfo(CPageHandle page, PAGEINFO * info)
 {
     return CPAGE_GetPageData(page, PT_PAGEINFO, info, sizeof(PAGEINFO));
 }
 
-bool CPAGE_SetPageInfo(Handle page, const PAGEINFO& info)
+bool CPAGE_SetPageInfo(CPageHandle page, const PAGEINFO& info)
 {
     return CPAGE_SetPageData(page, PT_PAGEINFO, (void*) &info, sizeof(PAGEINFO));
 }
@@ -282,7 +280,7 @@ uint32_t CPAGE_GetBlockData(Handle block, Handle type, void * data, uint32_t siz
     return b->getData(type, data, size);
 }
 
-size_t CPAGE_GetCountPage()
+size_t CPAGE_GetPageCount()
 {
     return PageStorage::pageCount();
 }
@@ -305,12 +303,12 @@ void CPAGE_DeleteBlock(Handle page, Handle block)
 
 #define VERSION_FILE            0xF002
 
-Bool32 CPAGE_SavePage(Handle page, const char * lpName)
+bool CPAGE_SavePage(CPageHandle page, const char * fname)
 {
     if(!page)
         return false;
 
-    std::ofstream os(lpName);
+    std::ofstream os(fname);
 
     if(!os)
         return false;
@@ -336,11 +334,11 @@ Bool32 CPAGE_SavePage(Handle page, const char * lpName)
     return true;
 }
 
-Handle CPAGE_RestorePage(Bool32 remove, const char * lpName)
+CPageHandle CPAGE_RestorePage(Bool32 remove, const char * fname)
 {
-    Handle rc = NULL;
+    CPageHandle rc = NULL;
 
-    std::ifstream is(lpName);
+    std::ifstream is(fname);
 
     if (is) {
         uint32_t vers = 0;
@@ -374,7 +372,7 @@ Handle CPAGE_RestorePage(Bool32 remove, const char * lpName)
     return rc;
 }
 
-Handle CPAGE_GetHandlePage(uint32_t pos)
+CPageHandle CPAGE_GetHandlePage(uint32_t pos)
 {
     return PageStorage::pageAt(pos);
 }
@@ -393,7 +391,7 @@ Handle CPAGE_GetUserBlockType()
     return rc;
 }
 
-Handle CPAGE_GetPageFirst(Handle type)
+CPageHandle CPAGE_GetPageFirst(Handle type)
 {
     int count = PageStorage::pageCount();
     int i;
@@ -406,8 +404,7 @@ Handle CPAGE_GetPageFirst(Handle type)
             break;
     }
 
-    Handle rc = i < count ? PageStorage::pageAt(i) : NULL;
-    return rc;
+    return i < count ? PageStorage::pageAt(i) : NULL;
 }
 
 Handle CPAGE_GetPageNext(Handle page, Handle type)
@@ -429,36 +426,34 @@ Handle CPAGE_GetPageNext(Handle page, Handle type)
     return rc;
 }
 
-Handle CPAGE_GetBlockFirst(Handle p, Handle type)
+CBlockHandle CPAGE_GetBlockFirst(CPageHandle p, Handle type)
 {
     if(!p)
         return NULL;
 
-    PageHandle page = static_cast<PageHandle>(p);
-    int count = page->blockCount();
+    int count = p->blockCount();
     int i;
 
     DefConvertInit();
 
     for (i = 0; i < count; i++) {
         if (!type ||
-                page->blockAt(i)->type() == type ||
-                page->blockAt(i)->Convert(type, NULL, 0))
+                p->blockAt(i)->type() == type ||
+                p->blockAt(i)->Convert(type, NULL, 0))
             break;
     }
 
-    Handle rc = i < count ? page->blockAt(i) : NULL;
-    return rc;
+    return (i < count) ? p->blockAt(i) : NULL;
 }
 
-Handle CPAGE_GetBlockNext(Handle p, Handle block, Handle type)
+CBlockHandle CPAGE_GetBlockNext(CPageHandle p, CBlockHandle block, Handle type)
 {
     if(!p)
         return NULL;
 
     PageHandle page = static_cast<PageHandle>(p);
     int count = page->blockCount();
-    int pos = page->findBlock((Block*) block) + 1;
+    int pos = page->findBlock(block) + 1;
     int i;
 
     DefConvertInit();
@@ -470,8 +465,7 @@ Handle CPAGE_GetBlockNext(Handle p, Handle block, Handle type)
             break;
     }
 
-    Handle rc = i < count ? page->blockAt(i) : NULL;
-    return rc;
+    return (i < count) ? page->blockAt(i) : NULL;
 }
 
 bool CPAGE_DeleteAll()
@@ -483,7 +477,7 @@ bool CPAGE_DeleteAll()
     return true;
 }
 
-uint32_t CPAGE_GetCurrentPage()
+uint32_t CPAGE_GetCurrentPageNumber()
 {
     return (uint32_t) PageStorage::currentPageNumber();
 }
@@ -493,18 +487,18 @@ bool CPAGE_SetCurrentPage(uint32_t number)
     return PageStorage::setCurrentPage(number);
 }
 
-uint32_t CPAGE_GetNumberPage(Handle hPage)
+uint32_t CPAGE_GetPageNumber(CPageHandle page)
 {
-    if(!hPage)
+    if(!page)
         return (uint32_t) - 1;
 
-    return PageStorage::findPage((PageHandle) hPage);
+    return PageStorage::findPage(page);
 }
 
 // Если блоки конвертируемы один в другой, тогда имеет смысл оставить только один,
 // наиболее полный тип. Именно это и делает эта функция.
 //
-Bool32 CPAGE_UpdateBlocks(Handle hPage, Handle type)
+Bool32 CPAGE_UpdateBlocks(CPageHandle hPage, Handle type)
 {
     Bool32 rc = TRUE;
     uint32_t size = 0;
@@ -515,7 +509,7 @@ Bool32 CPAGE_UpdateBlocks(Handle hPage, Handle type)
     assert(CPAGE_GetNameInternalType(type));
 #endif
     SetReturnCode_cpage(IDS_ERR_NO);
-    Handle hBlock = CPAGE_GetBlockFirst(hPage, type);
+    CBlockHandle hBlock = CPAGE_GetBlockFirst(hPage, type);
 
     if (!hBlock) {
         rc = TRUE;
@@ -527,7 +521,7 @@ Bool32 CPAGE_UpdateBlocks(Handle hPage, Handle type)
     temporaray = CPAGE_GetInternalType("temporary");
 
     while (hBlock) {
-        Handle hNextBlock = CPAGE_GetBlockNext(hPage, hBlock, type);// type - запрашиваемый тип блока
+        CBlockHandle hNextBlock = CPAGE_GetBlockNext(hPage, hBlock, type);// type - запрашиваемый тип блока
         Handle dwType = CPAGE_GetBlockType(hBlock); // dwType - Реальный тип блока
 
         if (dwType != type) { // Была произведена конвертация из типа dwType !

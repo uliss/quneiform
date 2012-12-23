@@ -187,7 +187,7 @@ LayoutBlockList PumaImpl::textBlocks() const
     if(!cpage_)
         return res;
 
-    Handle block = CPAGE_GetBlockFirst(cpage_, TYPE_TEXT);
+    CBlockHandle block = CPAGE_GetBlockFirst(cpage_, TYPE_TEXT);
 
     while (block) {
         POLY_ poly;
@@ -205,7 +205,7 @@ LayoutBlockList PumaImpl::imageBlocks() const
     if(!cpage_)
         return res;
 
-    Handle block = CPAGE_GetBlockFirst(cpage_, TYPE_IMAGE);
+    CBlockHandle block = CPAGE_GetBlockFirst(cpage_, TYPE_IMAGE);
 
     while (block) {
         POLY_ poly;
@@ -223,7 +223,7 @@ LayoutBlockList PumaImpl::tableBlocks() const
     if(!cpage_)
         return res;
 
-    Handle block = CPAGE_GetBlockFirst(cpage_, TYPE_TABLE);
+    CBlockHandle block = CPAGE_GetBlockFirst(cpage_, TYPE_TABLE);
 
     while (block) {
         POLY_ poly;
@@ -318,7 +318,7 @@ void PumaImpl::close() {
 void PumaImpl::debugPrintCpage() const
 {
     PUMA_DEBUG_FUNC() << "Container CPAGE has: \n name : size";
-    Handle block = CPAGE_GetBlockFirst(cpage_, 0);
+    CBlockHandle block = CPAGE_GetBlockFirst(cpage_, 0);
 
     while (block) {
         cfDebug() << CPAGE_GetNameInternalType(CPAGE_GetBlockType(block))
@@ -441,7 +441,7 @@ void PumaImpl::loadLayoutFromFile(const std::string& fname) {
     if(cpage_ == NULL)
         throw PumaException() << "CPAGE_RestorePage failed from'" << fname << "'";
 
-    CPAGE_SetCurrentPage(CPAGE_GetNumberPage(cpage_));
+    CPAGE_SetCurrentPage(CPAGE_GetPageNumber(cpage_));
 }
 
 void PumaImpl::markup() {
@@ -688,7 +688,7 @@ void PumaImpl::printResultLine(std::ostream& os, size_t lineNumber) {
 
     if (line_attr.fragment != nFragment) {
         nFragment = -1;
-        Handle hBlock = CPAGE_GetBlockFirst(cpage_, 0);
+        CBlockHandle hBlock = CPAGE_GetBlockFirst(cpage_, 0);
 
         while (hBlock) {
             if ((int) CPAGE_GetBlockInterNum(hBlock) == line_attr.fragment) {
@@ -759,7 +759,7 @@ void PumaImpl::recognize()
         extractComponents();
 
     // Получим описатель страницы
-    cpage_ = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
+    cpage_ = CPAGE_GetHandlePage(CPAGE_GetCurrentPageNumber());
 
     // Выделим строки
     extractStrings();
@@ -771,7 +771,7 @@ void PumaImpl::recognize()
     CSTR_line ln;
     CSTR_attr attr;
     int32_t nf = CSTR_GetMaxFragment(0);
-    Handle hBlock = CPAGE_GetBlockFirst(cpage_, TYPE_TEXT);
+    CBlockHandle hBlock = CPAGE_GetBlockFirst(cpage_, TYPE_TEXT);
 
     if (hBlock) {
         AutoBuffer<int, InitZero> flagfrag(nf);

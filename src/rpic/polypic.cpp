@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /****************************************************************************/
 
-Bool32 SearchPolyPictures(Handle hCCOM,Handle hCPAGE)
+Bool32 SearchPolyPictures(Handle hCCOM, CPageHandle hCPAGE)
 {
 
 

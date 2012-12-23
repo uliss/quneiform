@@ -66,12 +66,12 @@
 using namespace cf;
 
 // extern functions
-Handle CPAGE_PictureGetFirst(Handle hPage)
+CBlockHandle CPAGE_PictureGetFirst(CPageHandle hPage)
 {
     return CPAGE_GetBlockFirst(hPage, TYPE_CPAGE_PICTURE);
 }
 
-Handle CPAGE_PictureGetNext(Handle hPage, Handle hPicture)
+CBlockHandle CPAGE_PictureGetNext(CPageHandle hPage, CBlockHandle hPicture)
 {
     return CPAGE_GetBlockNext(hPage, hPicture, TYPE_CPAGE_PICTURE);
 }

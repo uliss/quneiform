@@ -79,7 +79,7 @@ extern int nIncline;
 
 Handle MainWindowD;
 
-Bool32 RBLOCK_ExtractTextBlocks(CCOM_handle hCCOM, Handle hCPAGE,
+Bool32 RBLOCK_ExtractTextBlocks(CCOM_handle hCCOM, CPageHandle hCPAGE,
                                 CLINE_handle hCLINE)
 {
     SetReturnCode_rblock(IDS_ERR_NO);
@@ -112,7 +112,7 @@ Bool32 RBLOCK_ExtractTextBlocks(CCOM_handle hCCOM, Handle hCPAGE,
 }
 
 ////////////////////////////////////////////////
-Bool32 RBLOCK_ExtractTextStrings(CCOM_handle hCCOM, Handle hCPAGE)
+Bool32 RBLOCK_ExtractTextStrings(CCOM_handle hCCOM, CPageHandle hCPAGE)
 {
     SetReturnCode_rblock(IDS_ERR_NO);
     Open_Res_Log();

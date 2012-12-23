@@ -109,14 +109,14 @@ typedef enum {
 
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; RSELSTR_FUNC(a) b c
 
-DEC_FUN(Bool32, RSELSTR_ExtractTextStrings, (CCOM_handle hCCOM, Handle hCPAGE));
-DEC_FUN(Bool32, RSELSTR_PutObjects, (Handle hCPage, CCOM_handle hCCOM, CHSTR_Objects* pObjects, int nObjects));
+DEC_FUN(Bool32, RSELSTR_ExtractTextStrings, (CCOM_handle hCCOM, CPageHandle hCPAGE));
+DEC_FUN(Bool32, RSELSTR_PutObjects, (CPageHandle hCPage, CCOM_handle hCCOM, CHSTR_Objects* pObjects, int nObjects));
 DEC_FUN(Bool32, RSELSTR_CutStr, (Rect16** ppRc, int& nRc, int& len_mas_Rc, uchar* pRast, int DPIX, int DPIY, int str_w));
 DEC_FUN(Bool32, RSELSTR_RotateRaster, (uchar* pmasp, int skew, Rect16* Rc, int16_t* begx, int16_t* movey, uchar* flmovey, int betw_str));
 DEC_FUN(Bool32, RSELSTR_UnRotateRect, (int skew, Rect16* pRc, int nRc, Rect16 Rc, int16_t* begx, int16_t* movey, uchar* flmovey, int* hi));
 DEC_FUN(void, RSELSTR_CleanStr, (Rect16* pN, CCOM_comp** pC, int& nN, int top, int left, int h, int w, int skew, Bool32 vertical));
-DEC_FUN(Bool32, RSELSTR_TestForVertical, (CCOM_handle hCCOM, Handle hCPage, Rect16 RC, Bool32 neg, int param));
-DEC_FUN(void, RSELSTR_CutCompInTableZones, (Handle hCPAGE, CCOM_handle hCCOM));
+DEC_FUN(Bool32, RSELSTR_TestForVertical, (CCOM_handle hCCOM, CPageHandle hCPage, Rect16 RC, Bool32 neg, int param));
+DEC_FUN(void, RSELSTR_CutCompInTableZones, (CPageHandle hCPAGE, CCOM_handle hCCOM));
 
 #undef DEC_FUN
 

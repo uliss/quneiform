@@ -85,7 +85,7 @@ void DebugDPumaShowComponents(PRSPreProcessImage, Handle, uint32_t, int32_t,
 
 Bool32 Binarise(void);
 Bool32 VerifyN(PRSPreProcessImage);
-Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines);
+Bool32 DeleteLines(CPageHandle hCPage, void* phCLINE, const char* ImageDelLines);
 Bool32 DeleteDotLines(void* phCLINE, const char* ImageDelLines);
 
 Bool32 KillLinesN(PRSPreProcessImage);
@@ -113,7 +113,7 @@ Bool32 CheckSquare(LineInfo*, Rect16*, uint32_t, uint32_t);
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 Bool32 ExtractComponents(Bool32, Handle *, const char *, PRSPreProcessImage);
 Bool32 RemoveLines(PRSPreProcessImage, puchar *);
-Bool32 MyGetZher(void **, int32_t *, int32_t, Handle);
+Bool32 MyGetZher(void **, int32_t *, int32_t, CPageHandle);
 Bool32 remove_overlayed(CCOM_comp *, CCOM_handle);
 Bool32 comp_over(CCOM_comp *, CCOM_comp *);
 Bool32 AboutLines(PRSPreProcessImage, Bool32 *, int32_t *);

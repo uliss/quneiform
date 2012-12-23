@@ -75,13 +75,13 @@
 #include "am_comm.h"
 #include "vl_rule.h"
 #include "myraster.h"
+#include "internal.h"
 
 using namespace cf;
 /*---------------------------------------------------------------------------*/
 #define       MaxRastrHeight         33
 #define       MaxRastrSize         1000
 /*------------extern functions-----------------------------------------------*/
-Bool MyGetRaster(Handle hCPage, VL_I_TASK *pTask, uchar **ppData);
 /*------------own functions--------------------------------------------------*/
 Bool NoInvest(LineInfo *pLns, VL_I_TASK *pTask);
 void BlackAddFromOneToOth(VL_I_TASK *pTask, uchar *pData, Bool NormPhoto,
@@ -90,7 +90,6 @@ void MakeLightProfil(VL_I_TASK *pTask, int *Profil, uchar *pData,
 		Bool NormPhoto, int *Beg, int *End, Bool UseSpusk);
 Bool DecisionByImage(int *Profil, int Beg, int End, int Wid, int MaxLight,
 		int MinDark);
-int InvestShortLineWithRastr_rv_pne(Handle hCPage, LineInfo *pLns);
 /*---------------------------------------------------------------------------*/
 Bool NoInvest(LineInfo *pLns, VL_I_TASK *pTask) {
 	if ((pLns->Thickness < 0) || (pLns->Thickness > 20))
@@ -292,7 +291,7 @@ Bool DecisionByImage(int *Profil, int Beg, int End, int Wid, int MaxLight,
 	return TRUE;
 }
 
-int InvestShortLineWithRastr_rv_pne(Handle hCPage, LineInfo *pLns) {
+int InvestShortLineWithRastr_rv_pne(CPageHandle hCPage, LineInfo *pLns) {
 	VL_I_TASK Task = { 0 };
 	uchar Data[MaxRastrSize];
 	uchar * Buffer;

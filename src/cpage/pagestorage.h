@@ -22,12 +22,11 @@
 #include <vector>
 
 #include "globus.h"
+#include "cpagedefs.h"
 
 namespace cf {
 namespace cpage {
 
-class BackupPage;
-typedef BackupPage * PageHandle;
 typedef std::vector<PageHandle> PageList;
 
 class CLA_EXPO PageStorage 

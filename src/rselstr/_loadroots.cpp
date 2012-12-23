@@ -198,10 +198,10 @@ Bool32 Close_Res_Log(void)
     return TRUE;
 }
 
-Bool32 FillBigLetters(Handle hCCOM, Handle hCPAGE)
+Bool32 FillBigLetters(Handle hCCOM, CPageHandle hCPAGE)
 {
     Handle BlockType;
-    Handle pBlock;
+    CBlockHandle pBlock;
     RPIC_Comp_Rect CompRect;
 
     BlockType = CPAGE_GetInternalType("pic's to letters boxes");
@@ -223,21 +223,21 @@ Bool32 FillBigLetters(Handle hCCOM, Handle hCPAGE)
     return TRUE;
 }
 
-Bool32 FillPicsInTables(Handle hCCOM, Handle hCPAGE)
+Bool32 FillPicsInTables(Handle hCCOM, CPageHandle hCPAGE)
 {
     POLY_ block;
-    Handle h = NULL;
+    CBlockHandle h = NULL;
 
     CCOM_comp * comp;
 
     for (h = CPAGE_GetBlockFirst(hCPAGE, POSSIBLE_PICTURES); h != NULL; h = CPAGE_GetBlockNext(
-            hCPAGE, h, POSSIBLE_PICTURES)) {
+             hCPAGE, h, POSSIBLE_PICTURES)) {
         CPAGE_GetBlockData(h, POSSIBLE_PICTURES, &block, sizeof(block));
         CPAGE_DeleteBlock(hCPAGE, h);
 
         if (nPics % PICS_QUANTUM == 0) {
             pPics = (CCOM_comp *) realloc(pPics, (size_t) ((nPics / PICS_QUANTUM + 1)
-                    * PICS_QUANTUM * sizeof(CCOM_comp)));
+                                                           * PICS_QUANTUM * sizeof(CCOM_comp)));
         }
 
         comp = &pPics[nPics++];
@@ -272,7 +272,7 @@ Bool32 IsNotBigLetter(CCOM_comp *comp)
 Bool32 ReadRoots(CCOM_handle hCCOM)
 {
     CCOM_comp * comp = NULL;
-    Handle pPage;
+    CPageHandle pPage;
     PAGEINFO pInfo;
     uint32_t i;
     int max_h = 50;
@@ -280,7 +280,7 @@ Bool32 ReadRoots(CCOM_handle hCCOM)
     exthCCOM = hCCOM;
     RootsFreeData();
 
-    pPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
+    pPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPageNumber());
     CPAGE_GetPageData(pPage, PT_PAGEINFO, (void*) &pInfo, sizeof(pInfo));
 
     max_h = (max_h * (pInfo.DPIY + 1)) / 300;

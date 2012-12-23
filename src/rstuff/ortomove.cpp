@@ -82,7 +82,7 @@ Bool32 OrtoMove(PRSPreProcessImage Image) {
 	if (!LDPUMA_Skip(OrtMove))
 		return TRUE;
 
-	Handle hCPage = Image->hCPAGE;
+    CPageHandle hCPage = Image->hCPAGE;
 	PAGEINFO info;
 	char OldImage[CPAGE_MAXNAME];
 	GetPageInfo(hCPage, &info);

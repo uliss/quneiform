@@ -59,6 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "globus.h"
 #include "ccom/ccom.h"
+#include "cpage/cpagedefs.h"
 
 #ifdef __RLINE__
 #define RLINE_FUNC  FUN_EXPO
@@ -91,11 +92,11 @@ typedef enum {
 
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; RLINE_FUNC(a) b c
 
-DEC_FUN(Bool32,  RLINE_SearchLines, (void* lpInPage, void* hpCLINE));
-DEC_FUN(Bool32,  RLINE_DeleteLines, (void* lpInPage, const char* lpOutDIB));
-DEC_FUN(Bool32,  RLINE_LinesPass1, (Handle hCPage, Handle hCCOM, void* phCLINE, PBool32 pgneed_clean_line, Bool32 sdl, uchar lang));
-DEC_FUN(Bool32,  RLINE_LinesPass2, (CCOM_handle hCCOM, void* phCLINE, Handle hCPAGE));
-DEC_FUN(Bool32,  RLINE_LinesPass3, (Handle hCPage, Handle hCLINE, Handle hCCOM, uchar lang));
+DEC_FUN(Bool32,  RLINE_SearchLines, (CPageHandle lpInPage, void* hpCLINE));
+DEC_FUN(Bool32,  RLINE_DeleteLines, (CPageHandle lpInPage, const char* lpOutDIB));
+DEC_FUN(Bool32,  RLINE_LinesPass1, (CPageHandle hCPage, Handle hCCOM, void* phCLINE, PBool32 pgneed_clean_line, Bool32 sdl, uchar lang));
+DEC_FUN(Bool32,  RLINE_LinesPass2, (CCOM_handle hCCOM, void* phCLINE, CPageHandle hCPAGE));
+DEC_FUN(Bool32,  RLINE_LinesPass3, (CPageHandle hCPage, Handle hCLINE, Handle hCCOM, uchar lang));
 
 #undef DEC_FUN
 

@@ -61,6 +61,7 @@
 #include <stdexcept>
 
 #include "globus.h"
+#include "cpage/cpagedefs.h"
 
 struct CCOM_cont;
 struct RMPreProcessImage;
@@ -92,13 +93,13 @@ public:
     PageMarker();
     ~PageMarker();
 
-    Handle cpage();
+    CPageHandle cpage();
 
     void markupPage();
 
     void setComponentContainer(CCOM_cont * cont);
     void setCLine(Handle cline);
-    void setCPage(Handle cpage);
+    void setCPage(CPageHandle cpage);
     void setKillVSLComponents(bool value);
     void setLayoutFilename(const std::string& fname);
     void setOptions(const RecognizeOptions& opts);
@@ -118,7 +119,7 @@ private:
     static int flags_;
 private:
     RMPreProcessImage * image_data_;
-    Handle cpage_;
+    CPageHandle cpage_;
     CCOM_cont * comp_cont_;
     Handle cline_;
     std::string layout_filename_;

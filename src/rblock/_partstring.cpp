@@ -71,14 +71,14 @@ extern uint16_t run_options;
 extern Handle hShowString;
 extern Handle hShowCells;
 
-static void LayoutFromCPAGE(Handle hCPAGE);
+static void LayoutFromCPAGE(CPageHandle hCPAGE);
 static int IsInPoly(Point16 a, void * pPoly);
 
 // Piter /////////////////////////////////////
 void RotatePageToIdeal(void);
 void RotatePageToReal(void);
 
-void PageLayoutStrings(CCOM_handle hCCOM, Handle hCPAGE)
+void PageLayoutStrings(CCOM_handle hCCOM, CPageHandle hCPAGE)
 {
     if (ReadRoots(hCCOM, FALSE)) {
         run_options = FORCE_ONE_COLUMN;
@@ -288,12 +288,10 @@ void file_string(STRING * s)
         //      LDPUMA_CSTR_Monitor(NULL,lin_in,0,myMonitorProc);
     }
 }
-;
-/////////////////////////////////////
 
-static void LayoutFromCPAGE(Handle hCPAGE)
+static void LayoutFromCPAGE(CPageHandle hCPAGE)
 {
-    Handle h = NULL;
+    CBlockHandle h = NULL;
     POLY_ block;
     int nBlocks = FIRST_REGULAR_BLOCK_NUMBER;
     Point16 pLeftTop, pRightTop, pLeftBottom, pRightBottom;

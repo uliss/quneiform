@@ -159,7 +159,7 @@ Bool32 SearchNewLines(PRSPreProcessImage Image) {
 
 Bool32 CreateContainerBigComp(PRSPreProcessImage Image) {
 	CCOM_handle hCCOM_old = (CCOM_handle) (*(Image->phCCOM));
-	Handle hCPage = Image->hCPAGE;
+    CPageHandle hCPage = Image->hCPAGE;
 	CCOM_handle hCCOM_new = 0;
 	BIG_IMAGE big_Image;
 	PAGEINFO info;
@@ -342,7 +342,7 @@ Bool32 KillLines(PRSPreProcessImage Image) {
 }
 
 Bool32 RemoveLines(PRSPreProcessImage Image, puchar * lppDIB) {
-	Handle hcpage = Image->hCPAGE;
+    CPageHandle hcpage = Image->hCPAGE;
 	Handle *hLinesCCOM = Image->phLinesCCOM;
 
     cf::BitmapPtr hDIB = NULL;
@@ -467,10 +467,10 @@ Bool32 RemoveLines(PRSPreProcessImage Image, puchar * lppDIB) {
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 MyGetZher(void **vvZher, int32_t *nZher, int32_t MaxZher, Handle hCPage) {
+Bool32 MyGetZher(void **vvZher, int32_t *nZher, int32_t MaxZher, CPageHandle hCPage) {
 	uint32_t err32, nTeor, nReal;
-	Handle hBlockZher;
-	Handle hBlockPrev;
+    CBlockHandle hBlockZher;
+    CBlockHandle hBlockPrev;
 	int i;
 	nTeor = sizeof(void *);
 	i = 0;
@@ -629,7 +629,7 @@ Bool32 CalcIncline(PRSPreProcessImage Image) {
 	UN_BUFF MainBuff = { 0 };
 	void *vMain;
 	char *cWork;
-	Handle hCPage = Image->hCPAGE;
+    CPageHandle hCPage = Image->hCPAGE;
 	CLINE_handle hCLINE = *((CLINE_handle*) Image->phCLINE);
 
 	GetPageInfo(hCPage, &info);

@@ -79,8 +79,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*------------extern functions------------------------------------------------*/
 Bool GetSomeKeys_rv (void *vB, Handle *pKeyHor, Handle *pKeyVer
 					 , int *pCntHor, int *pCntVer, char *pStr);
-Bool LoadLinesTotalInfo_rv (Handle hC, void *vB, char *pStr);
-Bool LoadLinesSpecInfo (Handle hC, void *vB, Handle Key, int Cnt);
+Bool LoadLinesTotalInfo_rv (CPageHandle hC, void *vB, char *pStr);
+Bool LoadLinesSpecInfo (CPageHandle hC, void *vB, Handle Key, int Cnt);
 Bool LoadComps_rv (CCOM_handle hC, void *vB, char *pStr, int Filter);
 Bool ReferForLinesAM (void *vLinePool, void *vB, int Aim);
 Bool ReferForLinesVP (void *vLti, void *vB);
@@ -112,53 +112,7 @@ Bool GetComplexData_rv (int Type, int Aim, void *vB, void **vvData)
 			return RV_FALSE;
 	}
 }
-/*----------------------------------------------------------------------------*/
-Bool LoadData_rv (CCOM_handle hC, int Type, void *vB, char *pStr, int Filter)
-{
-	Bool ret;
-	Handle KeyHor, KeyVer; //// а ключи надо бы запомнить!
-	int CntHor, CntVer;
-	UN_BUFF *pB;
-	pB = (UN_BUFF *)vB;
-	switch ((UN_LOADDATA)Type)
-	{
-		case UN_LD_LinesVP :
-			/***  Общая информация о линиях  ***/
-			ret = LoadLinesTotalInfo_rv (hC, vB, pStr); //f-t-e-d
-			if (ret!=RV_TRUE)
-				return ret;
-			ret = GetSomeKeys_rv (vB, &KeyHor, &KeyVer, &CntHor, &CntVer, pStr); //t-e-d
-			if (ret!=RV_TRUE)
-			{
-				CleanLastDataPart (vB);
-				return ret;
-			}
-			/***  Горизонтальные линии  ***/
-			if (CntHor>0)
-			{
-				ret = LoadLinesSpecInfo (hC, vB, KeyHor, CntHor);
-				pB->AimPart[pB->nPart-1] = UN_DA_Hori;
-				if (!ret)
-					return ret;
-			}
-			/***  Вертикальные линии  ***/
-			if (CntVer>0)
-			{
-				ret = LoadLinesSpecInfo (hC, vB, KeyVer, CntVer);
-				pB->AimPart[pB->nPart-1] = UN_DA_Vert;
-				return ret;
-			}
-			return RV_TRUE;
-		case UN_LD_CompRe :
-			ret = LoadComps_rv (hC, vB, pStr, Filter); //t-e-d
-			if (ret==RV_DOUBT)
-				CleanLastDataPart (vB);
-			return ret;
-		case UN_LD_PictRe :
-		default :
-			return RV_FALSE;
-	}
-}
+
 /*----------------------------------------------------------------------------*/
 void Error_MyNoMem (char *pStr, int HowMuch, char *pWhat)
 {
