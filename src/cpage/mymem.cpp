@@ -58,7 +58,7 @@
 
 #include "resource.h"
 #include "mymem.h"
-#include "backup.h"
+#include "internal.h"
 
 //####################################
 void * myAlloc(size_t stAllocateBlock)

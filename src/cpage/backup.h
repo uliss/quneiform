@@ -69,6 +69,7 @@ class CLA_EXPO BackupPage : public Page
 public:
     BackupPage();
     BackupPage(const BackupPage& p);
+    BackupPage& operator=(const BackupPage& page);
     ~BackupPage();
 
     /**
@@ -86,7 +87,7 @@ public:
     /**
      * Remove all backup data
      */
-    void clear();
+    void clearBackups();
 
     /**
      * Returns pointer to current backup or NULL if no backups exists
@@ -100,13 +101,29 @@ public:
      */
     Page * makeBackup();
 
+    /**
+     * Restores page state from previous backup
+     * @return true on success
+     */
     bool redo();
+
+    /**
+     * Retores page state from last backup
+     * @return true on success
+     */
     bool undo();
 
+    /**
+     * Saves backup page to given stream
+     * @return true on success
+     */
     bool save(std::ostream& os) const;
-    bool restore(std::istream& is);
 
-    BackupPage& operator=(const BackupPage& page);
+    /**
+     * Loads backup page from given string
+     * @return true on success
+     */
+    bool restore(std::istream& is);
 private:
     typedef std::vector<Page*> PageList;
     PageList backups_;
@@ -115,21 +132,5 @@ private:
 
 }
 }
-
-void   SetReturnCode_cpage(uint16_t rc);
-uint16_t GetReturnCode_cpage();
-
-void DefConvertInit();
-uint32_t DefConvertBlock( uint32_t dwContext,
-                          Handle TypeIn, void * lpDataIn, uint32_t SizeIn,
-                          Handle TypeOut, void * LpDataOut, uint32_t SizeOut);
-uint32_t DefConvertPage( uint32_t dwContext,
-                         Handle TypeIn, void * lpDataIn, uint32_t SizeIn,
-                         Handle TypeOut, void * LpDataOut, uint32_t SizeOut);
-
-uint32_t TYPE_DESK_to_CPAGE_TABLE(TABLE_DESC * lpDataIn, uint32_t SizeIn, CPAGE_TABLE * LpDataOut, uint32_t SizeOut);
-uint32_t CPAGE_TABLE_to_TYPE_DESK( CPAGE_TABLE * lpDataIn, uint32_t SizeIn, TABLE_DESC * LpDataOut, uint32_t SizeOut);
-uint32_t TYPE_PICTURE_to_CPAGE_PICTURE(POLY_ * lpDataIn, uint32_t SizeIn, CPAGE_PICTURE * LpDataOut, uint32_t SizeOut);
-uint32_t CPAGE_PICTURE_to_TYPE_PICTURE( CPAGE_PICTURE * lpDataIn, uint32_t SizeIn, POLY_ * LpDataOut, uint32_t SizeOut);
 
 #endif

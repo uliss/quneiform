@@ -57,12 +57,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <memory.h>
 #include <string.h>
 #include <iostream>
-#include <boost/current_function.hpp>
 
 #include "cpage.h"
 #include "data.h"
-#include "backup.h"
-#include "common/log.h"
+#include "cpage_debug.h"
 
 namespace cf {
 namespace cpage {
@@ -143,7 +141,7 @@ bool Data::empty() const
 bool Data::getDataPtr(Handle type, void **lpdata)
 {
     if(!lpdata) {
-        cfError(MODULE_CPAGE) << BOOST_CURRENT_FUNCTION << ": null pointer";
+        CPAGE_ERROR_FUNC << ": null pointer";
         return false;
     }
 
@@ -169,7 +167,7 @@ uint32_t Data::getData(Handle type, void * dest, uint32_t size)
 {
     if (type == type_) {
         if (dest == NULL) {
-            cfError(MODULE_CPAGE) << "NULL destination pointer given";
+            CPAGE_ERROR_FUNC << "NULL destination pointer given";
             return 0;
         }
 
@@ -203,13 +201,13 @@ bool Data::operator==(const Data& data)
 bool Data::save(std::ostream& os) const
 {
     if(os.bad()) {
-        cfError(MODULE_CPAGE) << BOOST_CURRENT_FUNCTION << ": bad stream";
+        CPAGE_ERROR_FUNC << ": bad stream";
         return false;
     }
 
     const char * name = CPAGE_GetNameInternalType(type_);
     if(!name) {
-        cfError(MODULE_CPAGE) << BOOST_CURRENT_FUNCTION << ": NULL internal name";
+        CPAGE_ERROR_FUNC << ": NULL internal name";
         return false;
     }
 
@@ -222,7 +220,7 @@ bool Data::save(std::ostream& os) const
         os.write((char*) data_, size_);
 
     if(os.fail()) {
-        cfError(MODULE_CPAGE) << BOOST_CURRENT_FUNCTION << ": failed";
+        CPAGE_ERROR_FUNC << ": failed";
         return false;
     }
 
@@ -232,7 +230,7 @@ bool Data::save(std::ostream& os) const
 bool Data::restore(std::istream& is)
 {
     if(is.bad()) {
-        cfError(MODULE_CPAGE) << BOOST_CURRENT_FUNCTION << ": bad stream";
+        CPAGE_ERROR_FUNC << ": bad stream";
         return false;
     }
 
@@ -240,13 +238,13 @@ bool Data::restore(std::istream& is)
     is.read((char*) &len, sizeof(len));
 
     if(is.fail()) {
-        cfError(MODULE_CPAGE) << BOOST_CURRENT_FUNCTION << ": failed";
+        CPAGE_ERROR_FUNC << ": failed";
         return false;
     }
 
     char name[260] = { 0 };
     if(len >= sizeof(name)) {
-        cfError(MODULE_CPAGE) << BOOST_CURRENT_FUNCTION << "data name is too long:" << len;
+        CPAGE_ERROR_FUNC << "data name is too long:" << len;
         return false;
     }
 

@@ -62,6 +62,7 @@
 #include "cpage.h"
 #include "backup.h"
 #include "polyblock.h"
+#include "internal.h"
 
 using namespace cf;
 

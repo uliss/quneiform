@@ -86,7 +86,7 @@ BackupPage::BackupPage(const BackupPage& page) :
 
 BackupPage::~BackupPage()
 {
-    clear();
+    clearBackups();
 }
 
 size_t BackupPage::backupCount() const
@@ -101,7 +101,7 @@ Page * BackupPage::backupAt(size_t pos)
     return NULL;
 }
 
-void BackupPage::clear()
+void BackupPage::clearBackups()
 {
     for(size_t i = 0 ; i < backups_.size(); i++)
         delete backups_[i];
@@ -186,7 +186,7 @@ bool BackupPage::save(std::ostream& os) const
 
 bool BackupPage::restore(std::istream& is)
 {
-    clear();
+    clearBackups();
 
     uint32_t count = 0;
     is.read((char*) &count, sizeof(count));
@@ -202,7 +202,7 @@ bool BackupPage::restore(std::istream& is)
 
 BackupPage& BackupPage::operator=(const BackupPage& page)
 {
-    clear();
+    clearBackups();
     size_t count = page.backupCount();
 
     for (size_t i = 0; i < count; i++)

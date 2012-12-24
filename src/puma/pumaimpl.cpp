@@ -436,7 +436,7 @@ void PumaImpl::layout()
 }
 
 void PumaImpl::loadLayoutFromFile(const std::string& fname) {
-    cpage_ = CPAGE_RestorePage(TRUE, fname.c_str());
+    cpage_ = CPAGE_RestorePage(true, fname.c_str());
 
     if(cpage_ == NULL)
         throw PumaException() << "CPAGE_RestorePage failed from'" << fname << "'";

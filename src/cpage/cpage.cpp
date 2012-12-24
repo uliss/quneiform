@@ -54,10 +54,11 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "resource.h"
 #include "cpage.h"
-#include "block.h"
+#include "cpage_debug.h"
 #include "backup.h"
+#include "block.h"
+#include "convert.h"
 #include "namedata.h"
 #include "pagestorage.h"
 #include "common/log.h"
@@ -85,7 +86,7 @@ void CPAGE_ClearBackUp(CPageHandle page)
     if(!page)
         return;
 
-    page->clear();
+    page->clearBackups();
 }
 
 CBlockHandle CPAGE_CreateBlock(CPageHandle page, Handle Type, uint32_t UserNum,
@@ -256,42 +257,43 @@ bool CPAGE_SavePage(CPageHandle page, const char * fname)
     return true;
 }
 
-CPageHandle CPAGE_RestorePage(Bool32 remove, const char * fname)
+CPageHandle CPAGE_RestorePage(bool remove, const char * fname)
 {
     CPageHandle rc = NULL;
 
     std::ifstream is(fname);
 
-    if (is) {
-        uint32_t vers = 0;
-        is.read((char*) &vers, sizeof(vers));
-
-        if (vers != VERSION_FILE) {
-            SetReturnCode_cpage(IDS_ERR_OLDFILEVERSION);
-            is.close();
-            return NULL;
-        }
-
-        if (remove) {
-            PageStorage::clear();
-            NameData.Clear();
-        }
-
-        uint32_t count = 0;
-        is.read((char*) &count, sizeof(count));
-
-        for (uint32_t i = 0; i < count; i++) {
-            BackupPage page;
-            if(page.restore(is))
-                rc = PageStorage::append(page);
-            else
-                break;
-        }
-
-        is.close();
+    if(!is) {
+        CPAGE_ERROR_FUNC << "can't open file:" << fname;
+        return NULL;
     }
 
-    return rc;
+    uint32_t vers = 0;
+    is.read((char*) &vers, sizeof(vers));
+
+    if (vers != VERSION_FILE) {
+        CPAGE_ERROR_FUNC << "invalid file version";
+        is.close();
+        return NULL;
+    }
+
+    if (remove) {
+        PageStorage::clear();
+        NameData.Clear();
+    }
+
+    uint32_t count = 0;
+    is.read((char*) &count, sizeof(count));
+
+    for (uint32_t i = 0; i < count; i++) {
+        BackupPage page;
+        if(page.restore(is))
+            rc = PageStorage::append(page);
+        else
+            break;
+    }
+
+    is.close();
 }
 
 CPageHandle CPAGE_GetHandlePage(uint32_t pos)
@@ -424,11 +426,7 @@ Bool32 CPAGE_UpdateBlocks(CPageHandle hPage, Handle type)
     uint32_t size = 0;
     char * lpData = NULL;
     Handle temporaray = 0;
-    SetReturnCode_cpage(IDS_ERR_NO);
-#ifdef _DEBUG
-    assert(CPAGE_GetNameInternalType(type));
-#endif
-    SetReturnCode_cpage(IDS_ERR_NO);
+
     CBlockHandle hBlock = CPAGE_GetBlockFirst(hPage, type);
 
     if (!hBlock) {
@@ -449,20 +447,19 @@ Bool32 CPAGE_UpdateBlocks(CPageHandle hPage, Handle type)
             uint32_t Flags = CPAGE_GetBlockFlags(hBlock);
 
             if (lpData == NULL) { // Определим необходимый размер и отведем память.
-                size = static_cast<Block*>(hBlock)->dataSize();
+                size = hBlock->dataSize();
 
                 if (size) {
                     lpData = (char *) myAlloc(size);
 
                     if (!lpData) {
+                        CPAGE_ERROR_FUNC << "no memory";
                         rc = FALSE;
-                        SetReturnCode_cpage(IDS_ERR_NO_MEMORY);
                         break;
                     }
                 }
-
                 else {
-                    SetReturnCode_cpage(IDS_ERR_DISCREP);
+                    CPAGE_ERROR_FUNC << "size of block is 0";
                     rc = FALSE;
                     break;
                 }
@@ -473,7 +470,7 @@ Bool32 CPAGE_UpdateBlocks(CPageHandle hPage, Handle type)
 
                 if (!CPAGE_CreateBlock(hPage, temporaray, UserNum, Flags,
                                        lpData, size)) {
-                    SetReturnCode_cpage(IDS_ERR_NO_MEMORY);
+                    CPAGE_ERROR_FUNC << "can't create block";
                     rc = FALSE;
                     break;
                 }
@@ -490,7 +487,7 @@ Bool32 CPAGE_UpdateBlocks(CPageHandle hPage, Handle type)
         for (hBlock = CPAGE_GetBlockFirst(hPage, temporaray); hBlock;
              hBlock = CPAGE_GetBlockNext(hPage, hBlock, temporaray))
         {
-            static_cast<Block*>(hBlock)->setType(type);
+            hBlock->setType(type);
         }
     }
 
@@ -532,7 +529,6 @@ Handle CPAGE_GetInternalType(const char * name)
 {
     Handle rc = 0;
     NAMEDATA nd(name);
-    SetReturnCode_cpage(IDS_ERR_NO);
     rc = NameData.FindFirst(nd);
 
     if (!rc)

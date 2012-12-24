@@ -14,6 +14,8 @@ set(CF_CPAGE_SOURCES
     picture.cpp
     table.cpp
     tableclass.cpp
+    convert.h
+    internal.h
 )
 
 add_library(${CF_CPAGE} ${LIBTYPE} ${CF_CPAGE_SOURCES})

@@ -22,7 +22,7 @@
 #include "testpage.h"
 #include "cpage/page.h"
 #include "cpage/block.h"
-#include "cpage/backup.h"
+#include "cpage/convert.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestPage);
 

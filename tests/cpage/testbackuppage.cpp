@@ -35,7 +35,7 @@ void TestBackupPage::testInit()
     CPPUNIT_ASSERT(!p.current());
     CPPUNIT_ASSERT(!p.undo());
     CPPUNIT_ASSERT(!p.redo());
-    p.clear();
+    p.clearBackups();
 }
 
 void TestBackupPage::testSave()
@@ -78,7 +78,7 @@ void TestBackupPage::testMakeBackup()
     CPPUNIT_ASSERT_EQUAL(bak1, p.backupAt(0));
     CPPUNIT_ASSERT_EQUAL(size_t(1), p.backupCount());
 
-    p.clear();
+    p.clearBackups();
     CPPUNIT_ASSERT(!p.backupCount());
     CPPUNIT_ASSERT(!p.backupAt(0));
     CPPUNIT_ASSERT(!p.current());

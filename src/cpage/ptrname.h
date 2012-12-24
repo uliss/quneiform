@@ -61,18 +61,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #if !defined(AFX_PTRNAME_H__B7558641_0160_11D3_A5C9_E5EED2B2CF14__INCLUDED_)
 #define AFX_PTRNAME_H__B7558641_0160_11D3_A5C9_E5EED2B2CF14__INCLUDED_
 
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
-
 #include <string.h>
 #include <assert.h>
-#include "cttypes.h"
-#include "cpage.h"
 
-#ifndef assert
-#    define assert assert
-#endif // assert
+#include "cttypes.h"
+#include "mymem.h"
+#include "cpage.h"
 
 template<class TYPE> class PtrName
 {

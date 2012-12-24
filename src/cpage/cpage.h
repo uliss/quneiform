@@ -179,7 +179,7 @@ CPAGE_FUNC uint32_t CPAGE_GetCurrentPageNumber();
 CPAGE_FUNC bool CPAGE_SetCurrentPage(uint32_t number);
 CPAGE_FUNC uint32_t CPAGE_GetPageNumber(CPageHandle page);
 CPAGE_FUNC bool CPAGE_SavePage(CPageHandle page, const char * fname);
-CPAGE_FUNC CPageHandle CPAGE_RestorePage(Bool32 remove, const char * fname);
+CPAGE_FUNC CPageHandle CPAGE_RestorePage(bool remove, const char * fname);
 CPAGE_FUNC bool CPAGE_SetPageData(CPageHandle page, Handle type, const void * data, uint32_t size);
 CPAGE_FUNC uint32_t CPAGE_GetPageData(CPageHandle page, Handle Type, void * lpData, uint32_t Size);
 CPAGE_FUNC bool CPAGE_GetPageInfo(CPageHandle page, PAGEINFO * info);

@@ -54,11 +54,9 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "globus.h"
-#include "cpage.h"
-#include "backup.h"
 #include "polyblock.h"
-#include "resource.h"
+#include "convert.h"
+#include "internal.h"
 
 static Handle varTYPE_CPAGE_TABLE = 0;
 static Handle varTYPE_CPAGE_PICTURE = 0;
@@ -76,7 +74,6 @@ uint32_t DefConvertBlock(uint32_t dwContext,
                          Handle TypeOut, void * LpDataOut, uint32_t SizeOut)
 {
     uint32_t rc = 0;
-    SetReturnCode_cpage(IDS_ERR_NO);
 
     if (TypeIn == TYPE_DESK) {
         if (TypeOut == varTYPE_CPAGE_TABLE)
@@ -106,6 +103,5 @@ uint32_t DefConvertPage(uint32_t dwContext,
                         Handle TypeOut, void * LpDataOut, uint32_t SizeOut)
 {
     uint32_t rc = 0;
-    SetReturnCode_cpage(IDS_ERR_NO);
     return rc;
 }

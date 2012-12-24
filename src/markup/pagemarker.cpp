@@ -156,7 +156,7 @@ void PageMarker::processShortVerticalLines()
 
 void PageMarker::restoreLayout()
 {
-    image_data_->hCPAGE = CPAGE_RestorePage(TRUE, layout_filename_.c_str());
+    image_data_->hCPAGE = CPAGE_RestorePage(true, layout_filename_.c_str());
 
     if (image_data_->hCPAGE == NULL) {
         Debug() << BOOST_CURRENT_FUNCTION

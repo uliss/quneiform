@@ -60,6 +60,7 @@
 #include "backup.h"
 #include "tableclass.h"
 #include "compat_defs.h"
+#include "internal.h"
 
 using namespace cf;
 
