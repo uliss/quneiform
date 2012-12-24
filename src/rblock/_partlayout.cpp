@@ -665,7 +665,7 @@ Bool32 OutputFragments(CPageHandle hPage)
 
     for (p = pTopBlocksList; p != NULL; p = p -> pDown) {
         //// uliss NOTE: very strange magic number
-        if (p->Type == 111) {
+        if (p->Type == ROM_TYPE_TABLE) {
             //// NOTE: very strange cast
             CPAGE_SetBlockUserNum((CBlockHandle) p->pHystogram, ++BlockNumber);
             continue;
