@@ -59,7 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "page.h"
 #include "block.h"
 #include "convert.h"
-#include "common/log.h"
+#include "cpage_debug.h"
 
 namespace cf {
 namespace cpage {
@@ -162,8 +162,12 @@ bool Page::save(std::ostream& os) const
     uint32_t count = blockCount();
     os.write((char*) &count, sizeof(count));
 
-    for (uint32_t i = 0; i < count; i++)
-        blocks_[i]->save(os);
+    for (uint32_t i = 0; i < count; i++) {
+        if(!blocks_[i]->save(os)) {
+            CPAGE_ERROR_FUNC << "failed";
+            return false;
+        }
+    }
 
     return Data::save(os);
 }
@@ -185,7 +189,7 @@ bool Page::restore(std::istream& is)
             appendBlock(block);
         }
         else {
-            cfError(MODULE_CPAGE) << "restore failed.";
+            CPAGE_ERROR_FUNC << "restore failed.";
             return false;
         }
     }

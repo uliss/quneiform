@@ -61,7 +61,6 @@
 #include "convert.h"
 #include "namedata.h"
 #include "pagestorage.h"
-#include "common/log.h"
 #include "ptrlist.h"
 
 extern PtrList<NAMEDATA> NameData;

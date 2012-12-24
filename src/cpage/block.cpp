@@ -55,12 +55,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include <memory.h>
-#include <boost/current_function.hpp>
 
-#include "backup.h"
 #include "block.h"
 #include "convert.h"
-#include "common/log.h"
+#include "cpage_debug.h"
 
 namespace cf {
 namespace cpage {
@@ -117,7 +115,7 @@ bool Block::operator!=(const Block& block)
 bool Block::save(std::ostream& os) const
 {
     if(os.bad()) {
-        cfError(cf::MODULE_CPAGE) << BOOST_CURRENT_FUNCTION << ": bad stream";
+        CPAGE_ERROR_FUNC << ": bad stream";
         return false;
     }
 
@@ -126,7 +124,7 @@ bool Block::save(std::ostream& os) const
     os.write((char*) &internal_num_, sizeof(internal_num_));
 
     if(os.fail()) {
-        cfError(cf::MODULE_CPAGE) << BOOST_CURRENT_FUNCTION << ": failed";
+        CPAGE_ERROR_FUNC << ": failed";
         return false;
     }
 
@@ -136,7 +134,7 @@ bool Block::save(std::ostream& os) const
 bool Block::restore(std::istream& is)
 {
     if(is.bad()) {
-        cfError(cf::MODULE_CPAGE) << BOOST_CURRENT_FUNCTION << ": bad stream";
+        CPAGE_ERROR_FUNC << ": bad stream";
         return false;
     }
 
@@ -145,7 +143,7 @@ bool Block::restore(std::istream& is)
     is.read((char*) &internal_num_, sizeof(internal_num_));
 
     if(is.fail()) {
-        cfError(cf::MODULE_CPAGE) << BOOST_CURRENT_FUNCTION << ": failed";
+        CPAGE_ERROR_FUNC << ": failed";
         return false;
     }
 
