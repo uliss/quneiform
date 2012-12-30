@@ -201,7 +201,7 @@ void TestBlock::testRestore()
 }
 
 uint32_t convert(uint32_t,
-                 CDataType /*typeIn*/, void * /*dataIn*/, uint32_t /*sizeIn*/,
+                 CDataType /*typeIn*/, const void * /*dataIn*/, uint32_t /*sizeIn*/,
                  CDataType /*typeOut*/, void * /*dataOut*/, uint32_t sizeOut) {
     return sizeOut * 2;
 }

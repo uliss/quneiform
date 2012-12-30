@@ -66,9 +66,9 @@
 namespace cf {
 namespace cpage {
 
-typedef uint32_t (*ConverterFunc)(uint32_t dwContext,
-                                     CDataType TypeIn,  void * lpDataIn,  uint32_t SizeIn,
-                                     CDataType TypeOut, void * LpDataOut, uint32_t SizeOut);
+typedef uint32_t (*ConverterFunc)(uint32_t context,
+                                     CDataType typeIn,  const void * dataIn,  uint32_t sizeIn,
+                                     CDataType typeOut, void * dataOut, uint32_t sizeOut);
 
 class DataConvertor
 {
@@ -77,8 +77,8 @@ class DataConvertor
         ConverterFunc func_; // Функция конвертирования
     public:
         DataConvertor(const ConverterFunc& f, uint32_t context = 0);
-        uint32_t operator()(CDataType TypeIn,  void * lpDataIn,  uint32_t SizeIn,
-                            CDataType TypeOut, void * LpDataOut, uint32_t SizeOut);
+        uint32_t operator()(CDataType typeIn,  const void * dataIn,  uint32_t sizeIn,
+                            CDataType typeOut, void * dataOut, uint32_t sizeOut);
         ConverterFunc func();
 };
 

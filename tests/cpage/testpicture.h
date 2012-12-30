@@ -16,36 +16,25 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef PICTURE_H
-#define PICTURE_H
+#ifndef TESTPICTURE_H
+#define TESTPICTURE_H
 
-#include "cttypes.h"
-#include "common/point.h"
+#include <cppunit/extensions/HelperMacros.h>
 
-struct POLY_;
-
-namespace cf {
-namespace cpage {
-
-enum {
-    CPAGE_MAXCORNER = 1000
-};
-
-class Picture
+class TestPicture : public CppUnit::TestFixture
 {
+    CPPUNIT_TEST_SUITE(TestPicture);
+    CPPUNIT_TEST(testInit);
+    CPPUNIT_TEST(testAppend);
+    CPPUNIT_TEST(testRotate);
+    CPPUNIT_TEST(testConvert);
+    CPPUNIT_TEST_SUITE_END();
 public:
-    Picture();
-    void appendCorner(const cf::Point& pt);
-    cf::Point cornerAt(size_t pos) const;
-    size_t cornerCount() const;
-    void rotateCorner(size_t pos, int skew2048);
-    void set(const POLY_& polygon);
-private:
-    size_t number_;
-    cf::Point corners_[CPAGE_MAXCORNER];
+    void testInit();
+    void testAppend();
+    void testRotate();
+    void testConvert();
 };
 
-}
-}
 
-#endif // PICTURE_H
+#endif // TESTPICTURE_H

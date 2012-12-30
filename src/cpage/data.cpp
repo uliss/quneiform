@@ -70,10 +70,10 @@ DataConvertor::DataConvertor(const ConverterFunc& f, uint32_t context) :
     func_(f)
 {}
 
-uint32_t DataConvertor::operator()(CDataType TypeIn,  void * src,  uint32_t srcSize,
-                                   CDataType TypeOut, void * dest, uint32_t destSize)
+uint32_t DataConvertor::operator()(CDataType typeIn,  const void * src,  uint32_t srcSize,
+                                   CDataType typeOut, void * dest, uint32_t destSize)
 {
-    return (*func_)(context_, TypeIn, src, srcSize, TypeOut, dest, destSize);
+    return (*func_)(context_, typeIn, src, srcSize, typeOut, dest, destSize);
 }
 
 ConverterFunc DataConvertor::func()

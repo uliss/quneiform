@@ -126,7 +126,7 @@ void TestPage::testPageInfo()
 }
 
 static uint32_t test_convert(uint32_t /*dwContext*/,
-                             CDataType /*TypeIn*/,  void * /*lpDataIn*/,  uint32_t /*SizeIn*/,
+                             CDataType /*TypeIn*/,  const void * /*lpDataIn*/,  uint32_t /*SizeIn*/,
                              CDataType /*TypeOut*/, void * /*LpDataOut*/, uint32_t SizeOut)
 {
     return SizeOut * 11;

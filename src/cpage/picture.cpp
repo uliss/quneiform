@@ -61,30 +61,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "picture.h"
 #include "cpage_debug.h"
 
-// Конверторы преобразования из TYPE_PICTURE в CPAGE_PICTURE
-uint32_t TYPE_PICTURE_to_CPAGE_PICTURE(POLY_ * lpDataIn, uint32_t SizeIn, cf::cpage::Picture * LpDataOut, uint32_t SizeOut)
-{
-    if (LpDataOut == NULL)
-        return sizeof(cf::cpage::Picture);
-
-    if (sizeof(POLY_) != SizeIn ||
-            sizeof(cf::cpage::Picture) != SizeOut ||
-            lpDataIn == NULL) {
-        SetReturnCode_cpage(IDS_ERR_DISCREP);
-        return 0;
-    }
-
-    POLY_  desc = *lpDataIn;
-    cf::cpage::Picture pict;
-
-    for (uint32_t i = 0; i < desc.com.count; i++) {
-        pict.appendCorner(desc.com.Vertex[i]);
-    }
-
-    *LpDataOut = pict;
-    return sizeof(cf::cpage::Picture);
-}
-
 uint32_t CPAGE_PICTURE_to_TYPE_PICTURE(const cf::cpage::Picture& lpDataIn, uint32_t SizeIn, POLY_ * LpDataOut, uint32_t SizeOut)
 {
     uint32_t rc = 0;
@@ -117,6 +93,10 @@ namespace cf
 {
 namespace cpage {
 
+Picture::Picture() : number_(0)
+{
+}
+
 void Picture::appendCorner(const Point& pt)
 {
     corners_[number_] = pt;
@@ -139,16 +119,21 @@ size_t Picture::cornerCount() const
     return number_;
 }
 
-#define ROTATE_2048(p,a) {\
-             p.ry() = (int32_t) (p.y() - (int32_t) p.x() * a / 2048);\
-             p.rx() = (int32_t) (p.x() + (int32_t) p.y() * a / 2048);\
-        }
-
 void Picture::rotateCorner(size_t pos, int skew2048)
 {
     assert(pos < CPAGE_MAXCORNER);
 
-    ROTATE_2048(corners_[pos], skew2048);
+    corners_[pos].ry() = corners_[pos].y() - corners_[pos].x() * skew2048 / 2048;
+    corners_[pos].rx() = corners_[pos].x() + corners_[pos].y() * skew2048 / 2048;
+}
+
+void Picture::set(const POLY_& polygon)
+{
+    number_ = polygon.com.count;
+    assert(number_ < CPAGE_MAXCORNER);
+
+    for (size_t i = 0; i < number_; i++)
+        corners_[i] = polygon.com.Vertex[i];
 }
 
 }
