@@ -81,11 +81,15 @@ class NAMEDATA
         NAMEDATA & operator=(char *  nd);
         inline operator char *() {
             return Name;
-        };
+        }
+
         inline operator int   () {
             return strlen(Name) + 1;
         }
 
+        const char * name() const {
+            return Name;
+        }
 };
 
 #endif // !defined(AFX_NAMEDATA_H__EA9423F3_FBA7_11D2_BB1B_0000E8D9FDF6__INCLUDED_)

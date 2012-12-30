@@ -27,8 +27,11 @@ typedef cf::cpage::BackupPage * PageHandle;
 }
 }
 
+class NAMEDATA;
+
 typedef cf::cpage::PageHandle CPageHandle;
 typedef cf::cpage::Block * CBlockHandle;
+typedef NAMEDATA * CDataType;
 
 enum cpage_block_flag_t {
     CPAGE_BLOCK_USER = 0x1,  //выделен пользователем
