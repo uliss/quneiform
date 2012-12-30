@@ -59,11 +59,7 @@
 #include "backup.h"
 #include "block.h"
 #include "convert.h"
-#include "namedata.h"
 #include "pagestorage.h"
-#include "ptrlist.h"
-
-extern PtrList<NAMEDATA> NameData;
 
 using namespace cf;
 using namespace cf::cpage;
@@ -278,7 +274,7 @@ CPageHandle CPAGE_RestorePage(bool remove, const char * fname)
 
     if (remove) {
         PageStorage::clear();
-        NameData.Clear();
+        PageStorage::NameData.Clear();
     }
 
     uint32_t count = 0;
@@ -293,6 +289,7 @@ CPageHandle CPAGE_RestorePage(bool remove, const char * fname)
     }
 
     is.close();
+    return rc;
 }
 
 CPageHandle CPAGE_GetHandlePage(uint32_t pos)
@@ -393,7 +390,7 @@ bool CPAGE_DeleteAll()
 {
     DataConvertor ConvertorPages(DefConvertPage);
     PageStorage::clear();
-    NameData.Clear();
+    PageStorage::NameData.Clear();
     Page::setConvertor(ConvertorPages);
     return true;
 }
@@ -528,10 +525,10 @@ Handle CPAGE_GetInternalType(const char * name)
 {
     Handle rc = 0;
     NAMEDATA nd(name);
-    rc = NameData.FindFirst(nd);
+    rc = PageStorage::NameData.FindFirst(nd);
 
     if (!rc)
-        rc = NameData.AddTail(nd);
+        rc = PageStorage::NameData.AddTail(nd);
 
     return rc;
 }
@@ -541,5 +538,5 @@ const char * CPAGE_GetNameInternalType(Handle type)
     if (type == NULL || type == reinterpret_cast<void*>(-1))
         return NULL;
 
-    return NameData.GetItem(type);
+    return PageStorage::NameData.GetItem(type);
 }

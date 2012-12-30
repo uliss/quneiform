@@ -23,6 +23,8 @@
 
 #include "globus.h"
 #include "cpagedefs.h"
+#include "ptrlist.h"
+#include "namedata.h"
 
 namespace cf {
 namespace cpage {
@@ -99,6 +101,8 @@ private:
 private:
     PageList pages_;
     PageHandle current_;
+public:
+    static PtrList<NAMEDATA> NameData;
 };
 
 }

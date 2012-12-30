@@ -22,6 +22,8 @@
 namespace cf {
 namespace cpage {
 
+PtrList<NAMEDATA> PageStorage::NameData;
+
 PageStorage::PageStorage() :
     current_(NULL)
 {}

@@ -58,6 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __MYMEM_H__
 
 #include <stdlib.h>
+#include <assert.h>
 #include "cttypes.h"
 
 #ifdef _DEBUG

@@ -54,9 +54,6 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-// NAMEDATA.cpp: implementation of the NAMEDATA class.
-//
-//////////////////////////////////////////////////////////////////////
 #include <string.h>
 #include <assert.h>
 
@@ -64,11 +61,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ptrlist.h"
 
 #include "compat_defs.h"
-
-//////////////////////////////////////////////////////////////////////
-// Construction/Destruction
-//////////////////////////////////////////////////////////////////////
-PtrList<NAMEDATA> NameData;
 
 NAMEDATA::NAMEDATA(const char * name)
 {
