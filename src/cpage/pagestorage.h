@@ -117,9 +117,11 @@ public:
 private:
     static PageStorage& instance();
     static PageList& pages();
+    Handle appendName(const char * name);
     void clearPages();
     void clearNameDataPrivate();
     int find(PageHandle page) const;
+    Handle findName(const char * name);
     void removePage(PageHandle p);
 private:
     PageList pages_;

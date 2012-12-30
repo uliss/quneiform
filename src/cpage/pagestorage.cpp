@@ -43,6 +43,12 @@ PageList& PageStorage::pages()
     return instance().pages_;
 }
 
+Handle PageStorage::appendName(const char *name)
+{
+    NAMEDATA nd(name);
+    return namedata_.AddTail(nd);
+}
+
 PageHandle PageStorage::append(const BackupPage& p)
 {
     pages().push_back(new BackupPage(p));
@@ -52,8 +58,7 @@ PageHandle PageStorage::append(const BackupPage& p)
 
 Handle PageStorage::appendNameData(const char * name)
 {
-    NAMEDATA nd(name);
-    return instance().namedata_.AddTail(nd);
+    return instance().appendName(name);
 }
 
 void PageStorage::clear()
@@ -76,8 +81,7 @@ int PageStorage::currentPageNumber()
 
 Handle PageStorage::findNameData(const char * name)
 {
-    NAMEDATA nd(name);
-    return instance().namedata_.FindFirst(nd);
+    return instance().findName(name);
 }
 
 int PageStorage::findPage(PageHandle p)
@@ -98,6 +102,12 @@ int PageStorage::find(PageHandle page) const
     }
 
     return -1;
+}
+
+Handle PageStorage::findName(const char * name)
+{
+    NAMEDATA nd(name);
+    return namedata_.FindFirst(nd);
 }
 
 PageHandle PageStorage::pageAt(size_t pos)
