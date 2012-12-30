@@ -222,7 +222,7 @@ int CutStrings(POLY_* pBlock) {
 	CCOM_comp* prev_comp = NULL;
 
 	PAGEINFO info;
-	GetPageInfo(HCPAGE, &info);
+    CPAGE_GetPageInfo(HCPAGE, &info);
 	int nIncline = info.Incline2048;
 
     cf::Point16 pLeftTop;
@@ -313,7 +313,7 @@ int GetMediumHeight(POLY_* pBlock) {
     cf::Point16 pRightBottom;
 
 	PAGEINFO info;
-	GetPageInfo(HCPAGE, &info);
+    CPAGE_GetPageInfo(HCPAGE, &info);
 	int nIncline = info.Incline2048;
 
 	for (comp = CCOM_GetFirst((CCOM_handle) HCCOM, NULL); comp; comp
@@ -417,7 +417,7 @@ Bool GetMasP(CPageHandle hCPage, Rect16 Rc, uchar** ppmasp) {
 	DataInto.wByteWidth = (uint16_t)(prewide / 8);
 	DataInto.dwX = left;
 	DataInto.dwY = upper;
-	GetPageInfo(hCPage, &info);
+    CPAGE_GetPageInfo(hCPage, &info);
 	for (i = 0; i < CPAGE_MAXNAME; i++)
 		Name[i] = info.szImageName[i];
 	DataOut.dwWidth = DataInto.dwWidth;

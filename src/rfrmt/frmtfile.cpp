@@ -95,7 +95,7 @@ Bool CreateInternalFileForFormatter(FILE *pIFName) {
     CFPage Page;
     PAGEINFO PageInfo;
     CPageHandle hCPAGE = CPAGE_GetHandlePage(CPAGE_GetCurrentPageNumber());
-    GetPageInfo(hCPAGE, &PageInfo);
+    CPAGE_GetPageInfo(hCPAGE, &PageInfo);
 
     if (PageInfo.X && PageInfo.Y) {
         TemplateOffset.set(PageInfo.X, PageInfo.Y);

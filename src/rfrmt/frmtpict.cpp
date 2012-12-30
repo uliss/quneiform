@@ -150,7 +150,7 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
 
     PAGEINFO pinfo;
 
-    if (!GetPageInfo(h_Page, &pinfo))
+    if (!CPAGE_GetPageInfo(h_Page, &pinfo))
         return false;
 
     CIMAGE_InfoDataInGet in;

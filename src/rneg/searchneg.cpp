@@ -452,7 +452,7 @@ Bool SearchNegBySize(CCOM_handle hCCOM, CPageHandle hCPage, NegList** ROOT, int&
     if (pcomp == NULL)
         return FALSE;
     PAGEINFO info;
-    GetPageInfo(hCPage, &info);
+    CPAGE_GetPageInfo(hCPage, &info);
     DPIX = info.DPIX;
     DPIY = info.DPIY;
 
@@ -1022,7 +1022,7 @@ Bool GetMasP(CPageHandle hCPage, Rect16 Rc, uchar** ppmasp)
     DataInto.wByteWidth = (uint16_t) (prewide / 8);
     DataInto.dwX = left;
     DataInto.dwY = upper;
-    GetPageInfo(hCPage, &info);
+    CPAGE_GetPageInfo(hCPage, &info);
     for (int i = 0; i < CPAGE_MAXNAME; i++)
         Name[i] = ImageName[i];
     DataOut.dwWidth = DataInto.dwWidth;

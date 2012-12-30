@@ -624,7 +624,7 @@ CCOM_handle GetStrCCOM(CPageHandle hCPage, uchar* ImageName, Rect16 Rc, Bool neg
     // int j;
     PAGEINFO info;
     // uchar Name[CPAGE_MAXNAME];
-    GetPageInfo(hCPage, &info);
+    CPAGE_GetPageInfo(hCPage, &info);
 
     // if(ImageName)
     // {

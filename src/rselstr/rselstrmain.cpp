@@ -148,7 +148,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_ExtractTextStrings(CCOM_handle hCCOM, CPageHandle h
         MainWindowD = LDPUMA_GetWindowHandle("Main");
 
     PAGEINFO info;
-    if (GetPageInfo(hCPAGE,&info))
+    if (CPAGE_GetPageInfo(hCPAGE,&info))
         nIncline = info.Incline2048;
     else
         nIncline = 0;
@@ -646,7 +646,7 @@ void PointedProc()
     CSTR_line str;
     CSTR_attr lattr;
     PAGEINFO info;
-    GetPageInfo(HCPAGE, &info);
+    CPAGE_GetPageInfo(HCPAGE, &info);
     nIncline = info.Incline2048;
 
     int Right;
@@ -764,7 +764,7 @@ void SomeDraw()
         CSTR_attr lattr;
         ::Rect16 r;
         PAGEINFO info;
-        GetPageInfo(HCPAGE, &info);
+        CPAGE_GetPageInfo(HCPAGE, &info);
         nIncline = info.Incline2048;
         Bool fl_exist = FALSE;
 

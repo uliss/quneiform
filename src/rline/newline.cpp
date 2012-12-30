@@ -234,7 +234,7 @@ Bool32 RLINE_LinesPass1(CPageHandle hCPage, Handle hCCOM, void* phCLINE,
 
 	PAGEINFO info;
 
-	if (!GetPageInfo(hCPage, &info))
+    if (!CPAGE_GetPageInfo(hCPage, &info))
 		return FALSE;
 
 	MainWindowD = NULL;
@@ -1102,7 +1102,7 @@ void DeleteBadDotLine(CLINE_handle hCLINE, CCOM_handle hCCOM, CPageHandle hCPAGE
 		return;
 
 	PAGEINFO info;
-	GetPageInfo(hCPAGE, &info);
+    CPAGE_GetPageInfo(hCPAGE, &info);
 
 	int i = 10;
 	i = i * (info.DPIY - 1) / 300;
@@ -1315,7 +1315,7 @@ Bool32 RLINE_LinesPass2(CCOM_handle hCCOM, void* phCLINE, CPageHandle hCPAGE) {
 
 	PAGEINFO info;
 
-	if (!GetPageInfo(hCPAGE, &info))
+    if (!CPAGE_GetPageInfo(hCPAGE, &info))
 		return FALSE;
 
 	Bool32 ret = TRUE;
@@ -1376,7 +1376,7 @@ Bool32 CorrectDoubleLines(CLINE_handle hContainer) {
     CPageHandle h_Page = CPAGE_GetHandlePage(PageNumber);
 	PAGEINFO page_info;
 
-	if (!GetPageInfo(h_Page, &page_info))
+    if (!CPAGE_GetPageInfo(h_Page, &page_info))
 		return FALSE;
 
 	const double coef_x = ((double) page_info.DPIX + 1) / 300, coef_y =
@@ -1660,7 +1660,7 @@ Bool32 FindExtLines(CLINE_handle* hLinesMass, int32_t CountLines,
 	PAGEINFO page_info;
 	int32_t dpi;
 
-	if (!GetPageInfo(h_Page, &page_info))
+    if (!CPAGE_GetPageInfo(h_Page, &page_info))
 		return FALSE;
 
 	dpi = IsHor ? page_info.DPIX : page_info.DPIY;

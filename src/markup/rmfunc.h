@@ -73,7 +73,7 @@ public:
     BigImage(CPageHandle page) : hCCOM(NULL)
     {
         PAGEINFO info;
-        GetPageInfo(page, &info);
+        CPAGE_GetPageInfo(page, &info);
         setImageName(info.szImageName);
 
         CBlockHandle h = CPAGE_GetBlockFirst(page, CPAGE_GetInternalType("TYPE_BIG_COMP"));

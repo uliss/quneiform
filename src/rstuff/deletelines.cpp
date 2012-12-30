@@ -119,7 +119,7 @@ Bool32 DeleteLines(CPageHandle hCPage, void* phCLINE, const char* ImageDelLines)
 	int i;
 	char ImageName[CPAGE_MAXNAME];
 	// Получаем PAGEINFO текущей страницы
-	GetPageInfo(hCPage, &info);
+    CPAGE_GetPageInfo(hCPage, &info);
 
 	// Копируем в pImage из PInfo указатель на изображение,
 	// связанное со страницей
@@ -272,7 +272,7 @@ Bool32 DeleteLines(CPageHandle hCPage, void* phCLINE, const char* ImageDelLines)
 	delete ctdib;
 
 	info.Images |= IMAGE_DELLINE;
-	SetPageInfo(hCPage, info);
+    CPAGE_SetPageInfo(hCPage, info);
 	time = clock() - time;
 	return TRUE;
 }

@@ -1060,7 +1060,7 @@ static Bool rtf_correct()
     CSTR_rast_attr attr;
     PAGEINFO PageInfo;
     //  Handle hCPAGE = CPAGE_GetHandlePage( CPAGE_GetCurrentPage());
-    GetPageInfo(hCPAGE, &PageInfo);
+    CPAGE_GetPageInfo(hCPAGE, &PageInfo);
     dpi = (uint16_t) PageInfo.DPIY; //разрешение сканера по вертикали
     dpi2 = 2 * dpi ;
     n = CSTR_GetMaxNumber();
@@ -1687,7 +1687,7 @@ static int32_t dist_border(Rect32 *rect)
 {
     int32_t rv = MAXINT32;
     PAGEINFO PageInfo;
-    GetPageInfo(hCPAGE, &PageInfo);
+    CPAGE_GetPageInfo(hCPAGE, &PageInfo);
     rv = MIN(rect->left, rect->top);
     rv = MIN(rv, (int32_t) PageInfo.Width - rect->right);
     rv = MIN(rv, (int32_t) PageInfo.Height - rect->bottom);

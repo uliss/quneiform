@@ -142,7 +142,7 @@ Bool32 RVERLINE_MarkLines(CCOM_handle hCComp, CPageHandle hCPage) {
 	sprintf(Str, "  <2 Н Страница = %s\n", file_name);
 	if (!AM_Skip(AM_GetKeyOfRule(RU_VL_D_WrResLine)))
 		rot = AM_WriteRes_rv_fte(RU_VL_D_WrResLine, Str);
-	GetPageInfo(hCPage, &info);
+    CPAGE_GetPageInfo(hCPage, &info);
 	if (!AM_Skip(AM_GetKeyOfRule(RU_VL_D_Info)))
 		AM_ConsolN("Res_X = %d  Res_Y = %d  W_page = %d  H_page = %d\n",
 				info.DPIX, info.DPIY, info.Width, info.Height);

@@ -65,7 +65,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_PutObjects(CPageHandle hCPage, CCOM_handle hCCOM, C
         return FALSE;
 
     PAGEINFO info;
-    GetPageInfo(hCPage,&info);
+    CPAGE_GetPageInfo(hCPage,&info);
 
     CHstr* string;
     uchar* ImageName;

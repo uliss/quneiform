@@ -142,7 +142,7 @@ void RStuff::preProcessImage()
 
     // init CPAGE container
     PAGEINFO page_info;
-    GetPageInfo(cpage, &page_info);
+    CPAGE_GetPageInfo(cpage, &page_info);
     strcpy(page_info.szImageName, glpRecogName);
     page_info.BitPerPixel = info->biBitCount;
     page_info.DPIX = info->biXPelsPerMeter * 254L / 10000;
@@ -152,7 +152,7 @@ void RStuff::preProcessImage()
     page_info.Incline2048 = 0;
     page_info.Page = 1;
     page_info.Angle = Angle;
-    SetPageInfo(cpage, page_info);
+    CPAGE_SetPageInfo(cpage, page_info);
 
     // extract components
     if (SKIP_COMPONENT_EXTRACT) {
@@ -165,7 +165,7 @@ void RStuff::preProcessImage()
     // reinit CPAGE container
     {
         PAGEINFO page_info;
-        GetPageInfo(cpage, &page_info);
+        CPAGE_GetPageInfo(cpage, &page_info);
         strcpy(page_info.szImageName, glpRecogName);
         page_info.BitPerPixel = info->biBitCount;
         page_info.DPIX = page_info.DPIX < 200 ? 200 : page_info.DPIX;
@@ -176,7 +176,7 @@ void RStuff::preProcessImage()
         page_info.Page = 1;
         page_info.Angle = Angle;
 
-        SetPageInfo(cpage, page_info);
+        CPAGE_SetPageInfo(cpage, page_info);
     }
 }
 

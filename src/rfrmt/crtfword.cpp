@@ -61,7 +61,7 @@ void CRtfWord::calcBRect() {
     if (!hCPAGE)
         throw Exception("[CRtfWord::calcBRect] CPAGE_GetHandlePage failed");
 
-    GetPageInfo(hCPAGE, &PageInfo);
+    CPAGE_GetPageInfo(hCPAGE, &PageInfo);
 
     Rect tmp = charsBRect();
     rotateRect(tmp, PageInfo.Angle, PageInfo.Width, PageInfo.Height);

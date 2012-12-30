@@ -119,7 +119,7 @@ CCOM_handle GetStrCCOM(CPageHandle hCPage, uchar* ImageName, Rect16 Rc, Bool neg
 	int j;
 	PAGEINFO info;
 	char Name[CPAGE_MAXNAME];
-	GetPageInfo(hCPage, &info);
+    CPAGE_GetPageInfo(hCPage, &info);
 
 	if (ImageName) {
 		for (j = 0; j < CPAGE_MAXNAME; j++)
@@ -646,7 +646,7 @@ Bool GetMasP(CPageHandle hCPage, uchar* ImageName, Rect16 Rc, uchar** ppmasp) {
 	Bool ret;
 	int i;
 
-	GetPageInfo(hCPage, &info);
+    CPAGE_GetPageInfo(hCPage, &info);
 	if (ImageName) {
 		for (i = 0; i < CPAGE_MAXNAME; i++)
 			Name[i] = ImageName[i];

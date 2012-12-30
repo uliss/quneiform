@@ -93,9 +93,8 @@ Bool32 RBLOCK_ExtractTextBlocks(CCOM_handle hCCOM, CPageHandle hCPAGE,
     HCLINE = hCLINE;
     PAGEINFO info;
 
-    if (GetPageInfo(hCPAGE, &info))
+    if (CPAGE_GetPageInfo(hCPAGE, &info))
         nIncline = info.Incline2048;
-
     else
         nIncline = 0;
 

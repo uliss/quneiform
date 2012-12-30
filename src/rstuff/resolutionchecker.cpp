@@ -43,7 +43,7 @@ ResolutionChecker::ResolutionChecker(CCOM_handle ccom, CPageHandle cpage) :
 void ResolutionChecker::check()
 {
     PAGEINFO page_info;
-    if(!GetPageInfo(cpage_, &page_info))
+    if(!CPAGE_GetPageInfo(cpage_, &page_info))
         return;
 
     if(isValidResolution(page_info)) {
@@ -69,7 +69,7 @@ void ResolutionChecker::check()
     }
 
     if(changed) {
-        SetPageInfo(cpage_, page_info);
+        CPAGE_SetPageInfo(cpage_, page_info);
         cfDebug(cf::MODULE_RSTUFF) << "new resolution: "
                                    << page_info.DPIX << "x" << page_info.DPIY;
     }

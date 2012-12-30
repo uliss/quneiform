@@ -276,7 +276,7 @@ void PumaImpl::clearAll() {
     memset(&PInfo, 0, sizeof(PInfo));
 
     if (cpage_)
-        GetPageInfo(cpage_, &PInfo);
+        CPAGE_GetPageInfo(cpage_, &PInfo);
 
     CSTR_DeleteAll();
     CPAGE_DeleteAll();
@@ -285,7 +285,7 @@ void PumaImpl::clearAll() {
     PInfo.Incline2048 = 0;
     PInfo.Angle = 0;
     PInfo.Images = IMAGE_USER;
-    SetPageInfo(cpage_, PInfo);
+    CPAGE_SetPageInfo(cpage_, PInfo);
     CCOM_DeleteAll();
     ccom_ = NULL;
     input_filename_.clear();
@@ -331,7 +331,7 @@ void PumaImpl::debugPrintCpage() const
 void PumaImpl::extractComponents() {
     PAGEINFO info;
 
-    if (!GetPageInfo(cpage_, &info))
+    if (!CPAGE_GetPageInfo(cpage_, &info))
         throw PumaException("GetPageInfo failed");
 
     ExcControl exc;
@@ -913,7 +913,7 @@ void PumaImpl::recognizePass2() {
 void PumaImpl::recognizeSetup() {
     // распознавание строк
     PAGEINFO info;
-    GetPageInfo(cpage_, &info);
+    CPAGE_GetPageInfo(cpage_, &info);
     RSTR_Options opt;
     opt.pageSkew2048 = info.Incline2048;//0
     int32_t nResolutionY = info.DPIY;//300;
@@ -981,7 +981,7 @@ void PumaImpl::rotate(BitmapPtr * dib, Point * p) {
     }
 
     // Создадим довернутое изображение
-    GetPageInfo(cpage_, &page_info);
+    CPAGE_GetPageInfo(cpage_, &page_info);
     CIMAGE_RemoveImage(PUMA_IMAGE_ROTATE);
 
     CImage::instance().disableReadMask(PUMA_IMAGE_USER);
@@ -994,7 +994,7 @@ void PumaImpl::rotate(BitmapPtr * dib, Point * p) {
 
     CImage::instance().enableReadMask(PUMA_IMAGE_USER);
     page_info.Images |= IMAGE_ROTATE;
-    SetPageInfo(cpage_, page_info);
+    CPAGE_SetPageInfo(cpage_, page_info);
 }
 
 void PumaImpl::saveCSTR(int pass) {
@@ -1073,7 +1073,7 @@ void PumaImpl::applyReadMask()
     Rect full_page(0, 0, image->biWidth, image->biHeight);
 
     PAGEINFO page_info;
-    GetPageInfo(cpage_, &page_info);
+    CPAGE_GetPageInfo(cpage_, &page_info);
     page_info.status &= ~(PINFO_USERTEMPLATE | PINFO_AUTOTEMPLATE);
 
     CImage::instance().addRectToReadMask(recog_name_, full_page);
@@ -1095,7 +1095,7 @@ void PumaImpl::applyReadMask()
     if(Config::doDump())
         CIMAGE_Dump(recog_name_, "ImageAfterMasks.bmp");
 
-    SetPageInfo(cpage_, page_info);
+    CPAGE_SetPageInfo(cpage_, page_info);
     setUpdateFlag(FLG_UPDATE);
 }
 

@@ -138,3 +138,8 @@ uint16_t GetReturnCode_cpage()
 {
     return gwLowRC;
 }
+
+CPageHandle CreateEmptyPage()
+{
+    return CPAGE_CreatePage(PT_EMPTY, NULL, 0);
+}

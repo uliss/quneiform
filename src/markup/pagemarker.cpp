@@ -190,7 +190,7 @@ void PageMarker::searchNegatives(CCOM_cont * cont)
     assert(image_data_);
 
     PAGEINFO info;
-    GetPageInfo(image_data_->hCPAGE, &info);
+    CPAGE_GetPageInfo(image_data_->hCPAGE, &info);
 
     RNEG_RecogNeg(cont, image_data_->hCPAGE, (uchar*) info.szImageName, info.Incline2048);
 }

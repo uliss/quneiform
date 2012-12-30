@@ -163,7 +163,7 @@ Bool32 CreateContainerBigComp(PRSPreProcessImage Image) {
 	CCOM_handle hCCOM_new = 0;
 	BIG_IMAGE big_Image;
 	PAGEINFO info;
-	GetPageInfo(hCPage, &info);
+    CPAGE_GetPageInfo(hCPage, &info);
 	int i = 0;
 
 	for (i = 0; i < CPAGE_MAXNAME; i++)
@@ -396,10 +396,10 @@ Bool32 RemoveLines(PRSPreProcessImage Image, puchar * lppDIB) {
 				rc = FALSE;
 			} else {
 				PAGEINFO inf;
-				GetPageInfo(Image->hCPAGE, &inf);
+                CPAGE_GetPageInfo(Image->hCPAGE, &inf);
 				strcpy((char*) inf.szImageName, PUMA_IMAGE_DELLINE);
 				inf.Images |= IMAGE_DELLINE;
-				SetPageInfo(Image->hCPAGE, inf);
+                CPAGE_SetPageInfo(Image->hCPAGE, inf);
 			}
 
 			if (rc) {
@@ -632,7 +632,7 @@ Bool32 CalcIncline(PRSPreProcessImage Image) {
     CPageHandle hCPage = Image->hCPAGE;
 	CLINE_handle hCLINE = *((CLINE_handle*) Image->phCLINE);
 
-	GetPageInfo(hCPage, &info);
+    CPAGE_GetPageInfo(hCPage, &info);
 
 	/*  2. Инициализация.  */
 	/***  организация памяти  ***/

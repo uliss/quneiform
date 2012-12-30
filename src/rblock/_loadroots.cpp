@@ -394,7 +394,7 @@ Bool32 PicturesSecondStage(CCOM_handle hCCOM, CPageHandle hCPAGE)
     sprintf(tmp_str, "  <4 Р %d %d %d \n", nPics, 0, 0);
     LDPUMA_FPuts(resFile_pict, tmp_str);
     //Almi 12.07.00
-    GetPageInfo(hCPAGE, &info);
+    CPAGE_GetPageInfo(hCPAGE, &info);
 
     switch (info.Angle) {
         case 90:

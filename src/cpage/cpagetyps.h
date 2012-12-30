@@ -128,19 +128,9 @@ class PAGEINFO
 #define PINFO_AUTOTEMPLATE  2  // темплейт установлен автоматически
 };
 
-#define CreateEmptyPage() CPAGE_CreatePage(PT_EMPTY,NULL,0)
-#define CreatePageWithPageInfo(a) CPAGE_CreatePage(PT_PAGEINFO,&a,sizeof(a))
-#define GetPageInfo(a,b) CPAGE_GetPageData(a,PT_PAGEINFO,b,sizeof(*b))
-#define SetPageInfo(a,b) CPAGE_SetPageData(a,PT_PAGEINFO,&b,sizeof(b))
+CPageHandle CreateEmptyPage();
 
 // BLOCKS
-
-#define BT_EMPTY CPAGE_GetInternalType("__Block__")
-#define BT_TABLE CPAGE_GetInternalType("__Table__")
-
-#define CreateEmptyBlock(a) CPAGE_CreateBlock(a,BT_EMPTY,0,0,NULL,0)
-#define CreateBlockNumber(a,b) CPAGE_CreateBlock(a,BT_EMPTY,b,0,NULL,0)
-
 #define TYPE_CPAGE_TABLE    CPAGE_GetInternalType("TYPE_CPAGE_TABLE")
 #define TYPE_CPAGE_PICTURE  CPAGE_GetInternalType("TYPE_CPAGE_PICTURE")
 

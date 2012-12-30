@@ -507,7 +507,7 @@ Bool MyGetRaster(CPageHandle hCPage, VL_I_TASK *pTask, uchar **ppData) {
 	DataInto.wByteWidth = (int16_t) ((pTask->MyExtrWidth + 7) / 8);//06.09.00
 	DataInto.dwX = pTask->MyLeft;
     DataInto.dwY = pTask->MyTop;
-	GetPageInfo(hCPage, &info);
+    CPAGE_GetPageInfo(hCPage, &info);
 	for (i = 0; i < 256; i++)
 		Name[i] = info.szImageName[i];
 	DataOut.dwWidth = DataInto.dwWidth;
