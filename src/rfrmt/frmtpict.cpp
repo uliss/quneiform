@@ -132,8 +132,6 @@ Rect GetPictRect(uint NumberPict, uint32_t * UserNumber) {
 
 bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame) {
     uint32_t PictNumber = 0;
-    Point RtfLt;
-    CPAGE_PICTURE pict;
     uint32_t NumberPage = CPAGE_GetCurrentPageNumber();
     CPageHandle h_Page = CPAGE_GetHandlePage(NumberPage);
     CBlockHandle h_Pict = CPAGE_PictureGetFirst(h_Page);

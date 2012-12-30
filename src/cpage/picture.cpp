@@ -58,55 +58,51 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "polyblock.h"
 #include "internal.h"
 #include "resource.h"
+#include "picture.h"
+#include "cpage_debug.h"
 
 // Конверторы преобразования из TYPE_PICTURE в CPAGE_PICTURE
-uint32_t TYPE_PICTURE_to_CPAGE_PICTURE(POLY_ * lpDataIn, uint32_t SizeIn, CPAGE_PICTURE* LpDataOut, uint32_t SizeOut)
+uint32_t TYPE_PICTURE_to_CPAGE_PICTURE(POLY_ * lpDataIn, uint32_t SizeIn, cf::cpage::Picture * LpDataOut, uint32_t SizeOut)
 {
-    uint32_t rc = 0;
-
     if (LpDataOut == NULL)
-        return sizeof(CPAGE_PICTURE);
+        return sizeof(cf::cpage::Picture);
 
     if (sizeof(POLY_) != SizeIn ||
-            sizeof(CPAGE_PICTURE) != SizeOut ||
+            sizeof(cf::cpage::Picture) != SizeOut ||
             lpDataIn == NULL) {
         SetReturnCode_cpage(IDS_ERR_DISCREP);
         return 0;
     }
 
     POLY_  desc = *lpDataIn;
-    CPAGE_PICTURE pict = {0};
-    pict.Number = desc.com.count;
+    cf::cpage::Picture pict;
 
-    for (uint32_t i = 0; i < pict.Number; i++) {
-        pict.Corner[i] = desc.com.Vertex[i];
+    for (uint32_t i = 0; i < desc.com.count; i++) {
+        pict.appendCorner(desc.com.Vertex[i]);
     }
 
     *LpDataOut = pict;
-    rc = sizeof(CPAGE_PICTURE);
-    return rc;
+    return sizeof(cf::cpage::Picture);
 }
-//##########################################################
-uint32_t CPAGE_PICTURE_to_TYPE_PICTURE( CPAGE_PICTURE * lpDataIn, uint32_t SizeIn, POLY_ * LpDataOut, uint32_t SizeOut)
+
+uint32_t CPAGE_PICTURE_to_TYPE_PICTURE(const cf::cpage::Picture& lpDataIn, uint32_t SizeIn, POLY_ * LpDataOut, uint32_t SizeOut)
 {
     uint32_t rc = 0;
 
     if (LpDataOut == NULL)
         return sizeof(POLY_);
 
-    if (sizeof(POLY_) != SizeOut ||
-            sizeof(CPAGE_PICTURE) != SizeIn ||
-            lpDataIn == NULL) {
+    if (sizeof(POLY_) != SizeOut || sizeof(cf::cpage::Picture) != SizeIn) {
         SetReturnCode_cpage(IDS_ERR_DISCREP);
         return 0;
     }
 
     POLY_  desc;
-    CPAGE_PICTURE pict = *lpDataIn;
-    desc.com.count = pict.Number;
+    cf::cpage::Picture pict = lpDataIn;
+    desc.com.count = pict.cornerCount();
 
-    for (uint32_t i = 0; i < pict.Number; i++) {
-        desc.com.Vertex[i] = pict.Corner[i];
+    for (size_t i = 0; i < pict.cornerCount(); i++) {
+        desc.com.Vertex[i] = pict.cornerAt(i);
     }
 
     desc.com.type       = TYPE_PICTURE;
@@ -114,5 +110,47 @@ uint32_t CPAGE_PICTURE_to_TYPE_PICTURE( CPAGE_PICTURE * lpDataIn, uint32_t SizeI
     *LpDataOut = desc;
     rc = sizeof(POLY_);
     return rc;
+}
+
+
+namespace cf
+{
+namespace cpage {
+
+void Picture::appendCorner(const Point& pt)
+{
+    corners_[number_] = pt;
+    number_++;
+}
+
+Point Picture::cornerAt(size_t pos) const
+{
+    assert(pos < CPAGE_MAXCORNER);
+
+    if(pos >= number_) {
+        CPAGE_DEBUG_FUNC << "invalid corner number:" << pos;
+    }
+
+    return corners_[pos];
+}
+
+size_t Picture::cornerCount() const
+{
+    return number_;
+}
+
+#define ROTATE_2048(p,a) {\
+             p.ry() = (int32_t) (p.y() - (int32_t) p.x() * a / 2048);\
+             p.rx() = (int32_t) (p.x() + (int32_t) p.y() * a / 2048);\
+        }
+
+void Picture::rotateCorner(size_t pos, int skew2048)
+{
+    assert(pos < CPAGE_MAXCORNER);
+
+    ROTATE_2048(corners_[pos], skew2048);
+}
+
+}
 }
 

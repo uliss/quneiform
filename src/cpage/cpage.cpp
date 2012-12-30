@@ -532,7 +532,7 @@ CDataType CPAGE_GetInternalType(const char * name)
 
 const char * CPAGE_GetNameInternalType(CDataType type)
 {
-    if (type == NULL || type == -1)
+    if (type == 0 || type == -1)
         return NULL;
 
     return PageStorage::namedata(type);

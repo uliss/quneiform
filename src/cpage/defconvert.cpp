@@ -87,12 +87,12 @@ uint32_t DefConvertBlock(uint32_t dwContext,
 
     else if (TypeIn == TYPE_IMAGE) {
         if (TypeOut == varTYPE_CPAGE_PICTURE)
-            rc = TYPE_PICTURE_to_CPAGE_PICTURE((POLY_ *)lpDataIn, SizeIn, (CPAGE_PICTURE *)LpDataOut, SizeOut);
+            rc = TYPE_PICTURE_to_CPAGE_PICTURE((POLY_ *)lpDataIn, SizeIn, (cf::cpage::Picture*) LpDataOut, SizeOut);
     }
 
     else if (TypeIn == varTYPE_CPAGE_PICTURE) {
         if (TypeOut == TYPE_IMAGE)
-            rc = CPAGE_PICTURE_to_TYPE_PICTURE((CPAGE_PICTURE *)lpDataIn, SizeIn, (POLY_ *)LpDataOut, SizeOut);
+            rc = CPAGE_PICTURE_to_TYPE_PICTURE(*(cf::cpage::Picture*)lpDataIn, SizeIn, (POLY_ *)LpDataOut, SizeOut);
     }
 
     return rc;

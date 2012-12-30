@@ -207,7 +207,7 @@ CPAGE_FUNC bool CPAGE_DeleteAll();
 CPAGE_FUNC Bool32 CPAGE_UpdateBlocks(CPageHandle hPage, CDataType type);
 CPAGE_FUNC CBlockHandle CPAGE_PictureGetFirst(CPageHandle hPage);
 CPAGE_FUNC CBlockHandle CPAGE_PictureGetNext(CPageHandle hPage, CBlockHandle hPicture);
-CPAGE_FUNC Bool32 CPAGE_PictureGetPlace(CPageHandle hPage, CBlockHandle hPicture, int32_t Skew2048, cf::Point * lpLr, cf::Point * lpWh);
+CPAGE_FUNC bool CPAGE_PictureGetPlace(CPageHandle hPage, CBlockHandle hPicture, int32_t Skew2048, cf::Point * lpLr, cf::Point * lpWh);
 CPAGE_FUNC Bool32 CPAGE_PictureGetMask(CPageHandle hPage, CBlockHandle hPicture, int32_t Skew2048, char * lpData, uint32_t * lpSize);
 CPAGE_FUNC uint32_t CPAGE_GetBlockInterNum(CBlockHandle block);
 CPAGE_FUNC void CPAGE_SetBlockInterNum(CBlockHandle block, uint32_t inter);

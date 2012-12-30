@@ -62,7 +62,7 @@
 
 enum
 {
-    CPAGE_MAXNAME = 260, CPAGE_MAXCORNER = 1000
+    CPAGE_MAXNAME = 260
 };
 
 // PAGES
@@ -154,12 +154,5 @@ typedef struct tagCPAGE_TABLE
 
 
 } CPAGE_TABLE;
-
-typedef struct tagCPAGE_PICTURE
-{
-        uint16_t Number;
-        cf::Point Corner[CPAGE_MAXCORNER];
-
-} CPAGE_PICTURE;
 
 #endif

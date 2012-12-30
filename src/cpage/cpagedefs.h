@@ -23,6 +23,8 @@ namespace cf {
 namespace cpage {
 class BackupPage;
 class Block;
+class Picture;
+
 typedef cf::cpage::BackupPage * PageHandle;
 }
 }

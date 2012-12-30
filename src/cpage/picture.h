@@ -16,24 +16,32 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef CONVERT_H
-#define CONVERT_H
+#ifndef PICTURE_H
+#define PICTURE_H
 
-#include "table.h"
-#include "tableclass.h"
+#include "cttypes.h"
+#include "common/point.h"
 
-void DefConvertInit();
-uint32_t DefConvertBlock(uint32_t dwContext,
-                          CDataType TypeIn, void * lpDataIn, uint32_t SizeIn,
-                          CDataType TypeOut, void * LpDataOut, uint32_t SizeOut);
-uint32_t DefConvertPage(uint32_t dwContext,
-                         CDataType TypeIn, void * lpDataIn, uint32_t SizeIn,
-                         CDataType TypeOut, void * LpDataOut, uint32_t SizeOut);
+namespace cf {
+namespace cpage {
 
-uint32_t TYPE_DESK_to_CPAGE_TABLE(TABLE_DESC * lpDataIn, uint32_t SizeIn, CPAGE_TABLE * LpDataOut, uint32_t SizeOut);
-uint32_t CPAGE_TABLE_to_TYPE_DESK( CPAGE_TABLE * lpDataIn, uint32_t SizeIn, TABLE_DESC * LpDataOut, uint32_t SizeOut);
-uint32_t TYPE_PICTURE_to_CPAGE_PICTURE(POLY_ * lpDataIn, uint32_t SizeIn, cf::cpage::Picture * LpDataOut, uint32_t SizeOut);
-uint32_t CPAGE_PICTURE_to_TYPE_PICTURE(const cf::cpage::Picture& lpDataIn, uint32_t SizeIn, POLY_ * LpDataOut, uint32_t SizeOut);
+enum {
+    CPAGE_MAXCORNER = 1000
+};
 
+class Picture
+{
+    size_t number_;
+    cf::Point corners_[CPAGE_MAXCORNER];
+public:
+    Picture() : number_(0) {}
+    void appendCorner(const cf::Point& pt);
+    cf::Point cornerAt(size_t pos) const;
+    size_t cornerCount() const;
+    void rotateCorner(size_t pos, int skew2048);
+};
 
-#endif // CONVERT_H
+}
+}
+
+#endif // PICTURE_H

@@ -63,6 +63,7 @@
 #include "backup.h"
 #include "polyblock.h"
 #include "internal.h"
+#include "picture.h"
 
 using namespace cf;
 
@@ -88,37 +89,34 @@ CBlockHandle CPAGE_PictureGetNext(CPageHandle hPage, CBlockHandle hPicture)
              p.rx() = (int32_t) (p.x() + (int32_t) p.y() * a / 2048);\
         }
 
-Bool32 CPAGE_PictureGetPlace(CPageHandle hPage, CBlockHandle hPicture, int32_t Skew2048, Point * lpLr,
+bool CPAGE_PictureGetPlace(CPageHandle hPage, CBlockHandle hPicture, int32_t Skew2048, Point * lpLr,
                              Point * lpWh)
 {
     Bool32 rc = FALSE;
-    SetReturnCode_cpage(IDS_ERR_NO);
-    CPAGE_PICTURE pict = { 0 };
+    cf::cpage::Picture pict;
     Point lt, rb;
     assert(lpLr);
     assert(lpWh);
 
     if (CPAGE_GetBlockData(hPicture, TYPE_CPAGE_PICTURE, &pict, sizeof(pict)) == sizeof(pict)) {
-        lt = pict.Corner[0];
-        rb = pict.Corner[0];
+        lt = pict.cornerAt(0);
+        rb = pict.cornerAt(0);
         ROTATE_2048(lt, Skew2048);
 
-        //        Rotate<2048> (lt, Skew2048);
-        for (uint32_t i = 1; i < pict.Number; i++) {
-            ROTATE_2048(pict.Corner[i], Skew2048);
+        for (uint32_t i = 1; i < pict.cornerCount(); i++) {
+            pict.rotateCorner(i, Skew2048);
 
-            //          Rotate<2048> (pict.Corner[i], Skew2048);
-            if (lt.x() > pict.Corner[i].x())
-                lt.rx() = pict.Corner[i].x();
+            if (lt.x() > pict.cornerAt(i).x())
+                lt.rx() = pict.cornerAt(i).x();
 
-            if (lt.y() > pict.Corner[i].y())
-                lt.ry() = pict.Corner[i].y();
+            if (lt.y() > pict.cornerAt(i).y())
+                lt.ry() = pict.cornerAt(i).y();
 
-            if (rb.x() < pict.Corner[i].x())
-                rb.rx() = pict.Corner[i].x();
+            if (rb.x() < pict.cornerAt(i).x())
+                rb.rx() = pict.cornerAt(i).x();
 
-            if (rb.y() < pict.Corner[i].y())
-                rb.ry() = pict.Corner[i].y();
+            if (rb.y() < pict.cornerAt(i).y())
+                rb.ry() = pict.cornerAt(i).y();
         }
 
         *lpLr = lt;
@@ -156,7 +154,7 @@ Bool32 CPAGE_PictureGetMask(CPageHandle hPage, CBlockHandle hPicture, int32_t Sk
     Bool32 rc = FALSE;
     SetReturnCode_cpage(IDS_ERR_NO);
     assert(lpSize);
-    CPAGE_PICTURE pict = { 0 };
+    cf::cpage::Picture pict;
 
     if (CPAGE_GetBlockData(hPicture, TYPE_CPAGE_PICTURE, &pict, sizeof(pict)) == sizeof(pict)) {
         int i, j;
@@ -168,13 +166,13 @@ Bool32 CPAGE_PictureGetMask(CPageHandle hPage, CBlockHandle hPicture, int32_t Sk
         char * lpMatrix = NULL;
 
         // Подсчитаем число вертикальных разделителей
-        for (i = 0; i < pict.Number; i++) {
-            int ci = (i + 1) % pict.Number;
+        for (i = 0; i < pict.cornerCount(); i++) {
+            int ci = (i + 1) % pict.cornerCount();
 
-            if (abs(pict.Corner[i].x() - pict.Corner[ci].x()) <= MAXDIFF)
+            if (abs(pict.cornerAt(i).x() - pict.cornerAt(ci).x()) <= MAXDIFF)
                 nMaxVer++;
 
-            if (abs(pict.Corner[i].y() - pict.Corner[ci].y()) <= MAXDIFF)
+            if (abs(pict.cornerAt(i).y() - pict.cornerAt(ci).y()) <= MAXDIFF)
                 nMaxHor++;
         }
 
@@ -192,14 +190,14 @@ Bool32 CPAGE_PictureGetMask(CPageHandle hPage, CBlockHandle hPicture, int32_t Sk
         if (lpVer && lpHor && lpMatrix) {
             memset(lpMatrix, 0, sizeof(char) * nMaxVer * (nMaxHor - 1));
 
-            for (nVer = nHor = 0, i = 0; i < pict.Number; i++) {
-                int ci = (i + 1) % pict.Number;
+            for (nVer = nHor = 0, i = 0; i < pict.cornerCount(); i++) {
+                int ci = (i + 1) % pict.cornerCount();
 
-                if (PointXDistance(pict.Corner[i], pict.Corner[ci]) <= MAXDIFF)
-                    lpVer[nVer++] = pict.Corner[i].x();
+                if (PointXDistance(pict.cornerAt(i), pict.cornerAt(ci)) <= MAXDIFF)
+                    lpVer[nVer++] = pict.cornerAt(i).x();
 
-                if (PointYDistance(pict.Corner[i], pict.Corner[ci]) <= MAXDIFF)
-                    lpHor[nHor++] = pict.Corner[i].y();
+                if (PointYDistance(pict.cornerAt(i), pict.cornerAt(ci)) <= MAXDIFF)
+                    lpHor[nHor++] = pict.cornerAt(i).y();
             }
         }
 
@@ -233,16 +231,16 @@ Bool32 CPAGE_PictureGetMask(CPageHandle hPage, CBlockHandle hPicture, int32_t Sk
         }
 
         // Создадим матрицу описания границ
-        for (i = 0; i < pict.Number; i++) {
-            int ci = (i + 1) % pict.Number;
-            int delta_x = PointXDistance(pict.Corner[i], pict.Corner[ci]);
-            int delta_y = PointYDelta(pict.Corner[i], pict.Corner[ci]);
+        for (i = 0; i < pict.cornerCount(); i++) {
+            int ci = (i + 1) % pict.cornerCount();
+            int delta_x = PointXDistance(pict.cornerAt(i), pict.cornerAt(ci));
+            int delta_y = PointYDelta(pict.cornerAt(i), pict.cornerAt(ci));
 
             if (delta_x <= MAXDIFF) {// вертикальная граница
                 int sign = delta_y ? (delta_y / abs(delta_y)) : 1;
-                int x = GetIndex(lpVer, nMaxVer, pict.Corner[i].x());
-                int y1 = GetIndex(lpHor, nMaxHor, pict.Corner[i].y());
-                int y2 = GetIndex(lpHor, nMaxHor, pict.Corner[ci].y());
+                int x = GetIndex(lpVer, nMaxVer, pict.cornerAt(i).x());
+                int y1 = GetIndex(lpHor, nMaxHor, pict.cornerAt(i).y());
+                int y2 = GetIndex(lpHor, nMaxHor, pict.cornerAt(ci).y());
 
                 if (x < nMaxVer && y1 < nMaxHor && y2 < nMaxHor)
                     for (int y = MIN(y1, y2); y < MAX(y1, y2); y++)
