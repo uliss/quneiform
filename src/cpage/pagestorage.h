@@ -118,6 +118,7 @@ private:
     static PageStorage& instance();
     static PageList& pages();
     void clearPages();
+    void clearNameDataPrivate();
     int find(PageHandle page) const;
     void removePage(PageHandle p);
 private:

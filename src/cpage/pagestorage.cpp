@@ -29,6 +29,7 @@ PageStorage::PageStorage() :
 PageStorage::~PageStorage()
 {
     clearPages();
+    clearNameDataPrivate();
 }
 
 PageStorage& PageStorage::instance()
@@ -129,7 +130,7 @@ bool PageStorage::setCurrentPage(size_t pos)
 
 void PageStorage::clearNameData()
 {
-    instance().namedata_.Clear();
+    instance().clearNameDataPrivate();
 }
 
 void PageStorage::clearPages()
@@ -139,6 +140,11 @@ void PageStorage::clearPages()
 
     pages_.clear();
     current_ = NULL;
+}
+
+void PageStorage::clearNameDataPrivate()
+{
+    namedata_.Clear();
 }
 
 void PageStorage::removePage(PageHandle p)
