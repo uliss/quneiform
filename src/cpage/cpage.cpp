@@ -274,7 +274,7 @@ CPageHandle CPAGE_RestorePage(bool remove, const char * fname)
 
     if (remove) {
         PageStorage::clear();
-        PageStorage::NameData.Clear();
+        PageStorage::clearNameData();
     }
 
     uint32_t count = 0;
@@ -390,7 +390,7 @@ bool CPAGE_DeleteAll()
 {
     DataConvertor ConvertorPages(DefConvertPage);
     PageStorage::clear();
-    PageStorage::NameData.Clear();
+    PageStorage::clearNameData();
     Page::setConvertor(ConvertorPages);
     return true;
 }
@@ -524,11 +524,10 @@ bool CPAGE_GetBlockDataPtr(CBlockHandle block, Handle type, void ** data)
 Handle CPAGE_GetInternalType(const char * name)
 {
     Handle rc = 0;
-    NAMEDATA nd(name);
-    rc = PageStorage::NameData.FindFirst(nd);
+    rc = PageStorage::findNameData(name);
 
     if (!rc)
-        rc = PageStorage::NameData.AddTail(nd);
+        rc = PageStorage::appendNameData(name);
 
     return rc;
 }
@@ -538,5 +537,5 @@ const char * CPAGE_GetNameInternalType(Handle type)
     if (type == NULL || type == reinterpret_cast<void*>(-1))
         return NULL;
 
-    return PageStorage::NameData.GetItem(type);
+    return PageStorage::namedata(type);
 }

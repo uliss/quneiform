@@ -45,10 +45,21 @@ public:
     static PageHandle append(const BackupPage& p);
 
     /**
+     * Appends new name data to storage
+     * @return name data handle
+     */
+    static Handle appendNameData(const char * name);
+
+    /**
      * Removes all pages from storage
      * @see remove()
      */
     static void clear();
+
+    /**
+     * Removes all data keys
+     */
+    static void clearNameData();
 
     /**
      * Returns current page handle
@@ -63,10 +74,21 @@ public:
     static int currentPageNumber();
 
     /**
+     * Searches for name data
+     * @return name data handle
+     */
+    static Handle findNameData(const char * name);
+
+    /**
      * Search for given page handle in storage
      * @return handle position or -1 if not found
      */
     static int findPage(PageHandle p);
+
+    /**
+     * Returns character name for namedata
+     */
+    static const char * namedata(Handle type);
 
     /**
      * Returns page handle at given position
@@ -101,7 +123,7 @@ private:
 private:
     PageList pages_;
     PageHandle current_;
-public:
+private:
     static PtrList<NAMEDATA> NameData;
 };
 

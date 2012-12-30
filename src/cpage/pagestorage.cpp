@@ -51,6 +51,12 @@ PageHandle PageStorage::append(const BackupPage& p)
     return pages().back();
 }
 
+Handle PageStorage::appendNameData(const char * name)
+{
+    NAMEDATA nd(name);
+    return NameData.AddTail(nd);
+}
+
 void PageStorage::clear()
 {
     instance().clearPages();
@@ -69,9 +75,20 @@ int PageStorage::currentPageNumber()
     return findPage(currentPage());
 }
 
+Handle PageStorage::findNameData(const char * name)
+{
+    NAMEDATA nd(name);
+    return NameData.FindFirst(nd);
+}
+
 int PageStorage::findPage(PageHandle p)
 {
     return instance().find(p);
+}
+
+const char * PageStorage::namedata(Handle type)
+{
+    return NameData.GetItem(type);
 }
 
 int PageStorage::find(PageHandle page) const
@@ -110,6 +127,11 @@ bool PageStorage::setCurrentPage(size_t pos)
     }
 
     return false;
+}
+
+void PageStorage::clearNameData()
+{
+    NameData.Clear();
 }
 
 void PageStorage::clearPages()
