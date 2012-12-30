@@ -65,7 +65,7 @@
 #include "cimage/ctiimage.h"
 #include "exc/exc.h"
 #include "cpage/cpagetyps.h"
-#include "polyblock.h"
+#include "cpage/polyblock.h"
 #include "cfcompat.h"
 #include "cutstr.h"
 

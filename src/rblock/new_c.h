@@ -71,7 +71,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "exc/excdefs.h"
 #include "cstr/cstr.h"
 #include "cstr/cstrdefs.h"
-#include "polyblock.h"
+#include "cpage/polyblock.h"
 #include "ctp.h"
 #include "pic_n_table.h"
 #include "rpic/rpic.h"

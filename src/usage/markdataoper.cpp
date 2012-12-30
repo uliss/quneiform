@@ -57,7 +57,7 @@
 /*----------------------------------------------------------------------------*/
 #include <stdio.h>
 /*  interface our-other  */
-#include "polyblock.h"
+#include "cpage/polyblock.h"
 #include "cpage/cpage.h"
 /*  interface our-our    */
 #include "un_err.h"

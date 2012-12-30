@@ -60,9 +60,9 @@
 #include "dpuma.h"
 #include "rselstr/rselstr.h"
 #include "cpage/cpage.h"
+#include "cpage/polyblock.h"
 #include "cimage/ctiimage.h"
 #include "negdefs.h"
-#include "polyblock.h"
 #include "rimage/criimage.h"
 
 //Параметры

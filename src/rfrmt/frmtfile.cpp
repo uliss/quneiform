@@ -66,11 +66,11 @@
 #include <cstring>
 #include "cpage/cpage.h"
 #include "cpage/cpagetyps.h"
+#include "cpage/polyblock.h"
 #include "common/debug.h"
 #include "cstr/cstr.h"
 #include "rfrmt_prot.h"
 #include "rfrmtfile.h"
-#include "polyblock.h"
 #include "aldebug.h"
 #include "dpuma.h"
 #include "resource.h"

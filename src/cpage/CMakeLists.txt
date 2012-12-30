@@ -8,7 +8,6 @@ set(CF_CPAGE_SOURCES
     defconvert.cpp
     dll_cpage.cpp
     mymem.cpp
-    namedata.cpp
     page.cpp
     pagestorage.cpp
     picture.cpp
