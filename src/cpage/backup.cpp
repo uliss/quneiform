@@ -66,22 +66,19 @@ BackupPage::BackupPage() :
 {}
 
 BackupPage::BackupPage(const BackupPage& page) :
-    Page(page)
+    Page(page),
+    current_(NULL)
 {
     const size_t count = page.backupCount();
 
     for (size_t i = 0; i < count; i++)
         backups_.push_back(new Page(*page.backups_.at(i)));
 
-    if (count) {
-        PageList::const_iterator it = std::find(page.backups_.begin(), page.backups_.end(), page.current_);
-        if(it != page.backups_.end()) {
-            PageList::iterator curr_it = backups_.begin() + (it - page.backups_.begin());
-            current_ = *curr_it;
-        }
-        else
-            current_ = NULL;
-    }
+    const int current_pos = page.currentPos();
+    if(current_pos >= 0)
+        current_ = backups_.at(current_pos);
+    else
+        current_ = NULL;
 }
 
 BackupPage::~BackupPage()
@@ -200,20 +197,27 @@ bool BackupPage::restore(std::istream& is)
     return Page::restore(is);
 }
 
+int BackupPage::currentPos() const
+{
+    PageList::const_iterator it = std::find(backups_.begin(), backups_.end(), current_);
+    if(it == backups_.end())
+        return -1;
+
+    return std::distance(backups_.begin(), it);
+}
+
 BackupPage& BackupPage::operator=(const BackupPage& page)
 {
     clearBackups();
-    size_t count = page.backupCount();
+    const size_t count = page.backupCount();
 
     for (size_t i = 0; i < count; i++)
         backups_.push_back(new Page(*page.backups_.at(i)));
 
     if (count) {
-        PageList::const_iterator it = std::find(page.backups_.begin(), page.backups_.end(), page.current_);
-        if(it != page.backups_.end()) {
-            PageList::iterator curr_it = backups_.begin() + (it - page.backups_.begin());
-            current_ = *curr_it;
-        }
+        const int current_pos = page.currentPos();
+        if(current_pos >= 0)
+            current_ = backups_.at(current_pos);
         else
             current_ = NULL;
     }

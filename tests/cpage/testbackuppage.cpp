@@ -49,8 +49,12 @@ void TestBackupPage::testSave()
     p.backupAt(0)->setType(CPAGE_GetInternalType("backup"));
     std::ofstream os("test.cpage");
     CPPUNIT_ASSERT(os);
-    p.save(os);
+    CPPUNIT_ASSERT(p.save(os));
     os.close();
+
+    std::ofstream bad;
+    bad << 0x1234;
+    CPPUNIT_ASSERT(!p.save(bad));
 }
 
 void TestBackupPage::testRestore()
@@ -139,9 +143,18 @@ void TestBackupPage::testCopy()
     CPPUNIT_ASSERT(p2.current() == p2.backupAt(1));
 
     BackupPage p3;
+    p3.makeBackup();
     p3 = p1;
 
     CPPUNIT_ASSERT_EQUAL(p3.backupCount(), p1.backupCount());
     CPPUNIT_ASSERT(p3.current() == p3.backupAt(1));
 
+    BackupPage p4;
+    p3 = p4;
+    CPPUNIT_ASSERT(p3.backupCount() == 0);
+    CPPUNIT_ASSERT(p3.current() == NULL);
+
+    BackupPage p5(p4);
+    CPPUNIT_ASSERT(p5.backupCount() == 0);
+    CPPUNIT_ASSERT(p5.current() == NULL);
 }

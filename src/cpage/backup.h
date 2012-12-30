@@ -125,6 +125,8 @@ public:
      */
     bool restore(std::istream& is);
 private:
+    int currentPos() const;
+private:
     typedef std::vector<Page*> PageList;
     PageList backups_;
     Page * current_;
