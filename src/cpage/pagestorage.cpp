@@ -22,8 +22,6 @@
 namespace cf {
 namespace cpage {
 
-PtrList<NAMEDATA> PageStorage::NameData;
-
 PageStorage::PageStorage() :
     current_(NULL)
 {}
@@ -54,7 +52,7 @@ PageHandle PageStorage::append(const BackupPage& p)
 Handle PageStorage::appendNameData(const char * name)
 {
     NAMEDATA nd(name);
-    return NameData.AddTail(nd);
+    return instance().namedata_.AddTail(nd);
 }
 
 void PageStorage::clear()
@@ -78,7 +76,7 @@ int PageStorage::currentPageNumber()
 Handle PageStorage::findNameData(const char * name)
 {
     NAMEDATA nd(name);
-    return NameData.FindFirst(nd);
+    return instance().namedata_.FindFirst(nd);
 }
 
 int PageStorage::findPage(PageHandle p)
@@ -88,7 +86,7 @@ int PageStorage::findPage(PageHandle p)
 
 const char * PageStorage::namedata(Handle type)
 {
-    return NameData.GetItem(type);
+    return instance().namedata_.GetItem(type);
 }
 
 int PageStorage::find(PageHandle page) const
@@ -131,7 +129,7 @@ bool PageStorage::setCurrentPage(size_t pos)
 
 void PageStorage::clearNameData()
 {
-    NameData.Clear();
+    instance().namedata_.Clear();
 }
 
 void PageStorage::clearPages()

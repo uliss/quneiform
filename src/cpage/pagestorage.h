@@ -124,7 +124,7 @@ private:
     PageList pages_;
     PageHandle current_;
 private:
-    static PtrList<NAMEDATA> NameData;
+    PtrList<NAMEDATA> namedata_;
 };
 
 }
