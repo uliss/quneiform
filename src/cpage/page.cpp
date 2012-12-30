@@ -80,10 +80,10 @@ Page::Page(const Page& p) :
         appendBlock(*p.blockAt(i));
 }
 
-Block * Page::createBlock(Handle Type, uint32_t UserNum , uint32_t Flags , void * lpData , uint32_t Size )
+Block * Page::createBlock(CDataType type, uint32_t UserNum , uint32_t Flags , void * lpData , uint32_t Size )
 {
     blocks_.push_back(new Block);
-    blocks_.back()->set(Type, UserNum, Flags, lpData, Size);
+    blocks_.back()->set(type, UserNum, Flags, lpData, Size);
     return blocks_.back();
 }
 
@@ -219,7 +219,7 @@ DataConvertor Page::setConvertor(const DataConvertor& convertor)
     return old;
 }
 
-uint32_t Page::Convert(Handle type, void * lpdata, uint32_t size)
+uint32_t Page::Convert(CDataType type, void * lpdata, uint32_t size)
 {
     return pageConvertor(type_, data_, size_, type, lpdata, size);
 }

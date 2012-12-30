@@ -284,7 +284,7 @@ Bool LoadLinesInfo_rv(CLINE_handle hC, void *vB, char *pStr, Bool Hori) {
 	return TRUE;
 }
 /*---------------------------------------------------------------------------*/
-Bool LoadLinesSpecInfo(CPageHandle hC, void *vB, Handle Key, int Cnt) {
+Bool LoadLinesSpecInfo(CPageHandle hC, void *vB, CDataType Key, int Cnt) {
 	int i;
 	uint32_t err32, nTeor, nReal;
     CBlockHandle hBlockLineSpec;
@@ -326,8 +326,8 @@ Bool LoadLinesSpecInfo(CPageHandle hC, void *vB, Handle Key, int Cnt) {
 	return TRUE;
 }
 /*---------------------------------------------------------------------------*/
-Bool MyReSetLines(void *vLti, int MaxNumLin, CPageHandle hCPage, Handle HoriType,
-		Handle VertType, char *pStr) {
+Bool MyReSetLines(void *vLti, int MaxNumLin, CPageHandle hCPage, CDataType HoriType,
+        CDataType VertType, char *pStr) {
 	int i;
 	uint32_t err32, nTeor;//, nReal;
 	Bool32 nReal;//differ

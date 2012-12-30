@@ -58,8 +58,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "convert.h"
 #include "internal.h"
 
-static Handle varTYPE_CPAGE_TABLE = 0;
-static Handle varTYPE_CPAGE_PICTURE = 0;
+static CDataType varTYPE_CPAGE_TABLE = 0;
+static CDataType varTYPE_CPAGE_PICTURE = 0;
 
 void DefConvertInit()
 {
@@ -70,8 +70,8 @@ void DefConvertInit()
 #undef TYPE_CPAGE_PICTURE
 
 uint32_t DefConvertBlock(uint32_t dwContext,
-                         Handle TypeIn, void * lpDataIn, uint32_t SizeIn,
-                         Handle TypeOut, void * LpDataOut, uint32_t SizeOut)
+                         CDataType TypeIn, void * lpDataIn, uint32_t SizeIn,
+                         CDataType TypeOut, void * LpDataOut, uint32_t SizeOut)
 {
     uint32_t rc = 0;
 
@@ -99,8 +99,8 @@ uint32_t DefConvertBlock(uint32_t dwContext,
 }
 
 uint32_t DefConvertPage(uint32_t dwContext,
-                        Handle TypeIn, void * lpDataIn, uint32_t SizeIn,
-                        Handle TypeOut, void * LpDataOut, uint32_t SizeOut)
+                        CDataType TypeIn, void * lpDataIn, uint32_t SizeIn,
+                        CDataType TypeOut, void * LpDataOut, uint32_t SizeOut)
 {
     uint32_t rc = 0;
     return rc;

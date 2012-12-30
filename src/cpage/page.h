@@ -71,7 +71,7 @@ class Block;
 class CLA_EXPO Page: public Data
 {
     public:
-        Block * createBlock(Handle Type, uint32_t UserNum = 0, uint32_t Flags = 0, void * lpData = NULL, uint32_t Size = 0);
+        Block * createBlock(CDataType Type, uint32_t UserNum = 0, uint32_t Flags = 0, void * lpData = NULL, uint32_t Size = 0);
     public:
         Page();
         ~Page();
@@ -130,7 +130,7 @@ class CLA_EXPO Page: public Data
          */
         bool restore(std::istream& from);
 
-        virtual uint32_t Convert(Handle type, void * lpdata, uint32_t size);
+        virtual uint32_t Convert(CDataType type, void * lpdata, uint32_t size);
         const PAGEINFO * pageInfo() const;
     public:
         static DataConvertor setConvertor(const DataConvertor& convertor);

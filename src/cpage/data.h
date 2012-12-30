@@ -61,13 +61,14 @@
 
 #include "cttypes.h"
 #include "globus.h"
+#include "cpagedefs.h"
 
 namespace cf {
 namespace cpage {
 
 typedef uint32_t (*ConverterFunc)(uint32_t dwContext,
-                                     Handle TypeIn,  void * lpDataIn,  uint32_t SizeIn,
-                                     Handle TypeOut, void * LpDataOut, uint32_t SizeOut);
+                                     CDataType TypeIn,  void * lpDataIn,  uint32_t SizeIn,
+                                     CDataType TypeOut, void * LpDataOut, uint32_t SizeOut);
 
 class DataConvertor
 {
@@ -76,8 +77,8 @@ class DataConvertor
         ConverterFunc func_; // Функция конвертирования
     public:
         DataConvertor(const ConverterFunc& f, uint32_t context = 0);
-        uint32_t operator()(Handle TypeIn,  void * lpDataIn,  uint32_t SizeIn,
-                            Handle TypeOut, void * LpDataOut, uint32_t SizeOut);
+        uint32_t operator()(CDataType TypeIn,  void * lpDataIn,  uint32_t SizeIn,
+                            CDataType TypeOut, void * LpDataOut, uint32_t SizeOut);
         ConverterFunc func();
 };
 
@@ -96,7 +97,7 @@ class CLA_EXPO Data
          * @param size - destination size
          * @return data size
          */
-        uint32_t getData(Handle type, void * dest, uint32_t size);
+        uint32_t getData(CDataType type, void * dest, uint32_t size);
 
         /**
          * Copies data from source memory
@@ -104,7 +105,7 @@ class CLA_EXPO Data
          * @param size - source memory size
          * @see dataSize(), dataPtr()
          */
-        void setData(Handle type, const void * src, uint32_t size);
+        void setData(CDataType type, const void * src, uint32_t size);
 
         /**
          * Returns data size
@@ -124,16 +125,16 @@ class CLA_EXPO Data
          */
         bool empty() const;
 
-        bool getDataPtr(Handle type, void ** lpdata);
+        bool getDataPtr(CDataType type, void ** lpdata);
 
-        Handle type() const;
-        void setType(Handle type);
+        CDataType type() const;
+        void setType(CDataType type);
     public:
-        virtual uint32_t Convert(Handle type, void * lpdata, uint32_t size) = 0;
+        virtual uint32_t Convert(CDataType type, void * lpdata, uint32_t size) = 0;
         bool save(std::ostream& os) const;
         bool restore(std::istream& is);
     protected:
-        Handle type_;
+        CDataType type_;
         mutable uint32_t size_;
         mutable uchar * data_;
 };

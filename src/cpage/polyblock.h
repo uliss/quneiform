@@ -59,6 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #pragma pack (push,8)
 
 #include "table.h"
+#include "cpagedefs.h"
 #include "common/point.h"
 #include "common/rect.h"
 
@@ -122,7 +123,7 @@ typedef struct tagVertex {
 } VERTEX;
 
 struct COMMON {
-    Handle type;    //Текст, Картинка, Таблица;
+    CDataType type;    //Текст, Картинка, Таблица;
     int16_t number; //порядковый номер
     int16_t count;
     cf::Point Vertex[MaxNum];

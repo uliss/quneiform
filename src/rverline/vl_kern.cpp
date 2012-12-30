@@ -97,8 +97,6 @@ void SetReturnCode_rverline(uint16_t rc);
 uint16_t GetReturnCode_rverline();
 Bool WasInitRVERLINE();
 void GiveMemFor_FWP_Inst(int **ppWhatDo, int *nLimComp);
-Bool MyGetLines(LinesTotalInfo *pLti, int MaxNumLin, CPageHandle hCPage,
-		uint32_t *pHoriType, uint32_t *pVertType, char *pStr);
 Bool MyReSetLines(void *vLti, int MaxNumLin, CPageHandle hCPage, uint32_t HoriType,
 		uint32_t VertType);
 Bool MyGetLines(LinesTotalInfo *pLti, int MaxNumLin, CLINE_handle hCLINE,
@@ -156,10 +154,9 @@ Bool32 RVERLINE_MarkLines(CCOM_handle hCComp, CPageHandle hCPage) {
 	/*  Считываю линии  */
 	lti.Hor.Lns = LHor;
 	lti.Ver.Lns = LVer;
-	//	if(!AM_Skip(hUseCLine))
+
 	ret = MyGetLines(&lti, MaxLines, hCLINE, Str);
-	//	else
-	//	    ret = MyGetLines (&lti, MaxLines, hCPage, &HoriType, &VertType, Str);
+
 	switch (ret) {
 	case RV_TRUE:
 		break;

@@ -94,7 +94,7 @@ Handle CPAGE_ExTableGetFirst(CPageHandle hPage)
     Handle rc = NULL;
     CBlockHandle hBlock = NULL;
     SetReturnCode_cpage(IDS_ERR_NO);
-    Handle Type = CPAGE_GetInternalType("TableClass");
+    CDataType Type = CPAGE_GetInternalType("TableClass");
 
     if (!CPAGE_UpdateBlocks(hPage, Type)) {
         rc = NULL;

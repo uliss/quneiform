@@ -71,7 +71,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 template<class TYPE> class PtrName
 {
     protected:
-        Handle  m_Type;
+        CDataType  m_Type;
         uint32_t  m_Size;
         TYPE *  m_Ptr;
         Bool32  m_bAttach;

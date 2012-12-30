@@ -57,8 +57,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __BLOCK_H__
 #define __BLOCK_H__
 
-#include "cpage.h"
 #include "data.h"
+#include "cpagedefs.h"
 
 namespace cf {
 namespace cpage {
@@ -70,7 +70,7 @@ class CLA_EXPO Block: public Data
         Block(const Block& b);
         virtual ~Block();
 
-        void set(Handle type, uint32_t userNum = 0, uint32_t flags = 0, const void * src = NULL, uint32_t size = 0);
+        void set(CDataType type, uint32_t userNum = 0, uint32_t flags = 0, const void * src = NULL, uint32_t size = 0);
 
         uint32_t userNum() const {
             return user_num_;
@@ -112,7 +112,7 @@ class CLA_EXPO Block: public Data
          */
         bool restore(std::istream& is);
 
-        virtual uint32_t Convert(Handle type, void * lpdata, uint32_t size);
+        virtual uint32_t Convert(CDataType type, void * lpdata, uint32_t size);
     public:
         /**
          * Sets new block convertor

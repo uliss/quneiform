@@ -91,45 +91,44 @@ void TestBackupPage::testMakeBackup()
 void TestBackupPage::testUndoRedo()
 {
     BackupPage p;
-    p.setType((Handle) 0xf);
+    p.setType(0xf);
     Page * bak1 = p.makeBackup();
     CPPUNIT_ASSERT_EQUAL(bak1, p.current());
-    p.setType((Handle) 0xff);
+    p.setType(0xff);
     Page * bak2 = p.makeBackup();
     CPPUNIT_ASSERT_EQUAL(bak2, p.current());
-    p.setType((Handle) 0xfff);
+    p.setType(0xfff);
     Page * bak3 = p.makeBackup();
-    CPPUNIT_ASSERT_EQUAL((Handle) 0xfff, p.type());
+    CPPUNIT_ASSERT_EQUAL(0xfff, p.type());
 
     // 3 backups: 0xf and 0xff and 0xfff
 
-    CPPUNIT_ASSERT_EQUAL(Handle(0xfff), bak3->type());
-    CPPUNIT_ASSERT_EQUAL(Handle(0xff), bak2->type());
-    CPPUNIT_ASSERT_EQUAL(Handle(0xf), bak1->type());
+    CPPUNIT_ASSERT_EQUAL(0xfff, bak3->type());
+    CPPUNIT_ASSERT_EQUAL(0xff, bak2->type());
+    CPPUNIT_ASSERT_EQUAL(0xf, bak1->type());
 
     CPPUNIT_ASSERT(p.undo());
-    CPPUNIT_ASSERT_EQUAL(Handle(0xff), p.type());
+    CPPUNIT_ASSERT_EQUAL(0xff, p.type());
     CPPUNIT_ASSERT(p.undo());
-    CPPUNIT_ASSERT_EQUAL(Handle(0xf), p.type());
+    CPPUNIT_ASSERT_EQUAL(0xf, p.type());
     CPPUNIT_ASSERT(p.undo());
     CPPUNIT_ASSERT(!p.undo());
-    CPPUNIT_ASSERT_EQUAL(Handle(0xf), p.type());
+    CPPUNIT_ASSERT_EQUAL(0xf, p.type());
 
     CPPUNIT_ASSERT(p.redo());
-    CPPUNIT_ASSERT_EQUAL(Handle(0xff), p.type());
+    CPPUNIT_ASSERT_EQUAL(0xff, p.type());
     CPPUNIT_ASSERT(p.redo());
-    CPPUNIT_ASSERT_EQUAL((Handle) 0xfff, p.type());
+    CPPUNIT_ASSERT_EQUAL(0xfff, p.type());
     CPPUNIT_ASSERT(!p.redo());
 
     CPPUNIT_ASSERT(p.undo());
-    CPPUNIT_ASSERT_EQUAL(Handle(0xff), p.type());
+    CPPUNIT_ASSERT_EQUAL(0xff, p.type());
 
     CPPUNIT_ASSERT(p.undo());
-    CPPUNIT_ASSERT_EQUAL(Handle(0xf), p.type());
+    CPPUNIT_ASSERT_EQUAL(0xf, p.type());
     CPPUNIT_ASSERT(p.undo());
-    CPPUNIT_ASSERT_EQUAL(Handle(0xf), p.type());
+    CPPUNIT_ASSERT_EQUAL(0xf, p.type());
     CPPUNIT_ASSERT(!p.undo());
-
 }
 
 void TestBackupPage::testCopy()

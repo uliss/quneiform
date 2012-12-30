@@ -43,10 +43,10 @@ PageList& PageStorage::pages()
     return instance().pages_;
 }
 
-Handle PageStorage::appendName(const char *name)
+CDataType PageStorage::appendName(const char * name)
 {
     namedata_.push_back(name);
-    return reinterpret_cast<Handle>(namedata_.size());
+    return namedata_.size();
 }
 
 PageHandle PageStorage::append(const BackupPage& p)
@@ -56,7 +56,7 @@ PageHandle PageStorage::append(const BackupPage& p)
     return pages().back();
 }
 
-Handle PageStorage::appendNameData(const char * name)
+CDataType PageStorage::appendNameData(const char * name)
 {
     return instance().appendName(name);
 }
@@ -79,7 +79,7 @@ int PageStorage::currentPageNumber()
     return findPage(currentPage());
 }
 
-Handle PageStorage::findNameData(const char * name)
+CDataType PageStorage::findNameData(const char * name)
 {
     return instance().findName(name);
 }
@@ -89,9 +89,9 @@ int PageStorage::findPage(PageHandle p)
     return instance().find(p);
 }
 
-const char * PageStorage::namedata(Handle type)
+const char * PageStorage::namedata(CDataType type)
 {
-    return instance().namedata_.at((size_t) type - 1).c_str();
+    return instance().namedata_.at(type - 1).c_str();
 }
 
 int PageStorage::find(PageHandle page) const
@@ -104,12 +104,12 @@ int PageStorage::find(PageHandle page) const
     return -1;
 }
 
-Handle PageStorage::findName(const char * name)
+CDataType PageStorage::findName(const char * name)
 {
     NameMap::iterator it = std::find(namedata_.begin(), namedata_.end(), name);
     if(it == namedata_.end())
-        return NULL;
-    return reinterpret_cast<Handle>(std::distance(namedata_.begin(), it) + 1);
+        return 0;
+    return std::distance(namedata_.begin(), it) + 1;
 }
 
 PageHandle PageStorage::pageAt(size_t pos)

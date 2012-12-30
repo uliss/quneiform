@@ -200,7 +200,7 @@ Bool32 Close_Res_Log(void)
 
 Bool32 FillBigLetters(Handle hCCOM, CPageHandle hCPAGE)
 {
-    Handle BlockType;
+    CDataType BlockType;
     CBlockHandle pBlock;
     RPIC_Comp_Rect CompRect;
 

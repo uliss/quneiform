@@ -88,8 +88,6 @@ void MyErrorNoMem(const char* str);
 void SetReturnCode_rverline(uint16_t rc);
 /*------------own functions---------------------------------------------------*/
 Bool MyInit_CPage();
-Bool MyGetLines(LinesTotalInfo *pLti, int MaxNumLin, CPageHandle hCPage,
-		uint32_t *pHoriType, uint32_t *pVertType, char *pStr);
 Bool MyGetComp(CCOM_handle hCCOM, Rect16 *pRc, int *nRC, int MyMaxC, int Filter);
 void Error_CPage(const char *str);
 Bool MyFormZhertvy(CCOM_handle hCCOM, void **vvZher, int *iZher, int nZher,
@@ -116,101 +114,7 @@ Bool MyInit_CPage() {
 	}
 	return TRUE;
 }
-/*----------------------------------------------------------------------------*/
-Bool MyGetLines(LinesTotalInfo *pLti, int MaxNumLin, CPageHandle hCPage,
-		Handle *pHoriType, Handle *pVertType, char *pStr) {
-	int i;
-	uint32_t err32, nTeor, nReal;
-    CBlockHandle hBlockLine;
-    CBlockHandle hBlockLineHor;
-    CBlockHandle hBlockLineVer;
-    CBlockHandle hBlockLinePrev;
-	LineInfo *pLHor, *pLVer;
-	/***    ***/
-	pLHor = pLti->Hor.Lns;
-	pLVer = pLti->Ver.Lns;
-	/***  Общая информация о линиях  ***/
-	hBlockLine = CPAGE_GetBlockFirst(hCPage, RLINE_BLOCK_TYPE);
-	if (!hBlockLine) {
-		sprintf(pStr, "Линии не выделялись.");
-		return RV_EMPTY;
-	}
-	err32 = CPAGE_GetReturnCode();
-	if (err32 != 0) {
-		Error_CPage("[GetBlockFirst]");
-		return FALSE;
-	}
-	nTeor = sizeof(LinesTotalInfo);
-    nReal = CPAGE_GetBlockData(hBlockLine, RLINE_BLOCK_TYPE, (void *) pLti, nTeor);
-	err32 = CPAGE_GetReturnCode();
-	if ((nReal != nTeor) || (err32 != 0)) {
-		Error_CPage("[GetBlockData]");
-		return FALSE;
-	}
-	if (pLti->Hor.Cnt + pLti->Ver.Cnt >= MaxNumLin) {
-		sprintf(pStr, "Не хватило памяти под %d линии!", pLti->Hor.Cnt
-				+ pLti->Ver.Cnt);
-		return RV_DOUBT;
-	}
-	if ((pLti->Hor.Cnt == 0) && (pLti->Ver.Cnt == 0)) {
-		sprintf(pStr, "Линии выделялись, но ни одной не выделено.");
-		return RV_EMPTY;
-	}
-	/***  Горизонтальные линии  ***/
-	for (i = 0; i < pLti->Hor.Cnt; i++) {
-		if (i == 0)
-			hBlockLineHor = CPAGE_GetBlockFirst(hCPage, (pLti->Hor.Lns));
-		else
-			hBlockLineHor = CPAGE_GetBlockNext(hCPage, hBlockLinePrev,
-					(pLti->Hor.Lns));
-		err32 = CPAGE_GetReturnCode();
-		if (err32 != 0) {
-			if (i == 0)
-				Error_CPage("[GetBlockFirst]");
-			else
-				Error_CPage("[GetBlockNext]");
-			return FALSE;
-		}
-		nTeor = sizeof(LineInfo);
-        nReal = CPAGE_GetBlockData(hBlockLineHor, (pLti->Hor.Lns), (void *) &(pLHor[i]), nTeor);
-		err32 = CPAGE_GetReturnCode();
-		if ((nReal != nTeor) || (err32 != 0)) {
-			Error_CPage("[GetBlockData]");
-			return FALSE;
-		}
-		hBlockLinePrev = hBlockLineHor;
-	}
-	/***  Вертикальные линии  ***/
-	for (i = 0; i < pLti->Ver.Cnt; i++) {
-		if (i == 0)
-			hBlockLineVer = CPAGE_GetBlockFirst(hCPage, (pLti->Ver.Lns));
-		else
-			hBlockLineVer = CPAGE_GetBlockNext(hCPage, hBlockLinePrev,
-					(pLti->Ver.Lns));
-		err32 = CPAGE_GetReturnCode();
-		if (err32 != 0) {
-			if (i == 0)
-				Error_CPage("[GetBlockFirst]");
-			else
-				Error_CPage("[GetBlockNext]");
-			return FALSE;
-		}
-		nTeor = sizeof(LineInfo);
-        nReal = CPAGE_GetBlockData(hBlockLineVer, (pLti->Ver.Lns), (void *) &(pLVer[i]), nTeor);
-		err32 = CPAGE_GetReturnCode();
-		if ((nReal != nTeor) || (err32 != 0)) {
-			Error_CPage("[GetBlockData]");
-			return FALSE;
-		}
-		hBlockLinePrev = hBlockLineVer;
-	}
-	/***    ***/
-	*pHoriType = pLti->Hor.Lns;
-	*pVertType = pLti->Ver.Lns;
-	pLti->Hor.Lns = pLHor;
-	pLti->Ver.Lns = pLVer;
-	return TRUE;
-}
+
 /*----------------------------------------------------------------------------*/
 Bool MyGetLines(LinesTotalInfo *pLti, int MaxNumLin, CLINE_handle hCLINE,
 		char *pStr) {
@@ -275,8 +179,8 @@ Bool MyGetLines(LinesTotalInfo *pLti, int MaxNumLin, CLINE_handle hCLINE,
 	return TRUE;
 }
 /*----------------------------------------------------------------------------*/
-Bool MyReSetLines(void *vLti, int MaxNumLin, CPageHandle hCPage, Handle HoriType,
-		Handle VertType) {
+Bool MyReSetLines(void *vLti, int MaxNumLin, CPageHandle hCPage, CDataType HoriType,
+        CDataType VertType) {
 	int i;
 	uint32_t err32, nTeor;//, nReal;
 	Bool32 nReal;//differ

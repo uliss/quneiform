@@ -72,11 +72,11 @@ void GetKeysPumaVP (void *vLti, uint32_t *pKeyHor, uint32_t *pKeyVer);
 FUN_EXPO__ Bool GetSomeKeys_rv (void *vB, Handle *pKeyHor, Handle *pKeyVer
                      , int *pCntHor, int *pCntVer, char *pStr);
 FUN_EXPO__ Bool LoadLinesTotalInfo_rv (CPageHandle hC, void *vB, char *pStr);
-FUN_EXPO__ Bool LoadLinesSpecInfo (CPageHandle hC, void *vB, Handle Key, int Cnt);
+FUN_EXPO__ Bool LoadLinesSpecInfo (CPageHandle hC, void *vB, CDataType Key, int Cnt);
 Bool LoadLinesInfo_rv (CLINE_handle hC, void *vB, char *pStr, Bool Hori);
 /* !!! */
-Bool MyReSetLines (void *vLti, int MaxNumLin, CPageHandle hCPage, Handle HoriType
-                   , Handle VertType, char *pStr);
+Bool MyReSetLines (void *vLti, int MaxNumLin, CPageHandle hCPage, CDataType HoriType
+                   , CDataType VertType, char *pStr);
 Bool MyReSetLines(void* vLines, int Count, CLINE_handle hCLINE, char *pStr);
 FUN_EXPO__ Bool ReferForLinesVP (void *vLti, void *vB);
 /* !!! */

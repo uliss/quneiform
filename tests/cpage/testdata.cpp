@@ -26,7 +26,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestData);
 
 class TData : public cf::cpage::Data {
 public:
-    uint32_t Convert(Handle /*type*/, void * /*lpdata*/, uint32_t /*size*/) {
+    uint32_t Convert(CDataType /*type*/, void * /*lpdata*/, uint32_t /*size*/) {
         return 11;
     }
 };
@@ -47,9 +47,9 @@ void TestData::testGetData()
     CPPUNIT_ASSERT(!d.getDataPtr(0, NULL));
     void * data = 0;
     CPPUNIT_ASSERT(d.getDataPtr(0, &data));
-    CPPUNIT_ASSERT(!d.getDataPtr((Handle)0x1, &data));
+    CPPUNIT_ASSERT(!d.getDataPtr(0x1, &data));
 
-    CPPUNIT_ASSERT_EQUAL(uint32_t(11), d.getData((Handle)(0x2), NULL, 0));
+    CPPUNIT_ASSERT_EQUAL(uint32_t(11), d.getData(0x2, NULL, 0));
 }
 
 void TestData::testSave()
@@ -59,7 +59,7 @@ void TestData::testSave()
     bad << "bad";
     CPPUNIT_ASSERT(!d.save(bad));
 
-    Handle type = CPAGE_GetInternalType("usertype");
+    CDataType type = CPAGE_GetInternalType("usertype");
     d.setType(type);
 
     std::ofstream null;
@@ -70,7 +70,7 @@ void TestData::testRestore()
 {
     {
         TData data_source_1;
-        Handle t = CPAGE_GetInternalType("new type");
+        CDataType t = CPAGE_GetInternalType("new type");
         data_source_1.setType(t);
         std::ofstream out_file_1("test_cpage_data.dat");
         CPPUNIT_ASSERT(out_file_1);
@@ -94,7 +94,7 @@ void TestData::testRestore()
 
     {
         TData data_source_2;
-        Handle t = CPAGE_GetInternalType("new type2");
+        CDataType t = CPAGE_GetInternalType("new type2");
         uchar buffer_2[5];
         memset(buffer_2, 0xff, sizeof(buffer_2));
         data_source_2.setData(t, buffer_2, sizeof(buffer_2));

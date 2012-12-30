@@ -79,7 +79,7 @@ Block::Block(const Block& b) :
 Block::~Block()
 {}
 
-void Block::set(Handle type, uint32_t userNum , uint32_t flags , const void * src , uint32_t size)
+void Block::set(CDataType type, uint32_t userNum , uint32_t flags , const void * src , uint32_t size)
 {
     user_num_ = userNum;
     flags_ = flags;
@@ -161,7 +161,7 @@ DataConvertor Block::setConvertor(const DataConvertor& convertor)
     return old;
 }
 
-uint32_t Block::Convert(Handle type, void * lpdata, uint32_t size)
+uint32_t Block::Convert(CDataType type, void * lpdata, uint32_t size)
 {
     return blockConvertor(type_, data_, size_, type, lpdata, size);
 }

@@ -286,7 +286,7 @@ void CFPage::ProcessingComingLine(CSTR_line* Comingline) {
         Fragment = m_arFrags[Count.Frags];
         assert(Fragment);
         hCPAGE = CPAGE_GetHandlePage(CPAGE_GetCurrentPageNumber());
-        hBlock = CPAGE_GetBlockFirst(hCPAGE, NULL);
+        hBlock = CPAGE_GetBlockFirst(hCPAGE, 0);
 
         while (hBlock) {
             if (CPAGE_GetBlockInterNum(hBlock) == (uint32_t) m_nCurFragNumber) {
@@ -304,7 +304,7 @@ void CFPage::ProcessingComingLine(CSTR_line* Comingline) {
                 break;
             }
 
-            hBlock = CPAGE_GetBlockNext(hCPAGE, hBlock, NULL);
+            hBlock = CPAGE_GetBlockNext(hCPAGE, hBlock, 0);
         }
 
         assert(hBlock != NULL);

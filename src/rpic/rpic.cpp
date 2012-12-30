@@ -737,7 +737,7 @@ Bool32 RPIC_SearchPictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, CPageHandle
 		}
 	}
 
-	Handle BlockType = CPAGE_GetInternalType("pic's to letters boxes");
+    CDataType BlockType = CPAGE_GetInternalType("pic's to letters boxes");
 	RPIC_Comp_Rect CompRect;
 	if (!LDPUMA_Skip(hShowBigLetters)) {
 		h = NULL;

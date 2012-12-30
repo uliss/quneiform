@@ -171,7 +171,7 @@ enum CPAGE_EXPORT_ENTRIES {
 
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; CPAGE_FUNC a b c;
 
-CPAGE_FUNC CPageHandle CPAGE_CreatePage(Handle type, const void * data, uint32_t size);
+CPAGE_FUNC CPageHandle CPAGE_CreatePage(CDataType type, const void * data, uint32_t size);
 CPAGE_FUNC void CPAGE_DeletePage(CPageHandle hPage);
 CPAGE_FUNC size_t CPAGE_GetPageCount();
 CPAGE_FUNC CPageHandle CPAGE_GetHandlePage(uint32_t number);
@@ -180,40 +180,40 @@ CPAGE_FUNC bool CPAGE_SetCurrentPage(uint32_t number);
 CPAGE_FUNC uint32_t CPAGE_GetPageNumber(CPageHandle page);
 CPAGE_FUNC bool CPAGE_SavePage(CPageHandle page, const char * fname);
 CPAGE_FUNC CPageHandle CPAGE_RestorePage(bool remove, const char * fname);
-CPAGE_FUNC bool CPAGE_SetPageData(CPageHandle page, Handle type, const void * data, uint32_t size);
-CPAGE_FUNC uint32_t CPAGE_GetPageData(CPageHandle page, Handle Type, void * lpData, uint32_t Size);
+CPAGE_FUNC bool CPAGE_SetPageData(CPageHandle page, CDataType type, const void * data, uint32_t size);
+CPAGE_FUNC uint32_t CPAGE_GetPageData(CPageHandle page, CDataType type, void * lpData, uint32_t Size);
 CPAGE_FUNC bool CPAGE_GetPageInfo(CPageHandle page, PAGEINFO * info);
 CPAGE_FUNC bool CPAGE_SetPageInfo(CPageHandle page, const PAGEINFO& info);
-CPAGE_FUNC CBlockHandle CPAGE_CreateBlock(CPageHandle page, Handle Type, uint32_t UserNum , uint32_t Flags, void * lpData, uint32_t Size);
+CPAGE_FUNC CBlockHandle CPAGE_CreateBlock(CPageHandle page, CDataType Type, uint32_t UserNum , uint32_t Flags, void * lpData, uint32_t Size);
 CPAGE_FUNC void CPAGE_DeleteBlock(CPageHandle page, CBlockHandle block);
 CPAGE_FUNC uint32_t CPAGE_GetCountBlock(CPageHandle page);
-CPAGE_FUNC Handle CPAGE_GetBlockType(CBlockHandle block);
+CPAGE_FUNC CDataType CPAGE_GetBlockType(CBlockHandle block);
 CPAGE_FUNC uint32_t CPAGE_GetBlockUserNum(CBlockHandle block);
 CPAGE_FUNC void CPAGE_SetBlockUserNum(CBlockHandle block, uint32_t number);
 CPAGE_FUNC uint32_t CPAGE_GetBlockFlags(CBlockHandle block);
 CPAGE_FUNC void CPAGE_SetBlockFlags(CBlockHandle block, uint32_t flags);
-CPAGE_FUNC bool CPAGE_SetBlockData(CBlockHandle block, Handle type, const void * data, uint32_t size);
-typedef uint32_t (*FNCPAGE_GetBlockData)(CBlockHandle block, Handle type, void * data, uint32_t size);
-CPAGE_FUNC uint32_t CPAGE_GetBlockData(CBlockHandle block, Handle type, void * data, uint32_t size);
-typedef CBlockHandle (*FNCPAGE_GetBlockFirst)(CPageHandle page, Handle type);
-CPAGE_FUNC CBlockHandle CPAGE_GetBlockFirst(CPageHandle page, Handle type);
-typedef CBlockHandle (*FNCPAGE_GetBlockNext)(CPageHandle page, CBlockHandle block, Handle type);
-CPAGE_FUNC CBlockHandle CPAGE_GetBlockNext(CPageHandle page, CBlockHandle block, Handle type);
-CPAGE_FUNC Handle CPAGE_GetUserPageType();
-CPAGE_FUNC Handle CPAGE_GetUserBlockType();
-CPAGE_FUNC CPageHandle CPAGE_GetPageFirst(Handle type);
-CPAGE_FUNC CPageHandle CPAGE_GetPageNext(CPageHandle page, Handle type);
+CPAGE_FUNC bool CPAGE_SetBlockData(CBlockHandle block, CDataType type, const void * data, uint32_t size);
+typedef uint32_t (*FNCPAGE_GetBlockData)(CBlockHandle block, CDataType type, void * data, uint32_t size);
+CPAGE_FUNC uint32_t CPAGE_GetBlockData(CBlockHandle block, CDataType type, void * data, uint32_t size);
+typedef CBlockHandle (*FNCPAGE_GetBlockFirst)(CPageHandle page, CDataType type);
+CPAGE_FUNC CBlockHandle CPAGE_GetBlockFirst(CPageHandle page, CDataType type);
+typedef CBlockHandle (*FNCPAGE_GetBlockNext)(CPageHandle page, CBlockHandle block, CDataType type);
+CPAGE_FUNC CBlockHandle CPAGE_GetBlockNext(CPageHandle page, CBlockHandle block, CDataType type);
+CPAGE_FUNC CDataType CPAGE_GetUserPageType();
+CPAGE_FUNC CDataType CPAGE_GetUserBlockType();
+CPAGE_FUNC CPageHandle CPAGE_GetPageFirst(CDataType type);
+CPAGE_FUNC CPageHandle CPAGE_GetPageNext(CPageHandle page, CDataType type);
 CPAGE_FUNC bool CPAGE_DeleteAll();
-CPAGE_FUNC Bool32 CPAGE_UpdateBlocks(CPageHandle hPage, Handle type);
+CPAGE_FUNC Bool32 CPAGE_UpdateBlocks(CPageHandle hPage, CDataType type);
 CPAGE_FUNC CBlockHandle CPAGE_PictureGetFirst(CPageHandle hPage);
 CPAGE_FUNC CBlockHandle CPAGE_PictureGetNext(CPageHandle hPage, CBlockHandle hPicture);
 CPAGE_FUNC Bool32 CPAGE_PictureGetPlace(CPageHandle hPage, CBlockHandle hPicture, int32_t Skew2048, cf::Point * lpLr, cf::Point * lpWh);
 CPAGE_FUNC Bool32 CPAGE_PictureGetMask(CPageHandle hPage, CBlockHandle hPicture, int32_t Skew2048, char * lpData, uint32_t * lpSize);
 CPAGE_FUNC uint32_t CPAGE_GetBlockInterNum(CBlockHandle block);
 CPAGE_FUNC void CPAGE_SetBlockInterNum(CBlockHandle block, uint32_t inter);
-CPAGE_FUNC bool CPAGE_GetBlockDataPtr(CBlockHandle block, Handle Type, void ** lpData);
-CPAGE_FUNC Handle CPAGE_GetInternalType(const char * name);
-CPAGE_FUNC const char * CPAGE_GetNameInternalType(Handle type);
+CPAGE_FUNC bool CPAGE_GetBlockDataPtr(CBlockHandle block, CDataType Type, void ** lpData);
+CPAGE_FUNC CDataType CPAGE_GetInternalType(const char * name);
+CPAGE_FUNC const char * CPAGE_GetNameInternalType(CDataType type);
 
 // Виртуальные функции:
 // Они доступны только через непосредственный вызов функций

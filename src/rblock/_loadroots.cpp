@@ -453,7 +453,7 @@ Bool32 PicturesSecondStage(CCOM_handle hCCOM, CPageHandle hCPAGE)
 
 Bool32 FillBigLetters(Handle hCCOM, CPageHandle hCPAGE)
 {
-    Handle BlockType;
+    CDataType BlockType;
     CBlockHandle pBlock;
     RPIC_Comp_Rect CompRect; // типичный Rect16
     BlockType = CPAGE_GetInternalType("pic's to letters boxes");

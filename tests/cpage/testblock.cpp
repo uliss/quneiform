@@ -21,6 +21,7 @@
 
 #include "testblock.h"
 #include "cpage/block.h"
+#include "cpage/cpage.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestBlock);
 
@@ -42,12 +43,12 @@ void TestBlock::testInit()
 void TestBlock::testSet()
 {
     Block b;
-    b.set((Handle) 0x1, 1, 2);
+    b.set(0x1, 1, 2);
     CPPUNIT_ASSERT(b.empty());
     CPPUNIT_ASSERT_EQUAL(uint32_t(1), b.userNum());
     CPPUNIT_ASSERT_EQUAL(uint32_t(0), b.interNum());
     CPPUNIT_ASSERT_EQUAL(uint32_t(2), b.flags());
-    CPPUNIT_ASSERT_EQUAL((Handle) 0x1, b.type());
+    CPPUNIT_ASSERT_EQUAL(0x1, b.type());
 
     uchar data[100];
     memset(data, 0xff, sizeof(data));
@@ -141,7 +142,7 @@ void TestBlock::testCompare()
     b1.dataPtr()[0] = 0;
     CPPUNIT_ASSERT(b1 != b2);
 
-    b1.setType((Handle) 1);
+    b1.setType(1);
     CPPUNIT_ASSERT(b1 != b2);
 }
 
@@ -151,7 +152,7 @@ void TestBlock::testSave()
     b.setUserNum(1);
     b.setInterNum(2);
     b.setFlags(0xff);
-    b.setType((Handle) 0);
+    b.setType(0);
 
     uchar data[10];
     memset(data, 0xff, sizeof(data));
@@ -169,7 +170,7 @@ void TestBlock::testSave()
     CPPUNIT_ASSERT(os.good());
     os.seekp(0);
 
-    Handle t = CPAGE_GetInternalType("user type");
+    CDataType t = CPAGE_GetInternalType("user type");
     b.setType(t);
     CPPUNIT_ASSERT(b.save(os));
     CPPUNIT_ASSERT(os.good());
@@ -200,8 +201,8 @@ void TestBlock::testRestore()
 }
 
 uint32_t convert(uint32_t,
-                 Handle /*typeIn*/, void * /*dataIn*/, uint32_t /*sizeIn*/,
-                 Handle /*typeOut*/, void * /*dataOut*/, uint32_t sizeOut) {
+                 CDataType /*typeIn*/, void * /*dataIn*/, uint32_t /*sizeIn*/,
+                 CDataType /*typeOut*/, void * /*dataOut*/, uint32_t sizeOut) {
     return sizeOut * 2;
 }
 

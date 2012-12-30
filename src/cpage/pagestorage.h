@@ -46,7 +46,7 @@ public:
      * Appends new name data to storage
      * @return name data handle
      */
-    static Handle appendNameData(const char * name);
+    static CDataType appendNameData(const char * name);
 
     /**
      * Removes all pages from storage
@@ -73,9 +73,9 @@ public:
 
     /**
      * Searches for name data
-     * @return name data handle
+     * @return name data index
      */
-    static Handle findNameData(const char * name);
+    static CDataType findNameData(const char * name);
 
     /**
      * Search for given page handle in storage
@@ -86,7 +86,7 @@ public:
     /**
      * Returns character name for namedata
      */
-    static const char * namedata(Handle type);
+    static const char * namedata(CDataType type);
 
     /**
      * Returns page handle at given position
@@ -115,11 +115,11 @@ public:
 private:
     static PageStorage& instance();
     static PageList& pages();
-    Handle appendName(const char * name);
+    CDataType appendName(const char * name);
     void clearPages();
     void clearNameDataPrivate();
     int find(PageHandle page) const;
-    Handle findName(const char * name);
+    CDataType findName(const char * name);
     void removePage(PageHandle p);
 private:
     PageList pages_;

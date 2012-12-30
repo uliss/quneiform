@@ -70,8 +70,8 @@ DataConvertor::DataConvertor(const ConverterFunc& f, uint32_t context) :
     func_(f)
 {}
 
-uint32_t DataConvertor::operator()(Handle TypeIn,  void * src,  uint32_t srcSize,
-                                   Handle TypeOut, void * dest, uint32_t destSize)
+uint32_t DataConvertor::operator()(CDataType TypeIn,  void * src,  uint32_t srcSize,
+                                   CDataType TypeOut, void * dest, uint32_t destSize)
 {
     return (*func_)(context_, TypeIn, src, srcSize, TypeOut, dest, destSize);
 }
@@ -82,12 +82,10 @@ ConverterFunc DataConvertor::func()
 }
 
 Data::Data() :
-    type_(0),
+    type_(-1),
     size_(0),
     data_(NULL)
-{
-    type_ = reinterpret_cast<void*> (-1);
-}
+{}
 
 Data::Data(const Data& data) :
     type_(data.type_),
@@ -102,7 +100,7 @@ Data::~Data()
     delete []data_;
 }
 
-void Data::setData(Handle type, const void * src, uint32_t size)
+void Data::setData(CDataType type, const void * src, uint32_t size)
 {
     type_ = type;
     size_ = size;
@@ -138,7 +136,7 @@ bool Data::empty() const
     return !size_ || !data_;
 }
 
-bool Data::getDataPtr(Handle type, void **lpdata)
+bool Data::getDataPtr(CDataType type, void **lpdata)
 {
     if(!lpdata) {
         CPAGE_ERROR_FUNC << ": null pointer";
@@ -153,17 +151,17 @@ bool Data::getDataPtr(Handle type, void **lpdata)
     return false;
 }
 
-Handle Data::type() const
+CDataType Data::type() const
 {
     return type_;
 }
 
-void Data::setType(Handle type)
+void Data::setType(CDataType type)
 {
     type_ = type;
 }
 
-uint32_t Data::getData(Handle type, void * dest, uint32_t size)
+uint32_t Data::getData(CDataType type, void * dest, uint32_t size)
 {
     if (type == type_) {
         if (dest == NULL) {

@@ -126,8 +126,8 @@ void TestPage::testPageInfo()
 }
 
 static uint32_t test_convert(uint32_t /*dwContext*/,
-                             Handle /*TypeIn*/,  void * /*lpDataIn*/,  uint32_t /*SizeIn*/,
-                             Handle /*TypeOut*/, void * /*LpDataOut*/, uint32_t SizeOut)
+                             CDataType /*TypeIn*/,  void * /*lpDataIn*/,  uint32_t /*SizeIn*/,
+                             CDataType /*TypeOut*/, void * /*LpDataOut*/, uint32_t SizeOut)
 {
     return SizeOut * 11;
 }
@@ -139,8 +139,8 @@ void TestPage::testConvertor()
 
     uchar data[10];
     Page p;
-    Handle first_type = CPAGE_GetInternalType("test_convert");
-    Handle second_type = CPAGE_GetInternalType("other type");
+    CDataType first_type = CPAGE_GetInternalType("test_convert");
+    CDataType second_type = CPAGE_GetInternalType("other type");
     CPPUNIT_ASSERT(first_type != second_type);
 
     p.setData(first_type, data, sizeof(data));

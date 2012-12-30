@@ -63,9 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  Назначение :  Сервис по управлению библиотекой.                           */
 /*----------------------------------------------------------------------------*/
 #include "cttypes.h"
-#ifndef Handle
-#define Handle void *
-#endif
+
 typedef enum {
     RU_Unknown = 0,
     /*  Верификация линий  */
