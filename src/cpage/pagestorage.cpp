@@ -45,8 +45,8 @@ PageList& PageStorage::pages()
 
 Handle PageStorage::appendName(const char *name)
 {
-    NAMEDATA nd(name);
-    return namedata_.AddTail(nd);
+    namedata_.push_back(name);
+    return reinterpret_cast<Handle>(namedata_.size());
 }
 
 PageHandle PageStorage::append(const BackupPage& p)
@@ -91,7 +91,7 @@ int PageStorage::findPage(PageHandle p)
 
 const char * PageStorage::namedata(Handle type)
 {
-    return instance().namedata_.GetItem(type);
+    return instance().namedata_.at((size_t) type - 1).c_str();
 }
 
 int PageStorage::find(PageHandle page) const
@@ -106,8 +106,10 @@ int PageStorage::find(PageHandle page) const
 
 Handle PageStorage::findName(const char * name)
 {
-    NAMEDATA nd(name);
-    return namedata_.FindFirst(nd);
+    NameMap::iterator it = std::find(namedata_.begin(), namedata_.end(), name);
+    if(it == namedata_.end())
+        return NULL;
+    return reinterpret_cast<Handle>(std::distance(namedata_.begin(), it) + 1);
 }
 
 PageHandle PageStorage::pageAt(size_t pos)
@@ -154,7 +156,7 @@ void PageStorage::clearPages()
 
 void PageStorage::clearNameDataPrivate()
 {
-    namedata_.Clear();
+    namedata_.clear();
 }
 
 void PageStorage::removePage(PageHandle p)

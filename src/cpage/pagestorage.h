@@ -23,8 +23,6 @@
 
 #include "globus.h"
 #include "cpagedefs.h"
-#include "ptrlist.h"
-#include "namedata.h"
 
 namespace cf {
 namespace cpage {
@@ -126,8 +124,8 @@ private:
 private:
     PageList pages_;
     PageHandle current_;
-private:
-    PtrList<NAMEDATA> namedata_;
+    typedef std::vector<std::string> NameMap;
+    NameMap namedata_;
 };
 
 }
