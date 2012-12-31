@@ -273,7 +273,7 @@ void CFPage::ProcessingComingLine(CSTR_line* Comingline) {
     CFragment* Fragment;
     CPageHandle hCPAGE;
     CBlockHandle hBlock;
-    POLY_ poly;
+    PolyBlock poly;
     line = *Comingline;
 
     if (!CSTR_GetLineAttr(line, &attr) || attr.Flags & CSTR_STR_EMPTY)
@@ -294,7 +294,7 @@ void CFPage::ProcessingComingLine(CSTR_line* Comingline) {
                 Fragment->m_Flags = attr.Flags; //nega
 
                 if (attr.Flags == CSTR_STR_NEGATIVE) { //nega_str
-                    CPAGE_GetBlockData(hBlock, TYPE_TEXT, &poly, sizeof(POLY_));
+                    CPAGE_GetBlockData(hBlock, TYPE_TEXT, &poly, sizeof(PolyBlock));
                     Fragment->m_rectFrag.left = poly.com.Vertex[0].x() - TemplateOffset.x();
                     Fragment->m_rectFrag.right = poly.com.Vertex[2].x() - TemplateOffset.x();
                     Fragment->m_rectFrag.top = poly.com.Vertex[0].y() - TemplateOffset.y();

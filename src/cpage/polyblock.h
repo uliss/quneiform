@@ -89,13 +89,13 @@ enum {
     NORMAL_LINE  = 0    // дублирует
 };
 
-struct POLY_ {
+struct PolyBlock {
     cf::cpage::CommonData com;
     int32_t alphabet;//Цифры,Цифры и буквы, Буквы
     block_light_t negative; //Негатив = TYPE_NEGATIVE, Позитив = TYPE_POSITIVE;//     01.01.01 Логинов
     block_orientation_t orient; //TYPE_NORD- Сверху вниз (нормальное), TYPE_WEST- лежит на левом боку, TYPE_OST- лежит на правом боку.
 public:
-    POLY_() : negative(TYPE_POSITIVE), orient(TYPE_LEFTRIGHT) {}
+    PolyBlock() : negative(TYPE_POSITIVE), orient(TYPE_LEFTRIGHT) {}
     bool isNegative() const { return negative == TYPE_NEGATIVE; }
     block_orientation_t orientation() const { return orient; }
     cf::Rect rect() const { return cf::Rect(com.Vertex[0], com.Vertex[2]); }

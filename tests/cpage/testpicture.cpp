@@ -64,10 +64,10 @@ void TestPicture::testRotate()
 void TestPicture::testConvert()
 {
     Block b;
-    POLY_ poly;
+    PolyBlock poly;
     poly.com.addVertex(Point(1, 1));
     poly.com.addVertex(Point(2, 2));
-    b.setData(TYPE_IMAGE, &poly, sizeof(POLY_));
+    b.setData(TYPE_IMAGE, &poly, sizeof(PolyBlock));
 
     DefConvertInit();
     Block::setConvertor(&DefConvertBlock);

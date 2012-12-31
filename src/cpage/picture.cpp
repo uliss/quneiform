@@ -61,19 +61,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "picture.h"
 #include "cpage_debug.h"
 
-uint32_t CPAGE_PICTURE_to_TYPE_PICTURE(const cf::cpage::Picture& lpDataIn, uint32_t SizeIn, POLY_ * LpDataOut, uint32_t SizeOut)
+uint32_t CPAGE_PICTURE_to_TYPE_PICTURE(const cf::cpage::Picture& lpDataIn, uint32_t SizeIn, PolyBlock * LpDataOut, uint32_t SizeOut)
 {
     uint32_t rc = 0;
 
     if (LpDataOut == NULL)
-        return sizeof(POLY_);
+        return sizeof(PolyBlock);
 
-    if (sizeof(POLY_) != SizeOut || sizeof(cf::cpage::Picture) != SizeIn) {
+    if (sizeof(PolyBlock) != SizeOut || sizeof(cf::cpage::Picture) != SizeIn) {
         SetReturnCode_cpage(IDS_ERR_DISCREP);
         return 0;
     }
 
-    POLY_  desc;
+    PolyBlock  desc;
     cf::cpage::Picture pict = lpDataIn;
     desc.com.count = pict.cornerCount();
 
@@ -84,7 +84,7 @@ uint32_t CPAGE_PICTURE_to_TYPE_PICTURE(const cf::cpage::Picture& lpDataIn, uint3
     desc.com.setType(TYPE_PICTURE);
     desc.com.number = 0;
     *LpDataOut = desc;
-    rc = sizeof(POLY_);
+    rc = sizeof(PolyBlock);
     return rc;
 }
 
@@ -127,7 +127,7 @@ void Picture::rotateCorner(size_t pos, int skew2048)
     corners_[pos].rx() = corners_[pos].x() + corners_[pos].y() * skew2048 / 2048;
 }
 
-void Picture::set(const POLY_& polygon)
+void Picture::set(const PolyBlock& polygon)
 {
     number_ = polygon.com.count;
     assert(number_ < CPAGE_MAXCORNER);

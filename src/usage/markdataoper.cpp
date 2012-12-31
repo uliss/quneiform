@@ -178,8 +178,8 @@ Bool LoadComps_rv(CCOM_handle hC, void *vB, char *pStr, int Filter) {
 /*---------------------------------------------------------------------------*/
 Bool MakeRectFromPict(Rect16 *pCurr, void *vPict) {
 	int n;
-	POLY_ *pPict;
-	pPict = (POLY_ *) vPict;
+	PolyBlock *pPict;
+	pPict = (PolyBlock *) vPict;
 	n = pPict->com.count;
 	if (n != 4)
 		return FALSE;
@@ -206,7 +206,7 @@ Bool LoadPicts_rv(CPageHandle hC, void *vB, char *pStr) {
 	int SizeCurr, Deficit, nRc;
 	uint32_t err32, nTeor, nReal;
 	Bool ret;
-	POLY_ Pict;
+	PolyBlock Pict;
     CBlockHandle hBlockPictSpec;
     CBlockHandle hBlockPictPrev;
 	UN_BUFF *pB;
@@ -216,7 +216,7 @@ Bool LoadPicts_rv(CPageHandle hC, void *vB, char *pStr) {
 	Deficit = 0;
 	pCurr = (Rect16 *) pB->vCurr;
 	SizeCurr = pB->SizeCurr;
-	nTeor = sizeof(POLY_);
+	nTeor = sizeof(PolyBlock);
 	hBlockPictPrev = NULL;
 	while (1) {
 		/*  ключ к данным  */

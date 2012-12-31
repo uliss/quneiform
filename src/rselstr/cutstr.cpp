@@ -103,7 +103,7 @@ Bool32 WasDif = FALSE;
 uint32_t Code_UB_Kill = 0;
 uint32_t Code_UB_Create = 0;
 
-int CutStrings(POLY_* pBLOCK);
+int CutStrings(PolyBlock* pBLOCK);
 int GetStatisticsH(void);
 void IfDifCut(void);
 
@@ -112,17 +112,17 @@ extern FILE* f_cut_str;
 extern FILE* f_temp_cut;
 extern FILE* f_old_cut;
 
-int GetMediumHeight(POLY_*);
+int GetMediumHeight(PolyBlock*);
 Bool Increase2(RecRaster* rast, CCOM_comp* comp);
 int GetCountNumbers(int num);
 void StrDrawRect(Handle wnd, uint32_t OperCode, uint32_t color, int top,
 		int bottom, int left, int right);
 Bool IfEqv(char* buf1, char* buf2);
 Bool IfEqv(Rect16 r1, Rect16 r2);
-Bool AddLenBlockMas(POLY_** ppRc, int& len, int add);
-void DelBlockMas(POLY_* masp);
-Bool InitBlockMas(POLY_** ppRc, int len);
-int IsInPoly(const cf::Point16& a, POLY_* pPoly);
+Bool AddLenBlockMas(PolyBlock** ppRc, int& len, int add);
+void DelBlockMas(PolyBlock* masp);
+Bool InitBlockMas(PolyBlock** ppRc, int len);
+int IsInPoly(const cf::Point16& a, PolyBlock* pPoly);
 Bool CutComp(CPageHandle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound,
 		Bool fl_cut);
 void UndoCutInRect(Handle hCPAGE, CCOM_handle hCCOM, Rect32* Rc);
@@ -131,11 +131,11 @@ void RSELSTR_CutCompInTableZones(CPageHandle hCPAGE, CCOM_handle hCCOM) {
 }
 
 
-int IsInPoly(const cf::Point16& a, POLY_* pPoly)
+int IsInPoly(const cf::Point16& a, PolyBlock* pPoly)
 {
     int y, ind;
     int Count = 0;
-    POLY_ *p = pPoly;
+    PolyBlock *p = pPoly;
     int n = p->com.count;
 
     for (int i = 0; i < n; i++) {
@@ -213,7 +213,7 @@ void UndoCutInRect(Handle hCPAGE, CCOM_handle hCCOM, Rect32* Rc) {
 	}
 }
 
-int CutStrings(POLY_* pBlock) {
+int CutStrings(PolyBlock* pBlock) {
 	medium_h = GetMediumHeight(pBlock);
 
 	int cut_h = (int) ((double) (medium_h) * k_cut);
@@ -303,7 +303,7 @@ int CutStrings(POLY_* pBlock) {
 	return 1;
 }
 
-int GetMediumHeight(POLY_* pBlock) {
+int GetMediumHeight(PolyBlock* pBlock) {
 	CCOM_comp * comp;
 	int sum_height = 0;
 	int count = 0;
@@ -808,8 +808,8 @@ Bool IfEqv(Rect16 r1, Rect16 r2) {
 	return TRUE;
 }
 
-Bool AddLenBlockMas(POLY_** ppRc, int& len, int add) {
-	POLY_ *dop;
+Bool AddLenBlockMas(PolyBlock** ppRc, int& len, int add) {
+	PolyBlock *dop;
 	int i;
 	if (!(InitBlockMas(&dop, len)))
 		return FALSE;
@@ -838,13 +838,13 @@ Bool AddLenBlockMas(POLY_** ppRc, int& len, int add) {
 	return TRUE;
 }
 
-void DelBlockMas(POLY_ *masp) {
+void DelBlockMas(PolyBlock *masp) {
 	delete[] masp;
 }
 
-Bool InitBlockMas(POLY_** ppRc, int len) {
+Bool InitBlockMas(PolyBlock** ppRc, int len) {
 	(*ppRc) = NULL;
-	if (!((*ppRc) = new POLY_[len]))
+	if (!((*ppRc) = new PolyBlock[len]))
 		return FALSE;
 	return TRUE;
 }

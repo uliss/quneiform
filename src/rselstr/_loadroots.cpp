@@ -225,7 +225,7 @@ Bool32 FillBigLetters(Handle hCCOM, CPageHandle hCPAGE)
 
 Bool32 FillPicsInTables(Handle hCCOM, CPageHandle hCPAGE)
 {
-    POLY_ block;
+    PolyBlock block;
     CBlockHandle h = NULL;
 
     CCOM_comp * comp;

@@ -326,7 +326,7 @@ Bool32 RPIC_SearchPictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, CPageHandle
 	CCOM_comp * comp = NULL;
 	CCOM_comp common;
 	PAGEINFO pInfo;
-	POLY_ block;
+	PolyBlock block;
 	uint32_t i, j;
 
 	Rect16 rect;
@@ -671,9 +671,9 @@ Bool32 RPIC_SearchPictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, CPageHandle
 		if (pPics[i].large & CCOM_LR_TAKEN || pPics[i].w < min_image_width
 				&& pPics[i].h < min_image_height) {
 			CPAGE_CreateBlock(hCPAGE, POSSIBLE_PICTURES, 0, 0, &block,
-					sizeof(POLY_));
+					sizeof(PolyBlock));
 		} else {
-			CPAGE_CreateBlock(hCPAGE, TYPE_IMAGE, 0, 0, &block, sizeof(POLY_));
+			CPAGE_CreateBlock(hCPAGE, TYPE_IMAGE, 0, 0, &block, sizeof(PolyBlock));
 		}
 	}
 

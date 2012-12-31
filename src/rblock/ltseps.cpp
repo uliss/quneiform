@@ -112,7 +112,7 @@ void SeparatorsGet (void)
     uint32_t key;
     uint32_t color;
     int32_t nPics;
-    POLY_ *pPics;
+    PolyBlock *pPics;
     uint32_t size_line_com = sizeof(LINE_COM);
     CLINE_handle hline;
     extern CLINE_handle HCLINE;
@@ -181,12 +181,12 @@ void SeparatorsGet (void)
             hBlock != NULL;
             hBlock = CPAGE_GetBlockNext(hPage, hBlock, TYPE_IMAGE)) {
         if (nPics % PICS_QUANTUM == 0) {
-            pPics = static_cast<POLY_*>(realloc (pPics,
+            pPics = static_cast<PolyBlock*>(realloc (pPics,
                             (size_t) ((nPics / PICS_QUANTUM + 1)
-                                    * PICS_QUANTUM * sizeof (POLY_))));
+                                    * PICS_QUANTUM * sizeof (PolyBlock))));
         }
 
-        CPAGE_GetBlockData(hBlock, TYPE_IMAGE, &pPics[nPics++], sizeof(POLY_));
+        CPAGE_GetBlockData(hBlock, TYPE_IMAGE, &pPics[nPics++], sizeof(PolyBlock));
     }
 
     for (i = 0; i < nPics; i++) {

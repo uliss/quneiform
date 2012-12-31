@@ -176,7 +176,7 @@ Bool32 PicturesSecondStage(CCOM_handle hCCOM, CPageHandle hCPAGE)
 {
     /************** final union all crossed and included pictures ******************/
     CCOM_comp common;
-    POLY_ block;
+    PolyBlock block;
     CBlockHandle h = NULL;
     uint32_t i, j;
     CCOM_comp pic;
@@ -444,7 +444,7 @@ Bool32 PicturesSecondStage(CCOM_handle hCCOM, CPageHandle hCPAGE)
                 pPics[i].upper, pPics[i].left + pPics[i].w, pPics[i].upper,
                 pPics[i].h);
         LDPUMA_FPuts(resFile_pict, tmp_str);
-        CPAGE_CreateBlock(hCPAGE, TYPE_IMAGE, 0, 0, &block, sizeof(POLY_));
+        CPAGE_CreateBlock(hCPAGE, TYPE_IMAGE, 0, 0, &block, sizeof(PolyBlock));
     }
 
     LDPUMA_FPuts(resFile_pict, "  <4 К После второго прохода \n");
@@ -477,7 +477,7 @@ Bool32 FillBigLetters(Handle hCCOM, CPageHandle hCPAGE)
 
 Bool32 FillPicsInTables(Handle hCCOM, CPageHandle hCPAGE)
 {
-    POLY_ block;
+    PolyBlock block;
     CBlockHandle h = NULL;
     CCOM_comp * comp;
 

@@ -32,7 +32,7 @@ uint32_t DefConvertPage(uint32_t context,
 
 uint32_t TYPE_DESK_to_CPAGE_TABLE(TABLE_DESC * lpDataIn, uint32_t SizeIn, CPAGE_TABLE * LpDataOut, uint32_t SizeOut);
 uint32_t CPAGE_TABLE_to_TYPE_DESK( CPAGE_TABLE * lpDataIn, uint32_t SizeIn, TABLE_DESC * LpDataOut, uint32_t SizeOut);
-uint32_t CPAGE_PICTURE_to_TYPE_PICTURE(const cf::cpage::Picture& lpDataIn, uint32_t SizeIn, POLY_ * LpDataOut, uint32_t SizeOut);
+uint32_t CPAGE_PICTURE_to_TYPE_PICTURE(const cf::cpage::Picture& lpDataIn, uint32_t SizeIn, PolyBlock * LpDataOut, uint32_t SizeOut);
 
 
 #endif // CONVERT_H

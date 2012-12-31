@@ -292,7 +292,7 @@ void file_string(STRING * s)
 static void LayoutFromCPAGE(CPageHandle hCPAGE)
 {
     CBlockHandle h = NULL;
-    POLY_ block;
+    PolyBlock block;
     int nBlocks = FIRST_REGULAR_BLOCK_NUMBER;
     Point16 pLeftTop, pRightTop, pLeftBottom, pRightBottom;
     ROOT * pRoot = NULL;
@@ -362,8 +362,8 @@ int IsInPoly(Point16 a, void * pPoly)
 {
     int i, y, n, ind;
     int Count = 0;
-    POLY_ *p;
-    p = (POLY_*) pPoly;
+    PolyBlock *p;
+    p = (PolyBlock*) pPoly;
     n = p->com.count;
 
     for (i = 0; i < n; i++) {

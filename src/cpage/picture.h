@@ -23,7 +23,7 @@
 #include "cpagedefs.h"
 #include "common/point.h"
 
-struct POLY_;
+struct PolyBlock;
 
 namespace cf {
 namespace cpage {
@@ -36,7 +36,7 @@ public:
     cf::Point cornerAt(size_t pos) const;
     size_t cornerCount() const;
     void rotateCorner(size_t pos, int skew2048);
-    void set(const POLY_& polygon);
+    void set(const PolyBlock& polygon);
 private:
     size_t number_;
     cf::Point corners_[CPAGE_MAXCORNER];

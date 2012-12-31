@@ -117,7 +117,7 @@ extern BLOCK** pBlockPointer;
 
 //////////////////////////////////
 static void LayoutFromCPAGE(CPageHandle hCPAGE, CCOM_handle hCCOM);
-int IsInPoly(const cf::Point16& a, POLY_* pPoly);
+int IsInPoly(const cf::Point16& a, PolyBlock* pPoly);
 Bool dphShowString;
 
 void RotatePageToIdeal(void);
@@ -210,7 +210,7 @@ void PageLayoutStrings(CCOM_handle hCCOM, CPageHandle hCPAGE)
 void LayoutFromCPAGE(CPageHandle hCPAGE, CCOM_handle hCCOM)
 {
     CBlockHandle h = NULL;
-    POLY_ block;
+    PolyBlock block;
     int nBlocks = FIRST_REGULAR_BLOCK_NUMBER;
     Point16 pLeftTop, pRightTop, pLeftBottom, pRightBottom;
     ROOT * pRoot = NULL;
@@ -299,7 +299,7 @@ void LayoutFromCPAGE(CPageHandle hCPAGE, CCOM_handle hCCOM)
     ::Rect16 Rc;
     for (h = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT); h != NULL; h = CPAGE_GetBlockNext(hCPAGE, h,
             TYPE_TEXT)) {
-        CPAGE_GetBlockData(h, TYPE_TEXT, &block, sizeof(POLY_));
+        CPAGE_GetBlockData(h, TYPE_TEXT, &block, sizeof(PolyBlock));
         if (block.negative == TYPE_NEGATIVE || block.orient == TYPE_UPDOWN || block.orient
                 == TYPE_DOWNUP) {
             Rc.bottom = block.com.Vertex[2].y();
@@ -553,8 +553,8 @@ int IsInPoly(Point16 a, void * pPoly)
 {
     int i, y, n, ind;
     int Count = 0;
-    POLY_ *p;
-    p = (POLY_*) pPoly;
+    PolyBlock *p;
+    p = (PolyBlock*) pPoly;
     n = p->com.count;
     for (i = 0; i < n; i++) {
         int j = (i + 1) % n;
