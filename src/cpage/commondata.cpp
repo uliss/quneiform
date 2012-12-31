@@ -21,6 +21,14 @@
 namespace cf {
 namespace cpage {
 
+CommonData::CommonData() :
+    type_(0),
+    number(0),
+    count(0),
+    Flags(0)
+{
+}
+
 void CommonData::setType(CDataType type)
 {
     type_ = type;

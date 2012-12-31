@@ -31,10 +31,11 @@ class CommonData
 {
     CDataType type_; //Текст, Картинка, Таблица;
 public:
+    CommonData();
+
     int16_t number; // порядковый номер
     int16_t count;
     cf::Point Vertex[CPAGE_MAXCORNER];
-    uint32_t Flags;
 
     uint32_t flags() const {
         return Flags;
@@ -42,6 +43,10 @@ public:
 
     void setFlag(uint32_t flag)  {
         Flags |= flag;
+    }
+
+    void setFlags(uint32_t flags) {
+        Flags = flags;
     }
 
     void addVertex(const Point& pt)
@@ -64,8 +69,8 @@ public:
     }
 
     void setType(CDataType type);
-public:
-    CommonData() : type_(0), number(0), count(0), Flags(0) {}
+private:
+    uint32_t Flags;
 };
 
 }

@@ -309,7 +309,7 @@ Bool32 PicturesSecondStage(CCOM_handle hCCOM, CPageHandle hCPAGE)
         comp->w = block.com.Vertex[1].x() - block.com.Vertex[0].x();
         comp->h = block.com.Vertex[2].y() - block.com.Vertex[1].y();
         /* У comp нету поля флагов, поэтому используем nl */
-        comp->nl = block.com.Flags;
+        comp->nl = block.com.flags();
 
         if (block.orient == TYPE_DOWNUP)
             comp->nl |= FROMDOWN;
@@ -410,7 +410,7 @@ Bool32 PicturesSecondStage(CCOM_handle hCCOM, CPageHandle hCPAGE)
         block.com.setType(TYPE_TEXT);//Текст, Картинка, Таблица;
         block.com.number = 0;//порядковый номер
         block.com.count = 4;
-        block.com.Flags = pPics[i].nl;
+        block.com.setFlags(pPics[i].nl);
         block.com.Vertex[0].rx() = pPics[i].left;
         block.com.Vertex[0].ry() = pPics[i].upper;
         block.com.Vertex[1].rx() = pPics[i].left + pPics[i].w;

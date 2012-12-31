@@ -652,7 +652,7 @@ Bool32 RPIC_SearchPictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, CPageHandle
         block.com.setType(TYPE_TEXT);//Текст, Картинка, Таблица;
 		block.com.number = 0;//порядковый номер
 		block.com.count = 4;
-		block.com.Flags = 0;
+        block.com.setFlags(0);
 		block.com.Vertex[0].rx() = pPics[i].left;
 		block.com.Vertex[0].ry() = pPics[i].upper;
 		block.com.Vertex[1].rx() = pPics[i].left + pPics[i].w;

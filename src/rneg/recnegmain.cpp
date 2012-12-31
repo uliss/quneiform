@@ -500,7 +500,7 @@ void RNEG_RecogNeg(CCOM_handle hCCOM, CPageHandle hCPage, uchar* pImageName,
 		uint32_t size_poly = sizeof(PolyBlock);
 		while (now) {
 			if ((now->neg).p > inf_prob) {
-				block.com.Flags = 0;
+                block.com.setFlags(0);
 				Rc.left = (now->neg).pRc[0].left;
 				Rc.right = (now->neg).pRc[0].right;
 				Rc.top = (now->neg).pRc[(now->neg).nRc - 1].top;
@@ -508,7 +508,7 @@ void RNEG_RecogNeg(CCOM_handle hCCOM, CPageHandle hCPage, uchar* pImageName,
                 block.com.setType(TYPE_TEXT); //Текст, Картинка, Таблица;
 				block.com.count = 4;
 				block.negative = TYPE_NEGATIVE;
-				block.com.Flags = NEGA;
+                block.com.setFlags(NEGA);
 
 				//Andrey: moved from RBLOCK (keyword:TYPE_NEGATIVE)
 				//------------------------------
@@ -527,7 +527,7 @@ void RNEG_RecogNeg(CCOM_handle hCCOM, CPageHandle hCPage, uchar* pImageName,
 				 block.orient=TYPE_LEFTRIGHT;
 				 */
 				if ((now->neg).Flags & FlVert) {
-					block.com.Flags |= VERTICA;
+                    block.com.setFlag(VERTICA);
 					block.orient = (now->neg).Flags & FlDown2Up ? TYPE_DOWNUP
 							: TYPE_UPDOWN;
 				} else
