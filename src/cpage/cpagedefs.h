@@ -42,4 +42,9 @@ enum {
     CPAGE_MAXCORNER = 1000
 };
 
+enum
+{
+    CPAGE_MAXNAME = 260
+};
+
 #endif // CPAGEDEFS_H

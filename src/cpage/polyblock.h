@@ -58,22 +58,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __POLYBLOCK_H__
 #pragma pack (push,8)
 
-#include "table.h"
 #include "cpagedefs.h"
 #include "commondata.h"
 #include "common/point.h"
 #include "common/rect.h"
-
-# define  TYPE_TEXT         CPAGE_GetInternalType("TYPE_TEXT")
-# define  TYPE_IMAGE        CPAGE_GetInternalType("TYPE_IMAGE")
-# define  TYPE_TABLE        CPAGE_GetInternalType("TYPE_TABLE")
-# define  TYPE_EMPTY        CPAGE_GetInternalType("TYPE_EMPTY")
-# define  TYPE_DESC         CPAGE_GetInternalType("TYPE_DESC")
-# define  TYPE_DESK         TYPE_DESC
-# define  TYPE_PICTURE      CPAGE_GetInternalType("TYPE_PICTURE")
-# define  TYPE_SCROLL       CPAGE_GetInternalType("TYPE_SCROLL")
-# define  TYPE_LINE         CPAGE_GetInternalType("TYPE_LINE")
-# define  MaxNum            1000
 
 //константы аттрибутов фрагментов (к текстовому фрагменту и к ячейке таблицы) типа: негатив - позитив для представлени
 //01.01.01 Логинов
@@ -91,17 +79,18 @@ enum block_orientation_t {
 };
 
 //Значения нижеследующих констант нельзя менять. Они используются для побитового сравнени
-# define VISIBLE_LINE      0
-# define HIDE_LINE         1
-# define GRAYED_LINE       2
-# define DOTTED_LINE       4
-# define DASHED_LINE       8
-# define DOUBLED_LINE      16
-# define NORMAL_LINE       0    // дублирует
+enum {
+    VISIBLE_LINE = 0,
+    HIDE_LINE    = 1,
+    GRAYED_LINE  = 2,
+    DOTTED_LINE  = 4,
+    DASHED_LINE  = 8,
+    DOUBLED_LINE = 16,
+    NORMAL_LINE  = 0    // дублирует
+};
 
 struct POLY_ {
     cf::cpage::CommonData com;
-    int32_t mark[MaxNum];
     int32_t alphabet;//Цифры,Цифры и буквы, Буквы
     block_light_t negative; //Негатив = TYPE_NEGATIVE, Позитив = TYPE_POSITIVE;//     01.01.01 Логинов
     block_orientation_t orient; //TYPE_NORD- Сверху вниз (нормальное), TYPE_WEST- лежит на левом боку, TYPE_OST- лежит на правом боку.
@@ -112,38 +101,5 @@ public:
     cf::Rect rect() const { return cf::Rect(com.Vertex[0], com.Vertex[2]); }
 };
 
-typedef struct tagTABLE {
-    cf::cpage::CommonData com;
-
-    int32_t num_colons;//число колонок
-    int32_t num_rows;//число строк
-    int32_t LineY[MaxHorLines/*MaxHorLines*/-1];//координаты линий (нулевая совпадает с первой линией, верхняя крышка таблицы не участвует)
-    int32_t LineX[MaxVerLines-1];//координаты колонок (нулевая совпадает с первой левой колонкой)
-    Bool16 Visible[MaxHorLines][MaxVerLines][2];//видима-невидима плюс флаги: сплошная, пунктирная, штрих
-    Bool16 TypeCell[MaxHorLines][MaxVerLines];//тип ячейки
-    int32_t Skew;
-    Bool16 Negative[MaxHorLines][MaxVerLines];//Негатив = 1, Позитив = 0;//     01.01.01 Логинов
-    int16_t Orient[MaxHorLines][MaxVerLines];//TYPE_UPDOWN- Сверху вниз и т.д. см константы выше
-
-    char    iSet; //номер сета, которому
-    char    TypeTablDetail;
-    char    Active; // 0 - пассивная, 1 - активная в сете
-    char    reserv[3];
-    //int16_t SetNum;//Нумерация в сете
-    //Bool16 bActive;//для маркировки активной таблицы в сете
-    //int16_t GlobNum;//Внутренняя нумерация
-
-} TABLE_;
-/*
-typedef struct tagLINE
-{
-    COMMON com;
-
-    int32_t width;//Ширина
-
-    int32_t visi;//Внешний вид: Простая,Невидимая,Двойная,Пунктир.
-
-} LINE_;
-*/
 #pragma pack (pop)
 #endif

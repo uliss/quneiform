@@ -60,11 +60,6 @@
 #include "table.h"
 #include "polyblock.h"
 
-enum
-{
-    CPAGE_MAXNAME = 260
-};
-
 // PAGES
 #define PT_EMPTY    CPAGE_GetInternalType("__Page__")
 #define PT_PAGEINFO CPAGE_GetInternalType("__PageInfo__")
@@ -133,26 +128,11 @@ CPageHandle CreateEmptyPage();
 // BLOCKS
 #define TYPE_CPAGE_TABLE    CPAGE_GetInternalType("TYPE_CPAGE_TABLE")
 #define TYPE_CPAGE_PICTURE  CPAGE_GetInternalType("TYPE_CPAGE_PICTURE")
-
-typedef struct tagCellInfo
-{
-        int32_t Number; // Номер ячейки физической таблицы ( начиная с 1 )
-        cf::Point PhCoord;// Координаты привязки к физической ячейке
-        int32_t Block; // Номер фрагмента
-        int32_t GeCount;// число геометрических ячеек, входящих в физическую
-        uint32_t wFlags[16];// флажки
-        int32_t reserv[48];
-
-} CellInfo;
-
-typedef struct tagCPAGE_TABLE
-{
-        TABLE_DESC prop; // основная информация о таблице
-        CellInfo cell[MaxHorLines - 1][MaxVerLines - 1];// номер соответсвующего
-        uint32_t PhNumber; // число физических ячеек
-        uint32_t wFlags[16];// флажки
-
-
-} CPAGE_TABLE;
+#define TYPE_TEXT         CPAGE_GetInternalType("TYPE_TEXT")
+#define TYPE_IMAGE        CPAGE_GetInternalType("TYPE_IMAGE")
+#define TYPE_TABLE        CPAGE_GetInternalType("TYPE_TABLE")
+#define TYPE_DESC         CPAGE_GetInternalType("TYPE_DESC")
+#define TYPE_DESK         TYPE_DESC
+#define TYPE_PICTURE      CPAGE_GetInternalType("TYPE_PICTURE")
 
 #endif

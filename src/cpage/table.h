@@ -64,9 +64,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __TABLE_H__
 #define __TABLE_H__
 #pragma pack (push,8)
-/*---------------------------------------------------------------------------*/
+
 #include "cttypes.h"
-/*---------------------------------------------------------------------------*/
+#include "commondata.h"
+
 #define    MaxTableUsers       5
 typedef enum {
     TABLE_USER_COMMON = 0,
@@ -151,5 +152,51 @@ typedef struct tagTABLE_DESC {
     char    reserv[253];
 } TABLE_DESC;
 /*---------------------------------------------------------------------------*/
+
+typedef struct tagTABLE {
+    cf::cpage::CommonData com;
+
+    int32_t num_colons;//число колонок
+    int32_t num_rows;//число строк
+    int32_t LineY[MaxHorLines/*MaxHorLines*/-1];//координаты линий (нулевая совпадает с первой линией, верхняя крышка таблицы не участвует)
+    int32_t LineX[MaxVerLines-1];//координаты колонок (нулевая совпадает с первой левой колонкой)
+    Bool16 Visible[MaxHorLines][MaxVerLines][2];//видима-невидима плюс флаги: сплошная, пунктирная, штрих
+    Bool16 TypeCell[MaxHorLines][MaxVerLines];//тип ячейки
+    int32_t Skew;
+    Bool16 Negative[MaxHorLines][MaxVerLines];//Негатив = 1, Позитив = 0;//     01.01.01 Логинов
+    int16_t Orient[MaxHorLines][MaxVerLines];//TYPE_UPDOWN- Сверху вниз и т.д. см константы выше
+
+    char    iSet; //номер сета, которому
+    char    TypeTablDetail;
+    char    Active; // 0 - пассивная, 1 - активная в сете
+    char    reserv[3];
+    //int16_t SetNum;//Нумерация в сете
+    //Bool16 bActive;//для маркировки активной таблицы в сете
+    //int16_t GlobNum;//Внутренняя нумерация
+
+} TABLE_;
+
+
+typedef struct tagCellInfo
+{
+        int32_t Number; // Номер ячейки физической таблицы ( начиная с 1 )
+        cf::Point PhCoord;// Координаты привязки к физической ячейке
+        int32_t Block; // Номер фрагмента
+        int32_t GeCount;// число геометрических ячеек, входящих в физическую
+        uint32_t wFlags[16];// флажки
+        int32_t reserv[48];
+
+} CellInfo;
+
+typedef struct tagCPAGE_TABLE
+{
+        TABLE_DESC prop; // основная информация о таблице
+        CellInfo cell[MaxHorLines - 1][MaxVerLines - 1];// номер соответсвующего
+        uint32_t PhNumber; // число физических ячеек
+        uint32_t wFlags[16];// флажки
+
+
+} CPAGE_TABLE;
+
 #pragma pack (pop)
 #endif

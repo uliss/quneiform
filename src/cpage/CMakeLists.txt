@@ -3,6 +3,7 @@ set(CF_CPAGE_SOURCES
     block.cpp
     commondata.cpp
     cpage.cpp
+    cpagedefs.h
     cpicture.cpp
     ctablex.cpp
     data.cpp
