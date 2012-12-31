@@ -1,6 +1,7 @@
 set(CF_CPAGE_SOURCES
     backup.cpp
     block.cpp
+    commondata.cpp
     cpage.cpp
     cpicture.cpp
     ctablex.cpp

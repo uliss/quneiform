@@ -505,7 +505,7 @@ void RNEG_RecogNeg(CCOM_handle hCCOM, CPageHandle hCPage, uchar* pImageName,
 				Rc.right = (now->neg).pRc[0].right;
 				Rc.top = (now->neg).pRc[(now->neg).nRc - 1].top;
 				Rc.bottom = (now->neg).pRc[0].bottom;
-				block.com.type = TYPE_TEXT; //Текст, Картинка, Таблица;
+                block.com.setType(TYPE_TEXT); //Текст, Картинка, Таблица;
 				block.com.count = 4;
 				block.negative = TYPE_NEGATIVE;
 				block.com.Flags = NEGA;

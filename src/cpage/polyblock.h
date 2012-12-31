@@ -60,6 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "table.h"
 #include "cpagedefs.h"
+#include "commondata.h"
 #include "common/point.h"
 #include "common/rect.h"
 
@@ -89,7 +90,6 @@ enum block_orientation_t {
     TYPE_DOWNUP    = 2
 };
 
-
 //Значения нижеследующих констант нельзя менять. Они используются для побитового сравнени
 # define VISIBLE_LINE      0
 # define HIDE_LINE         1
@@ -99,60 +99,8 @@ enum block_orientation_t {
 # define DOUBLED_LINE      16
 # define NORMAL_LINE       0    // дублирует
 
-
-
-typedef struct tagStructBool16 {
-//////////////////////////////////////////
-#define    BIT_0                      0x01
-#define    BIT_1                      0x02
-#define    BIT_2                      0x04
-#define    BIT_3                      0x08
-#define    BIT_4                      0x10
-#define    BIT_5                      0x20
-#define    BIT_6                      0x40
-#define    BIT_7                      0x80
-//////////////////////////////////////////
-    char Type;
-    char Visible;
-} StructBool16;
-
-typedef struct tagVertex {
-    int32_t x;
-    int32_t y;
-    int32_t mark;
-} VERTEX;
-
-struct COMMON {
-    CDataType type;    //Текст, Картинка, Таблица;
-    int16_t number; //порядковый номер
-    int16_t count;
-    cf::Point Vertex[MaxNum];
-    uint32_t Flags;
-
-    void setFlag(uint32_t flag)  {
-        Flags |= flag;
-    }
-
-    void addVertex(const cf::Point& pt)
-    {
-        Vertex[count] = pt;
-        count++;
-    }
-
-    void setRect(const cf::Rect& r)
-    {
-        Vertex[0] = r.leftTop();
-        Vertex[1] = r.rightTop();
-        Vertex[2] = r.rightBottom();
-        Vertex[3] = r.leftBottom();
-        count = 4;
-    }
-public:
-    COMMON() : type(0), number(0), count(0), Flags(0) {}
-};
-
 struct POLY_ {
-    COMMON com;
+    cf::cpage::CommonData com;
     int32_t mark[MaxNum];
     int32_t alphabet;//Цифры,Цифры и буквы, Буквы
     block_light_t negative; //Негатив = TYPE_NEGATIVE, Позитив = TYPE_POSITIVE;//     01.01.01 Логинов
@@ -165,14 +113,13 @@ public:
 };
 
 typedef struct tagTABLE {
-    COMMON com;
+    cf::cpage::CommonData com;
 
     int32_t num_colons;//число колонок
     int32_t num_rows;//число строк
     int32_t LineY[MaxHorLines/*MaxHorLines*/-1];//координаты линий (нулевая совпадает с первой линией, верхняя крышка таблицы не участвует)
     int32_t LineX[MaxVerLines-1];//координаты колонок (нулевая совпадает с первой левой колонкой)
     Bool16 Visible[MaxHorLines][MaxVerLines][2];//видима-невидима плюс флаги: сплошная, пунктирная, штрих
-    //StructBool16 Visible[MaxHorLines][MaxVerLines][2];//видима-невидима плюс флаги: сплошная, пунктирная, штрих
     Bool16 TypeCell[MaxHorLines][MaxVerLines];//тип ячейки
     int32_t Skew;
     Bool16 Negative[MaxHorLines][MaxVerLines];//Негатив = 1, Позитив = 0;//     01.01.01 Логинов

@@ -38,4 +38,8 @@ enum cpage_block_flag_t {
     CPAGE_BLOCK_UNCERTAIN = 0x2  //грязь или нет ?
 };
 
+enum {
+    CPAGE_MAXCORNER = 1000
+};
+
 #endif // CPAGEDEFS_H

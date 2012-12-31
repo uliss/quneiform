@@ -407,7 +407,7 @@ Bool32 PicturesSecondStage(CCOM_handle hCCOM, CPageHandle hCPAGE)
 
     //End of Almi
     for (i = 0; i < nPics && bSearchPicture; i++) {
-        block.com.type = TYPE_TEXT;//Текст, Картинка, Таблица;
+        block.com.setType(TYPE_TEXT);//Текст, Картинка, Таблица;
         block.com.number = 0;//порядковый номер
         block.com.count = 4;
         block.com.Flags = pPics[i].nl;

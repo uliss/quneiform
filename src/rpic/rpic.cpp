@@ -649,7 +649,7 @@ Bool32 RPIC_SearchPictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, CPageHandle
 				&& !(pPics[i].large & CCOM_LR_TAKEN)) {
 			continue;
 		}
-		block.com.type = TYPE_TEXT;//Текст, Картинка, Таблица;
+        block.com.setType(TYPE_TEXT);//Текст, Картинка, Таблица;
 		block.com.number = 0;//порядковый номер
 		block.com.count = 4;
 		block.com.Flags = 0;

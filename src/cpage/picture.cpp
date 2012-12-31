@@ -81,7 +81,7 @@ uint32_t CPAGE_PICTURE_to_TYPE_PICTURE(const cf::cpage::Picture& lpDataIn, uint3
         desc.com.Vertex[i] = pict.cornerAt(i);
     }
 
-    desc.com.type       = TYPE_PICTURE;
+    desc.com.setType(TYPE_PICTURE);
     desc.com.number = 0;
     *LpDataOut = desc;
     rc = sizeof(POLY_);

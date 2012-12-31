@@ -1542,7 +1542,7 @@ static void draw_fragment(CBlockHandle hBlock, uint32_t color, uint32_t key)
 
     if (v == sizeof(POLY_)) {
         //....
-        COMMON *com = &poly.com;
+        cf::cpage::CommonData *com = &poly.com;
         Point p32 = com->Vertex[0];
         Point16 cv, pv, v0;
         int32_t i;

@@ -676,7 +676,7 @@ Bool32 OutputFragments(CPageHandle hPage)
                                                                            / COMPS_QUANTUM + 1) * COMPS_QUANTUM * sizeof(POLY_))));
         }
 
-        all_polys[i].com.type = TYPE_TEXT;//Текст, Картинка, Таблица;
+        all_polys[i].com.setType(TYPE_TEXT);//Текст, Картинка, Таблица;
         //all_polys[i].com.number = ++count;//порядковый номер
         all_polys[i].com.number = p->nNumber;//порядковый номер
         all_polys[i].com.count = 4;

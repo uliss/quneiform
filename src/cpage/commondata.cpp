@@ -16,33 +16,15 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef PICTURE_H
-#define PICTURE_H
-
-#include "cttypes.h"
-#include "cpagedefs.h"
-#include "common/point.h"
-
-struct POLY_;
+#include "commondata.h"
 
 namespace cf {
 namespace cpage {
 
-class Picture
+void CommonData::setType(CDataType type)
 {
-public:
-    Picture();
-    void appendCorner(const cf::Point& pt);
-    cf::Point cornerAt(size_t pos) const;
-    size_t cornerCount() const;
-    void rotateCorner(size_t pos, int skew2048);
-    void set(const POLY_& polygon);
-private:
-    size_t number_;
-    cf::Point corners_[CPAGE_MAXCORNER];
-};
+    type_ = type;
+}
 
 }
 }
-
-#endif // PICTURE_H
