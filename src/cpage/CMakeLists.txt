@@ -13,6 +13,7 @@ set(CF_CPAGE_SOURCES
     page.cpp
     pagestorage.cpp
     picture.cpp
+    polyblock.cpp
     table.cpp
     tableclass.cpp
     convert.h

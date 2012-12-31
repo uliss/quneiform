@@ -98,7 +98,6 @@ public:
     PolyBlock() : negative(TYPE_POSITIVE), orient(TYPE_LEFTRIGHT) {}
     bool isNegative() const { return negative == TYPE_NEGATIVE; }
     block_orientation_t orientation() const { return orient; }
-    cf::Rect rect() const { return cf::Rect(com.Vertex[0], com.Vertex[2]); }
 };
 
 #pragma pack (pop)

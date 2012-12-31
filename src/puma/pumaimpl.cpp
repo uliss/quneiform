@@ -192,7 +192,7 @@ LayoutBlockList PumaImpl::textBlocks() const
     while (block) {
         PolyBlock poly;
         CPAGE_GetBlockData(block, TYPE_TEXT, &poly, sizeof(poly));
-        res.push_back(LayoutBlock(poly.rect(), LayoutBlock::TEXT));
+        res.push_back(LayoutBlock(poly.com.rect(), LayoutBlock::TEXT));
         block = CPAGE_GetBlockNext(cpage_, block, TYPE_TEXT);
     }
 
@@ -210,7 +210,7 @@ LayoutBlockList PumaImpl::imageBlocks() const
     while (block) {
         PolyBlock poly;
         CPAGE_GetBlockData(block, TYPE_IMAGE, &poly, sizeof(poly));
-        res.push_back(LayoutBlock(poly.rect(), LayoutBlock::IMAGE));
+        res.push_back(LayoutBlock(poly.com.rect(), LayoutBlock::IMAGE));
         block = CPAGE_GetBlockNext(cpage_, block, TYPE_IMAGE);
     }
 
@@ -228,7 +228,7 @@ LayoutBlockList PumaImpl::tableBlocks() const
     while (block) {
         PolyBlock poly;
         CPAGE_GetBlockData(block, TYPE_TABLE, &poly, sizeof(poly));
-        res.push_back(LayoutBlock(poly.rect(), LayoutBlock::IMAGE));
+        res.push_back(LayoutBlock(poly.com.rect(), LayoutBlock::IMAGE));
         block = CPAGE_GetBlockNext(cpage_, block, TYPE_TABLE);
     }
 
