@@ -82,7 +82,7 @@ uint32_t CPAGE_PICTURE_to_TYPE_PICTURE(const cf::cpage::Picture& lpDataIn, uint3
     }
 
     desc.com.setType(TYPE_PICTURE);
-    desc.com.number = 0;
+    desc.com.setNumber(0);
     *LpDataOut = desc;
     rc = sizeof(PolyBlock);
     return rc;

@@ -25,6 +25,9 @@
 #include "common/rect.h"
 
 namespace cf {
+
+typedef PointImpl<int32_t> Point32;
+
 namespace cpage {
 
 class CommonData
@@ -32,35 +35,32 @@ class CommonData
     CDataType type_; //Текст, Картинка, Таблица;
 public:
     CommonData();
-
-    int16_t number; // порядковый номер
     int16_t count;
-    cf::Point Vertex[CPAGE_MAXCORNER];
+    Point32 Vertex[CPAGE_MAXCORNER];
+
+    void addVertex(const Point& pt);
 
     uint32_t flags() const {
-        return Flags;
+        return flags_;
     }
 
-    void setFlag(uint32_t flag)  {
-        Flags |= flag;
-    }
-
-    void setFlags(uint32_t flags) {
-        Flags = flags;
-    }
-
-    void addVertex(const Point& pt)
-    {
-        Vertex[count] = pt;
-        count++;
-    }
+    int number() const;
 
     Rect rect() const {
         return Rect(Vertex[0], Vertex[2]);
     }
 
-    void setRect(const Rect& r)
-    {
+    void setFlag(uint32_t flag)  {
+        flags_ |= flag;
+    }
+
+    void setFlags(uint32_t flags) {
+        flags_ = flags;
+    }
+
+    void setNumber(int n);
+
+    void setRect(const Rect& r) {
         Vertex[0] = r.leftTop();
         Vertex[1] = r.rightTop();
         Vertex[2] = r.rightBottom();
@@ -69,8 +69,13 @@ public:
     }
 
     void setType(CDataType type);
+    CDataType type() const;
+
+    Point vertexAt(size_t pos) const;
+    size_t vertexCount() const;
 private:
-    uint32_t Flags;
+    int16_t number_; // порядковый номер
+    uint32_t flags_;
 };
 
 }

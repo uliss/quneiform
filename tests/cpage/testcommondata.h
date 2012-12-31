@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2012 by Serge Poltavski                                 *
+ *   Copyright (C) 2013 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,56 +16,22 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "commondata.h"
+#ifndef TESTCOMMONDATA_H
+#define TESTCOMMONDATA_H
 
-namespace cf {
+#include <cppunit/extensions/HelperMacros.h>
 
-namespace cpage {
-
-CommonData::CommonData() :
-    type_(0),
-    number_(0),
-    count(0),
-    flags_(0)
+class TestCommonData : public CppUnit::TestFixture
 {
-}
+    CPPUNIT_TEST_SUITE(TestCommonData);
+    CPPUNIT_TEST(testInit);
+    CPPUNIT_TEST(testFlags);
+    CPPUNIT_TEST_SUITE_END();
+public:
+    void testInit();
+    void testFlags();
+};
 
-void CommonData::addVertex(const Point &pt)
-{
-    Vertex[count] = pt;
-    count++;
-}
 
-int CommonData::number() const
-{
-    return number_;
-}
 
-void CommonData::setNumber(int n)
-{
-    number_ = n;
-}
-
-void CommonData::setType(CDataType type)
-{
-    type_ = type;
-}
-
-CDataType CommonData::type() const
-{
-    return type_;
-}
-
-Point CommonData::vertexAt(size_t pos) const
-{
-    assert(pos < CPAGE_MAXCORNER);
-    return Vertex[pos];
-}
-
-size_t CommonData::vertexCount() const
-{
-    return count;
-}
-
-}
-}
+#endif // TESTCOMMONDATA_H

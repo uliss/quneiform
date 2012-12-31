@@ -513,7 +513,7 @@ void RNEG_RecogNeg(CCOM_handle hCCOM, CPageHandle hCPage, uchar* pImageName,
 				//Andrey: moved from RBLOCK (keyword:TYPE_NEGATIVE)
 				//------------------------------
 				block.alphabet = 0;
-				block.com.number = 0;
+                block.com.setNumber(0);
 				//------------------------------
 
 				//commented by Andrey

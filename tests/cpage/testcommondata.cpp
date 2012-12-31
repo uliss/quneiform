@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2012 by Serge Poltavski                                 *
+ *   Copyright (C) 2013 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,56 +16,31 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "commondata.h"
+#include "testcommondata.h"
+#include "cpage/commondata.h"
 
-namespace cf {
+CPPUNIT_TEST_SUITE_REGISTRATION(TestCommonData);
 
-namespace cpage {
+using namespace cf;
+using namespace cf::cpage;
 
-CommonData::CommonData() :
-    type_(0),
-    number_(0),
-    count(0),
-    flags_(0)
+void TestCommonData::testInit()
 {
+    CommonData cd;
+    CPPUNIT_ASSERT(!cd.flags());
+    CPPUNIT_ASSERT(!cd.type());
+    CPPUNIT_ASSERT(!cd.vertexCount());
+    CPPUNIT_ASSERT(!cd.number());
 }
 
-void CommonData::addVertex(const Point &pt)
+void TestCommonData::testFlags()
 {
-    Vertex[count] = pt;
-    count++;
-}
+    CommonData cd;
+    cd.setFlag(0x1);
+    cd.setFlag(0x2);
+    cd.setFlag(0x4);
+    CPPUNIT_ASSERT_EQUAL(0x7, (int) cd.flags());
 
-int CommonData::number() const
-{
-    return number_;
-}
-
-void CommonData::setNumber(int n)
-{
-    number_ = n;
-}
-
-void CommonData::setType(CDataType type)
-{
-    type_ = type;
-}
-
-CDataType CommonData::type() const
-{
-    return type_;
-}
-
-Point CommonData::vertexAt(size_t pos) const
-{
-    assert(pos < CPAGE_MAXCORNER);
-    return Vertex[pos];
-}
-
-size_t CommonData::vertexCount() const
-{
-    return count;
-}
-
-}
+    cd.setFlags(0x3);
+    CPPUNIT_ASSERT_EQUAL(0x3, (int) cd.flags());
 }

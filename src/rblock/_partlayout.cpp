@@ -678,7 +678,7 @@ Bool32 OutputFragments(CPageHandle hPage)
 
         all_polys[i].com.setType(TYPE_TEXT);//Текст, Картинка, Таблица;
         //all_polys[i].com.number = ++count;//порядковый номер
-        all_polys[i].com.number = p->nNumber;//порядковый номер
+        all_polys[i].com.setNumber(p->nNumber);//порядковый номер
         all_polys[i].com.count = 4;
         all_polys[i].com.Vertex[0].rx() = p->Rect.xLeft;
         all_polys[i].com.Vertex[0].ry() = p->Rect.yTop;
@@ -832,9 +832,9 @@ AGAIN:
                     break;
                 case 2:
 
-                    if (all_polys[i].alphabet != block.com.number) {
+                    if (all_polys[i].alphabet != block.com.number()) {
                         InsertRectangleInPoly(&block, &all_polys[i]);
-                        all_polys[i].alphabet = block.com.number;
+                        all_polys[i].alphabet = block.com.number();
                         break;
                     }
 
@@ -869,7 +869,7 @@ AGAIN:
 
         for (i = 0; i < max; i++) {
             if (all_polys[i].com.Vertex[0].ry() == Min) {
-                all_polys[i].com.number = ++BlockNumber;
+                all_polys[i].com.setNumber(++BlockNumber);
             }
         }
     }
@@ -878,8 +878,8 @@ AGAIN:
 
     for (i = 0; i < max; i++) {
         all_polys[i].alphabet = 0;//Rom
-        BlockNumber = all_polys[i].com.number;
-        all_polys[i].com.number = 0;
+        BlockNumber = all_polys[i].com.number();
+        all_polys[i].com.setNumber(0);
         all_polys[i].negative = TYPE_POSITIVE;
         all_polys[i].orient = TYPE_LEFTRIGHT;
 
@@ -926,7 +926,7 @@ AGAIN:
 
         for (i = 0; i < nPics; i++) {
             if (pPics[i].com.Vertex[0].y() == Min) {
-                pPics[i].com.number = ++BlockNumber;
+                pPics[i].com.setNumber(++BlockNumber);
             }
         }
     }
@@ -947,8 +947,8 @@ AGAIN:
             }
 
             if (Same) {
-                BlockNumber = pPics[i].com.number;
-                pPics[i].com.number = 0;
+                BlockNumber = pPics[i].com.number();
+                pPics[i].com.setNumber(0);
                 CPAGE_SetBlockUserNum(h, BlockNumber);
             }
         }
@@ -965,7 +965,7 @@ AGAIN:
             BlockNumber = CPAGE_GetBlockUserNum(h);
             CPAGE_DeleteBlock(hPage, h);
             block.alphabet = 0;
-            block.com.number = 0;
+            block.com.setNumber(0);
             hBlock = CPAGE_CreateBlock(hPage, TYPE_TEXT, 0, 0, &block,
                                        sizeof(PolyBlock));
             CPAGE_SetBlockUserNum(hBlock, BlockNumber);
