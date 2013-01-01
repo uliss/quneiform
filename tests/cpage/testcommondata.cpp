@@ -256,3 +256,36 @@ void TestCommonData::testInsertTop()
     CPPUNIT_ASSERT_EQUAL(Point(0, 0), cd.vertexAt(5));
 
 }
+
+void TestCommonData::testInsertLeft()
+{
+    CommonData cd;
+    Rect r;
+    cd.insertTop(r);
+    CPPUNIT_ASSERT(!cd.vertexCount());
+
+    cd.addVertex(0, 0);
+    cd.addVertex(0, 4);
+
+    // @
+    // .
+    // .
+    // .
+    // @
+
+    r.set(Point(-1, 1), Point(1, 3));
+    cd.insertLeft(r);
+    // .@
+    // @@
+    // *.
+    // @@
+    // .@
+
+    CPPUNIT_ASSERT_EQUAL(6, (int) cd.vertexCount());
+    CPPUNIT_ASSERT_EQUAL(Point(0, 0), cd.vertexAt(0));
+    CPPUNIT_ASSERT_EQUAL(Point(0, 1), cd.vertexAt(1));
+    CPPUNIT_ASSERT_EQUAL(Point(-1, 1), cd.vertexAt(2));
+    CPPUNIT_ASSERT_EQUAL(Point(-1, 3), cd.vertexAt(3));
+    CPPUNIT_ASSERT_EQUAL(Point(0, 3), cd.vertexAt(4));
+    CPPUNIT_ASSERT_EQUAL(Point(0, 4), cd.vertexAt(5));
+}

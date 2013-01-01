@@ -187,6 +187,11 @@ static inline bool isBetweenX(const Rect& r, const Point& pt1, const Point& pt2)
     return pt1.x() < r.left() && pt2.x() > r.right();
 }
 
+static inline bool isBetweenY(const Rect& r, const Point& pt1, const Point& pt2)
+{
+    return pt1.y() < r.top() && pt2.y() > r.bottom();
+}
+
 static inline bool isRectLower(const Rect& r, const Point& pt)
 {
     return pt.y() < r.bottom();
@@ -208,25 +213,20 @@ void CommonData::insertBottom(const Rect& r)
     }
 }
 
-void CommonData::insertLeft(const CommonData& rect)
+void CommonData::insertLeft(const Rect& rect)
 {
-    Point point;
-
     for (int i = 0; i < count_ - 1; i++) {
-        if ((vertex_[i].x() > rect.vertex_[0].x())
-                && (vertex_[i].y() < rect.vertex_[0].y())
-                && (vertex_[i + 1].y() > rect.vertex_[3].y())) {
-            point.rx() = vertex_[i].x();
-            point.ry() = rect.vertex_[0].y();
-            insertVertex(i + 1, point);
-            insertVertex(i + 2, rect.vertex_[0]);
-            insertVertex(i + 3, rect.vertex_[3]);
-            point.ry() = rect.vertex_[3].y();
-            insertVertex(i + 4, point);
+        Point v = vertex_[i];
+
+        if ((v.x() > rect.left())
+                && isBetweenY(rect, vertex_[i], vertex_[i + 1])) {
+            insertVertex(i + 1, Point(v.x(), rect.top()));
+            insertVertex(i + 2, rect.leftTop());
+            insertVertex(i + 3, rect.leftBottom());
+            insertVertex(i + 4, Point(v.x(), rect.bottom()));
             break;
         }
     }
-
 }
 
 void CommonData::insertRight(const CommonData& rect)
