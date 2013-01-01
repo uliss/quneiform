@@ -205,7 +205,7 @@ const PAGEINFO * Page::pageInfo() const
     if(size_ != sizeof(PAGEINFO))
         return NULL;
 
-    return (PAGEINFO*) data_;
+    return static_cast<PAGEINFO*>(data_);
 }
 
 namespace {
