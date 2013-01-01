@@ -351,13 +351,13 @@ bool CommonData::isRect() const
 void CommonData::moveVertexX(size_t pos, int dx)
 {
     assert(pos < CPAGE_MAXCORNER);
-    vertex_[pos].rx() + dx;
+    vertex_[pos].rx() += dx;
 }
 
 void CommonData::moveVertexY(size_t pos, int dy)
 {
     assert(pos < CPAGE_MAXCORNER);
-    vertex_[pos].ry() + dy;
+    vertex_[pos].ry() += dy;
 }
 
 int CommonData::number() const
