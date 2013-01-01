@@ -110,7 +110,7 @@ Bool32 InsertLeft(const PolyBlock * rectangle, PolyBlock * poly)
 
 Bool32 InsertRight(const PolyBlock * rectangle, PolyBlock * poly)
 {
-    poly->com.insertRight(rectangle->com);
+    poly->com.insertRight(rectangle->com.rect());
     return TRUE;
 }
 

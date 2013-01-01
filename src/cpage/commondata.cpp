@@ -38,6 +38,11 @@ void CommonData::addVertex(const Point &pt)
     count_++;
 }
 
+void CommonData::clearVertexes()
+{
+    count_ = 0;
+}
+
 void CommonData::copyVertexes(const Picture& pict)
 {
     for(size_t i = 0; i < pict.cornerCount(); i++)
@@ -229,37 +234,34 @@ void CommonData::insertLeft(const Rect& rect)
     }
 }
 
-void CommonData::insertRight(const CommonData& rect)
+void CommonData::insertRight(const Rect& rect)
 {
-    Point point;
     int i = 0;
 
     for (i = 0; i < count_ - 1; i++) {
-        if ((vertex_[i].x() < rect.vertex_[2].x())
-                && (vertex_[i].y() > rect.vertex_[2].y())
-                && (vertex_[i + 1].y() < rect.vertex_[1].y())) {
-            point.rx() = vertex_[i].x();
-            point.ry() = rect.vertex_[2].y();
-            insertVertex(i + 1, point);
-            insertVertex(i + 2, rect.vertex_[2]);
-            insertVertex(i + 3, rect.vertex_[1]);
-            point.ry() = rect.vertex_[1].y();
-            insertVertex(i + 4, point);
+        Point v = vertex_[i];
+        if ((v.x() < rect.right())
+                && isBetweenY(rect, vertex_[i + 1], vertex_[i])) {
+            insertVertex(i + 1, Point(v.x(), rect.bottom()));
+            insertVertex(i + 2, rect.rightBottom());
+            insertVertex(i + 3, rect.rightTop());
+            insertVertex(i + 4, Point(v.x(), rect.top()));
             return;
         }
     }
 
-    if ((vertex_[count_ - 1].x() < rect.vertex_[2].x())
-            && (vertex_[count_ - 1].y() > rect.vertex_[2].y())
-            && (vertex_[0].y() < rect.vertex_[1].y()))
+    if(!count_)
+        return;
+
+    const Point last_vertex = vertex_[count_ - 1];
+
+    if ((last_vertex.x() < rect.right())
+            && isBetweenY(rect, vertex_[0], last_vertex))
     {
-        point.rx() = vertex_[count_ - 1].x();
-        point.ry() = rect.vertex_[2].y();
-        insertVertex(i + 1, point);
-        insertVertex(i + 2, rect.vertex_[2]);
-        insertVertex(i + 3, rect.vertex_[1]);
-        point.ry() = rect.vertex_[1].y();
-        insertVertex(i + 4, point);
+        insertVertex(i + 1, Point(last_vertex.x(), rect.bottom()));
+        insertVertex(i + 2, rect.rightBottom());
+        insertVertex(i + 3, rect.rightTop());
+        insertVertex(i + 4, Point(last_vertex.x(), rect.top()));
     }
 }
 

@@ -37,6 +37,7 @@ public:
 
     void addVertex(int x, int y) { addVertex(Point(x, y)); }
     void addVertex(const Point& pt);
+    void clearVertexes();
     void copyVertexes(const Picture& pict);
 
     int calcHeight() const;
@@ -52,7 +53,7 @@ public:
     void insertVertex(size_t pos, const Point& p);
     void insertBottom(const Rect& r);
     void insertLeft(const Rect& rect);
-    void insertRight(const CommonData& rect);
+    void insertRight(const Rect& rect);
     void insertTop(const Rect& rect);
     int isInPoly(const Point& pt) const;
     int isInPoly(const Point16& pt) const;
