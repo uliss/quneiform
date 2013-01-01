@@ -25,7 +25,7 @@ namespace cpage {
 
 CommonData::CommonData() :
     type_(0),
-    count(0),
+    count_(0),
     number_(0),
     flags_(0)
 {
@@ -33,8 +33,8 @@ CommonData::CommonData() :
 
 void CommonData::addVertex(const Point &pt)
 {
-    Vertex[count] = pt;
-    count++;
+    vertex_[count_] = pt;
+    count_++;
 }
 
 void CommonData::copyVertexes(const Picture& pict)
@@ -45,14 +45,14 @@ void CommonData::copyVertexes(const Picture& pict)
 
 int CommonData::calcHeight() const
 {
-    if(!count)
+    if(!count_)
         return 0;
 
-    int min_top = Vertex[0].y();
+    int min_top = vertex_[0].y();
     int max_bottom = min_top;
 
-    for(int i = 1; i < count; i++) {
-        Point p = Vertex[i];
+    for(int i = 1; i < count_; i++) {
+        Point p = vertex_[i];
         min_top = std::min(min_top, p.y());
         max_bottom = std::max(max_bottom, p.y());
     }
@@ -64,17 +64,17 @@ void CommonData::crossBy0(const CommonData& rect)
 {
     Point point;
 
-    for (int i = 0; i < count - 2; i++) {
-        if ((Vertex[i].y() < rect.Vertex[0].y())
-                && (Vertex[i + 1].x() > rect.Vertex[0].x())
-                && (Vertex[i + 1].y() > rect.Vertex[0].y())
-                && (Vertex[i + 2].x() < rect.Vertex[0].x())) {
-            point.ry() = rect.Vertex[0].y();
-            point.rx() = Vertex[i].x();
+    for (int i = 0; i < count_ - 2; i++) {
+        if ((vertex_[i].y() < rect.vertex_[0].y())
+                && (vertex_[i + 1].x() > rect.vertex_[0].x())
+                && (vertex_[i + 1].y() > rect.vertex_[0].y())
+                && (vertex_[i + 2].x() < rect.vertex_[0].x())) {
+            point.ry() = rect.vertex_[0].y();
+            point.rx() = vertex_[i].x();
             insertVertex(i + 1, point);
-            Vertex[i + 2] = rect.Vertex[0];
-            point.ry() = Vertex[i + 3].y();
-            point.rx() = rect.Vertex[0].x();
+            vertex_[i + 2] = rect.vertex_[0];
+            point.ry() = vertex_[i + 3].y();
+            point.rx() = rect.vertex_[0].x();
             insertVertex(i + 3, point);
             break;
         }
@@ -85,33 +85,33 @@ void CommonData::crossBy1(const CommonData& rect)
 {
     Point point;
 
-    for (int i = 0; i < count - 2; i++) { //STEPA_AM |
-        if ((Vertex[i].x() > rect.Vertex[1].x())
-                && (Vertex[i + 1].x() < rect.Vertex[1].x())
-                && (Vertex[i + 1].y() > rect.Vertex[1].y())
-                && (Vertex[i + 2].y() < rect.Vertex[1].y())) {
-            point.rx() = rect.Vertex[1].x();
-            point.ry() = Vertex[i].y();
+    for (int i = 0; i < count_ - 2; i++) { //STEPA_AM |
+        if ((vertex_[i].x() > rect.vertex_[1].x())
+                && (vertex_[i + 1].x() < rect.vertex_[1].x())
+                && (vertex_[i + 1].y() > rect.vertex_[1].y())
+                && (vertex_[i + 2].y() < rect.vertex_[1].y())) {
+            point.rx() = rect.vertex_[1].x();
+            point.ry() = vertex_[i].y();
             insertVertex(i + 1, point);
-            Vertex[i + 2] = rect.Vertex[1];
-            point.rx() = Vertex[i + 3].x();
-            point.ry() = rect.Vertex[1].y();
+            vertex_[i + 2] = rect.vertex_[1];
+            point.rx() = vertex_[i + 3].x();
+            point.ry() = rect.vertex_[1].y();
             insertVertex(i + 3, point);
             return;
         }
     }
 
-    if ((Vertex[count - 2].x() > rect.Vertex[1].x())
-            && (Vertex[count - 1].x() < rect.Vertex[1].x())
-            && (Vertex[count - 1].y() > rect.Vertex[1].y())
-            && (Vertex[0].y() < rect.Vertex[1].y())) {
-        point.rx() = rect.Vertex[1].x();
-        point.ry() = Vertex[count - 2].y();
-        insertVertex(count - 1, point);
-        insertVertex(count - 1, rect.Vertex[1]);
-        point.rx() = Vertex[0].x();
-        point.ry() = rect.Vertex[1].y();
-        Vertex[count - 1] = point;
+    if ((vertex_[count_ - 2].x() > rect.vertex_[1].x())
+            && (vertex_[count_ - 1].x() < rect.vertex_[1].x())
+            && (vertex_[count_ - 1].y() > rect.vertex_[1].y())
+            && (vertex_[0].y() < rect.vertex_[1].y())) {
+        point.rx() = rect.vertex_[1].x();
+        point.ry() = vertex_[count_ - 2].y();
+        insertVertex(count_ - 1, point);
+        insertVertex(count_ - 1, rect.vertex_[1]);
+        point.rx() = vertex_[0].x();
+        point.ry() = rect.vertex_[1].y();
+        vertex_[count_ - 1] = point;
     }
 }
 
@@ -119,34 +119,34 @@ void CommonData::crossBy2(const CommonData& rect)
 {
     Point point;
 
-    for (int i = 0; i < count - 2; i++) {
-        if ((Vertex[i].y() > rect.Vertex[2].y())
-                && (Vertex[i + 1].x() < rect.Vertex[2].x())
-                && (Vertex[i + 1].y() < rect.Vertex[2].y())
-                && (Vertex[i + 2].x() > rect.Vertex[2].x())) {
-            point.ry() = rect.Vertex[2].y();
-            point.rx() = Vertex[i].x();
+    for (int i = 0; i < count_ - 2; i++) {
+        if ((vertex_[i].y() > rect.vertex_[2].y())
+                && (vertex_[i + 1].x() < rect.vertex_[2].x())
+                && (vertex_[i + 1].y() < rect.vertex_[2].y())
+                && (vertex_[i + 2].x() > rect.vertex_[2].x())) {
+            point.ry() = rect.vertex_[2].y();
+            point.rx() = vertex_[i].x();
             insertVertex(i + 1, point);
-            Vertex[i + 2] = rect.Vertex[2];
-            point.ry() = Vertex[i + 3].y();
-            point.rx() = rect.Vertex[2].x();
+            vertex_[i + 2] = rect.vertex_[2];
+            point.ry() = vertex_[i + 3].y();
+            point.rx() = rect.vertex_[2].x();
             insertVertex(i + 3, point);
             return;
         }
     }
 
-    if ((Vertex[count - 1].y() > rect.Vertex[2].y())
-            && (Vertex[0].x() < rect.Vertex[2].x())
-            && (Vertex[0].y() < rect.Vertex[2].y())
-            && (Vertex[1].x() > rect.Vertex[2].x())) {
+    if ((vertex_[count_ - 1].y() > rect.vertex_[2].y())
+            && (vertex_[0].x() < rect.vertex_[2].x())
+            && (vertex_[0].y() < rect.vertex_[2].y())
+            && (vertex_[1].x() > rect.vertex_[2].x())) {
         //Special case - use with cautions :)
-        point.ry() = Vertex[0].y();
-        point.rx() = rect.Vertex[2].x();
+        point.ry() = vertex_[0].y();
+        point.rx() = rect.vertex_[2].x();
         insertVertex(1, point);
-        point.ry() = rect.Vertex[2].y();
-        point.rx() = Vertex[0].x();
-        insertVertex(1, rect.Vertex[2]);
-        Vertex[0] = point;
+        point.ry() = rect.vertex_[2].y();
+        point.rx() = vertex_[0].x();
+        insertVertex(1, rect.vertex_[2]);
+        vertex_[0] = point;
     }
 }
 
@@ -154,17 +154,17 @@ void CommonData::crossBy3(const CommonData& rect)
 {
     Point point;
 
-    for (int i = 0; i < count - 2; i++) {
-        if ((Vertex[i].x() < rect.Vertex[3].x())
-                && (Vertex[i + 1].x() > rect.Vertex[3].x())
-                && (Vertex[i + 1].y() < rect.Vertex[3].y())
-                && (Vertex[i + 2].y() > rect.Vertex[3].y())) {
-            point.rx() = rect.Vertex[3].x();
-            point.ry() = Vertex[i].y();
+    for (int i = 0; i < count_ - 2; i++) {
+        if ((vertex_[i].x() < rect.vertex_[3].x())
+                && (vertex_[i + 1].x() > rect.vertex_[3].x())
+                && (vertex_[i + 1].y() < rect.vertex_[3].y())
+                && (vertex_[i + 2].y() > rect.vertex_[3].y())) {
+            point.rx() = rect.vertex_[3].x();
+            point.ry() = vertex_[i].y();
             insertVertex(i + 1, point);
-            Vertex[i + 2] = rect.Vertex[3];
-            point.rx() = Vertex[i + 3].x();
-            point.ry() = rect.Vertex[3].y();
+            vertex_[i + 2] = rect.vertex_[3];
+            point.rx() = vertex_[i + 3].x();
+            point.ry() = rect.vertex_[3].y();
             insertVertex(i + 3, point);
             break;
         }
@@ -173,29 +173,29 @@ void CommonData::crossBy3(const CommonData& rect)
 
 void CommonData::insertVertex(size_t pos, const Point &p)
 {
-    count++;
-    assert(count > 0);
+    count_++;
+    assert(count_ > 0);
 
-    for (size_t i = count - 1; i >= pos; i--)
-        Vertex[i] = Vertex[i - 1];
+    for (size_t i = count_ - 1; i >= pos; i--)
+        vertex_[i] = vertex_[i - 1];
 
-    Vertex[pos] = p;
+    vertex_[pos] = p;
 }
 
 void CommonData::insertBottom(const CommonData& rect)
 {
     Point point;
 
-    for (int i = 0; i < count - 1; i++) {
-        if ((Vertex[i].x() < rect.Vertex[3].x())
-                && (Vertex[i].y() < rect.Vertex[3].y())
-                && (Vertex[i + 1].x() > rect.Vertex[2].x())) {
-            point.rx() = rect.Vertex[3].x();
-            point.ry() = Vertex[i].y();
+    for (int i = 0; i < count_ - 1; i++) {
+        if ((vertex_[i].x() < rect.vertex_[3].x())
+                && (vertex_[i].y() < rect.vertex_[3].y())
+                && (vertex_[i + 1].x() > rect.vertex_[2].x())) {
+            point.rx() = rect.vertex_[3].x();
+            point.ry() = vertex_[i].y();
             insertVertex(i + 1, point);
-            insertVertex(i + 2, rect.Vertex[3]);
-            insertVertex(i + 3, rect.Vertex[2]);
-            point.rx() = rect.Vertex[2].x();
+            insertVertex(i + 2, rect.vertex_[3]);
+            insertVertex(i + 3, rect.vertex_[2]);
+            point.rx() = rect.vertex_[2].x();
             insertVertex(i + 4, point);
             break;
         }
@@ -206,16 +206,16 @@ void CommonData::insertLeft(const CommonData& rect)
 {
     Point point;
 
-    for (int i = 0; i < count - 1; i++) {
-        if ((Vertex[i].x() > rect.Vertex[0].x())
-                && (Vertex[i].y() < rect.Vertex[0].y())
-                && (Vertex[i + 1].y() > rect.Vertex[3].y())) {
-            point.rx() = Vertex[i].x();
-            point.ry() = rect.Vertex[0].y();
+    for (int i = 0; i < count_ - 1; i++) {
+        if ((vertex_[i].x() > rect.vertex_[0].x())
+                && (vertex_[i].y() < rect.vertex_[0].y())
+                && (vertex_[i + 1].y() > rect.vertex_[3].y())) {
+            point.rx() = vertex_[i].x();
+            point.ry() = rect.vertex_[0].y();
             insertVertex(i + 1, point);
-            insertVertex(i + 2, rect.Vertex[0]);
-            insertVertex(i + 3, rect.Vertex[3]);
-            point.ry() = rect.Vertex[3].y();
+            insertVertex(i + 2, rect.vertex_[0]);
+            insertVertex(i + 3, rect.vertex_[3]);
+            point.ry() = rect.vertex_[3].y();
             insertVertex(i + 4, point);
             break;
         }
@@ -228,31 +228,31 @@ void CommonData::insertRight(const CommonData& rect)
     Point point;
     int i = 0;
 
-    for (i = 0; i < count - 1; i++) {
-        if ((Vertex[i].x() < rect.Vertex[2].x())
-                && (Vertex[i].y() > rect.Vertex[2].y())
-                && (Vertex[i + 1].y() < rect.Vertex[1].y())) {
-            point.rx() = Vertex[i].x();
-            point.ry() = rect.Vertex[2].y();
+    for (i = 0; i < count_ - 1; i++) {
+        if ((vertex_[i].x() < rect.vertex_[2].x())
+                && (vertex_[i].y() > rect.vertex_[2].y())
+                && (vertex_[i + 1].y() < rect.vertex_[1].y())) {
+            point.rx() = vertex_[i].x();
+            point.ry() = rect.vertex_[2].y();
             insertVertex(i + 1, point);
-            insertVertex(i + 2, rect.Vertex[2]);
-            insertVertex(i + 3, rect.Vertex[1]);
-            point.ry() = rect.Vertex[1].y();
+            insertVertex(i + 2, rect.vertex_[2]);
+            insertVertex(i + 3, rect.vertex_[1]);
+            point.ry() = rect.vertex_[1].y();
             insertVertex(i + 4, point);
             return;
         }
     }
 
-    if ((Vertex[count - 1].x() < rect.Vertex[2].x())
-            && (Vertex[count - 1].y() > rect.Vertex[2].y())
-            && (Vertex[0].y() < rect.Vertex[1].y()))
+    if ((vertex_[count_ - 1].x() < rect.vertex_[2].x())
+            && (vertex_[count_ - 1].y() > rect.vertex_[2].y())
+            && (vertex_[0].y() < rect.vertex_[1].y()))
     {
-        point.rx() = Vertex[count - 1].x();
-        point.ry() = rect.Vertex[2].y();
+        point.rx() = vertex_[count_ - 1].x();
+        point.ry() = rect.vertex_[2].y();
         insertVertex(i + 1, point);
-        insertVertex(i + 2, rect.Vertex[2]);
-        insertVertex(i + 3, rect.Vertex[1]);
-        point.ry() = rect.Vertex[1].y();
+        insertVertex(i + 2, rect.vertex_[2]);
+        insertVertex(i + 3, rect.vertex_[1]);
+        point.ry() = rect.vertex_[1].y();
         insertVertex(i + 4, point);
     }
 }
@@ -261,16 +261,16 @@ void CommonData::insertTop(const CommonData& rect)
 {
     Point point;
 
-    for (int i = 0; i < count - 1; i++) {
-        if ((Vertex[i].x() > rect.Vertex[1].x())
-                && (Vertex[i].y() > rect.Vertex[1].y())
-                && (Vertex[i + 1].x() < rect.Vertex[0].x())) {
-            point.rx() = rect.Vertex[1].x();
-            point.ry() = Vertex[i].y();
+    for (int i = 0; i < count_ - 1; i++) {
+        if ((vertex_[i].x() > rect.vertex_[1].x())
+                && (vertex_[i].y() > rect.vertex_[1].y())
+                && (vertex_[i + 1].x() < rect.vertex_[0].x())) {
+            point.rx() = rect.vertex_[1].x();
+            point.ry() = vertex_[i].y();
             insertVertex(i + 1, point);
-            insertVertex(i + 2, rect.Vertex[1]);
-            insertVertex(i + 3, rect.Vertex[0]);
-            point.rx() = rect.Vertex[0].x();
+            insertVertex(i + 2, rect.vertex_[1]);
+            insertVertex(i + 3, rect.vertex_[0]);
+            point.rx() = rect.vertex_[0].x();
             insertVertex(i + 4, point);
             break;
         }
@@ -282,36 +282,36 @@ int CommonData::isInPoly(const Point& pt) const
     int y, ind;
     int Count = 0;
 
-    for (int i = 0; i < count; i++) {
-        int next = (i + 1) % count;
+    for (int i = 0; i < count_; i++) {
+        int next = (i + 1) % count_;
 
-        if(Vertex[i].y() == Vertex[next].y())
+        if(vertex_[i].y() == vertex_[next].y())
             continue;
 
-        if(Vertex[i].y() > pt.y() && Vertex[next].y() > pt.y())
+        if(vertex_[i].y() > pt.y() && vertex_[next].y() > pt.y())
             continue;
 
-        if(Vertex[i].y() < pt.y() && Vertex[next].y() < pt.y())
+        if(vertex_[i].y() < pt.y() && vertex_[next].y() < pt.y())
             continue;
 
-        y = Vertex[i].y();
+        y = vertex_[i].y();
         ind = i;
 
-        if (Vertex[next].y() > Vertex[i].y()) {
-            y = Vertex[next].y();
+        if (vertex_[next].y() > vertex_[i].y()) {
+            y = vertex_[next].y();
             ind = next;
         }
 
-        if ((y == pt.y()) && (Vertex[ind].x() >= pt.x()))
+        if ((y == pt.y()) && (vertex_[ind].x() >= pt.x()))
             Count++;
-        else if (std::min(Vertex[i].y(), Vertex[next].y()) == pt.y())
+        else if (std::min(vertex_[i].y(), vertex_[next].y()) == pt.y())
             continue;
         else {
-            double t = ((double) (pt.y() - Vertex[i].y()) / ((double) (Vertex[next].y()
-                    - (double) Vertex[i].y())));
+            double t = ((double) (pt.y() - vertex_[i].y()) / ((double) (vertex_[next].y()
+                    - (double) vertex_[i].y())));
 
-            if (t > 0 && t < 1 && (double) Vertex[i].x() + t
-                    * ((double) Vertex[next].x() - (double) Vertex[i].x())
+            if (t > 0 && t < 1 && (double) vertex_[i].x() + t
+                    * ((double) vertex_[next].x() - (double) vertex_[i].x())
                     >= (double) pt.x())
                 Count++;
         }
@@ -329,20 +329,20 @@ int CommonData::isInPoly(const Point16& pt) const
 
 bool CommonData::isRect() const
 {
-    if(count != 4)
+    if(count_ != 4)
         return false;
 
-    if(Vertex[0].x() != Vertex[3].x())
+    if(vertex_[0].x() != vertex_[3].x())
         return false;
-    if(Vertex[1].x() != Vertex[2].x())
+    if(vertex_[1].x() != vertex_[2].x())
         return false;
-    if(Vertex[0].y() != Vertex[1].y())
+    if(vertex_[0].y() != vertex_[1].y())
         return false;
-    if(Vertex[3].y() != Vertex[2].y())
+    if(vertex_[3].y() != vertex_[2].y())
         return false;
-    if(Vertex[0].x() >= Vertex[1].x())
+    if(vertex_[0].x() >= vertex_[1].x())
         return false;
-    if(Vertex[0].y() >= Vertex[3].y())
+    if(vertex_[0].y() >= vertex_[3].y())
         return false;
 
     return true;
@@ -351,13 +351,13 @@ bool CommonData::isRect() const
 void CommonData::moveVertexX(size_t pos, int dx)
 {
     assert(pos < CPAGE_MAXCORNER);
-    Vertex[pos].rx() + dx;
+    vertex_[pos].rx() + dx;
 }
 
 void CommonData::moveVertexY(size_t pos, int dy)
 {
     assert(pos < CPAGE_MAXCORNER);
-    Vertex[pos].ry() + dy;
+    vertex_[pos].ry() + dy;
 }
 
 int CommonData::number() const
@@ -367,7 +367,7 @@ int CommonData::number() const
 
 void CommonData::rotateVertexesToIdeal(int skew)
 {
-    for(int i = 0; i < count; i++)
+    for(int i = 0; i < count_; i++)
         rotateVertexToIdeal<2048>(i, skew);
 }
 
@@ -378,11 +378,11 @@ void CommonData::setNumber(int n)
 
 void CommonData::setRect(const Rect& r)
 {
-    Vertex[0] = r.leftTop();
-    Vertex[1] = r.rightTop();
-    Vertex[2] = r.rightBottom();
-    Vertex[3] = r.leftBottom();
-    count = 4;
+    vertex_[0] = r.leftTop();
+    vertex_[1] = r.rightTop();
+    vertex_[2] = r.rightBottom();
+    vertex_[3] = r.leftBottom();
+    count_ = 4;
 }
 
 void CommonData::setType(CDataType type)
@@ -393,19 +393,19 @@ void CommonData::setType(CDataType type)
 void CommonData::setVertex(size_t pos, const Point& pt)
 {
     assert(pos < CPAGE_MAXCORNER);
-    Vertex[pos] = pt;
+    vertex_[pos] = pt;
 }
 
 void CommonData::setVertexX(size_t pos, int x)
 {
     assert(pos < CPAGE_MAXCORNER);
-    Vertex[pos].setX(x);
+    vertex_[pos].setX(x);
 }
 
 void CommonData::setVertexY(size_t pos, int y)
 {
     assert(pos < CPAGE_MAXCORNER);
-    Vertex[pos].setY(y);
+    vertex_[pos].setY(y);
 }
 
 CDataType CommonData::type() const
@@ -416,13 +416,13 @@ CDataType CommonData::type() const
 Point& CommonData::vertexAt(size_t pos)
 {
     assert(pos < CPAGE_MAXCORNER);
-    return Vertex[pos];
+    return vertex_[pos];
 }
 
 const Point& CommonData::vertexAt(size_t pos) const
 {
     assert(pos < CPAGE_MAXCORNER);
-    return Vertex[pos];
+    return vertex_[pos];
 }
 
 int CommonData::vertexX(size_t pos) const
@@ -437,7 +437,7 @@ int CommonData::vertexY(size_t pos) const
 
 size_t CommonData::vertexCount() const
 {
-    return count;
+    return count_;
 }
 
 }

@@ -64,7 +64,7 @@ public:
     int number() const;
 
     Rect rect() const {
-        return Rect(Vertex[0], Vertex[2]);
+        return Rect(vertex_[0], vertex_[2]);
     }
 
     template<int T>
@@ -93,34 +93,32 @@ public:
     int vertexX(size_t pos) const;
     int vertexY(size_t pos) const;
     size_t vertexCount() const;
-    void g(int i, int y, int ind);
-    void f(int next, int i);
 private:
     CDataType type_; //Текст, Картинка, Таблица;
-    int16_t count;
+    int16_t count_;
     int16_t number_; // порядковый номер
     uint32_t flags_;
-    Point32 Vertex[CPAGE_MAXCORNER];
+    Point32 vertex_[CPAGE_MAXCORNER];
 };
 
 template<int T>
 void CommonData::rotateVertexToIdeal(size_t pos, int skew)
 {
-    int x = Vertex[pos].x();
-    int y = Vertex[pos].y();
+    int x = vertex_[pos].x();
+    int y = vertex_[pos].y();
     x = (x + y * skew / T);
     y = (y - x * skew / T);
-    Vertex[pos].set(x, y);
+    vertex_[pos].set(x, y);
 }
 
 template<int T>
 void CommonData::rotateVertexToReal(size_t pos, int skew)
 {
-    int x = Vertex[pos].x();
-    int y = Vertex[pos].y();
+    int x = vertex_[pos].x();
+    int y = vertex_[pos].y();
     y = (y + x * skew / T);
     x = (x - y * skew / T);
-    Vertex[pos].set(x, y);
+    vertex_[pos].set(x, y);
 }
 
 
