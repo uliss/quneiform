@@ -18,6 +18,7 @@
 
 #include "testcommondata.h"
 #include "cpage/commondata.h"
+#include "common/tostring.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestCommonData);
 
@@ -64,4 +65,89 @@ void TestCommonData::testCalcHeight()
     cd.addVertex(-1, -5);
     cd.addVertex(34, 2);
     CPPUNIT_ASSERT_EQUAL(10, cd.calcHeight());
+}
+
+void TestCommonData::testSetRect()
+{
+    CommonData cd;
+    CPPUNIT_ASSERT(!cd.isRect());
+    cd.setRect(Rect(1, 2, 100, 200));
+    CPPUNIT_ASSERT_EQUAL(4, (int) cd.vertexCount());
+    CPPUNIT_ASSERT_EQUAL(Rect(1, 2, 100, 200), cd.rect());
+    CPPUNIT_ASSERT(cd.isRect());
+}
+
+void TestCommonData::testVertexes()
+{
+    CommonData cd;
+    cd.addVertex(10, 20);
+    CPPUNIT_ASSERT_EQUAL(1, (int) cd.vertexCount());
+    cd.setVertex(0, Point(30, 40));
+    CPPUNIT_ASSERT_EQUAL(Point(30, 40), cd.vertexAt(0));
+    cd.setVertexX(0, 5);
+    CPPUNIT_ASSERT_EQUAL(Point(5, 40), cd.vertexAt(0));
+    CPPUNIT_ASSERT_EQUAL(5, cd.vertexX(0));
+    cd.setVertexY(0, 6);
+    CPPUNIT_ASSERT_EQUAL(Point(5, 6), cd.vertexAt(0));
+    CPPUNIT_ASSERT_EQUAL(6, cd.vertexY(0));
+
+    cd.moveVertexX(0, 1);
+    CPPUNIT_ASSERT_EQUAL(Point(6, 6), cd.vertexAt(0));
+    cd.moveVertexY(0, 1);
+    CPPUNIT_ASSERT_EQUAL(Point(6, 7), cd.vertexAt(0));
+}
+
+void TestCommonData::testIsRect()
+{
+    CommonData cd;
+    CPPUNIT_ASSERT(!cd.isRect());
+    cd.addVertex(0, 0);
+    cd.addVertex(10, 0);
+    cd.addVertex(10, 10);
+    cd.addVertex(0, 10);
+    CPPUNIT_ASSERT(cd.isRect());
+
+    cd.moveVertexX(0, 1);
+    CPPUNIT_ASSERT(!cd.isRect());
+    cd.moveVertexX(0, -1);
+    CPPUNIT_ASSERT(cd.isRect());
+    cd.moveVertexY(0, 1);
+    CPPUNIT_ASSERT(!cd.isRect());
+    cd.moveVertexY(0, -1);
+    CPPUNIT_ASSERT(cd.isRect());
+
+    cd.moveVertexX(1, 1);
+    CPPUNIT_ASSERT(!cd.isRect());
+    cd.moveVertexX(1, -1);
+    CPPUNIT_ASSERT(cd.isRect());
+    cd.moveVertexY(1, 1);
+    CPPUNIT_ASSERT(!cd.isRect());
+    cd.moveVertexY(1, -1);
+    CPPUNIT_ASSERT(cd.isRect());
+
+    cd.moveVertexX(2, 1);
+    CPPUNIT_ASSERT(!cd.isRect());
+    cd.moveVertexX(2, -1);
+    CPPUNIT_ASSERT(cd.isRect());
+    cd.moveVertexY(2, 1);
+    CPPUNIT_ASSERT(!cd.isRect());
+    cd.moveVertexY(2, -1);
+    CPPUNIT_ASSERT(cd.isRect());
+
+    cd.moveVertexX(3, 1);
+    CPPUNIT_ASSERT(!cd.isRect());
+    cd.moveVertexX(3, -1);
+    CPPUNIT_ASSERT(cd.isRect());
+    cd.moveVertexY(3, 1);
+    CPPUNIT_ASSERT(!cd.isRect());
+    cd.moveVertexY(3, -1);
+    CPPUNIT_ASSERT(cd.isRect());
+
+    cd.setRect(Rect());
+    CPPUNIT_ASSERT(!cd.isRect());
+    cd.setRect(Rect(0, 0, -10, 30));
+    CPPUNIT_ASSERT(!cd.isRect());
+
+    cd.setRect(Rect(0, 0, 10, -30));
+    CPPUNIT_ASSERT(!cd.isRect());
 }

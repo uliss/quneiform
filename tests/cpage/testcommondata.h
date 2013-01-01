@@ -28,12 +28,18 @@ class TestCommonData : public CppUnit::TestFixture
     CPPUNIT_TEST(testFlags);
     CPPUNIT_TEST(testNumber);
     CPPUNIT_TEST(testCalcHeight);
+    CPPUNIT_TEST(testSetRect);
+    CPPUNIT_TEST(testVertexes);
+    CPPUNIT_TEST(testIsRect);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
     void testFlags();
     void testNumber();
     void testCalcHeight();
+    void testSetRect();
+    void testVertexes();
+    void testIsRect();
 };
 
 
