@@ -18,6 +18,7 @@
 
 #include "commondata.h"
 #include "picture.h"
+#include "cpage_debug.h"
 
 namespace cf {
 
@@ -171,13 +172,13 @@ void CommonData::crossBy3(const CommonData& rect)
     }
 }
 
-void CommonData::insertVertex(size_t pos, const Point &p)
+void CommonData::insertVertex(size_t pos, const Point& p)
 {
     count_++;
-    assert(count_ > 0);
 
-    for (size_t i = count_ - 1; i >= pos; i--)
+    for (size_t i = count_ - 1; i >= pos && i > 0; i--) {
         vertex_[i] = vertex_[i - 1];
+    }
 
     vertex_[pos] = p;
 }

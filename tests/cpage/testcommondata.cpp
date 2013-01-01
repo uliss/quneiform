@@ -18,6 +18,7 @@
 
 #include "testcommondata.h"
 #include "cpage/commondata.h"
+#include "cpage/picture.h"
 #include "common/tostring.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestCommonData);
@@ -150,4 +151,55 @@ void TestCommonData::testIsRect()
 
     cd.setRect(Rect(0, 0, 10, -30));
     CPPUNIT_ASSERT(!cd.isRect());
+}
+
+void TestCommonData::testCopyVertexes()
+{
+    CommonData cd;
+    CPPUNIT_ASSERT(!cd.vertexCount());
+
+    Picture pict;
+    cd.copyVertexes(pict);
+    CPPUNIT_ASSERT(!cd.vertexCount());
+
+    pict.appendCorner(Point(1, 2));
+    pict.appendCorner(Point(3, 4));
+
+    cd.copyVertexes(pict);
+    CPPUNIT_ASSERT(cd.vertexCount() == 2);
+    CPPUNIT_ASSERT_EQUAL(pict.cornerAt(0), cd.vertexAt(0));
+    CPPUNIT_ASSERT_EQUAL(pict.cornerAt(1), cd.vertexAt(1));
+}
+
+void TestCommonData::testInsertVertex()
+{
+    CommonData cd;
+    cd.insertVertex(0, Point(1, 2));
+    CPPUNIT_ASSERT(cd.vertexCount());
+
+    cd.insertVertex(0, Point(3, 4));
+    CPPUNIT_ASSERT_EQUAL(2, (int) cd.vertexCount());
+    CPPUNIT_ASSERT_EQUAL(Point(3, 4), cd.vertexAt(0));
+    CPPUNIT_ASSERT_EQUAL(Point(1, 2), cd.vertexAt(1));
+
+    cd.insertVertex(0, Point(5, 6));
+    CPPUNIT_ASSERT_EQUAL(3, (int) cd.vertexCount());
+    CPPUNIT_ASSERT_EQUAL(Point(5, 6), cd.vertexAt(0));
+    CPPUNIT_ASSERT_EQUAL(Point(3, 4), cd.vertexAt(1));
+    CPPUNIT_ASSERT_EQUAL(Point(1, 2), cd.vertexAt(2));
+
+    cd.insertVertex(1, Point(7, 8));
+    CPPUNIT_ASSERT_EQUAL(4, (int) cd.vertexCount());
+    CPPUNIT_ASSERT_EQUAL(Point(5, 6), cd.vertexAt(0));
+    CPPUNIT_ASSERT_EQUAL(Point(7, 8), cd.vertexAt(1));
+    CPPUNIT_ASSERT_EQUAL(Point(3, 4), cd.vertexAt(2));
+    CPPUNIT_ASSERT_EQUAL(Point(1, 2), cd.vertexAt(3));
+
+    cd.insertVertex(4, Point(9, 10));
+    CPPUNIT_ASSERT_EQUAL(5, (int) cd.vertexCount());
+    CPPUNIT_ASSERT_EQUAL(Point(5, 6), cd.vertexAt(0));
+    CPPUNIT_ASSERT_EQUAL(Point(7, 8), cd.vertexAt(1));
+    CPPUNIT_ASSERT_EQUAL(Point(3, 4), cd.vertexAt(2));
+    CPPUNIT_ASSERT_EQUAL(Point(1, 2), cd.vertexAt(3));
+    CPPUNIT_ASSERT_EQUAL(Point(9, 10), cd.vertexAt(4));
 }

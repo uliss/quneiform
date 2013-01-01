@@ -95,7 +95,7 @@ public:
     size_t vertexCount() const;
 private:
     CDataType type_; //Текст, Картинка, Таблица;
-    int16_t count_;
+    uint16_t count_;
     int16_t number_; // порядковый номер
     uint32_t flags_;
     Point32 vertex_[CPAGE_MAXCORNER];
