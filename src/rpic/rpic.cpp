@@ -651,16 +651,10 @@ Bool32 RPIC_SearchPictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, CPageHandle
 		}
         block.com.setType(TYPE_TEXT);//Текст, Картинка, Таблица;
         block.com.setNumber(0);//порядковый номер
-		block.com.count = 4;
         block.com.setFlags(0);
-		block.com.Vertex[0].rx() = pPics[i].left;
-		block.com.Vertex[0].ry() = pPics[i].upper;
-		block.com.Vertex[1].rx() = pPics[i].left + pPics[i].w;
-		block.com.Vertex[1].ry() = pPics[i].upper;
-		block.com.Vertex[2].rx() = pPics[i].left + pPics[i].w;
-		block.com.Vertex[2].ry() = pPics[i].upper + pPics[i].h;
-		block.com.Vertex[3].rx() = pPics[i].left;
-		block.com.Vertex[3].ry() = pPics[i].upper + pPics[i].h;
+
+        cf::Rect r(pPics[i].left, pPics[i].upper, pPics[i].w, pPics[i].h);
+        block.com.setRect(r);
 		block.alphabet = 0;
 
 		sprintf(tmp_str, "  <4 О 1 %4d %4d %4d %4d %d \n", pPics[i].left,
@@ -704,10 +698,10 @@ Bool32 RPIC_SearchPictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, CPageHandle
 				= CPAGE_GetBlockNext(hCPAGE, h, TYPE_IMAGE)) {
 			nPics++;
             CPAGE_GetBlockData(h, TYPE_IMAGE, &block, sizeof(block));
-			rect.left = block.com.Vertex[0].x();
-			rect.top = block.com.Vertex[0].y();
-			rect.right = block.com.Vertex[1].x();
-			rect.bottom = block.com.Vertex[2].y();
+            rect.left = block.com.vertexX(0);
+            rect.top = block.com.vertexY(0);
+            rect.right = block.com.vertexX(1);
+            rect.bottom = block.com.vertexY(2);
 			LDPUMA_DrawRect(MainWindowD, &rect, 0, color, 2, key);
 		}
 		if (nPics) {
@@ -724,10 +718,10 @@ Bool32 RPIC_SearchPictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, CPageHandle
 				= CPAGE_GetBlockNext(hCPAGE, h, POSSIBLE_PICTURES)) {
 			nPics++;
             CPAGE_GetBlockData(h, POSSIBLE_PICTURES, &block, sizeof(block));
-			rect.left = block.com.Vertex[0].x();
-			rect.top = block.com.Vertex[0].y();
-			rect.right = block.com.Vertex[1].x();
-			rect.bottom = block.com.Vertex[2].y();
+            rect.left = block.com.vertexX(0);
+            rect.top = block.com.vertexY(0);
+            rect.right = block.com.vertexX(1);
+            rect.bottom = block.com.vertexY(2);
 			LDPUMA_DrawRect(MainWindowD, &rect, 0, color, 2, key);
 		}
 		if (nPics) {

@@ -295,10 +295,10 @@ void CFPage::ProcessingComingLine(CSTR_line* Comingline) {
 
                 if (attr.Flags == CSTR_STR_NEGATIVE) { //nega_str
                     CPAGE_GetBlockData(hBlock, TYPE_TEXT, &poly, sizeof(PolyBlock));
-                    Fragment->m_rectFrag.left = poly.com.Vertex[0].x() - TemplateOffset.x();
-                    Fragment->m_rectFrag.right = poly.com.Vertex[2].x() - TemplateOffset.x();
-                    Fragment->m_rectFrag.top = poly.com.Vertex[0].y() - TemplateOffset.y();
-                    Fragment->m_rectFrag.bottom = poly.com.Vertex[2].y() - TemplateOffset.y();
+                    Fragment->m_rectFrag.left = poly.com.vertexAt(0).x() - TemplateOffset.x();
+                    Fragment->m_rectFrag.right = poly.com.vertexAt(2).x() - TemplateOffset.x();
+                    Fragment->m_rectFrag.top = poly.com.vertexAt(0).y() - TemplateOffset.y();
+                    Fragment->m_rectFrag.bottom = poly.com.vertexAt(2).y() - TemplateOffset.y();
                 }
 
                 break;

@@ -117,7 +117,6 @@ extern BLOCK** pBlockPointer;
 
 //////////////////////////////////
 static void LayoutFromCPAGE(CPageHandle hCPAGE, CCOM_handle hCCOM);
-int IsInPoly(const cf::Point16& a, PolyBlock* pPoly);
 Bool dphShowString;
 
 void RotatePageToIdeal(void);
@@ -259,10 +258,10 @@ void LayoutFromCPAGE(CPageHandle hCPAGE, CCOM_handle hCCOM)
             pRightBottom.rx() = pRoot->xColumn + pRoot->nWidth - 1;
             pRightBottom.ry() = pRoot->yRow + pRoot->nHeight - 1;
 
-            if (IsInPoly(pLeftTop, &block) ||
-                    IsInPoly(pRightTop, &block) ||
-                    IsInPoly(pLeftBottom, &block) ||
-                    IsInPoly(pRightBottom, &block)) {
+            if (block.com.isInPoly(pLeftTop) ||
+                    block.com.isInPoly(pRightTop) ||
+                    block.com.isInPoly(pLeftBottom) ||
+                    block.com.isInPoly(pRightBottom)) {
                 pRoot->nBlock = BlockNumber + FIRST_REGULAR_BLOCK_NUMBER;
                 pRoot->nUserNum = BlockNumber;
             }
@@ -302,10 +301,10 @@ void LayoutFromCPAGE(CPageHandle hCPAGE, CCOM_handle hCCOM)
         CPAGE_GetBlockData(h, TYPE_TEXT, &block, sizeof(PolyBlock));
         if (block.negative == TYPE_NEGATIVE || block.orient == TYPE_UPDOWN || block.orient
                 == TYPE_DOWNUP) {
-            Rc.bottom = block.com.Vertex[2].y();
-            Rc.top = block.com.Vertex[0].y();
-            Rc.left = block.com.Vertex[0].x();
-            Rc.right = block.com.Vertex[2].x();
+            Rc.bottom = block.com.vertexY(2);
+            Rc.top = block.com.vertexY(0);
+            Rc.left = block.com.vertexX(0);
+            Rc.right = block.com.vertexX(2);
             if (nIncline >= 0) {
                 REAL_XY(Rc.left, Rc.top);
                 REAL_XY(Rc.right, Rc.bottom);
@@ -547,43 +546,6 @@ void file_string(STRING * s)
         CSTR_PackLine(lin_in);
     }
 
-}
-
-int IsInPoly(Point16 a, void * pPoly)
-{
-    int i, y, n, ind;
-    int Count = 0;
-    PolyBlock *p;
-    p = (PolyBlock*) pPoly;
-    n = p->com.count;
-    for (i = 0; i < n; i++) {
-        int j = (i + 1) % n;
-        if (p->com.Vertex[i].y() == p->com.Vertex[j].y())
-            continue;
-        if (p->com.Vertex[i].y() > a.y() && p->com.Vertex[j].y() > a.y())
-            continue;
-        if (p->com.Vertex[i].y() < a.y() && p->com.Vertex[j].y() < a.y())
-            continue;
-        y = p->com.Vertex[i].y();
-        ind = i;
-        if (p->com.Vertex[j].y() > y) {
-            y = p->com.Vertex[j].y();
-            ind = j;
-        }
-        if ((y == a.y()) && (p->com.Vertex[ind].x() >= a.x()))
-            Count++;
-        else if (MIN(p->com.Vertex[i].y(), p->com.Vertex[j].y()) == a.y())
-            continue;
-        else {
-            double t = ((double) (a.y() - p->com.Vertex[i].y()) / ((double) (p->com.Vertex[j].y()
-                    - (double) p->com.Vertex[i].y())));
-            if (t > 0 && t < 1 && (double) p->com.Vertex[i].x() + t
-                    * ((double) p->com.Vertex[j].x() - (double) p->com.Vertex[i].x())
-                    >= (double) a.x())
-                Count++;
-        }
-    }
-    return Count & 1;
 }
 
 Bool AddLenHstrMas(CHSTR_Objects** ppRc, int& len, int add)

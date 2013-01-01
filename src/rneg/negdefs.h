@@ -93,7 +93,7 @@ struct Rotating
 
 struct Negativ
 {
-        Rect16* pRc;
+        ::Rect16* pRc;
         int nRc;
         int len_mas;
         double p;

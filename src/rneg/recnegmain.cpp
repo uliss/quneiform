@@ -362,7 +362,7 @@ void RNEG_RecogNeg(CCOM_handle hCCOM, CPageHandle hCPage, uchar* pImageName,
 		now = now->next;
 	int h;
 	int w;
-	Rect16 Rc;
+    ::Rect16 Rc;
 
 	/*Отсев по размеру*/
 	if (LDPUMA_Skip(NegSize)) {
@@ -506,7 +506,6 @@ void RNEG_RecogNeg(CCOM_handle hCCOM, CPageHandle hCPage, uchar* pImageName,
 				Rc.top = (now->neg).pRc[(now->neg).nRc - 1].top;
 				Rc.bottom = (now->neg).pRc[0].bottom;
                 block.com.setType(TYPE_TEXT); //Текст, Картинка, Таблица;
-				block.com.count = 4;
 				block.negative = TYPE_NEGATIVE;
                 block.com.setFlags(NEGA);
 
@@ -533,14 +532,7 @@ void RNEG_RecogNeg(CCOM_handle hCCOM, CPageHandle hCPage, uchar* pImageName,
 				} else
 					block.orient = TYPE_LEFTRIGHT;
 
-				block.com.Vertex[0].rx() = Rc.left;
-				block.com.Vertex[0].ry() =  Rc.top;
-				block.com.Vertex[1].rx() = Rc.right;
-				block.com.Vertex[1].ry() =  Rc.top;
-				block.com.Vertex[2].rx() = Rc.right;
-				block.com.Vertex[2].ry() =  Rc.bottom;
-				block.com.Vertex[3].rx() = Rc.left;
-				block.com.Vertex[3].ry() =  Rc.bottom;
+                block.com.setRect(cf::Rect(cf::Point(Rc.left, Rc.top), cf::Point(Rc.right, Rc.bottom)));
 				//Andrey: create TYPE_TEXT block
 				CPAGE_CreateBlock(hCPage, TYPE_IMAGE, 0, 0, &block, size_poly);
 				//			CPAGE_CreateBlock(hCPage, TYPE_TEXT,0,0,&block,size_poly);

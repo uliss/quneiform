@@ -72,8 +72,6 @@
 #include "status.h"
 #include "minmax.h"
 
-using namespace cf;
-
 #define INCL_FAC 2048
 
 extern Handle hSnapSerifTrace;
@@ -326,7 +324,7 @@ static void find_serif(cell *c, uint16_t map, int32_t *meas, int32_t *np,
 static int32_t downserif(c_comp *env, uchar shape, int16_t H, STICK *st);
 static int32_t upserif(c_comp *env, uchar shape, int16_t H, STICK *st);
 static interval *interval_fit(int16_t i, lnhead *line, int16_t H, STICK *st);
-static void ideal2rc(Point16 *p);
+static void ideal2rc(cf::Point16 *p);
 static void bound_cell(cell *c, uint32_t color);
 
 void serif_let() {
@@ -452,8 +450,8 @@ static cell *serif_word(cell *c) {
 		if (!LDPUMA_SkipEx(hSnapSerifTrace, FALSE, TRUE, 1)) {
 			cell *last = end->prev;
 			Rect16 box;
-			Point16 pa(beg->col, my_bases.b1 - 1);
-			Point16 pb(last->col + last->w, my_bases.b4 + 1);
+            cf::Point16 pa(beg->col, my_bases.b1 - 1);
+            cf::Point16 pb(last->col + last->w, my_bases.b4 + 1);
 			ideal2rc(&pa);
 			ideal2rc(&pb);
 			box.left = pa.x();
@@ -813,8 +811,8 @@ static int32_t downserif(c_comp *env, uchar shape, int16_t H, STICK *st) {
 
 			if (rv != 0)
 				if (!LDPUMA_SkipEx(hSnapSerifTrace, FALSE, TRUE, 1)) {
-					Point16 pa(env->left + st->x, env->upper + env->h - st->y);
-					Point16 pb(pa.x() + st->incl * H / 4 / INCL_FAC, pa.y() - H
+                    cf::Point16 pa(env->left + st->x, env->upper + env->h - st->y);
+                    cf::Point16 pb(pa.x() + st->incl * H / 4 / INCL_FAC, pa.y() - H
 							/ 4);
 					LDPUMA_DrawLine(NULL, &pa, &pb, 0/*nIncline*/,
 							(rv > 0) ? wRGB(255, 0, 0) : wRGB(0, 255, 0), 1, 1);
@@ -941,9 +939,9 @@ static int32_t upserif(c_comp *env, uchar shape, int16_t H, STICK *st) {
 
 			if (rv != 0)
 				if (!LDPUMA_SkipEx(hSnapSerifTrace, FALSE, TRUE, 1)) {
-					Point16 pa(env->left + st->x + st->incl * st->l / INCL_FAC,
+                    cf::Point16 pa(env->left + st->x + st->incl * st->l / INCL_FAC,
 							env->upper + env->h - st->y - st->l);
-					Point16
+                    cf::Point16
 							pb(pa.x() - st->incl * H / 4 / INCL_FAC, pa.y() + H / 4);
 					LDPUMA_DrawLine(NULL, &pa, &pb, 0/*nIncline*/,
 							(rv > 0) ? wRGB(255, 0, 0) : wRGB(0, 255, 0), 1, 1);
@@ -964,7 +962,7 @@ static interval *interval_fit(int16_t i, lnhead *line, int16_t H, STICK *st)
 	return intv;
 }
 
-static void ideal2rc(Point16 *p) {
+static void ideal2rc(cf::Point16 *p) {
 	int16_t y = p->y();
 	p->ry() = y + (nIncline * p->x() / 2048);
 	p->rx() = p->x() - (nIncline * y / 2048);
@@ -972,7 +970,7 @@ static void ideal2rc(Point16 *p) {
 
 static void bound_cell(cell *c, uint32_t color) {
 	Rect16 box;
-	Point16 pa(c->col, c->row), pb(c->col + c->w - 1, c->row + c->h - 1);
+    cf::Point16 pa(c->col, c->row), pb(c->col + c->w - 1, c->row + c->h - 1);
 	ideal2rc(&pa);
 	ideal2rc(&pb);
 	box.left = pa.x();

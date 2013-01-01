@@ -16,52 +16,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "testcommondata.h"
-#include "cpage/commondata.h"
+#ifndef INTERNAL_H
+#define INTERNAL_H
 
-CPPUNIT_TEST_SUITE_REGISTRATION(TestCommonData);
+#include "common/point.h"
 
-using namespace cf;
-using namespace cf::cpage;
+struct PolyBlock;
 
-void TestCommonData::testInit()
-{
-    CommonData cd;
-    CPPUNIT_ASSERT(!cd.flags());
-    CPPUNIT_ASSERT(!cd.type());
-    CPPUNIT_ASSERT(!cd.vertexCount());
-    CPPUNIT_ASSERT(!cd.number());
-}
+int IsInPoly(const cf::Point& a, const PolyBlock *pPoly);
+int IsInPoly(const cf::Point16& a, const PolyBlock *pPoly);
 
-void TestCommonData::testFlags()
-{
-    CommonData cd;
-    cd.setFlag(0x1);
-    cd.setFlag(0x2);
-    cd.setFlag(0x4);
-    CPPUNIT_ASSERT_EQUAL(0x7, (int) cd.flags());
-
-    cd.setFlags(0x3);
-    CPPUNIT_ASSERT_EQUAL(0x3, (int) cd.flags());
-}
-
-
-void TestCommonData::testNumber()
-{
-    CommonData cd;
-    CPPUNIT_ASSERT(cd.number() == 0);
-    cd.setNumber(10);
-    CPPUNIT_ASSERT_EQUAL(10, (int) cd.number());
-}
-
-void TestCommonData::testCalcHeight()
-{
-    CommonData cd;
-    CPPUNIT_ASSERT(!cd.calcHeight());
-    cd.addVertex(0, 1);
-    cd.addVertex(10, 1);
-    cd.addVertex(4, 5);
-    cd.addVertex(-1, -5);
-    cd.addVertex(34, 2);
-    CPPUNIT_ASSERT_EQUAL(10, cd.calcHeight());
-}
+#endif // INTERNAL_H

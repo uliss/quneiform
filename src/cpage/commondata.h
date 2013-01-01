@@ -32,23 +32,46 @@ namespace cpage {
 
 class CommonData
 {
-    CDataType type_; //Текст, Картинка, Таблица;
 public:
     CommonData();
-    int16_t count;
-    Point32 Vertex[CPAGE_MAXCORNER];
 
+    void addVertex(int x, int y) { addVertex(Point(x, y)); }
     void addVertex(const Point& pt);
+    void copyVertexes(const Picture& pict);
+
+    int calcHeight() const;
+    void crossBy0(const CommonData& rect);
+    void crossBy1(const CommonData& rect);
+    void crossBy2(const CommonData& rect);
+    void crossBy3(const CommonData& rect);
 
     uint32_t flags() const {
         return flags_;
     }
+
+    void insertVertex(size_t pos, const Point& p);
+    void insertBottom(const CommonData& rect);
+    void insertLeft(const CommonData& rect);
+    void insertRight(const CommonData& rect);
+    void insertTop(const CommonData& rect);
+    int isInPoly(const Point& pt) const;
+    int isInPoly(const Point16& pt) const;
+    bool isRect() const;
+
+    void moveVertexX(size_t pos, int dx);
+    void moveVertexY(size_t pos, int dy);
 
     int number() const;
 
     Rect rect() const {
         return Rect(Vertex[0], Vertex[2]);
     }
+
+    template<int T>
+    void rotateVertexToIdeal(size_t pos, int skew);
+    template<int T>
+    void rotateVertexToReal(size_t pos, int skew);
+    void rotateVertexesToIdeal(int skew);
 
     void setFlag(uint32_t flag)  {
         flags_ |= flag;
@@ -59,24 +82,47 @@ public:
     }
 
     void setNumber(int n);
-
-    void setRect(const Rect& r) {
-        Vertex[0] = r.leftTop();
-        Vertex[1] = r.rightTop();
-        Vertex[2] = r.rightBottom();
-        Vertex[3] = r.leftBottom();
-        count = 4;
-    }
-
+    void setRect(const Rect& r);
     void setType(CDataType type);
+    void setVertex(size_t pos, const Point& pt);
+    void setVertexX(size_t pos, int x);
+    void setVertexY(size_t pos, int y);
     CDataType type() const;
-
-    Point vertexAt(size_t pos) const;
+    Point& vertexAt(size_t pos);
+    const Point& vertexAt(size_t pos) const;
+    int vertexX(size_t pos) const;
+    int vertexY(size_t pos) const;
     size_t vertexCount() const;
+    void g(int i, int y, int ind);
+    void f(int next, int i);
 private:
+    CDataType type_; //Текст, Картинка, Таблица;
+    int16_t count;
     int16_t number_; // порядковый номер
     uint32_t flags_;
+    Point32 Vertex[CPAGE_MAXCORNER];
 };
+
+template<int T>
+void CommonData::rotateVertexToIdeal(size_t pos, int skew)
+{
+    int x = Vertex[pos].x();
+    int y = Vertex[pos].y();
+    x = (x + y * skew / T);
+    y = (y - x * skew / T);
+    Vertex[pos].set(x, y);
+}
+
+template<int T>
+void CommonData::rotateVertexToReal(size_t pos, int skew)
+{
+    int x = Vertex[pos].x();
+    int y = Vertex[pos].y();
+    y = (y + x * skew / T);
+    x = (x - y * skew / T);
+    Vertex[pos].set(x, y);
+}
+
 
 }
 }

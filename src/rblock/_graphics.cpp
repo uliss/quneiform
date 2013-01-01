@@ -66,7 +66,6 @@
 #include "cfcompat.h"
 #include "common/dib.h"
 
-using namespace cf;
 
 extern void EnableDebug(void);
 
@@ -125,7 +124,7 @@ void _setcolor(int color)
     swColor = clr[color];
 #undef __RGB__
 }
-;
+
 void _rectangle(int t, int left, int top, int right, int bottom)
 {
     Rect16 rect = { left, top, right, bottom };
@@ -153,7 +152,7 @@ void _setfillmask(char * OldMask)
 {
 }
 
-static Point16 sBeg;
+static cf::Point16 sBeg;
 
 void _moveto(int x, int y)
 {
@@ -163,7 +162,7 @@ void _moveto(int x, int y)
 
 void _lineto(int x, int y)
 {
-    Point16 end(x, y);
+    cf::Point16 end(x, y);
     LDPUMA_DrawLine(NULL, &sBeg, &end, 0, swColor, -16, PUMA_MODULE_RBLOCK);
     sBeg = end;
 }
@@ -224,7 +223,7 @@ void _setcharsize(int n1, int n2)
 
 void _grtext(int x, int y, const char * text)
 {
-    Point16 p(x, y);
+    cf::Point16 p(x, y);
     LDPUMA_DrawString(NULL, &p, text, swAlign, swColor, 120/*12*/, PUMA_MODULE_RBLOCK);
 }
 

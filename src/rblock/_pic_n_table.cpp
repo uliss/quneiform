@@ -97,10 +97,10 @@ Bool32 DeleteRootsFromPictures(void)
         CPAGE_GetBlockData(h, TYPE_IMAGE, &block, sizeof(block));
 
         for (pRoot = pRoots; pRoot < pRoots + nRoots; pRoot++) {
-            my_left = block.com.Vertex[0].x();
-            my_right = block.com.Vertex[1].x();
-            my_upper = block.com.Vertex[1].y();
-            my_bottom = block.com.Vertex[2].y();
+            my_left = block.com.vertexX(0);
+            my_right = block.com.vertexX(1);
+            my_upper = block.com.vertexY(1);
+            my_bottom = block.com.vertexY(2);
 
             //if(MyFiltrateIn(pRoot -> yRow, pRoot -> xColumn, pRoot -> nWidth, pRoot -> nHeight ))
             if (MyFiltrateOr(pRoot -> yRow, pRoot -> xColumn, pRoot -> nWidth, pRoot -> nHeight)) {

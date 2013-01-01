@@ -59,6 +59,7 @@
 
 #include "new_c.h"
 #include "minmax.h"
+#include "internal.h"
 
 using namespace cf;
 
@@ -72,7 +73,6 @@ extern Handle hShowString;
 extern Handle hShowCells;
 
 static void LayoutFromCPAGE(CPageHandle hCPAGE);
-static int IsInPoly(Point16 a, void * pPoly);
 
 // Piter /////////////////////////////////////
 void RotatePageToIdeal(void);
@@ -357,52 +357,4 @@ static void LayoutFromCPAGE(CPageHandle hCPAGE)
 
     BlocksExtract();
 }
-////////////////////////////////////////
-int IsInPoly(Point16 a, void * pPoly)
-{
-    int i, y, n, ind;
-    int Count = 0;
-    PolyBlock *p;
-    p = (PolyBlock*) pPoly;
-    n = p->com.count;
 
-    for (i = 0; i < n; i++) {
-        int j = (i + 1) % n;
-
-        if (p->com.Vertex[i].y() == p->com.Vertex[j].y())
-            continue;
-
-        if (p->com.Vertex[i].y() > a.y() && p->com.Vertex[j].y() > a.y())
-            continue;
-
-        if (p->com.Vertex[i].y() < a.y() && p->com.Vertex[j].y() < a.y())
-            continue;
-
-        y = p->com.Vertex[i].y();
-        ind = i;
-
-        if (p->com.Vertex[j].y() > y) {
-            y = p->com.Vertex[j].y();
-            ind = j;
-        }
-
-        if ((y == a.y()) && (p->com.Vertex[ind].x() >= a.x()))
-            Count++;
-
-        else if (MIN(p->com.Vertex[i].y(), p->com.Vertex[j].y()) == a.y())
-            continue;
-
-        else {
-            double t = ((double) (a.y() - p->com.Vertex[i].y())
-                        / ((double) (p->com.Vertex[j].y()
-                                     - (double) p->com.Vertex[i].y())));
-
-            if (t > 0 && t < 1 && (double) p->com.Vertex[i].x() + t
-                    * ((double) p->com.Vertex[j].x()
-                       - (double) p->com.Vertex[i].x()) >= (double) a.x())
-                Count++;
-        }
-    }
-
-    return Count & 1;
-}

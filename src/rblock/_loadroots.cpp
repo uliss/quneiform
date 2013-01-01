@@ -304,10 +304,10 @@ Bool32 PicturesSecondStage(CCOM_handle hCCOM, CPageHandle hCPAGE)
         }
 
         comp = &pPics[nPics++];
-        comp->upper = block.com.Vertex[0].y();
-        comp->left = block.com.Vertex[0].x();
-        comp->w = block.com.Vertex[1].x() - block.com.Vertex[0].x();
-        comp->h = block.com.Vertex[2].y() - block.com.Vertex[1].y();
+        comp->upper = block.com.vertexAt(0).y();
+        comp->left = block.com.vertexAt(0).x();
+        comp->w = block.com.rect().width();
+        comp->h = block.com.rect().height();
         /* У comp нету поля флагов, поэтому используем nl */
         comp->nl = block.com.flags();
 
@@ -409,16 +409,8 @@ Bool32 PicturesSecondStage(CCOM_handle hCCOM, CPageHandle hCPAGE)
     for (i = 0; i < nPics && bSearchPicture; i++) {
         block.com.setType(TYPE_TEXT);//Текст, Картинка, Таблица;
         block.com.setNumber(0);//порядковый номер
-        block.com.count = 4;
         block.com.setFlags(pPics[i].nl);
-        block.com.Vertex[0].rx() = pPics[i].left;
-        block.com.Vertex[0].ry() = pPics[i].upper;
-        block.com.Vertex[1].rx() = pPics[i].left + pPics[i].w;
-        block.com.Vertex[1].ry() = pPics[i].upper;
-        block.com.Vertex[2].rx() = pPics[i].left + pPics[i].w;
-        block.com.Vertex[2].ry() = pPics[i].upper + pPics[i].h;
-        block.com.Vertex[3].rx() = pPics[i].left;
-        block.com.Vertex[3].ry() = pPics[i].upper + pPics[i].h;
+        block.com.setRect(pPics[i].rect());
         block.alphabet = 0;
 
         if (pPics[i].nl & NEGA) {
@@ -493,10 +485,10 @@ Bool32 FillPicsInTables(Handle hCCOM, CPageHandle hCPAGE)
         }
 
         comp = &pPics[nPics++];
-        comp->upper = block.com.Vertex[0].y();
-        comp->left = block.com.Vertex[0].x();
-        comp->w = block.com.Vertex[1].x() - block.com.Vertex[0].x();
-        comp->h = block.com.Vertex[2].y() - block.com.Vertex[1].y();
+        comp->upper = block.com.vertexAt(0).y();
+        comp->left = block.com.vertexAt(0).x();
+        comp->w = block.com.rect().width();
+        comp->h = block.com.rect().height();
     }
 
     return TRUE;

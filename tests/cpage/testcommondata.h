@@ -26,10 +26,14 @@ class TestCommonData : public CppUnit::TestFixture
     CPPUNIT_TEST_SUITE(TestCommonData);
     CPPUNIT_TEST(testInit);
     CPPUNIT_TEST(testFlags);
+    CPPUNIT_TEST(testNumber);
+    CPPUNIT_TEST(testCalcHeight);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
     void testFlags();
+    void testNumber();
+    void testCalcHeight();
 };
 
 

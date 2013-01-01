@@ -176,29 +176,13 @@ Bool LoadComps_rv(CCOM_handle hC, void *vB, char *pStr, int Filter) {
 	return RV_TRUE;
 }
 /*---------------------------------------------------------------------------*/
-Bool MakeRectFromPict(Rect16 *pCurr, void *vPict) {
-	int n;
-	PolyBlock *pPict;
-	pPict = (PolyBlock *) vPict;
-	n = pPict->com.count;
-	if (n != 4)
-		return FALSE;
-	if (pPict->com.Vertex[0].x() != pPict->com.Vertex[3].x())
-		return FALSE;
-	if (pPict->com.Vertex[1].x() != pPict->com.Vertex[2].x())
-		return FALSE;
-	if (pPict->com.Vertex[0].y() != pPict->com.Vertex[1].y())
-		return FALSE;
-	if (pPict->com.Vertex[3].y() != pPict->com.Vertex[2].y())
-		return FALSE;
-	if (pPict->com.Vertex[0].x() >= pPict->com.Vertex[1].x())
-		return FALSE;
-	if (pPict->com.Vertex[0].y() >= pPict->com.Vertex[3].y())
-		return FALSE;
-	pCurr->left = (int16_t) pPict->com.Vertex[0].x();
-	pCurr->right = (int16_t) pPict->com.Vertex[1].x();
-	pCurr->top = (int16_t) pPict->com.Vertex[0].y();
-	pCurr->bottom = (int16_t) pPict->com.Vertex[3].y();
+Bool MakeRectFromPict(Rect16 *pCurr, PolyBlock *pPict) {
+    if(!pPict->com.isRect())
+        return FALSE;
+    pCurr->left = (int16_t) pPict->com.vertexAt(0).x();
+    pCurr->right = (int16_t) pPict->com.vertexAt(1).x();
+    pCurr->top = (int16_t) pPict->com.vertexAt(0).y();
+    pCurr->bottom = (int16_t) pPict->com.vertexAt(3).y();
 	return TRUE;
 }
 /*---------------------------------------------------------------------------*/
@@ -247,7 +231,7 @@ Bool LoadPicts_rv(CPageHandle hC, void *vB, char *pStr) {
 			continue;
 		}
 		nRc++;
-		ret = MakeRectFromPict(pCurr, (void *) (&Pict));
+        ret = MakeRectFromPict(pCurr, &Pict);
 #include "am_comm.h"
 #ifdef Almi
 #include "ft_rule.h"
