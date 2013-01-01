@@ -50,10 +50,10 @@ public:
     }
 
     void insertVertex(size_t pos, const Point& p);
-    void insertBottom(const CommonData& rect);
+    void insertBottom(const Rect& r);
     void insertLeft(const CommonData& rect);
     void insertRight(const CommonData& rect);
-    void insertTop(const CommonData& rect);
+    void insertTop(const Rect& rect);
     int isInPoly(const Point& pt) const;
     int isInPoly(const Point16& pt) const;
     bool isRect() const;

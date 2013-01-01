@@ -33,6 +33,8 @@ class TestCommonData : public CppUnit::TestFixture
     CPPUNIT_TEST(testIsRect);
     CPPUNIT_TEST(testCopyVertexes);
     CPPUNIT_TEST(testInsertVertex);
+    CPPUNIT_TEST(testInsertBottom);
+    CPPUNIT_TEST(testInsertTop);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
@@ -44,6 +46,8 @@ public:
     void testIsRect();
     void testCopyVertexes();
     void testInsertVertex();
+    void testInsertBottom();
+    void testInsertTop();
 };
 
 

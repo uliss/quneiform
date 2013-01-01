@@ -92,13 +92,13 @@ Bool32 InsertVertex(PolyBlock * poly, int position, Point point)
 
 Bool32 InsertBottom(const PolyBlock * rectangle, PolyBlock * poly)
 {
-    poly->com.insertBottom(rectangle->com);
+    poly->com.insertBottom(rectangle->com.rect());
     return TRUE;
 }
 
 Bool32 InsertTop(const PolyBlock * rectangle, PolyBlock * poly)
 {
-    poly->com.insertTop(rectangle->com);
+    poly->com.insertTop(rectangle->com.rect());
     return TRUE;
 }
 

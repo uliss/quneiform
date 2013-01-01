@@ -203,3 +203,56 @@ void TestCommonData::testInsertVertex()
     CPPUNIT_ASSERT_EQUAL(Point(1, 2), cd.vertexAt(3));
     CPPUNIT_ASSERT_EQUAL(Point(9, 10), cd.vertexAt(4));
 }
+
+void TestCommonData::testInsertBottom()
+{
+    CommonData cd;
+    Rect r;
+
+    cd.insertBottom(r);
+    CPPUNIT_ASSERT(!cd.vertexCount());
+
+    //@.........@
+    cd.addVertex(0, 0);
+    cd.addVertex(10, 0);
+    r.set(Point(3, -5), 4, 6);
+    cd.insertBottom(r);
+    CPPUNIT_ASSERT_EQUAL(6, (int) cd.vertexCount());
+    CPPUNIT_ASSERT_EQUAL(Point(0, 0), cd.vertexAt(0));
+    CPPUNIT_ASSERT_EQUAL(Point(3, 0), cd.vertexAt(1));
+    CPPUNIT_ASSERT_EQUAL(Point(3, 1), cd.vertexAt(2));
+    CPPUNIT_ASSERT_EQUAL(Point(7, 1), cd.vertexAt(3));
+    CPPUNIT_ASSERT_EQUAL(Point(7, 0), cd.vertexAt(4));
+    CPPUNIT_ASSERT_EQUAL(Point(10, 0), cd.vertexAt(5));
+
+    // became:
+    //
+    //@**@...@**@
+    //...@***@...
+}
+
+void TestCommonData::testInsertTop()
+{
+    CommonData cd;
+    Rect r;
+    cd.insertTop(r);
+    CPPUNIT_ASSERT(!cd.vertexCount());
+
+    cd.addVertex(10, 0);
+    cd.addVertex(0, 0);
+    // @........@
+
+    r.set(Point(3, -1), 4, 6);
+    cd.insertTop(r);
+    //-1 ...@***@
+    // 0 @**@...@**@
+
+    CPPUNIT_ASSERT_EQUAL(6, (int) cd.vertexCount());
+    CPPUNIT_ASSERT_EQUAL(Point(10, 0), cd.vertexAt(0));
+    CPPUNIT_ASSERT_EQUAL(Point(7, 0), cd.vertexAt(1));
+    CPPUNIT_ASSERT_EQUAL(Point(7, -1), cd.vertexAt(2));
+    CPPUNIT_ASSERT_EQUAL(Point(3, -1), cd.vertexAt(3));
+    CPPUNIT_ASSERT_EQUAL(Point(3, 0), cd.vertexAt(4));
+    CPPUNIT_ASSERT_EQUAL(Point(0, 0), cd.vertexAt(5));
+
+}

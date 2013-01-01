@@ -176,28 +176,33 @@ void CommonData::insertVertex(size_t pos, const Point& p)
 {
     count_++;
 
-    for (size_t i = count_ - 1; i >= pos && i > 0; i--) {
+    for (size_t i = count_ - 1; i >= pos && i > 0; i--)
         vertex_[i] = vertex_[i - 1];
-    }
 
     vertex_[pos] = p;
 }
 
-void CommonData::insertBottom(const CommonData& rect)
+static inline bool isBetweenX(const Rect& r, const Point& pt1, const Point& pt2)
 {
-    Point point;
+    return pt1.x() < r.left() && pt2.x() > r.right();
+}
 
+static inline bool isRectLower(const Rect& r, const Point& pt)
+{
+    return pt.y() < r.bottom();
+}
+
+void CommonData::insertBottom(const Rect& r)
+{
     for (int i = 0; i < count_ - 1; i++) {
-        if ((vertex_[i].x() < rect.vertex_[3].x())
-                && (vertex_[i].y() < rect.vertex_[3].y())
-                && (vertex_[i + 1].x() > rect.vertex_[2].x())) {
-            point.rx() = rect.vertex_[3].x();
-            point.ry() = vertex_[i].y();
-            insertVertex(i + 1, point);
-            insertVertex(i + 2, rect.vertex_[3]);
-            insertVertex(i + 3, rect.vertex_[2]);
-            point.rx() = rect.vertex_[2].x();
-            insertVertex(i + 4, point);
+        Point v = vertex_[i];
+
+        if (isBetweenX(r, vertex_[i], vertex_[i + 1])
+                && isRectLower(r, v)) {
+            insertVertex(i + 1, Point(r.left(), v.y()));
+            insertVertex(i + 2, r.leftBottom());
+            insertVertex(i + 3, r.rightBottom());
+            insertVertex(i + 4, Point(r.right(), v.y()));
             break;
         }
     }
@@ -258,21 +263,16 @@ void CommonData::insertRight(const CommonData& rect)
     }
 }
 
-void CommonData::insertTop(const CommonData& rect)
+void CommonData::insertTop(const Rect& rect)
 {
-    Point point;
-
     for (int i = 0; i < count_ - 1; i++) {
-        if ((vertex_[i].x() > rect.vertex_[1].x())
-                && (vertex_[i].y() > rect.vertex_[1].y())
-                && (vertex_[i + 1].x() < rect.vertex_[0].x())) {
-            point.rx() = rect.vertex_[1].x();
-            point.ry() = vertex_[i].y();
-            insertVertex(i + 1, point);
-            insertVertex(i + 2, rect.vertex_[1]);
-            insertVertex(i + 3, rect.vertex_[0]);
-            point.rx() = rect.vertex_[0].x();
-            insertVertex(i + 4, point);
+        Point v = vertex_[i];
+        if (isBetweenX(rect, vertex_[i+1], vertex_[i])
+                && (v.y() > rect.top())) {
+            insertVertex(i + 1, Point(rect.right(), v.y()));
+            insertVertex(i + 2, rect.rightTop());
+            insertVertex(i + 3, rect.leftTop());
+            insertVertex(i + 4, Point(rect.left(), v.y()));
             break;
         }
     }
