@@ -73,6 +73,7 @@ public:
     template<int T>
     void rotateVertexToReal(size_t pos, int skew);
     void rotateVertexesToIdeal(int skew);
+    void rotateVertexesToReal(int skew);
 
     void setFlag(uint32_t flag)  {
         flags_ |= flag;

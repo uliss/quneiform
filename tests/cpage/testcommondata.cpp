@@ -33,6 +33,7 @@ void TestCommonData::testInit()
     CPPUNIT_ASSERT(!cd.type());
     CPPUNIT_ASSERT(!cd.vertexCount());
     CPPUNIT_ASSERT(!cd.number());
+    cd.setType(0);
 }
 
 void TestCommonData::testFlags()
@@ -352,4 +353,31 @@ void TestCommonData::testInsertRight()
     CPPUNIT_ASSERT_EQUAL(Point(1, 3), cd.vertexAt(5));
     CPPUNIT_ASSERT_EQUAL(Point(1, 1), cd.vertexAt(6));
     CPPUNIT_ASSERT_EQUAL(Point(0, 1), cd.vertexAt(7));
+}
+
+void TestCommonData::testRotate()
+{
+    CommonData cd;
+    cd.rotateVertexesToIdeal(2048);
+    CPPUNIT_ASSERT(!cd.vertexCount());
+
+    cd.setRect(Rect(0, 0, 100, 200));
+    CPPUNIT_ASSERT_EQUAL(Point(0, 0), cd.vertexAt(0));
+    CPPUNIT_ASSERT_EQUAL(Point(100, 0), cd.vertexAt(1));
+    CPPUNIT_ASSERT_EQUAL(Point(100, 200), cd.vertexAt(2));
+    CPPUNIT_ASSERT_EQUAL(Point(0, 200), cd.vertexAt(3));
+
+    cd.rotateVertexesToIdeal(1024);
+    CPPUNIT_ASSERT_EQUAL(4, (int) cd.vertexCount());
+    CPPUNIT_ASSERT_EQUAL(Point(0, 0), cd.vertexAt(0));
+    CPPUNIT_ASSERT_EQUAL(Point(100, -50), cd.vertexAt(1));
+    CPPUNIT_ASSERT_EQUAL(Point(200, 100), cd.vertexAt(2));
+    CPPUNIT_ASSERT_EQUAL(Point(100, 150), cd.vertexAt(3));
+    CPPUNIT_ASSERT_EQUAL(Rect(0, 0, 200, 100), cd.rect().normalized());
+
+    cd.rotateVertexesToReal(1024);
+    CPPUNIT_ASSERT_EQUAL(Point(0, 0), cd.vertexAt(0));
+    CPPUNIT_ASSERT_EQUAL(Point(100, 0), cd.vertexAt(1));
+    CPPUNIT_ASSERT_EQUAL(Point(100, 200), cd.vertexAt(2));
+    CPPUNIT_ASSERT_EQUAL(Point(0, 200), cd.vertexAt(3));
 }

@@ -37,6 +37,7 @@ class TestCommonData : public CppUnit::TestFixture
     CPPUNIT_TEST(testInsertTop);
     CPPUNIT_TEST(testInsertLeft);
     CPPUNIT_TEST(testInsertRight);
+    CPPUNIT_TEST(testRotate);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
@@ -52,6 +53,7 @@ public:
     void testInsertTop();
     void testInsertLeft();
     void testInsertRight();
+    void testRotate();
 };
 
 

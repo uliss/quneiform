@@ -370,8 +370,14 @@ int CommonData::number() const
 
 void CommonData::rotateVertexesToIdeal(int skew)
 {
-    for(int i = 0; i < count_; i++)
+    for(size_t i = 0; i < count_; i++)
         rotateVertexToIdeal<2048>(i, skew);
+}
+
+void CommonData::rotateVertexesToReal(int skew)
+{
+    for(size_t i = 0; i < count_; i++)
+        rotateVertexToReal<2048>(i, skew);
 }
 
 void CommonData::setNumber(int n)
