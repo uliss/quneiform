@@ -381,3 +381,174 @@ void TestCommonData::testRotate()
     CPPUNIT_ASSERT_EQUAL(Point(100, 200), cd.vertexAt(2));
     CPPUNIT_ASSERT_EQUAL(Point(0, 200), cd.vertexAt(3));
 }
+
+void TestCommonData::testInPoly()
+{
+    CommonData cd;
+    CPPUNIT_ASSERT(!cd.isInPoly(Point()));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point16()));
+
+    cd.addVertex(Point(0, 0));
+    //
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(0, 0)));
+    cd.setRect(Rect(Point(0, 0), Point(10, 20)));
+    // top left
+    CPPUNIT_ASSERT(cd.isInPoly(Point(0, 0)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(1, 0)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(0, 1)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(1, 1)));
+
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(-1, 0)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(0, -1)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(-1, -1)));
+
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(-1, 1)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(1, -1)));
+    // top right
+    CPPUNIT_ASSERT(cd.hasVertex(Point(10, 0)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(10, 0)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(9, 0)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(10, 1)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(9, 1)));
+
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(10, -1)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(11, 0)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(11, -11)));
+
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(9, -1)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(11, 1)));
+    // bottom right
+    CPPUNIT_ASSERT(cd.isInPoly(Point(10, 20)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(9, 20)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(10, 19)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(9, 19)));
+
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(11, 20)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(10, 29)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(11, 21)));
+
+    // bottom left
+    CPPUNIT_ASSERT(cd.isInPoly(Point(0, 20)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(1, 20)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(0, 19)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(1, 19)));
+
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(-1, 20)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(0, 21)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(-1, 32)));
+
+    cd.setRect(Rect(Point(1, 1), Point(3, 3)));
+    int count = 0;
+    for(int x = 0; x < 5; x++) {
+        for(int y = 0; y < 5; y++)
+            if(cd.isInPoly(Point(x, y)))
+                count++;
+    }
+
+    CPPUNIT_ASSERT_EQUAL(9, count);
+
+    cd.clearVertexes();
+    //   0 1 2 3 4 5 6
+    // 0 . . . . . . .
+    // 1 . @ * * @ . .
+    // 2 @ @ . . * . .
+    // 3 @ * @ . @ @ .
+    // 4 . . * . . * .
+    // 5 @ * @ @ * @ .
+    // 6 @ * @ * . . .
+    // 7 . . @ @ . . .
+
+    cd.addVertex(1, 1);
+    cd.addVertex(4, 1);
+    cd.addVertex(4, 3);
+    cd.addVertex(5, 3);
+    cd.addVertex(5, 5);
+    cd.addVertex(3, 5);
+    cd.addVertex(3, 7);
+    cd.addVertex(2, 7);
+    cd.addVertex(2, 6);
+    cd.addVertex(0, 6);
+    cd.addVertex(0, 5);
+    cd.addVertex(2, 5);
+    cd.addVertex(2, 3);
+    cd.addVertex(0, 3);
+    cd.addVertex(0, 2);
+    cd.addVertex(1, 2);
+
+
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(0, 0)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(1, 0)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(2, 0)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(3, 0)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(4, 0)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(5, 0)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(6, 0)));
+
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(0, 1)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(1, 1)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(2, 1)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(3, 1)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(4, 1)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(5, 1)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(6, 1)));
+
+    CPPUNIT_ASSERT(cd.isInPoly(Point(0, 2)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(1, 2)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(2, 2)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(3, 2)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(4, 2)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(5, 2)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(6, 2)));
+
+    CPPUNIT_ASSERT(cd.isInPoly(Point(0, 3)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(1, 3)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(2, 3)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(3, 3)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(4, 3)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(5, 3)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(6, 3)));
+
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(0, 4)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(1, 4)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(2, 4)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(3, 4)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(4, 4)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(5, 4)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(6, 4)));
+
+    CPPUNIT_ASSERT(cd.isInPoly(Point(0, 5)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(1, 5)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(2, 5)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(3, 5)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(4, 5)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(5, 5)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(6, 5)));
+
+    CPPUNIT_ASSERT(cd.isInPoly(Point(0, 6)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(1, 6)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(2, 6)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(3, 6)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(4, 6)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(5, 6)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(6, 6)));
+
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(0, 7)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(1, 7)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(2, 7)));
+    CPPUNIT_ASSERT(cd.isInPoly(Point(3, 7)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(4, 7)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(5, 7)));
+    CPPUNIT_ASSERT(!cd.isInPoly(Point(6, 7)));
+}
+
+void TestCommonData::testHasVertex()
+{
+    CommonData cd;
+    CPPUNIT_ASSERT(!cd.hasVertex(Point(0, 0)));
+    cd.setRect(Rect(Point(0, 0), Point(100, 200)));
+    CPPUNIT_ASSERT(cd.hasVertex(Point(0, 0)));
+    CPPUNIT_ASSERT(cd.hasVertex(Point(100, 0)));
+    CPPUNIT_ASSERT(cd.hasVertex(Point(100, 200)));
+    CPPUNIT_ASSERT(cd.hasVertex(Point(0, 200)));
+    CPPUNIT_ASSERT(!cd.hasVertex(Point(1, 1)));
+}

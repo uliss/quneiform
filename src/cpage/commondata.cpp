@@ -177,6 +177,11 @@ void CommonData::crossBy3(const CommonData& rect)
     }
 }
 
+bool CommonData::hasVertex(const Point& pt) const
+{
+    return std::find(vertex_, vertex_ + count_, pt) != (vertex_ + count_);
+}
+
 void CommonData::insertVertex(size_t pos, const Point& p)
 {
     count_++;
@@ -282,45 +287,43 @@ void CommonData::insertTop(const Rect& rect)
 
 int CommonData::isInPoly(const Point& pt) const
 {
-    int y, ind;
-    int Count = 0;
+    const int point_x = pt.x();
+    const int point_y = pt.y();
+    int count = 0;
+    for (uint i = 0; i < count_; i++) {
+        const Point32 curr_point = vertex_[i];
+        const Point32 next_point = vertex_[(i + 1) % count_];
+        if (curr_point.x() == next_point.x()) {
+            // on left side
+            if (curr_point.x() > point_x)
+                continue;
 
-    for (int i = 0; i < count_; i++) {
-        int next = (i + 1) % count_;
+            int min_y = curr_point.y();
+            int max_y = next_point.y();
+            if(min_y > max_y)
+                std::swap(min_y, max_y);
 
-        if(vertex_[i].y() == vertex_[next].y())
-            continue;
+            if (min_y < point_y && point_y <= max_y) {
+                if (curr_point.x() == point_x)
+                    return true;
 
-        if(vertex_[i].y() > pt.y() && vertex_[next].y() > pt.y())
-            continue;
+                count++;
+            }
+        } else {
+            int min_x = curr_point.x();
+            int max_x = next_point.x();
+            if(min_x > max_x)
+                std::swap(min_x, max_x);
 
-        if(vertex_[i].y() < pt.y() && vertex_[next].y() < pt.y())
-            continue;
-
-        y = vertex_[i].y();
-        ind = i;
-
-        if (vertex_[next].y() > vertex_[i].y()) {
-            y = vertex_[next].y();
-            ind = next;
-        }
-
-        if ((y == pt.y()) && (vertex_[ind].x() >= pt.x()))
-            Count++;
-        else if (std::min(vertex_[i].y(), vertex_[next].y()) == pt.y())
-            continue;
-        else {
-            double t = ((double) (pt.y() - vertex_[i].y()) / ((double) (vertex_[next].y()
-                    - (double) vertex_[i].y())));
-
-            if (t > 0 && t < 1 && (double) vertex_[i].x() + t
-                    * ((double) vertex_[next].x() - (double) vertex_[i].x())
-                    >= (double) pt.x())
-                Count++;
+            if (point_x >= min_x && point_x <= max_x) {
+                if (curr_point.y() == point_y) {
+                    return true;
+                }
+            }
         }
     }
 
-    return Count & 1;
+    return count & 1;
 }
 
 int CommonData::isInPoly(const Point16& pt) const

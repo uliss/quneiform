@@ -50,6 +50,7 @@ public:
         return flags_;
     }
 
+    bool hasVertex(const Point& pt) const;
     void insertVertex(size_t pos, const Point& p);
     void insertBottom(const Rect& r);
     void insertLeft(const Rect& rect);
