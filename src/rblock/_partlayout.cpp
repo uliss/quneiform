@@ -134,7 +134,7 @@ Bool32 InsertRectangleInPoly(const PolyBlock * rectangle, PolyBlock * poly)
 
 Bool32 CrossedBy0(PolyBlock * poly, const PolyBlock * rectangle)
 {
-    poly->com.crossBy0(rectangle->com);
+    poly->com.crossBy0(rectangle->com.rect());
     return TRUE;
 }
 

@@ -552,3 +552,32 @@ void TestCommonData::testHasVertex()
     CPPUNIT_ASSERT(cd.hasVertex(Point(0, 200)));
     CPPUNIT_ASSERT(!cd.hasVertex(Point(1, 1)));
 }
+
+void TestCommonData::testCrossedBy0()
+{
+    // *****
+    // *...*
+    // *...*
+    // *...*
+    // *...*
+    // *****
+    CommonData cd;
+    cd.setRect(Rect(0, 0, 5, 6));
+
+
+    // *****
+    // *...*
+    // *...*
+    // *.***
+    // *.*..
+    // ***..
+    Rect r(Point(2, 3), 40, 40);
+    cd.crossBy0(r);
+    CPPUNIT_ASSERT_EQUAL(6, (int) cd.vertexCount());
+    CPPUNIT_ASSERT(cd.hasVertex(Point(0, 0)));
+    CPPUNIT_ASSERT(cd.hasVertex(Point(5, 0)));
+    CPPUNIT_ASSERT(cd.hasVertex(Point(5, 3)));
+    CPPUNIT_ASSERT(cd.hasVertex(Point(2, 3)));
+    CPPUNIT_ASSERT(cd.hasVertex(Point(2, 6)));
+    CPPUNIT_ASSERT(cd.hasVertex(Point(0, 6)));
+}

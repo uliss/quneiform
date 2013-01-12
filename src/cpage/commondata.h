@@ -41,7 +41,7 @@ public:
     void copyVertexes(const Picture& pict);
 
     int calcHeight() const;
-    void crossBy0(const CommonData& rect);
+    void crossBy0(const Rect& rect);
     void crossBy1(const CommonData& rect);
     void crossBy2(const CommonData& rect);
     void crossBy3(const CommonData& rect);

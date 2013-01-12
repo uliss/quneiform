@@ -66,22 +66,19 @@ int CommonData::calcHeight() const
     return max_bottom - min_top;
 }
 
-void CommonData::crossBy0(const CommonData& rect)
+void CommonData::crossBy0(const Rect& rect)
 {
-    Point point;
+    const int top = rect.top();
+    const int left = rect.left();
 
     for (int i = 0; i < count_ - 2; i++) {
-        if ((vertex_[i].y() < rect.vertex_[0].y())
-                && (vertex_[i + 1].x() > rect.vertex_[0].x())
-                && (vertex_[i + 1].y() > rect.vertex_[0].y())
-                && (vertex_[i + 2].x() < rect.vertex_[0].x())) {
-            point.ry() = rect.vertex_[0].y();
-            point.rx() = vertex_[i].x();
-            insertVertex(i + 1, point);
-            vertex_[i + 2] = rect.vertex_[0];
-            point.ry() = vertex_[i + 3].y();
-            point.rx() = rect.vertex_[0].x();
-            insertVertex(i + 3, point);
+        if ((vertex_[i].y() < top)
+                && (vertex_[i + 1].x() > left)
+                && (vertex_[i + 1].y() > top)
+                && (vertex_[i + 2].x() < left)) {
+            insertVertex(i + 1, Point(vertex_[i].x(), top));
+            vertex_[i + 2] = rect.leftTop();
+            insertVertex(i + 3, Point(left, vertex_[i + 3].y()));
             break;
         }
     }

@@ -40,6 +40,7 @@ class TestCommonData : public CppUnit::TestFixture
     CPPUNIT_TEST(testRotate);
     CPPUNIT_TEST(testInPoly);
     CPPUNIT_TEST(testHasVertex);
+    CPPUNIT_TEST(testCrossedBy0);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
@@ -58,6 +59,7 @@ public:
     void testRotate();
     void testInPoly();
     void testHasVertex();
+    void testCrossedBy0();
 };
 
 
