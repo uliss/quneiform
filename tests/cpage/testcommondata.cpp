@@ -581,3 +581,79 @@ void TestCommonData::testCrossedBy0()
     CPPUNIT_ASSERT(cd.hasVertex(Point(2, 6)));
     CPPUNIT_ASSERT(cd.hasVertex(Point(0, 6)));
 }
+
+void TestCommonData::testCrossBy3()
+{
+    // *****
+    // *...*
+    // *...*
+    // *...*
+    // *...*
+    // *****
+    CommonData cd;
+    cd.setRect(Rect(0, 0, 5, 6));
+
+    // ***..
+    // *.*..
+    // *.***
+    // *...*
+    // *...*
+    // *****
+    Rect rect(Point(2, -5), Point(4, 2));
+    cd.crossBy3(rect);
+
+    CPPUNIT_ASSERT_EQUAL(6, (int) cd.vertexCount());
+    CPPUNIT_ASSERT(cd.hasVertex(Point(0, 0)));
+    CPPUNIT_ASSERT(cd.hasVertex(Point(2, 0)));
+    CPPUNIT_ASSERT(cd.hasVertex(Point(2, 2)));
+    CPPUNIT_ASSERT(cd.hasVertex(Point(5, 2)));
+    CPPUNIT_ASSERT(cd.hasVertex(Point(5, 6)));
+    CPPUNIT_ASSERT(cd.hasVertex(Point(0, 6)));
+}
+
+void TestCommonData::testCrossBy2()
+{
+    // *****
+    // *...*
+    // *...*
+    // *...*
+    // *...*
+    // *****
+    CommonData cd;
+    cd.setRect(Rect(0, 0, 5, 6));
+
+
+    // ..***
+    // ..*.*
+    // ***.*
+    // *...*
+    // *...*
+    // *****
+    Rect rect(Point(0, 0), Point(2, 2));
+    cd.crossBy2(rect);
+
+    CPPUNIT_ASSERT_EQUAL(6, (int) cd.vertexCount());
+    CPPUNIT_ASSERT(cd.hasVertex(Point(2, 0)));
+    CPPUNIT_ASSERT(cd.hasVertex(Point(5, 0)));
+    CPPUNIT_ASSERT(cd.hasVertex(Point(5, 6)));
+    CPPUNIT_ASSERT(cd.hasVertex(Point(0, 6)));
+    CPPUNIT_ASSERT(cd.hasVertex(Point(0, 2)));
+    CPPUNIT_ASSERT(cd.hasVertex(Point(2, 2)));
+
+    // ...**
+    // ..***
+    // ***.*
+    // *...*
+    // *...*
+    // *****
+    cd.crossBy2(Rect(Point(-2, -2), Point(3, 1)));
+    CPPUNIT_ASSERT_EQUAL(8, (int) cd.vertexCount());
+    CPPUNIT_ASSERT(cd.hasVertex(Point(3, 0)));
+    CPPUNIT_ASSERT(cd.hasVertex(Point(3, 1)));
+    CPPUNIT_ASSERT(cd.hasVertex(Point(2, 1)));
+    CPPUNIT_ASSERT(cd.hasVertex(Point(5, 0)));
+    CPPUNIT_ASSERT(cd.hasVertex(Point(5, 6)));
+    CPPUNIT_ASSERT(cd.hasVertex(Point(0, 6)));
+    CPPUNIT_ASSERT(cd.hasVertex(Point(0, 2)));
+    CPPUNIT_ASSERT(cd.hasVertex(Point(2, 2)));
+}

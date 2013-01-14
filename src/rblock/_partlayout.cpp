@@ -140,19 +140,19 @@ Bool32 CrossedBy0(PolyBlock * poly, const PolyBlock * rectangle)
 
 Bool32 CrossedBy1(PolyBlock * poly, const PolyBlock * rectangle)
 {
-    poly->com.crossBy1(rectangle->com);
+    poly->com.crossBy1(rectangle->com.rect());
     return TRUE;
 }
 
 Bool32 CrossedBy2(PolyBlock * poly, const PolyBlock * rectangle)
 {
-    poly->com.crossBy2(rectangle->com);
+    poly->com.crossBy2(rectangle->com.rect());
     return TRUE;
 }
 
 Bool32 CrossedBy3(PolyBlock * poly, const PolyBlock * rectangle)
 {
-    poly->com.crossBy3(rectangle->com);
+    poly->com.crossBy3(rectangle->com.rect());
     return TRUE;
 }
 

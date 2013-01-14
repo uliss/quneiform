@@ -42,9 +42,9 @@ public:
 
     int calcHeight() const;
     void crossBy0(const Rect& rect);
-    void crossBy1(const CommonData& rect);
-    void crossBy2(const CommonData& rect);
-    void crossBy3(const CommonData& rect);
+    void crossBy1(const Rect& rect);
+    void crossBy2(const Rect& rect);
+    void crossBy3(const Rect &rect);
 
     uint32_t flags() const {
         return flags_;

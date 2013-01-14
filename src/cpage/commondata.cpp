@@ -84,91 +84,75 @@ void CommonData::crossBy0(const Rect& rect)
     }
 }
 
-void CommonData::crossBy1(const CommonData& rect)
+void CommonData::crossBy1(const Rect& rect)
 {
     Point point;
 
     for (int i = 0; i < count_ - 2; i++) { //STEPA_AM |
-        if ((vertex_[i].x() > rect.vertex_[1].x())
-                && (vertex_[i + 1].x() < rect.vertex_[1].x())
-                && (vertex_[i + 1].y() > rect.vertex_[1].y())
-                && (vertex_[i + 2].y() < rect.vertex_[1].y())) {
-            point.rx() = rect.vertex_[1].x();
+        if ((vertex_[i].x() > rect.right())
+                && (vertex_[i + 1].x() < rect.right())
+                && (vertex_[i + 1].y() > rect.top())
+                && (vertex_[i + 2].y() < rect.top())) {
+            point.rx() = rect.right();
             point.ry() = vertex_[i].y();
             insertVertex(i + 1, point);
-            vertex_[i + 2] = rect.vertex_[1];
+            vertex_[i + 2] = rect.rightTop();
             point.rx() = vertex_[i + 3].x();
-            point.ry() = rect.vertex_[1].y();
+            point.ry() = rect.top();
             insertVertex(i + 3, point);
             return;
         }
     }
 
-    if ((vertex_[count_ - 2].x() > rect.vertex_[1].x())
-            && (vertex_[count_ - 1].x() < rect.vertex_[1].x())
-            && (vertex_[count_ - 1].y() > rect.vertex_[1].y())
-            && (vertex_[0].y() < rect.vertex_[1].y())) {
-        point.rx() = rect.vertex_[1].x();
+    if ((vertex_[count_ - 2].x() > rect.right())
+            && (vertex_[count_ - 1].x() < rect.right())
+            && (vertex_[count_ - 1].y() > rect.top())
+            && (vertex_[0].y() < rect.top())) {
+        point.rx() = rect.right();
         point.ry() = vertex_[count_ - 2].y();
         insertVertex(count_ - 1, point);
-        insertVertex(count_ - 1, rect.vertex_[1]);
+        insertVertex(count_ - 1, rect.rightTop());
         point.rx() = vertex_[0].x();
-        point.ry() = rect.vertex_[1].y();
+        point.ry() = rect.top();
         vertex_[count_ - 1] = point;
     }
 }
 
-void CommonData::crossBy2(const CommonData& rect)
+void CommonData::crossBy2(const Rect& rect)
 {
-    Point point;
-
     for (int i = 0; i < count_ - 2; i++) {
-        if ((vertex_[i].y() > rect.vertex_[2].y())
-                && (vertex_[i + 1].x() < rect.vertex_[2].x())
-                && (vertex_[i + 1].y() < rect.vertex_[2].y())
-                && (vertex_[i + 2].x() > rect.vertex_[2].x())) {
-            point.ry() = rect.vertex_[2].y();
-            point.rx() = vertex_[i].x();
-            insertVertex(i + 1, point);
-            vertex_[i + 2] = rect.vertex_[2];
-            point.ry() = vertex_[i + 3].y();
-            point.rx() = rect.vertex_[2].x();
-            insertVertex(i + 3, point);
+        if ((vertex_[i].y() > rect.bottom())
+                && (vertex_[i + 1].x() < rect.right())
+                && (vertex_[i + 1].y() < rect.bottom())
+                && (vertex_[i + 2].x() > rect.right())) {
+            insertVertex(i + 1, Point(vertex_[i].x(), rect.bottom()));
+            vertex_[i + 2] = rect.rightBottom();
+            insertVertex(i + 3, Point(rect.right(), vertex_[i + 3].y()));
             return;
         }
     }
 
-    if ((vertex_[count_ - 1].y() > rect.vertex_[2].y())
-            && (vertex_[0].x() < rect.vertex_[2].x())
-            && (vertex_[0].y() < rect.vertex_[2].y())
-            && (vertex_[1].x() > rect.vertex_[2].x())) {
+    if ((vertex_[count_ - 1].y() > rect.bottom())
+            && (vertex_[0].x() < rect.right())
+            && (vertex_[0].y() < rect.bottom())
+            && (vertex_[1].x() > rect.right())) {
         //Special case - use with cautions :)
-        point.ry() = vertex_[0].y();
-        point.rx() = rect.vertex_[2].x();
-        insertVertex(1, point);
-        point.ry() = rect.vertex_[2].y();
-        point.rx() = vertex_[0].x();
-        insertVertex(1, rect.vertex_[2]);
-        vertex_[0] = point;
+        insertVertex(1, Point(rect.right(), vertex_[0].y()));
+        insertVertex(1, rect.rightBottom());
+        vertex_[0] = Point(vertex_[0].x(), rect.bottom());
     }
 }
 
-void CommonData::crossBy3(const CommonData& rect)
+void CommonData::crossBy3(const Rect& rect)
 {
-    Point point;
-
     for (int i = 0; i < count_ - 2; i++) {
-        if ((vertex_[i].x() < rect.vertex_[3].x())
-                && (vertex_[i + 1].x() > rect.vertex_[3].x())
-                && (vertex_[i + 1].y() < rect.vertex_[3].y())
-                && (vertex_[i + 2].y() > rect.vertex_[3].y())) {
-            point.rx() = rect.vertex_[3].x();
-            point.ry() = vertex_[i].y();
-            insertVertex(i + 1, point);
-            vertex_[i + 2] = rect.vertex_[3];
-            point.rx() = vertex_[i + 3].x();
-            point.ry() = rect.vertex_[3].y();
-            insertVertex(i + 3, point);
+        if ((vertex_[i].x() < rect.left())
+                && (vertex_[i + 1].x() > rect.left())
+                && (vertex_[i + 1].y() < rect.bottom())
+                && (vertex_[i + 2].y() > rect.bottom())) {
+            insertVertex(i + 1, Point(rect.left(), vertex_[i].y()));
+            vertex_[i + 2] = rect.leftBottom();
+            insertVertex(i + 3, Point(vertex_[i + 3].x(), rect.bottom()));
             break;
         }
     }
