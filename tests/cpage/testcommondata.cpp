@@ -574,12 +574,59 @@ void TestCommonData::testCrossedBy0()
     Rect r(Point(2, 3), 40, 40);
     cd.crossBy0(r);
     CPPUNIT_ASSERT_EQUAL(6, (int) cd.vertexCount());
-    CPPUNIT_ASSERT(cd.hasVertex(Point(0, 0)));
-    CPPUNIT_ASSERT(cd.hasVertex(Point(5, 0)));
-    CPPUNIT_ASSERT(cd.hasVertex(Point(5, 3)));
-    CPPUNIT_ASSERT(cd.hasVertex(Point(2, 3)));
-    CPPUNIT_ASSERT(cd.hasVertex(Point(2, 6)));
-    CPPUNIT_ASSERT(cd.hasVertex(Point(0, 6)));
+    CPPUNIT_ASSERT_EQUAL(Point(0, 0), cd.vertexAt(0));
+    CPPUNIT_ASSERT_EQUAL(Point(5, 0), cd.vertexAt(1));
+    CPPUNIT_ASSERT_EQUAL(Point(5, 3), cd.vertexAt(2));
+    CPPUNIT_ASSERT_EQUAL(Point(2, 3), cd.vertexAt(3));
+    CPPUNIT_ASSERT_EQUAL(Point(2, 6), cd.vertexAt(4));
+    CPPUNIT_ASSERT_EQUAL(Point(0, 6), cd.vertexAt(5));
+}
+
+void TestCommonData::testCrossBy1()
+{
+    // *****
+    // *...*
+    // *...*
+    // *...*
+    // *...*
+    // *****
+    CommonData cd;
+    cd.setRect(Rect(0, 0, 4, 5));
+
+    // ******
+    // *....*
+    // *....*
+    // ***..*
+    // ..*..*
+    // ..****
+    Rect rect(Point(-1, 3), Point(2, 8));
+    cd.crossBy1(rect);
+
+    CPPUNIT_ASSERT_EQUAL(6, (int) cd.vertexCount());
+    CPPUNIT_ASSERT_EQUAL(Point(0, 0), cd.vertexAt(0));
+    CPPUNIT_ASSERT_EQUAL(Point(4, 0), cd.vertexAt(1));
+    CPPUNIT_ASSERT_EQUAL(Point(4, 5), cd.vertexAt(2));
+    CPPUNIT_ASSERT_EQUAL(Point(2, 5), cd.vertexAt(3));
+    CPPUNIT_ASSERT_EQUAL(Point(2, 3), cd.vertexAt(4));
+    CPPUNIT_ASSERT_EQUAL(Point(0, 3), cd.vertexAt(5));
+
+    // ******
+    // *....*
+    // *....*
+    // ***..*
+    // ..**.*
+    // ...***
+
+    cd.crossBy1(Rect(Point(0, 4), Point(3, 7)));
+    CPPUNIT_ASSERT_EQUAL(8, (int) cd.vertexCount());
+    CPPUNIT_ASSERT_EQUAL(Point(0, 0), cd.vertexAt(0));
+    CPPUNIT_ASSERT_EQUAL(Point(4, 0), cd.vertexAt(1));
+    CPPUNIT_ASSERT_EQUAL(Point(4, 5), cd.vertexAt(2));
+    CPPUNIT_ASSERT_EQUAL(Point(3, 5), cd.vertexAt(3));
+    CPPUNIT_ASSERT_EQUAL(Point(3, 4), cd.vertexAt(4));
+    CPPUNIT_ASSERT_EQUAL(Point(2, 4), cd.vertexAt(5));
+    CPPUNIT_ASSERT_EQUAL(Point(2, 3), cd.vertexAt(6));
+    CPPUNIT_ASSERT_EQUAL(Point(0, 3), cd.vertexAt(7));
 }
 
 void TestCommonData::testCrossBy3()
@@ -603,12 +650,12 @@ void TestCommonData::testCrossBy3()
     cd.crossBy3(rect);
 
     CPPUNIT_ASSERT_EQUAL(6, (int) cd.vertexCount());
-    CPPUNIT_ASSERT(cd.hasVertex(Point(0, 0)));
-    CPPUNIT_ASSERT(cd.hasVertex(Point(2, 0)));
-    CPPUNIT_ASSERT(cd.hasVertex(Point(2, 2)));
-    CPPUNIT_ASSERT(cd.hasVertex(Point(5, 2)));
-    CPPUNIT_ASSERT(cd.hasVertex(Point(5, 6)));
-    CPPUNIT_ASSERT(cd.hasVertex(Point(0, 6)));
+    CPPUNIT_ASSERT_EQUAL(Point(0, 0), cd.vertexAt(0));
+    CPPUNIT_ASSERT_EQUAL(Point(2, 0), cd.vertexAt(1));
+    CPPUNIT_ASSERT_EQUAL(Point(2, 2), cd.vertexAt(2));
+    CPPUNIT_ASSERT_EQUAL(Point(5, 2), cd.vertexAt(3));
+    CPPUNIT_ASSERT_EQUAL(Point(5, 6), cd.vertexAt(4));
+    CPPUNIT_ASSERT_EQUAL(Point(0, 6), cd.vertexAt(5));
 }
 
 void TestCommonData::testCrossBy2()
@@ -633,12 +680,12 @@ void TestCommonData::testCrossBy2()
     cd.crossBy2(rect);
 
     CPPUNIT_ASSERT_EQUAL(6, (int) cd.vertexCount());
-    CPPUNIT_ASSERT(cd.hasVertex(Point(2, 0)));
-    CPPUNIT_ASSERT(cd.hasVertex(Point(5, 0)));
-    CPPUNIT_ASSERT(cd.hasVertex(Point(5, 6)));
-    CPPUNIT_ASSERT(cd.hasVertex(Point(0, 6)));
-    CPPUNIT_ASSERT(cd.hasVertex(Point(0, 2)));
-    CPPUNIT_ASSERT(cd.hasVertex(Point(2, 2)));
+    CPPUNIT_ASSERT_EQUAL(Point(0, 2), cd.vertexAt(0));
+    CPPUNIT_ASSERT_EQUAL(Point(2, 2), cd.vertexAt(1));
+    CPPUNIT_ASSERT_EQUAL(Point(2, 0), cd.vertexAt(2));
+    CPPUNIT_ASSERT_EQUAL(Point(5, 0), cd.vertexAt(3));
+    CPPUNIT_ASSERT_EQUAL(Point(5, 6), cd.vertexAt(4));
+    CPPUNIT_ASSERT_EQUAL(Point(0, 6), cd.vertexAt(5));
 
     // ...**
     // ..***
@@ -648,12 +695,12 @@ void TestCommonData::testCrossBy2()
     // *****
     cd.crossBy2(Rect(Point(-2, -2), Point(3, 1)));
     CPPUNIT_ASSERT_EQUAL(8, (int) cd.vertexCount());
-    CPPUNIT_ASSERT(cd.hasVertex(Point(3, 0)));
-    CPPUNIT_ASSERT(cd.hasVertex(Point(3, 1)));
-    CPPUNIT_ASSERT(cd.hasVertex(Point(2, 1)));
-    CPPUNIT_ASSERT(cd.hasVertex(Point(5, 0)));
-    CPPUNIT_ASSERT(cd.hasVertex(Point(5, 6)));
-    CPPUNIT_ASSERT(cd.hasVertex(Point(0, 6)));
-    CPPUNIT_ASSERT(cd.hasVertex(Point(0, 2)));
-    CPPUNIT_ASSERT(cd.hasVertex(Point(2, 2)));
+    CPPUNIT_ASSERT_EQUAL(Point(0, 2), cd.vertexAt(0));
+    CPPUNIT_ASSERT_EQUAL(Point(2, 2), cd.vertexAt(1));
+    CPPUNIT_ASSERT_EQUAL(Point(2, 1), cd.vertexAt(2));
+    CPPUNIT_ASSERT_EQUAL(Point(3, 1), cd.vertexAt(3));
+    CPPUNIT_ASSERT_EQUAL(Point(3, 0), cd.vertexAt(4));
+    CPPUNIT_ASSERT_EQUAL(Point(5, 0), cd.vertexAt(5));
+    CPPUNIT_ASSERT_EQUAL(Point(5, 6), cd.vertexAt(6));
+    CPPUNIT_ASSERT_EQUAL(Point(0, 6), cd.vertexAt(7));
 }

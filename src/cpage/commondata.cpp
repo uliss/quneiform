@@ -86,20 +86,14 @@ void CommonData::crossBy0(const Rect& rect)
 
 void CommonData::crossBy1(const Rect& rect)
 {
-    Point point;
-
-    for (int i = 0; i < count_ - 2; i++) { //STEPA_AM |
+    for (int i = 0; i < count_ - 2; i++) {
         if ((vertex_[i].x() > rect.right())
                 && (vertex_[i + 1].x() < rect.right())
                 && (vertex_[i + 1].y() > rect.top())
                 && (vertex_[i + 2].y() < rect.top())) {
-            point.rx() = rect.right();
-            point.ry() = vertex_[i].y();
-            insertVertex(i + 1, point);
+            insertVertex(i + 1, Point(rect.right(), vertex_[i].y()));
             vertex_[i + 2] = rect.rightTop();
-            point.rx() = vertex_[i + 3].x();
-            point.ry() = rect.top();
-            insertVertex(i + 3, point);
+            insertVertex(i + 3, Point(vertex_[i + 3].x(), rect.top()));
             return;
         }
     }
@@ -108,13 +102,9 @@ void CommonData::crossBy1(const Rect& rect)
             && (vertex_[count_ - 1].x() < rect.right())
             && (vertex_[count_ - 1].y() > rect.top())
             && (vertex_[0].y() < rect.top())) {
-        point.rx() = rect.right();
-        point.ry() = vertex_[count_ - 2].y();
-        insertVertex(count_ - 1, point);
+        insertVertex(count_ - 1, Point(rect.right(), vertex_[count_ - 2].y()));
         insertVertex(count_ - 1, rect.rightTop());
-        point.rx() = vertex_[0].x();
-        point.ry() = rect.top();
-        vertex_[count_ - 1] = point;
+        vertex_[count_ - 1] = Point(vertex_[0].x(), rect.top());
     }
 }
 

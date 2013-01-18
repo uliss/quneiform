@@ -41,6 +41,7 @@ class TestCommonData : public CppUnit::TestFixture
     CPPUNIT_TEST(testInPoly);
     CPPUNIT_TEST(testHasVertex);
     CPPUNIT_TEST(testCrossedBy0);
+    CPPUNIT_TEST(testCrossBy1);
     CPPUNIT_TEST(testCrossBy2);
     CPPUNIT_TEST(testCrossBy3);
     CPPUNIT_TEST_SUITE_END();
@@ -62,6 +63,7 @@ public:
     void testInPoly();
     void testHasVertex();
     void testCrossedBy0();
+    void testCrossBy1();
     void testCrossBy2();
     void testCrossBy3();
 };
