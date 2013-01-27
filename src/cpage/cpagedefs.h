@@ -47,4 +47,30 @@ enum
     CPAGE_MAXNAME = 260
 };
 
+//константы аттрибутов фрагментов (к текстовому фрагменту и к ячейке таблицы) типа: негатив - позитив для представлени
+//01.01.01 Логинов
+enum block_light_t {
+    TYPE_NEGATIVE = 1,
+    TYPE_POSITIVE = 0
+};
+
+//константы ориентации содержимого фрагментов (к текстовому фрагменту и к ячейке таблицы)
+//01.01.01 Логинов
+enum block_orientation_t {
+    TYPE_LEFTRIGHT = 0,
+    TYPE_UPDOWN    = 1,
+    TYPE_DOWNUP    = 2
+};
+
+//Значения нижеследующих констант нельзя менять. Они используются для побитового сравнени
+enum {
+    VISIBLE_LINE = 0,
+    HIDE_LINE    = 1,
+    GRAYED_LINE  = 2,
+    DOTTED_LINE  = 4,
+    DASHED_LINE  = 8,
+    DOUBLED_LINE = 16,
+    NORMAL_LINE  = 0    // дублирует
+};
+
 #endif // CPAGEDEFS_H

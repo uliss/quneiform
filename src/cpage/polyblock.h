@@ -56,38 +56,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifndef __POLYBLOCK_H__
 #define __POLYBLOCK_H__
-#pragma pack (push,8)
 
 #include "cpagedefs.h"
 #include "commondata.h"
 #include "common/point.h"
 #include "common/rect.h"
-
-//константы аттрибутов фрагментов (к текстовому фрагменту и к ячейке таблицы) типа: негатив - позитив для представлени
-//01.01.01 Логинов
-enum block_light_t {
-    TYPE_NEGATIVE = 1,
-    TYPE_POSITIVE = 0
-};
-
-//константы ориентации содержимого фрагментов (к текстовому фрагменту и к ячейке таблицы)
-//01.01.01 Логинов
-enum block_orientation_t {
-    TYPE_LEFTRIGHT = 0,
-    TYPE_UPDOWN    = 1,
-    TYPE_DOWNUP    = 2
-};
-
-//Значения нижеследующих констант нельзя менять. Они используются для побитового сравнени
-enum {
-    VISIBLE_LINE = 0,
-    HIDE_LINE    = 1,
-    GRAYED_LINE  = 2,
-    DOTTED_LINE  = 4,
-    DASHED_LINE  = 8,
-    DOUBLED_LINE = 16,
-    NORMAL_LINE  = 0    // дублирует
-};
 
 class PolyBlock : public cf::cpage::CommonData
 {
@@ -107,5 +80,4 @@ private:
     int32_t orient_;
 };
 
-#pragma pack (pop)
 #endif
