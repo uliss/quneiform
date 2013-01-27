@@ -98,27 +98,30 @@ uint32_t DefConvertBlock(uint32_t /*context*/,
             return 0;
         }
 
-        if(sizeof(PolyBlock) != sizeIn) {
-            CPAGE_ERROR_FUNC << "invalid input data";
+        if(sizeof(cpage::PolyBlock) != sizeIn) {
+            CPAGE_ERROR_FUNC << "invalid PolyBlock input data";
             return 0;
         }
 
         if(!dataOut)
-            return sizeof(cf::cpage::Picture);
+            return sizeof(cpage::Picture);
 
         if(sizeOut != sizeof(cpage::Picture)) {
             CPAGE_ERROR_FUNC << "invalid output data size:" << sizeOut;
             return 0;
         }
 
-        const PolyBlock * poly = static_cast<const PolyBlock*>(dataIn);
+        const cpage::PolyBlock * poly = static_cast<const cpage::PolyBlock*>(dataIn);
         cpage::Picture * pict = static_cast<cpage::Picture*>(dataOut);
         pict->set(*poly);
-        return sizeof(cf::cpage::Picture);
+        return sizeof(cpage::Picture);
     }
     else if (typeIn == varTYPE_CPAGE_PICTURE) {
         if (typeOut == TYPE_IMAGE)
-            rc = CPAGE_PICTURE_to_TYPE_PICTURE(*(cf::cpage::Picture*)dataIn, sizeIn, (PolyBlock *)dataOut, sizeOut);
+            rc = CPAGE_PICTURE_to_TYPE_PICTURE(*(cpage::Picture*)dataIn,
+                                               sizeIn,
+                                               (cpage::PolyBlock *)dataOut,
+                                               sizeOut);
     }
 
     return rc;

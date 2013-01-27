@@ -88,7 +88,7 @@ Bool32 DeleteRootsFromPictures(void)
 {
     CPageHandle pPage;
     CBlockHandle h = NULL;
-    PolyBlock block;
+    cf::cpage::PolyBlock block;
     ROOT * pRoot;
     pPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPageNumber());
 

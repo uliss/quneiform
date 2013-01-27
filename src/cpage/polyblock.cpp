@@ -18,6 +18,9 @@
 
 #include "polyblock.h"
 
+namespace cf {
+namespace cpage {
+
 PolyBlock::PolyBlock() :
     alphabet_(0),
     negative_(TYPE_POSITIVE),
@@ -47,4 +50,7 @@ int PolyBlock::alphabet() const
 void PolyBlock::setAlphabet(int alph)
 {
     alphabet_ = alph;
+}
+
+}
 }

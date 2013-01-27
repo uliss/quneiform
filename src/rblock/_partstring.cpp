@@ -292,7 +292,7 @@ void file_string(STRING * s)
 static void LayoutFromCPAGE(CPageHandle hCPAGE)
 {
     CBlockHandle h = NULL;
-    PolyBlock block;
+    cpage::PolyBlock block;
     int nBlocks = FIRST_REGULAR_BLOCK_NUMBER;
     Point16 pLeftTop, pRightTop, pLeftBottom, pRightBottom;
     ROOT * pRoot = NULL;

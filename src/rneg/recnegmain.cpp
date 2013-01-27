@@ -496,8 +496,8 @@ void RNEG_RecogNeg(CCOM_handle hCCOM, CPageHandle hCPage, uchar* pImageName,
 
 	now = root;
 	if (1/*!(LDPUMA_Skip (PutToCPage) )*/) {
-        PolyBlock block;
-		uint32_t size_poly = sizeof(PolyBlock);
+        cf::cpage::PolyBlock block;
+        uint32_t size_poly = sizeof(cf::cpage::PolyBlock);
 		while (now) {
 			if ((now->neg).p > inf_prob) {
                 block.setFlags(0);

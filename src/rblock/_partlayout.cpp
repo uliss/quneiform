@@ -84,37 +84,37 @@ uint32_t NumberOfLettersInArea(Rect32 rect, int Number)
     return Result;
 }
 
-Bool32 InsertVertex(PolyBlock * poly, int position, Point point)
+Bool32 InsertVertex(cpage::PolyBlock * poly, int position, Point point)
 {
     poly->insertVertex(position, point);
     return TRUE;
 }
 
-Bool32 InsertBottom(const PolyBlock * rectangle, PolyBlock * poly)
+Bool32 InsertBottom(const cpage::PolyBlock * rectangle, cpage::PolyBlock * poly)
 {
     poly->insertBottom(rectangle->rect());
     return TRUE;
 }
 
-Bool32 InsertTop(const PolyBlock * rectangle, PolyBlock * poly)
+Bool32 InsertTop(const cpage::PolyBlock * rectangle, cpage::PolyBlock * poly)
 {
     poly->insertTop(rectangle->rect());
     return TRUE;
 }
 
-Bool32 InsertLeft(const PolyBlock * rectangle, PolyBlock * poly)
+Bool32 InsertLeft(const cpage::PolyBlock * rectangle, cpage::PolyBlock * poly)
 {
     poly->insertLeft(rectangle->rect());
     return TRUE;
 }
 
-Bool32 InsertRight(const PolyBlock * rectangle, PolyBlock * poly)
+Bool32 InsertRight(const cpage::PolyBlock * rectangle, cpage::PolyBlock * poly)
 {
     poly->insertRight(rectangle->rect());
     return TRUE;
 }
 
-Bool32 InsertRectangleInPoly(const PolyBlock * rectangle, PolyBlock * poly)
+Bool32 InsertRectangleInPoly(const cpage::PolyBlock * rectangle, cpage::PolyBlock * poly)
 {
     if (IsInPoly(rectangle->vertexAt(0), poly)) {
         if (IsInPoly(rectangle->vertexAt(1), poly))
@@ -132,37 +132,37 @@ Bool32 InsertRectangleInPoly(const PolyBlock * rectangle, PolyBlock * poly)
     return TRUE;
 }
 
-Bool32 CrossedBy0(PolyBlock * poly, const PolyBlock * rectangle)
+Bool32 CrossedBy0(cpage::PolyBlock * poly, const cpage::PolyBlock * rectangle)
 {
     poly->crossBy0(rectangle->rect());
     return TRUE;
 }
 
-Bool32 CrossedBy1(PolyBlock * poly, const PolyBlock * rectangle)
+Bool32 CrossedBy1(cpage::PolyBlock * poly, const cpage::PolyBlock * rectangle)
 {
     poly->crossBy1(rectangle->rect());
     return TRUE;
 }
 
-Bool32 CrossedBy2(PolyBlock * poly, const PolyBlock * rectangle)
+Bool32 CrossedBy2(cpage::PolyBlock * poly, const cpage::PolyBlock * rectangle)
 {
     poly->crossBy2(rectangle->rect());
     return TRUE;
 }
 
-Bool32 CrossedBy3(PolyBlock * poly, const PolyBlock * rectangle)
+Bool32 CrossedBy3(cpage::PolyBlock * poly, const cpage::PolyBlock * rectangle)
 {
     poly->crossBy3(rectangle->rect());
     return TRUE;
 }
 
 //STEPA_AM
-int GetPOLYHeight(const PolyBlock* poly)
+int GetPOLYHeight(const cpage::PolyBlock* poly)
 {
     return poly->calcHeight();
 }
 
-Bool32 PolysIsCrossed(PolyBlock * poly1, const PolyBlock * poly2, Bool32 pic)
+Bool32 PolysIsCrossed(cpage::PolyBlock * poly1, const cpage::PolyBlock * poly2, Bool32 pic)
 {
     //STEPA_AM
     //Пока так определяем кто врезаемый, а кто обтекаемый,
@@ -201,7 +201,7 @@ Bool32 PolysIsCrossed(PolyBlock * poly1, const PolyBlock * poly2, Bool32 pic)
 Bool32 PageRoatateBlocks(CPageHandle hPage)
 {
     CBlockHandle hBlock;
-    PolyBlock block;
+    cpage::PolyBlock block;
     int i, j;
     div_t d1;
     int defect;
@@ -289,7 +289,7 @@ void PageLayoutBlocks(CCOM_handle hCCOM)
     }
 }
 
-Bool32 DeletePoly(PolyBlock * all_polys, int max, int i)
+Bool32 DeletePoly(cpage::PolyBlock * all_polys, int max, int i)
 {
     int j;
 
@@ -402,10 +402,10 @@ Bool32 OutputFragments(CPageHandle hPage)
     int j;
     int max;
     int nPics;
-    PolyBlock * pPics;
+    cpage::PolyBlock * pPics;
     Bool32 Same;
-    PolyBlock block;
-    PolyBlock * all_polys;
+    cpage::PolyBlock block;
+    cpage::PolyBlock * all_polys;
     LDPUMA_FPuts(resFile_blocks, "  <2 Н Страница =");
     LDPUMA_FPuts(resFile_blocks, file_name);
     LDPUMA_FPuts(resFile_blocks, " \n");
@@ -415,8 +415,8 @@ Bool32 OutputFragments(CPageHandle hPage)
                  "  <4 Н Результат работы старого фрагментатора \n");
     BlocksExtract(); // inserted by Rom to remove NULL-sized blocks
     BlockAnalyse();
-    all_polys = static_cast<PolyBlock*> (malloc(COMPS_QUANTUM * sizeof(PolyBlock)));
-    pPics = static_cast<PolyBlock*> (malloc(PICS_QUANTUM * sizeof(PolyBlock)));
+    all_polys = static_cast<cpage::PolyBlock*> (malloc(COMPS_QUANTUM * sizeof(cpage::PolyBlock)));
+    pPics = static_cast<cpage::PolyBlock*> (malloc(PICS_QUANTUM * sizeof(cpage::PolyBlock)));
     BlocksBuildLeftAndRightLists();
     BlocksBuildTopAndBottomLists();
     //*************************************************
@@ -433,8 +433,8 @@ Bool32 OutputFragments(CPageHandle hPage)
         }
 
         if (i % COMPS_QUANTUM == 0) {
-            all_polys = static_cast<PolyBlock*> (realloc(all_polys, (size_t) ((i
-                                                                           / COMPS_QUANTUM + 1) * COMPS_QUANTUM * sizeof(PolyBlock))));
+            all_polys = static_cast<cpage::PolyBlock*> (realloc(all_polys, (size_t) ((i
+                                                                           / COMPS_QUANTUM + 1) * COMPS_QUANTUM * sizeof(cpage::PolyBlock))));
         }
 
         all_polys[i].setType(TYPE_TEXT);//Текст, Картинка, Таблица;
@@ -461,11 +461,11 @@ Bool32 OutputFragments(CPageHandle hPage)
     for (h = CPAGE_GetBlockFirst(hPage, TYPE_IMAGE); h != NULL; h
             = CPAGE_GetBlockNext(hPage, h, TYPE_IMAGE)) {
         if (i % COMPS_QUANTUM == 0) {
-            pPics = static_cast<PolyBlock*> (realloc(pPics, (size_t) ((i
-                                                                   / COMPS_QUANTUM + 1) * COMPS_QUANTUM * sizeof(PolyBlock))));
+            pPics = static_cast<cpage::PolyBlock*> (realloc(pPics, (size_t) ((i
+                                                                   / COMPS_QUANTUM + 1) * COMPS_QUANTUM * sizeof(cpage::PolyBlock))));
         }
 
-        CPAGE_GetBlockData(h, TYPE_IMAGE, &pPics[i++], sizeof(PolyBlock));
+        CPAGE_GetBlockData(h, TYPE_IMAGE, &pPics[i++], sizeof(cpage::PolyBlock));
     }
 
     nPics = i;
@@ -630,7 +630,7 @@ AGAIN:
             LDPUMA_FPuts(resFile_blocks, tmp_str);
         }
 
-        hBlock = CPAGE_CreateBlock(hPage, TYPE_TEXT, 0, 0, &all_polys[i], sizeof(PolyBlock));
+        hBlock = CPAGE_CreateBlock(hPage, TYPE_TEXT, 0, 0, &all_polys[i], sizeof(cpage::PolyBlock));
 
         if (!hBlock) {
             SetReturnCode_rblock(CPAGE_GetReturnCode());
@@ -670,7 +670,7 @@ AGAIN:
 
     for (h = CPAGE_GetBlockFirst(hPage, TYPE_IMAGE); h != NULL; h
             = CPAGE_GetBlockNext(hPage, h, TYPE_IMAGE)) {
-        CPAGE_GetBlockData(h, TYPE_IMAGE, &block, sizeof(PolyBlock));
+        CPAGE_GetBlockData(h, TYPE_IMAGE, &block, sizeof(cpage::PolyBlock));
 
         for (i = 0; i < nPics; i++) {
             Same = TRUE;
@@ -695,7 +695,7 @@ AGAIN:
 
     while (h) {
         h_next = CPAGE_GetBlockNext(hPage, h, TYPE_IMAGE);
-        CPAGE_GetBlockData(h, TYPE_IMAGE, &block, sizeof(PolyBlock));
+        CPAGE_GetBlockData(h, TYPE_IMAGE, &block, sizeof(cpage::PolyBlock));
 
         if (block.isNegative()) {
             BlockNumber = CPAGE_GetBlockUserNum(h);
@@ -703,7 +703,7 @@ AGAIN:
             block.setAlphabet(0);
             block.setNumber(0);
             hBlock = CPAGE_CreateBlock(hPage, TYPE_TEXT, 0, 0, &block,
-                                       sizeof(PolyBlock));
+                                       sizeof(cpage::PolyBlock));
             CPAGE_SetBlockUserNum(hBlock, BlockNumber);
         }
 
@@ -724,12 +724,12 @@ void CalculatePageIncline(Handle hCCOM, int32_t * lpNominator,
     *lpNominator = nIncline;
 }
 
-int IsInPoly(const Point& a, const PolyBlock * p)
+int IsInPoly(const Point& a, const cpage::PolyBlock * p)
 {
     return p->isInPoly(a);
 }
 
-int IsInPoly(const Point16& a, const PolyBlock *pPoly)
+int IsInPoly(const Point16& a, const cpage::PolyBlock *pPoly)
 {
     Point p32;
     p32 = a;

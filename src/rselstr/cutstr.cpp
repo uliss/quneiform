@@ -103,7 +103,7 @@ Bool32 WasDif = FALSE;
 uint32_t Code_UB_Kill = 0;
 uint32_t Code_UB_Create = 0;
 
-int CutStrings(PolyBlock* pBLOCK);
+int CutStrings(cf::cpage::PolyBlock* pBLOCK);
 int GetStatisticsH(void);
 void IfDifCut(void);
 
@@ -112,16 +112,16 @@ extern FILE* f_cut_str;
 extern FILE* f_temp_cut;
 extern FILE* f_old_cut;
 
-int GetMediumHeight(PolyBlock*);
+int GetMediumHeight(cf::cpage::PolyBlock*);
 Bool Increase2(RecRaster* rast, CCOM_comp* comp);
 int GetCountNumbers(int num);
 void StrDrawRect(Handle wnd, uint32_t OperCode, uint32_t color, int top,
 		int bottom, int left, int right);
 Bool IfEqv(char* buf1, char* buf2);
 Bool IfEqv(Rect16 r1, Rect16 r2);
-Bool AddLenBlockMas(PolyBlock** ppRc, int& len, int add);
-void DelBlockMas(PolyBlock* masp);
-Bool InitBlockMas(PolyBlock** ppRc, int len);
+Bool AddLenBlockMas(cf::cpage::PolyBlock** ppRc, int& len, int add);
+void DelBlockMas(cf::cpage::PolyBlock* masp);
+Bool InitBlockMas(cf::cpage::PolyBlock** ppRc, int len);
 Bool CutComp(CPageHandle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound,
 		Bool fl_cut);
 void UndoCutInRect(Handle hCPAGE, CCOM_handle hCCOM, Rect32* Rc);
@@ -164,7 +164,7 @@ void UndoCutInRect(Handle hCPAGE, CCOM_handle hCCOM, Rect32* Rc) {
 	}
 }
 
-int CutStrings(PolyBlock* pBlock) {
+int CutStrings(cf::cpage::PolyBlock* pBlock) {
 	medium_h = GetMediumHeight(pBlock);
 
 	int cut_h = (int) ((double) (medium_h) * k_cut);
@@ -255,7 +255,7 @@ int CutStrings(PolyBlock* pBlock) {
 	return 1;
 }
 
-int GetMediumHeight(PolyBlock* pBlock) {
+int GetMediumHeight(cf::cpage::PolyBlock* pBlock) {
 	CCOM_comp * comp;
 	int sum_height = 0;
 	int count = 0;
@@ -761,8 +761,8 @@ Bool IfEqv(Rect16 r1, Rect16 r2) {
 	return TRUE;
 }
 
-Bool AddLenBlockMas(PolyBlock** ppRc, int& len, int add) {
-	PolyBlock *dop;
+Bool AddLenBlockMas(cf::cpage::PolyBlock** ppRc, int& len, int add) {
+    cf::cpage::PolyBlock *dop;
 	int i;
 	if (!(InitBlockMas(&dop, len)))
 		return FALSE;
@@ -789,13 +789,13 @@ Bool AddLenBlockMas(PolyBlock** ppRc, int& len, int add) {
 	return TRUE;
 }
 
-void DelBlockMas(PolyBlock *masp) {
+void DelBlockMas(cf::cpage::PolyBlock *masp) {
 	delete[] masp;
 }
 
-Bool InitBlockMas(PolyBlock** ppRc, int len) {
+Bool InitBlockMas(cf::cpage::PolyBlock** ppRc, int len) {
 	(*ppRc) = NULL;
-	if (!((*ppRc) = new PolyBlock[len]))
+    if (!((*ppRc) = new cf::cpage::PolyBlock[len]))
 		return FALSE;
 	return TRUE;
 }

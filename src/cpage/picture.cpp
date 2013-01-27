@@ -61,12 +61,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "picture.h"
 #include "cpage_debug.h"
 
-uint32_t CPAGE_PICTURE_to_TYPE_PICTURE(const cf::cpage::Picture& pict, uint32_t SizeIn, PolyBlock * poly, uint32_t SizeOut)
+using namespace cf;
+
+uint32_t CPAGE_PICTURE_to_TYPE_PICTURE(const cpage::Picture& pict, uint32_t SizeIn, cpage::PolyBlock * poly, uint32_t SizeOut)
 {
     if (poly == NULL)
-        return sizeof(PolyBlock);
+        return sizeof(cpage::PolyBlock);
 
-    if (sizeof(PolyBlock) != SizeOut || sizeof(cf::cpage::Picture) != SizeIn) {
+    if (sizeof(cpage::PolyBlock) != SizeOut || sizeof(cpage::Picture) != SizeIn) {
         SetReturnCode_cpage(IDS_ERR_DISCREP);
         return 0;
     }
@@ -74,7 +76,7 @@ uint32_t CPAGE_PICTURE_to_TYPE_PICTURE(const cf::cpage::Picture& pict, uint32_t 
     poly->copyVertexes(pict);
     poly->setType(TYPE_PICTURE);
     poly->setNumber(0);
-    return sizeof(PolyBlock);
+    return sizeof(cpage::PolyBlock);
 }
 
 

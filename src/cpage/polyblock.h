@@ -62,6 +62,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "common/point.h"
 #include "common/rect.h"
 
+namespace cf {
+namespace cpage {
+
 class PolyBlock : public cf::cpage::CommonData
 {
 public:
@@ -79,5 +82,8 @@ private:
     int32_t negative_;
     int32_t orient_;
 };
+
+}
+}
 
 #endif

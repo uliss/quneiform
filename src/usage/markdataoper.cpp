@@ -176,7 +176,7 @@ Bool LoadComps_rv(CCOM_handle hC, void *vB, char *pStr, int Filter) {
 	return RV_TRUE;
 }
 /*---------------------------------------------------------------------------*/
-Bool MakeRectFromPict(Rect16 *pCurr, PolyBlock *pPict) {
+Bool MakeRectFromPict(Rect16 *pCurr, cf::cpage::PolyBlock *pPict) {
     if(!pPict->isRect())
         return FALSE;
     pCurr->left = (int16_t) pPict->vertexAt(0).x();
@@ -190,7 +190,7 @@ Bool LoadPicts_rv(CPageHandle hC, void *vB, char *pStr) {
 	int SizeCurr, Deficit, nRc;
 	uint32_t err32, nTeor, nReal;
 	Bool ret;
-	PolyBlock Pict;
+    cf::cpage::PolyBlock Pict;
     CBlockHandle hBlockPictSpec;
     CBlockHandle hBlockPictPrev;
 	UN_BUFF *pB;
@@ -200,7 +200,7 @@ Bool LoadPicts_rv(CPageHandle hC, void *vB, char *pStr) {
 	Deficit = 0;
 	pCurr = (Rect16 *) pB->vCurr;
 	SizeCurr = pB->SizeCurr;
-	nTeor = sizeof(PolyBlock);
+    nTeor = sizeof(cf::cpage::PolyBlock);
 	hBlockPictPrev = NULL;
 	while (1) {
 		/*  ключ к данным  */

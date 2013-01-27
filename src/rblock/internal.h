@@ -21,9 +21,13 @@
 
 #include "common/point.h"
 
-struct PolyBlock;
+namespace cf {
+namespace cpage {
+class PolyBlock;
+}
+}
 
-int IsInPoly(const cf::Point& a, const PolyBlock *pPoly);
-int IsInPoly(const cf::Point16& a, const PolyBlock *pPoly);
+int IsInPoly(const cf::Point& a, const cf::cpage::PolyBlock *pPoly);
+int IsInPoly(const cf::Point16& a, const cf::cpage::PolyBlock *pPoly);
 
 #endif // INTERNAL_H

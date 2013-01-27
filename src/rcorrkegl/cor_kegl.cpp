@@ -1532,15 +1532,15 @@ static void display_fragment(RecStat *rsti, uint32_t color, uint32_t key)
 
 static void draw_fragment(CBlockHandle hBlock, uint32_t color, uint32_t key)
 {
-    PolyBlock poly;
+    cf::cpage::PolyBlock poly;
     uint32_t v;
 
     if (!hBlock)
         return;
 
-    v = CPAGE_GetBlockData(hBlock, TYPE_TEXT, &poly, sizeof(PolyBlock));
+    v = CPAGE_GetBlockData(hBlock, TYPE_TEXT, &poly, sizeof(cf::cpage::PolyBlock));
 
-    if (v == sizeof(PolyBlock)) {
+    if (v == sizeof(cf::cpage::PolyBlock)) {
         Point p32 = poly.vertexAt(0);
         Point16 cv, pv, v0;
         int32_t i;

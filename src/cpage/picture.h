@@ -23,17 +23,17 @@
 #include "cpagedefs.h"
 #include "common/point.h"
 
-struct PolyBlock;
-
 namespace cf {
 namespace cpage {
+
+class PolyBlock;
 
 class Picture
 {
 public:
     Picture();
-    void appendCorner(const cf::Point& pt);
-    cf::Point cornerAt(size_t pos) const;
+    void appendCorner(const Point& pt);
+    Point cornerAt(size_t pos) const;
     size_t cornerCount() const;
     void rotateCorner(size_t pos, int skew2048);
     void set(const PolyBlock& polygon);

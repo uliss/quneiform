@@ -209,7 +209,7 @@ void PageLayoutStrings(CCOM_handle hCCOM, CPageHandle hCPAGE)
 void LayoutFromCPAGE(CPageHandle hCPAGE, CCOM_handle hCCOM)
 {
     CBlockHandle h = NULL;
-    PolyBlock block;
+    cf::cpage::PolyBlock block;
     int nBlocks = FIRST_REGULAR_BLOCK_NUMBER;
     Point16 pLeftTop, pRightTop, pLeftBottom, pRightBottom;
     ROOT * pRoot = NULL;
@@ -298,7 +298,7 @@ void LayoutFromCPAGE(CPageHandle hCPAGE, CCOM_handle hCCOM)
     ::Rect16 Rc;
     for (h = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT); h != NULL; h = CPAGE_GetBlockNext(hCPAGE, h,
             TYPE_TEXT)) {
-        CPAGE_GetBlockData(h, TYPE_TEXT, &block, sizeof(PolyBlock));
+        CPAGE_GetBlockData(h, TYPE_TEXT, &block, sizeof(cf::cpage::PolyBlock));
         if (block.isNegative() ||
                 block.orientation() == TYPE_UPDOWN ||
                 block.orientation() == TYPE_DOWNUP) {

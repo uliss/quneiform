@@ -140,7 +140,7 @@ void PumaImpl::addImageBlock(const Rect& rect)
     if(!cpage_)
         return;
 
-    PolyBlock poly;
+    cpage::PolyBlock poly;
     poly.setRect(rect);
     poly.setFlag(CPAGE_BLOCK_USER);
     uint count = CPAGE_GetCountBlock(cpage_);
@@ -156,7 +156,7 @@ void PumaImpl::addTableBlock(const Rect& block)
     if(!cpage_)
         return;
 
-    PolyBlock poly;
+    cpage::PolyBlock poly;
     poly.setRect(block);
     poly.setFlag(CPAGE_BLOCK_USER);
     uint count = CPAGE_GetCountBlock(cpage_);
@@ -172,7 +172,7 @@ void PumaImpl::addTextBlock(const Rect& block)
     if(!cpage_)
         return;
 
-    PolyBlock poly;
+    cpage::PolyBlock poly;
     poly.setRect(block);
     poly.setFlag(CPAGE_BLOCK_USER);
     uint count = CPAGE_GetCountBlock(cpage_);
@@ -190,7 +190,7 @@ LayoutBlockList PumaImpl::textBlocks() const
     CBlockHandle block = CPAGE_GetBlockFirst(cpage_, TYPE_TEXT);
 
     while (block) {
-        PolyBlock poly;
+        cpage::PolyBlock poly;
         CPAGE_GetBlockData(block, TYPE_TEXT, &poly, sizeof(poly));
         res.push_back(LayoutBlock(poly.rect(), LayoutBlock::TEXT));
         block = CPAGE_GetBlockNext(cpage_, block, TYPE_TEXT);
@@ -208,7 +208,7 @@ LayoutBlockList PumaImpl::imageBlocks() const
     CBlockHandle block = CPAGE_GetBlockFirst(cpage_, TYPE_IMAGE);
 
     while (block) {
-        PolyBlock poly;
+        cpage::PolyBlock poly;
         CPAGE_GetBlockData(block, TYPE_IMAGE, &poly, sizeof(poly));
         res.push_back(LayoutBlock(poly.rect(), LayoutBlock::IMAGE));
         block = CPAGE_GetBlockNext(cpage_, block, TYPE_IMAGE);
@@ -226,7 +226,7 @@ LayoutBlockList PumaImpl::tableBlocks() const
     CBlockHandle block = CPAGE_GetBlockFirst(cpage_, TYPE_TABLE);
 
     while (block) {
-        PolyBlock poly;
+        cpage::PolyBlock poly;
         CPAGE_GetBlockData(block, TYPE_TABLE, &poly, sizeof(poly));
         res.push_back(LayoutBlock(poly.rect(), LayoutBlock::IMAGE));
         block = CPAGE_GetBlockNext(cpage_, block, TYPE_TABLE);
