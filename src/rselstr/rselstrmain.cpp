@@ -241,9 +241,9 @@ void LayoutFromCPAGE(CPageHandle hCPAGE, CCOM_handle hCCOM)
             SetReturnCode_rselstr(CPAGE_GetReturnCode());
             longjmp(fatal_error_exit, -1);
         }
-        if (block.negative == TYPE_NEGATIVE ||
-                block.orient == TYPE_DOWNUP ||
-                block.orient == TYPE_UPDOWN)
+        if (block.isNegative() ||
+                block.orientation() == TYPE_DOWNUP ||
+                block.orientation() == TYPE_UPDOWN)
             continue;
 
         cf::Roots::add(ROOT());
@@ -258,10 +258,10 @@ void LayoutFromCPAGE(CPageHandle hCPAGE, CCOM_handle hCCOM)
             pRightBottom.rx() = pRoot->xColumn + pRoot->nWidth - 1;
             pRightBottom.ry() = pRoot->yRow + pRoot->nHeight - 1;
 
-            if (block.com.isInPoly(pLeftTop) ||
-                    block.com.isInPoly(pRightTop) ||
-                    block.com.isInPoly(pLeftBottom) ||
-                    block.com.isInPoly(pRightBottom)) {
+            if (block.isInPoly(pLeftTop) ||
+                    block.isInPoly(pRightTop) ||
+                    block.isInPoly(pLeftBottom) ||
+                    block.isInPoly(pRightBottom)) {
                 pRoot->nBlock = BlockNumber + FIRST_REGULAR_BLOCK_NUMBER;
                 pRoot->nUserNum = BlockNumber;
             }
@@ -299,12 +299,13 @@ void LayoutFromCPAGE(CPageHandle hCPAGE, CCOM_handle hCCOM)
     for (h = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT); h != NULL; h = CPAGE_GetBlockNext(hCPAGE, h,
             TYPE_TEXT)) {
         CPAGE_GetBlockData(h, TYPE_TEXT, &block, sizeof(PolyBlock));
-        if (block.negative == TYPE_NEGATIVE || block.orient == TYPE_UPDOWN || block.orient
-                == TYPE_DOWNUP) {
-            Rc.bottom = block.com.vertexY(2);
-            Rc.top = block.com.vertexY(0);
-            Rc.left = block.com.vertexX(0);
-            Rc.right = block.com.vertexX(2);
+        if (block.isNegative() ||
+                block.orientation() == TYPE_UPDOWN ||
+                block.orientation() == TYPE_DOWNUP) {
+            Rc.bottom = block.vertexY(2);
+            Rc.top = block.vertexY(0);
+            Rc.left = block.vertexX(0);
+            Rc.right = block.vertexX(2);
             if (nIncline >= 0) {
                 REAL_XY(Rc.left, Rc.top);
                 REAL_XY(Rc.right, Rc.bottom);
@@ -315,11 +316,11 @@ void LayoutFromCPAGE(CPageHandle hCPAGE, CCOM_handle hCCOM)
             }
             type_vert = 0;
             type_neg = 0;
-            if (block.orient == TYPE_DOWNUP)
+            if (block.orientation() == TYPE_DOWNUP)
                 type_vert = 1;
-            if (block.orient == TYPE_UPDOWN)
+            if (block.orientation() == TYPE_UPDOWN)
                 type_vert = 2;
-            if (block.negative == TYPE_NEGATIVE)
+            if (block.isNegative())
                 type_neg = 1;
 
             if (nObjects >= len_Objects)

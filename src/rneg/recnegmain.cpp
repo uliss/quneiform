@@ -500,19 +500,19 @@ void RNEG_RecogNeg(CCOM_handle hCCOM, CPageHandle hCPage, uchar* pImageName,
 		uint32_t size_poly = sizeof(PolyBlock);
 		while (now) {
 			if ((now->neg).p > inf_prob) {
-                block.com.setFlags(0);
+                block.setFlags(0);
 				Rc.left = (now->neg).pRc[0].left;
 				Rc.right = (now->neg).pRc[0].right;
 				Rc.top = (now->neg).pRc[(now->neg).nRc - 1].top;
 				Rc.bottom = (now->neg).pRc[0].bottom;
-                block.com.setType(TYPE_TEXT); //Текст, Картинка, Таблица;
-				block.negative = TYPE_NEGATIVE;
-                block.com.setFlags(NEGA);
+                block.setType(TYPE_TEXT); //Текст, Картинка, Таблица;
+                block.setLight(TYPE_NEGATIVE);
+                block.setFlags(NEGA);
 
 				//Andrey: moved from RBLOCK (keyword:TYPE_NEGATIVE)
 				//------------------------------
-				block.alphabet = 0;
-                block.com.setNumber(0);
+                block.setAlphabet(0);
+                block.setNumber(0);
 				//------------------------------
 
 				//commented by Andrey
@@ -526,13 +526,12 @@ void RNEG_RecogNeg(CCOM_handle hCCOM, CPageHandle hCPage, uchar* pImageName,
 				 block.orient=TYPE_LEFTRIGHT;
 				 */
 				if ((now->neg).Flags & FlVert) {
-                    block.com.setFlag(VERTICA);
-					block.orient = (now->neg).Flags & FlDown2Up ? TYPE_DOWNUP
-							: TYPE_UPDOWN;
+                    block.setFlag(VERTICA);
+                    block.setOrientation((now->neg).Flags & FlDown2Up ? TYPE_DOWNUP : TYPE_UPDOWN);
 				} else
-					block.orient = TYPE_LEFTRIGHT;
+                    block.setOrientation(TYPE_LEFTRIGHT);
 
-                block.com.setRect(cf::Rect(cf::Point(Rc.left, Rc.top), cf::Point(Rc.right, Rc.bottom)));
+                block.setRect(cf::Rect(cf::Point(Rc.left, Rc.top), cf::Point(Rc.right, Rc.bottom)));
 				//Andrey: create TYPE_TEXT block
 				CPAGE_CreateBlock(hCPage, TYPE_IMAGE, 0, 0, &block, size_poly);
 				//			CPAGE_CreateBlock(hCPage, TYPE_TEXT,0,0,&block,size_poly);

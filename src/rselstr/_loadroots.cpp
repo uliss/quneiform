@@ -241,10 +241,10 @@ Bool32 FillPicsInTables(Handle hCCOM, CPageHandle hCPAGE)
         }
 
         comp = &pPics[nPics++];
-        comp->upper = block.com.vertexY(0);
-        comp->left = block.com.vertexX(0);
-        comp->w = block.com.vertexX(1) - block.com.vertexX(0);
-        comp->h = block.com.vertexY(2) - block.com.vertexY(1);
+        comp->upper = block.vertexY(0);
+        comp->left = block.vertexX(0);
+        comp->w = block.vertexX(1) - block.vertexX(0);
+        comp->h = block.vertexY(2) - block.vertexY(1);
     }
 
     return TRUE;

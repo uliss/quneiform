@@ -1541,17 +1541,15 @@ static void draw_fragment(CBlockHandle hBlock, uint32_t color, uint32_t key)
     v = CPAGE_GetBlockData(hBlock, TYPE_TEXT, &poly, sizeof(PolyBlock));
 
     if (v == sizeof(PolyBlock)) {
-        //....
-        cf::cpage::CommonData *com = &poly.com;
-        Point p32 = com->vertexAt(0);
+        Point p32 = poly.vertexAt(0);
         Point16 cv, pv, v0;
         int32_t i;
         v0.rx() = p32.x();
         v0.ry() = p32.y();
         cv = v0;
 
-        for (i = 1; i < com->vertexCount(); i++) {
-            Point p32 = com->vertexAt(i);
+        for (i = 1; i < poly.vertexCount(); i++) {
+            Point p32 = poly.vertexAt(i);
             pv = cv;
             cv.rx() = p32.x();
             cv.ry() = p32.y();

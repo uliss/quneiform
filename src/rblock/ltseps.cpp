@@ -191,10 +191,10 @@ void SeparatorsGet (void)
 
     for (i = 0; i < nPics; i++) {
         for (j = 0; j < nSeps; j++) {
-            if ( (pSeps[j].xBegin > pPics[i].com.vertexX(0) - 10) &&
-                    (pSeps[j].yBegin > pPics[i].com.vertexY(0) - 10) &&
-                    (pSeps[j].xEnd < pPics[i].com.vertexX(1) + 10) &&
-                    (pSeps[j].yEnd < pPics[i].com.vertexY(2) + 10)) {
+            if ( (pSeps[j].xBegin > pPics[i].vertexX(0) - 10) &&
+                    (pSeps[j].yBegin > pPics[i].vertexY(0) - 10) &&
+                    (pSeps[j].xEnd < pPics[i].vertexX(1) + 10) &&
+                    (pSeps[j].yEnd < pPics[i].vertexY(2) + 10)) {
                 DeleteSeps(j);
                 j--;
             }

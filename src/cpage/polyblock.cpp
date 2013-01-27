@@ -18,4 +18,33 @@
 
 #include "polyblock.h"
 
+PolyBlock::PolyBlock() :
+    alphabet_(0),
+    negative_(TYPE_POSITIVE),
+    orient_(TYPE_LEFTRIGHT)
+{}
 
+void PolyBlock::setLight(block_light_t type)
+{
+    negative_ = type;
+}
+
+void PolyBlock::setOrientation(block_orientation_t dir)
+{
+    orient_ = dir;
+}
+
+block_orientation_t PolyBlock::orientation() const
+{
+    return static_cast<block_orientation_t>(orient_);
+}
+
+int PolyBlock::alphabet() const
+{
+    return alphabet_;
+}
+
+void PolyBlock::setAlphabet(int alph)
+{
+    alphabet_ = alph;
+}

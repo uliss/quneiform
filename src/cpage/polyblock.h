@@ -89,15 +89,22 @@ enum {
     NORMAL_LINE  = 0    // дублирует
 };
 
-struct PolyBlock {
-    cf::cpage::CommonData com;
-    int32_t alphabet;//Цифры,Цифры и буквы, Буквы
-    block_light_t negative; //Негатив = TYPE_NEGATIVE, Позитив = TYPE_POSITIVE;//     01.01.01 Логинов
-    block_orientation_t orient; //TYPE_NORD- Сверху вниз (нормальное), TYPE_WEST- лежит на левом боку, TYPE_OST- лежит на правом боку.
+class PolyBlock : public cf::cpage::CommonData
+{
 public:
-    PolyBlock() : negative(TYPE_POSITIVE), orient(TYPE_LEFTRIGHT) {}
-    bool isNegative() const { return negative == TYPE_NEGATIVE; }
-    block_orientation_t orientation() const { return orient; }
+    PolyBlock();
+    bool isNegative() const { return negative_ == TYPE_NEGATIVE; }
+    void setLight(block_light_t type);
+
+    void setOrientation(block_orientation_t dir);
+    block_orientation_t orientation() const;
+
+    int alphabet() const;
+    void setAlphabet(int alph);
+private:
+    int32_t alphabet_; // Цифры,Цифры и буквы, Буквы
+    int32_t negative_;
+    int32_t orient_;
 };
 
 #pragma pack (pop)

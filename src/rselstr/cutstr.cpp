@@ -216,10 +216,10 @@ int CutStrings(PolyBlock* pBlock) {
 		IDEAL_XY(pLeftBottom.rx(), pLeftBottom.ry());
 		IDEAL_XY(pRightBottom.rx(), pRightBottom.ry());
 
-        if (pBlock->com.isInPoly(pLeftTop)
-                || pBlock->com.isInPoly(pRightTop)
-                || pBlock->com.isInPoly(pLeftBottom)
-                || pBlock->com.isInPoly(pRightBottom)) {
+        if (pBlock->isInPoly(pLeftTop)
+                || pBlock->isInPoly(pRightTop)
+                || pBlock->isInPoly(pLeftBottom)
+                || pBlock->isInPoly(pRightBottom)) {
 			if (comp->h >= cut_h && comp->h <= medium_h * 5 && comp->w
 					>= inf_let_w - 1) {
 				uchar Data[1000];
@@ -287,10 +287,10 @@ int GetMediumHeight(PolyBlock* pBlock) {
 		IDEAL_XY(pLeftBottom.rx(), pLeftBottom.ry());
 		IDEAL_XY(pRightBottom.rx(), pRightBottom.ry());
 
-        if (pBlock->com.isInPoly(pLeftTop)
-                || pBlock->com.isInPoly(pRightTop)
-                || pBlock->com.isInPoly(pLeftBottom)
-                || pBlock->com.isInPoly(pRightBottom)) {
+        if (pBlock->isInPoly(pLeftTop)
+                || pBlock->isInPoly(pRightTop)
+                || pBlock->isInPoly(pLeftBottom)
+                || pBlock->isInPoly(pRightBottom)) {
 			sum_height += comp->h;
 			count++;
 		}
@@ -767,8 +767,8 @@ Bool AddLenBlockMas(PolyBlock** ppRc, int& len, int add) {
 	if (!(InitBlockMas(&dop, len)))
 		return FALSE;
 	for (i = 0; i < len; i++) {
-        for (int j = 0; j < (*ppRc)[i].com.vertexCount(); j++) {
-            dop[i].com.setVertex(j, (*ppRc)[i].com.vertexAt(i));
+        for (int j = 0; j < (*ppRc)[i].vertexCount(); j++) {
+            dop[i].setVertex(j, (*ppRc)[i].vertexAt(i));
 		}
 	}
 
@@ -779,8 +779,8 @@ Bool AddLenBlockMas(PolyBlock** ppRc, int& len, int add) {
 	}
 
 	for (i = 0; i < len; i++) {
-        for (int j = 0; j < (*ppRc)[i].com.vertexCount(); j++) {
-            (*ppRc)[i].com.setVertex(i, dop[i].com.vertexAt(j));
+        for (int j = 0; j < (*ppRc)[i].vertexCount(); j++) {
+            (*ppRc)[i].setVertex(i, dop[i].vertexAt(j));
 		}
 	}
 

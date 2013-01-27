@@ -177,12 +177,12 @@ Bool LoadComps_rv(CCOM_handle hC, void *vB, char *pStr, int Filter) {
 }
 /*---------------------------------------------------------------------------*/
 Bool MakeRectFromPict(Rect16 *pCurr, PolyBlock *pPict) {
-    if(!pPict->com.isRect())
+    if(!pPict->isRect())
         return FALSE;
-    pCurr->left = (int16_t) pPict->com.vertexAt(0).x();
-    pCurr->right = (int16_t) pPict->com.vertexAt(1).x();
-    pCurr->top = (int16_t) pPict->com.vertexAt(0).y();
-    pCurr->bottom = (int16_t) pPict->com.vertexAt(3).y();
+    pCurr->left = (int16_t) pPict->vertexAt(0).x();
+    pCurr->right = (int16_t) pPict->vertexAt(1).x();
+    pCurr->top = (int16_t) pPict->vertexAt(0).y();
+    pCurr->bottom = (int16_t) pPict->vertexAt(3).y();
 	return TRUE;
 }
 /*---------------------------------------------------------------------------*/

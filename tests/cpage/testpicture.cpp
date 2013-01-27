@@ -65,8 +65,8 @@ void TestPicture::testConvert()
 {
     Block b;
     PolyBlock poly;
-    poly.com.addVertex(Point(1, 1));
-    poly.com.addVertex(Point(2, 2));
+    poly.addVertex(Point(1, 1));
+    poly.addVertex(Point(2, 2));
     b.setData(TYPE_IMAGE, &poly, sizeof(PolyBlock));
 
     DefConvertInit();

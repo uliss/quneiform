@@ -304,14 +304,14 @@ Bool32 PicturesSecondStage(CCOM_handle hCCOM, CPageHandle hCPAGE)
         }
 
         comp = &pPics[nPics++];
-        comp->upper = block.com.vertexAt(0).y();
-        comp->left = block.com.vertexAt(0).x();
-        comp->w = block.com.rect().width();
-        comp->h = block.com.rect().height();
+        comp->upper = block.vertexAt(0).y();
+        comp->left = block.vertexAt(0).x();
+        comp->w = block.rect().width();
+        comp->h = block.rect().height();
         /* У comp нету поля флагов, поэтому используем nl */
-        comp->nl = block.com.flags();
+        comp->nl = block.flags();
 
-        if (block.orient == TYPE_DOWNUP)
+        if (block.orientation() == TYPE_DOWNUP)
             comp->nl |= FROMDOWN;
     }
 
@@ -407,29 +407,27 @@ Bool32 PicturesSecondStage(CCOM_handle hCCOM, CPageHandle hCPAGE)
 
     //End of Almi
     for (i = 0; i < nPics && bSearchPicture; i++) {
-        block.com.setType(TYPE_TEXT);//Текст, Картинка, Таблица;
-        block.com.setNumber(0);//порядковый номер
-        block.com.setFlags(pPics[i].nl);
-        block.com.setRect(pPics[i].rect());
-        block.alphabet = 0;
+        block.setType(TYPE_TEXT);//Текст, Картинка, Таблица;
+        block.setNumber(0);//порядковый номер
+        block.setFlags(pPics[i].nl);
+        block.setRect(pPics[i].rect());
+        block.setAlphabet(0);
 
         if (pPics[i].nl & NEGA) {
-            block.negative = TYPE_NEGATIVE;
+            block.setLight(TYPE_NEGATIVE);
 
             if (pPics[i].nl & VERTICA) {
                 if (pPics[i].nl & FROMDOWN)
-                    block.orient = TYPE_DOWNUP;
-
+                    block.setOrientation(TYPE_DOWNUP);
                 else
-                    block.orient = TYPE_UPDOWN;
+                    block.setOrientation(TYPE_UPDOWN);
             }
-
             else
-                block.orient = TYPE_LEFTRIGHT;
+                block.setOrientation(TYPE_LEFTRIGHT);
         }
 
         else {
-            block.negative = TYPE_POSITIVE;
+            block.setLight(TYPE_POSITIVE);
         }
 
         sprintf(tmp_str, "  <4 О 1 %4d %4d %4d %4d %d \n", pPics[i].left,
@@ -485,10 +483,10 @@ Bool32 FillPicsInTables(Handle hCCOM, CPageHandle hCPAGE)
         }
 
         comp = &pPics[nPics++];
-        comp->upper = block.com.vertexAt(0).y();
-        comp->left = block.com.vertexAt(0).x();
-        comp->w = block.com.rect().width();
-        comp->h = block.com.rect().height();
+        comp->upper = block.vertexAt(0).y();
+        comp->left = block.vertexAt(0).x();
+        comp->w = block.rect().width();
+        comp->h = block.rect().height();
     }
 
     return TRUE;

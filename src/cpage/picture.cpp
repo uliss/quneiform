@@ -71,9 +71,9 @@ uint32_t CPAGE_PICTURE_to_TYPE_PICTURE(const cf::cpage::Picture& pict, uint32_t 
         return 0;
     }
 
-    poly->com.copyVertexes(pict);
-    poly->com.setType(TYPE_PICTURE);
-    poly->com.setNumber(0);
+    poly->copyVertexes(pict);
+    poly->setType(TYPE_PICTURE);
+    poly->setNumber(0);
     return sizeof(PolyBlock);
 }
 
@@ -118,11 +118,11 @@ void Picture::rotateCorner(size_t pos, int skew2048)
 
 void Picture::set(const PolyBlock& polygon)
 {
-    number_ = polygon.com.vertexCount();
+    number_ = polygon.vertexCount();
     assert(number_ < CPAGE_MAXCORNER);
 
     for (size_t i = 0; i < number_; i++)
-        corners_[i] = polygon.com.vertexAt(i);
+        corners_[i] = polygon.vertexAt(i);
 }
 
 }

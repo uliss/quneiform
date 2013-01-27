@@ -141,8 +141,8 @@ void PumaImpl::addImageBlock(const Rect& rect)
         return;
 
     PolyBlock poly;
-    poly.com.setRect(rect);
-    poly.com.setFlag(CPAGE_BLOCK_USER);
+    poly.setRect(rect);
+    poly.setFlag(CPAGE_BLOCK_USER);
     uint count = CPAGE_GetCountBlock(cpage_);
     CPAGE_CreateBlock(cpage_, TYPE_IMAGE, ++count, 0, &poly, sizeof(poly));
 
@@ -157,8 +157,8 @@ void PumaImpl::addTableBlock(const Rect& block)
         return;
 
     PolyBlock poly;
-    poly.com.setRect(block);
-    poly.com.setFlag(CPAGE_BLOCK_USER);
+    poly.setRect(block);
+    poly.setFlag(CPAGE_BLOCK_USER);
     uint count = CPAGE_GetCountBlock(cpage_);
     CPAGE_CreateBlock(cpage_, TYPE_TABLE, ++count, 0, &poly, sizeof(poly));
 
@@ -173,8 +173,8 @@ void PumaImpl::addTextBlock(const Rect& block)
         return;
 
     PolyBlock poly;
-    poly.com.setRect(block);
-    poly.com.setFlag(CPAGE_BLOCK_USER);
+    poly.setRect(block);
+    poly.setFlag(CPAGE_BLOCK_USER);
     uint count = CPAGE_GetCountBlock(cpage_);
     CPAGE_CreateBlock(cpage_, TYPE_TEXT, ++count, 0, &poly, sizeof(poly));
 
@@ -192,7 +192,7 @@ LayoutBlockList PumaImpl::textBlocks() const
     while (block) {
         PolyBlock poly;
         CPAGE_GetBlockData(block, TYPE_TEXT, &poly, sizeof(poly));
-        res.push_back(LayoutBlock(poly.com.rect(), LayoutBlock::TEXT));
+        res.push_back(LayoutBlock(poly.rect(), LayoutBlock::TEXT));
         block = CPAGE_GetBlockNext(cpage_, block, TYPE_TEXT);
     }
 
@@ -210,7 +210,7 @@ LayoutBlockList PumaImpl::imageBlocks() const
     while (block) {
         PolyBlock poly;
         CPAGE_GetBlockData(block, TYPE_IMAGE, &poly, sizeof(poly));
-        res.push_back(LayoutBlock(poly.com.rect(), LayoutBlock::IMAGE));
+        res.push_back(LayoutBlock(poly.rect(), LayoutBlock::IMAGE));
         block = CPAGE_GetBlockNext(cpage_, block, TYPE_IMAGE);
     }
 
@@ -228,7 +228,7 @@ LayoutBlockList PumaImpl::tableBlocks() const
     while (block) {
         PolyBlock poly;
         CPAGE_GetBlockData(block, TYPE_TABLE, &poly, sizeof(poly));
-        res.push_back(LayoutBlock(poly.com.rect(), LayoutBlock::IMAGE));
+        res.push_back(LayoutBlock(poly.rect(), LayoutBlock::IMAGE));
         block = CPAGE_GetBlockNext(cpage_, block, TYPE_TABLE);
     }
 
