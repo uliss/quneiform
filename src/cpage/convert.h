@@ -37,7 +37,7 @@ namespace cpage {
 
 class PolyBlock;
 
-size_t pictureConvert(const Picture& dataIn, size_t sizeIn, PolyBlock * dataOut, size_t sizeOut);
+size_t convertPicture(const Picture& dataIn, size_t sizeIn, PolyBlock * dataOut, size_t sizeOut);
 
 }
 }

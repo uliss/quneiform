@@ -120,7 +120,7 @@ uint32_t DefConvertBlock(uint32_t /*context*/,
     }
     else if (typeIn == varTYPE_CPAGE_PICTURE) {
         if (typeOut == TYPE_IMAGE)
-            rc = cpage::pictureConvert(*(cpage::Picture*)dataIn,
+            rc = cpage::convertPicture(*(cpage::Picture*)dataIn,
                                         sizeIn,
                                         (cpage::PolyBlock *)dataOut,
                                         sizeOut);

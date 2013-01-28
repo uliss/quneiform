@@ -16,37 +16,18 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "convert.h"
-#include "picture.h"
-#include "polyblock.h"
-#include "cpagetyps.h"
-#include "cpage.h"
-#include "cpage_debug.h"
+#ifndef TESTCONVERT_H
+#define TESTCONVERT_H
 
-namespace cf {
-namespace cpage {
+#include <cppunit/extensions/HelperMacros.h>
 
-size_t convertPicture(const Picture& pict, size_t sizeIn, PolyBlock * dataOut, size_t sizeOut)
+class TestConvert : public CppUnit::TestFixture
 {
-    if (dataOut == NULL)
-        return sizeof(PolyBlock);
+    CPPUNIT_TEST_SUITE(TestConvert);
+    CPPUNIT_TEST(testPicture);
+    CPPUNIT_TEST_SUITE_END();
+public:
+    void testPicture();
+};
 
-    if (sizeof(PolyBlock) != sizeOut) {
-        CPAGE_ERROR_FUNC << "invalid output data size:" << sizeOut;
-        return 0;
-    }
-
-    if (sizeof(Picture) != sizeIn) {
-        CPAGE_ERROR_FUNC << "invalid input data size:" << sizeIn;
-        return 0;
-    }
-
-    dataOut->copyVertexes(pict);
-    dataOut->setType(TYPE_PICTURE);
-    dataOut->setNumber(0);
-    return sizeof(PolyBlock);
-}
-
-}
-}
-
+#endif // TESTCONVERT_H

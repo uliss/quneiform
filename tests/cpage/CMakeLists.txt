@@ -3,6 +3,7 @@ add_executable(test_cpage
     testbackuppage.cpp
     testblock.cpp
     testcommondata.cpp
+    testconvert.cpp
     testdata.cpp
     testpage.cpp
     testpagestorage.cpp

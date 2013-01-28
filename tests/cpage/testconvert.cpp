@@ -16,37 +16,32 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "convert.h"
-#include "picture.h"
-#include "polyblock.h"
-#include "cpagetyps.h"
-#include "cpage.h"
-#include "cpage_debug.h"
+#include "testconvert.h"
+#include "cpage/convert.h"
+#include "cpage/picture.h"
+#include "cpage/polyblock.h"
+#include "cpage/cpage.h"
 
-namespace cf {
-namespace cpage {
+CPPUNIT_TEST_SUITE_REGISTRATION(TestConvert);
 
-size_t convertPicture(const Picture& pict, size_t sizeIn, PolyBlock * dataOut, size_t sizeOut)
+using namespace cf;
+using namespace cpage;
+
+void TestConvert::testPicture()
 {
-    if (dataOut == NULL)
-        return sizeof(PolyBlock);
+    Picture pict;
+    pict.appendCorner(Point(0, 0));
+    pict.appendCorner(Point(100, 0));
+    pict.appendCorner(Point(100, 20));
+    pict.appendCorner(Point(0, 20));
+    PolyBlock poly;
 
-    if (sizeof(PolyBlock) != sizeOut) {
-        CPAGE_ERROR_FUNC << "invalid output data size:" << sizeOut;
-        return 0;
-    }
+    CPPUNIT_ASSERT_EQUAL(sizeof(PolyBlock), convertPicture(pict, 0, NULL, 0));
+    CPPUNIT_ASSERT_EQUAL(size_t(0), convertPicture(pict, 0, &poly, 0));
+    CPPUNIT_ASSERT_EQUAL(size_t(0), convertPicture(pict, 0, &poly, sizeof(PolyBlock)));
 
-    if (sizeof(Picture) != sizeIn) {
-        CPAGE_ERROR_FUNC << "invalid input data size:" << sizeIn;
-        return 0;
-    }
-
-    dataOut->copyVertexes(pict);
-    dataOut->setType(TYPE_PICTURE);
-    dataOut->setNumber(0);
-    return sizeof(PolyBlock);
+    CPPUNIT_ASSERT_EQUAL(sizeof(PolyBlock), convertPicture(pict, sizeof(Picture), &poly, sizeof(PolyBlock)));
+    CPPUNIT_ASSERT_EQUAL(0, poly.number());
+    CPPUNIT_ASSERT_EQUAL(pict.cornerCount(), poly.vertexCount());
+    CPPUNIT_ASSERT_EQUAL(TYPE_PICTURE, poly.type());
 }
-
-}
-}
-

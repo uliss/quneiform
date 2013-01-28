@@ -19,6 +19,8 @@
 #ifndef CPAGEDEFS_H
 #define CPAGEDEFS_H
 
+#include "cttypes.h"
+
 namespace cf {
 namespace cpage {
 class BackupPage;
@@ -31,7 +33,7 @@ typedef cf::cpage::BackupPage * PageHandle;
 
 typedef cf::cpage::PageHandle CPageHandle;
 typedef cf::cpage::Block * CBlockHandle;
-typedef int CDataType;
+typedef int32_t CDataType;
 
 enum cpage_block_flag_t {
     CPAGE_BLOCK_USER = 0x1,  //выделен пользователем
