@@ -242,8 +242,8 @@ void LayoutFromCPAGE(CPageHandle hCPAGE, CCOM_handle hCCOM)
             longjmp(fatal_error_exit, -1);
         }
         if (block.isNegative() ||
-                block.orientation() == TYPE_DOWNUP ||
-                block.orientation() == TYPE_UPDOWN)
+                block.orientation() == CPAGE_ORIENT_DOWNUP ||
+                block.orientation() == CPAGE_ORIENT_UPDOWN)
             continue;
 
         cf::Roots::add(ROOT());
@@ -300,8 +300,8 @@ void LayoutFromCPAGE(CPageHandle hCPAGE, CCOM_handle hCCOM)
             TYPE_TEXT)) {
         CPAGE_GetBlockData(h, TYPE_TEXT, &block, sizeof(cf::cpage::PolyBlock));
         if (block.isNegative() ||
-                block.orientation() == TYPE_UPDOWN ||
-                block.orientation() == TYPE_DOWNUP) {
+                block.orientation() == CPAGE_ORIENT_UPDOWN ||
+                block.orientation() == CPAGE_ORIENT_DOWNUP) {
             Rc.bottom = block.vertexY(2);
             Rc.top = block.vertexY(0);
             Rc.left = block.vertexX(0);
@@ -316,9 +316,9 @@ void LayoutFromCPAGE(CPageHandle hCPAGE, CCOM_handle hCCOM)
             }
             type_vert = 0;
             type_neg = 0;
-            if (block.orientation() == TYPE_DOWNUP)
+            if (block.orientation() == CPAGE_ORIENT_DOWNUP)
                 type_vert = 1;
-            if (block.orientation() == TYPE_UPDOWN)
+            if (block.orientation() == CPAGE_ORIENT_UPDOWN)
                 type_vert = 2;
             if (block.isNegative())
                 type_neg = 1;

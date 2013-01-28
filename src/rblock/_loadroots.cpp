@@ -311,7 +311,7 @@ Bool32 PicturesSecondStage(CCOM_handle hCCOM, CPageHandle hCPAGE)
         /* У comp нету поля флагов, поэтому используем nl */
         comp->nl = block.flags();
 
-        if (block.orientation() == TYPE_DOWNUP)
+        if (block.orientation() == CPAGE_ORIENT_DOWNUP)
             comp->nl |= FROMDOWN;
     }
 
@@ -414,20 +414,20 @@ Bool32 PicturesSecondStage(CCOM_handle hCCOM, CPageHandle hCPAGE)
         block.setAlphabet(0);
 
         if (pPics[i].nl & NEGA) {
-            block.setLight(TYPE_NEGATIVE);
+            block.setLight(CPAGE_BLOCK_NEGATIVE);
 
             if (pPics[i].nl & VERTICA) {
                 if (pPics[i].nl & FROMDOWN)
-                    block.setOrientation(TYPE_DOWNUP);
+                    block.setOrientation(CPAGE_ORIENT_DOWNUP);
                 else
-                    block.setOrientation(TYPE_UPDOWN);
+                    block.setOrientation(CPAGE_ORIENT_UPDOWN);
             }
             else
-                block.setOrientation(TYPE_LEFTRIGHT);
+                block.setOrientation(CPAGE_ORIENT_LEFTRIGHT);
         }
 
         else {
-            block.setLight(TYPE_POSITIVE);
+            block.setLight(CPAGE_BLOCK_POSITIVE);
         }
 
         sprintf(tmp_str, "  <4 О 1 %4d %4d %4d %4d %d \n", pPics[i].left,

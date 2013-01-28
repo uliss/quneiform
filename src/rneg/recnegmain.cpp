@@ -506,7 +506,7 @@ void RNEG_RecogNeg(CCOM_handle hCCOM, CPageHandle hCPage, uchar* pImageName,
 				Rc.top = (now->neg).pRc[(now->neg).nRc - 1].top;
 				Rc.bottom = (now->neg).pRc[0].bottom;
                 block.setType(TYPE_TEXT); //Текст, Картинка, Таблица;
-                block.setLight(TYPE_NEGATIVE);
+                block.setLight(CPAGE_BLOCK_NEGATIVE);
                 block.setFlags(NEGA);
 
 				//Andrey: moved from RBLOCK (keyword:TYPE_NEGATIVE)
@@ -527,9 +527,9 @@ void RNEG_RecogNeg(CCOM_handle hCCOM, CPageHandle hCPage, uchar* pImageName,
 				 */
 				if ((now->neg).Flags & FlVert) {
                     block.setFlag(VERTICA);
-                    block.setOrientation((now->neg).Flags & FlDown2Up ? TYPE_DOWNUP : TYPE_UPDOWN);
+                    block.setOrientation((now->neg).Flags & FlDown2Up ? CPAGE_ORIENT_DOWNUP : CPAGE_ORIENT_UPDOWN);
 				} else
-                    block.setOrientation(TYPE_LEFTRIGHT);
+                    block.setOrientation(CPAGE_ORIENT_LEFTRIGHT);
 
                 block.setRect(cf::Rect(cf::Point(Rc.left, Rc.top), cf::Point(Rc.right, Rc.bottom)));
 				//Andrey: create TYPE_TEXT block

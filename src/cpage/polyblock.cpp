@@ -23,8 +23,8 @@ namespace cpage {
 
 PolyBlock::PolyBlock() :
     alphabet_(0),
-    negative_(TYPE_POSITIVE),
-    orient_(TYPE_LEFTRIGHT)
+    negative_(CPAGE_BLOCK_POSITIVE),
+    orient_(CPAGE_ORIENT_LEFTRIGHT)
 {}
 
 void PolyBlock::setLight(block_light_t type)

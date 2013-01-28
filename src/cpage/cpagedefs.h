@@ -48,18 +48,16 @@ enum
 };
 
 //константы аттрибутов фрагментов (к текстовому фрагменту и к ячейке таблицы) типа: негатив - позитив для представлени
-//01.01.01 Логинов
 enum block_light_t {
-    TYPE_NEGATIVE = 1,
-    TYPE_POSITIVE = 0
+    CPAGE_BLOCK_NEGATIVE = 1,
+    CPAGE_BLOCK_POSITIVE = 0
 };
 
 //константы ориентации содержимого фрагментов (к текстовому фрагменту и к ячейке таблицы)
-//01.01.01 Логинов
 enum block_orientation_t {
-    TYPE_LEFTRIGHT = 0,
-    TYPE_UPDOWN    = 1,
-    TYPE_DOWNUP    = 2
+    CPAGE_ORIENT_LEFTRIGHT = 0,
+    CPAGE_ORIENT_UPDOWN    = 1,
+    CPAGE_ORIENT_DOWNUP    = 2
 };
 
 //Значения нижеследующих констант нельзя менять. Они используются для побитового сравнени

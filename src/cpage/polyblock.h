@@ -69,7 +69,7 @@ class PolyBlock : public cf::cpage::CommonData
 {
 public:
     PolyBlock();
-    bool isNegative() const { return negative_ == TYPE_NEGATIVE; }
+    bool isNegative() const { return negative_ == CPAGE_BLOCK_NEGATIVE; }
     void setLight(block_light_t type);
 
     void setOrientation(block_orientation_t dir);

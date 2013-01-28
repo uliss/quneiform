@@ -618,8 +618,8 @@ AGAIN:
         all_polys[i].setAlphabet(0);
         BlockNumber = all_polys[i].number();
         all_polys[i].setNumber(0);
-        all_polys[i].setLight(TYPE_POSITIVE);
-        all_polys[i].setOrientation(TYPE_LEFTRIGHT);
+        all_polys[i].setLight(CPAGE_BLOCK_POSITIVE);
+        all_polys[i].setOrientation(CPAGE_ORIENT_LEFTRIGHT);
 
         if (all_polys[i].vertexCount() == 4) {
             j++;

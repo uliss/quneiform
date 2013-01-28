@@ -29,7 +29,7 @@ void TestPolyBlock::testInit()
     PolyBlock p;
     CPPUNIT_ASSERT_EQUAL(0, p.alphabet());
     CPPUNIT_ASSERT(!p.isNegative());
-    CPPUNIT_ASSERT_EQUAL(TYPE_LEFTRIGHT, p.orientation());
+    CPPUNIT_ASSERT_EQUAL(CPAGE_ORIENT_LEFTRIGHT, p.orientation());
 }
 
 void TestPolyBlock::testSet()
@@ -37,8 +37,8 @@ void TestPolyBlock::testSet()
     PolyBlock p;
     p.setAlphabet(1);
     CPPUNIT_ASSERT_EQUAL(1, p.alphabet());
-    p.setLight(TYPE_NEGATIVE);
+    p.setLight(CPAGE_BLOCK_NEGATIVE);
     CPPUNIT_ASSERT(p.isNegative());
-    p.setOrientation(TYPE_UPDOWN);
-    CPPUNIT_ASSERT_EQUAL(TYPE_UPDOWN, p.orientation());
+    p.setOrientation(CPAGE_ORIENT_UPDOWN);
+    CPPUNIT_ASSERT_EQUAL(CPAGE_ORIENT_UPDOWN, p.orientation());
 }
