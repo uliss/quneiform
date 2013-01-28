@@ -79,60 +79,33 @@ uint32_t DefConvertBlock(uint32_t /*context*/,
                          CDataType typeIn, const void * dataIn, uint32_t sizeIn,
                          CDataType typeOut, void * dataOut, uint32_t sizeOut)
 {
-    uint32_t rc = 0;
-
     if(!dataIn) {
         CPAGE_ERROR_FUNC << "NULL input given";
         return 0;
     }
 
-    if (typeIn == TYPE_DESK) {
-        if (typeOut == varTYPE_CPAGE_TABLE)
-            rc = TYPE_DESK_to_CPAGE_TABLE((TABLE_DESC *)dataIn, sizeIn, (CPAGE_TABLE *)dataOut, sizeOut);
-    }
-    else if (typeIn == varTYPE_CPAGE_TABLE) {
-        if (typeOut == TYPE_DESK)
-            rc = CPAGE_TABLE_to_TYPE_DESK((CPAGE_TABLE *)dataIn, sizeIn, (TABLE_DESC *)dataOut, sizeOut);
-    }
-    else if (typeIn == TYPE_IMAGE) {
-        if (typeOut != varTYPE_CPAGE_PICTURE) {
-            CPAGE_DEBUG_FUNC << "unsupported output type:" << CPAGE_GetNameInternalType(typeOut);
-            return 0;
-        }
+    if(typeIn == TYPE_DESK && typeOut == varTYPE_CPAGE_TABLE)
+        return TYPE_DESK_to_CPAGE_TABLE((TABLE_DESC *)dataIn, sizeIn, (CPAGE_TABLE *)dataOut, sizeOut);
 
-        if(sizeof(cpage::PolyBlock) != sizeIn) {
-            CPAGE_ERROR_FUNC << "invalid PolyBlock input data";
-            return 0;
-        }
+    if(typeIn == varTYPE_CPAGE_TABLE && typeOut == TYPE_DESK)
+        return CPAGE_TABLE_to_TYPE_DESK((CPAGE_TABLE *)dataIn, sizeIn, (TABLE_DESC *)dataOut, sizeOut);
 
-        if(!dataOut)
-            return sizeof(cpage::Picture);
+    if(typeIn == TYPE_IMAGE && typeOut == varTYPE_CPAGE_PICTURE)
+        return cpage::polyBlockToPicture(dataIn, sizeIn, dataOut, sizeOut);
 
-        if(sizeOut != sizeof(cpage::Picture)) {
-            CPAGE_ERROR_FUNC << "invalid output data size:" << sizeOut;
-            return 0;
-        }
+    if(typeIn == varTYPE_CPAGE_PICTURE && typeOut == TYPE_IMAGE)
+        return cpage::pictureToPolyBlock(dataIn, sizeIn, dataOut, sizeOut);
 
-        const cpage::PolyBlock * poly = static_cast<const cpage::PolyBlock*>(dataIn);
-        cpage::Picture * pict = static_cast<cpage::Picture*>(dataOut);
-        pict->set(*poly);
-        return sizeof(cpage::Picture);
-    }
-    else if (typeIn == varTYPE_CPAGE_PICTURE) {
-        if (typeOut == TYPE_IMAGE)
-            rc = cpage::convertPicture(*(cpage::Picture*)dataIn,
-                                        sizeIn,
-                                        (cpage::PolyBlock *)dataOut,
-                                        sizeOut);
-    }
-
-    return rc;
+    CPAGE_ERROR_FUNC << "unsupported conversion:"
+                     << CPAGE_GetNameInternalType(typeIn)
+                     << "=>"
+                     << CPAGE_GetNameInternalType(typeOut);
+    return 0;
 }
 
 uint32_t DefConvertPage(uint32_t /*dwContext*/,
                         CDataType /*TypeIn*/, const void * /*lpDataIn*/, uint32_t /*SizeIn*/,
                         CDataType /*TypeOut*/, void * /*LpDataOut*/, uint32_t /*SizeOut*/)
 {
-    uint32_t rc = 0;
-    return rc;
+    return 0;
 }

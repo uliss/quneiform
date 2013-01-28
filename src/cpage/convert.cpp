@@ -26,10 +26,13 @@
 namespace cf {
 namespace cpage {
 
-size_t convertPicture(const Picture& pict, size_t sizeIn, PolyBlock * dataOut, size_t sizeOut)
+size_t pictureToPolyBlock(const void * dataIn, size_t sizeIn, void * dataOut, size_t sizeOut)
 {
     if (dataOut == NULL)
         return sizeof(PolyBlock);
+
+    if(dataIn == NULL)
+        return 0;
 
     if (sizeof(PolyBlock) != sizeOut) {
         CPAGE_ERROR_FUNC << "invalid output data size:" << sizeOut;
@@ -41,10 +44,44 @@ size_t convertPicture(const Picture& pict, size_t sizeIn, PolyBlock * dataOut, s
         return 0;
     }
 
-    dataOut->copyVertexes(pict);
-    dataOut->setType(TYPE_PICTURE);
-    dataOut->setNumber(0);
+    const Picture * pict = static_cast<const Picture*>(dataIn);
+    PolyBlock * poly = static_cast<PolyBlock*>(dataOut);
+    return pictureToPolyBlock(pict, poly);
+}
+
+size_t pictureToPolyBlock(const Picture * pict, PolyBlock * poly)
+{
+    if(!pict || !poly)
+        return 0;
+
+    poly->copyVertexes(*pict);
+    poly->setType(TYPE_PICTURE);
+    poly->setNumber(0);
     return sizeof(PolyBlock);
+}
+
+size_t polyBlockToPicture(const void * dataIn, size_t sizeIn, void * dataOut, size_t sizeOut)
+{
+    if(sizeof(cpage::PolyBlock) != sizeIn) {
+        CPAGE_ERROR_FUNC << "invalid input data size:" << sizeIn;
+        return 0;
+    }
+
+    if(!dataOut)
+        return sizeof(cpage::Picture);
+
+    if(!dataIn)
+        return 0;
+
+    if(sizeOut != sizeof(cpage::Picture)) {
+        CPAGE_ERROR_FUNC << "invalid output data size:" << sizeOut;
+        return 0;
+    }
+
+    const cpage::PolyBlock * poly = static_cast<const cpage::PolyBlock*>(dataIn);
+    cpage::Picture * pict = static_cast<cpage::Picture*>(dataOut);
+    pict->set(*poly);
+    return sizeof(cpage::Picture);
 }
 
 }

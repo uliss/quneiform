@@ -22,6 +22,7 @@
 #include "cttypes.h"
 
 namespace cf {
+
 namespace cpage {
 class BackupPage;
 class Block;

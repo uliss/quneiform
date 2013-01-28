@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2012 by Serge Poltavski                                 *
+ *   Copyright (C) 2013 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,31 +16,48 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef CONVERT_H
-#define CONVERT_H
+#ifndef CF_CPAGE_TABLECELL_H
+#define CF_CPAGE_TABLECELL_H
 
-#include "table.h"
-
-void DefConvertInit();
-uint32_t DefConvertBlock(uint32_t,
-                          CDataType typeIn, const void *dataIn, uint32_t sizeIn,
-                          CDataType typeOut, void * dataOut, uint32_t sizeOut);
-uint32_t DefConvertPage(uint32_t context,
-                         CDataType typeIn, const void * dataIn, uint32_t sizeIn,
-                         CDataType typeOut, void * dataOut, uint32_t sizeOut);
-
-uint32_t TYPE_DESK_to_CPAGE_TABLE(TABLE_DESC * lpDataIn, uint32_t SizeIn, CPAGE_TABLE * LpDataOut, uint32_t SizeOut);
-uint32_t CPAGE_TABLE_to_TYPE_DESK(CPAGE_TABLE * lpDataIn, uint32_t SizeIn, TABLE_DESC * LpDataOut, uint32_t SizeOut);
+#include "cttypes.h"
+#include "commondata.h"
 
 namespace cf {
 namespace cpage {
 
-class PolyBlock;
+class TableCell
+{
+    int32_t number_; // Номер ячейки физической таблицы ( начиная с 1 )
+    Point32 coord_; // Координаты привязки к физической ячейке
+    int32_t fragm_number_; // Номер фрагмента
+    int32_t geom_count_; // число геометрических ячеек, входящих в физическую
+public:
+    TableCell();
 
-size_t pictureToPolyBlock(const Picture * dataIn, PolyBlock * poly);
-size_t pictureToPolyBlock(const void * dataIn, size_t sizeIn, void * dataOut, size_t sizeOut);
-size_t polyBlockToPicture(const void * dataIn, size_t sizeIn, void * dataOut, size_t sizeOut);
-}
-}
+    int number() const;
+    void setNumber(int n);
 
-#endif // CONVERT_H
+    Point point() const;
+    void setPoint(const Point& pt);
+
+    int32_t geomCount() const {
+        return geom_count_;
+    }
+
+    bool isPhysic() const {
+        return geom_count_ > 1;
+    }
+
+    int32_t& Fragment() {
+        return fragm_number_;
+    }
+
+    int32_t& GeCount() {
+        return geom_count_;
+    }
+};
+
+} // namespace cpage
+} // namespace cf
+
+#endif // CF_CPAGE_TABLECELL_H

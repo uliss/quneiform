@@ -17,6 +17,8 @@ set(CF_CPAGE_SOURCES
     polyblock.cpp
     table.cpp
     tableclass.cpp
+    tablecell.cpp
+    tableline.cpp
     convert.h
     internal.h
 )

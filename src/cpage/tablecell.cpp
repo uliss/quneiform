@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2012 by Serge Poltavski                                 *
+ *   Copyright (C) 2013 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,31 +16,37 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef CONVERT_H
-#define CONVERT_H
-
-#include "table.h"
-
-void DefConvertInit();
-uint32_t DefConvertBlock(uint32_t,
-                          CDataType typeIn, const void *dataIn, uint32_t sizeIn,
-                          CDataType typeOut, void * dataOut, uint32_t sizeOut);
-uint32_t DefConvertPage(uint32_t context,
-                         CDataType typeIn, const void * dataIn, uint32_t sizeIn,
-                         CDataType typeOut, void * dataOut, uint32_t sizeOut);
-
-uint32_t TYPE_DESK_to_CPAGE_TABLE(TABLE_DESC * lpDataIn, uint32_t SizeIn, CPAGE_TABLE * LpDataOut, uint32_t SizeOut);
-uint32_t CPAGE_TABLE_to_TYPE_DESK(CPAGE_TABLE * lpDataIn, uint32_t SizeIn, TABLE_DESC * LpDataOut, uint32_t SizeOut);
+#include "tablecell.h"
 
 namespace cf {
 namespace cpage {
 
-class PolyBlock;
-
-size_t pictureToPolyBlock(const Picture * dataIn, PolyBlock * poly);
-size_t pictureToPolyBlock(const void * dataIn, size_t sizeIn, void * dataOut, size_t sizeOut);
-size_t polyBlockToPicture(const void * dataIn, size_t sizeIn, void * dataOut, size_t sizeOut);
+TableCell::TableCell() :
+    number_(0),
+    geom_count_(0),
+    fragm_number_(0)
+{
 }
+
+int TableCell::number() const
+{
+    return number_;
 }
 
-#endif // CONVERT_H
+void TableCell::setNumber(int n)
+{
+    number_ = n;
+}
+
+Point TableCell::point() const
+{
+    return coord_;
+}
+
+void TableCell::setPoint(const Point& pt)
+{
+    coord_ = pt;
+}
+
+} // namespace cpage
+} // namespace cf

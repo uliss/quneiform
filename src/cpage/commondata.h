@@ -97,7 +97,7 @@ public:
     int vertexY(size_t pos) const;
     size_t vertexCount() const;
 private:
-    CDataType type_; //Текст, Картинка, Таблица;
+    CDataType type_; // Текст, Картинка, Таблица;
     uint16_t count_;
     int16_t number_; // порядковый номер
     uint32_t flags_;

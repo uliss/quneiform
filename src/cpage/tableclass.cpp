@@ -54,72 +54,11 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-// TableClass.cpp: implementation of the TableClass class.
-//
-//////////////////////////////////////////////////////////////////////
-#include "mymem.h"
 #include "tableclass.h"
-using namespace cf;
 
-//////////////////////////////////////////////////////////////////////
-// Construction/Destruction
-//////////////////////////////////////////////////////////////////////
-TableCell::TableCell()
-{
-    m_nNumber = 0;
-    m_nBlock = 0;
-    m_nGeCount = 0;
-}
-TableCell::~TableCell()
-{
-}
-//////////////////////////////////////////////////////////////////////
-// Construction/Destruction
-//////////////////////////////////////////////////////////////////////
-TableLine::TableLine()
-{
-    m_nCoord = 0;
-    //m_nItems = 0;
-}
-//////////////////////////////////////////////////////////////////////
-TableLine::~TableLine()
-{
-}
-//////////////////////////////////////////////////////////////////////
-Bool32 TableLine::Create(int32_t nCoord, uint32_t nItems)
-{
-    Bool32 rc = FALSE;
-    m_nCoord = nCoord;
-    //m_nItems = nItems;
-    rc = m_lpProperty.Create(nItems);
-    return rc;
-}
-//////////////////////////////////////////////////////////////////////
-void TableLine::Delete()
-{
-    m_nCoord = 0;
-    //m_nItems = 0;
-    m_lpProperty.Delete();
-}
-//////////////////////////////////////////////////////////////////////
-Bool32 TableLine::Attach(CPageHandle hPage)
-{
-    return m_lpProperty.Attach(hPage);
-}
-//////////////////////////////////////////////////////////////////////
-Bool32 TableLine::Store(CPageHandle hPage)
-{
-    return m_lpProperty.Store(hPage);
-}
-//////////////////////////////////////////////////////////////////////
-void TableLine::Remove(CPageHandle hPage)
-{
-    m_lpProperty.Remove(hPage);
-}
+namespace cf {
+namespace cpage {
 
-//////////////////////////////////////////////////////////////////////
-// Construction/Destruction
-//////////////////////////////////////////////////////////////////////
 TableClass::TableClass()
 {
     //m_nVer = 0;
@@ -294,8 +233,8 @@ void TableClass::Update()
     for (int i = 0; i < nRow; i++) {
         for (int j = 0; j < nCol; j++) {
             if (i && !m_lpHorLines[i].IsRealy(j)) {// нет горизонтального разделителя сверху
-                p = m_lpCell[(i - 1) * nCol + j].Point();
-                n = m_lpCell[(i - 1) * nCol + j];
+                p = m_lpCell[(i - 1) * nCol + j].point();
+                n = m_lpCell[(i - 1) * nCol + j].number();
             }
 
             else if (!j || m_lpVerLines[j].IsRealy(i)) {// есть вертикальный разделитель слева
@@ -305,14 +244,18 @@ void TableClass::Update()
             }
 
             else {// есть гор. разделитель сверху и нет верт. справа
-                p = m_lpCell[i * nCol + j - 1].Point();
-                n = m_lpCell[i * nCol + j - 1];
+                p = m_lpCell[i * nCol + j - 1].point();
+                n = m_lpCell[i * nCol + j - 1].number();
             }
 
-            m_lpCell[i * nCol + j] = n;
-            m_lpCell[i * nCol + j] = p;
+            m_lpCell[i * nCol + j].setNumber(n);
+            m_lpCell[i * nCol + j].setPoint(p);
             m_lpCell[i * nCol + j].Fragment() = -1;
             m_lpCell[i * nCol + j].GeCount()++;
         }
     }
+}
+
+}
+
 }
