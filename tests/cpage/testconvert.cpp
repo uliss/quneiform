@@ -21,6 +21,7 @@
 #include "cpage/picture.h"
 #include "cpage/polyblock.h"
 #include "cpage/cpage.h"
+#include "common/tostring.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestConvert);
 
@@ -36,12 +37,31 @@ void TestConvert::testPicture()
     pict.appendCorner(Point(0, 20));
     PolyBlock poly;
 
-    CPPUNIT_ASSERT_EQUAL(sizeof(PolyBlock), convertPicture(pict, 0, NULL, 0));
-    CPPUNIT_ASSERT_EQUAL(size_t(0), convertPicture(pict, 0, &poly, 0));
-    CPPUNIT_ASSERT_EQUAL(size_t(0), convertPicture(pict, 0, &poly, sizeof(PolyBlock)));
+    CPPUNIT_ASSERT_EQUAL(sizeof(PolyBlock), pictureToPolyBlock(&pict, 0, NULL, 0));
+    CPPUNIT_ASSERT_EQUAL(size_t(0), pictureToPolyBlock(&pict, 0, &poly, 0));
+    CPPUNIT_ASSERT_EQUAL(size_t(0), pictureToPolyBlock(NULL, 0, &poly, 0));
+    CPPUNIT_ASSERT_EQUAL(size_t(0), pictureToPolyBlock(&pict, 0, &poly, sizeof(PolyBlock)));
 
-    CPPUNIT_ASSERT_EQUAL(sizeof(PolyBlock), convertPicture(pict, sizeof(Picture), &poly, sizeof(PolyBlock)));
+    CPPUNIT_ASSERT_EQUAL(sizeof(PolyBlock), pictureToPolyBlock(&pict, sizeof(Picture), &poly, sizeof(PolyBlock)));
     CPPUNIT_ASSERT_EQUAL(0, poly.number());
     CPPUNIT_ASSERT_EQUAL(pict.cornerCount(), poly.vertexCount());
     CPPUNIT_ASSERT_EQUAL(TYPE_PICTURE, poly.type());
+}
+
+void TestConvert::testPolyToPict()
+{
+    PolyBlock poly;
+    poly.setRect(Rect(0, 0, 100, 200));
+    Picture pict;
+
+    CPPUNIT_ASSERT_EQUAL(size_t(0), polyBlockToPicture(NULL, 0, NULL, 0));
+    CPPUNIT_ASSERT_EQUAL(sizeof(Picture), polyBlockToPicture(NULL, sizeof(PolyBlock), NULL, 0));
+    CPPUNIT_ASSERT_EQUAL(size_t(0), polyBlockToPicture(&poly, sizeof(PolyBlock), &pict, 0));
+    CPPUNIT_ASSERT_EQUAL(size_t(0), polyBlockToPicture(NULL, sizeof(PolyBlock), &pict, sizeof(Picture)));
+    CPPUNIT_ASSERT_EQUAL(sizeof(Picture), polyBlockToPicture(&poly, sizeof(PolyBlock), &pict, sizeof(Picture)));
+    CPPUNIT_ASSERT_EQUAL(size_t(4), pict.cornerCount());
+    CPPUNIT_ASSERT_EQUAL(Point(0, 0), pict.cornerAt(0));
+    CPPUNIT_ASSERT_EQUAL(Point(100, 0), pict.cornerAt(1));
+    CPPUNIT_ASSERT_EQUAL(Point(100, 200), pict.cornerAt(2));
+    CPPUNIT_ASSERT_EQUAL(Point(0, 200), pict.cornerAt(3));
 }

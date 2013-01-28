@@ -25,9 +25,11 @@ class TestConvert : public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE(TestConvert);
     CPPUNIT_TEST(testPicture);
+    CPPUNIT_TEST(testPolyToPict);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testPicture();
+    void testPolyToPict();
 };
 
 #endif // TESTCONVERT_H
