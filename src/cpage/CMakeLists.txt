@@ -2,6 +2,7 @@ set(CF_CPAGE_SOURCES
     backup.cpp
     block.cpp
     commondata.cpp
+    convert.cpp
     cpage.cpp
     cpagedefs.h
     cpicture.cpp

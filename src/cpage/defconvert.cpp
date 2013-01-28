@@ -58,6 +58,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "convert.h"
 #include "picture.h"
 #include "internal.h"
+#include "cpagetyps.h"
+#include "cpage.h"
 #include "cpage_debug.h"
 
 static CDataType varTYPE_CPAGE_TABLE = 0;
@@ -118,10 +120,10 @@ uint32_t DefConvertBlock(uint32_t /*context*/,
     }
     else if (typeIn == varTYPE_CPAGE_PICTURE) {
         if (typeOut == TYPE_IMAGE)
-            rc = CPAGE_PICTURE_to_TYPE_PICTURE(*(cpage::Picture*)dataIn,
-                                               sizeIn,
-                                               (cpage::PolyBlock *)dataOut,
-                                               sizeOut);
+            rc = cpage::pictureConvert(*(cpage::Picture*)dataIn,
+                                        sizeIn,
+                                        (cpage::PolyBlock *)dataOut,
+                                        sizeOut);
     }
 
     return rc;

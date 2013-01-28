@@ -59,6 +59,7 @@
 #include "backup.h"
 #include "block.h"
 #include "convert.h"
+#include "mymem.h"
 #include "pagestorage.h"
 
 using namespace cf;

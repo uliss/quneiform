@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2012 by Serge Poltavski                                 *
+ *   Copyright (C) 2013 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,30 +16,37 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef CONVERT_H
-#define CONVERT_H
-
-#include "table.h"
-
-void DefConvertInit();
-uint32_t DefConvertBlock(uint32_t,
-                          CDataType typeIn, const void *dataIn, uint32_t sizeIn,
-                          CDataType typeOut, void * dataOut, uint32_t sizeOut);
-uint32_t DefConvertPage(uint32_t context,
-                         CDataType typeIn, const void * dataIn, uint32_t sizeIn,
-                         CDataType typeOut, void * dataOut, uint32_t sizeOut);
-
-uint32_t TYPE_DESK_to_CPAGE_TABLE(TABLE_DESC * lpDataIn, uint32_t SizeIn, CPAGE_TABLE * LpDataOut, uint32_t SizeOut);
-uint32_t CPAGE_TABLE_to_TYPE_DESK(CPAGE_TABLE * lpDataIn, uint32_t SizeIn, TABLE_DESC * LpDataOut, uint32_t SizeOut);
+#include "convert.h"
+#include "picture.h"
+#include "polyblock.h"
+#include "cpagetyps.h"
+#include "cpage.h"
+#include "cpage_debug.h"
 
 namespace cf {
 namespace cpage {
 
-class PolyBlock;
+size_t pictureConvert(const Picture& pict, size_t sizeIn, PolyBlock * dataOut, size_t sizeOut)
+{
+    if (dataOut == NULL)
+        return sizeof(PolyBlock);
 
-size_t pictureConvert(const Picture& dataIn, size_t sizeIn, PolyBlock * dataOut, size_t sizeOut);
+    if (sizeof(PolyBlock) != sizeOut) {
+        CPAGE_ERROR_FUNC << "invalid output data size:" << sizeOut;
+        return 0;
+    }
+
+    if (sizeof(Picture) != sizeIn) {
+        CPAGE_ERROR_FUNC << "invalid input data size:" << sizeIn;
+        return 0;
+    }
+
+    dataOut->copyVertexes(pict);
+    dataOut->setType(TYPE_PICTURE);
+    dataOut->setNumber(0);
+    return sizeof(PolyBlock);
+}
 
 }
 }
 
-#endif // CONVERT_H
