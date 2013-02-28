@@ -123,9 +123,10 @@ Rect GetPictRect(uint NumberPict, uint32_t * UserNumber) {
 
     *UserNumber = (uint32_t) CPAGE_GetBlockUserNum(h_Pict);
 
-    Point Lr, Wh;
-    if (CPAGE_PictureGetPlace(h_Page, h_Pict, 0, &Lr, &Wh))
-        return Rect(Lr - TemplateOffset, Wh.x(), Wh.y());
+    Point pos;
+    Size sz;
+    if (CPAGE_PictureGetPlace(h_Page, h_Pict, 0, &pos, &sz))
+        return Rect(pos - TemplateOffset, sz.width(), sz.height());
     else
         throw std::runtime_error("[GetPictRect] CPAGE_PictureGetPlace failed");
 }
@@ -153,27 +154,27 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
 
     CIMAGE_InfoDataInGet in;
     BitmapInfoHeader image_info;
-    Point Lr;
-    Point Wh;
+    Point pos;
+    Size Wh;
     Point LrN;
-    Point WhN;
+    Size WhN;
 
     if (CIMAGE_GetImageInfo(pinfo.szImageName, &image_info) == FALSE)
         return false;
 
-    CPAGE_PictureGetPlace(h_Page, h_Pict, 0, &Lr, &Wh);
+    CPAGE_PictureGetPlace(h_Page, h_Pict, 0, &pos, &Wh);
     CPAGE_PictureGetPlace(h_Page, h_Pict, -pinfo.Incline2048, &LrN, &WhN);
-    Lr.rx() -= TemplateOffset.x();
-    Lr.ry() -= TemplateOffset.y();
-    int FrameOffset = abs(WhN.x() - Wh.x());
+    pos.rx() -= TemplateOffset.x();
+    pos.ry() -= TemplateOffset.y();
+    int FrameOffset = abs(WhN.width() - Wh.width());
 
-    if (Lr.x() < 0)
-        FrameOffset += abs(Lr.x());
+    if (pos.x() < 0)
+        FrameOffset += abs(pos.x());
 
     // Получим картинку из исходного изображения задав ее контур
     //определяем размер маски
 
-    if (!CPAGE_PictureGetPlace(h_Page, h_Pict, -pinfo.Incline2048, &Lr, &Wh))
+    if (!CPAGE_PictureGetPlace(h_Page, h_Pict, -pinfo.Incline2048, &pos, &Wh))
         return false;
 
     Bool rc = TRUE;
@@ -181,28 +182,28 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
     //piter : Корректируем координаты из-за повернута страницы.
     switch (pinfo.Angle) {
     case 0:
-        in.dwX = Lr.x();
-        in.dwY = Lr.y();
-        in.dwWidth = Wh.x();
-        in.dwHeight = Wh.y();
+        in.dwX = pos.x();
+        in.dwY = pos.y();
+        in.dwWidth = Wh.width();
+        in.dwHeight = Wh.height();
         break;
     case 270:
-        in.dwX = pinfo.Width - (Wh.y() + Lr.y());
-        in.dwY = Lr.x();
-        in.dwWidth = Wh.y();
-        in.dwHeight = Wh.x();
+        in.dwX = pinfo.Width - (Wh.height() + pos.y());
+        in.dwY = pos.x();
+        in.dwWidth = Wh.height();
+        in.dwHeight = Wh.width();
         break;
     case 180:
-        in.dwX = pinfo.Width - (Wh.x() + Lr.x());
-        in.dwY = pinfo.Height - (Wh.y() + Lr.y());
-        in.dwWidth = Wh.x();
-        in.dwHeight = Wh.y();
+        in.dwX = pinfo.Width - (Wh.width() + pos.x());
+        in.dwY = pinfo.Height - (Wh.height() + pos.y());
+        in.dwWidth = Wh.width();
+        in.dwHeight = Wh.height();
         break;
     case 90:
-        in.dwX = Lr.y();
-        in.dwY = pinfo.Height - (Wh.x() + Lr.x());
-        in.dwWidth = Wh.y();
-        in.dwHeight = Wh.x();
+        in.dwX = pos.y();
+        in.dwY = pinfo.Height - (Wh.width() + pos.x());
+        in.dwWidth = Wh.height();
+        in.dwHeight = Wh.width();
         break;
     }
 
@@ -257,17 +258,18 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
     }
 
     // Маскируем полученное изображение
-    Point ptLt, ptWh;
+    Point ptLt;
+    Size sz;
 
-    if (rc && CPAGE_PictureGetPlace(h_Page, h_Pict, 0, &ptLt, &ptWh)) {
+    if (rc && CPAGE_PictureGetPlace(h_Page, h_Pict, 0, &ptLt, &sz)) {
         if (pinfo.Incline2048 >= 0) {
-            in.dwX = ptWh.y() * pinfo.Incline2048 / 2048;
+            in.dwX = sz.height() * pinfo.Incline2048 / 2048;
             in.dwY = 0;
         } else {
             in.dwX = 0;
             //  Beg of Almi Corr
             //                      in.dwY = ptWh.x*pinfo.Incline2048/2048;
-            in.dwY = (-ptWh.x() * pinfo.Incline2048 / 2048);
+            in.dwY = (-sz.width() * pinfo.Incline2048 / 2048);
             //  End of Almi Corr
         }
 
@@ -277,8 +279,8 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
             in.dwY = 0;
         }
 
-        in.dwWidth = ptWh.x();
-        in.dwHeight = ptWh.y();
+        in.dwWidth = sz.width();
+        in.dwHeight = sz.height();
         in.wByteWidth = (unsigned short) ((in.dwWidth + 7) / 8); //?
         // Получим размер маски
         uint32_t nSize = 0;
@@ -321,14 +323,14 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
         delete pTmpDIB;
         Rect indent;
         Rect playout;
-        Lr.rx() = MAX(0, Lr.x());
-        Lr.ry() = MAX(0, Lr.y());
+        pos.rx() = MAX(0, pos.x());
+        pos.ry() = MAX(0, pos.y());
 
         Rect slayout;
-        slayout.rleft() = Lr.x();
-        slayout.rright() = Lr.x() + Wh.x();
-        slayout.rtop() = Lr.y();
-        slayout.rbottom() = Lr.y() + Wh.y();
+        slayout.rleft() = pos.x();
+        slayout.rright() = pos.x() + Wh.width();
+        slayout.rtop() = pos.y();
+        slayout.rbottom() = pos.y() + Wh.height();
         hPrevObject = SectorInfo->hObject;
 
         if (SectorInfo->FlagInColumn || (OutPutTypeFrame && SectorInfo->FlagFictiveParagraph)) {
@@ -345,8 +347,8 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
                 Rect EdFragmRect;
                 EdFragmRect.setLeft(MAX(0, SectorInfo->OffsetFromColumn.x()));
                 EdFragmRect.setTop(MAX(0, SectorInfo->OffsetFromColumn.y()));
-                EdFragmRect.setWidth(MAX(0, Wh.x() - FrameOffset));
-                EdFragmRect.setHeight(Wh.y());
+                EdFragmRect.setWidth(MAX(0, Wh.width() - FrameOffset));
+                EdFragmRect.setHeight(Wh.height());
 
                 CEDFrame * frame = new CEDFrame(NULL, CEDFrame::HPOS_COLUMN,
                         CEDFrame::VPOS_PARAGRAPH);
@@ -355,10 +357,10 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
                 SectorInfo->hObject = frame;
             } else {
                 Rect EdFragmRect;
-                EdFragmRect.setLeft(Lr.x() - SectorInfo->Offset.x());
-                EdFragmRect.setTop(Lr.y() - SectorInfo->Offset.y());
-                EdFragmRect.setWidth(MAX(0, Wh.x() - FrameOffset));
-                EdFragmRect.setHeight(Wh.y());
+                EdFragmRect.setLeft(pos.x() - SectorInfo->Offset.x());
+                EdFragmRect.setTop(pos.y() - SectorInfo->Offset.y());
+                EdFragmRect.setWidth(MAX(0, Wh.width() - FrameOffset));
+                EdFragmRect.setHeight(Wh.height());
                 CEDFrame * frame = new CEDFrame(NULL, CEDFrame::HPOS_COLUMN,
                         CEDFrame::VPOS_PARAGRAPH);
                 frame->setBoundingRect(EdFragmRect);

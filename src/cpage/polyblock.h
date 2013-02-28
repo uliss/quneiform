@@ -65,7 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 namespace cf {
 namespace cpage {
 
-class PolyBlock : public cf::cpage::CommonData
+class PolyBlock : public CommonData
 {
 public:
     PolyBlock();

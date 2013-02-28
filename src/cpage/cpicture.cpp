@@ -64,6 +64,7 @@
 #include "polyblock.h"
 #include "internal.h"
 #include "picture.h"
+#include "cpage_debug.h"
 
 using namespace cf;
 
@@ -89,43 +90,42 @@ CBlockHandle CPAGE_PictureGetNext(CPageHandle hPage, CBlockHandle hPicture)
              p.rx() = (int32_t) (p.x() + (int32_t) p.y() * a / 2048);\
         }
 
-bool CPAGE_PictureGetPlace(CPageHandle hPage, CBlockHandle hPicture, int32_t Skew2048, Point * lpLr,
-                             Point * lpWh)
+bool CPAGE_PictureGetPlace(CPageHandle page, CBlockHandle picture, int32_t skew2048, Point * pos,
+                             Size * size)
 {
-    Bool32 rc = FALSE;
-    cf::cpage::Picture pict;
-    Point lt, rb;
-    assert(lpLr);
-    assert(lpWh);
-
-    if (CPAGE_GetBlockData(hPicture, TYPE_CPAGE_PICTURE, &pict, sizeof(pict)) == sizeof(pict)) {
-        lt = pict.cornerAt(0);
-        rb = pict.cornerAt(0);
-        ROTATE_2048(lt, Skew2048);
-
-        for (uint32_t i = 1; i < pict.cornerCount(); i++) {
-            pict.rotateCorner(i, Skew2048);
-
-            if (lt.x() > pict.cornerAt(i).x())
-                lt.rx() = pict.cornerAt(i).x();
-
-            if (lt.y() > pict.cornerAt(i).y())
-                lt.ry() = pict.cornerAt(i).y();
-
-            if (rb.x() < pict.cornerAt(i).x())
-                rb.rx() = pict.cornerAt(i).x();
-
-            if (rb.y() < pict.cornerAt(i).y())
-                rb.ry() = pict.cornerAt(i).y();
-        }
-
-        *lpLr = lt;
-        lpWh->rx() = rb.x() - lt.x();
-        lpWh->ry() = rb.y() - lt.y();
-        rc = TRUE;
+    if(!pos || !size) {
+        CPAGE_ERROR_FUNC << "NULL point output arguments";
+        return false;
     }
 
-    return rc;
+    cf::cpage::Picture pict;
+
+    if (CPAGE_GetBlockData(picture, TYPE_CPAGE_PICTURE, &pict, sizeof(pict)) != sizeof(pict)) {
+        CPAGE_ERROR_FUNC << "invalid picture data";
+        return false;
+    }
+
+    if(pict.cornerCount() < 1) {
+        CPAGE_ERROR_FUNC << "empty picture data";
+        return false;
+    }
+
+    pict.rotate(skew2048);
+    Point left_top = pict.cornerAt(0);
+    Point right_bottom = left_top;
+
+    for (size_t i = 1; i < pict.cornerCount(); i++) {
+        Point pt = pict.cornerAt(i);
+        left_top.rx() = std::min(left_top.x(), pt.x());
+        left_top.ry() = std::min(left_top.y(), pt.y());
+        right_bottom.rx() = std::max(right_bottom.x(), pt.x());
+        right_bottom.ry() = std::max(right_bottom.y(), pict.cornerAt(i).y());
+    }
+
+    *pos = left_top;
+    size->setWidth(PointXDistance(right_bottom, left_top));
+    size->setHeight(PointYDistance(right_bottom, left_top));
+    return true;
 }
 
 #define MAXDIFF 0 // максимальное расхождение в координатах при определении верт или гор.

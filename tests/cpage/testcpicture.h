@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2012 by Serge Poltavski                                 *
+ *   Copyright (C) 2013 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,35 +16,20 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef PICTURE_H
-#define PICTURE_H
+#ifndef TESTCPICTURE_H
+#define TESTCPICTURE_H
 
-#include "cttypes.h"
-#include "cpagedefs.h"
-#include "common/point.h"
+#include <cppunit/extensions/HelperMacros.h>
 
-namespace cf {
-namespace cpage {
-
-class PolyBlock;
-
-class Picture
+class TestCPicture : public CppUnit::TestFixture
 {
+    CPPUNIT_TEST_SUITE(TestCPicture);
+    CPPUNIT_TEST(testGetPlace);
+    CPPUNIT_TEST_SUITE_END();
 public:
-    Picture();
-    void appendCorner(const Point& pt);
-    void clear();
-    Point cornerAt(size_t pos) const;
-    size_t cornerCount() const;
-    void rotate(int skew2048);
-    void rotateCorner(size_t pos, int skew2048);
-    void set(const PolyBlock& polygon);
-private:
-    size_t number_;
-    cf::Point corners_[CPAGE_MAXCORNER];
+    void tearDown();
+    void testGetPlace();
 };
 
-}
-}
 
-#endif // PICTURE_H
+#endif // TESTCPICTURE_H

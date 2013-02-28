@@ -4,6 +4,7 @@ add_executable(test_cpage
     testblock.cpp
     testcommondata.cpp
     testconvert.cpp
+    testcpicture.cpp
     testdata.cpp
     testpage.cpp
     testpagestorage.cpp

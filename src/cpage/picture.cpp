@@ -75,6 +75,11 @@ void Picture::appendCorner(const Point& pt)
     number_++;
 }
 
+void Picture::clear()
+{
+    number_ = 0;
+}
+
 Point Picture::cornerAt(size_t pos) const
 {
     assert(pos < CPAGE_MAXCORNER);
@@ -91,12 +96,25 @@ size_t Picture::cornerCount() const
     return number_;
 }
 
+void Picture::rotate(int skew2048)
+{
+    for(size_t i = 0; i < number_; i++)
+        rotateCorner(i, skew2048);
+}
+
 void Picture::rotateCorner(size_t pos, int skew2048)
 {
     assert(pos < CPAGE_MAXCORNER);
 
-    corners_[pos].ry() = corners_[pos].y() - corners_[pos].x() * skew2048 / 2048;
-    corners_[pos].rx() = corners_[pos].x() + corners_[pos].y() * skew2048 / 2048;
+    double x = corners_[pos].x();
+    double y = corners_[pos].y();
+
+    y = y - x * skew2048 / 2048.0;
+    x = x + y * skew2048 / 2048.0;
+    y = ceil(y);
+    x = ceil(x);
+
+    corners_[pos].set(static_cast<int>(x), static_cast<int>(y));
 }
 
 void Picture::set(const PolyBlock& polygon)

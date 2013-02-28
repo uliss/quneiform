@@ -59,6 +59,18 @@ void TestPicture::testRotate()
 
     CPPUNIT_ASSERT_EQUAL(Point(100, 0), p.cornerAt(0));
     CPPUNIT_ASSERT_EQUAL(Point(-200, -200), p.cornerAt(1));
+
+    p.clear();
+    p.appendCorner(Point(0, 0));
+    p.appendCorner(Point(100, 0));
+    p.appendCorner(Point(100, 100));
+    p.appendCorner(Point(0, 100));
+
+    p.rotate(2048 / 90 * 5); // 5 degries
+    CPPUNIT_ASSERT_EQUAL(Point(0, 0), p.cornerAt(0));
+    CPPUNIT_ASSERT_EQUAL(Point(100, -5), p.cornerAt(1));
+    CPPUNIT_ASSERT_EQUAL(Point(106, 95), p.cornerAt(2));
+    CPPUNIT_ASSERT_EQUAL(Point(6, 100), p.cornerAt(3));
 }
 
 void TestPicture::testConvert()
