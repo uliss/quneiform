@@ -76,6 +76,28 @@ void TestCPicture::testGetFirstNext()
     CPPUNIT_ASSERT(!CPAGE_PictureGetNext(h_page, pict));
 }
 
+void TestCPicture::testGetMask()
+{
+    h_page = CPAGE_CreatePage(CPAGE_GetInternalType("test_picture"), NULL, 0);
+    CBlockHandle pict = CPAGE_CreateBlock(h_page, TYPE_CPAGE_PICTURE, 3, 0, NULL, 0);
+
+    CPPUNIT_ASSERT(!CPAGE_PictureGetMask(pict, NULL, NULL));
+
+    uint32_t sz = 0;
+    CPPUNIT_ASSERT(!CPAGE_PictureGetMask(pict, NULL, &sz));
+
+    cpage::Picture pict_data;
+    pict_data.appendCorner(Point());
+    CPAGE_SetBlockData(pict, TYPE_CPAGE_PICTURE, &pict_data, sizeof(pict_data));
+    CPPUNIT_ASSERT(!CPAGE_PictureGetMask(pict, NULL, &sz));
+    pict_data.appendCorner(Point(20, 0));
+    pict_data.appendCorner(Point(20, 50));
+    pict_data.appendCorner(Point(0, 50));
+    CPAGE_SetBlockData(pict, TYPE_CPAGE_PICTURE, &pict_data, sizeof(pict_data));
+    CPPUNIT_ASSERT(CPAGE_PictureGetMask(pict, NULL, &sz));
+    CPPUNIT_ASSERT_EQUAL(150, (int) sz);
+}
+
 void TestCPicture::tearDown()
 {
     if(h_page) {

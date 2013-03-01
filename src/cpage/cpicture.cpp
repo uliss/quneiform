@@ -116,7 +116,7 @@ bool CPAGE_PictureGetPlace(CBlockHandle picture, int skew2048, Point * pos, Size
     return true;
 }
 
-#define MAXDIFF 0 // максимальное расхождение в координатах при определении верт или гор.
+static const int MAXDIFF = 0; // максимальное расхождение в координатах при определении верт или гор.
 //При значениях >0 работает неверно при заполнении массивов lpVer и lpHor при коротких линиях !!! Art
 
 static int CompareLong(const void *arg1, const void *arg2)
@@ -136,156 +136,163 @@ static int GetIndex(long * lpLong, long nLong, long n)
     return i;
 }
 
-bool CPAGE_PictureGetMask(CBlockHandle hPicture, char * data, uint32_t * size)
+static void countDelims(int * hor, int * vert, const cpage::Picture& pict)
 {
-    bool rc = FALSE;
-    SetReturnCode_cpage(IDS_ERR_NO);
-    assert(size);
-    cf::cpage::Picture pict;
+    for (int i = 0; i < pict.cornerCount(); i++) {
+        const int ci = (i + 1) % pict.cornerCount();
+        const Point p0 = pict.cornerAt(i);
+        const Point p1 = pict.cornerAt(ci);
 
-    if (CPAGE_GetBlockData(hPicture, TYPE_CPAGE_PICTURE, &pict, sizeof(pict)) == sizeof(pict)) {
-        int i, j;
-        int nVer, nHor, sz_x, sz_y;
-        int nMaxVer = 0;
-        long * lpVer = NULL;
-        int nMaxHor = 0;
-        long * lpHor = NULL;
-        char * lpMatrix = NULL;
+        if (PointXDistance(p0, p1) <= MAXDIFF)
+            (*vert)++;
 
-        // Подсчитаем число вертикальных разделителей
-        for (i = 0; i < pict.cornerCount(); i++) {
+        if (PointYDistance(p0, p1) <= MAXDIFF)
+            (*hor)++;
+    }
+}
+
+bool CPAGE_PictureGetMask(CBlockHandle hPict, char * data, uint32_t * size)
+{
+    if(!size) {
+        CPAGE_ERROR_FUNC << "NULL size pointer given";
+        return false;
+    }
+
+    cpage::Picture pict;
+
+    if (CPAGE_GetBlockData(hPict, TYPE_CPAGE_PICTURE, &pict, sizeof(pict)) != sizeof(pict)) {
+        CPAGE_ERROR_FUNC << "invalid picture data";
+        return false;
+    }
+
+    int nMaxVer = 0;
+    int nMaxHor = 0;
+
+    // Подсчитаем число вертикальных разделителей
+    countDelims(&nMaxHor, &nMaxVer, pict);
+
+    if (nMaxVer < 2 || nMaxHor < 2) {
+        CPAGE_ERROR_FUNC << "invalid delimiter count:" << nMaxHor << nMaxVer;
+        return false;
+    }
+
+    bool rc = false;
+    int i;
+    int j;
+    int nVer;
+    int nHor;
+    int sz_x;
+    int sz_y;
+
+    // создадим массивы линий
+    long * lpVer = new long[nMaxVer];
+    long * lpHor = new long[nMaxHor];
+    char * lpMatrix = new char[nMaxVer * (nMaxHor - 1)];
+
+    if (lpVer && lpHor && lpMatrix) {
+        memset(lpMatrix, 0, sizeof(char) * nMaxVer * (nMaxHor - 1));
+
+        for (nVer = nHor = 0, i = 0; i < pict.cornerCount(); i++) {
             int ci = (i + 1) % pict.cornerCount();
 
-            if (abs(pict.cornerAt(i).x() - pict.cornerAt(ci).x()) <= MAXDIFF)
-                nMaxVer++;
+            if (PointXDistance(pict.cornerAt(i), pict.cornerAt(ci)) <= MAXDIFF)
+                lpVer[nVer++] = pict.cornerAt(i).x();
 
-            if (abs(pict.cornerAt(i).y() - pict.cornerAt(ci).y()) <= MAXDIFF)
-                nMaxHor++;
+            if (PointYDistance(pict.cornerAt(i), pict.cornerAt(ci)) <= MAXDIFF)
+                lpHor[nHor++] = pict.cornerAt(i).y();
         }
+    }
+    else {
+        SetReturnCode_cpage(IDS_ERR_NO_MEMORY);
+        goto lOut;
+    }
 
-        // создадим массивы линий
-        assert(nMaxVer > 1);
-        assert(nMaxHor > 1);
+    // Упорядочим их
+    qsort(lpVer, nMaxVer, sizeof(long), CompareLong);
 
-        if (nMaxVer < 2 || nMaxHor < 2)
-            return FALSE;
-
-        lpVer = (long*) malloc(sizeof(long) * nMaxVer);
-        lpHor = (long*) malloc(sizeof(long) * nMaxHor);
-        lpMatrix = (char*) malloc(sizeof(char) * nMaxVer * (nMaxHor - 1));
-
-        if (lpVer && lpHor && lpMatrix) {
-            memset(lpMatrix, 0, sizeof(char) * nMaxVer * (nMaxHor - 1));
-
-            for (nVer = nHor = 0, i = 0; i < pict.cornerCount(); i++) {
-                int ci = (i + 1) % pict.cornerCount();
-
-                if (PointXDistance(pict.cornerAt(i), pict.cornerAt(ci)) <= MAXDIFF)
-                    lpVer[nVer++] = pict.cornerAt(i).x();
-
-                if (PointYDistance(pict.cornerAt(i), pict.cornerAt(ci)) <= MAXDIFF)
-                    lpHor[nHor++] = pict.cornerAt(i).y();
-            }
+    // Уберем повторяющиеся величины
+    for (i = 1; i < nMaxVer; i++) {
+        if (lpVer[i] == lpVer[i - 1]) {
+            memcpy(lpVer + i - 1, lpVer + i, sizeof(lpVer[0]) * (nMaxVer - i));
+            nMaxVer--;
+            i--;
+            continue;
         }
+    }
 
-        else {
-            SetReturnCode_cpage(IDS_ERR_NO_MEMORY);
-            goto lOut;
+    qsort(lpHor, nMaxHor, sizeof(long), CompareLong);
+
+    for (i = 1; i < nMaxHor; i++) {
+        if (lpHor[i] == lpHor[i - 1]) {
+            memcpy(lpHor + i - 1, lpHor + i, sizeof(lpHor[0]) * (nMaxHor - i));
+            nMaxHor--;
+            i--;
+            continue;
         }
+    }
 
-        // Упорядочим их
-        qsort(lpVer, nMaxVer, sizeof(long), CompareLong);
+    // Создадим матрицу описания границ
+    for (i = 0; i < pict.cornerCount(); i++) {
+        int ci = (i + 1) % pict.cornerCount();
+        int delta_x = PointXDistance(pict.cornerAt(i), pict.cornerAt(ci));
+        int delta_y = PointYDelta(pict.cornerAt(i), pict.cornerAt(ci));
 
-        // Уберем повторяющиеся величины
-        for (i = 1; i < nMaxVer; i++) {
-            if (lpVer[i] == lpVer[i - 1]) {
-                memcpy(lpVer + i - 1, lpVer + i, sizeof(lpVer[0]) * (nMaxVer - i));
-                nMaxVer--;
-                i--;
-                continue;
-            }
+        if (delta_x <= MAXDIFF) {// вертикальная граница
+            int sign = delta_y ? (delta_y / abs(delta_y)) : 1;
+            int x = GetIndex(lpVer, nMaxVer, pict.cornerAt(i).x());
+            int y1 = GetIndex(lpHor, nMaxHor, pict.cornerAt(i).y());
+            int y2 = GetIndex(lpHor, nMaxHor, pict.cornerAt(ci).y());
+
+            if (x < nMaxVer && y1 < nMaxHor && y2 < nMaxHor)
+                for (int y = MIN(y1, y2); y < MAX(y1, y2); y++)
+                    *(lpMatrix + x + y * nMaxVer) = sign;
         }
+    }
 
-        qsort(lpHor, nMaxHor, sizeof(long), CompareLong);
+    // Создадим маску по матрице
+    sz_x = (lpVer[nMaxVer - 1] - lpVer[0] + 7) / 8;
+    sz_y = lpHor[nMaxHor - 1] - lpHor[0];
+    assert(sz_x > 0 && sz_y > 0);
+    *size = sz_x * sz_y;
+    rc = TRUE;
 
-        for (i = 1; i < nMaxHor; i++) {
-            if (lpHor[i] == lpHor[i - 1]) {
-                memcpy(lpHor + i - 1, lpHor + i, sizeof(lpHor[0]) * (nMaxHor - i));
-                nMaxHor--;
-                i--;
-                continue;
-            }
-        }
+    if (data) {
+        int sign = 0;
+        memset(data, 0, *size);
 
-        // Создадим матрицу описания границ
-        for (i = 0; i < pict.cornerCount(); i++) {
-            int ci = (i + 1) % pict.cornerCount();
-            int delta_x = PointXDistance(pict.cornerAt(i), pict.cornerAt(ci));
-            int delta_y = PointYDelta(pict.cornerAt(i), pict.cornerAt(ci));
+        for (int y = 0; y < (nMaxHor - 1); y++) {
+            int sp = 0;
 
-            if (delta_x <= MAXDIFF) {// вертикальная граница
-                int sign = delta_y ? (delta_y / abs(delta_y)) : 1;
-                int x = GetIndex(lpVer, nMaxVer, pict.cornerAt(i).x());
-                int y1 = GetIndex(lpHor, nMaxHor, pict.cornerAt(i).y());
-                int y2 = GetIndex(lpHor, nMaxHor, pict.cornerAt(ci).y());
+            for (int x = 0; x < nMaxVer; x++) {
+                int cs = *(lpMatrix + x + y * nMaxVer);
 
-                if (x < nMaxVer && y1 < nMaxHor && y2 < nMaxHor)
-                    for (int y = MIN(y1, y2); y < MAX(y1, y2); y++)
-                        *(lpMatrix + x + y * nMaxVer) = sign;
-            }
-        }
+                if (cs) {
+                    if (!sign)
+                        sign = cs;
 
-        // Создадим маску по матрице
-        sz_x = (lpVer[nMaxVer - 1] - lpVer[0] + 7) / 8;
-        sz_y = lpHor[nMaxHor - 1] - lpHor[0];
-        assert(sz_x > 0 && sz_y > 0);
-        *size = sz_x * sz_y;
-        rc = TRUE;
+                    if (cs == sign)
+                        sp = x;
 
-        if (data) {
-            int sign = 0;
-            memset(data, 0, *size);
+                    else { // Записываем маску
+                        int beg_x = (lpVer[sp] - lpVer[0]) / 8;
+                        int end_x = (lpVer[x] - lpVer[0] + 7) / 8;
+                        int beg_y = lpHor[y] - lpHor[0];
+                        int end_y = lpHor[y + 1] - lpHor[0];
 
-            for (int y = 0; y < (nMaxHor - 1); y++) {
-                int sp = 0;
-
-                for (int x = 0; x < nMaxVer; x++) {
-                    int cs = *(lpMatrix + x + y * nMaxVer);
-
-                    if (cs) {
-                        if (!sign)
-                            sign = cs;
-
-                        if (cs == sign)
-                            sp = x;
-
-                        else { // Записываем маску
-                            int beg_x = (lpVer[sp] - lpVer[0]) / 8;
-                            int end_x = (lpVer[x] - lpVer[0] + 7) / 8;
-                            int beg_y = lpHor[y] - lpHor[0];
-                            int end_y = lpHor[y + 1] - lpHor[0];
-
-                            for (i = beg_y; i < end_y; i++)
-                                for (j = beg_x; j < end_x; j++) {
-                                    *(data + i * sz_x + j) = (char) 0xFF;
-                                }
-                        }
+                        for (i = beg_y; i < end_y; i++)
+                            for (j = beg_x; j < end_x; j++) {
+                                *(data + i * sz_x + j) = (char) 0xFF;
+                            }
                     }
                 }
             }
         }
-
-    lOut:
-
-        if (lpHor)
-            free(lpHor);
-
-        if (lpVer)
-            free(lpVer);
-
-        if (lpMatrix)
-            free(lpMatrix);
     }
+
+lOut:
+    delete[] lpHor;
+    delete[] lpVer;
+    delete[] lpMatrix;
 
     return rc;
 }

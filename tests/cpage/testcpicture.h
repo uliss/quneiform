@@ -26,11 +26,13 @@ class TestCPicture : public CppUnit::TestFixture
     CPPUNIT_TEST_SUITE(TestCPicture);
     CPPUNIT_TEST(testGetPlace);
     CPPUNIT_TEST(testGetFirstNext);
+    CPPUNIT_TEST(testGetMask);
     CPPUNIT_TEST_SUITE_END();
 public:
     void tearDown();
     void testGetPlace();
     void testGetFirstNext();
+    void testGetMask();
 };
 
 
