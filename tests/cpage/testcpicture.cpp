@@ -64,6 +64,18 @@ void TestCPicture::testGetPlace()
     CPPUNIT_ASSERT_EQUAL(sz, Size(106, 105));
 }
 
+void TestCPicture::testGetFirstNext()
+{
+    h_page = CPAGE_CreatePage(CPAGE_GetInternalType("test_picture"), NULL, 0);
+    CPAGE_CreateBlock(h_page, TYPE_TEXT, 1, 0, NULL, 0);
+    CPAGE_CreateBlock(h_page, TYPE_TEXT, 2, 0, NULL, 0);
+    CBlockHandle pict = CPAGE_CreateBlock(h_page, TYPE_CPAGE_PICTURE, 3, 0, NULL, 0);
+    CPPUNIT_ASSERT(pict);
+
+    CPPUNIT_ASSERT_EQUAL(pict, CPAGE_PictureGetFirst(h_page));
+    CPPUNIT_ASSERT(!CPAGE_PictureGetNext(h_page, pict));
+}
+
 void TestCPicture::tearDown()
 {
     if(h_page) {
