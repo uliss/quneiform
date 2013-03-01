@@ -79,17 +79,6 @@ CBlockHandle CPAGE_PictureGetNext(CPageHandle hPage, CBlockHandle hPicture)
     return CPAGE_GetBlockNext(hPage, hPicture, TYPE_CPAGE_PICTURE);
 }
 
-//template<size_t N>
-//void inline Rotate(Point& p, int angle) {
-//  p.rx() = p.y() - p.x() * angle / N;
-//  p.ry() = p.x() + p.y() * angle / N;
-//}
-
-#define ROTATE_2048(p,a) {\
-             p.ry() = (int32_t) (p.y() - (int32_t) p.x() * a / 2048);\
-             p.rx() = (int32_t) (p.x() + (int32_t) p.y() * a / 2048);\
-        }
-
 bool CPAGE_PictureGetPlace(CBlockHandle picture, int skew2048, Point * pos, Size * size)
 {
     if(!pos || !size) {
