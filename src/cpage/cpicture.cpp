@@ -90,8 +90,7 @@ CBlockHandle CPAGE_PictureGetNext(CPageHandle hPage, CBlockHandle hPicture)
              p.rx() = (int32_t) (p.x() + (int32_t) p.y() * a / 2048);\
         }
 
-bool CPAGE_PictureGetPlace(CPageHandle page, CBlockHandle picture, int32_t skew2048, Point * pos,
-                             Size * size)
+bool CPAGE_PictureGetPlace(CBlockHandle picture, int skew2048, Point * pos, Size * size)
 {
     if(!pos || !size) {
         CPAGE_ERROR_FUNC << "NULL point output arguments";
@@ -148,12 +147,11 @@ static int GetIndex(long * lpLong, long nLong, long n)
     return i;
 }
 
-Bool32 CPAGE_PictureGetMask(CPageHandle hPage, CBlockHandle hPicture, int32_t Skew2048, char * lpData,
-                            uint32_t * lpSize)
+bool CPAGE_PictureGetMask(CBlockHandle hPicture, char * data, uint32_t * size)
 {
-    Bool32 rc = FALSE;
+    bool rc = FALSE;
     SetReturnCode_cpage(IDS_ERR_NO);
-    assert(lpSize);
+    assert(size);
     cf::cpage::Picture pict;
 
     if (CPAGE_GetBlockData(hPicture, TYPE_CPAGE_PICTURE, &pict, sizeof(pict)) == sizeof(pict)) {
@@ -252,12 +250,12 @@ Bool32 CPAGE_PictureGetMask(CPageHandle hPage, CBlockHandle hPicture, int32_t Sk
         sz_x = (lpVer[nMaxVer - 1] - lpVer[0] + 7) / 8;
         sz_y = lpHor[nMaxHor - 1] - lpHor[0];
         assert(sz_x > 0 && sz_y > 0);
-        *lpSize = sz_x * sz_y;
+        *size = sz_x * sz_y;
         rc = TRUE;
 
-        if (lpData) {
+        if (data) {
             int sign = 0;
-            memset(lpData, 0, *lpSize);
+            memset(data, 0, *size);
 
             for (int y = 0; y < (nMaxHor - 1); y++) {
                 int sp = 0;
@@ -280,7 +278,7 @@ Bool32 CPAGE_PictureGetMask(CPageHandle hPage, CBlockHandle hPicture, int32_t Sk
 
                             for (i = beg_y; i < end_y; i++)
                                 for (j = beg_x; j < end_x; j++) {
-                                    *(lpData + i * sz_x + j) = (char) 0xFF;
+                                    *(data + i * sz_x + j) = (char) 0xFF;
                                 }
                         }
                     }

@@ -125,7 +125,7 @@ Rect GetPictRect(uint NumberPict, uint32_t * UserNumber) {
 
     Point pos;
     Size sz;
-    if (CPAGE_PictureGetPlace(h_Page, h_Pict, 0, &pos, &sz))
+    if (CPAGE_PictureGetPlace(h_Pict, 0, &pos, &sz))
         return Rect(pos - TemplateOffset, sz.width(), sz.height());
     else
         throw std::runtime_error("[GetPictRect] CPAGE_PictureGetPlace failed");
@@ -162,8 +162,8 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
     if (CIMAGE_GetImageInfo(pinfo.szImageName, &image_info) == FALSE)
         return false;
 
-    CPAGE_PictureGetPlace(h_Page, h_Pict, 0, &pos, &Wh);
-    CPAGE_PictureGetPlace(h_Page, h_Pict, -pinfo.Incline2048, &LrN, &WhN);
+    CPAGE_PictureGetPlace(h_Pict, 0, &pos, &Wh);
+    CPAGE_PictureGetPlace(h_Pict, -pinfo.Incline2048, &LrN, &WhN);
     pos.rx() -= TemplateOffset.x();
     pos.ry() -= TemplateOffset.y();
     int FrameOffset = abs(WhN.width() - Wh.width());
@@ -174,7 +174,7 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
     // Получим картинку из исходного изображения задав ее контур
     //определяем размер маски
 
-    if (!CPAGE_PictureGetPlace(h_Page, h_Pict, -pinfo.Incline2048, &pos, &Wh))
+    if (!CPAGE_PictureGetPlace(h_Pict, -pinfo.Incline2048, &pos, &Wh))
         return false;
 
     Bool rc = TRUE;
@@ -261,7 +261,7 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
     Point ptLt;
     Size sz;
 
-    if (rc && CPAGE_PictureGetPlace(h_Page, h_Pict, 0, &ptLt, &sz)) {
+    if (rc && CPAGE_PictureGetPlace(h_Pict, 0, &ptLt, &sz)) {
         if (pinfo.Incline2048 >= 0) {
             in.dwX = sz.height() * pinfo.Incline2048 / 2048;
             in.dwY = 0;
@@ -285,13 +285,13 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
         // Получим размер маски
         uint32_t nSize = 0;
 
-        if (CPAGE_PictureGetMask(h_Page, h_Pict, 0, NULL, &nSize)) {
+        if (CPAGE_PictureGetMask(h_Pict, NULL, &nSize)) {
             char * lpMask = (char*) malloc(sizeof(in) + nSize);
 
             if (lpMask) {// Получаем маску
                 *(CIMAGE_InfoDataInGet*) lpMask = in;
 
-                if (CPAGE_PictureGetMask(h_Page, h_Pict, 0, lpMask + sizeof(in), &nSize)) {
+                if (CPAGE_PictureGetMask(h_Pict, lpMask + sizeof(in), &nSize)) {
                      cf::BitMask bit_mask(0, 0, (uchar*) lpMask + sizeof(in));
 
                     if (!CIMAGE_GetDIBData(lpName, Rect(in.dwX, in.dwY, in.dwWidth, in.dwHeight), &bit_mask, &pOutDIB)) {

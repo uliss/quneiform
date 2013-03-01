@@ -32,18 +32,18 @@ void TestCPicture::testGetPlace()
     CPPUNIT_ASSERT(h_page);
     CBlockHandle h_pict = CPAGE_CreateBlock(h_page, TYPE_CPAGE_PICTURE, 0, 0, NULL, 0);
     CPPUNIT_ASSERT(h_pict);
-    bool rc = CPAGE_PictureGetPlace(h_page, h_pict, 0, NULL, NULL);
+    bool rc = CPAGE_PictureGetPlace(h_pict, 0, NULL, NULL);
     CPPUNIT_ASSERT(!rc);
 
     Point pos;
     Size sz;
 
-    rc = CPAGE_PictureGetPlace(h_page, h_pict, 0, &pos, &sz);
+    rc = CPAGE_PictureGetPlace(h_pict, 0, &pos, &sz);
     CPPUNIT_ASSERT(!rc);
 
     cpage::Picture pdata;
     CPPUNIT_ASSERT(CPAGE_SetBlockData(h_pict, TYPE_CPAGE_PICTURE, &pdata, sizeof(pdata)));
-    rc = CPAGE_PictureGetPlace(h_page, h_pict, 0, &pos, &sz);
+    rc = CPAGE_PictureGetPlace(h_pict, 0, &pos, &sz);
     CPPUNIT_ASSERT(!rc);
 
     pdata.appendCorner(Point(0, 0));
@@ -52,13 +52,13 @@ void TestCPicture::testGetPlace()
     pdata.appendCorner(Point(100, 0));
     CPPUNIT_ASSERT(CPAGE_SetBlockData(h_pict, TYPE_CPAGE_PICTURE, &pdata, sizeof(pdata)));
 
-    rc = CPAGE_PictureGetPlace(h_page, h_pict, 0, &pos, &sz);
+    rc = CPAGE_PictureGetPlace(h_pict, 0, &pos, &sz);
     CPPUNIT_ASSERT(rc);
     CPPUNIT_ASSERT_EQUAL(pos, Point(0, 0));
     CPPUNIT_ASSERT_EQUAL(sz, Size(100, 100));
 
     // rotate 5 degrees counter clockwise
-    rc = CPAGE_PictureGetPlace(h_page, h_pict, 2048 / 90 * 5, &pos, &sz);
+    rc = CPAGE_PictureGetPlace(h_pict, 2048 / 90 * 5, &pos, &sz);
     CPPUNIT_ASSERT(rc);
     CPPUNIT_ASSERT_EQUAL(pos, Point(0, -5));
     CPPUNIT_ASSERT_EQUAL(sz, Size(106, 105));
