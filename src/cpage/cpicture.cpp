@@ -55,6 +55,7 @@
  */
 
 #include <stdlib.h>
+#include <algorithm>
 
 #include "minmax.h"
 #include "resource.h"
@@ -119,11 +120,6 @@ bool CPAGE_PictureGetPlace(CBlockHandle picture, int skew2048, Point * pos, Size
 static const int MAXDIFF = 0; // максимальное расхождение в координатах при определении верт или гор.
 //При значениях >0 работает неверно при заполнении массивов lpVer и lpHor при коротких линиях !!! Art
 
-static int CompareLong(const void *arg1, const void *arg2)
-{
-    return (*(long*) arg1 - *(long*) arg2);
-}
-
 static int GetIndex(long * lpLong, long nLong, long n)
 {
     int i = 0;
@@ -138,8 +134,8 @@ static int GetIndex(long * lpLong, long nLong, long n)
 
 static void countDelims(int * hor, int * vert, const cpage::Picture& pict)
 {
-    for (int i = 0; i < pict.cornerCount(); i++) {
-        const int ci = (i + 1) % pict.cornerCount();
+    for (size_t i = 0; i < pict.cornerCount(); i++) {
+        const size_t ci = (i + 1) % pict.cornerCount();
         const Point p0 = pict.cornerAt(i);
         const Point p1 = pict.cornerAt(ci);
 
@@ -148,6 +144,23 @@ static void countDelims(int * hor, int * vert, const cpage::Picture& pict)
 
         if (PointYDistance(p0, p1) <= MAXDIFF)
             (*hor)++;
+    }
+}
+
+static void fillLineArrays(long * ver, long * hor, const cpage::Picture& pict)
+{
+    int nVer = 0;
+    int nHor = 0;
+    for (size_t i = 0; i < pict.cornerCount(); i++) {
+        const size_t ci = (i + 1) % pict.cornerCount();
+        const Point p0 = pict.cornerAt(i);
+        const Point p1 = pict.cornerAt(ci);
+
+        if (PointXDistance(p0, p1) <= MAXDIFF)
+            ver[nVer++] = p0.x();
+
+        if (PointYDistance(p0, p1) <= MAXDIFF)
+            hor[nHor++] = p1.y();
     }
 }
 
@@ -176,85 +189,50 @@ bool CPAGE_PictureGetMask(CBlockHandle hPict, char * data, uint32_t * size)
         return false;
     }
 
-    bool rc = false;
-    int i;
-    int j;
-    int nVer;
-    int nHor;
-    int sz_x;
-    int sz_y;
-
     // создадим массивы линий
     long * lpVer = new long[nMaxVer];
     long * lpHor = new long[nMaxHor];
-    char * lpMatrix = new char[nMaxVer * (nMaxHor - 1)];
+    const size_t matrix_size = nMaxVer * (nMaxHor - 1);
+    char * lpMatrix = new char[matrix_size];
+    std::fill(lpMatrix, lpMatrix + matrix_size, 0);
 
-    if (lpVer && lpHor && lpMatrix) {
-        memset(lpMatrix, 0, sizeof(char) * nMaxVer * (nMaxHor - 1));
-
-        for (nVer = nHor = 0, i = 0; i < pict.cornerCount(); i++) {
-            int ci = (i + 1) % pict.cornerCount();
-
-            if (PointXDistance(pict.cornerAt(i), pict.cornerAt(ci)) <= MAXDIFF)
-                lpVer[nVer++] = pict.cornerAt(i).x();
-
-            if (PointYDistance(pict.cornerAt(i), pict.cornerAt(ci)) <= MAXDIFF)
-                lpHor[nHor++] = pict.cornerAt(i).y();
-        }
-    }
-    else {
-        SetReturnCode_cpage(IDS_ERR_NO_MEMORY);
-        goto lOut;
-    }
-
-    // Упорядочим их
-    qsort(lpVer, nMaxVer, sizeof(long), CompareLong);
-
-    // Уберем повторяющиеся величины
-    for (i = 1; i < nMaxVer; i++) {
-        if (lpVer[i] == lpVer[i - 1]) {
-            memcpy(lpVer + i - 1, lpVer + i, sizeof(lpVer[0]) * (nMaxVer - i));
-            nMaxVer--;
-            i--;
-            continue;
-        }
-    }
-
-    qsort(lpHor, nMaxHor, sizeof(long), CompareLong);
-
-    for (i = 1; i < nMaxHor; i++) {
-        if (lpHor[i] == lpHor[i - 1]) {
-            memcpy(lpHor + i - 1, lpHor + i, sizeof(lpHor[0]) * (nMaxHor - i));
-            nMaxHor--;
-            i--;
-            continue;
-        }
-    }
+    fillLineArrays(lpVer, lpHor, pict);
+    // sort vertical line delimiters
+    std::sort(lpVer, lpVer + nMaxVer);
+    long * last_ver = std::unique(lpVer, lpVer + nMaxVer);
+    nMaxVer = std::distance(lpVer, last_ver);
+    // sort horizontal line delimiters
+    std::sort(lpHor, lpHor + nMaxHor);
+    long * last_hor = std::unique(lpHor, lpHor + nMaxHor);
+    nMaxHor = std::distance(lpHor, last_hor);
 
     // Создадим матрицу описания границ
-    for (i = 0; i < pict.cornerCount(); i++) {
-        int ci = (i + 1) % pict.cornerCount();
-        int delta_x = PointXDistance(pict.cornerAt(i), pict.cornerAt(ci));
-        int delta_y = PointYDelta(pict.cornerAt(i), pict.cornerAt(ci));
+    for (size_t i = 0; i < pict.cornerCount(); i++) {
+        const size_t ci = (i + 1) % pict.cornerCount();
+        Point pt_cur = pict.cornerAt(i);
+        Point pt_next = pict.cornerAt(ci);
+        const int delta_x = PointXDistance(pt_cur, pt_next);
+        const int delta_y = PointYDelta(pt_cur, pt_next);
 
         if (delta_x <= MAXDIFF) {// вертикальная граница
             int sign = delta_y ? (delta_y / abs(delta_y)) : 1;
-            int x = GetIndex(lpVer, nMaxVer, pict.cornerAt(i).x());
-            int y1 = GetIndex(lpHor, nMaxHor, pict.cornerAt(i).y());
-            int y2 = GetIndex(lpHor, nMaxHor, pict.cornerAt(ci).y());
+            int x = GetIndex(lpVer, nMaxVer, pt_cur.x());
+            int y1 = GetIndex(lpHor, nMaxHor, pt_cur.y());
+            int y2 = GetIndex(lpHor, nMaxHor, pt_next.y());
 
-            if (x < nMaxVer && y1 < nMaxHor && y2 < nMaxHor)
-                for (int y = MIN(y1, y2); y < MAX(y1, y2); y++)
+            if (x < nMaxVer && y1 < nMaxHor && y2 < nMaxHor) {
+                for (int y = MIN(y1, y2); y < MAX(y1, y2); y++) {
                     *(lpMatrix + x + y * nMaxVer) = sign;
+                }
+            }
         }
     }
 
     // Создадим маску по матрице
-    sz_x = (lpVer[nMaxVer - 1] - lpVer[0] + 7) / 8;
-    sz_y = lpHor[nMaxHor - 1] - lpHor[0];
+    int sz_x = (lpVer[nMaxVer - 1] - lpVer[0] + 7) / 8;
+    int sz_y = lpHor[nMaxHor - 1] - lpHor[0];
     assert(sz_x > 0 && sz_y > 0);
     *size = sz_x * sz_y;
-    rc = TRUE;
 
     if (data) {
         int sign = 0;
@@ -272,27 +250,26 @@ bool CPAGE_PictureGetMask(CBlockHandle hPict, char * data, uint32_t * size)
 
                     if (cs == sign)
                         sp = x;
-
                     else { // Записываем маску
                         int beg_x = (lpVer[sp] - lpVer[0]) / 8;
                         int end_x = (lpVer[x] - lpVer[0] + 7) / 8;
                         int beg_y = lpHor[y] - lpHor[0];
                         int end_y = lpHor[y + 1] - lpHor[0];
 
-                        for (i = beg_y; i < end_y; i++)
-                            for (j = beg_x; j < end_x; j++) {
+                        for (int i = beg_y; i < end_y; i++) {
+                            for (int j = beg_x; j < end_x; j++) {
                                 *(data + i * sz_x + j) = (char) 0xFF;
                             }
+                        }
                     }
                 }
             }
         }
     }
 
-lOut:
     delete[] lpHor;
     delete[] lpVer;
     delete[] lpMatrix;
 
-    return rc;
+    return true;
 }

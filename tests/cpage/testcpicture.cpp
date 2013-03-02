@@ -87,15 +87,28 @@ void TestCPicture::testGetMask()
     CPPUNIT_ASSERT(!CPAGE_PictureGetMask(pict, NULL, &sz));
 
     cpage::Picture pict_data;
-    pict_data.appendCorner(Point());
+    pict_data.appendCorner(Point(0, 0));
     CPAGE_SetBlockData(pict, TYPE_CPAGE_PICTURE, &pict_data, sizeof(pict_data));
     CPPUNIT_ASSERT(!CPAGE_PictureGetMask(pict, NULL, &sz));
+    pict_data.appendCorner(Point(10, 5));
+    pict_data.appendCorner(Point(12, 5));
+    pict_data.appendCorner(Point(12, 0));
     pict_data.appendCorner(Point(20, 0));
     pict_data.appendCorner(Point(20, 50));
+    pict_data.appendCorner(Point(0, 50));
     pict_data.appendCorner(Point(0, 50));
     CPAGE_SetBlockData(pict, TYPE_CPAGE_PICTURE, &pict_data, sizeof(pict_data));
     CPPUNIT_ASSERT(CPAGE_PictureGetMask(pict, NULL, &sz));
     CPPUNIT_ASSERT_EQUAL(150, (int) sz);
+
+    char * matrix = new char[sz];
+    CPPUNIT_ASSERT(CPAGE_PictureGetMask(pict, matrix, &sz));
+    for(int i = 0; i < 150; i++) {
+        std::cout << std::hex << (uint) (uchar) (matrix[i]) << " ";
+    }
+    delete[] matrix;
+
+    std::cout << std::dec;
 }
 
 void TestCPicture::tearDown()
