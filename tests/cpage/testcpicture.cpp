@@ -76,6 +76,22 @@ void TestCPicture::testGetFirstNext()
     CPPUNIT_ASSERT(!CPAGE_PictureGetNext(h_page, pict));
 }
 
+static void printMatrix(const char * m, int x, int y)
+{
+    for(int i = 0; i < x * y; i++) {
+        char ch = m[i];
+        for(int k = 7; k >= 0; k--) {
+            if(ch & (1 << k))
+                std::cout << "1";
+            else
+                std::cout << "0";
+        }
+
+        if(i % x == (x-1))
+            std::cout << std::endl;
+    }
+}
+
 void TestCPicture::testGetMask()
 {
     h_page = CPAGE_CreatePage(CPAGE_GetInternalType("test_picture"), NULL, 0);
@@ -90,22 +106,32 @@ void TestCPicture::testGetMask()
     pict_data.appendCorner(Point(0, 0));
     CPAGE_SetBlockData(pict, TYPE_CPAGE_PICTURE, &pict_data, sizeof(pict_data));
     CPPUNIT_ASSERT(!CPAGE_PictureGetMask(pict, NULL, &sz));
-    pict_data.appendCorner(Point(10, 5));
-    pict_data.appendCorner(Point(12, 5));
-    pict_data.appendCorner(Point(12, 0));
-    pict_data.appendCorner(Point(20, 0));
-    pict_data.appendCorner(Point(20, 50));
-    pict_data.appendCorner(Point(0, 50));
-    pict_data.appendCorner(Point(0, 50));
+    pict_data.appendCorner(Point(10, 0));
+    pict_data.appendCorner(Point(10, 20));
+    pict_data.appendCorner(Point(0, 20));
     CPAGE_SetBlockData(pict, TYPE_CPAGE_PICTURE, &pict_data, sizeof(pict_data));
+
     CPPUNIT_ASSERT(CPAGE_PictureGetMask(pict, NULL, &sz));
-    CPPUNIT_ASSERT_EQUAL(150, (int) sz);
+    CPPUNIT_ASSERT_EQUAL(2 * 20, (int) sz);
 
     char * matrix = new char[sz];
     CPPUNIT_ASSERT(CPAGE_PictureGetMask(pict, matrix, &sz));
-    for(int i = 0; i < 150; i++) {
-        std::cout << std::hex << (uint) (uchar) (matrix[i]) << " ";
-    }
+    printMatrix(matrix, 2, 20);
+    delete[] matrix;
+
+    pict_data.appendCorner(Point(5, 0));
+    pict_data.appendCorner(Point(5, 10));
+    pict_data.appendCorner(Point(8, 10));
+    pict_data.appendCorner(Point(8, 0));
+
+    CPAGE_SetBlockData(pict, TYPE_CPAGE_PICTURE, &pict_data, sizeof(pict_data));
+
+    CPPUNIT_ASSERT(CPAGE_PictureGetMask(pict, NULL, &sz));
+    CPPUNIT_ASSERT_EQUAL(20, (int) sz);
+
+    matrix = new char[sz];
+    CPPUNIT_ASSERT(CPAGE_PictureGetMask(pict, matrix, &sz));
+    printMatrix(matrix, 2, 10);
     delete[] matrix;
 
     std::cout << std::dec;

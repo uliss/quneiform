@@ -57,13 +57,9 @@
 #include <stdlib.h>
 #include <algorithm>
 
-#include "minmax.h"
-#include "resource.h"
-#include "mymem.h"
 #include "cpage.h"
 #include "backup.h"
 #include "polyblock.h"
-#include "internal.h"
 #include "picture.h"
 #include "cpage_debug.h"
 
@@ -122,14 +118,12 @@ static const int MAXDIFF = 0; // максимальное расхождение
 
 static int GetIndex(long * lpLong, long nLong, long n)
 {
-    int i = 0;
-
-    for (i = 0; i < nLong; i++) {
+    for (int i = 0; i < nLong; i++) {
         if (abs(n - lpLong[i]) <= MAXDIFF)
-            break;
+            return i;
     }
 
-    return i;
+    return 0;
 }
 
 static void countDelims(int * hor, int * vert, const cpage::Picture& pict)
@@ -215,13 +209,13 @@ bool CPAGE_PictureGetMask(CBlockHandle hPict, char * data, uint32_t * size)
         const int delta_y = PointYDelta(pt_cur, pt_next);
 
         if (delta_x <= MAXDIFF) {// вертикальная граница
-            int sign = delta_y ? (delta_y / abs(delta_y)) : 1;
+            int sign = (delta_y < 0) ? -1 : 1;
             int x = GetIndex(lpVer, nMaxVer, pt_cur.x());
             int y1 = GetIndex(lpHor, nMaxHor, pt_cur.y());
             int y2 = GetIndex(lpHor, nMaxHor, pt_next.y());
 
             if (x < nMaxVer && y1 < nMaxHor && y2 < nMaxHor) {
-                for (int y = MIN(y1, y2); y < MAX(y1, y2); y++) {
+                for (int y = std::min(y1, y2); y < std::max(y1, y2); y++) {
                     *(lpMatrix + x + y * nMaxVer) = sign;
                 }
             }
