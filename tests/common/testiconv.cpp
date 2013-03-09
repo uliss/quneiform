@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include <cstring>
+
 #include "testiconv.h"
 #include "common/iconv_local.h"
 
@@ -47,11 +48,16 @@ void TestIconv::testConvertChar()
     // russian 'a'
     CPPUNIT_ASSERT_EQUAL(std::string("а"), iconv.convert("\xE0"));
     CPPUNIT_ASSERT_EQUAL(std::string("а"), iconv.convert('\xE0'));
+
+    CPPUNIT_ASSERT(iconv.open("UTF-16", "UTF-8"));
+    CPPUNIT_ASSERT_THROW(iconv.convert('~'), cf::Iconv::Exception);
 }
 
 void TestIconv::testConvertString() {
     cf::Iconv iconv("CP1251", "UTF-8");
     CPPUNIT_ASSERT_EQUAL(std::string("ааа"), iconv.convert("\xE0\xE0\xE0"));
+
+    CPPUNIT_ASSERT(iconv.convert(std::string("")).empty());
 
     // big string
     const int SZ = 10000;
@@ -65,4 +71,7 @@ void TestIconv::testConvertString() {
         str.append("а");
 
     CPPUNIT_ASSERT_EQUAL(str, iconv.convert(BIG_STR));
+
+    CPPUNIT_ASSERT(iconv.open("UTF-16", "UTF-8"));
+    CPPUNIT_ASSERT_THROW(iconv.convert("abc"), cf::Iconv::Exception);
 }
