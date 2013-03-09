@@ -59,7 +59,6 @@
 #include <cstring>
 #include <fstream>
 
-#include "bitmask.h"
 #include "ctiimage.h"
 #include "cticontrol.h"
 #include "ctimemory.h"
@@ -67,6 +66,7 @@
 #include "ctimask.h"
 #include "compat_defs.h"
 #include "cimage_debug.h"
+#include "common/bitmask.h"
 #include "common/ctdib.h"
 #include "common/bmp.h"
 

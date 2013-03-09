@@ -17,7 +17,7 @@
  ***************************************************************************/
 
 #include "testbitmask.h"
-#include "cimage/bitmask.h"
+#include "common/bitmask.h"
 #include "test_cimage_common.h"
 #include "cimage/cticontrol.h"
 

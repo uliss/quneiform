@@ -6,6 +6,7 @@ endif()
 
 set(CF_COMMON_SOURCES
     binarizeoptions.cpp
+    bitmask.cpp
     cifconfig.cpp
     configoptions.cpp
     configparser.cpp

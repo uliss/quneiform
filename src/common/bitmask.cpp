@@ -19,8 +19,8 @@
 #include <string.h> // for memset
 
 #include "bitmask.h"
-#include "cimage_debug.h"
-#include "common/ctdib.h"
+#include "common_debug.h"
+#include "ctdib.h"
 
 namespace cf
 {
@@ -57,22 +57,22 @@ BitMask::~BitMask() {
 bool BitMask::apply(CTDIB * dib) const
 {
     if(!dib) {
-        CIMAGE_ERROR_FUNC << "NULL image given";
+        COMMON_ERROR_FUNC << "NULL image given";
         return false;
     }
 
     if(dib->lineWidth() != size_.width()) {
-        CIMAGE_ERROR_FUNC << "image and mask widths not equal";
+        COMMON_ERROR_FUNC << "image and mask widths not equal";
         return false;
     }
 
     if(dib->linesNumber() != size_.height()) {
-        CIMAGE_ERROR_FUNC << "image and mask heights not equal";
+        COMMON_ERROR_FUNC << "image and mask heights not equal";
         return false;
     }
 
     if(!size_.isValid()) {
-        CIMAGE_ERROR_FUNC << "invalid image mask size";
+        COMMON_ERROR_FUNC << "invalid image mask size";
         return false;
     }
 
@@ -90,7 +90,7 @@ bool BitMask::apply(CTDIB * dib) const
         applyTo32Bit(dib);
         break;
     default:
-        CIMAGE_ERROR_FUNC << "image depth is not supported:" << dib->bpp();
+        COMMON_ERROR_FUNC << "image depth is not supported:" << dib->bpp();
         return false;
     }
 

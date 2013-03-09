@@ -1,5 +1,4 @@
 set(CF_CIMAGE_SOURCE
-    bitmask.cpp
     cticontrol.cpp
     ctiimage.cpp
     ctiimageheader.cpp
