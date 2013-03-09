@@ -20,6 +20,7 @@
 
 #include "testiconv.h"
 #include "common/iconv_local.h"
+#include "common/language.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestIconv);
 
@@ -74,4 +75,11 @@ void TestIconv::testConvertString() {
 
     CPPUNIT_ASSERT(iconv.open("UTF-16", "UTF-8"));
     CPPUNIT_ASSERT_THROW(iconv.convert("abc"), cf::Iconv::Exception);
+}
+
+void TestIconv::testOpenToUtf8()
+{
+    cf::Iconv iconv;
+    CPPUNIT_ASSERT(iconv.openToUtf8(LANGUAGE_RUSSIAN));
+    CPPUNIT_ASSERT(iconv.openToUtf8(cf::Language(LANGUAGE_UKRAINIAN)));
 }
