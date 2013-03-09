@@ -25,9 +25,11 @@ class TestConfigParser : public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE(TestConfigParser);
     CPPUNIT_TEST(testInit);
+    CPPUNIT_TEST(testGetValue);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
+    void testGetValue();
 };
 
 #endif // TESTINIPARSER_H
