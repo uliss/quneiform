@@ -25,6 +25,10 @@ add_executable(test_common
 
 set(EXTRA_LIB "")
 
+if(WITH_COVERAGE)
+    list(APPEND EXTRA_LIB gcov)
+endif()
+
 if(CF_SERIALIZE)
     set(EXTRA_LIB ${Boost_SERIALIZATION_LIBRARY})
     if(CMAKE_SYSTEM_NAME STREQUAL "OpenBSD")
@@ -38,3 +42,4 @@ target_link_libraries(test_common
     ${EXTRA_LIB})
 
 add_test(Common ${EXECUTABLE_OUTPUT_PATH}/test_common)
+add_test_lcov(common)
