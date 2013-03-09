@@ -20,6 +20,7 @@
 #include "cpage/cpage.h"
 #include "cpage/picture.h"
 #include "common/tostring.h"
+#include "common/log.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestCPicture);
 
@@ -94,6 +95,8 @@ static void printMatrix(const char * m, int x, int y)
 
 void TestCPicture::testGetMask()
 {
+    cf::Logger::config().enableLog(MODULE_CPAGE, MSG_TRACE);
+
     h_page = CPAGE_CreatePage(CPAGE_GetInternalType("test_picture"), NULL, 0);
     CBlockHandle pict = CPAGE_CreateBlock(h_page, TYPE_CPAGE_PICTURE, 3, 0, NULL, 0);
 
@@ -116,13 +119,35 @@ void TestCPicture::testGetMask()
 
     char * matrix = new char[sz];
     CPPUNIT_ASSERT(CPAGE_PictureGetMask(pict, matrix, &sz));
-    printMatrix(matrix, 2, 20);
+//    printMatrix(matrix, 2, 20);
     delete[] matrix;
 
-    pict_data.appendCorner(Point(5, 0));
-    pict_data.appendCorner(Point(5, 10));
-    pict_data.appendCorner(Point(8, 10));
-    pict_data.appendCorner(Point(8, 0));
+    //   0 1 2 3 4 5 6 7 8 9 10
+    // 0 * . . . . . . . . . *
+    // 1 . . . . . . . . . . |
+    // 2 . . * . . . . . . . *
+    // 3 . . . . . . . . . . .
+    // 4 . . . . . . . . . . .
+    // 5 . . . . . . . . . . .
+    // 6 . . * . . . . . . . *
+    // 7 . . . . . . . . . . |
+    // 8 . . . . . . . . . . |
+    // 9 . . . . . . . . . . |
+    //10 * . . . . . . . . . *
+
+    pict_data.clear();
+    pict_data.appendCorner(0, 0);
+    pict_data.appendCorner(10, 0);
+    pict_data.appendCorner(10, 10);
+    pict_data.appendCorner(10, 2);
+    pict_data.appendCorner(2, 2);
+    pict_data.appendCorner(2, 6);
+    pict_data.appendCorner(10, 6);
+    pict_data.appendCorner(10, 10);
+    pict_data.appendCorner(0, 10);
+//    pict_data.appendCorner(2, 5);
+//    pict_data.appendCorner(2, 3);
+//    pict_data.appendCorner(0, 3);
 
     CPAGE_SetBlockData(pict, TYPE_CPAGE_PICTURE, &pict_data, sizeof(pict_data));
 

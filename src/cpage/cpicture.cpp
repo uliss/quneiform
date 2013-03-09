@@ -186,9 +186,6 @@ bool CPAGE_PictureGetMask(CBlockHandle hPict, char * data, uint32_t * size)
     // создадим массивы линий
     long * lpVer = new long[nMaxVer];
     long * lpHor = new long[nMaxHor];
-    const size_t matrix_size = nMaxVer * (nMaxHor - 1);
-    char * lpMatrix = new char[matrix_size];
-    std::fill(lpMatrix, lpMatrix + matrix_size, 0);
 
     fillLineArrays(lpVer, lpHor, pict);
     // sort vertical line delimiters
@@ -199,6 +196,10 @@ bool CPAGE_PictureGetMask(CBlockHandle hPict, char * data, uint32_t * size)
     std::sort(lpHor, lpHor + nMaxHor);
     long * last_hor = std::unique(lpHor, lpHor + nMaxHor);
     nMaxHor = std::distance(lpHor, last_hor);
+
+    const size_t matrix_size = nMaxVer * (nMaxHor - 1);
+    char * lpMatrix = new char[matrix_size];
+    std::fill(lpMatrix, lpMatrix + matrix_size, 0);
 
     // Создадим матрицу описания границ
     for (size_t i = 0; i < pict.cornerCount(); i++) {
@@ -222,6 +223,13 @@ bool CPAGE_PictureGetMask(CBlockHandle hPict, char * data, uint32_t * size)
         }
     }
 
+//    for(int y = 0; y < (nMaxHor-1); y++ ) {
+//        for(int x = 0; x < nMaxVer; x++) {
+//            printf("%2d ", lpMatrix[x + y * nMaxVer]);
+//        }
+//        printf("\n");
+//    }
+
     // Создадим маску по матрице
     int sz_x = (lpVer[nMaxVer - 1] - lpVer[0] + 7) / 8;
     int sz_y = lpHor[nMaxHor - 1] - lpHor[0];
@@ -236,7 +244,7 @@ bool CPAGE_PictureGetMask(CBlockHandle hPict, char * data, uint32_t * size)
             int sp = 0;
 
             for (int x = 0; x < nMaxVer; x++) {
-                int cs = *(lpMatrix + x + y * nMaxVer);
+                int cs = lpMatrix[x + y * nMaxVer];
 
                 if (cs) {
                     if (!sign)
@@ -245,14 +253,18 @@ bool CPAGE_PictureGetMask(CBlockHandle hPict, char * data, uint32_t * size)
                     if (cs == sign)
                         sp = x;
                     else { // Записываем маску
-                        int beg_x = (lpVer[sp] - lpVer[0]) / 8;
-                        int end_x = (lpVer[x] - lpVer[0] + 7) / 8;
+//                        int beg_x = (lpVer[sp] - lpVer[0]) / 8;
+//                        int end_x = (lpVer[x] - lpVer[0] + 7) / 8;
+                        int beg_x = (lpVer[sp] - lpVer[0]);
+                        int end_x = (lpVer[x] - lpVer[0]);
                         int beg_y = lpHor[y] - lpHor[0];
                         int end_y = lpHor[y + 1] - lpHor[0];
 
                         for (int i = beg_y; i < end_y; i++) {
                             for (int j = beg_x; j < end_x; j++) {
-                                *(data + i * sz_x + j) = (char) 0xFF;
+                                std::cout << j << "\n";
+//                                *(data + i * sz_x + j) = (char) 0xFF;
+                                data[i * sz_x + (j)/8] |= ((1 << 7) >> (j % 8));
                             }
                         }
                     }

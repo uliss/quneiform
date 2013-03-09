@@ -32,6 +32,7 @@ class Picture
 {
 public:
     Picture();
+    void appendCorner(int x, int y) { appendCorner(Point(x, y)); }
     void appendCorner(const Point& pt);
     void clear();
     Point cornerAt(size_t pos) const;
