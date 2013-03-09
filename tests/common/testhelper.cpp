@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include <boost/current_function.hpp>
+#include <streambuf>
 
 #include "testhelper.h"
 #include "common/helper.h"
@@ -53,11 +54,15 @@ void TestHelper::testStreamSize() {
     CPPUNIT_ASSERT_EQUAL(streamSize(os), (size_t) 0);
     os << "test";
     CPPUNIT_ASSERT_EQUAL(streamSize(os), (size_t) 4);
+    os.setstate(std::ios_base::failbit);
+    CPPUNIT_ASSERT_EQUAL(streamSize(os), (size_t) 0);
 
     std::istringstream iempty;
     CPPUNIT_ASSERT_EQUAL(streamSize(iempty), (size_t) 0);
     std::ostringstream is("hello");
     CPPUNIT_ASSERT_EQUAL(streamSize(is), (size_t) 5);
+    is.setstate(std::ios_base::failbit);
+    CPPUNIT_ASSERT_EQUAL(streamSize(is), (size_t) 0);
 
     std::stringstream s;
     CPPUNIT_ASSERT_EQUAL(streamSize(s), (size_t) 0);
@@ -77,6 +82,7 @@ void TestHelper::testMethodName()
     ASSERT_METHOD("int& cf::Foo::bar(const std::string&)", "bar");
     ASSERT_METHOD("void cf::Foo::bar<class T>(const std::string&)", "bar<class T>");
     ASSERT_METHOD("::(", "");
+    ASSERT_METHOD("::", "");
     ASSERT_METHOD(BOOST_CURRENT_FUNCTION, METHOD_NAME());
 
 #undef ASSERT_METHOD
@@ -93,6 +99,7 @@ void TestHelper::testMethodSignature()
     ASSERT_SIGNATURE("void CppUnit::Foo::bar(const std::string&)", "[CppUnit::Foo::bar]");
     ASSERT_SIGNATURE("int * CppUnit::Foo::bar(const std::string&)", "[CppUnit::Foo::bar]");
     ASSERT_SIGNATURE(" ::(", "");
+    ASSERT_SIGNATURE(" ::", "");
     ASSERT_SIGNATURE(BOOST_CURRENT_FUNCTION, METHOD_SIGNATURE());
 
 #undef ASSERT_METHOD
