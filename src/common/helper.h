@@ -68,6 +68,9 @@ inline void toLower(std::string& str) {
 }
 
 inline void replaceAll(std::string& str, const std::string& what, const std::string& to) {
+    if(what == "")
+        return;
+
     std::string::size_type pos = 0;
     while ((pos = str.find(what, pos)) != std::string::npos) {
         str.replace(pos, what.size(), to);

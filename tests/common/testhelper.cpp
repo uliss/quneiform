@@ -105,6 +105,37 @@ void TestHelper::testMethodSignature()
 #undef ASSERT_METHOD
 }
 
+void TestHelper::testToLower()
+{
+    std::string str("ABCDEF");
+    cf::toLower(str);
+    CPPUNIT_ASSERT_EQUAL(std::string("abcdef"), str);
+}
+
+void TestHelper::testToUpper()
+{
+    std::string str("abcdef");
+    cf::toUpper(str);
+    CPPUNIT_ASSERT_EQUAL(std::string("ABCDEF"), str);
+}
+
+void TestHelper::testReplaceAll()
+{
+    std::string str("some test message");
+    cf::replaceAll(str, "test", "example");
+    CPPUNIT_ASSERT_EQUAL(std::string("some example message"), str);
+    cf::replaceAll(str, "e", "$");
+    CPPUNIT_ASSERT_EQUAL(std::string("som$ $xampl$ m$ssag$"), str);
+    cf::replaceAll(str, "%", "6");
+    CPPUNIT_ASSERT_EQUAL(std::string("som$ $xampl$ m$ssag$"), str);
+    cf::replaceAll(str, "", "SPACE");
+    CPPUNIT_ASSERT_EQUAL(std::string("som$ $xampl$ m$ssag$"), str);
+    cf::replaceAll(str, "$", "");
+    CPPUNIT_ASSERT_EQUAL(std::string("som xampl mssag"), str);
+    cf::replaceAll(str, "m", "");
+    CPPUNIT_ASSERT_EQUAL(std::string("so xapl ssag"), str);
+}
+
 void TestHelper::testFileExists() {
 #ifdef _WIN32
 //CPPUNIT_ASSERT(fs::fileExists("C:/Windows/System32/Drivers/hosts"));

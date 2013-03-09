@@ -30,6 +30,9 @@ class TestHelper: public CppUnit::TestFixture
     CPPUNIT_TEST(testFileExists);
     CPPUNIT_TEST(testMethodName);
     CPPUNIT_TEST(testMethodSignature);
+    CPPUNIT_TEST(testToLower);
+    CPPUNIT_TEST(testToUpper);
+    CPPUNIT_TEST(testReplaceAll);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testBaseName();
@@ -38,6 +41,9 @@ public:
     void testStreamSize();
     void testMethodName();
     void testMethodSignature();
+    void testToLower();
+    void testToUpper();
+    void testReplaceAll();
 };
 
 #endif /* TESTHELPER_H_ */
