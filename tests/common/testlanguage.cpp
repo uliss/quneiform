@@ -15,8 +15,13 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
+
+#include <sstream>
+
 #include "testlanguage.h"
 #include "common/language.h"
+#include "common/tostring.h"
+
 CPPUNIT_TEST_SUITE_REGISTRATION(TestLanguage);
 
 using namespace cf;
@@ -24,6 +29,8 @@ using namespace cf;
 void TestLanguage::testInit() {
     Language l(LANGUAGE_RUSSIAN);
     CPPUNIT_ASSERT_EQUAL(LANGUAGE_RUSSIAN, l.get());
+
+    CPPUNIT_ASSERT_EQUAL(size_t(29), Language::allLanguages().size());
 }
 
 void TestLanguage::testIsoNames() {
@@ -132,4 +139,47 @@ void TestLanguage::testByName() {
     CPPUNIT_ASSERT_EQUAL(LANGUAGE_DIGITS, Language::byName("Digits").get());
     CPPUNIT_ASSERT_EQUAL(LANGUAGE_GERMAN, Language::byName("German").get());
     CPPUNIT_ASSERT_EQUAL(LANGUAGE_DUTCH, Language::byName("Dutch").get());
+}
+
+void TestLanguage::testOutput()
+{
+    std::ostringstream buf;
+    buf << Language(LANGUAGE_ESTONIAN);
+    CPPUNIT_ASSERT_EQUAL(std::string("Estonian"), buf.str());
+}
+
+void TestLanguage::testEncodings()
+{
+    Language l(LANGUAGE_RUSSIAN);
+    CPPUNIT_ASSERT_EQUAL(std::string("cp1251"), l.encoding());
+
+    l = Language(LANGUAGE_POLISH);
+    CPPUNIT_ASSERT_EQUAL(std::string("cp1250"), l.encoding());
+
+    l = Language(LANGUAGE_ENGLISH);
+    CPPUNIT_ASSERT_EQUAL(std::string("cp1252"), l.encoding());
+
+    l = Language(LANGUAGE_TURKISH);
+    CPPUNIT_ASSERT_EQUAL(std::string("cp1254"), l.encoding());
+
+    l = Language(LANGUAGE_ESTONIAN);
+    CPPUNIT_ASSERT_EQUAL(std::string("cp1257"), l.encoding());
+
+    l = Language(LANG_TOTAL);
+    CPPUNIT_ASSERT_EQUAL(std::string("latin1"), l.encoding());
+}
+
+void TestLanguage::testAll()
+{
+    LanguageList lst = Language::allLanguages();
+    CPPUNIT_ASSERT_EQUAL(LANGUAGE_ENGLISH, lst.front());
+
+    lst = Language::allLanguages(Language::SORT_BY_NAME);
+    CPPUNIT_ASSERT_EQUAL(LANGUAGE_BELARUSIAN, lst.front());
+
+    lst = Language::allLanguages(Language::SORT_BY_CODE2);
+    CPPUNIT_ASSERT_EQUAL(LANGUAGE_BULGARIAN, lst.front());
+
+    lst = Language::allLanguages(Language::SORT_BY_CODE3);
+    CPPUNIT_ASSERT_EQUAL(LANGUAGE_BELARUSIAN, lst.front());
 }
