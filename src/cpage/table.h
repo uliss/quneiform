@@ -54,66 +54,68 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-/**********  Title  **********/
-/*  Author     :  Alexander Mikhailov                                        */
-/*  Last Edit  :  02.09.98 (Almi)                                            */
-/*  Source     :  'Table.H'                                                  */
-/*  Means      :  Macros and Structures                                      */
-/*  Aim        :  Description of Tables                                      */
-
 #ifndef __TABLE_H__
 #define __TABLE_H__
-#pragma pack (push,8)
-/*---------------------------------------------------------------------------*/
+
 #include "cttypes.h"
-/*---------------------------------------------------------------------------*/
-#define    MaxTableUsers       5
-typedef enum {
+#include "commondata.h"
+
+enum {
+    MaxTableUsers = 5,
+    MaxHorLines = 99,
+    MaxVerLines = 50,
+    MaxCells = (MaxHorLines-1)*(MaxVerLines-1)
+};
+
+enum NAMES_TABLE_USER {
     TABLE_USER_COMMON = 0,
     TABLE_USER_RLTABLE,
     TABLE_USER_RBLOCK,
     TABLE_USER_CPAGE,
     TABLE_USER_RBTABLE
-} NAMES_TABLE_USER;
-/*---------------------------------------------------------------------------*/
-typedef struct tagTABLE_LINE_DESC {
+};
+
+struct TABLE_LINE_DESC {
+    enum {
+        TLT_UnKnown = 0x00, //- ничего не означает
+        TLT_Rough = 0x01,   //- правильная линия, не пытаться сократить
+        TLT_UnSure = 0x02   //- ничего пока не означает
+    };
+
     int32_t   Level;
-#define TLT_UnKnown       0x00 //- ничего не означает
-#define TLT_Rough         0x01 //- правильная линия, не пытаться сократить
-#define TLT_UnSure        0x02 //- ничего пока не означает
     char    Type;              // need types will be described
     char    reserv[3];
-} TABLE_LINE_DESC;
-typedef struct tagTABLE_LEVEL_DESC {
+};
+
+struct TABLE_LEVEL_DESC {
     char    Type;              // need types will be described
     char    reserv[3];
-} TABLE_LEVEL_DESC;
-/*---------------------------------------------------------------------------*/
-typedef enum {
+};
+
+enum SIDES_TABLE_CELL {
     TABLE_CELL_LEF = 0,  // Beg_X
     TABLE_CELL_RIG,      // End_X
     TABLE_CELL_TOP,      // Beg_Y
     TABLE_CELL_BOT       // End_Y
-} SIDES_TABLE_CELL;
-typedef struct tagTABLE_CELL_DESC {
+};
+
+struct TABLE_CELL_DESC {
     char    TypeOwn;           // need types will be described
     char    TypeBound[4];      // это - избыточная информация
     char    reserv[3];
-} TABLE_CELL_DESC;
-/*---------------------------------------------------------------------------*/
-typedef struct tagTABLE_SPECIAL_PROPERTIES {//сейчас использует только 'RLTABLE'
-//  char    reserv[16]; - было
+};
+
+struct TABLE_SPECIAL_PROPERTIES {//сейчас использует только 'RLTABLE'
     char    nSpecVertex;   // кол-во особых узлов
     char    Hori[5];       // номер табличной гориз.линии
     char    Vert[5];       // номер табличной гориз.линии
-#define    NON_CELL_VERTEX          0x01
     char    Type[5];       // характер особенности узла
-} TABLE_SPECIAL_PROPERTIES;
-/*---------------------------------------------------------------------------*/
-#define    MaxHorLines        99
-#define    MaxVerLines        50
-#define    MaxCells          (MaxHorLines-1)*(MaxVerLines-1)
-typedef struct tagTABLE_DESC {
+    enum {
+        NON_CELL_VERTEX = 0x01
+    };
+};
+
+struct TABLE_DESC {
     /*  Как искали таблицу  */
     Rect32  RectFieldSearch;
     int32_t   SkewFieldSearch;   // at what units?
@@ -135,21 +137,69 @@ typedef struct tagTABLE_DESC {
     TABLE_LEVEL_DESC   HorLevel[MaxHorLines-1];
     TABLE_LEVEL_DESC   VerLevel[MaxVerLines-1];
     /*  Свойства мелких структурных элементов таблицы  */
-#define    CELL_BOUND_PSEVDO          0x01
+    enum {
+        CELL_BOUND_PSEVDO = 0x01
+    };
     char    TypeHorBound[MaxHorLines*MaxVerLines];
     char    TypeVerBound[MaxHorLines*MaxVerLines];
     TABLE_CELL_DESC       Cell [MaxCells];
     /*  Прочее  */
     TABLE_SPECIAL_PROPERTIES   SpecProp;
     char    iSet; //номер сета, которому
-#define TTD_None          0x00 //- никакой, в сете она одна
-#define TTD_AsInImage     0x01 //- простая
-#define TTD_ByLogic       0x02 //- средняя
-#define TTD_Maximal       0x03 //- максимально подробная
+    enum {
+        TTD_None         = 0x00, //- никакой, в сете она одна
+        TTD_AsInImage    = 0x01, //- простая
+        TTD_ByLogic      = 0x02, //- средняя
+        TTD_Maximal      = 0x03 //- максимально подробная
+    };
     char    TypeTablDetail; // тип детализации
     char    Active; // 0 - пассивная, 1 - активная в сете
     char    reserv[253];
-} TABLE_DESC;
-/*---------------------------------------------------------------------------*/
-#pragma pack (pop)
+};
+
+namespace cf {
+namespace cpage {
+
+class TABLE : public CommonData
+{
+    int32_t num_colons;//число колонок
+    int32_t num_rows;//число строк
+    int32_t LineY[MaxHorLines/*MaxHorLines*/-1];//координаты линий (нулевая совпадает с первой линией, верхняя крышка таблицы не участвует)
+    int32_t LineX[MaxVerLines-1];//координаты колонок (нулевая совпадает с первой левой колонкой)
+    Bool16 Visible[MaxHorLines][MaxVerLines][2];//видима-невидима плюс флаги: сплошная, пунктирная, штрих
+    Bool16 TypeCell[MaxHorLines][MaxVerLines];//тип ячейки
+    int32_t Skew;
+    Bool16 Negative[MaxHorLines][MaxVerLines];//Негатив = 1, Позитив = 0;//     01.01.01 Логинов
+    int16_t Orient[MaxHorLines][MaxVerLines];//TYPE_UPDOWN- Сверху вниз и т.д. см константы выше
+
+    char    iSet; //номер сета, которому
+    char    TypeTablDetail;
+    char    Active; // 0 - пассивная, 1 - активная в сете
+    char    reserv[3];
+    //int16_t SetNum;//Нумерация в сете
+    //Bool16 bActive;//для маркировки активной таблицы в сете
+    //int16_t GlobNum;//Внутренняя нумерация
+};
+
+}
+}
+
+struct CellInfo
+{
+    int32_t Number; // Номер ячейки физической таблицы ( начиная с 1 )
+    cf::Point32 PhCoord;// Координаты привязки к физической ячейке
+    int32_t Block; // Номер фрагмента
+    int32_t GeCount;// число геометрических ячеек, входящих в физическую
+    uint32_t wFlags[16];// флажки
+    int32_t reserv[48];
+};
+
+struct CPAGE_TABLE
+{
+    TABLE_DESC prop; // основная информация о таблице
+    CellInfo cell[MaxHorLines - 1][MaxVerLines - 1];// номер соответсвующего
+    uint32_t PhNumber; // число физических ячеек
+    uint32_t wFlags[16];// флажки
+};
+
 #endif

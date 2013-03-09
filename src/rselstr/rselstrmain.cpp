@@ -80,7 +80,7 @@ jmp_buf fatal_error_exit;
 int16_t nStrings;
 extern int nIncline;
 Handle HCCOM;
-Handle HCPAGE;
+CPageHandle HCPAGE;
 
 struct PL;
 struct PL
@@ -116,8 +116,7 @@ extern Handle hDrawComp;
 extern BLOCK** pBlockPointer;
 
 //////////////////////////////////
-static void LayoutFromCPAGE(Handle hCPAGE, CCOM_handle hCCOM);
-int IsInPoly(const cf::Point16& a, POLY_* pPoly);
+static void LayoutFromCPAGE(CPageHandle hCPAGE, CCOM_handle hCCOM);
 Bool dphShowString;
 
 void RotatePageToIdeal(void);
@@ -138,7 +137,7 @@ Bool LineInCell(Rect32* CellRect, PL* po_li);
 void SomeDraw(void);
 void DrawComps(Handle hCCOM);
 
-RSELSTR_FUNC(Bool32) RSELSTR_ExtractTextStrings(CCOM_handle hCCOM, Handle hCPAGE)
+RSELSTR_FUNC(Bool32) RSELSTR_ExtractTextStrings(CCOM_handle hCCOM, CPageHandle hCPAGE)
 {
     LDPUMA_Skip(RselstrTime);
     int t;
@@ -148,7 +147,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_ExtractTextStrings(CCOM_handle hCCOM, Handle hCPAGE
         MainWindowD = LDPUMA_GetWindowHandle("Main");
 
     PAGEINFO info;
-    if (GetPageInfo(hCPAGE,&info))
+    if (CPAGE_GetPageInfo(hCPAGE,&info))
         nIncline = info.Incline2048;
     else
         nIncline = 0;
@@ -185,7 +184,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_ExtractTextStrings(CCOM_handle hCCOM, Handle hCPAGE
     return TRUE;
 }
 
-void PageLayoutStrings(CCOM_handle hCCOM, Handle hCPAGE)
+void PageLayoutStrings(CCOM_handle hCCOM, CPageHandle hCPAGE)
 {
     if (ReadRoots(hCCOM)) {
         run_options = FORCE_ONE_COLUMN;
@@ -207,10 +206,10 @@ void PageLayoutStrings(CCOM_handle hCCOM, Handle hCPAGE)
     }
 }
 
-void LayoutFromCPAGE(Handle hCPAGE, CCOM_handle hCCOM)
+void LayoutFromCPAGE(CPageHandle hCPAGE, CCOM_handle hCCOM)
 {
-    Handle h = NULL;
-    POLY_ block;
+    CBlockHandle h = NULL;
+    cf::cpage::PolyBlock block;
     int nBlocks = FIRST_REGULAR_BLOCK_NUMBER;
     Point16 pLeftTop, pRightTop, pLeftBottom, pRightBottom;
     ROOT * pRoot = NULL;
@@ -237,14 +236,14 @@ void LayoutFromCPAGE(Handle hCPAGE, CCOM_handle hCCOM)
 
     for (h = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT); h != NULL; h = CPAGE_GetBlockNext(hCPAGE, h,
             TYPE_TEXT)) {
-        uint32_t f = CPAGE_GetBlockFlags(hCPAGE, h);
-        if (CPAGE_GetBlockData(hCPAGE, h, TYPE_TEXT, &block, sizeof(block)) != sizeof(block)) {
+        uint32_t f = CPAGE_GetBlockFlags(h);
+        if (CPAGE_GetBlockData(h, TYPE_TEXT, &block, sizeof(block)) != sizeof(block)) {
             SetReturnCode_rselstr(CPAGE_GetReturnCode());
             longjmp(fatal_error_exit, -1);
         }
-        if (block.negative == TYPE_NEGATIVE ||
-                block.orient == TYPE_DOWNUP ||
-                block.orient == TYPE_UPDOWN)
+        if (block.isNegative() ||
+                block.orientation() == CPAGE_ORIENT_DOWNUP ||
+                block.orientation() == CPAGE_ORIENT_UPDOWN)
             continue;
 
         cf::Roots::add(ROOT());
@@ -259,15 +258,15 @@ void LayoutFromCPAGE(Handle hCPAGE, CCOM_handle hCCOM)
             pRightBottom.rx() = pRoot->xColumn + pRoot->nWidth - 1;
             pRightBottom.ry() = pRoot->yRow + pRoot->nHeight - 1;
 
-            if (IsInPoly(pLeftTop, &block) ||
-                    IsInPoly(pRightTop, &block) ||
-                    IsInPoly(pLeftBottom, &block) ||
-                    IsInPoly(pRightBottom, &block)) {
+            if (block.isInPoly(pLeftTop) ||
+                    block.isInPoly(pRightTop) ||
+                    block.isInPoly(pLeftBottom) ||
+                    block.isInPoly(pRightBottom)) {
                 pRoot->nBlock = BlockNumber + FIRST_REGULAR_BLOCK_NUMBER;
                 pRoot->nUserNum = BlockNumber;
             }
         }
-        CPAGE_SetBlockInterNum(hCPAGE, h, BlockNumber);
+        CPAGE_SetBlockInterNum(h, BlockNumber);
         BlockNumber++;
     }
 
@@ -299,13 +298,14 @@ void LayoutFromCPAGE(Handle hCPAGE, CCOM_handle hCCOM)
     ::Rect16 Rc;
     for (h = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT); h != NULL; h = CPAGE_GetBlockNext(hCPAGE, h,
             TYPE_TEXT)) {
-        CPAGE_GetBlockData(hCPAGE, h, TYPE_TEXT, &block, sizeof(POLY_));
-        if (block.negative == TYPE_NEGATIVE || block.orient == TYPE_UPDOWN || block.orient
-                == TYPE_DOWNUP) {
-            Rc.bottom = block.com.Vertex[2].y();
-            Rc.top = block.com.Vertex[0].y();
-            Rc.left = block.com.Vertex[0].x();
-            Rc.right = block.com.Vertex[2].x();
+        CPAGE_GetBlockData(h, TYPE_TEXT, &block, sizeof(cf::cpage::PolyBlock));
+        if (block.isNegative() ||
+                block.orientation() == CPAGE_ORIENT_UPDOWN ||
+                block.orientation() == CPAGE_ORIENT_DOWNUP) {
+            Rc.bottom = block.vertexY(2);
+            Rc.top = block.vertexY(0);
+            Rc.left = block.vertexX(0);
+            Rc.right = block.vertexX(2);
             if (nIncline >= 0) {
                 REAL_XY(Rc.left, Rc.top);
                 REAL_XY(Rc.right, Rc.bottom);
@@ -316,11 +316,11 @@ void LayoutFromCPAGE(Handle hCPAGE, CCOM_handle hCCOM)
             }
             type_vert = 0;
             type_neg = 0;
-            if (block.orient == TYPE_DOWNUP)
+            if (block.orientation() == CPAGE_ORIENT_DOWNUP)
                 type_vert = 1;
-            if (block.orient == TYPE_UPDOWN)
+            if (block.orientation() == CPAGE_ORIENT_UPDOWN)
                 type_vert = 2;
-            if (block.negative == TYPE_NEGATIVE)
+            if (block.isNegative())
                 type_neg = 1;
 
             if (nObjects >= len_Objects)
@@ -361,7 +361,7 @@ void LayoutFromCPAGE(Handle hCPAGE, CCOM_handle hCCOM)
                 else
                     Hstr[nObjects].ImageName[0] = '\0';
 
-                CPAGE_SetBlockInterNum(hCPAGE, h, BlockNumber);
+                CPAGE_SetBlockInterNum(h, BlockNumber);
                 BlockNumber++;
                 nObjects++;
             }
@@ -549,43 +549,6 @@ void file_string(STRING * s)
 
 }
 
-int IsInPoly(Point16 a, void * pPoly)
-{
-    int i, y, n, ind;
-    int Count = 0;
-    POLY_ *p;
-    p = (POLY_*) pPoly;
-    n = p->com.count;
-    for (i = 0; i < n; i++) {
-        int j = (i + 1) % n;
-        if (p->com.Vertex[i].y() == p->com.Vertex[j].y())
-            continue;
-        if (p->com.Vertex[i].y() > a.y() && p->com.Vertex[j].y() > a.y())
-            continue;
-        if (p->com.Vertex[i].y() < a.y() && p->com.Vertex[j].y() < a.y())
-            continue;
-        y = p->com.Vertex[i].y();
-        ind = i;
-        if (p->com.Vertex[j].y() > y) {
-            y = p->com.Vertex[j].y();
-            ind = j;
-        }
-        if ((y == a.y()) && (p->com.Vertex[ind].x() >= a.x()))
-            Count++;
-        else if (MIN(p->com.Vertex[i].y(), p->com.Vertex[j].y()) == a.y())
-            continue;
-        else {
-            double t = ((double) (a.y() - p->com.Vertex[i].y()) / ((double) (p->com.Vertex[j].y()
-                    - (double) p->com.Vertex[i].y())));
-            if (t > 0 && t < 1 && (double) p->com.Vertex[i].x() + t
-                    * ((double) p->com.Vertex[j].x() - (double) p->com.Vertex[i].x())
-                    >= (double) a.x())
-                Count++;
-        }
-    }
-    return Count & 1;
-}
-
 Bool AddLenHstrMas(CHSTR_Objects** ppRc, int& len, int add)
 {
     CHSTR_Objects *dop;
@@ -646,7 +609,7 @@ void PointedProc()
     CSTR_line str;
     CSTR_attr lattr;
     PAGEINFO info;
-    GetPageInfo(HCPAGE, &info);
+    CPAGE_GetPageInfo(HCPAGE, &info);
     nIncline = info.Incline2048;
 
     int Right;
@@ -764,7 +727,7 @@ void SomeDraw()
         CSTR_attr lattr;
         ::Rect16 r;
         PAGEINFO info;
-        GetPageInfo(HCPAGE, &info);
+        CPAGE_GetPageInfo(HCPAGE, &info);
         nIncline = info.Incline2048;
         Bool fl_exist = FALSE;
 

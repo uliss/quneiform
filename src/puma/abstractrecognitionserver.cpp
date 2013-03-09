@@ -157,6 +157,11 @@ LayoutBlockList AbstractRecognitionServer::imageBlocks() const
     return LayoutBlockList();
 }
 
+LayoutBlockList AbstractRecognitionServer::tableBlocks() const
+{
+    return LayoutBlockList();
+}
+
 LayoutBlockList AbstractRecognitionServer::textBlocks() const
 {
     return LayoutBlockList();

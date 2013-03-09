@@ -54,14 +54,16 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "globus.h"
-#include "cpage.h"
-#include "backup.h"
 #include "polyblock.h"
-#include "resource.h"
+#include "convert.h"
+#include "picture.h"
+#include "internal.h"
+#include "cpagetyps.h"
+#include "cpage.h"
+#include "cpage_debug.h"
 
-static Handle varTYPE_CPAGE_TABLE = 0;
-static Handle varTYPE_CPAGE_PICTURE = 0;
+static CDataType varTYPE_CPAGE_TABLE = 0;
+static CDataType varTYPE_CPAGE_PICTURE = 0;
 
 void DefConvertInit()
 {
@@ -71,41 +73,39 @@ void DefConvertInit()
 #undef TYPE_CPAGE_TABLE
 #undef TYPE_CPAGE_PICTURE
 
-uint32_t DefConvertBlock(uint32_t dwContext,
-                         Handle TypeIn, void * lpDataIn, uint32_t SizeIn,
-                         Handle TypeOut, void * LpDataOut, uint32_t SizeOut)
+using namespace cf;
+
+uint32_t DefConvertBlock(uint32_t /*context*/,
+                         CDataType typeIn, const void * dataIn, uint32_t sizeIn,
+                         CDataType typeOut, void * dataOut, uint32_t sizeOut)
 {
-    uint32_t rc = 0;
-    SetReturnCode_cpage(IDS_ERR_NO);
-
-    if (TypeIn == TYPE_DESK) {
-        if (TypeOut == varTYPE_CPAGE_TABLE)
-            rc = TYPE_DESK_to_CPAGE_TABLE((TABLE_DESC *)lpDataIn, SizeIn, (CPAGE_TABLE *)LpDataOut, SizeOut);
+    if(!dataIn) {
+        CPAGE_ERROR_FUNC << "NULL input given";
+        return 0;
     }
 
-    else if (TypeIn == varTYPE_CPAGE_TABLE) {
-        if (TypeOut == TYPE_DESK)
-            rc = CPAGE_TABLE_to_TYPE_DESK((CPAGE_TABLE *)lpDataIn, SizeIn, (TABLE_DESC *)LpDataOut, SizeOut);
-    }
+    if(typeIn == TYPE_DESK && typeOut == varTYPE_CPAGE_TABLE)
+        return TYPE_DESK_to_CPAGE_TABLE((TABLE_DESC *)dataIn, sizeIn, (CPAGE_TABLE *)dataOut, sizeOut);
 
-    else if (TypeIn == TYPE_IMAGE) {
-        if (TypeOut == varTYPE_CPAGE_PICTURE)
-            rc = TYPE_PICTURE_to_CPAGE_PICTURE((POLY_ *)lpDataIn, SizeIn, (CPAGE_PICTURE *)LpDataOut, SizeOut);
-    }
+    if(typeIn == varTYPE_CPAGE_TABLE && typeOut == TYPE_DESK)
+        return CPAGE_TABLE_to_TYPE_DESK((CPAGE_TABLE *)dataIn, sizeIn, (TABLE_DESC *)dataOut, sizeOut);
 
-    else if (TypeIn == varTYPE_CPAGE_PICTURE) {
-        if (TypeOut == TYPE_IMAGE)
-            rc = CPAGE_PICTURE_to_TYPE_PICTURE((CPAGE_PICTURE *)lpDataIn, SizeIn, (POLY_ *)LpDataOut, SizeOut);
-    }
+    if(typeIn == TYPE_IMAGE && typeOut == varTYPE_CPAGE_PICTURE)
+        return cpage::polyBlockToPicture(dataIn, sizeIn, dataOut, sizeOut);
 
-    return rc;
+    if(typeIn == varTYPE_CPAGE_PICTURE && typeOut == TYPE_IMAGE)
+        return cpage::pictureToPolyBlock(dataIn, sizeIn, dataOut, sizeOut);
+
+    CPAGE_ERROR_FUNC << "unsupported conversion:"
+                     << CPAGE_GetNameInternalType(typeIn)
+                     << "=>"
+                     << CPAGE_GetNameInternalType(typeOut);
+    return 0;
 }
 
-uint32_t DefConvertPage(uint32_t dwContext,
-                        Handle TypeIn, void * lpDataIn, uint32_t SizeIn,
-                        Handle TypeOut, void * LpDataOut, uint32_t SizeOut)
+uint32_t DefConvertPage(uint32_t /*dwContext*/,
+                        CDataType /*TypeIn*/, const void * /*lpDataIn*/, uint32_t /*SizeIn*/,
+                        CDataType /*TypeOut*/, void * /*LpDataOut*/, uint32_t /*SizeOut*/)
 {
-    uint32_t rc = 0;
-    SetReturnCode_cpage(IDS_ERR_NO);
-    return rc;
+    return 0;
 }

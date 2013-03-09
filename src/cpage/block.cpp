@@ -54,112 +54,117 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <stdio.h>
 #include <memory.h>
 
-#include "backup.h"
 #include "block.h"
-#include "mymem.h"
+#include "convert.h"
+#include "cpage_debug.h"
 
-//##############################
-BLOCK::BLOCK()
+namespace cf {
+namespace cpage {
+
+Block::Block() :
+    user_num_(0),
+    flags_(0),
+    internal_num_(0)
+{}
+
+Block::Block(const Block& b) :
+    Data(b),
+    user_num_(b.user_num_),
+    flags_(b.flags_),
+    internal_num_(b.internal_num_)
+{}
+
+Block::~Block()
+{}
+
+void Block::set(CDataType type, uint32_t userNum , uint32_t flags , const void * src , uint32_t size)
 {
-    UserNum = 0;
-    Flags = 0;
-    InterNum = 0;
+    user_num_ = userNum;
+    flags_ = flags;
+    internal_num_ = 0;
+    setData(type, src, size);
 }
-//##############################
-BLOCK::~BLOCK()
+
+Block& Block::operator=(const Block& block)
 {
-}
-//##############################
-Bool32  BLOCK::Create(Handle type, uint32_t usernum , uint32_t flags , void * lpdata , uint32_t size )
-{
-    UserNum = usernum;
-    Flags = flags;
-    InterNum = 0;
-    SetData(type, lpdata, size);
-    return TRUE;
-}
-//##############################
-BLOCK & BLOCK::operator = (BLOCK & Block)
-{
-    UserNum = Block.UserNum;
-    Flags = Block.Flags;
-    InterNum = Block.InterNum;
-    *(DATA *)this = Block;
+    user_num_ = block.user_num_;
+    flags_ = block.flags_;
+    internal_num_ = block.internal_num_;
+    *(Data *)this = block;
     return *this;
 }
-//##############################
-Bool32 BLOCK::operator == (BLOCK & Block)
-{
-    if ( UserNum == Block.UserNum &&
-            Flags == Block.Flags &&
-            InterNum == Block.InterNum &&
-            *(DATA *)this == Block)
-        return TRUE;
 
-    return FALSE;
-}
-//##############################
-Bool32 BLOCK::Save(Handle to)
+bool Block::operator==(const Block& block)
 {
-    if ( myWrite(to, &UserNum, sizeof(UserNum)) == sizeof(UserNum) &&
-            myWrite(to, &Flags, sizeof(Flags)) == sizeof(Flags) &&
-            DATA::Save(to) &&
-            myWrite(to, &InterNum, sizeof(InterNum)) == sizeof(InterNum))
-        return TRUE;
+    if (user_num_ == block.user_num_ &&
+            flags_ == block.flags_ &&
+            internal_num_ == block.internal_num_ &&
+            *(Data*)this == block)
+        return true;
 
-    return FALSE;
-}
-//##############################
-Bool32 BLOCK::Restore(Handle from)
-{
-    if ( myRead(from, &UserNum, sizeof(UserNum)) == sizeof(UserNum) &&
-            myRead(from, &Flags, sizeof(Flags)) == sizeof(Flags) &&
-            DATA::Restore(from) &&
-            myRead(from, &InterNum, sizeof(InterNum)) == sizeof(InterNum))
-        return TRUE;
-
-    return FALSE;
-}
-//##############################
-Bool32 BLOCK::SaveCompress(Handle to)
-{
-    if ( myWrite(to, &UserNum, sizeof(UserNum)) == sizeof(UserNum) &&
-            myWrite(to, &Flags, sizeof(Flags)) == sizeof(Flags) &&
-            DATA::SaveCompress(to) &&
-            myWrite(to, &InterNum, sizeof(InterNum)) == sizeof(InterNum))
-        return TRUE;
-
-    return FALSE;
-}
-//##############################
-Bool32 BLOCK::RestoreCompress(Handle from)
-{
-    if ( myRead(from, &UserNum, sizeof(UserNum)) == sizeof(UserNum) &&
-            myRead(from, &Flags, sizeof(Flags)) == sizeof(Flags) &&
-            DATA::RestoreCompress(from) &&
-            myRead(from, &InterNum, sizeof(InterNum)) == sizeof(InterNum))
-        return TRUE;
-
-    return FALSE;
+    return false;
 }
 
-static  CPAGE_CONVERTOR s_ConvertorBlocks = {0, DefConvertBlock};
-//#################################
-CPAGE_CONVERTOR SetConvertorBlocks(CPAGE_CONVERTOR convertor)
+bool Block::operator!=(const Block& block)
 {
-    CPAGE_CONVERTOR old = s_ConvertorBlocks;
-    s_ConvertorBlocks = convertor;
+    return ! this->operator==(block);
+}
+
+bool Block::save(std::ostream& os) const
+{
+    if(os.bad()) {
+        CPAGE_ERROR_FUNC << ": bad stream";
+        return false;
+    }
+
+    os.write((char*) &user_num_, sizeof(user_num_));
+    os.write((char*) &flags_, sizeof(flags_));
+    os.write((char*) &internal_num_, sizeof(internal_num_));
+
+    if(os.fail()) {
+        CPAGE_ERROR_FUNC << ": failed";
+        return false;
+    }
+
+    return Data::save(os);
+}
+
+bool Block::restore(std::istream& is)
+{
+    if(is.bad()) {
+        CPAGE_ERROR_FUNC << ": bad stream";
+        return false;
+    }
+
+    is.read((char*) &user_num_, sizeof(user_num_));
+    is.read((char*) &flags_, sizeof(flags_));
+    is.read((char*) &internal_num_, sizeof(internal_num_));
+
+    if(is.fail()) {
+        CPAGE_ERROR_FUNC << ": failed";
+        return false;
+    }
+
+    return Data::restore(is);
+}
+
+namespace {
+DataConvertor blockConvertor(DefConvertBlock);
+}
+
+DataConvertor Block::setConvertor(const DataConvertor& convertor)
+{
+    DataConvertor old = blockConvertor;
+    blockConvertor = convertor;
     return old;
 }
-//#################################
-uint32_t BLOCK::Convert(Handle type, void * lpdata, uint32_t size)
+
+uint32_t Block::Convert(CDataType type, void * lpdata, uint32_t size)
 {
-    uint32_t rc = 0;
-    rc = (*s_ConvertorBlocks.fnConvertor)(s_ConvertorBlocks.dwContext,
-                                          Type, lpData, Size,
-                                          type, lpdata, size);
-    return rc;
+    return blockConvertor(type_, data_, size_, type, lpdata, size);
+}
+
+}
 }

@@ -443,7 +443,7 @@ Bool IfNegIn(NegList* root, int nRc, int top, int bottom, int left, int right)
     return FALSE;
 }
 
-Bool SearchNegBySize(CCOM_handle hCCOM, Handle hCPage, NegList** ROOT, int& nRC)
+Bool SearchNegBySize(CCOM_handle hCCOM, CPageHandle hCPage, NegList** ROOT, int& nRC)
 {
     NegList* root = NULL;
     NegList* temp = NULL;
@@ -452,7 +452,7 @@ Bool SearchNegBySize(CCOM_handle hCCOM, Handle hCPage, NegList** ROOT, int& nRC)
     if (pcomp == NULL)
         return FALSE;
     PAGEINFO info;
-    GetPageInfo(hCPage, &info);
+    CPAGE_GetPageInfo(hCPage, &info);
     DPIX = info.DPIX;
     DPIY = info.DPIY;
 
@@ -997,7 +997,7 @@ Bool IsNegBlack(Handle hCPage, NegList* now)
         return FALSE;
 }
 
-Bool GetMasP(Handle hCPage, Rect16 Rc, uchar** ppmasp)
+Bool GetMasP(CPageHandle hCPage, Rect16 Rc, uchar** ppmasp)
 {
     int prewide;
     int left = Rc.left;
@@ -1022,7 +1022,7 @@ Bool GetMasP(Handle hCPage, Rect16 Rc, uchar** ppmasp)
     DataInto.wByteWidth = (uint16_t) (prewide / 8);
     DataInto.dwX = left;
     DataInto.dwY = upper;
-    GetPageInfo(hCPage, &info);
+    CPAGE_GetPageInfo(hCPage, &info);
     for (int i = 0; i < CPAGE_MAXNAME; i++)
         Name[i] = ImageName[i];
     DataOut.dwWidth = DataInto.dwWidth;

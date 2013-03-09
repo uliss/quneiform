@@ -43,6 +43,7 @@
 #include "cstr/cstr.h"
 #include "cpage/cpage.h"
 #include "cpage/pagestorage.h"
+#include "cpage/backup.h"
 #include "dpuma.h"
 #include "exc/exc.h"
 #include "export/exporterfactory.h"
@@ -139,11 +140,27 @@ void PumaImpl::addImageBlock(const Rect& rect)
     if(!cpage_)
         return;
 
-    POLY_ poly;
-    poly.com.setRect(rect);
-    poly.com.setFlag(CPAGE_BLOCK_USER);
+    cpage::PolyBlock poly;
+    poly.setRect(rect);
+    poly.setFlag(CPAGE_BLOCK_USER);
     uint count = CPAGE_GetCountBlock(cpage_);
     CPAGE_CreateBlock(cpage_, TYPE_IMAGE, ++count, 0, &poly, sizeof(poly));
+
+    unsetUpdateFlag(FLG_UPDATE_CPAGE);
+}
+
+void PumaImpl::addTableBlock(const Rect& block)
+{
+    PUMA_TRACE_FUNC() << block;
+
+    if(!cpage_)
+        return;
+
+    cpage::PolyBlock poly;
+    poly.setRect(block);
+    poly.setFlag(CPAGE_BLOCK_USER);
+    uint count = CPAGE_GetCountBlock(cpage_);
+    CPAGE_CreateBlock(cpage_, TYPE_TABLE, ++count, 0, &poly, sizeof(poly));
 
     unsetUpdateFlag(FLG_UPDATE_CPAGE);
 }
@@ -155,9 +172,9 @@ void PumaImpl::addTextBlock(const Rect& block)
     if(!cpage_)
         return;
 
-    POLY_ poly;
-    poly.com.setRect(block);
-    poly.com.setFlag(CPAGE_BLOCK_USER);
+    cpage::PolyBlock poly;
+    poly.setRect(block);
+    poly.setFlag(CPAGE_BLOCK_USER);
     uint count = CPAGE_GetCountBlock(cpage_);
     CPAGE_CreateBlock(cpage_, TYPE_TEXT, ++count, 0, &poly, sizeof(poly));
 
@@ -170,11 +187,11 @@ LayoutBlockList PumaImpl::textBlocks() const
     if(!cpage_)
         return res;
 
-    Handle block = CPAGE_GetBlockFirst(cpage_, TYPE_TEXT);
+    CBlockHandle block = CPAGE_GetBlockFirst(cpage_, TYPE_TEXT);
 
     while (block) {
-        POLY_ poly;
-        CPAGE_GetBlockData(cpage_, block, TYPE_TEXT, &poly, sizeof(poly));
+        cpage::PolyBlock poly;
+        CPAGE_GetBlockData(block, TYPE_TEXT, &poly, sizeof(poly));
         res.push_back(LayoutBlock(poly.rect(), LayoutBlock::TEXT));
         block = CPAGE_GetBlockNext(cpage_, block, TYPE_TEXT);
     }
@@ -188,16 +205,32 @@ LayoutBlockList PumaImpl::imageBlocks() const
     if(!cpage_)
         return res;
 
-    Handle block = CPAGE_GetBlockFirst(cpage_, TYPE_IMAGE);
+    CBlockHandle block = CPAGE_GetBlockFirst(cpage_, TYPE_IMAGE);
 
     while (block) {
-        POLY_ poly;
-        CPAGE_GetBlockData(cpage_, block, TYPE_IMAGE, &poly, sizeof(poly));
+        cpage::PolyBlock poly;
+        CPAGE_GetBlockData(block, TYPE_IMAGE, &poly, sizeof(poly));
         res.push_back(LayoutBlock(poly.rect(), LayoutBlock::IMAGE));
         block = CPAGE_GetBlockNext(cpage_, block, TYPE_IMAGE);
     }
 
-    debugPrintCpage();
+    return res;
+}
+
+LayoutBlockList PumaImpl::tableBlocks() const
+{
+    LayoutBlockList res;
+    if(!cpage_)
+        return res;
+
+    CBlockHandle block = CPAGE_GetBlockFirst(cpage_, TYPE_TABLE);
+
+    while (block) {
+        cpage::PolyBlock poly;
+        CPAGE_GetBlockData(block, TYPE_TABLE, &poly, sizeof(poly));
+        res.push_back(LayoutBlock(poly.rect(), LayoutBlock::IMAGE));
+        block = CPAGE_GetBlockNext(cpage_, block, TYPE_TABLE);
+    }
 
     return res;
 }
@@ -243,7 +276,7 @@ void PumaImpl::clearAll() {
     memset(&PInfo, 0, sizeof(PInfo));
 
     if (cpage_)
-        GetPageInfo(cpage_, &PInfo);
+        CPAGE_GetPageInfo(cpage_, &PInfo);
 
     CSTR_DeleteAll();
     CPAGE_DeleteAll();
@@ -252,7 +285,7 @@ void PumaImpl::clearAll() {
     PInfo.Incline2048 = 0;
     PInfo.Angle = 0;
     PInfo.Images = IMAGE_USER;
-    SetPageInfo(cpage_, PInfo);
+    CPAGE_SetPageInfo(cpage_, PInfo);
     CCOM_DeleteAll();
     ccom_ = NULL;
     input_filename_.clear();
@@ -285,12 +318,12 @@ void PumaImpl::close() {
 void PumaImpl::debugPrintCpage() const
 {
     PUMA_DEBUG_FUNC() << "Container CPAGE has: \n name : size";
-    Handle block = CPAGE_GetBlockFirst(cpage_, 0);
+    CBlockHandle block = CPAGE_GetBlockFirst(cpage_, 0);
 
     while (block) {
-        cfDebug() << CPAGE_GetNameInternalType(CPAGE_GetBlockType(cpage_, block))
+        cfDebug() << CPAGE_GetNameInternalType(CPAGE_GetBlockType(block))
                 << " : "
-                << CPAGE_GetBlockData(cpage_, block, CPAGE_GetBlockType(cpage_, block), NULL, 0);
+                << CPAGE_GetBlockData(block, CPAGE_GetBlockType(block), NULL, 0);
         block = CPAGE_GetBlockNext(cpage_, block, 0);
     }
 }
@@ -298,7 +331,7 @@ void PumaImpl::debugPrintCpage() const
 void PumaImpl::extractComponents() {
     PAGEINFO info;
 
-    if (!GetPageInfo(cpage_, &info))
+    if (!CPAGE_GetPageInfo(cpage_, &info))
         throw PumaException("GetPageInfo failed");
 
     ExcControl exc;
@@ -403,12 +436,12 @@ void PumaImpl::layout()
 }
 
 void PumaImpl::loadLayoutFromFile(const std::string& fname) {
-    cpage_ = CPAGE_RestorePage(TRUE, fname.c_str());
+    cpage_ = CPAGE_RestorePage(true, fname.c_str());
 
     if(cpage_ == NULL)
         throw PumaException() << "CPAGE_RestorePage failed from'" << fname << "'";
 
-    CPAGE_SetCurrentPage(CPAGE_GetNumberPage(cpage_));
+    CPAGE_SetCurrentPage(CPAGE_GetPageNumber(cpage_));
 }
 
 void PumaImpl::markup() {
@@ -655,11 +688,10 @@ void PumaImpl::printResultLine(std::ostream& os, size_t lineNumber) {
 
     if (line_attr.fragment != nFragment) {
         nFragment = -1;
-        Handle hBlock = CPAGE_GetBlockFirst(cpage_, 0);
+        CBlockHandle hBlock = CPAGE_GetBlockFirst(cpage_, 0);
 
         while (hBlock) {
-            if ((int) CPAGE_GetBlockInterNum(cpage_, hBlock)
-                    == line_attr.fragment) {
+            if ((int) CPAGE_GetBlockInterNum(hBlock) == line_attr.fragment) {
                 nFragment = line_attr.fragment;
                 break;
             }
@@ -727,7 +759,7 @@ void PumaImpl::recognize()
         extractComponents();
 
     // Получим описатель страницы
-    cpage_ = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
+    cpage_ = CPAGE_GetHandlePage(CPAGE_GetCurrentPageNumber());
 
     // Выделим строки
     extractStrings();
@@ -739,13 +771,13 @@ void PumaImpl::recognize()
     CSTR_line ln;
     CSTR_attr attr;
     int32_t nf = CSTR_GetMaxFragment(0);
-    Handle hBlock = CPAGE_GetBlockFirst(cpage_, TYPE_TEXT);
+    CBlockHandle hBlock = CPAGE_GetBlockFirst(cpage_, TYPE_TEXT);
 
     if (hBlock) {
         AutoBuffer<int, InitZero> flagfrag(nf);
 
         for (int i = 0; hBlock && i < nf; i++) {
-            flagfrag[i] = CPAGE_GetBlockFlags(cpage_, hBlock);
+            flagfrag[i] = CPAGE_GetBlockFlags(hBlock);
             hBlock = CPAGE_GetBlockNext(cpage_, hBlock, TYPE_TEXT);
         }
 
@@ -881,7 +913,7 @@ void PumaImpl::recognizePass2() {
 void PumaImpl::recognizeSetup() {
     // распознавание строк
     PAGEINFO info;
-    GetPageInfo(cpage_, &info);
+    CPAGE_GetPageInfo(cpage_, &info);
     RSTR_Options opt;
     opt.pageSkew2048 = info.Incline2048;//0
     int32_t nResolutionY = info.DPIY;//300;
@@ -949,7 +981,7 @@ void PumaImpl::rotate(BitmapPtr * dib, Point * p) {
     }
 
     // Создадим довернутое изображение
-    GetPageInfo(cpage_, &page_info);
+    CPAGE_GetPageInfo(cpage_, &page_info);
     CIMAGE_RemoveImage(PUMA_IMAGE_ROTATE);
 
     CImage::instance().disableReadMask(PUMA_IMAGE_USER);
@@ -962,7 +994,7 @@ void PumaImpl::rotate(BitmapPtr * dib, Point * p) {
 
     CImage::instance().enableReadMask(PUMA_IMAGE_USER);
     page_info.Images |= IMAGE_ROTATE;
-    SetPageInfo(cpage_, page_info);
+    CPAGE_SetPageInfo(cpage_, page_info);
 }
 
 void PumaImpl::saveCSTR(int pass) {
@@ -971,9 +1003,8 @@ void PumaImpl::saveCSTR(int pass) {
     CSTR_SaveCont(os.str().c_str());
 }
 
-void PumaImpl::saveLayoutToFile(const std::string& fname) {
-    CPAGE_ClearBackUp(cpage_);
-
+void PumaImpl::saveLayoutToFile(const std::string& fname)
+{
     if (!CPAGE_SavePage(cpage_, fname.c_str()))
         throw PumaException() << "CPAGE_SavePage to '" << fname << "' failed.";
 }
@@ -1009,6 +1040,17 @@ void PumaImpl::setRecognizeOptions(const RecognizeOptions& opt) {
     setUpdateFlag(FLG_UPDATE_CPAGE);
 }
 
+void PumaImpl::dumpComponents()
+{
+    if(!ccom_)
+        return;
+
+    CCOM_comp * pcomp = CCOM_GetFirst(ccom_, NULL);
+    while(pcomp != NULL) {
+//        std::cerr <<
+    }
+}
+
 static inline bool isValidPageTemplate(const Rect& r)
 {
     return r.left() >= 0 ||
@@ -1031,7 +1073,7 @@ void PumaImpl::applyReadMask()
     Rect full_page(0, 0, image->biWidth, image->biHeight);
 
     PAGEINFO page_info;
-    GetPageInfo(cpage_, &page_info);
+    CPAGE_GetPageInfo(cpage_, &page_info);
     page_info.status &= ~(PINFO_USERTEMPLATE | PINFO_AUTOTEMPLATE);
 
     CImage::instance().addRectToReadMask(recog_name_, full_page);
@@ -1053,24 +1095,24 @@ void PumaImpl::applyReadMask()
     if(Config::doDump())
         CIMAGE_Dump(recog_name_, "ImageAfterMasks.bmp");
 
-    SetPageInfo(cpage_, page_info);
+    CPAGE_SetPageInfo(cpage_, page_info);
     setUpdateFlag(FLG_UPDATE);
 }
 
-BackupPage * PumaImpl::cpage()
+cpage::BackupPage * PumaImpl::cpage()
 {
     if(!cpage_)
         return NULL;
 
-    return &PageStorage::page(cpage_);
+    return static_cast<cpage::PageHandle>(cpage_);
 }
 
-PAGEINFO * PumaImpl::pageInfo()
+const PAGEINFO * PumaImpl::pageInfo() const
 {
     if(!cpage_)
         return NULL;
 
-    return cpage()->pageInfo();
+    return static_cast<cpage::PageHandle>(cpage_)->pageInfo();
 }
 
 }

@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include "layoutblock.h"
+#include "common/tostring.h"
 
 namespace cf
 {
@@ -57,5 +58,30 @@ void LayoutBlock::setType(LayoutBlock::Type t)
 {
     type_ = t;
 }
+
+std::ostream& operator<<(std::ostream& os, const LayoutBlock& block)
+{
+    os << "Layout block: ";
+
+    switch(block.type()) {
+    case LayoutBlock::IMAGE:
+        os << "image";
+        break;
+    case LayoutBlock::TEXT:
+        os << "text";
+        break;
+    case LayoutBlock::TABLE:
+        os << "table";
+        break;
+    default:
+        os << "invalid";
+    }
+
+    os << "\n";
+    Rect r = block.rect();
+    os << "    " << r.x() << ',' << r.y() << ' ' << r.width() << 'x' << r.height() << "\n";
+    return os;
+}
+
 
 }

@@ -54,66 +54,78 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "globus.h"
 #include "cpage.h"
-#include "backup.h"
 #include "polyblock.h"
+#include "internal.h"
 #include "resource.h"
+#include "picture.h"
+#include "cpage_debug.h"
 
-// Конверторы преобразования из TYPE_PICTURE в CPAGE_PICTURE
-uint32_t TYPE_PICTURE_to_CPAGE_PICTURE(POLY_ * lpDataIn, uint32_t SizeIn, CPAGE_PICTURE* LpDataOut, uint32_t SizeOut)
+namespace cf
 {
-    uint32_t rc = 0;
+namespace cpage {
 
-    if (LpDataOut == NULL)
-        return sizeof(CPAGE_PICTURE);
-
-    if (sizeof(POLY_) != SizeIn ||
-            sizeof(CPAGE_PICTURE) != SizeOut ||
-            lpDataIn == NULL) {
-        SetReturnCode_cpage(IDS_ERR_DISCREP);
-        return 0;
-    }
-
-    POLY_  desc = *lpDataIn;
-    CPAGE_PICTURE pict = {0};
-    pict.Number = desc.com.count;
-
-    for (uint32_t i = 0; i < pict.Number; i++) {
-        pict.Corner[i] = desc.com.Vertex[i];
-    }
-
-    *LpDataOut = pict;
-    rc = sizeof(CPAGE_PICTURE);
-    return rc;
+Picture::Picture() : number_(0)
+{
 }
-//##########################################################
-uint32_t CPAGE_PICTURE_to_TYPE_PICTURE( CPAGE_PICTURE * lpDataIn, uint32_t SizeIn, POLY_ * LpDataOut, uint32_t SizeOut)
+
+void Picture::appendCorner(const Point& pt)
 {
-    uint32_t rc = 0;
+    corners_[number_] = pt;
+    number_++;
+}
 
-    if (LpDataOut == NULL)
-        return sizeof(POLY_);
+void Picture::clear()
+{
+    number_ = 0;
+}
 
-    if (sizeof(POLY_) != SizeOut ||
-            sizeof(CPAGE_PICTURE) != SizeIn ||
-            lpDataIn == NULL) {
-        SetReturnCode_cpage(IDS_ERR_DISCREP);
-        return 0;
+Point Picture::cornerAt(size_t pos) const
+{
+    assert(pos < CPAGE_MAXCORNER);
+
+    if(pos >= number_) {
+        CPAGE_DEBUG_FUNC << "invalid corner number:" << pos;
     }
 
-    POLY_  desc;
-    CPAGE_PICTURE pict = *lpDataIn;
-    desc.com.count = pict.Number;
+    return corners_[pos];
+}
 
-    for (uint32_t i = 0; i < pict.Number; i++) {
-        desc.com.Vertex[i] = pict.Corner[i];
-    }
+size_t Picture::cornerCount() const
+{
+    return number_;
+}
 
-    desc.com.type       = TYPE_PICTURE;
-    desc.com.number = 0;
-    *LpDataOut = desc;
-    rc = sizeof(POLY_);
-    return rc;
+void Picture::rotate(int skew2048)
+{
+    for(size_t i = 0; i < number_; i++)
+        rotateCorner(i, skew2048);
+}
+
+void Picture::rotateCorner(size_t pos, int skew2048)
+{
+    assert(pos < CPAGE_MAXCORNER);
+
+    double x = corners_[pos].x();
+    double y = corners_[pos].y();
+
+    y = y - x * skew2048 / 2048.0;
+    x = x + y * skew2048 / 2048.0;
+    y = ceil(y);
+    x = ceil(x);
+
+    corners_[pos].set(static_cast<int>(x), static_cast<int>(y));
+}
+
+void Picture::set(const PolyBlock& polygon)
+{
+    number_ = polygon.vertexCount();
+    assert(number_ < CPAGE_MAXCORNER);
+
+    for (size_t i = 0; i < number_; i++)
+        corners_[i] = polygon.vertexAt(i);
+}
+
+}
 }
 

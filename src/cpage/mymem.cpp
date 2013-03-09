@@ -58,12 +58,7 @@
 
 #include "resource.h"
 #include "mymem.h"
-#include "backup.h"
-
-// Для использования без CFIO.DLL
-#ifndef _DEBUG
-#define _DEBUG
-#endif
+#include "internal.h"
 
 //####################################
 void * myAlloc(size_t stAllocateBlock)
@@ -83,55 +78,3 @@ void myFree(void * mem)
 {
     free(mem);
 }
-
-Handle myOpenSave(const char * lpName)
-{
-    Handle rc = NULL;
-    rc = (Handle) fopen(lpName, "wb");
-
-    if (!rc)
-        SetReturnCode_cpage(IDS_ERR_WRITEFILE);
-
-    return rc;
-}
-Handle myOpenRestore(const char * lpName)
-{
-    Handle rc = NULL;
-    rc = (Handle) fopen(lpName, "rb");
-
-    if (!rc)
-        SetReturnCode_cpage(IDS_ERR_READFILE);
-
-    return rc;
-}
-unsigned int myWrite(Handle h, void * lpdata, unsigned int size)
-{
-    uint32_t rc = 0;
-    //#ifdef _DEBUG
-    rc = fwrite(lpdata, 1, size, (FILE*) h);
-
-    if (rc != size)
-        SetReturnCode_cpage(IDS_ERR_WRITEFILE);
-
-    //#endif
-    return rc;
-}
-unsigned int myRead(Handle h, void * lpdata, unsigned int size)
-{
-    uint32_t rc = 0;
-    //#ifdef _DEBUG
-    rc = fread(lpdata, 1, size, (FILE *) h);
-
-    if (rc != size)
-        SetReturnCode_cpage(IDS_ERR_READFILE);
-
-    //#endif
-    return rc;
-}
-void myClose(Handle h)
-{
-    //#ifdef _DEBUG
-    fclose((FILE*) h);
-    //#endif
-}
-

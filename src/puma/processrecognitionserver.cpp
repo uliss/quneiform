@@ -74,6 +74,11 @@ void ProcessRecognitionServer::addImageBlock(const Rect& r)
     PUMA_WARNING_FUNC() << r << "not implemeneted";
 }
 
+void ProcessRecognitionServer::addTableBlock(const Rect& r)
+{
+    PUMA_WARNING_FUNC() << r << "not implemeneted";
+}
+
 void ProcessRecognitionServer::addTextBlock(const Rect& r)
 {
     PUMA_WARNING_FUNC() << r << "not implemeneted";

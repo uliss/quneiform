@@ -61,23 +61,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #if !defined(AFX_PTRNAME_H__B7558641_0160_11D3_A5C9_E5EED2B2CF14__INCLUDED_)
 #define AFX_PTRNAME_H__B7558641_0160_11D3_A5C9_E5EED2B2CF14__INCLUDED_
 
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
-
 #include <string.h>
 #include <assert.h>
-#include "cttypes.h"
-#include "cpage.h"
 
-#ifndef assert
-#    define assert assert
-#endif // assert
+#include "cttypes.h"
+#include "mymem.h"
+#include "cpage.h"
 
 template<class TYPE> class PtrName
 {
     protected:
-        Handle  m_Type;
+        CDataType  m_Type;
         uint32_t  m_Size;
         TYPE *  m_Ptr;
         Bool32  m_bAttach;
@@ -93,12 +87,12 @@ template<class TYPE> class PtrName
         Bool32      Create(size_t nItem);
         void        Delete();
 
-        Bool32      Attach(Handle hPage);
-        Bool32      Store(Handle hPage);
-        void        Remove(Handle hPage);
+        Bool32      Attach(CPageHandle hPage);
+        Bool32      Store(CPageHandle hPage);
+        void        Remove(CPageHandle hPage);
         inline uint32_t     GetSize() {
             return m_Size / sizeof(TYPE);
-        };
+        }
 
 };
 ///////////////////////////////////////////////////////////
@@ -158,21 +152,21 @@ template<class TYPE> void PtrName<TYPE>::Delete()
     m_Ptr = NULL;
 }
 ///////////////////////////////////////////////////////////
-template<class TYPE> Bool32     PtrName<TYPE>::Attach(Handle hPage)
+template<class TYPE> Bool32     PtrName<TYPE>::Attach(CPageHandle hPage)
 {
     assert(m_Ptr);
-    Handle hBlock = CPAGE_GetBlockFirst(hPage, m_Type);
+    CBlockHandle hBlock = CPAGE_GetBlockFirst(hPage, m_Type);
 
     if (!hBlock)
         return FALSE;
 
-    m_bAttach = CPAGE_GetBlockDataPtr(hPage, hBlock, m_Type, (void **) & m_Ptr);
+    m_bAttach = CPAGE_GetBlockDataPtr(hBlock, m_Type, (void **) & m_Ptr);
     return m_bAttach;
 }
 ///////////////////////////////////////////////////////////
-template<class TYPE> void       PtrName<TYPE>::Remove(Handle hPage)
+template<class TYPE> void       PtrName<TYPE>::Remove(CPageHandle hPage)
 {
-    Handle hBlock = CPAGE_GetBlockFirst(hPage, m_Type);
+    CBlockHandle hBlock = CPAGE_GetBlockFirst(hPage, m_Type);
 
     if (!hBlock)
         return ;
@@ -187,9 +181,9 @@ template<class TYPE> void       PtrName<TYPE>::Remove(Handle hPage)
     }
 }
 ///////////////////////////////////////////////////////////
-template<class TYPE> Bool32     PtrName<TYPE>::Store(Handle hPage)
+template<class TYPE> Bool32     PtrName<TYPE>::Store(CPageHandle hPage)
 {
-    Handle hBlock = CPAGE_GetBlockFirst(hPage, m_Type);
+    CBlockHandle hBlock = CPAGE_GetBlockFirst(hPage, m_Type);
 
     if (hBlock)
         CPAGE_DeleteBlock(hPage, hBlock);

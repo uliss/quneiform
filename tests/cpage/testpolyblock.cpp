@@ -1,0 +1,44 @@
+/***************************************************************************
+ *   Copyright (C) 2013 by Serge Poltavski                                 *
+ *   serge.poltavski@gmail.com                                             *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 3 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
+ ***************************************************************************/
+
+#include "testpolyblock.h"
+#include "cpage/polyblock.h"
+
+CPPUNIT_TEST_SUITE_REGISTRATION(TestPolyBlock);
+
+using namespace cf;
+using namespace cpage;
+
+void TestPolyBlock::testInit()
+{
+    PolyBlock p;
+    CPPUNIT_ASSERT_EQUAL(0, p.alphabet());
+    CPPUNIT_ASSERT(!p.isNegative());
+    CPPUNIT_ASSERT_EQUAL(CPAGE_ORIENT_LEFTRIGHT, p.orientation());
+}
+
+void TestPolyBlock::testSet()
+{
+    PolyBlock p;
+    p.setAlphabet(1);
+    CPPUNIT_ASSERT_EQUAL(1, p.alphabet());
+    p.setLight(CPAGE_BLOCK_NEGATIVE);
+    CPPUNIT_ASSERT(p.isNegative());
+    p.setOrientation(CPAGE_ORIENT_UPDOWN);
+    CPPUNIT_ASSERT_EQUAL(CPAGE_ORIENT_UPDOWN, p.orientation());
+}

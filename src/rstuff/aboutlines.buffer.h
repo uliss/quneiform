@@ -98,7 +98,6 @@ typedef enum {
 /*----------------------------------------------------------------------------*/
 #include "cttypes.h"
 /*----------------------------------------------------------------------------*/
-Bool LoadData_rv (CCOM_handle hC, int Type, void *vB, char *pStr, int Filter);
 Bool GetComplexData_rv (int Type, int Aim, void *vB, void **vvData);
 void Error_MyNoMem (char *pStr, int HowMuch, char *pWhat);
 /*----------------------------------------------------------------------------*/

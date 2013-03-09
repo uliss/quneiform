@@ -56,34 +56,89 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifndef __PAGE_H__
 #define __PAGE_H__
-#include <stdio.h>
 
-#include "cpage.h"
+#include <vector>
+
+#include "data.h"
 #include "cpagetyps.h"
-#include "block.h"
-#include "ptrlist.h"
+#include "cpage.h"
 
-class CLA_EXPO PAGE: public DATA
+namespace cf {
+namespace cpage {
+
+class Block;
+
+class CLA_EXPO Page: public Data
 {
     public:
-        PtrList<BLOCK>  Block;
+        Block * createBlock(CDataType Type, uint32_t UserNum = 0, uint32_t Flags = 0, void * lpData = NULL, uint32_t Size = 0);
     public:
-        Handle  CreateBlock(Handle Type, uint32_t UserNum = 0, uint32_t Flags = 0, void * lpData = NULL, uint32_t Size = 0);
+        Page();
+        ~Page();
+
+        Page(const Page& p);
+        Page& operator=(const Page& page);
+
+        /**
+         * Appends block to the end of block list
+         */
+        void appendBlock(const Block& b);
+
+        /**
+         * Returns pointer to block at given position
+         * @see appendBlock(), blockCount()
+         */
+        Block * blockAt(size_t pos);
+        const Block * blockAt(size_t pos) const;
+
+        /**
+         * Returns block count
+         * @see blockAt(), appendBlock()
+         */
+        size_t blockCount() const;
+
+        /**
+         * Deletes all blocks
+         * @see removeBlock
+         */
+        void clearBlocks();
+
+        /**
+         * Searches for given block pointer in block list
+         * @return block index or -1 if not found
+         */
+        int findBlock(Block *b) const;
+
+        /**
+         * Removes block
+         * @return true on success, false if block not found
+         * @see clearBlocks()
+         */
+        bool removeBlock(Block * b);
+
+        /**
+         * Writes page into given output stream
+         * @return true on success, false on error
+         * @see restore()
+         */
+        bool save(std::ostream& os) const;
+
+        /**
+         * Reads page data from given input stream
+         * @return true on success, false on error
+         * @see save()
+         */
+        bool restore(std::istream& from);
+
+        virtual uint32_t Convert(CDataType type, void * lpdata, uint32_t size);
+        const PAGEINFO * pageInfo() const;
     public:
-        PAGE ();
-        virtual ~PAGE();
-
-        PAGE & operator = (PAGE & Page);
-
-        Bool32 Save(Handle to);
-        Bool32 Restore(Handle from);
-        Bool32 SaveCompress(Handle to);
-        Bool32 RestoreCompress(Handle from);
-        virtual uint32_t Convert(Handle type, void * lpdata, uint32_t size);
-
-        PAGEINFO * pageInfo();
+        static DataConvertor setConvertor(const DataConvertor& convertor);
+    private:
+        std::vector<Block*> blocks_;
 };
 
-CPAGE_CONVERTOR SetConvertorPages(CPAGE_CONVERTOR convertor);
+}
+}
 
 #endif

@@ -126,8 +126,8 @@ void CRtfPage::initCedPage() {
 
     // setting page info
     PAGEINFO PageInfo;
-    Handle hCPAGE = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
-    GetPageInfo(hCPAGE, &PageInfo);
+    CPageHandle hCPAGE = CPAGE_GetHandlePage(CPAGE_GetCurrentPageNumber());
+    CPAGE_GetPageInfo(hCPAGE, &PageInfo);
     ced_page_->setTurn(PageInfo.Incline2048);
     ced_page_->setImageSize(Size(PageInfo.Width, PageInfo.Height));
     ced_page_->setImageDpi(Size(PageInfo.DPIX, PageInfo.DPIY));

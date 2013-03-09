@@ -60,9 +60,9 @@
 #include "dpuma.h"
 #include "rselstr/rselstr.h"
 #include "cpage/cpage.h"
+#include "cpage/polyblock.h"
 #include "cimage/ctiimage.h"
 #include "negdefs.h"
-#include "polyblock.h"
 #include "rimage/criimage.h"
 
 //Параметры
@@ -118,7 +118,7 @@ void DelNegMas(Rect16**);
 void NormNeg(Handle, NegList*, NegList**, int&);
 void CutNeg(Handle, NegList**, int&, int);
 void CutNegStr(Handle, NegList**, int&, int);
-Bool SearchNegBySize(CCOM_handle, Handle, NegList**, int&);
+Bool SearchNegBySize(CCOM_handle, CPageHandle, NegList**, int&);
 void SearchNegByBlack(Handle, NegList**, int&);
 void NegRecog(Handle, NegList**, int&, int);
 void NegMoveMas(Rect16*, int&, int);
@@ -126,7 +126,7 @@ void NegDrawRect(Handle, uint32_t, uint32_t, Rect16);
 void NegPrintInFile(FILE*, NegList*, int);
 int NegGetCountOfStr(Rect16*, int);
 Bool NegRotate(Handle, NegList*, int, int);
-Bool GetMasP(Handle, Rect16, uchar**);
+Bool GetMasP(CPageHandle, Rect16, uchar**);
 Bool GetMasP(Rect16*, uchar**);
 void NegCopy(uchar*, uchar*, int, int);
 Bool InitRotateMas(int, int, int16_t**, int16_t**, uchar**, int**);
@@ -135,7 +135,7 @@ void DelIn(Handle, NegList**, int&);
 Bool IsNegSize(int16_t h, int16_t w);
 Bool IfNeedGlobalRotate(NegList* root, int& skew);
 void UnRotateNeg(NegList* root, int& skew);
-void PutTempToCPAGE(Handle hCPage, NegList* root);
+void PutTempToCPAGE(CPageHandle hCPage, NegList* root);
 Bool InitMyImage();
 void ResetMyImage();
 void CheckNega(NegList* root);

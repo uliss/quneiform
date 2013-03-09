@@ -57,74 +57,82 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __BACKUP_H__
 #define __BACKUP_H__
 
+#include <vector>
+
 #include "page.h"
 
 namespace cf {
+namespace cpage {
 
-class CLA_EXPO BackupPage : public PAGE
+class CLA_EXPO BackupPage : public Page
 {
 public:
     BackupPage();
-    virtual ~BackupPage();
+    BackupPage(const BackupPage& p);
+    BackupPage& operator=(const BackupPage& page);
+    ~BackupPage();
 
+    /**
+      * Returns pointer to page backup
+      * @see backupCount()
+      */
+    Page * backupAt(size_t pos);
+
+    /**
+     * Returns number of backups
+     * @see backupAt()
+     */
     size_t backupCount() const;
-    Handle backupAt(size_t pos);
 
-    void Clear();
-    Handle BackUp(Handle backup = NULL);
-    Bool32 Redo(Handle backup);
-    Bool32 Undo(Handle backup);
+    /**
+     * Remove all backup data
+     */
+    void clearBackups();
 
-    Bool32 Save(Handle to);
-    Bool32 SaveCompress(Handle to);
-    Bool32 Restore(Handle from);
-    Bool32 RestoreCompress(Handle from);
+    /**
+     * Returns pointer to current backup or NULL if no backups exists
+     * @see backupCount()
+     */
+    Page * current();
 
-    BackupPage & operator = (BackupPage & Page);
-    inline uint32_t GetCurPos() {
-        return backups_.GetPos(hCurBackUp);
-    }
+    /**
+     * Makes page backup
+     * @return pointer to backuped page
+     */
+    Page * makeBackup();
+
+    /**
+     * Restores page state from previous backup
+     * @return true on success
+     */
+    bool redo();
+
+    /**
+     * Retores page state from last backup
+     * @return true on success
+     */
+    bool undo();
+
+    /**
+     * Saves backup page to given stream
+     * @return true on success
+     */
+    bool save(std::ostream& os) const;
+
+    /**
+     * Loads backup page from given string
+     * @return true on success
+     */
+    bool restore(std::istream& is);
 private:
-    PtrList<PAGE> backups_;
-    Handle hCurBackUp;
+    int currentPos() const;
+private:
+    typedef std::vector<Page*> PageList;
+    PageList backups_;
+    Page * current_;
 };
 
-typedef PtrList<BackupPage> PageList;
 }
-
-void   SetReturnCode_cpage(uint16_t rc);
-uint16_t GetReturnCode_cpage();
-
-void DefConvertInit();
-uint32_t DefConvertBlock( uint32_t dwContext,
-                          Handle TypeIn, void * lpDataIn, uint32_t SizeIn,
-                          Handle TypeOut, void * LpDataOut, uint32_t SizeOut);
-uint32_t DefConvertPage( uint32_t dwContext,
-                         Handle TypeIn, void * lpDataIn, uint32_t SizeIn,
-                         Handle TypeOut, void * LpDataOut, uint32_t SizeOut);
-void CleanData(Handle Type, void * lpData, uint32_t Size);
-Bool32 ComplianceVersions(Handle Type, char ** lpData, uint32_t *Size);
-Bool32 Compress(char * lpData, uint32_t Size, char ** compressedData, uint32_t * compressedSize);
-Bool32 Decompress(char * lpData, uint32_t Size, char ** decomData, uint32_t * decomSize);
-
-uint32_t TYPE_DESK_to_CPAGE_TABLE(TABLE_DESC * lpDataIn, uint32_t SizeIn, CPAGE_TABLE * LpDataOut, uint32_t SizeOut);
-uint32_t CPAGE_TABLE_to_TYPE_DESK( CPAGE_TABLE * lpDataIn, uint32_t SizeIn, TABLE_DESC * LpDataOut, uint32_t SizeOut);
-uint32_t TYPE_PICTURE_to_CPAGE_PICTURE(POLY_ * lpDataIn, uint32_t SizeIn, CPAGE_PICTURE * LpDataOut, uint32_t SizeOut);
-uint32_t CPAGE_PICTURE_to_TYPE_PICTURE( CPAGE_PICTURE * lpDataIn, uint32_t SizeIn, POLY_ * LpDataOut, uint32_t SizeOut);
-
-#ifdef DPUMA_ON
-Handle  ProfileProlog();
-void    ProfileEpilog(Handle prev);
-
-#define PROLOG Handle   hProfile = ProfileProlog()
-#define EPILOG ProfileEpilog(hProfile)
-
-#else
-
-#define PROLOG
-#define EPILOG
-
-#endif
-
+}
 
 #endif

@@ -71,7 +71,7 @@ Edef FNRSELSTR_ProgressStart fnProgressStart_rsel VAL(NULL);
 Edef FNRSELSTR_ProgressStep fnProgressStep_rsel VAL(NULL);
 Edef FNRSELSTR_ProgressFinish fnProgressFinish_rsel VAL(NULL);
 
-void PageLayoutStrings(CCOM_handle hCCOM, Handle hCPAGE);
+void PageLayoutStrings(CCOM_handle hCCOM, CPageHandle hCPAGE);
 void SetReturnCode_rselstr(uint32_t rc);
 uint32_t GetReturnCode_rselstr(void);
 Bool32 Open_Res_Log(void);

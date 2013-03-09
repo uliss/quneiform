@@ -71,7 +71,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "exc/excdefs.h"
 #include "cstr/cstr.h"
 #include "cstr/cstrdefs.h"
-#include "polyblock.h"
+#include "cpage/polyblock.h"
 #include "ctp.h"
 #include "pic_n_table.h"
 #include "rpic/rpic.h"
@@ -95,7 +95,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # define MaxHeightOfLetter 100
 # define DIFFERENCE1  4  //3
 # define CONDITION1      700
-# define ROM_TYPE_TABLE 111;
+# define ROM_TYPE_TABLE 111
 //# define BOUND 15
 # define BOUND 1
 # define INC_COEFF       1.4

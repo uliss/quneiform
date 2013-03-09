@@ -19,33 +19,116 @@
 #ifndef PAGESTORAGE_H
 #define PAGESTORAGE_H
 
-#include "backup.h"
+#include <vector>
+
 #include "globus.h"
+#include "cpagedefs.h"
 
 namespace cf {
+namespace cpage {
+
+typedef std::vector<PageHandle> PageList;
 
 class CLA_EXPO PageStorage 
 {
     PageStorage();
 public:
+    ~PageStorage();
+public:
+    /**
+     * Appends page to storage
+     * @return pointer to added page
+     * @see pageAt()
+     */
+    static PageHandle append(const BackupPage& p);
+
+    /**
+     * Appends new name data to storage
+     * @return name data handle
+     */
+    static CDataType appendNameData(const char * name);
+
+    /**
+     * Removes all pages from storage
+     * @see remove()
+     */
+    static void clear();
+
+    /**
+     * Removes all data keys
+     */
+    static void clearNameData();
+
+    /**
+     * Returns current page handle
+     * @see currentPageNumber()
+     */
+    static PageHandle currentPage();
+
+    /**
+     * Returns current page number or -1 if not found
+     * @see currentPage()
+     */
+    static int currentPageNumber();
+
+    /**
+     * Searches for name data
+     * @return name data index
+     */
+    static CDataType findNameData(const char * name);
+
+    /**
+     * Search for given page handle in storage
+     * @return handle position or -1 if not found
+     */
+    static int findPage(PageHandle p);
+
+    /**
+     * Returns character name for namedata
+     */
+    static const char * namedata(CDataType type);
+
+    /**
+     * Returns page handle at given position
+     * @return NULL if not found
+     */
+    static PageHandle pageAt(size_t pos);
+
+    /**
+     * Returns page count
+     */
+    static size_t pageCount();
+
+    /**
+     * Removes page from storage
+     * @param page - page handle
+     * @see clear()
+     */
+    static void remove(PageHandle page);
+
+    /**
+     * Sets current page
+     * @param pos - page position in storage
+     * @return true on success
+     */
+    static bool setCurrentPage(size_t pos);
+private:
     static PageStorage& instance();
     static PageList& pages();
-    static Handle append(BackupPage& p);
-    static Handle backupPage(Handle p);
-    static void clear();
-    static void clearPage(Handle p);
-    static BackupPage& page(Handle p);
-    static BackupPage& pageAt(size_t pos);
-    static Handle pageHandleAt(size_t pos);
-    static Handle pageType(Handle p);
-    static size_t pagePosition(Handle p);
-    static size_t size();
-    static void remove(Handle p);
-    static bool undo(Handle p, Handle num);
+    CDataType appendName(const char * name);
+    void clearPages();
+    void clearNameDataPrivate();
+    int find(PageHandle page) const;
+    CDataType findName(const char * name);
+    void removePage(PageHandle p);
 private:
     PageList pages_;
+    PageHandle current_;
+    typedef std::vector<std::string> NameMap;
+    NameMap namedata_;
 };
 
+}
 }
 
 #endif // PAGESTORAGE_H

@@ -78,8 +78,6 @@
 #include "snptools.h"
 #include "snpdefs.h"
 
-using namespace cf;
-
 uchar field_number = 0;
 Bool32 leo_enable_fon_recog = FALSE;
 Bool32 leo_Snp_In_Rect = FALSE;
@@ -129,7 +127,7 @@ int32_t LEO_Str2FldNo(int32_t str_no)
     return fields_tab[str_no];
 }
 
-static Bool leoInsideRect(const Rect16* r, const Point16 * p)
+static Bool leoInsideRect(const ::Rect16* r, const cf::Point16 * p)
 {
     return !((p->x() < r->left) || (p->x() > r->right) || (p->y() < r->top) || (p->y() > r->bottom));
 }
@@ -144,9 +142,9 @@ void Leo_SnpWaitUserInput(SnpTreeNode *stnCharRecog)
         stnCharRecog->Status = sstatus;
 }
 
-Bool32 leoSnpInRect(Rect16* pRect, int32_t /*nSkew*/)
+Bool32 leoSnpInRect(::Rect16* pRect, int32_t /*nSkew*/)
 {
-    Point16 pt;
+    cf::Point16 pt;
 
     if (!SnpIsActive())
         return FALSE;
@@ -1104,7 +1102,7 @@ Bool32 LEOFonRerecogCTB(const char *CTBname)
     Bool32 enable_let, enable_correct_case, local_snap;
     int32_t old_case;
     FonSpecInfo specInfo = { 0 };
-    Rect16 r16;
+    ::Rect16 r16;
 
     if (!leo_enable_stored)
         return FALSE;
@@ -1127,7 +1125,7 @@ Bool32 LEOFonRerecogCTB(const char *CTBname)
             }
 
             // final result
-            memcpy(&r16, &data[6], sizeof(Rect16));
+            memcpy(&r16, &data[6], sizeof(::Rect16));
             local_snap = leoSnpInRect(&r16, 0);
 
             if (data[5] == 0 && (data[15] & LEO_VALID_DIGIT)) {
@@ -1368,7 +1366,7 @@ uchar LEOValidRestore_Char(RecVersions *resin, RecVersions *resout)
     RecRaster rr;
     int16_t idr;
     uchar nLns;
-    Rect16 rect;
+    ::Rect16 rect;
     uchar IsPrint;
     uchar data[CTB_DATA_SIZE], ltr, prb, vld;
     int32_t id_page = LEO_CONT_STD_PAGE_ID, i;

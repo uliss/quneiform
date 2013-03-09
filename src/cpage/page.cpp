@@ -56,146 +56,174 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <memory.h>
 
-#include "backup.h"
 #include "page.h"
+#include "block.h"
+#include "convert.h"
+#include "cpage_debug.h"
 
-//#################################
-PAGE::PAGE()
+namespace cf {
+namespace cpage {
+
+Page::Page()
 {
 }
-//#################################
-PAGE::~PAGE()
-{
-    Block.Clear();
-}
-//#################################
-Handle  PAGE::CreateBlock(Handle Type, uint32_t UserNum , uint32_t Flags , void * lpData , uint32_t Size )
-{
-    BLOCK tmp;
-    Handle hBlock = Block.AddTail(tmp);
 
-    if (hBlock) {
-        if (!Block.GetItem(hBlock).Create(Type, UserNum , Flags , lpData , Size))
-            return NULL;
-    }
-
-    return hBlock;
-}
-//#################################
-PAGE & PAGE::operator = (PAGE & Page)
+Page::~Page()
 {
-    int count = Page.Block.GetCount();
-    Block.Clear();
+    clearBlocks();
+}
+
+Page::Page(const Page& p) :
+    Data(p)
+{
+    for (size_t i = 0; i < p.blockCount(); i++)
+        appendBlock(*p.blockAt(i));
+}
+
+Block * Page::createBlock(CDataType type, uint32_t UserNum , uint32_t Flags , void * lpData , uint32_t Size )
+{
+    blocks_.push_back(new Block);
+    blocks_.back()->set(type, UserNum, Flags, lpData, Size);
+    return blocks_.back();
+}
+
+Page& Page::operator=(const Page& page)
+{
+    int count = page.blockCount();
+    clearBlocks();
 
     for (int i = 0; i < count; i++)
-        Block.AddTail(Page.Block.GetItem(Page.Block.GetHandle(i)));
+        appendBlock(*page.blockAt(i));
 
-    *(DATA *)this = Page;
+    Data::operator =(page);
     return *this;
 }
 
-//#################################
-Bool32  PAGE::Save(Handle to)
+void Page::appendBlock(const Block& b)
 {
-    int count = Block.GetCount();
-    Bool32 rc = FALSE;
-    int i;
-    rc = myWrite(to, &count, sizeof(count)) == sizeof(count);
-
-    if (rc == TRUE && count)
-        for (i = 0; i < count; i++)
-            Block.GetItem(Block.GetHandle(i)).Save(to);
-
-    if (rc)
-        rc = DATA::Save(to);
-
-    return rc;
+    blocks_.push_back(new Block(b));
 }
-//#################################
-Bool32  PAGE::Restore(Handle from)
+
+Block * Page::blockAt(size_t pos)
 {
-    Bool32 rc = FALSE;
-    int count, i;
-    Block.Clear();
-    rc = myRead(from, &count, sizeof(count)) == sizeof(count);
+    if(pos < blocks_.size())
+        return blocks_.at(pos);
 
-    for (i = 0; i < count && rc == TRUE; i++) {
-        BLOCK block;
-        rc = block.Restore(from);
+    return NULL;
+}
 
-        if (rc)
-            Block.AddTail(block);
+const Block * Page::blockAt(size_t pos) const
+{
+    if(pos < blocks_.size())
+        return blocks_.at(pos);
+
+    return NULL;
+}
+
+size_t Page::blockCount() const
+{
+    return blocks_.size();
+}
+
+void Page::clearBlocks()
+{
+    for(size_t i = 0; i < blocks_.size(); i++)
+        delete blocks_[i];
+
+    blocks_.clear();
+}
+
+int Page::findBlock(Block * b) const
+{
+    for(size_t i = 0; i < blocks_.size(); i++) {
+        if(blocks_[i] == b)
+            return static_cast<int>(i);
     }
 
-    if (rc)
-        rc = DATA::Restore(from);
-
-    return rc;
+    return -1;
 }
-//#################################
-Bool32  PAGE::SaveCompress(Handle to)
+
+bool Page::removeBlock(Block * b)
 {
-    int count = Block.GetCount();
-    Bool32 rc = FALSE;
-    int i;
-    rc = myWrite(to, &count, sizeof(count)) == sizeof(count);
+    int pos = findBlock(b);
+    if(pos == -1)
+        return false;
 
-    if (rc == TRUE && count)
-        for (i = 0; i < count; i++)
-            Block.GetItem(Block.GetHandle(i)).SaveCompress(to);
-
-    if (rc)
-        rc = DATA::SaveCompress(to);
-
-    return rc;
+    blocks_.erase(blocks_.begin() + pos);
+    delete b;
+    return true;
 }
-//#################################
-Bool32  PAGE::RestoreCompress(Handle from)
+
+bool Page::save(std::ostream& os) const
 {
-    Bool32 rc = FALSE;
-    int count, i;
-    Block.Clear();
-    rc = myRead(from, &count, sizeof(count)) == sizeof(count);
+    if(os.bad())
+        return false;
 
-    for (i = 0; i < count && rc == TRUE; i++) {
-        BLOCK block;
-        rc = block.RestoreCompress(from);
+    uint32_t count = blockCount();
+    os.write((char*) &count, sizeof(count));
 
-        if (rc)
-            Block.AddTail(block);
+    for (uint32_t i = 0; i < count; i++) {
+        if(!blocks_[i]->save(os)) {
+            CPAGE_ERROR_FUNC << "failed";
+            return false;
+        }
     }
 
-    if (rc)
-        rc = DATA::RestoreCompress(from);
-
-    return rc;
+    return Data::save(os);
 }
-static  CPAGE_CONVERTOR s_ConvertorPages = {0, DefConvertPage};
-//#################################
-CPAGE_CONVERTOR SetConvertorPages(CPAGE_CONVERTOR convertor)
+
+bool Page::restore(std::istream& is)
 {
-    CPAGE_CONVERTOR old = s_ConvertorPages;
-    s_ConvertorPages = convertor;
+    if(is.fail())
+        return false;
+
+    clearBlocks();
+    uint32_t count = 0;
+
+    is.read((char*) &count, sizeof(count));
+
+    for(uint32_t i = 0; i < count; i++) {
+        Block block;
+
+        if(block.restore(is)) {
+            appendBlock(block);
+        }
+        else {
+            CPAGE_ERROR_FUNC << "restore failed.";
+            return false;
+        }
+    }
+
+    return Data::restore(is);
+}
+
+const PAGEINFO * Page::pageInfo() const
+{
+    if(type_ != PT_PAGEINFO)
+        return NULL;
+
+    if(size_ != sizeof(PAGEINFO))
+        return NULL;
+
+    return reinterpret_cast<PAGEINFO*>(data_);
+}
+
+namespace {
+DataConvertor pageConvertor(DefConvertPage);
+}
+
+DataConvertor Page::setConvertor(const DataConvertor& convertor)
+{
+    DataConvertor old = pageConvertor;
+    pageConvertor = convertor;
     return old;
 }
-//#################################
-uint32_t PAGE::Convert(Handle type, void * lpdata, uint32_t size)
+
+uint32_t Page::Convert(CDataType type, void * lpdata, uint32_t size)
 {
-    uint32_t rc = 0;
-    rc = (*s_ConvertorPages.fnConvertor)(s_ConvertorPages.dwContext,
-                                         Type, lpData, Size,
-                                         type, lpdata, size);
-    return rc;
+    return pageConvertor(type_, data_, size_, type, lpdata, size);
 }
 
-PAGEINFO * PAGE::pageInfo()
-{
-    if(Type != PT_PAGEINFO)
-        return NULL;
-
-    if(Size != sizeof(PAGEINFO))
-        return NULL;
-
-    return (PAGEINFO*) lpData;
+}
 }
 

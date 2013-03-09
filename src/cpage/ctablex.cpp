@@ -60,45 +60,41 @@
 #include "backup.h"
 #include "tableclass.h"
 #include "compat_defs.h"
+#include "internal.h"
 
 using namespace cf;
 
-Handle CPAGE_ExTableCreate(Handle hPage, int32_t Skew2048, uint32_t nVer,
+Handle CPAGE_ExTableCreate(CPageHandle hPage, int32_t Skew2048, uint32_t nVer,
                            int32_t * lpVCor, uint32_t nHor, int32_t * lpHCor)
 {
-    PROLOG;
     SetReturnCode_cpage(IDS_ERR_NO);
+    CBlockHandle block = NULL;
     Handle rc = NULL;
     Bool32 res = FALSE;
-    TableClass tc;
+    cpage::TableClass tc;
 
     if (tc.Create(Skew2048, nVer, lpVCor, nHor, lpHCor))
-        rc = tc.Store(hPage);
+        block = tc.Store(hPage);
 
-    rc = rc ? TableClass::Attach(hPage, rc) : NULL;
-    EPILOG;
+    rc = block ? cpage::TableClass::Attach(hPage, block) : NULL;
     return rc;
 }
 
 void CPAGE_ExTableDelete(Handle hTable)
 {
-    PROLOG;
     SetReturnCode_cpage(IDS_ERR_NO);
-    TableClass * tc = (TableClass *) hTable;
+    cpage::TableClass * tc = (cpage::TableClass *) hTable;
 
     if (tc)
         tc->Remove();
-
-    EPILOG;
 }
 
-Handle CPAGE_ExTableGetFirst(Handle hPage)
+Handle CPAGE_ExTableGetFirst(CPageHandle hPage)
 {
-    PROLOG;
     Handle rc = NULL;
-    Handle hBlock = NULL;
+    CBlockHandle hBlock = NULL;
     SetReturnCode_cpage(IDS_ERR_NO);
-    Handle Type = CPAGE_GetInternalType("TableClass");
+    CDataType Type = CPAGE_GetInternalType("TableClass");
 
     if (!CPAGE_UpdateBlocks(hPage, Type)) {
         rc = NULL;
@@ -106,97 +102,85 @@ Handle CPAGE_ExTableGetFirst(Handle hPage)
     }
 
     hBlock = CPAGE_GetBlockFirst(hPage, Type);
-    rc = hBlock ? TableClass::Attach(hPage, hBlock) : NULL;
+    rc = hBlock ? cpage::TableClass::Attach(hPage, hBlock) : NULL;
 lOut:
-    EPILOG;
     return rc;
 }
 
 Handle CPAGE_ExTableGetNext(Handle hTable)
 {
-    PROLOG;
     SetReturnCode_cpage(IDS_ERR_NO);
-    TableClass * tc = (TableClass *) hTable;
+    cpage::TableClass * tc = (cpage::TableClass *) hTable;
 
     if (tc)
         tc = tc->GetNext();
 
-    EPILOG;
     return tc;
 }
 
 Bool32 CPAGE_ExGeTableGetNumberCells(Handle hTable, int32_t * lpNumber)
 {
-    PROLOG;
     Bool32 rc = FALSE;
     SetReturnCode_cpage(IDS_ERR_NO);
-    TableClass * tc = (TableClass *) hTable;
+    cpage::TableClass * tc = (cpage::TableClass *) hTable;
 
     if (tc) {
         *lpNumber = tc->GetNumberGeCell();
         rc = TRUE;
     }
 
-    EPILOG;
     return rc;
 }
 
 Bool32 CPAGE_ExPhTableGetNumberCells(Handle hTable, int32_t * lpNumber)
 {
-    PROLOG;
     Bool32 rc = FALSE;
     SetReturnCode_cpage(IDS_ERR_NO);
-    TableClass * tc = (TableClass *) hTable;
+    cpage::TableClass * tc = (cpage::TableClass *) hTable;
 
     if (tc) {
         *lpNumber = tc->GetNumberPhCell();
         rc = TRUE;
     }
 
-    EPILOG;
     return rc;
 }
 
 Bool32 CPAGE_ExTableGetNumberRow(Handle hTable, int32_t * lpNumber)
 {
-    PROLOG;
     Bool32 rc = FALSE;
     SetReturnCode_cpage(IDS_ERR_NO);
-    TableClass * tc = (TableClass *) hTable;
+    cpage::TableClass * tc = (cpage::TableClass *) hTable;
 
     if (tc) {
         *lpNumber = tc->GetNumberRow();
         rc = TRUE;
     }
 
-    EPILOG;
     return rc;
 }
 
 Bool32 CPAGE_ExTableGetNumberColumn(Handle hTable, int32_t * lpNumber)
 {
-    PROLOG;
     Bool32 rc = FALSE;
     SetReturnCode_cpage(IDS_ERR_NO);
-    TableClass * tc = (TableClass *) hTable;
+    cpage::TableClass * tc = (cpage::TableClass *) hTable;
 
     if (tc) {
         *lpNumber = tc->GetNumberColumn();
         rc = TRUE;
     }
 
-    EPILOG;
     return rc;
 }
 
 Bool32 CPAGE_ExGeTableGetSizeCell(Handle hTable, Point point, Rect32 * lpRect)
 {
-    PROLOG;
     Bool32 rc = FALSE;
     SetReturnCode_cpage(IDS_ERR_NO);
     Rect32 rect = { 0 };
     assert(lpRect);
-    TableClass * tc = (TableClass *) hTable;
+    cpage::TableClass * tc = (cpage::TableClass *) hTable;
 
     if (tc) {
         rect.left = tc->GetVLine(point.x());
@@ -207,21 +191,19 @@ Bool32 CPAGE_ExGeTableGetSizeCell(Handle hTable, Point point, Rect32 * lpRect)
         rc = TRUE;
     }
 
-    EPILOG;
     return rc;
 }
 
 Bool32 CPAGE_ExPhTableGetSizeCell(Handle hTable, Point point, Rect32 * lpRect)
 {
-    PROLOG;
     Bool32 rc = FALSE;
     SetReturnCode_cpage(IDS_ERR_NO);
-    TableClass * tc = (TableClass *) hTable;
+    cpage::TableClass * tc = (cpage::TableClass *) hTable;
 
     if (tc) {
         // НАДО СДЕЛАТЬ !!!!
         // TODO         !!!!
-    } EPILOG;
+    }
 
     return rc;
 }
@@ -229,72 +211,65 @@ Bool32 CPAGE_ExPhTableGetSizeCell(Handle hTable, Point point, Rect32 * lpRect)
 Bool32 CPAGE_ExTableGetNumberBlock(Handle hTable, Point point,
                                    int32_t * lpNumber)
 {
-    PROLOG;
     Bool32 rc = FALSE;
     SetReturnCode_cpage(IDS_ERR_NO);
     assert(lpNumber);
-    TableClass * tc = (TableClass *) hTable;
+    cpage::TableClass * tc = (cpage::TableClass *) hTable;
 
     if (tc) {
-        Point phPoint = tc->GetCell(point).Point();
-        *lpNumber = tc->GetCell(phPoint);
+        Point phPoint = tc->GetCell(point).point();
+        *lpNumber = tc->GetCell(phPoint).number();
         rc = TRUE;
     }
 
-    EPILOG;
     return rc;
 }
 
 Bool32 CPAGE_ExGeTableGetPhysical(Handle hTable, Point point,
                                   Point * lpPoint)
 {
-    PROLOG;
     Bool32 rc = FALSE;
     SetReturnCode_cpage(IDS_ERR_NO);
     assert(lpPoint);
-    TableClass * tc = (TableClass *) hTable;
+    cpage::TableClass * tc = (cpage::TableClass *) hTable;
 
     if (tc) {
-        *lpPoint = tc->GetCell(point).Point();
+        *lpPoint = tc->GetCell(point).point();
         rc = TRUE;
     }
 
-    EPILOG;
     return rc;
 }
 
 Bool32 CPAGE_ExPhTableGetNumberGeometry(Handle hTable, Point point,
                                         int32_t * lpNumber)
 {
-    PROLOG;
     Bool32 rc = FALSE;
     SetReturnCode_cpage(IDS_ERR_NO);
     assert(lpNumber);
-    TableClass * tc = (TableClass *) hTable;
+    cpage::TableClass * tc = (cpage::TableClass *) hTable;
 
     if (tc) {
-        Point PhCoord = tc->GetCell(point).Point();
-        *lpNumber = tc->GetCell(PhCoord).GetGeCount();
+        Point PhCoord = tc->GetCell(point).point();
+        *lpNumber = tc->GetCell(PhCoord).geomCount();
         rc = TRUE;
     }
 
-    EPILOG;
     return rc;
 }
 
 Bool32 CPAGE_ExPhTableGetGeometry(Handle hTable, Point point, int32_t count,
                                   Point * lpPoint)
 {
-    PROLOG;
     Bool32 rc = FALSE;
     SetReturnCode_cpage(IDS_ERR_NO);
     assert(lpPoint);
-    TableClass * tc = (TableClass *) hTable;
+    cpage::TableClass * tc = (cpage::TableClass *) hTable;
 
     if (tc) {
         // НАДО СДЕЛАТЬ !
         // TODO         !
-    } EPILOG;
+    }
 
     return rc;
 }
@@ -302,45 +277,40 @@ Bool32 CPAGE_ExPhTableGetGeometry(Handle hTable, Point point, int32_t count,
 Bool32 CPAGE_ExPhTableSetNumberBlock(Handle hTable, Point point,
                                      int32_t number)
 {
-    PROLOG;
     Bool32 rc = FALSE;
     SetReturnCode_cpage(IDS_ERR_NO);
-    TableClass * tc = (TableClass *) hTable;
+    cpage::TableClass * tc = (cpage::TableClass *) hTable;
 
     if (tc) {
-        Point PhCoord = tc->GetCell(point).Point();
-        tc->GetCell(PhCoord) = number;
+        Point PhCoord = tc->GetCell(point).point();
+        tc->GetCell(PhCoord).setNumber(number);
     }
 
-    EPILOG;
     return rc;
 }
 
 Bool32 CPAGE_ExTableIsPhysicCell(Handle hTable, Point point,
                                  Bool32 * lpIsPhysic)
 {
-    PROLOG;
     Bool32 rc = FALSE;
     SetReturnCode_cpage(IDS_ERR_NO);
     assert(lpIsPhysic);
-    TableClass * tc = (TableClass *) hTable;
+    cpage::TableClass * tc = (cpage::TableClass *) hTable;
 
     if (tc) {
-        *lpIsPhysic = tc->GetCell(point).IsPhysic();
+        *lpIsPhysic = tc->GetCell(point).isPhysic();
         rc = TRUE;
     }
 
-    EPILOG;
     return rc;
 }
 
 Bool32 CPAGE_ExTableSize(Handle hTable, Rect32 * lpRect)
 {
-    PROLOG;
     Bool32 rc = FALSE;
     SetReturnCode_cpage(IDS_ERR_NO);
     assert(lpRect);
-    TableClass * tc = (TableClass *) hTable;
+    cpage::TableClass * tc = (cpage::TableClass *) hTable;
 
     if (tc) {
         lpRect->left = tc->GetVLine(0);
@@ -350,19 +320,17 @@ Bool32 CPAGE_ExTableSize(Handle hTable, Rect32 * lpRect)
         rc = TRUE;
     }
 
-    EPILOG;
     return rc;
 }
 
 Bool32 CPAGE_ExTableGetSkew(Handle hTable, int32_t * lpNumerator,
                             int32_t * lpDenominator)
 {
-    PROLOG;
     Bool32 rc = FALSE;
     SetReturnCode_cpage(IDS_ERR_NO);
     assert(lpNumerator);
     assert(lpDenominator);
-    TableClass * tc = (TableClass *) hTable;
+    cpage::TableClass * tc = (cpage::TableClass *) hTable;
 
     if (tc) {
         *lpNumerator = tc->GetSkew2048();
@@ -370,6 +338,5 @@ Bool32 CPAGE_ExTableGetSkew(Handle hTable, int32_t * lpNumerator,
         rc = TRUE;
     }
 
-    EPILOG;
     return rc;
 }

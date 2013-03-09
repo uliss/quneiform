@@ -59,6 +59,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ccom/ccom.h"
 #include "cpage/cpage.h"
 
+#ifndef _LHSTR_H_
+#define _LHSTR_H_
+
 #define MAX_STR_COUNT 100
 
 class CHstr;
@@ -151,3 +154,5 @@ struct MATRIX {
     int a21;
     int a22;
 };
+
+#endif

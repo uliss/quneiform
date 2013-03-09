@@ -77,6 +77,7 @@
 #include "myraster.h"
 /*  interface my-my      */
 #include "am_buff.h"
+#include "internal.h"
 
 /*------------own objects-----------------------------------------------------*/
 FNCPAGE_GetBlockFirst GetBlockFirst;
@@ -87,15 +88,12 @@ void MyErrorNoMem(const char* str);
 void SetReturnCode_rverline(uint16_t rc);
 /*------------own functions---------------------------------------------------*/
 Bool MyInit_CPage();
-Bool MyGetLines(LinesTotalInfo *pLti, int MaxNumLin, Handle hCPage,
-		uint32_t *pHoriType, uint32_t *pVertType, char *pStr);
 Bool MyGetComp(CCOM_handle hCCOM, Rect16 *pRc, int *nRC, int MyMaxC, int Filter);
 void Error_CPage(const char *str);
 Bool MyFormZhertvy(CCOM_handle hCCOM, void **vvZher, int *iZher, int nZher,
 		int Filter);
-Bool MySetZher(void **vvZher, int nZher, Handle hCPage);
-Bool MyGetZher(void **vvZher, int *nZher, int MaxZher, Handle hCPage);
-Bool MyGetRaster(Handle hCPage, VL_I_TASK *pTask, uchar **ppData);
+Bool MySetZher(void **vvZher, int nZher, CPageHandle hCPage);
+Bool MyGetZher(void **vvZher, int *nZher, int MaxZher, CPageHandle hCPage);
 /*----------------------------------------------------------------------------*/
 Bool MyInit_CPage() {
 	Bool ret;
@@ -116,104 +114,7 @@ Bool MyInit_CPage() {
 	}
 	return TRUE;
 }
-/*----------------------------------------------------------------------------*/
-Bool MyGetLines(LinesTotalInfo *pLti, int MaxNumLin, Handle *hCPage,
-		Handle *pHoriType, Handle *pVertType, char *pStr) {
-	int i;
-	uint32_t err32, nTeor, nReal;
-	Handle hBlockLine;
-	Handle hBlockLineHor;
-	Handle hBlockLineVer;
-	Handle hBlockLinePrev;
-	LineInfo *pLHor, *pLVer;
-	/***    ***/
-	pLHor = pLti->Hor.Lns;
-	pLVer = pLti->Ver.Lns;
-	/***  Общая информация о линиях  ***/
-	hBlockLine = CPAGE_GetBlockFirst(hCPage, RLINE_BLOCK_TYPE);
-	if (!hBlockLine) {
-		sprintf(pStr, "Линии не выделялись.");
-		return RV_EMPTY;
-	}
-	err32 = CPAGE_GetReturnCode();
-	if (err32 != 0) {
-		Error_CPage("[GetBlockFirst]");
-		return FALSE;
-	}
-	nTeor = sizeof(LinesTotalInfo);
-	nReal = CPAGE_GetBlockData(hCPage, hBlockLine, RLINE_BLOCK_TYPE,
-			(void *) pLti, nTeor);
-	err32 = CPAGE_GetReturnCode();
-	if ((nReal != nTeor) || (err32 != 0)) {
-		Error_CPage("[GetBlockData]");
-		return FALSE;
-	}
-	if (pLti->Hor.Cnt + pLti->Ver.Cnt >= MaxNumLin) {
-		sprintf(pStr, "Не хватило памяти под %d линии!", pLti->Hor.Cnt
-				+ pLti->Ver.Cnt);
-		return RV_DOUBT;
-	}
-	if ((pLti->Hor.Cnt == 0) && (pLti->Ver.Cnt == 0)) {
-		sprintf(pStr, "Линии выделялись, но ни одной не выделено.");
-		return RV_EMPTY;
-	}
-	/***  Горизонтальные линии  ***/
-	for (i = 0; i < pLti->Hor.Cnt; i++) {
-		if (i == 0)
-			hBlockLineHor = CPAGE_GetBlockFirst(hCPage, (pLti->Hor.Lns));
-		else
-			hBlockLineHor = CPAGE_GetBlockNext(hCPage, hBlockLinePrev,
-					(pLti->Hor.Lns));
-		err32 = CPAGE_GetReturnCode();
-		if (err32 != 0) {
-			if (i == 0)
-				Error_CPage("[GetBlockFirst]");
-			else
-				Error_CPage("[GetBlockNext]");
-			return FALSE;
-		}
-		nTeor = sizeof(LineInfo);
-		nReal = CPAGE_GetBlockData(hCPage, hBlockLineHor, (pLti->Hor.Lns),
-				(void *) &(pLHor[i]), nTeor);
-		err32 = CPAGE_GetReturnCode();
-		if ((nReal != nTeor) || (err32 != 0)) {
-			Error_CPage("[GetBlockData]");
-			return FALSE;
-		}
-		hBlockLinePrev = hBlockLineHor;
-	}
-	/***  Вертикальные линии  ***/
-	for (i = 0; i < pLti->Ver.Cnt; i++) {
-		if (i == 0)
-			hBlockLineVer = CPAGE_GetBlockFirst(hCPage, (pLti->Ver.Lns));
-		else
-			hBlockLineVer = CPAGE_GetBlockNext(hCPage, hBlockLinePrev,
-					(pLti->Ver.Lns));
-		err32 = CPAGE_GetReturnCode();
-		if (err32 != 0) {
-			if (i == 0)
-				Error_CPage("[GetBlockFirst]");
-			else
-				Error_CPage("[GetBlockNext]");
-			return FALSE;
-		}
-		nTeor = sizeof(LineInfo);
-		nReal = CPAGE_GetBlockData(hCPage, hBlockLineVer, (pLti->Ver.Lns),
-				(void *) &(pLVer[i]), nTeor);
-		err32 = CPAGE_GetReturnCode();
-		if ((nReal != nTeor) || (err32 != 0)) {
-			Error_CPage("[GetBlockData]");
-			return FALSE;
-		}
-		hBlockLinePrev = hBlockLineVer;
-	}
-	/***    ***/
-	*pHoriType = pLti->Hor.Lns;
-	*pVertType = pLti->Ver.Lns;
-	pLti->Hor.Lns = pLHor;
-	pLti->Ver.Lns = pLVer;
-	return TRUE;
-}
+
 /*----------------------------------------------------------------------------*/
 Bool MyGetLines(LinesTotalInfo *pLti, int MaxNumLin, CLINE_handle hCLINE,
 		char *pStr) {
@@ -278,15 +179,15 @@ Bool MyGetLines(LinesTotalInfo *pLti, int MaxNumLin, CLINE_handle hCLINE,
 	return TRUE;
 }
 /*----------------------------------------------------------------------------*/
-Bool MyReSetLines(void *vLti, int MaxNumLin, Handle hCPage, Handle HoriType,
-		Handle VertType) {
+Bool MyReSetLines(void *vLti, int MaxNumLin, CPageHandle hCPage, CDataType HoriType,
+        CDataType VertType) {
 	int i;
 	uint32_t err32, nTeor;//, nReal;
 	Bool32 nReal;//differ
-	Handle hBlockLine;
-	Handle hBlockLineHor;
-	Handle hBlockLineVer;
-	Handle hBlockLinePrev;
+    CBlockHandle hBlockLine;
+    CBlockHandle hBlockLineHor;
+    CBlockHandle hBlockLineVer;
+    CBlockHandle hBlockLinePrev;
 	void *Hor, *Ver;
 	LinesTotalInfo *pLti;
 	pLti = (LinesTotalInfo *) vLti;
@@ -302,8 +203,7 @@ Bool MyReSetLines(void *vLti, int MaxNumLin, Handle hCPage, Handle HoriType,
 		return FALSE;
 	}
 	nTeor = sizeof(LinesTotalInfo);
-	nReal = CPAGE_SetBlockData(hCPage, hBlockLine, RLINE_BLOCK_TYPE,
-			(void *) pLti, nTeor);
+    nReal = CPAGE_SetBlockData(hBlockLine, RLINE_BLOCK_TYPE, (void *) pLti, nTeor);
 	err32 = CPAGE_GetReturnCode();
 	//	if ((nReal!=nTeor)||(err32!=0))
 	if (!nReal || (err32 != 0)) {
@@ -330,8 +230,7 @@ Bool MyReSetLines(void *vLti, int MaxNumLin, Handle hCPage, Handle HoriType,
 		nTeor = sizeof(LineInfo);
 		if (pLti->Hor.Lns[i].Flags & LI_Pointed)
 			pLti->Hor.Lns[i].Flags |= LI_IsTrue;
-		nReal = CPAGE_SetBlockData(hCPage, hBlockLineHor, HoriType,
-				(void *) &(pLti->Hor.Lns[i]), nTeor);
+        nReal = CPAGE_SetBlockData(hBlockLineHor, HoriType, (void *) &(pLti->Hor.Lns[i]), nTeor);
 		err32 = CPAGE_GetReturnCode();
 		//		if ((nReal!=nTeor)||(err32!=0))
 		if (!nReal || (err32 != 0)) {
@@ -358,8 +257,7 @@ Bool MyReSetLines(void *vLti, int MaxNumLin, Handle hCPage, Handle HoriType,
 		nTeor = sizeof(LineInfo);
 		if (pLti->Ver.Lns[i].Flags & LI_Pointed)
 			pLti->Ver.Lns[i].Flags |= LI_IsTrue;
-		nReal = CPAGE_SetBlockData(hCPage, hBlockLineVer, VertType,
-				(void *) &(pLti->Ver.Lns[i]), nTeor);
+        nReal = CPAGE_SetBlockData(hBlockLineVer, VertType, (void *) &(pLti->Ver.Lns[i]), nTeor);
 		err32 = CPAGE_GetReturnCode();
 		//		if ((nReal!=nTeor)||(err32!=0))
 		if (!nReal || (err32 != 0)) {
@@ -532,7 +430,7 @@ Bool MyFormZhertvy(CCOM_handle hCCOM, void **vvZher, int *iZher, int nZher,
 		return FALSE;
 }
 /*----------------------------------------------------------------------------*/
-Bool MySetZher(void **vvZher, int nZher, Handle hCPage) {
+Bool MySetZher(void **vvZher, int nZher, CPageHandle hCPage) {
 	uint32_t err32, nTeor;//, nReal;//dwTableType
 	Handle hBlockZher;
 	int i;
@@ -557,10 +455,10 @@ Bool MySetZher(void **vvZher, int nZher, Handle hCPage) {
 	return TRUE;
 }
 /*----------------------------------------------------------------------------*/
-Bool MyGetZher(void **vvZher, int *nZher, int MaxZher, Handle hCPage) {
+Bool MyGetZher(void **vvZher, int *nZher, int MaxZher, CPageHandle hCPage) {
 	uint32_t err32, nTeor, nReal;
-	Handle hBlockZher;
-	Handle hBlockPrev;
+    CBlockHandle hBlockZher;
+    CBlockHandle hBlockPrev;
 	int i;
 	nTeor = sizeof(void *);
 	i = 0;
@@ -582,8 +480,7 @@ Bool MyGetZher(void **vvZher, int *nZher, int MaxZher, Handle hCPage) {
 			break;
 		if (i >= MaxZher)
 			return FALSE;
-		nReal = CPAGE_GetBlockData(hCPage, hBlockZher, RVERLINE_ZHERTVY_LINIY,
-				(void *) &(vvZher[i]), nTeor);
+        nReal = CPAGE_GetBlockData(hBlockZher, RVERLINE_ZHERTVY_LINIY, (void *) &(vvZher[i]), nTeor);
 		err32 = CPAGE_GetReturnCode();
 		//		if ((nReal!=nTeor)||(err32!=0))
 		if (!nReal || (err32 != 0)) {
@@ -597,7 +494,7 @@ Bool MyGetZher(void **vvZher, int *nZher, int MaxZher, Handle hCPage) {
 	return TRUE;
 }
 /*----------------------------------------------------------------------------*/
-Bool MyGetRaster(Handle hCPage, VL_I_TASK *pTask, uchar **ppData) {
+Bool MyGetRaster(CPageHandle hCPage, VL_I_TASK *pTask, uchar **ppData) {
 	PAGEINFO info;
     CIMAGE_InfoDataInGet DataInto;
     CIMAGE_InfoDataOutGet DataOut;
@@ -610,7 +507,7 @@ Bool MyGetRaster(Handle hCPage, VL_I_TASK *pTask, uchar **ppData) {
 	DataInto.wByteWidth = (int16_t) ((pTask->MyExtrWidth + 7) / 8);//06.09.00
 	DataInto.dwX = pTask->MyLeft;
     DataInto.dwY = pTask->MyTop;
-	GetPageInfo(hCPage, &info);
+    CPAGE_GetPageInfo(hCPage, &info);
 	for (i = 0; i < 256; i++)
 		Name[i] = info.szImageName[i];
 	DataOut.dwWidth = DataInto.dwWidth;

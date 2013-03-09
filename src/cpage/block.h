@@ -57,56 +57,76 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __BLOCK_H__
 #define __BLOCK_H__
 
-#include "cpage.h"
 #include "data.h"
+#include "cpagedefs.h"
 
-class CLA_EXPO BLOCK: public DATA
+namespace cf {
+namespace cpage {
+
+class CLA_EXPO Block: public Data
 {
     public:
-        uint32_t UserNum;
-        uint32_t Flags;
-        uint32_t InterNum;
+        Block();
+        Block(const Block& b);
+        virtual ~Block();
 
+        void set(CDataType type, uint32_t userNum = 0, uint32_t flags = 0, const void * src = NULL, uint32_t size = 0);
 
+        uint32_t userNum() const {
+            return user_num_;
+        }
+
+        void setUserNum(uint32_t user) {
+            user_num_ = user;
+        }
+
+        uint32_t flags() const {
+            return flags_;
+        }
+
+        void setFlags(uint32_t flags) {
+            flags_ = flags;
+        }
+
+        uint32_t interNum() const {
+            return internal_num_;
+        }
+
+        void setInterNum(uint32_t user) {
+            internal_num_ = user;
+        }
+
+        Block& operator=(const Block& block);
+        bool operator==(const Block& block);
+        bool operator!=(const Block& block);
+
+        /**
+         * Saves block to given stream
+         * @return true on success
+         */
+        bool save(std::ostream& os) const;
+
+        /**
+         * Reads block from given stream
+         * @return true on success
+         */
+        bool restore(std::istream& is);
+
+        virtual uint32_t Convert(CDataType type, void * lpdata, uint32_t size);
     public:
-        BLOCK();
-        virtual ~BLOCK();
-
-        Bool32  Create(Handle Type, uint32_t UserNum = 0, uint32_t Flags = 0, void * lpData = NULL, uint32_t Size = 0);
-
-        Handle  GetType() {
-            return DATA::GetType();
-        };
-        uint32_t  GetUserNum() {
-            return UserNum;
-        };
-        void    SetUserNum(uint32_t user) {
-            UserNum = user;
-        };
-        uint32_t  GetFlags() {
-            return Flags;
-        };
-        void    SetFlags(uint32_t flags) {
-            Flags = flags;
-        };
-        uint32_t  GetInterNum() {
-            return InterNum;
-        };
-        void    SetInterNum(uint32_t user) {
-            InterNum = user;
-        };
-
-        BLOCK & operator = (BLOCK & Block);
-        Bool32  operator == (BLOCK & Block);
-
-        Bool32 Save(Handle to);
-        Bool32 Restore(Handle from);
-        Bool32 SaveCompress(Handle to);
-        Bool32 RestoreCompress(Handle from);
-
-        virtual uint32_t Convert(Handle type, void * lpdata, uint32_t size);
+        /**
+         * Sets new block convertor
+         * @return old convertor
+         */
+        static DataConvertor setConvertor(const DataConvertor& convertor);
+    private:
+        uint32_t user_num_;
+        uint32_t flags_;
+        uint32_t internal_num_;
 };
 
-CPAGE_CONVERTOR SetConvertorBlocks(CPAGE_CONVERTOR convertor);
+
+}
+}
 
 #endif

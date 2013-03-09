@@ -54,181 +54,217 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <stdio.h>
 #include <memory.h>
 #include <string.h>
+#include <iostream>
 
 #include "cpage.h"
 #include "data.h"
-#include "mymem.h"
-#include "backup.h"
+#include "cpage_debug.h"
 
-//##############################
-DATA::DATA()
-{
-    Type = reinterpret_cast<void*> (-1);
-    Size = 0;
-    lpData = NULL;
-}
-//##############################
-DATA::~DATA()
-{
-    if (lpData)
-        delete []lpData;
-}
-//##############################
-Bool32   DATA::SetData(Handle type, void * lpdata, uint32_t size)
-{
-    Type = type;
-    Size = size;
+namespace cf {
+namespace cpage {
 
-    if (lpData) {
-        delete [] lpData;
-        lpData = NULL;
+DataConvertor::DataConvertor(const ConverterFunc& f, uint32_t context) :
+    context_(context),
+    func_(f)
+{}
+
+uint32_t DataConvertor::operator()(CDataType typeIn,  const void * src,  uint32_t srcSize,
+                                   CDataType typeOut, void * dest, uint32_t destSize)
+{
+    return (*func_)(context_, typeIn, src, srcSize, typeOut, dest, destSize);
+}
+
+ConverterFunc DataConvertor::func()
+{
+    return func_;
+}
+
+Data::Data() :
+    type_(-1),
+    size_(0),
+    data_(NULL)
+{}
+
+Data::Data(const Data& data) :
+    type_(data.type_),
+    size_(data.size_),
+    data_(NULL)
+{
+    setData(data.type_, data.data_, data.size_);
+}
+
+Data::~Data()
+{
+    delete []data_;
+}
+
+void Data::setData(CDataType type, const void * src, uint32_t size)
+{
+    type_ = type;
+    size_ = size;
+
+    if (data_) {
+        delete [] data_;
+        data_ = NULL;
     }
 
-    if (lpdata && size) {
-        lpData = new char[size];
+    if (src && size) {
+        data_ = new uchar[size];
+        memcpy(data_, src, size);
+    }
+}
 
-        if (lpData == NULL) {
-            Size = 0;
-            return FALSE;
+uint32_t Data::dataSize() const
+{
+    return size_;
+}
+
+uchar * Data::dataPtr()
+{
+    return data_;
+}
+
+const uchar * Data::dataPtr() const
+{
+    return data_;
+}
+
+bool Data::empty() const
+{
+    return !size_ || !data_;
+}
+
+bool Data::getDataPtr(CDataType type, void **lpdata)
+{
+    if(!lpdata) {
+        CPAGE_ERROR_FUNC << ": null pointer";
+        return false;
+    }
+
+    if (type == type_) {
+        *lpdata = data_;
+        return true;
+    }
+
+    return false;
+}
+
+CDataType Data::type() const
+{
+    return type_;
+}
+
+void Data::setType(CDataType type)
+{
+    type_ = type;
+}
+
+uint32_t Data::getData(CDataType type, void * dest, uint32_t size)
+{
+    if (type == type_) {
+        if (dest == NULL) {
+            CPAGE_ERROR_FUNC << "NULL destination pointer given";
+            return 0;
         }
 
-        memcpy(lpData, lpdata, size);
+        if (size_ && data_)
+            memcpy(dest, data_, size_);
     }
-
-    return TRUE;
-}
-//##############################
-uint32_t   DATA::GetData(Handle type, void * lpdata, uint32_t size)
-{
-    if (type == Type) {
-        if (lpdata == NULL)
-            return Size;
-
-        if (Size && lpData)
-            memcpy(lpdata, lpData, Size);
-    }
-
     else
-        return Convert(type, lpdata, size);
+        return Convert(type, dest, size);
 
-    return Size;
+    return size_;
 }
-//#################################
-DATA & DATA::operator = (DATA & data)
+
+Data& Data::operator=(const Data& data)
 {
-    SetData(data.Type, data.lpData, data.Size);
+    setData(data.type_, data.data_, data.size_);
     return *this;
 }
-//#################################
-Bool32 DATA::operator == (DATA & data)
-{
-    if ( Type == data.Type &&
-            Size == data.Size) {
-        if (lpData == data.lpData && lpData == NULL)
-            return TRUE;
 
-        return memcmp(lpData, data.lpData, Size) == 0;
+bool Data::operator==(const Data& data)
+{
+    if (type_ == data.type_ && size_ == data.size_) {
+        if (data_ == data.data_ && data_ == NULL)
+            return true;
+
+        return memcmp(data_, data.data_, size_) == 0;
     }
 
-    return FALSE;
+    return false;
 }
-//#################################
-Bool32 DATA::Save(Handle to)
+
+bool Data::save(std::ostream& os) const
 {
-    char * lpName = CPAGE_GetNameInternalType(Type);
-    assert(lpName);
-    uint32_t len = strlen(lpName) + 1;
+    if(os.bad()) {
+        CPAGE_ERROR_FUNC << ": bad stream";
+        return false;
+    }
 
-    if (myWrite(to, &len, sizeof(len)) == sizeof(len) &&
-            myWrite(to, lpName, len) == len &&
-            myWrite(to, &Size, sizeof(Size)) == sizeof(Size) &&
-            (Size == 0 ||  myWrite(to, lpData, Size) == Size))
-        return TRUE;
+    const char * name = CPAGE_GetNameInternalType(type_);
+    if(!name) {
+        CPAGE_ERROR_FUNC << ": NULL internal name";
+        return false;
+    }
 
-    return FALSE;
+    const uint32_t len = strlen(name) + 1;
+
+    os.write((char*) &len, sizeof(len));
+    os.write(name, len);
+    os.write((char*) &size_, sizeof(size_));
+    if(size_ > 0)
+        os.write((char*) data_, size_);
+
+    if(os.fail()) {
+        CPAGE_ERROR_FUNC << ": failed";
+        return false;
+    }
+
+    return true;
 }
-//#################################
-Bool32 DATA::Restore(Handle from)
+
+bool Data::restore(std::istream& is)
 {
+    if(is.bad()) {
+        CPAGE_ERROR_FUNC << ": bad stream";
+        return false;
+    }
+
     uint32_t len = 0;
-    char Name[260];
+    is.read((char*) &len, sizeof(len));
 
-    if (myRead(from, &len, sizeof(len)) == sizeof(len) &&
-            myRead(from, Name, len) == len) {
-        Type = CPAGE_GetInternalType(Name);
-
-        if (myRead(from, &Size, sizeof(Size)) == sizeof(Size)) {
-            Bool32 rc = FALSE;
-
-            if (!Size)
-                rc = TRUE;
-
-            else {
-                if (lpData) {
-                    delete [] lpData;
-                    lpData = NULL;
-                }
-
-                lpData = new char[Size];
-
-                if (lpData)
-                    rc = myRead(from, lpData, Size) == Size;
-            }
-
-            return rc;
-        }
+    if(is.fail()) {
+        CPAGE_ERROR_FUNC << ": failed";
+        return false;
     }
 
-    return FALSE;
+    char name[260] = { 0 };
+    if(len >= sizeof(name)) {
+        CPAGE_ERROR_FUNC << "data name is too long:" << len;
+        return false;
+    }
+
+    is.read(name, len);
+
+    type_ = CPAGE_GetInternalType(name);
+
+    is.read((char*) &size_, sizeof(size_));
+    if (!size_)
+        return true;
+
+    if (data_) {
+        delete [] data_;
+        data_ = NULL;
+    }
+
+    data_ = new uchar[size_];
+    is.read((char*) data_, size_);
+
+    return is.good();
 }
-//#################################
-Bool32 DATA::SaveCompress(Handle to)
-{
-    if (Size == 0)
-        return  Save(to);
 
-    Bool32 rv;
-    char *compressedData, *lpDataSave = lpData;
-    uint32_t compressedSize, SizeSave = Size;
-    CleanData(Type, lpData, Size);
-
-    if (!Compress(lpData, Size, &compressedData, &compressedSize))
-        return FALSE;
-
-    lpData = compressedData;
-    Size = compressedSize;
-    rv = Save(to);
-    lpData = lpDataSave;
-    Size = SizeSave;
-    delete []compressedData;
-    return rv;
 }
 
-//#################################
-Bool32 DATA::RestoreCompress(Handle from)
-{
-    if (!Restore(from))
-        return FALSE;
-
-    if (Size == 0)
-        return TRUE;
-
-    char *decomData;
-    uint32_t decomSize;
-
-    if (!Decompress(lpData, Size, &decomData, &decomSize))
-        return FALSE;
-
-    if (lpData)  delete [] lpData;
-
-    lpData = decomData;
-    Size = decomSize;
-
-    if (!ComplianceVersions(Type, &lpData, &Size))
-        return FALSE;
-
-    return TRUE;
 }

@@ -12,6 +12,7 @@ endif()
 set(testloaders)
 
 if(CF_USE_IMAGE_LIBRARY_IMAGE_MAGICK)
+    include_directories(${ImageMagick_MagickCore_INCLUDE_DIR})
     list(APPEND testloaders testmagick.cpp)
 endif()
 

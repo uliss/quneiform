@@ -322,11 +322,11 @@ Bool32 IsNotGoodComp(PAGEINFO pInfo, CCOM_comp *comp) {
 /*                              Main function                                 */
 /******************************************************************************/
 
-Bool32 RPIC_SearchPictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, Handle hCPAGE) {
+Bool32 RPIC_SearchPictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, CPageHandle hCPAGE) {
 	CCOM_comp * comp = NULL;
 	CCOM_comp common;
 	PAGEINFO pInfo;
-	POLY_ block;
+    cf::cpage::PolyBlock block;
 	uint32_t i, j;
 
 	Rect16 rect;
@@ -420,10 +420,10 @@ Bool32 RPIC_SearchPictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, Handle hCPA
 		}
 		if ( /*comp->scale < */1)
 			goto lNextComp;
-		/*
+        /*
 		 if( comp->cs == 255)
 		 {
-		 comp->type = CCOM_CH_LETTER;
+         comp->type = CCOM_CH_LETTER;
 		 goto lNextComp;
 		 }
 		 */
@@ -649,19 +649,13 @@ Bool32 RPIC_SearchPictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, Handle hCPA
 				&& !(pPics[i].large & CCOM_LR_TAKEN)) {
 			continue;
 		}
-		block.com.type = TYPE_TEXT;//Текст, Картинка, Таблица;
-		block.com.number = 0;//порядковый номер
-		block.com.count = 4;
-		block.com.Flags = 0;
-		block.com.Vertex[0].rx() = pPics[i].left;
-		block.com.Vertex[0].ry() = pPics[i].upper;
-		block.com.Vertex[1].rx() = pPics[i].left + pPics[i].w;
-		block.com.Vertex[1].ry() = pPics[i].upper;
-		block.com.Vertex[2].rx() = pPics[i].left + pPics[i].w;
-		block.com.Vertex[2].ry() = pPics[i].upper + pPics[i].h;
-		block.com.Vertex[3].rx() = pPics[i].left;
-		block.com.Vertex[3].ry() = pPics[i].upper + pPics[i].h;
-		block.alphabet = 0;
+        block.setType(TYPE_TEXT);//Текст, Картинка, Таблица;
+        block.setNumber(0);//порядковый номер
+        block.setFlags(0);
+
+        cf::Rect r(pPics[i].left, pPics[i].upper, pPics[i].w, pPics[i].h);
+        block.setRect(r);
+        block.setAlphabet(0);
 
 		sprintf(tmp_str, "  <4 О 1 %4d %4d %4d %4d %d \n", pPics[i].left,
 				pPics[i].upper, pPics[i].left + pPics[i].w, pPics[i].upper,
@@ -671,9 +665,9 @@ Bool32 RPIC_SearchPictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, Handle hCPA
 		if (pPics[i].large & CCOM_LR_TAKEN || pPics[i].w < min_image_width
 				&& pPics[i].h < min_image_height) {
 			CPAGE_CreateBlock(hCPAGE, POSSIBLE_PICTURES, 0, 0, &block,
-					sizeof(POLY_));
+                    sizeof(cf::cpage::PolyBlock));
 		} else {
-			CPAGE_CreateBlock(hCPAGE, TYPE_IMAGE, 0, 0, &block, sizeof(POLY_));
+            CPAGE_CreateBlock(hCPAGE, TYPE_IMAGE, 0, 0, &block, sizeof(cf::cpage::PolyBlock));
 		}
 	}
 
@@ -695,7 +689,7 @@ Bool32 RPIC_SearchPictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, Handle hCPA
 
 	CloseLogRes();
 
-	Handle h = NULL;
+    CBlockHandle h = NULL;
 
 	if (!LDPUMA_Skip(hShowFirstAttempt)) {
 		h = NULL;
@@ -703,11 +697,11 @@ Bool32 RPIC_SearchPictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, Handle hCPA
 		for (h = CPAGE_GetBlockFirst(hCPAGE, TYPE_IMAGE); h != NULL; h
 				= CPAGE_GetBlockNext(hCPAGE, h, TYPE_IMAGE)) {
 			nPics++;
-			CPAGE_GetBlockData(hCPAGE, h, TYPE_IMAGE, &block, sizeof(block));
-			rect.left = block.com.Vertex[0].x();
-			rect.top = block.com.Vertex[0].y();
-			rect.right = block.com.Vertex[1].x();
-			rect.bottom = block.com.Vertex[2].y();
+            CPAGE_GetBlockData(h, TYPE_IMAGE, &block, sizeof(block));
+            rect.left = block.vertexX(0);
+            rect.top = block.vertexY(0);
+            rect.right = block.vertexX(1);
+            rect.bottom = block.vertexY(2);
 			LDPUMA_DrawRect(MainWindowD, &rect, 0, color, 2, key);
 		}
 		if (nPics) {
@@ -723,12 +717,11 @@ Bool32 RPIC_SearchPictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, Handle hCPA
 		for (h = CPAGE_GetBlockFirst(hCPAGE, POSSIBLE_PICTURES); h != NULL; h
 				= CPAGE_GetBlockNext(hCPAGE, h, POSSIBLE_PICTURES)) {
 			nPics++;
-			CPAGE_GetBlockData(hCPAGE, h, POSSIBLE_PICTURES, &block,
-					sizeof(block));
-			rect.left = block.com.Vertex[0].x();
-			rect.top = block.com.Vertex[0].y();
-			rect.right = block.com.Vertex[1].x();
-			rect.bottom = block.com.Vertex[2].y();
+            CPAGE_GetBlockData(h, POSSIBLE_PICTURES, &block, sizeof(block));
+            rect.left = block.vertexX(0);
+            rect.top = block.vertexY(0);
+            rect.right = block.vertexX(1);
+            rect.bottom = block.vertexY(2);
 			LDPUMA_DrawRect(MainWindowD, &rect, 0, color, 2, key);
 		}
 		if (nPics) {
@@ -738,7 +731,7 @@ Bool32 RPIC_SearchPictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, Handle hCPA
 		}
 	}
 
-	Handle BlockType = CPAGE_GetInternalType("pic's to letters boxes");
+    CDataType BlockType = CPAGE_GetInternalType("pic's to letters boxes");
 	RPIC_Comp_Rect CompRect;
 	if (!LDPUMA_Skip(hShowBigLetters)) {
 		h = NULL;
@@ -746,8 +739,7 @@ Bool32 RPIC_SearchPictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, Handle hCPA
 		for (h = CPAGE_GetBlockFirst(hCPAGE, BlockType); h != NULL; h
 				= CPAGE_GetBlockNext(hCPAGE, h, BlockType)) {
 			nPics++;
-			CPAGE_GetBlockData(hCPAGE, h, BlockType, &CompRect,
-					sizeof(CompRect));
+            CPAGE_GetBlockData(h, BlockType, &CompRect,	sizeof(CompRect));
 			rect.left = CompRect.left;
 			rect.top = CompRect.upper;
 			rect.right = CompRect.left + CompRect.w - 1;
@@ -762,6 +754,3 @@ Bool32 RPIC_SearchPictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, Handle hCPA
 	}
 	return TRUE;
 }
-
-///////////////////////////////////////////////////////////////////////////////
-//end of file

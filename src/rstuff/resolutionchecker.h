@@ -23,13 +23,14 @@
 #include <boost/function.hpp>
 
 #include "ccom/ccom.h"
+#include "cpage/cpagedefs.h"
 
 namespace cf {
 
 class CLA_EXPO ResolutionChecker
 {
 public:
-    ResolutionChecker(CCOM_handle ccom, Handle cpage);
+    ResolutionChecker(CCOM_handle ccom, CPageHandle cpage);
 
     typedef boost::function<void (const std::vector<int>&)> HistogramCallback;
 
@@ -42,7 +43,7 @@ public:
     static void setHistogramWidthCallback(const HistogramCallback& clb);
 private:
     CCOM_handle ccom_;
-    Handle cpage_;
+    CPageHandle cpage_;
 private:
     static HistogramCallback hist_height_callback_;
     static HistogramCallback hist_width_callback_;

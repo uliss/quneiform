@@ -58,6 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __MYMEM_H__
 
 #include <stdlib.h>
+#include <assert.h>
 #include "cttypes.h"
 
 #ifdef _DEBUG
@@ -72,11 +73,5 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 void *  myAlloc(size_t stAllocateBlock);
 void    myFree(void * mem);
-
-Handle  myOpenSave(const char * lpName);
-Handle  myOpenRestore(const char * lpName);
-unsigned int  myWrite(Handle h, void * lpdata, unsigned int size);
-unsigned int  myRead(Handle h, void * lpdata, unsigned int size);
-void    myClose(Handle h);
 
 #endif

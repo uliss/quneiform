@@ -54,632 +54,376 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "resource.h"
 #include "cpage.h"
+#include "cpage_debug.h"
 #include "backup.h"
-#include "namedata.h"
+#include "block.h"
+#include "convert.h"
+#include "mymem.h"
 #include "pagestorage.h"
 
-#define SAVE_COMPRESSED  // Сохранять данные в блоках в упакованном виде
-extern Handle hCurPage;
-extern PtrList<NAMEDATA> NameData;
+using namespace cf;
+using namespace cf::cpage;
 
-#define _BLOCK_H(page, block) page.Block.GetItem(block)
-#define _BLOCK_N(page, block) _BLOCK_H(page, page.Block.GetHandle(block))
-
-#define BLOCK_H_H(p, block) _BLOCK_H(cf::PageStorage::page(p), block)
-#define BLOCK_H_N(p, block) _BLOCK_N(cf::PageStorage::page(p), block)
-
-Handle CPAGE_CreatePage(Handle type, void * lpdata, uint32_t size)
+CPageHandle CPAGE_CreatePage(CDataType type, const void * data, uint32_t size)
 {
-    PROLOG;
-    cf::BackupPage tail;
-    SetReturnCode_cpage(IDS_ERR_NO);
-    Handle hPage = cf::PageStorage::append(tail);
-
-    if (hPage) {
-        if (!cf::PageStorage::page(hPage).SetData(type, lpdata, size)) {
-            cf::PageStorage::remove(hPage);
-            hPage = NULL;
-
-            if (hCurPage == hPage)
-                hCurPage = NULL;
-        }
-
-        else
-            hCurPage = hPage;
-    }
-
-    EPILOG;
-    return hPage;
+    PageHandle p = PageStorage::append(BackupPage());
+    p->setData(type, data, size);
+    return p;
 }
 
-Handle CPAGE_GetPageType(Handle page)
+void CPAGE_DeletePage(CPageHandle page)
 {
-    PROLOG;
-    SetReturnCode_cpage(IDS_ERR_NO);
-    Handle rc = cf::PageStorage::pageType(page);
-    EPILOG;
-    return rc;
+    PageStorage::remove(page);
 }
 
-void CPAGE_DeletePage(Handle page)
+void CPAGE_ClearBackUp(CPageHandle page)
 {
-    PROLOG;
-    SetReturnCode_cpage(IDS_ERR_NO);
-    cf::PageStorage::remove(page);
+    if(!page)
+        return;
 
-    if (hCurPage == page)
-        hCurPage = NULL;
-
-    EPILOG;
+    page->clearBackups();
 }
 
-void CPAGE_ClearBackUp(Handle page)
-{
-    PROLOG;
-    SetReturnCode_cpage(IDS_ERR_NO);
-    cf::PageStorage::clearPage(page);
-    EPILOG;
-}
-
-Handle CPAGE_BackUp(Handle page)
-{
-    PROLOG;
-    SetReturnCode_cpage(IDS_ERR_NO);
-    Handle rc = cf::PageStorage::backupPage(page);
-    EPILOG;
-    return rc;
-}
-
-bool CPAGE_Undo(Handle page, Handle num)
-{
-    PROLOG;
-    bool rc = FALSE;
-    SetReturnCode_cpage(IDS_ERR_NO);
-
-    if (num == NULL) {
-        uint32_t number = CPAGE_GetBuckUpCount(page);
-
-        if (number) {
-            uint32_t cur = CPAGE_GetBuckUpCurPos(page);
-
-            if (cur == 0) {
-                rc = FALSE;
-                goto lOut;
-            }
-
-            num = CPAGE_GetBuckUpHandle(page, cur - 1);
-        }
-
-        else {
-            rc = FALSE;
-            goto lOut;
-        }
-    }
-
-    rc = cf::PageStorage::undo(page, num);
-lOut:
-    EPILOG;
-    return rc;
-}
-
-Bool32 CPAGE_Redo(Handle page, Handle num)
-{
-    PROLOG;
-    Bool32 rc = FALSE;
-    SetReturnCode_cpage(IDS_ERR_NO);
-
-    if (num == NULL) {
-        uint32_t number = CPAGE_GetBuckUpCount(page);
-
-        if (number) {
-            uint32_t cur = CPAGE_GetBuckUpCurPos(page);
-
-            if (cur == (number - 1)) {
-                rc = FALSE;
-                goto lOut;
-            }
-
-            num = CPAGE_GetBuckUpHandle(page, cur + 1);
-        }
-
-        else {
-            rc = FALSE;
-            goto lOut;
-        }
-    }
-
-    rc = cf::PageStorage::page(page).Redo(num);
-lOut:
-    EPILOG;
-    return rc;
-}
-
-uint32_t CPAGE_GetBuckUpCount(Handle page)
-{
-    PROLOG;
-    size_t rc = cf::PageStorage::page(page).backupCount();
-    EPILOG;
-    return rc;
-}
-
-Handle CPAGE_GetBuckUpHandle(Handle page, uint32_t number)
-{
-    PROLOG;
-    Handle rc = cf::PageStorage::page(page).backupAt(number);
-    EPILOG;
-    return rc;
-}
-
-uint32_t CPAGE_GetBuckUpCurPos(Handle page)
-{
-    PROLOG;
-    uint32_t rc = cf::PageStorage::page(page).GetCurPos();
-    EPILOG;
-    return rc;
-}
-
-Handle CPAGE_CreateBlock(Handle page, Handle Type, uint32_t UserNum,
+CBlockHandle CPAGE_CreateBlock(CPageHandle page, CDataType Type, uint32_t UserNum,
                          uint32_t Flags, void * lpData, uint32_t Size)
-{
-    PROLOG;
-    SetReturnCode_cpage(IDS_ERR_NO);
-#ifdef _DEBUG
-    assert(CPAGE_GetNameInternalType(Type));
-#endif
-    Handle rc = cf::PageStorage::page(page).CreateBlock(Type, UserNum, Flags, lpData, Size);
-    EPILOG;
-    return rc;
-}
-
-Bool32 CPAGE_SetPageData(Handle page, Handle type, void * lpdata, uint32_t size)
-{
-    PROLOG;
-    SetReturnCode_cpage(IDS_ERR_NO);
-#ifdef _DEBUG
-    assert(CPAGE_GetNameInternalType(type));
-#endif
-    Bool32 rc = cf::PageStorage::page(page).SetData(type, lpdata, size);
-    EPILOG;
-    return rc;
-}
-
-uint32_t CPAGE_GetPageData(Handle page, Handle type, void * lpdata,
-                           uint32_t size)
-{
-    PROLOG;
-    SetReturnCode_cpage(IDS_ERR_NO);
-#ifdef _DEBUG
-    assert(CPAGE_GetNameInternalType(type));
-#endif
-    DefConvertInit();
-    uint32_t rc = cf::PageStorage::page(page).GetData(type, lpdata, size);
-    EPILOG;
-    return rc;
-}
-
-bool CPAGE_GetPageInfo(Handle page, PAGEINFO * info)
-{
-    return CPAGE_GetPageData(page, PT_PAGEINFO, info, sizeof(PAGEINFO));
-}
-
-bool CPAGE_SetPageInfo(Handle page, const PAGEINFO& info)
-{
-    return CPAGE_SetPageData(page, PT_PAGEINFO, (void*) &info, sizeof(PAGEINFO));
-}
-
-Handle CPAGE_GetBlockType(Handle page, Handle block)
-{
-    PROLOG;
-    SetReturnCode_cpage(IDS_ERR_NO);
-    Handle rc = BLOCK_H_H(page, block).GetType();
-    EPILOG;
-    return rc;
-}
-
-uint32_t CPAGE_GetBlockUserNum(Handle page, Handle block)
-{
-    PROLOG;
-    SetReturnCode_cpage(IDS_ERR_NO);
-    uint32_t rc = BLOCK_H_H(page, block).GetUserNum();
-    EPILOG;
-    return rc;
-}
-
-void CPAGE_SetBlockUserNum(Handle page, Handle block, uint32_t user)
-{
-    PROLOG;
-    SetReturnCode_cpage(IDS_ERR_NO);
-    BLOCK_H_H(page, block).SetUserNum(user);
-    EPILOG;
-}
-
-uint32_t CPAGE_GetBlockFlags(Handle page, Handle block)
-{
-    PROLOG;
-    SetReturnCode_cpage(IDS_ERR_NO);
-    uint32_t rc = BLOCK_H_H(page, block).GetFlags();
-    EPILOG;
-    return rc;
-}
-
-void CPAGE_SetBlockFlags(Handle page, Handle block, uint32_t flags)
-{
-    PROLOG;
-    SetReturnCode_cpage(IDS_ERR_NO);
-    BLOCK_H_H(page, block).SetFlags(flags);
-    EPILOG;
-}
-
-Bool32 CPAGE_SetBlockData(Handle page, Handle block, Handle Type,
-                          void * lpData, uint32_t Size)
-{
-    PROLOG;
-    SetReturnCode_cpage(IDS_ERR_NO);
-#ifdef _DEBUG
-    assert(CPAGE_GetNameInternalType(Type));
-#endif
-    Bool32 rc = BLOCK_H_H(page, block).SetData(Type, lpData, Size);
-    EPILOG;
-    return rc;
-}
-
-uint32_t CPAGE_GetBlockData(Handle page, Handle block, Handle Type,
-                            void * lpData, uint32_t Size)
-{
-    PROLOG;
-    SetReturnCode_cpage(IDS_ERR_NO);
-#ifdef _DEBUG
-    assert(CPAGE_GetNameInternalType(Type));
-#endif
-    DefConvertInit();
-    uint32_t rc = BLOCK_H_H(page, block).GetData(Type, lpData, Size);
-    EPILOG;
-    return rc;
-}
-
-uint32_t CPAGE_GetCountPage()
-{
-    PROLOG;
-    SetReturnCode_cpage(IDS_ERR_NO);
-    uint32_t rc = cf::PageStorage::size();
-    EPILOG;
-    return rc;
-}
-
-uint32_t CPAGE_GetCountBlock(Handle page)
 {
     if(!page)
         return 0;
 
-    PROLOG;
-    SetReturnCode_cpage(IDS_ERR_NO);
-    uint32_t rc = cf::PageStorage::page(page).Block.GetCount();
-    EPILOG;
-    return rc;
+    assert(CPAGE_GetNameInternalType(Type));
+
+    return page->createBlock(Type, UserNum, Flags, lpData, Size);
 }
 
-void CPAGE_DeleteBlock(Handle page, Handle block)
+bool CPAGE_SetPageData(CPageHandle page, CDataType type, const void * data, uint32_t size)
 {
-    PROLOG;
-    SetReturnCode_cpage(IDS_ERR_NO);
-    cf::PageStorage::page(page).Block.Del(block);
-    EPILOG;
+    if(!page)
+        return false;
+
+    assert(CPAGE_GetNameInternalType(type));
+    page->setData(type, data, size);
+    return true;
+}
+
+uint32_t CPAGE_GetPageData(CPageHandle page, CDataType type, void * lpdata, uint32_t size)
+{
+    if(!page)
+        return 0;
+
+    assert(CPAGE_GetNameInternalType(type));
+    DefConvertInit();
+    return page->getData(type, lpdata, size);
+}
+
+bool CPAGE_GetPageInfo(CPageHandle page, PAGEINFO * info)
+{
+    return CPAGE_GetPageData(page, PT_PAGEINFO, info, sizeof(PAGEINFO));
+}
+
+bool CPAGE_SetPageInfo(CPageHandle page, const PAGEINFO& info)
+{
+    return CPAGE_SetPageData(page, PT_PAGEINFO, (void*) &info, sizeof(PAGEINFO));
+}
+
+CDataType CPAGE_GetBlockType(CBlockHandle block)
+{
+    if(!block) {
+        cfError(MODULE_CPAGE) << "NULL block handle given";
+        return 0;
+    }
+
+    return block->type();
+}
+
+uint32_t CPAGE_GetBlockUserNum(CBlockHandle block)
+{
+    if(!block) {
+        cfError(MODULE_CPAGE) << "NULL block handle given";
+        return (uint32_t) -1;
+    }
+
+    return block->userNum();
+}
+
+void CPAGE_SetBlockUserNum(CBlockHandle block, uint32_t number)
+{
+    if(!block) {
+        cfError(MODULE_CPAGE) << "NULL block handle given";
+        return;
+    }
+
+    block->setUserNum(number);
+}
+
+uint32_t CPAGE_GetBlockFlags(CBlockHandle block)
+{
+    if(!block) {
+        cfError(MODULE_CPAGE) << "NULL block handle given";
+        return 0;
+    }
+
+    return block->flags();
+}
+
+void CPAGE_SetBlockFlags(CBlockHandle block, uint32_t flags)
+{
+    if(!block) {
+        cfError(MODULE_CPAGE) << "NULL block handle given";
+        return;
+    }
+
+    block->setFlags(flags);
+}
+
+bool CPAGE_SetBlockData(CBlockHandle block, CDataType type, const void * data, uint32_t size)
+{
+    if(!block) {
+        cfError(MODULE_CPAGE) << "NULL block handle given";
+        return false;
+    }
+
+    block->setData(type, data, size);
+    return true;
+}
+
+uint32_t CPAGE_GetBlockData(CBlockHandle block, CDataType type, void * data, uint32_t size)
+{
+    if(!block) {
+        cfError(MODULE_CPAGE) << "NULL block handle given";
+        return false;
+    }
+
+    DefConvertInit();
+    return block->getData(type, data, size);
+}
+
+size_t CPAGE_GetPageCount()
+{
+    return PageStorage::pageCount();
+}
+
+uint32_t CPAGE_GetCountBlock(CPageHandle page)
+{
+    if(!page)
+        return 0;
+
+    return page->blockCount();
+}
+
+void CPAGE_DeleteBlock(CPageHandle page, CBlockHandle block)
+{
+    if(!page)
+        return;
+
+    page->removeBlock(block);
 }
 
 #define VERSION_FILE            0xF002
-#define VERSION_FILE_COMPRESSED 0xF003
 
-Bool32 CPAGE_SavePage(Handle page, const char * lpName)
+bool CPAGE_SavePage(CPageHandle page, const char * fname)
 {
-    PROLOG;
-    Bool32 rc = FALSE;
-    SetReturnCode_cpage(IDS_ERR_NO);
-    Handle file = myOpenSave(lpName);
+    if(!page)
+        return false;
 
-    if (file) {
-#ifdef SAVE_COMPRESSED
-        uint32_t vers = VERSION_FILE_COMPRESSED;
-#else
-        uint32_t vers = VERSION_FILE;
-#endif
+    std::ofstream os(fname);
 
-        if (myWrite(file, &vers, sizeof(vers)) == sizeof(vers)) {
-            if (page) {
-                int count = 1;
-                rc = myWrite(file, &count, sizeof(count)) == sizeof(count);
-#ifdef SAVE_COMPRESSED
-                rc = cf::PageStorage::page(page).SaveCompress(file);
-#else
-                rc = cf::PageStorage::page(page).Save(file);
-#endif
-            }
+    if(!os)
+        return false;
 
-            else {
-                int i;
-                int count = cf::PageStorage::size();
-                rc = myWrite(file, &count, sizeof(count)) == sizeof(count);
+    const uint32_t vers = VERSION_FILE;
+    os.write((char*) &vers, sizeof(vers));
 
-                for (i = 0; i < count && rc == TRUE; i++)
-#ifdef SAVE_COMPRESSED
-                    rc = cf::PageStorage::pageAt(i).SaveCompress(file);
-#else
-                    rc = cf::PageStorage::pageAt(i).Save(file);
-#endif
-            }
+    if (page) {
+        const uint32_t count = 1;
+        os.write((char*) &count, sizeof(count));
+        return static_cast<PageHandle>(page)->save(os);
+    }
+    else {
+        const uint32_t count = PageStorage::pageCount();
+        os.write((char*) &count, sizeof(count));
+        for (uint32_t i = 0; i < count; i++) {
+            if(!PageStorage::pageAt(i)->save(os))
+                return false;
         }
-
-        myClose(file);
     }
 
-    EPILOG;
-    return rc;
+    os.close();
+    return true;
 }
 
-Handle CPAGE_RestorePage(Bool32 remove, const char * lpName)
+CPageHandle CPAGE_RestorePage(bool remove, const char * fname)
 {
-    PROLOG;
-    Handle rc = NULL;
-    Bool decompress = FALSE;
-    SetReturnCode_cpage(IDS_ERR_NO);
-    Handle file = myOpenRestore(lpName);
+    CPageHandle rc = NULL;
 
-    if (file) {
-        int i;
-        int count;
-        uint32_t vers = 0;
+    std::ifstream is(fname);
 
-        if (myRead(file, &vers, sizeof(vers)) == sizeof(vers)) {
-            if (vers == VERSION_FILE_COMPRESSED)
-                decompress = TRUE;
-
-            else if (vers != VERSION_FILE) {
-                SetReturnCode_cpage(IDS_ERR_OLDFILEVERSION);
-                myClose(file);
-                return FALSE;
-            }
-
-            {
-                if (remove) {
-                    cf::PageStorage::clear();
-                    NameData.Clear();
-                }
-
-                if (myRead(file, &count, sizeof(count)) == sizeof(count))
-                    for (i = 0; i < count; i++) {
-                        cf::BackupPage page;
-
-                        if (decompress ? page.RestoreCompress(file)
-                                : page.Restore(file))
-                            rc = cf::PageStorage::append(page);//Page.AddTail(page);
-
-                        else
-                            break;
-                    }
-            }
-        }
-
-        myClose(file);
+    if(!is) {
+        CPAGE_ERROR_FUNC << "can't open file:" << fname;
+        return NULL;
     }
 
-    EPILOG;
+    uint32_t vers = 0;
+    is.read((char*) &vers, sizeof(vers));
+
+    if (vers != VERSION_FILE) {
+        CPAGE_ERROR_FUNC << "invalid file version";
+        is.close();
+        return NULL;
+    }
+
+    if (remove) {
+        PageStorage::clear();
+        PageStorage::clearNameData();
+    }
+
+    uint32_t count = 0;
+    is.read((char*) &count, sizeof(count));
+
+    for (uint32_t i = 0; i < count; i++) {
+        BackupPage page;
+        if(page.restore(is))
+            rc = PageStorage::append(page);
+        else
+            break;
+    }
+
+    is.close();
     return rc;
 }
 
-Handle CPAGE_GetHandlePage(uint32_t pos)
+CPageHandle CPAGE_GetHandlePage(uint32_t pos)
 {
-    PROLOG;
-    Handle rc = cf::PageStorage::pageHandleAt(pos);
-    EPILOG;
-    return rc;
+    return PageStorage::pageAt(pos);
 }
 
-Handle CPAGE_GetHandleBlock(Handle page, uint32_t block)
+CDataType CPAGE_GetUserPageType()
 {
-    PROLOG;
-    Handle rc = cf::PageStorage::page(page).Block.GetHandle(block);
-    EPILOG;
-    return rc;
+    return CPAGE_GetUserBlockType();
 }
 
-CPAGE_CONVERTOR CPAGE_SetConvertorPages(CPAGE_CONVERTOR data)
+CDataType CPAGE_GetUserBlockType()
 {
-    PROLOG;
-    CPAGE_CONVERTOR rc = SetConvertorPages(data);
-    EPILOG;
-    return rc;
-}
-
-CPAGE_CONVERTOR CPAGE_SetConvertorBlocks(Handle page, CPAGE_CONVERTOR data)
-{
-    PROLOG;
-    CPAGE_CONVERTOR rc = SetConvertorBlocks(data);
-    EPILOG;
-    return rc;
-}
-
-Handle CPAGE_GetUserPageType()
-{
-    PROLOG;
-    /*
-     static uint32_t number = 0x10000000;
-     return number++;
-     */
-    Handle rc = CPAGE_GetUserBlockType();
-    EPILOG;
-    return rc;
-}
-
-Handle CPAGE_GetUserBlockType()
-{
-    PROLOG;
     static uint32_t number = 1;
     char Name[260];
     sprintf(Name, "UserType:%i", number++);
-    Handle rc = CPAGE_GetInternalType(Name);
-    EPILOG;
-    return rc;
+    return CPAGE_GetInternalType(Name);
 }
 
-Handle CPAGE_GetPageFirst(Handle type)
+CPageHandle CPAGE_GetPageFirst(CDataType type)
 {
-    PROLOG;
-    int count = cf::PageStorage::size();
+    int count = PageStorage::pageCount();
     int i;
-#ifdef _DEBUG
-    assert(CPAGE_GetNameInternalType(type));
-#endif
     DefConvertInit();
 
     for (i = 0; i < count; i++) {
         if (!type ||
-                cf::PageStorage::pageAt(i).GetType() == type ||
-                cf::PageStorage::pageAt(i).Convert(type, NULL, 0))
+                PageStorage::pageAt(i)->type() == type ||
+                PageStorage::pageAt(i)->Convert(type, NULL, 0))
             break;
     }
 
-    Handle rc = i < count ? cf::PageStorage::pageHandleAt(i) : NULL;
-    EPILOG;
-    return rc;
+    return i < count ? PageStorage::pageAt(i) : NULL;
 }
 
-Handle CPAGE_GetPageNext(Handle page, Handle type)
+CPageHandle CPAGE_GetPageNext(CPageHandle page, CDataType type)
 {
-    PROLOG;
-    int count = cf::PageStorage::size();
-    int pos = cf::PageStorage::pagePosition(page) + 1;
+    int count = PageStorage::pageCount();
+    int pos = PageStorage::findPage((PageHandle) page) + 1;
     int i;
-#ifdef _DEBUG
-    assert(CPAGE_GetNameInternalType(type));
-#endif
+
     DefConvertInit();
 
     for (i = pos; i < count && i >= 0; i++) {
         if (!type ||
-                cf::PageStorage::pageAt(i).GetType() == type ||
-                cf::PageStorage::pageAt(i).Convert(type, NULL, 0))
+                PageStorage::pageAt(i)->type() == type ||
+                PageStorage::pageAt(i)->Convert(type, NULL, 0))
             break;
     }
 
-    Handle rc = i < count ? cf::PageStorage::pageHandleAt(i) /*Page.GetHandle(i)*/ : NULL;
-    EPILOG;
-    return rc;
+    return (i < count) ? PageStorage::pageAt(i) : NULL;
 }
 
-Handle CPAGE_GetBlockFirst(Handle page, Handle type)
+CBlockHandle CPAGE_GetBlockFirst(CPageHandle p, CDataType type)
 {
-    PROLOG;
-    int count = cf::PageStorage::page(page).Block.GetCount();
+    if(!p)
+        return NULL;
+
+    int count = p->blockCount();
     int i;
-    /*
-     #ifdef _DEBUG
-     assert(CPAGE_GetNameInternalType(type));
-     #endif
-     */
+
     DefConvertInit();
 
     for (i = 0; i < count; i++) {
-        if (!type || BLOCK_H_N(page, i).GetType() == type
-                || BLOCK_H_N(page, i).Convert(type, NULL, 0))
+        if (!type ||
+                p->blockAt(i)->type() == type ||
+                p->blockAt(i)->Convert(type, NULL, 0))
             break;
     }
 
-    Handle rc = i < count ? cf::PageStorage::page(page).Block.GetHandle(i) : NULL;
-    EPILOG;
-    return rc;
+    return (i < count) ? p->blockAt(i) : NULL;
 }
 
-Handle CPAGE_GetBlockNext(Handle page, Handle block, Handle type)
+CBlockHandle CPAGE_GetBlockNext(CPageHandle p, CBlockHandle block, CDataType type)
 {
-    PROLOG;
-    int count = cf::PageStorage::page(page).Block.GetCount();
-    int pos = cf::PageStorage::page(page).Block.GetPos(block) + 1;
+    if(!p)
+        return NULL;
+
+    PageHandle page = static_cast<PageHandle>(p);
+    int count = page->blockCount();
+    int pos = page->findBlock(block) + 1;
     int i;
-    /*
-     #ifdef _DEBUG
-     assert(CPAGE_GetNameInternalType(type));
-     #endif
-     */
+
     DefConvertInit();
 
     for (i = pos; i < count && i >= 0; i++) {
-        if (!type || BLOCK_H_N(page, i).GetType() == type
-                || BLOCK_H_N(page, i).Convert(type, NULL, 0))
+        if (!type ||
+                page->blockAt(i)->type() == type ||
+                page->blockAt(i)->Convert(type, NULL, 0))
             break;
     }
 
-    Handle rc = i < count ? cf::PageStorage::page(page).Block.GetHandle(i) : NULL;
-    EPILOG;
-    return rc;
+    return (i < count) ? page->blockAt(i) : NULL;
 }
 
-Bool32 CPAGE_DeleteAll()
+bool CPAGE_DeleteAll()
 {
-    CPAGE_CONVERTOR ConvertorPages = { 0, DefConvertPage }; // Piter
-    PROLOG;
-    Bool32 rc = TRUE;
-    cf::PageStorage::clear();//Page.Clear();
-    NameData.Clear();
-    SetConvertorPages(ConvertorPages); // Piter
-    hCurPage = NULL;
-    EPILOG;
-    return rc;
+    DataConvertor ConvertorPages(DefConvertPage);
+    PageStorage::clear();
+    PageStorage::clearNameData();
+    Page::setConvertor(ConvertorPages);
+    return true;
 }
 
-uint32_t CPAGE_GetCurrentPage()
+uint32_t CPAGE_GetCurrentPageNumber()
 {
-    PROLOG;
-    uint32_t rc = CPAGE_GetNumberPage(hCurPage);
-    EPILOG;
-    return rc;
+    return (uint32_t) PageStorage::currentPageNumber();
 }
 
-Bool32 CPAGE_SetCurrentPage(uint32_t page)
+bool CPAGE_SetCurrentPage(uint32_t number)
 {
-    PROLOG;
-    Bool32 rc = TRUE;
-
-    if (page >= CPAGE_GetCountPage() || page == (uint32_t) - 1) {
-        SetReturnCode_cpage(IDS_ERR_NOPAGE);
-        rc = FALSE;
-    }
-
-    else
-        hCurPage = CPAGE_GetHandlePage(page);
-
-    EPILOG;
-    return rc;
+    return PageStorage::setCurrentPage(number);
 }
 
-uint32_t CPAGE_GetNumberPage(Handle hPage)
+uint32_t CPAGE_GetPageNumber(CPageHandle page)
 {
-    PROLOG;
-    uint32_t rc = (uint32_t) - 1;
+    if(!page)
+        return (uint32_t) - 1;
 
-    if (hPage)
-        rc = (uint32_t) cf::PageStorage::pages().GetPos(hPage);
-
-    EPILOG;
-    return rc;
+    return PageStorage::findPage(page);
 }
 
 // Если блоки конвертируемы один в другой, тогда имеет смысл оставить только один,
 // наиболее полный тип. Именно это и делает эта функция.
 //
-Bool32 CPAGE_UpdateBlocks(Handle hPage, Handle type)
+Bool32 CPAGE_UpdateBlocks(CPageHandle hPage, CDataType type)
 {
-    PROLOG;
     Bool32 rc = TRUE;
     uint32_t size = 0;
     char * lpData = NULL;
-    Handle temporaray = 0;
-    SetReturnCode_cpage(IDS_ERR_NO);
-#ifdef _DEBUG
-    assert(CPAGE_GetNameInternalType(type));
-#endif
-    SetReturnCode_cpage(IDS_ERR_NO);
-    Handle hBlock = CPAGE_GetBlockFirst(hPage, type);
+    CDataType temporaray = 0;
+
+    CBlockHandle hBlock = CPAGE_GetBlockFirst(hPage, type);
 
     if (!hBlock) {
         rc = TRUE;
@@ -691,39 +435,38 @@ Bool32 CPAGE_UpdateBlocks(Handle hPage, Handle type)
     temporaray = CPAGE_GetInternalType("temporary");
 
     while (hBlock) {
-        Handle hNextBlock = CPAGE_GetBlockNext(hPage, hBlock, type);// type - запрашиваемый тип блока
-        Handle dwType = CPAGE_GetBlockType(hPage, hBlock); // dwType - Реальный тип блока
+        CBlockHandle hNextBlock = CPAGE_GetBlockNext(hPage, hBlock, type);// type - запрашиваемый тип блока
+        CDataType dwType = CPAGE_GetBlockType(hBlock); // dwType - Реальный тип блока
 
         if (dwType != type) { // Была произведена конвертация из типа dwType !
-            uint32_t UserNum = CPAGE_GetBlockUserNum(hPage, hBlock);
-            uint32_t Flags = CPAGE_GetBlockFlags(hPage, hBlock);
+            uint32_t UserNum = CPAGE_GetBlockUserNum(hBlock);
+            uint32_t Flags = CPAGE_GetBlockFlags(hBlock);
 
             if (lpData == NULL) { // Определим необходимый размер и отведем память.
-                size = CPAGE_GetBlockData(hPage, hBlock, type, NULL, 0);
+                size = hBlock->dataSize();
 
                 if (size) {
                     lpData = (char *) myAlloc(size);
 
                     if (!lpData) {
+                        CPAGE_ERROR_FUNC << "no memory";
                         rc = FALSE;
-                        SetReturnCode_cpage(IDS_ERR_NO_MEMORY);
                         break;
                     }
                 }
-
                 else {
-                    SetReturnCode_cpage(IDS_ERR_DISCREP);
+                    CPAGE_ERROR_FUNC << "size of block is 0";
                     rc = FALSE;
                     break;
                 }
             }
 
-            if (CPAGE_GetBlockData(hPage, hBlock, type, lpData, size) == size) {
+            if (CPAGE_GetBlockData(hBlock, type, lpData, size) == size) {
                 CPAGE_DeleteBlock(hPage, hBlock);
 
                 if (!CPAGE_CreateBlock(hPage, temporaray, UserNum, Flags,
                                        lpData, size)) {
-                    SetReturnCode_cpage(IDS_ERR_NO_MEMORY);
+                    CPAGE_ERROR_FUNC << "can't create block";
                     rc = FALSE;
                     break;
                 }
@@ -737,71 +480,61 @@ Bool32 CPAGE_UpdateBlocks(Handle hPage, Handle type)
     if (lpData) { // Проверка на существование таких блоков
         myFree(lpData);
 
-        for (hBlock = CPAGE_GetBlockFirst(hPage, temporaray); hBlock; hBlock
-                = CPAGE_GetBlockNext(hPage, hBlock, temporaray)) {
-            BLOCK_H_H(hPage, hBlock).SetType(type);
+        for (hBlock = CPAGE_GetBlockFirst(hPage, temporaray); hBlock;
+             hBlock = CPAGE_GetBlockNext(hPage, hBlock, temporaray))
+        {
+            hBlock->setType(type);
         }
     }
 
 lOut:
-    EPILOG;
     return rc;
 }
 
-uint32_t CPAGE_GetBlockInterNum(Handle page, Handle block)
+uint32_t CPAGE_GetBlockInterNum(CBlockHandle block)
 {
-    PROLOG;
-    SetReturnCode_cpage(IDS_ERR_NO);
-    uint32_t rc = BLOCK_H_H(page, block).GetInterNum();
-    EPILOG;
-    return rc;
+    if(!block) {
+        cfError(MODULE_CPAGE) << "NULL block handle given";
+        return (uint32_t) -1;
+    }
+
+    return block->interNum();
 }
 
-void CPAGE_SetBlockInterNum(Handle page, Handle block, uint32_t inter)
+void CPAGE_SetBlockInterNum(CBlockHandle block, uint32_t inter)
 {
-    PROLOG;
-    SetReturnCode_cpage(IDS_ERR_NO);
-    BLOCK_H_H(page, block).SetInterNum(inter);
-    EPILOG;
+    if(!block) {
+        cfError(MODULE_CPAGE) << "NULL block handle given";
+        return;
+    }
+
+    block->setInterNum(inter);
 }
 
-Bool32 CPAGE_GetBlockDataPtr(Handle page, Handle block, Handle Type,
-                             void ** lpData)
+bool CPAGE_GetBlockDataPtr(CBlockHandle block, CDataType type, void ** data)
 {
-    PROLOG;
-    SetReturnCode_cpage(IDS_ERR_NO);
-#ifdef _DEBUG
-    assert(CPAGE_GetNameInternalType(Type));
-#endif
-    Bool32 rc = BLOCK_H_H(page, block).GetDataPtr(Type, lpData);
-    EPILOG;
-    return rc;
+    if(!block) {
+        cfError(MODULE_CPAGE) << "NULL block handle given";
+        return false;
+    }
+
+    return block->getDataPtr(type, data);
 }
 
-Handle CPAGE_GetInternalType(const char * name)
+CDataType CPAGE_GetInternalType(const char * name)
 {
-    PROLOG;
-    Handle rc = 0;
-    NAMEDATA nd(name);
-    SetReturnCode_cpage(IDS_ERR_NO);
-    rc = NameData.FindFirst(nd);
+    CDataType rc = PageStorage::findNameData(name);
 
     if (!rc)
-        rc = NameData.AddTail(nd);
+        rc = PageStorage::appendNameData(name);
 
-    EPILOG;
     return rc;
 }
 
-char * CPAGE_GetNameInternalType(Handle type)
+const char * CPAGE_GetNameInternalType(CDataType type)
 {
-    char * rc = NULL;
-    PROLOG;
-    SetReturnCode_cpage(IDS_ERR_NO);
+    if (type == 0 || type == -1)
+        return NULL;
 
-    if (type != NULL)
-        rc = NameData.GetItem(type);
-
-    EPILOG;
-    return rc;
+    return PageStorage::namedata(type);
 }

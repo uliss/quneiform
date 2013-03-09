@@ -57,11 +57,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "markdatadefs.h"
 #include "ccom/ccom.h"
 #include "globus.h"
+
+namespace cf {
+namespace cpage {
+class PolyBlock;
+}
+}
+
 /*----------------------------------------------------------------------------*/
 Bool FullRotatedRects_rv (void *vB, UN_DATAAIMS OldAim, UN_DATAAIMS NewAim
                           , int32_t SkewReg, char *pStr, char *pWho);
 Bool CompIsGood (CCOM_comp * pcomp, int16_t Filter);
 FUN_EXPO__ Bool LoadComps_rv (CCOM_handle hC, void *vB, char *pStr, int Filter);
-Bool MakeRectFromPict (Rect16 *pCurr, void *vPict);
-Bool LoadPicts_rv (Handle hC, void *vB, char *pStr);
+Bool MakeRectFromPict (Rect16 *pCurr, cf::cpage::PolyBlock *pPict);
+Bool LoadPicts_rv (CPageHandle hC, void *vB, char *pStr);
 /*----------------------------------------------------------------------------*/

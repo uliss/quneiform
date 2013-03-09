@@ -35,7 +35,7 @@ static inline bool isValidResolution(const PAGEINFO& info)
 ResolutionChecker::HistogramCallback ResolutionChecker::hist_height_callback_;
 ResolutionChecker::HistogramCallback ResolutionChecker::hist_width_callback_;
 
-ResolutionChecker::ResolutionChecker(CCOM_handle ccom, Handle cpage) :
+ResolutionChecker::ResolutionChecker(CCOM_handle ccom, CPageHandle cpage) :
     ccom_(ccom), cpage_(cpage)
 {
 }
@@ -43,7 +43,7 @@ ResolutionChecker::ResolutionChecker(CCOM_handle ccom, Handle cpage) :
 void ResolutionChecker::check()
 {
     PAGEINFO page_info;
-    if(!GetPageInfo(cpage_, &page_info))
+    if(!CPAGE_GetPageInfo(cpage_, &page_info))
         return;
 
     if(isValidResolution(page_info)) {
@@ -69,7 +69,7 @@ void ResolutionChecker::check()
     }
 
     if(changed) {
-        SetPageInfo(cpage_, page_info);
+        CPAGE_SetPageInfo(cpage_, page_info);
         cfDebug(cf::MODULE_RSTUFF) << "new resolution: "
                                    << page_info.DPIX << "x" << page_info.DPIY;
     }

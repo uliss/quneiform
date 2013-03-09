@@ -172,12 +172,12 @@ Bool32 MyFiltrateIn(int32_t upper, int32_t left, int32_t w, int32_t h)
     return TRUE;
 }
 
-Bool32 PicturesSecondStage(CCOM_handle hCCOM, Handle hCPAGE)
+Bool32 PicturesSecondStage(CCOM_handle hCCOM, CPageHandle hCPAGE)
 {
     /************** final union all crossed and included pictures ******************/
     CCOM_comp common;
-    POLY_ block;
-    Handle h = NULL;
+    cf::cpage::PolyBlock block;
+    CBlockHandle h = NULL;
     uint32_t i, j;
     CCOM_comp pic;
     CCOM_comp * comp;
@@ -293,8 +293,8 @@ Bool32 PicturesSecondStage(CCOM_handle hCCOM, Handle hCPAGE)
     for (h = CPAGE_GetBlockFirst(hCPAGE, TYPE_IMAGE); h != NULL;
             //  h = CPAGE_GetBlockNext(hCPAGE,h,TYPE_IMAGE) Paul 02-04-2002
         ) {
-        Handle hNext = CPAGE_GetBlockNext(hCPAGE, h, TYPE_IMAGE); // Paul 02-04-2002
-        CPAGE_GetBlockData(hCPAGE, h, TYPE_IMAGE, &block, sizeof(block));
+        CBlockHandle hNext = CPAGE_GetBlockNext(hCPAGE, h, TYPE_IMAGE); // Paul 02-04-2002
+        CPAGE_GetBlockData(h, TYPE_IMAGE, &block, sizeof(block));
         CPAGE_DeleteBlock(hCPAGE, h);
         h = hNext; // Paul 02-04-2002
 
@@ -304,14 +304,14 @@ Bool32 PicturesSecondStage(CCOM_handle hCCOM, Handle hCPAGE)
         }
 
         comp = &pPics[nPics++];
-        comp->upper = block.com.Vertex[0].y();
-        comp->left = block.com.Vertex[0].x();
-        comp->w = block.com.Vertex[1].x() - block.com.Vertex[0].x();
-        comp->h = block.com.Vertex[2].y() - block.com.Vertex[1].y();
+        comp->upper = block.vertexAt(0).y();
+        comp->left = block.vertexAt(0).x();
+        comp->w = block.rect().width();
+        comp->h = block.rect().height();
         /* У comp нету поля флагов, поэтому используем nl */
-        comp->nl = block.com.Flags;
+        comp->nl = block.flags();
 
-        if (block.orient == TYPE_DOWNUP)
+        if (block.orientation() == CPAGE_ORIENT_DOWNUP)
             comp->nl |= FROMDOWN;
     }
 
@@ -394,7 +394,7 @@ Bool32 PicturesSecondStage(CCOM_handle hCCOM, Handle hCPAGE)
     sprintf(tmp_str, "  <4 Р %d %d %d \n", nPics, 0, 0);
     LDPUMA_FPuts(resFile_pict, tmp_str);
     //Almi 12.07.00
-    GetPageInfo(hCPAGE, &info);
+    CPAGE_GetPageInfo(hCPAGE, &info);
 
     switch (info.Angle) {
         case 90:
@@ -407,54 +407,44 @@ Bool32 PicturesSecondStage(CCOM_handle hCCOM, Handle hCPAGE)
 
     //End of Almi
     for (i = 0; i < nPics && bSearchPicture; i++) {
-        block.com.type = TYPE_TEXT;//Текст, Картинка, Таблица;
-        block.com.number = 0;//порядковый номер
-        block.com.count = 4;
-        block.com.Flags = pPics[i].nl;
-        block.com.Vertex[0].rx() = pPics[i].left;
-        block.com.Vertex[0].ry() = pPics[i].upper;
-        block.com.Vertex[1].rx() = pPics[i].left + pPics[i].w;
-        block.com.Vertex[1].ry() = pPics[i].upper;
-        block.com.Vertex[2].rx() = pPics[i].left + pPics[i].w;
-        block.com.Vertex[2].ry() = pPics[i].upper + pPics[i].h;
-        block.com.Vertex[3].rx() = pPics[i].left;
-        block.com.Vertex[3].ry() = pPics[i].upper + pPics[i].h;
-        block.alphabet = 0;
+        block.setType(TYPE_TEXT);//Текст, Картинка, Таблица;
+        block.setNumber(0);//порядковый номер
+        block.setFlags(pPics[i].nl);
+        block.setRect(pPics[i].rect());
+        block.setAlphabet(0);
 
         if (pPics[i].nl & NEGA) {
-            block.negative = TYPE_NEGATIVE;
+            block.setLight(CPAGE_BLOCK_NEGATIVE);
 
             if (pPics[i].nl & VERTICA) {
                 if (pPics[i].nl & FROMDOWN)
-                    block.orient = TYPE_DOWNUP;
-
+                    block.setOrientation(CPAGE_ORIENT_DOWNUP);
                 else
-                    block.orient = TYPE_UPDOWN;
+                    block.setOrientation(CPAGE_ORIENT_UPDOWN);
             }
-
             else
-                block.orient = TYPE_LEFTRIGHT;
+                block.setOrientation(CPAGE_ORIENT_LEFTRIGHT);
         }
 
         else {
-            block.negative = TYPE_POSITIVE;
+            block.setLight(CPAGE_BLOCK_POSITIVE);
         }
 
         sprintf(tmp_str, "  <4 О 1 %4d %4d %4d %4d %d \n", pPics[i].left,
                 pPics[i].upper, pPics[i].left + pPics[i].w, pPics[i].upper,
                 pPics[i].h);
         LDPUMA_FPuts(resFile_pict, tmp_str);
-        CPAGE_CreateBlock(hCPAGE, TYPE_IMAGE, 0, 0, &block, sizeof(POLY_));
+        CPAGE_CreateBlock(hCPAGE, TYPE_IMAGE, 0, 0, &block, sizeof(cf::cpage::PolyBlock));
     }
 
     LDPUMA_FPuts(resFile_pict, "  <4 К После второго прохода \n");
     return TRUE;
 }
 
-Bool32 FillBigLetters(Handle hCCOM, Handle hCPAGE)
+Bool32 FillBigLetters(Handle hCCOM, CPageHandle hCPAGE)
 {
-    Handle BlockType;
-    Handle pBlock;
+    CDataType BlockType;
+    CBlockHandle pBlock;
     RPIC_Comp_Rect CompRect; // типичный Rect16
     BlockType = CPAGE_GetInternalType("pic's to letters boxes");
     pBlock = CPAGE_GetBlockFirst(hCPAGE, BlockType);
@@ -466,8 +456,7 @@ Bool32 FillBigLetters(Handle hCCOM, Handle hCPAGE)
                                                                           * BIG_LETTERS_QUANTUM * sizeof(RPIC_Comp_Rect))));
         }
 
-        CPAGE_GetBlockData(hCPAGE, pBlock, BlockType, &CompRect,
-                           sizeof(CompRect));
+        CPAGE_GetBlockData(pBlock, BlockType, &CompRect, sizeof(CompRect));
         nBigLetters++;
         pBigLetters[nBigLetters - 1] = CompRect;
         pBlock = CPAGE_GetBlockNext(hCPAGE, pBlock, BlockType);
@@ -476,15 +465,15 @@ Bool32 FillBigLetters(Handle hCCOM, Handle hCPAGE)
     return TRUE;
 }
 
-Bool32 FillPicsInTables(Handle hCCOM, Handle hCPAGE)
+Bool32 FillPicsInTables(Handle hCCOM, CPageHandle hCPAGE)
 {
-    POLY_ block;
-    Handle h = NULL;
+    cf::cpage::PolyBlock block;
+    CBlockHandle h = NULL;
     CCOM_comp * comp;
 
     for (h = CPAGE_GetBlockFirst(hCPAGE, POSSIBLE_PICTURES); h != NULL;) {
-        Handle hNext = CPAGE_GetBlockNext(hCPAGE, h, POSSIBLE_PICTURES); // Paul 02-04-2002
-        CPAGE_GetBlockData(hCPAGE, h, POSSIBLE_PICTURES, &block, sizeof(block));
+        CBlockHandle hNext = CPAGE_GetBlockNext(hCPAGE, h, POSSIBLE_PICTURES); // Paul 02-04-2002
+        CPAGE_GetBlockData(h, POSSIBLE_PICTURES, &block, sizeof(block));
         CPAGE_DeleteBlock(hCPAGE, h);
         h = hNext; // Paul 02-04-2002
 
@@ -494,10 +483,10 @@ Bool32 FillPicsInTables(Handle hCCOM, Handle hCPAGE)
         }
 
         comp = &pPics[nPics++];
-        comp->upper = block.com.Vertex[0].y();
-        comp->left = block.com.Vertex[0].x();
-        comp->w = block.com.Vertex[1].x() - block.com.Vertex[0].x();
-        comp->h = block.com.Vertex[2].y() - block.com.Vertex[1].y();
+        comp->upper = block.vertexAt(0).y();
+        comp->left = block.vertexAt(0).x();
+        comp->w = block.rect().width();
+        comp->h = block.rect().height();
     }
 
     return TRUE;
@@ -525,7 +514,7 @@ Bool32 IsNotBigLetter(CCOM_comp *comp)
 Bool32 ReadRoots(CCOM_handle hCCOM, Bool32 BLOCKS)
 {
     CCOM_comp * comp = NULL;
-    Handle pPage;
+    CPageHandle pPage;
     PAGEINFO pInfo;
     uint32_t i;
     exthCCOM = hCCOM;
@@ -541,7 +530,7 @@ Bool32 ReadRoots(CCOM_handle hCCOM, Bool32 BLOCKS)
         nPics = 0;
     }
 
-    pPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
+    pPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPageNumber());
     CPAGE_GetPageData(pPage, PT_PAGEINFO, (void*) &pInfo, sizeof(pInfo));
     nBigLetters = 0;
     pBigLetters = NULL;

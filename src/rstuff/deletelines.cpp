@@ -100,7 +100,7 @@ Bool DelOneVerLine(uchar* pmasp, const int bytewide, int num_str, int begx,
 Bool DelLineFromInside(uchar* pmasp, const int bytewide, int num_str,
 		CLINE_handle hline);
 
-Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines) {
+Bool32 DeleteLines(CPageHandle hCPage, void* phCLINE, const char* ImageDelLines) {
 	//	LDPUMA_ConsoleN("Активизируется функция тривиального удаления линий");
 	int time = clock();
 	CLINE_handle* pCLINE = (CLINE_handle*) phCLINE;
@@ -119,7 +119,7 @@ Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines) {
 	int i;
 	char ImageName[CPAGE_MAXNAME];
 	// Получаем PAGEINFO текущей страницы
-	GetPageInfo(hCPage, &info);
+    CPAGE_GetPageInfo(hCPage, &info);
 
 	// Копируем в pImage из PInfo указатель на изображение,
 	// связанное со страницей
@@ -272,7 +272,7 @@ Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines) {
 	delete ctdib;
 
 	info.Images |= IMAGE_DELLINE;
-	SetPageInfo(hCPage, info);
+    CPAGE_SetPageInfo(hCPage, info);
 	time = clock() - time;
 	return TRUE;
 }

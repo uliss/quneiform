@@ -139,7 +139,7 @@ Bool32 SearchNewLines(PRSPreProcessImage Image) {
 	Bool32 ret = TRUE;
 	bool searchlines = LDPUMA_Skip(Image->hDebugCancelSearchDotLines)
 			&& !LDPUMA_Skip(hDotLine);
-	Handle hSaveImage = CPAGE_CreateBlock(Image->hCPAGE, RSL_VERLINE, 0, 0,
+    CBlockHandle hSaveImage = CPAGE_CreateBlock(Image->hCPAGE, RSL_VERLINE, 0, 0,
 			Image, sizeof(RSPreProcessImage));
 
 	if (LDPUMA_Skip(Image->hDebugCancelVerifyLines)) {
@@ -159,11 +159,11 @@ Bool32 SearchNewLines(PRSPreProcessImage Image) {
 
 Bool32 CreateContainerBigComp(PRSPreProcessImage Image) {
 	CCOM_handle hCCOM_old = (CCOM_handle) (*(Image->phCCOM));
-	Handle hCPage = Image->hCPAGE;
+    CPageHandle hCPage = Image->hCPAGE;
 	CCOM_handle hCCOM_new = 0;
 	BIG_IMAGE big_Image;
 	PAGEINFO info;
-	GetPageInfo(hCPage, &info);
+    CPAGE_GetPageInfo(hCPage, &info);
 	int i = 0;
 
 	for (i = 0; i < CPAGE_MAXNAME; i++)
@@ -342,7 +342,7 @@ Bool32 KillLines(PRSPreProcessImage Image) {
 }
 
 Bool32 RemoveLines(PRSPreProcessImage Image, puchar * lppDIB) {
-	Handle hcpage = Image->hCPAGE;
+    CPageHandle hcpage = Image->hCPAGE;
 	Handle *hLinesCCOM = Image->phLinesCCOM;
 
     cf::BitmapPtr hDIB = NULL;
@@ -396,10 +396,10 @@ Bool32 RemoveLines(PRSPreProcessImage Image, puchar * lppDIB) {
 				rc = FALSE;
 			} else {
 				PAGEINFO inf;
-				GetPageInfo(Image->hCPAGE, &inf);
+                CPAGE_GetPageInfo(Image->hCPAGE, &inf);
 				strcpy((char*) inf.szImageName, PUMA_IMAGE_DELLINE);
 				inf.Images |= IMAGE_DELLINE;
-				SetPageInfo(Image->hCPAGE, inf);
+                CPAGE_SetPageInfo(Image->hCPAGE, inf);
 			}
 
 			if (rc) {
@@ -467,10 +467,10 @@ Bool32 RemoveLines(PRSPreProcessImage Image, puchar * lppDIB) {
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 MyGetZher(void **vvZher, int32_t *nZher, int32_t MaxZher, Handle hCPage) {
+Bool32 MyGetZher(void **vvZher, int32_t *nZher, int32_t MaxZher, CPageHandle hCPage) {
 	uint32_t err32, nTeor, nReal;
-	Handle hBlockZher;
-	Handle hBlockPrev;
+    CBlockHandle hBlockZher;
+    CBlockHandle hBlockPrev;
 	int i;
 	nTeor = sizeof(void *);
 	i = 0;
@@ -492,8 +492,7 @@ Bool32 MyGetZher(void **vvZher, int32_t *nZher, int32_t MaxZher, Handle hCPage) 
 			break;
 		if (i >= MaxZher)
 			return FALSE;
-		nReal = CPAGE_GetBlockData(hCPage, hBlockZher, RVERLINE_ZHERTVY_LINIY,
-				(void *) &(vvZher[i]), nTeor);
+        nReal = CPAGE_GetBlockData(hBlockZher, RVERLINE_ZHERTVY_LINIY, (void *) &(vvZher[i]), nTeor);
 		err32 = CPAGE_GetReturnCode();
 		if (!nReal || (err32 != 0)) {
 			//Error_CPage ("[SetBlockData]");
@@ -630,10 +629,10 @@ Bool32 CalcIncline(PRSPreProcessImage Image) {
 	UN_BUFF MainBuff = { 0 };
 	void *vMain;
 	char *cWork;
-	Handle hCPage = Image->hCPAGE;
+    CPageHandle hCPage = Image->hCPAGE;
 	CLINE_handle hCLINE = *((CLINE_handle*) Image->phCLINE);
 
-	GetPageInfo(hCPage, &info);
+    CPAGE_GetPageInfo(hCPage, &info);
 
 	/*  2. Инициализация.  */
 	/***  организация памяти  ***/

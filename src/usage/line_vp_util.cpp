@@ -213,9 +213,9 @@ Bool GetSomeKeys_rv(void *vB, Handle *pKeyHor, Handle *pKeyVer, int *pCntHor,
 	return RV_TRUE;
 }
 /*---------------------------------------------------------------------------*/
-Bool LoadLinesTotalInfo_rv(Handle hC, void *vB, char *pStr) {
+Bool LoadLinesTotalInfo_rv(CPageHandle hC, void *vB, char *pStr) {
 	uint32_t err32, nTeor, nReal;
-	Handle hBlockLine;
+    CBlockHandle hBlockLine;
 	UN_BUFF *pB;
 	pB = (UN_BUFF *) vB;
 	/*  ключ к данным  */
@@ -237,8 +237,7 @@ Bool LoadLinesTotalInfo_rv(Handle hC, void *vB, char *pStr) {
 		sprintf(pStr, "Не хватило памяти под 1, инфо-линии!");
 		return RV_DOUBT;
 	}
-	nReal = CPAGE_GetBlockData(hC, hBlockLine, RLINE_BLOCK_TYPE, pB->vCurr,
-			nTeor);
+    nReal = CPAGE_GetBlockData(hBlockLine, RLINE_BLOCK_TYPE, pB->vCurr, nTeor);
 	err32 = CPAGE_GetReturnCode();
 	if ((nReal != nTeor) || (err32 != 0)) {
 #ifdef Almi
@@ -285,11 +284,11 @@ Bool LoadLinesInfo_rv(CLINE_handle hC, void *vB, char *pStr, Bool Hori) {
 	return TRUE;
 }
 /*---------------------------------------------------------------------------*/
-Bool LoadLinesSpecInfo(Handle hC, void *vB, Handle Key, int Cnt) {
+Bool LoadLinesSpecInfo(CPageHandle hC, void *vB, CDataType Key, int Cnt) {
 	int i;
 	uint32_t err32, nTeor, nReal;
-	Handle hBlockLineSpec;
-	Handle hBlockLinePrev;
+    CBlockHandle hBlockLineSpec;
+    CBlockHandle hBlockLinePrev;
 	UN_BUFF *pB;
 	char *vCurr;
 	pB = (UN_BUFF *) vB;
@@ -312,8 +311,7 @@ Bool LoadLinesSpecInfo(Handle hC, void *vB, Handle Key, int Cnt) {
 			return FALSE;
 		}
 		/*  собственно данные  */
-		nReal = CPAGE_GetBlockData(hC, hBlockLineSpec, Key, (void *) vCurr,
-				nTeor);
+        nReal = CPAGE_GetBlockData(hBlockLineSpec, Key, (void *) vCurr, nTeor);
 		err32 = CPAGE_GetReturnCode();
 		if ((nReal != nTeor) || (err32 != 0)) {
 #ifdef Almi
@@ -328,15 +326,15 @@ Bool LoadLinesSpecInfo(Handle hC, void *vB, Handle Key, int Cnt) {
 	return TRUE;
 }
 /*---------------------------------------------------------------------------*/
-Bool MyReSetLines(void *vLti, int MaxNumLin, Handle hCPage, Handle HoriType,
-		Handle VertType, char *pStr) {
+Bool MyReSetLines(void *vLti, int MaxNumLin, CPageHandle hCPage, CDataType HoriType,
+        CDataType VertType, char *pStr) {
 	int i;
 	uint32_t err32, nTeor;//, nReal;
 	Bool32 nReal;//differ
-	Handle hBlockLine;
-	Handle hBlockLineHor;
-	Handle hBlockLineVer;
-	Handle hBlockLinePrev;
+    CBlockHandle hBlockLine;
+    CBlockHandle hBlockLineHor;
+    CBlockHandle hBlockLineVer;
+    CBlockHandle hBlockLinePrev;
 	void *Hor, *Ver;
 	LinesTotalInfo *pLti;
 	pLti = (LinesTotalInfo *) vLti;
@@ -353,8 +351,7 @@ Bool MyReSetLines(void *vLti, int MaxNumLin, Handle hCPage, Handle HoriType,
 		return FALSE;
 	}
 	nTeor = sizeof(LinesTotalInfo);
-	nReal = CPAGE_SetBlockData(hCPage, hBlockLine, RLINE_BLOCK_TYPE,
-			(void *) pLti, nTeor);
+    nReal = CPAGE_SetBlockData(hBlockLine, RLINE_BLOCK_TYPE, (void *) pLti, nTeor);
 	err32 = CPAGE_GetReturnCode();
 	//	if ((nReal!=nTeor)||(err32!=0))
 	if (!nReal || (err32 != 0)) {
@@ -382,8 +379,7 @@ Bool MyReSetLines(void *vLti, int MaxNumLin, Handle hCPage, Handle HoriType,
 			return FALSE;
 		}
 		nTeor = sizeof(LineInfo);
-		nReal = CPAGE_SetBlockData(hCPage, hBlockLineHor, HoriType,
-				(void *) &(pLti->Hor.Lns[i]), nTeor);
+        nReal = CPAGE_SetBlockData(hBlockLineHor, HoriType, (void *) &(pLti->Hor.Lns[i]), nTeor);
 		err32 = CPAGE_GetReturnCode();
 		//		if ((nReal!=nTeor)||(err32!=0))
 		if (!nReal || (err32 != 0)) {
@@ -411,8 +407,7 @@ Bool MyReSetLines(void *vLti, int MaxNumLin, Handle hCPage, Handle HoriType,
 			return FALSE;
 		}
 		nTeor = sizeof(LineInfo);
-		nReal = CPAGE_SetBlockData(hCPage, hBlockLineVer, VertType,
-				(void *) &(pLti->Ver.Lns[i]), nTeor);
+        nReal = CPAGE_SetBlockData(hBlockLineVer, VertType,	(void *) &(pLti->Ver.Lns[i]), nTeor);
 		err32 = CPAGE_GetReturnCode();
 		//		if ((nReal!=nTeor)||(err32!=0))
 		if (!nReal || (err32 != 0)) {

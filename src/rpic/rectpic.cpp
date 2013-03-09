@@ -211,7 +211,7 @@ if(!LDPUMA_Skip(hShowCheckLetters))
 return TRUE;
 }
 
-Bool32 SearchRectanglePictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, Handle hCPAGE) {
+Bool32 SearchRectanglePictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, CPageHandle hCPAGE) {
 	uint32_t i, j;
 	CCOM_comp pic;
 	CCOM_comp * comp;
@@ -221,7 +221,7 @@ Bool32 SearchRectanglePictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, Handle 
 	uint32_t Result1, Result2, Result3, Result4, tmp1, tmp2;
 	Rect32 rect;
 	int32_t LengthTotal, LengthByIntervals;
-	Handle BlockType;
+    CDataType BlockType;
 	RecRaster rec;
 	RecVersions vs;
 	int16_t Language;

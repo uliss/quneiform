@@ -57,7 +57,7 @@
 #include "rselstr.h"
 #include "puttocont.h"
 
-RSELSTR_FUNC(Bool32) RSELSTR_PutObjects(Handle hCPage, CCOM_handle hCCOM, CHSTR_Objects* pObjects,
+RSELSTR_FUNC(Bool32) RSELSTR_PutObjects(CPageHandle hCPage, CCOM_handle hCCOM, CHSTR_Objects* pObjects,
         int nObjects) {
     list = NULL;
     list = new CLhstr;
@@ -65,7 +65,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_PutObjects(Handle hCPage, CCOM_handle hCCOM, CHSTR_
         return FALSE;
 
     PAGEINFO info;
-    GetPageInfo(hCPage,&info);
+    CPAGE_GetPageInfo(hCPage,&info);
 
     CHstr* string;
     uchar* ImageName;

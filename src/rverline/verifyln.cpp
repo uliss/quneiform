@@ -75,6 +75,7 @@
 /*  interface our util  */
 #include "skew1024.h"
 #include "amt_geom.h"
+#include "internal.h"
 
 #define       MaxZherOnLine         50
 typedef struct tagAM_ZHERTVY {
@@ -84,7 +85,6 @@ typedef struct tagAM_ZHERTVY {
     cf::Point16 LinEnd[MaxZherOnLine];
 } AM_ZHERTVY;
 
-int InvestShortLineWithRastr_rv_pne(Handle hCPage, LineInfo *pLns);
 /*------------own functions---------------------------------------------------*/
 void ChoiseQuasiLetters(Rect16 *pRc, int *pWhatDo, int nComp);
 void OldFormalVerification(LineInfo *pLns, int Lent);
@@ -99,9 +99,6 @@ void InvestLongLineWithBoxes(LineInfo *pLns, cf::Rect16 *pRc, int *pWhatDo,
 		int nComp, int *nZher, int *iZher, AM_ZHERTVY *pZher, int MaxZher,
 		Bool Hori, int Lent);
 void WriteResForLines(void *vLti);
-void New_MarkVerifiedLines(void *vLti, Handle hCPage, Rect16 *pRc,
-		int *pWhatDo, int nComp, int *nZher, int *iZher, int MaxZher,
-		Bool AbleShortVert);
 
 void ChoiseQuasiLetters(Rect16 *pRc, int *pWhatDo, int nComp) {
 	int i, h, w;
@@ -443,7 +440,7 @@ void WriteResForLines(void *vLti) {
 		rot = AM_WriteRes_rv_fte(RU_VL_D_WrResLine, "  <4 К Вер.Линии\n");
 }
 
-void New_MarkVerifiedLines(void *vLti, Handle hCPage, Rect16 *pRc,
+void New_MarkVerifiedLines(void *vLti, CPageHandle hCPage, Rect16 *pRc,
 		int *pWhatDo, int nComp, int *nZher, int *iZher, int MaxZher,
 		Bool AbleShortVert) {
 	int i, n, Lent, ret;

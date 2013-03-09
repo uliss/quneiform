@@ -22,6 +22,7 @@
 #include "cttypes.h"
 #include "common/rect.h"
 #include "common/dib.h"
+#include "cpage/cpagedefs.h"
 
 struct CCOM_cont;
 
@@ -32,7 +33,7 @@ struct RSPreProcessImage {
     Bool32 gbFax100;
     uint32_t gnLanguage;
     uint32_t gnTables;
-    Handle hCPAGE;
+    CPageHandle hCPAGE;
     Handle hDebugCancelSearchPictures;
     Handle hDebugCancelComponent;
     Handle hDebugCancelTurn;

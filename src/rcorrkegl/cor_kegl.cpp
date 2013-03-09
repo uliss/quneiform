@@ -115,7 +115,7 @@ typedef struct tagFontStat { //для определения серифност�
 } FontStat;
 
 typedef struct tagFragStat { //для выявления мусора
-    Handle hBlock;
+    CBlockHandle hBlock;
     Rect32 rect; //охватывающий прямоугольник
     int16_t nsym; //всего символов во фрагменте
     int16_t nbig; //больших (буквы, цифры, "?" и т.д.)
@@ -157,7 +157,7 @@ Handle hSnapGarbage = 0;
 Handle hSnapGarbageLine = 0;
 Handle hSnapTable = 0;
 
-static Handle hCPAGE;
+static CPageHandle hCPAGE;
 static int nIncline;
 static KegTab keg_tab;
 static int32_t num_keg, num_keg_opt; //количество кеглей на странице исходное и оптимальное
@@ -198,7 +198,7 @@ static Bool rtf_correct();
 
 static void garbage_fragments();
 static void draw_fragments(uint32_t color);
-static void draw_fragment(Handle hBlock, uint32_t color, uint32_t key);
+static void draw_fragment(CBlockHandle hBlock, uint32_t color, uint32_t key);
 static void display_fragment(RecStat *rsti, uint32_t color, uint32_t key);
 static Bool in_gap(int32_t top, int32_t bottom, uchar *proj);
 static Bool condition1(RecStat *rsti);
@@ -221,7 +221,7 @@ static Bool contain(Rect32 *b, Rect32 *s);
 static void to_real(Rect32 *rect);
 static void to_real16(::Rect16 *rect);
 
-static Handle find_hBlock(int32_t fragment);
+static CBlockHandle find_hBlock(int32_t fragment);
 static void pull_rect(Rect32 *rect, Point *point);
 static void cover_rect(Rect32 *main_area, Rect32 *rect);
 static int32_t rect_dist(Rect32 *main, Rect32 *test);
@@ -239,7 +239,7 @@ static void keg_frag_stats();
 Bool32 CorrectKegl(int32_t ver)
 {
     uint32_t key = 1;
-    hCPAGE = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
+    hCPAGE = CPAGE_GetHandlePage(CPAGE_GetCurrentPageNumber());
     version = ver;
     get_stats();
     draw_keg("");
@@ -1060,7 +1060,7 @@ static Bool rtf_correct()
     CSTR_rast_attr attr;
     PAGEINFO PageInfo;
     //  Handle hCPAGE = CPAGE_GetHandlePage( CPAGE_GetCurrentPage());
-    GetPageInfo(hCPAGE, &PageInfo);
+    CPAGE_GetPageInfo(hCPAGE, &PageInfo);
     dpi = (uint16_t) PageInfo.DPIY; //разрешение сканера по вертикали
     dpi2 = 2 * dpi ;
     n = CSTR_GetMaxNumber();
@@ -1134,7 +1134,7 @@ static void garbage_fragments()
     Bool main_found = FALSE;
     int32_t mainsize;
     Bool add = FALSE, ingap;
-    Handle hBlock;
+    CBlockHandle hBlock;
     uint32_t k_cur = key + 1;
     uchar vproj[V_SIZE] = { 0 };
     min_keg = 255, max_keg = 0;
@@ -1155,7 +1155,7 @@ static void garbage_fragments()
         if (!rsti->hBlock)
             continue;
 
-        bl_flg = CPAGE_GetBlockFlags(hCPAGE, rsti->hBlock);
+        bl_flg = CPAGE_GetBlockFlags(rsti->hBlock);
 
         if (bl_flg & USER_FRAG) //выделен вручную
             rsti->flag = RS_GOOD;
@@ -1172,7 +1172,7 @@ static void garbage_fragments()
             rsti->flag = RS_BAD;
 
         else
-            CPAGE_SetBlockFlags(hCPAGE, rsti->hBlock, bl_flg | UNCERTAIN_FRAG);
+            CPAGE_SetBlockFlags(rsti->hBlock, bl_flg | UNCERTAIN_FRAG);
 
         //min и max кегли и охватывающий прямоугольник сегмента
         *rect = hole;
@@ -1410,9 +1410,9 @@ static void garbage_fragments()
     hBlock = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT);
 
     while (hBlock) {
-        Handle hNext = CPAGE_GetBlockNext(hCPAGE, hBlock, TYPE_TEXT);
+        CBlockHandle hNext = CPAGE_GetBlockNext(hCPAGE, hBlock, TYPE_TEXT);
         int32_t i;
-        uint32_t bl_flg = CPAGE_GetBlockFlags(hCPAGE, hBlock);
+        uint32_t bl_flg = CPAGE_GetBlockFlags(hBlock);
 
         if (!(bl_flg & USER_FRAG) || rsti->flag == RS_STRANGE) {
             for (i = 0, rsti = recstat; i < num_frag; i++, rsti++)
@@ -1498,7 +1498,7 @@ static Bool condition34(RecStat *rsti, int32_t ngood)
 static void draw_fragments(uint32_t color)
 {
     if (hCPAGE) {
-        Handle hBlock = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT);
+        CBlockHandle hBlock = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT);
 
         while (hBlock) {
             draw_fragment(hBlock, color, key);
@@ -1530,28 +1530,26 @@ static void display_fragment(RecStat *rsti, uint32_t color, uint32_t key)
     }
 }
 
-static void draw_fragment(Handle hBlock, uint32_t color, uint32_t key)
+static void draw_fragment(CBlockHandle hBlock, uint32_t color, uint32_t key)
 {
-    POLY_ poly;
+    cf::cpage::PolyBlock poly;
     uint32_t v;
 
     if (!hBlock)
         return;
 
-    v = CPAGE_GetBlockData(hCPAGE, hBlock, TYPE_TEXT, &poly, sizeof(POLY_));
+    v = CPAGE_GetBlockData(hBlock, TYPE_TEXT, &poly, sizeof(cf::cpage::PolyBlock));
 
-    if (v == sizeof(POLY_)) {
-        //....
-        COMMON *com = &poly.com;
-        Point p32 = com->Vertex[0];
+    if (v == sizeof(cf::cpage::PolyBlock)) {
+        Point p32 = poly.vertexAt(0);
         Point16 cv, pv, v0;
         int32_t i;
         v0.rx() = p32.x();
         v0.ry() = p32.y();
         cv = v0;
 
-        for (i = 1; i < com->count; i++) {
-            Point p32 = com->Vertex[i];
+        for (i = 1; i < poly.vertexCount(); i++) {
+            Point p32 = poly.vertexAt(i);
             pv = cv;
             cv.rx() = p32.x();
             cv.ry() = p32.y();
@@ -1561,11 +1559,11 @@ static void draw_fragment(Handle hBlock, uint32_t color, uint32_t key)
         LDPUMA_DrawLine(NULL, &v0, &cv, 0, color, 1, key);
 
         if (snap_enable && !LDPUMA_SkipEx(hSnapGarbage, FALSE, TRUE, 1)) {
-            char msg[80];
-            sprintf(msg, "draw=%d handle=%x\n", com->number,
-                    CPAGE_GetHandleBlock(hCPAGE, com->number));
-            LDPUMA_Console(msg);
-            LDPUMA_RasterText(msg);
+//            char msg[80];
+//            sprintf(msg, "draw=%d handle=%x\n", com->number,
+//                    CPAGE_GetBlockData(hCPAGE, com->number));
+//            LDPUMA_Console(msg);
+//            LDPUMA_RasterText(msg);
         }
     }
 
@@ -1574,20 +1572,20 @@ static void draw_fragment(Handle hBlock, uint32_t color, uint32_t key)
     }
 }
 
-static Handle find_hBlock(int32_t fragment)
+static CBlockHandle find_hBlock(int32_t fragment)
 {
     static int32_t number[BIG_FRAG_PAGE + 1];
     int32_t *n = number;
-    static Handle handle[BIG_FRAG_PAGE + 1];
-    Handle *h = handle;
+    static CBlockHandle handle[BIG_FRAG_PAGE + 1];
+    CBlockHandle *h = handle;
 
     if (fragment < 0) { //инициализация
         int32_t i;
-        Handle hBlock = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT);
+        CBlockHandle hBlock = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT);
 
         for (i = 0; hBlock && i < BIG_FRAG_PAGE; i++) {
             *h++ = hBlock;
-            *n++ = CPAGE_GetBlockInterNum(hCPAGE, hBlock);
+            *n++ = CPAGE_GetBlockInterNum(hBlock);
             hBlock = CPAGE_GetBlockNext(hCPAGE, hBlock, TYPE_TEXT);
         }
 
@@ -1606,7 +1604,7 @@ static Handle find_hBlock(int32_t fragment)
 static Bool set_frag_ptrs(int32_t *num_frag, Handle frag_hdl[],
                           int32_t frag_num[])
 {
-    Handle hBlock = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT);
+    CBlockHandle hBlock = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT);
     *num_frag = 0;
 
     while (hBlock) {
@@ -1614,7 +1612,7 @@ static Bool set_frag_ptrs(int32_t *num_frag, Handle frag_hdl[],
             return FALSE;
 
         frag_hdl[*num_frag] = hBlock;
-        frag_num[*num_frag] = CPAGE_GetBlockInterNum(hCPAGE, hBlock);
+        frag_num[*num_frag] = CPAGE_GetBlockInterNum(hBlock);
         (*num_frag)++;
         hBlock = CPAGE_GetBlockNext(hCPAGE, hBlock, TYPE_TEXT);
     }
@@ -1687,7 +1685,7 @@ static int32_t dist_border(Rect32 *rect)
 {
     int32_t rv = MAXINT32;
     PAGEINFO PageInfo;
-    GetPageInfo(hCPAGE, &PageInfo);
+    CPAGE_GetPageInfo(hCPAGE, &PageInfo);
     rv = MIN(rect->left, rect->top);
     rv = MIN(rv, (int32_t) PageInfo.Width - rect->right);
     rv = MIN(rv, (int32_t) PageInfo.Height - rect->bottom);

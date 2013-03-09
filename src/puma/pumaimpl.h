@@ -49,7 +49,10 @@ class CEDPage;
 class Formatter;
 class CRtfPage;
 class RStuff;
+
+namespace cpage {
 class BackupPage;
+}
 
 class PumaImpl
 {
@@ -59,8 +62,10 @@ class PumaImpl
 
         void addLayoutBlock(const LayoutBlock& block);
         void addImageBlock(const Rect& rect);
+        void addTableBlock(const Rect& block);
         void addTextBlock(const Rect& block);
         LayoutBlockList imageBlocks() const;
+        LayoutBlockList tableBlocks() const;
         LayoutBlockList textBlocks() const;
 
         void binarizeImage();
@@ -99,6 +104,11 @@ class PumaImpl
         void recognize();
 
         /**
+         * Saves CPAGE page layout to file
+         */
+        void saveLayoutToFile(const std::string& fname);
+
+        /**
          * Sets binarize options
          * @see setFormatOptions(), setRecognizeOptions()
          */
@@ -115,10 +125,12 @@ class PumaImpl
          * @see setFormatOptions()
          */
         void setRecognizeOptions(const RecognizeOptions& opt);
+
+        void dumpComponents();
     private:
         void applyReadMask();
-        BackupPage * cpage();
-        PAGEINFO * pageInfo();
+        cpage::BackupPage * cpage();
+        const PAGEINFO * pageInfo() const;
         void clearAll();
         void debugPrintCpage() const;
         void extractComponents();
@@ -143,7 +155,6 @@ class PumaImpl
         void recognizeSetup();
         void rotate(BitmapPtr * dib, Point * p);
         void saveCSTR(int pass);
-        void saveLayoutToFile(const std::string& fname);
         void saveToText(std::ostream& os) const;
         void saveToText(const std::string& filename) const;
         void spellCorrection();
@@ -169,7 +180,7 @@ class PumaImpl
         void * recog_dib_;
         int tables_num_;
         CCOM_cont * ccom_;
-        Handle cpage_;
+        cpage::BackupPage * cpage_;
         Handle lines_ccom_;
         Handle cline_;
         CEDPagePtr ed_page_;

@@ -95,6 +95,8 @@ else()
     set(CF_GUI True)
 endif()
 
+include(lcov)
+
 add_subdirectory(utils)
 add_subdirectory(tests)
 

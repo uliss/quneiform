@@ -82,10 +82,10 @@ Bool32 OrtoMove(PRSPreProcessImage Image) {
 	if (!LDPUMA_Skip(OrtMove))
 		return TRUE;
 
-	Handle hCPage = Image->hCPAGE;
+    CPageHandle hCPage = Image->hCPAGE;
 	PAGEINFO info;
 	char OldImage[CPAGE_MAXNAME];
-	GetPageInfo(hCPage, &info);
+    CPAGE_GetPageInfo(hCPage, &info);
 
 	move = info.SkewLocVerLin2048;
 	if (!move)
@@ -155,7 +155,7 @@ Bool32 OrtoMove(PRSPreProcessImage Image) {
         if (CIMAGE_ReadDIB(ImageName, &lp)) {
 			info.Images |= IMAGE_ORTOMOVE;
 			strcpy((char*) info.szImageName, PUMA_IMAGE_ORTOMOVE);
-			SetPageInfo(hCPage, info);
+            CPAGE_SetPageInfo(hCPage, info);
 		} else {
 			olddib->reset();
 			delete olddib;

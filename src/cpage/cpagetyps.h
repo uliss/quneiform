@@ -60,11 +60,6 @@
 #include "table.h"
 #include "polyblock.h"
 
-enum
-{
-    CPAGE_MAXNAME = 260, CPAGE_MAXCORNER = 1000
-};
-
 // PAGES
 #define PT_EMPTY    CPAGE_GetInternalType("__Page__")
 #define PT_PAGEINFO CPAGE_GetInternalType("__PageInfo__")
@@ -128,48 +123,16 @@ class PAGEINFO
 #define PINFO_AUTOTEMPLATE  2  // темплейт установлен автоматически
 };
 
-#define CreateEmptyPage() CPAGE_CreatePage(PT_EMPTY,NULL,0)
-#define CreatePageWithPageInfo(a) CPAGE_CreatePage(PT_PAGEINFO,&a,sizeof(a))
-#define GetPageInfo(a,b) CPAGE_GetPageData(a,PT_PAGEINFO,b,sizeof(*b))
-#define SetPageInfo(a,b) CPAGE_SetPageData(a,PT_PAGEINFO,&b,sizeof(b))
+CPageHandle CreateEmptyPage();
 
 // BLOCKS
-
-#define BT_EMPTY CPAGE_GetInternalType("__Block__")
-#define BT_TABLE CPAGE_GetInternalType("__Table__")
-
-#define CreateEmptyBlock(a) CPAGE_CreateBlock(a,BT_EMPTY,0,0,NULL,0)
-#define CreateBlockNumber(a,b) CPAGE_CreateBlock(a,BT_EMPTY,b,0,NULL,0)
-
 #define TYPE_CPAGE_TABLE    CPAGE_GetInternalType("TYPE_CPAGE_TABLE")
 #define TYPE_CPAGE_PICTURE  CPAGE_GetInternalType("TYPE_CPAGE_PICTURE")
-
-typedef struct tagCellInfo
-{
-        int32_t Number; // Номер ячейки физической таблицы ( начиная с 1 )
-        cf::Point PhCoord;// Координаты привязки к физической ячейке
-        int32_t Block; // Номер фрагмента
-        int32_t GeCount;// число геометрических ячеек, входящих в физическую
-        uint32_t wFlags[16];// флажки
-        int32_t reserv[48];
-
-} CellInfo;
-
-typedef struct tagCPAGE_TABLE
-{
-        TABLE_DESC prop; // основная информация о таблице
-        CellInfo cell[MaxHorLines - 1][MaxVerLines - 1];// номер соответсвующего
-        uint32_t PhNumber; // число физических ячеек
-        uint32_t wFlags[16];// флажки
-
-
-} CPAGE_TABLE;
-
-typedef struct tagCPAGE_PICTURE
-{
-        uint16_t Number;
-        cf::Point Corner[CPAGE_MAXCORNER];
-
-} CPAGE_PICTURE;
+#define TYPE_TEXT         CPAGE_GetInternalType("TYPE_TEXT")
+#define TYPE_IMAGE        CPAGE_GetInternalType("TYPE_IMAGE")
+#define TYPE_TABLE        CPAGE_GetInternalType("TYPE_TABLE")
+#define TYPE_DESC         CPAGE_GetInternalType("TYPE_DESC")
+#define TYPE_DESK         TYPE_DESC
+#define TYPE_PICTURE      CPAGE_GetInternalType("TYPE_PICTURE")
 
 #endif

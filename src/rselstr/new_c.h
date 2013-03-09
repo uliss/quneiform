@@ -64,11 +64,11 @@
 # include "ccom/ccom.h"
 # include "cpage/cpage.h"
 # include "newfunc.h"
+# include "cpage/polyblock.h"
 # include "exc/exc.h"
 # include "exc/excdefs.h"
 # include "cstr/cstr.h"
 # include "cstr/cstrdefs.h"
-# include "polyblock.h"
 # include "ctp.h"
 # include "rpic/rpic.h"
 ////////////////////////////////////////////////////////////////////////////////

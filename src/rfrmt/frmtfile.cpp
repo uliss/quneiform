@@ -66,11 +66,11 @@
 #include <cstring>
 #include "cpage/cpage.h"
 #include "cpage/cpagetyps.h"
+#include "cpage/polyblock.h"
 #include "common/debug.h"
 #include "cstr/cstr.h"
 #include "rfrmt_prot.h"
 #include "rfrmtfile.h"
-#include "polyblock.h"
 #include "aldebug.h"
 #include "dpuma.h"
 #include "resource.h"
@@ -94,8 +94,8 @@ Bool CreateInternalFileForFormatter(FILE *pIFName) {
     CSTR_line line;
     CFPage Page;
     PAGEINFO PageInfo;
-    Handle hCPAGE = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
-    GetPageInfo(hCPAGE, &PageInfo);
+    CPageHandle hCPAGE = CPAGE_GetHandlePage(CPAGE_GetCurrentPageNumber());
+    CPAGE_GetPageInfo(hCPAGE, &PageInfo);
 
     if (PageInfo.X && PageInfo.Y) {
         TemplateOffset.set(PageInfo.X, PageInfo.Y);
@@ -221,12 +221,12 @@ CFPage::~CFPage() {
 /////////////////////////////////////////////////////////////////////////////
 //                    CFPage::CreateArray_For_TextFragments
 void CFPage::CreateArray_For_TextFragments() {
-    Handle hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
-    Handle hBlock = CPAGE_GetBlockFirst(hPage, 0);
+    CPageHandle hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPageNumber());
+    CBlockHandle hBlock = CPAGE_GetBlockFirst(hPage, 0);
 
     while (hBlock) {
-        if (CPAGE_GetBlockType(hPage, hBlock) == TYPE_TEXT) {
-            uint32_t BlockNumber = CPAGE_GetBlockInterNum(hPage, hBlock);
+        if (CPAGE_GetBlockType(hBlock) == TYPE_TEXT) {
+            uint32_t BlockNumber = CPAGE_GetBlockInterNum(hBlock);
             FragmentsArray.push_back(BlockNumber);
         }
 
@@ -271,9 +271,9 @@ void CFPage::ProcessingComingLine(CSTR_line* Comingline) {
     CSTR_line line;
     CSTR_attr attr;
     CFragment* Fragment;
-    Handle hCPAGE;
-    Handle hBlock;
-    POLY_ poly;
+    CPageHandle hCPAGE;
+    CBlockHandle hBlock;
+    cpage::PolyBlock poly;
     line = *Comingline;
 
     if (!CSTR_GetLineAttr(line, &attr) || attr.Flags & CSTR_STR_EMPTY)
@@ -285,26 +285,26 @@ void CFPage::ProcessingComingLine(CSTR_line* Comingline) {
         m_arFrags.push_back(new CFragment());
         Fragment = m_arFrags[Count.Frags];
         assert(Fragment);
-        hCPAGE = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
-        hBlock = CPAGE_GetBlockFirst(hCPAGE, NULL);
+        hCPAGE = CPAGE_GetHandlePage(CPAGE_GetCurrentPageNumber());
+        hBlock = CPAGE_GetBlockFirst(hCPAGE, 0);
 
         while (hBlock) {
-            if (CPAGE_GetBlockInterNum(hCPAGE, hBlock) == (uint32_t) m_nCurFragNumber) {
-                Fragment->m_wUserNumber = (uint32_t) CPAGE_GetBlockUserNum(hCPAGE, hBlock);
+            if (CPAGE_GetBlockInterNum(hBlock) == (uint32_t) m_nCurFragNumber) {
+                Fragment->m_wUserNumber = (uint32_t) CPAGE_GetBlockUserNum(hBlock);
                 Fragment->m_Flags = attr.Flags; //nega
 
                 if (attr.Flags == CSTR_STR_NEGATIVE) { //nega_str
-                    CPAGE_GetBlockData(hCPAGE, hBlock, TYPE_TEXT, &poly, sizeof(POLY_));
-                    Fragment->m_rectFrag.left = poly.com.Vertex[0].x() - TemplateOffset.x();
-                    Fragment->m_rectFrag.right = poly.com.Vertex[2].x() - TemplateOffset.x();
-                    Fragment->m_rectFrag.top = poly.com.Vertex[0].y() - TemplateOffset.y();
-                    Fragment->m_rectFrag.bottom = poly.com.Vertex[2].y() - TemplateOffset.y();
+                    CPAGE_GetBlockData(hBlock, TYPE_TEXT, &poly, sizeof(cpage::PolyBlock));
+                    Fragment->m_rectFrag.left = poly.vertexAt(0).x() - TemplateOffset.x();
+                    Fragment->m_rectFrag.right = poly.vertexAt(2).x() - TemplateOffset.x();
+                    Fragment->m_rectFrag.top = poly.vertexAt(0).y() - TemplateOffset.y();
+                    Fragment->m_rectFrag.bottom = poly.vertexAt(2).y() - TemplateOffset.y();
                 }
 
                 break;
             }
 
-            hBlock = CPAGE_GetBlockNext(hCPAGE, hBlock, NULL);
+            hBlock = CPAGE_GetBlockNext(hCPAGE, hBlock, 0);
         }
 
         assert(hBlock != NULL);

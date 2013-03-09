@@ -102,7 +102,7 @@ PageMarker::~PageMarker()
     delete image_data_;
 }
 
-Handle PageMarker::cpage() {
+CPageHandle PageMarker::cpage() {
     return cpage_;
 }
 
@@ -156,7 +156,7 @@ void PageMarker::processShortVerticalLines()
 
 void PageMarker::restoreLayout()
 {
-    image_data_->hCPAGE = CPAGE_RestorePage(TRUE, layout_filename_.c_str());
+    image_data_->hCPAGE = CPAGE_RestorePage(true, layout_filename_.c_str());
 
     if (image_data_->hCPAGE == NULL) {
         Debug() << BOOST_CURRENT_FUNCTION
@@ -166,7 +166,7 @@ void PageMarker::restoreLayout()
         throw Exception("CPAGE_RestorePage failed");
     }
 
-    CPAGE_SetCurrentPage(CPAGE_GetNumberPage(image_data_->hCPAGE));
+    CPAGE_SetCurrentPage(CPAGE_GetPageNumber(image_data_->hCPAGE));
     Debug() << "Layout restored from file: \"" << layout_filename_ << "\"\n";
 }
 
@@ -190,7 +190,7 @@ void PageMarker::searchNegatives(CCOM_cont * cont)
     assert(image_data_);
 
     PAGEINFO info;
-    GetPageInfo(image_data_->hCPAGE, &info);
+    CPAGE_GetPageInfo(image_data_->hCPAGE, &info);
 
     RNEG_RecogNeg(cont, image_data_->hCPAGE, (uchar*) info.szImageName, info.Incline2048);
 }
@@ -219,7 +219,7 @@ void PageMarker::setCLine(Handle cline) {
     cline_ = cline;
 }
 
-void PageMarker::setCPage(Handle cpage) {
+void PageMarker::setCPage(CPageHandle cpage) {
     cpage_ = cpage;
 }
 

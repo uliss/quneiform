@@ -54,10 +54,9 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "globus.h"
 #include "cpage.h"
-#include "backup.h"
 #include "polyblock.h"
+#include "internal.h"
 #include "resource.h"
 
 using namespace cf;
@@ -90,7 +89,7 @@ uint32_t TYPE_DESK_to_CPAGE_TABLE(TABLE_DESC * lpDataIn, uint32_t SizeIn,
                 assert((c_row*(lpDataIn->nVerLines - 1) + c_col) < MaxCells);
 
                 if (c_row && lpDataIn->Cell[c_row * (lpDataIn->nVerLines - 1)
-                                            + c_col].TypeBound[TABLE_CELL_TOP] & CELL_BOUND_PSEVDO) {// нет горизонтального разделителя сверху
+                                            + c_col].TypeBound[TABLE_CELL_TOP] & TABLE_DESC::CELL_BOUND_PSEVDO) {// нет горизонтального разделителя сверху
                     p = lpDataOut->cell[c_row - 1][c_col].PhCoord;
                     c_current = lpDataOut->cell[c_row - 1][c_col].Number;
                 }
@@ -98,7 +97,7 @@ uint32_t TYPE_DESK_to_CPAGE_TABLE(TABLE_DESC * lpDataIn, uint32_t SizeIn,
                 else if (!c_col
                          || !(lpDataIn->Cell[c_row * (lpDataIn->nVerLines - 1)
                                              + c_col].TypeBound[TABLE_CELL_LEF]
-                              & CELL_BOUND_PSEVDO)) {// есть вертикальный разделитель слева
+                              & TABLE_DESC::CELL_BOUND_PSEVDO)) {// есть вертикальный разделитель слева
                     c_current = ++lpDataOut->PhNumber;
                     p.rx() = c_col;
                     p.ry() = c_row;
@@ -117,7 +116,6 @@ uint32_t TYPE_DESK_to_CPAGE_TABLE(TABLE_DESC * lpDataIn, uint32_t SizeIn,
 
         rc = sizeof(*lpDataOut);
     }
-
     else
         assert(FALSE);
 

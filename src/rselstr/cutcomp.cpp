@@ -65,8 +65,9 @@
 #include "cimage/ctiimage.h"
 #include "exc/exc.h"
 #include "cpage/cpagetyps.h"
-#include "polyblock.h"
+#include "cpage/polyblock.h"
 #include "cfcompat.h"
+#include "cutstr.h"
 
 int inf_cut_h = 15;
 int sup_cut_h;
@@ -100,7 +101,7 @@ extern uint32_t Code_UB_Create;
 
 Bool IfNeedCutComp(CCOM_comp* comp, cf::Point beg, cf::Point end, int& yCut);
 int GetLineY(cf::Point beg, cf::Point end, int x);
-Bool CutComp(Handle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound, Bool fl_cut);
+Bool CutComp(CPageHandle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound, Bool fl_cut);
 void CleanRaster(RecRaster* rast, Rect16* rect, int scale);
 Bool Increase2(RecRaster* rast, CCOM_comp* comp);
 int GetCountNumbers(int num);
@@ -111,8 +112,6 @@ int GetMediumH(CCOM_handle hCCOM);
 void IfDifCutComp(void);
 Bool IfEqv(char* buf1, char* buf2);
 Bool IfEqv(Rect16 r1, Rect16 r2);
-CCOM_handle GetStrCCOM(Handle hCPage, uchar* ImageName, Rect16 Rc, Bool neg, Bool vertical,
-        RecRaster* rast, int min_h);
 void MyKillComp(CCOM_comp* comp);
 void MyCreateComp(CCOM_comp* comp);
 
@@ -176,7 +175,7 @@ int GetLineY(cf::Point beg, cf::Point end, int x) {
     return beg.y() - ((x - beg.x() + 1) * spusk) / lenght;
 }
 
-Bool CutComp(Handle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound, Bool fl_cut) {
+Bool CutComp(CPageHandle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound, Bool fl_cut) {
     RecRaster rast;
     int ii;
 
@@ -619,13 +618,13 @@ void IfDifCutComp(void) {
 
 }
 
-CCOM_handle GetStrCCOM(Handle hCPage, uchar* ImageName, Rect16 Rc, Bool neg, Bool vertical,
+CCOM_handle GetStrCCOM(CPageHandle hCPage, uchar* ImageName, Rect16 Rc, Bool neg, Bool vertical,
         RecRaster* rast, int min_h) {
     int min_w, max_h, max_w;
     // int j;
     PAGEINFO info;
     // uchar Name[CPAGE_MAXNAME];
-    GetPageInfo(hCPage, &info);
+    CPAGE_GetPageInfo(hCPage, &info);
 
     // if(ImageName)
     // {

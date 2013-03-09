@@ -110,7 +110,7 @@ Bool dpRecOneLetter;
 
 NegImage* pNegImage;
 
-void RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage, uchar* pImageName,
+void RNEG_RecogNeg(CCOM_handle hCCOM, CPageHandle hCPage, uchar* pImageName,
 		int skew) {
 
 	MainWindowD = NULL;
@@ -152,7 +152,7 @@ void RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage, uchar* pImageName,
 	sup_square = 500000;
 
 	PAGEINFO info;
-	GetPageInfo(hCPage, &info);
+    CPAGE_GetPageInfo(hCPage, &info);
 	DPIX = info.DPIX;
 	DPIY = info.DPIY;
 	inf_neg_h = inf_neg_h * ((int) (DPIY) + 1) / 300;
@@ -362,7 +362,7 @@ void RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage, uchar* pImageName,
 		now = now->next;
 	int h;
 	int w;
-	Rect16 Rc;
+    ::Rect16 Rc;
 
 	/*Отсев по размеру*/
 	if (LDPUMA_Skip(NegSize)) {
@@ -496,24 +496,23 @@ void RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage, uchar* pImageName,
 
 	now = root;
 	if (1/*!(LDPUMA_Skip (PutToCPage) )*/) {
-        POLY_ block;
-		uint32_t size_poly = sizeof(POLY_);
+        cf::cpage::PolyBlock block;
+        uint32_t size_poly = sizeof(cf::cpage::PolyBlock);
 		while (now) {
 			if ((now->neg).p > inf_prob) {
-				block.com.Flags = 0;
+                block.setFlags(0);
 				Rc.left = (now->neg).pRc[0].left;
 				Rc.right = (now->neg).pRc[0].right;
 				Rc.top = (now->neg).pRc[(now->neg).nRc - 1].top;
 				Rc.bottom = (now->neg).pRc[0].bottom;
-				block.com.type = TYPE_TEXT; //Текст, Картинка, Таблица;
-				block.com.count = 4;
-				block.negative = TYPE_NEGATIVE;
-				block.com.Flags = NEGA;
+                block.setType(TYPE_TEXT); //Текст, Картинка, Таблица;
+                block.setLight(CPAGE_BLOCK_NEGATIVE);
+                block.setFlags(NEGA);
 
 				//Andrey: moved from RBLOCK (keyword:TYPE_NEGATIVE)
 				//------------------------------
-				block.alphabet = 0;
-				block.com.number = 0;
+                block.setAlphabet(0);
+                block.setNumber(0);
 				//------------------------------
 
 				//commented by Andrey
@@ -527,20 +526,12 @@ void RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage, uchar* pImageName,
 				 block.orient=TYPE_LEFTRIGHT;
 				 */
 				if ((now->neg).Flags & FlVert) {
-					block.com.Flags |= VERTICA;
-					block.orient = (now->neg).Flags & FlDown2Up ? TYPE_DOWNUP
-							: TYPE_UPDOWN;
+                    block.setFlag(VERTICA);
+                    block.setOrientation((now->neg).Flags & FlDown2Up ? CPAGE_ORIENT_DOWNUP : CPAGE_ORIENT_UPDOWN);
 				} else
-					block.orient = TYPE_LEFTRIGHT;
+                    block.setOrientation(CPAGE_ORIENT_LEFTRIGHT);
 
-				block.com.Vertex[0].rx() = Rc.left;
-				block.com.Vertex[0].ry() =  Rc.top;
-				block.com.Vertex[1].rx() = Rc.right;
-				block.com.Vertex[1].ry() =  Rc.top;
-				block.com.Vertex[2].rx() = Rc.right;
-				block.com.Vertex[2].ry() =  Rc.bottom;
-				block.com.Vertex[3].rx() = Rc.left;
-				block.com.Vertex[3].ry() =  Rc.bottom;
+                block.setRect(cf::Rect(cf::Point(Rc.left, Rc.top), cf::Point(Rc.right, Rc.bottom)));
 				//Andrey: create TYPE_TEXT block
 				CPAGE_CreateBlock(hCPage, TYPE_IMAGE, 0, 0, &block, size_poly);
 				//			CPAGE_CreateBlock(hCPage, TYPE_TEXT,0,0,&block,size_poly);

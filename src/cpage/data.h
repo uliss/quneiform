@@ -57,61 +57,89 @@
 #ifndef __DATA_H__
 #define __DATA_H__
 
-#include <cassert>
+#include <iosfwd>
+
 #include "cttypes.h"
+#include "globus.h"
+#include "cpagedefs.h"
 
-typedef struct tagCompressHeader {
-    Bool16 bCompressed;
-    uchar cRepeater;
-    uchar reserved;
-    uint32_t wCount;
-} CompressHeader;
+namespace cf {
+namespace cpage {
 
-class CLA_EXPO DATA
+typedef uint32_t (*ConverterFunc)(uint32_t context,
+                                     CDataType typeIn,  const void * dataIn,  uint32_t sizeIn,
+                                     CDataType typeOut, void * dataOut, uint32_t sizeOut);
+
+class DataConvertor
 {
-    protected:
-        Handle Type;
-        uint32_t Size;
-        char * lpData;
-
+    private:
+        uint32_t context_; // Контекст конвертора
+        ConverterFunc func_; // Функция конвертирования
     public:
-        DATA();
-        virtual ~DATA();
-
-        Bool32 SetData(Handle type, void * lpData, uint32_t Size);
-        uint32_t GetData(Handle type, void * lpData, uint32_t Size);
-        inline Bool32 GetDataPtr(Handle type, void ** lpdata) {
-            Bool32 rc = FALSE;
-            assert(lpdata);
-
-            if (type == Type) {
-                *lpdata = lpData;
-                rc = TRUE;
-            }
-
-            return rc;
-        }
-
-        inline Handle GetType() {
-            return Type;
-        }
-
-        inline Handle SetType(Handle dwType) {
-            Handle old = Type;
-            Type = dwType;
-            return old;
-        }
-
-        DATA & operator =(DATA & data);
-        Bool32 operator ==(DATA & data);
-
-    public:
-        virtual uint32_t Convert(Handle type, void * lpdata, uint32_t size) = 0;
-
-        Bool32 Save(Handle to);
-        Bool32 Restore(Handle from);
-        Bool32 SaveCompress(Handle to);
-        Bool32 RestoreCompress(Handle from);
+        DataConvertor(const ConverterFunc& f, uint32_t context = 0);
+        uint32_t operator()(CDataType typeIn,  const void * dataIn,  uint32_t sizeIn,
+                            CDataType typeOut, void * dataOut, uint32_t sizeOut);
+        ConverterFunc func();
 };
+
+class CLA_EXPO Data
+{
+    public:
+        Data();
+        Data(const Data& data);
+        Data& operator=(const Data& data);
+        bool operator==(const Data& data);
+        virtual ~Data();
+
+        /**
+         * Copies data to given destination memory
+         * @param dest - destination memory
+         * @param size - destination size
+         * @return data size
+         */
+        uint32_t getData(CDataType type, void * dest, uint32_t size);
+
+        /**
+         * Copies data from source memory
+         * @param src - source memory
+         * @param size - source memory size
+         * @see dataSize(), dataPtr()
+         */
+        void setData(CDataType type, const void * src, uint32_t size);
+
+        /**
+         * Returns data size
+         * @see dataPtr()
+         */
+        uint32_t dataSize() const;
+
+        /**
+         * Returns pointer to data
+         * @see dataSize()
+         */
+        uchar * dataPtr();
+        const uchar * dataPtr() const;
+
+        /**
+         * Returns true if data is empty
+         */
+        bool empty() const;
+
+        bool getDataPtr(CDataType type, void ** lpdata);
+
+        CDataType type() const;
+        void setType(CDataType type);
+    public:
+        virtual uint32_t Convert(CDataType type, void * lpdata, uint32_t size) = 0;
+        bool save(std::ostream& os) const;
+        bool restore(std::istream& is);
+    protected:
+        CDataType type_;
+        mutable uint32_t size_;
+        mutable uchar * data_;
+};
+
+}
+}
 
 #endif

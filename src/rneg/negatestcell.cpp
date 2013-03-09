@@ -81,7 +81,7 @@ extern uchar ImageName[CPAGE_MAXNAME];
 
 /*----------------------------------------------------------------------------*/
 
-RNEG_FUNC(Bool32) RNEG_TestForNegative(CCOM_handle hCCOM, Handle hCPage, uchar* pImageName,
+RNEG_FUNC(Bool32) RNEG_TestForNegative(CCOM_handle hCCOM, CPageHandle hCPage, uchar* pImageName,
         Rect16 Rc)
 {
     MainWindowD = NULL;
@@ -114,7 +114,7 @@ RNEG_FUNC(Bool32) RNEG_TestForNegative(CCOM_handle hCCOM, Handle hCPage, uchar* 
     Bool flag_rotate;
 
     PAGEINFO info;
-    GetPageInfo(hCPage,&info);
+    CPAGE_GetPageInfo(hCPage,&info);
     DPIX = info.DPIX;
     DPIY = info.DPIY;
     inf_neg_h = inf_neg_h * ((int) (DPIY) + 1) / 300;

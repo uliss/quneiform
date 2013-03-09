@@ -60,6 +60,7 @@
 #include "recdefs.h"
 #include "hrstr/lnhead.h"
 #include "common/interval.h"
+#include "common/rect.h"
 
 #pragma pack (push,8)
 
@@ -83,6 +84,10 @@ typedef struct _USER_BLOCK CCOM_USER_BLOCK;
 
 struct CCOM_comp
 {
+        cf::Rect rect() const {
+            return cf::Rect(cf::Point(left, upper), cf::Point(left + w, upper + h));
+        }
+
         int16_t upper; // upper boundary of component
         int16_t left; // left boundary of component
         int16_t h; // height of component

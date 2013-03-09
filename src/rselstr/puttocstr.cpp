@@ -58,6 +58,7 @@
 #include <stdlib.h>
 #include "puttocstr.h"
 #include "rselstr.h"
+#include "cutstr.h"
 
 #include "cfcompat.h"
 
@@ -84,7 +85,7 @@ int DPIY;
 
 /*-------------------------------------------------------------------------------------*/
 
-Bool32 GetObjects(CCOM_handle hCCOM, Handle hCPage)
+Bool32 GetObjects(CCOM_handle hCCOM, CPageHandle hCPage)
 {
     if (list == NULL)
         return FALSE;
@@ -111,7 +112,7 @@ Bool32 GetObjects(CCOM_handle hCCOM, Handle hCPage)
     const int neg_w = 30;
 
     PAGEINFO info;
-    GetPageInfo(hCPage,&info);
+    CPAGE_GetPageInfo(hCPage,&info);
 
     int skew = info.Incline2048;
 

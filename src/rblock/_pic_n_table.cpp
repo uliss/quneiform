@@ -86,21 +86,21 @@ Bool32 DeleteRootsFromTables(void)
 
 Bool32 DeleteRootsFromPictures(void)
 {
-    Handle pPage;
-    Handle h = NULL;
-    POLY_ block;
+    CPageHandle pPage;
+    CBlockHandle h = NULL;
+    cf::cpage::PolyBlock block;
     ROOT * pRoot;
-    pPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
+    pPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPageNumber());
 
     for (h = CPAGE_GetBlockFirst(pPage, TYPE_IMAGE); h != NULL; h = CPAGE_GetBlockNext(pPage, h,
             TYPE_IMAGE)) {
-        CPAGE_GetBlockData(pPage, h, TYPE_IMAGE, &block, sizeof(block));
+        CPAGE_GetBlockData(h, TYPE_IMAGE, &block, sizeof(block));
 
         for (pRoot = pRoots; pRoot < pRoots + nRoots; pRoot++) {
-            my_left = block.com.Vertex[0].x();
-            my_right = block.com.Vertex[1].x();
-            my_upper = block.com.Vertex[1].y();
-            my_bottom = block.com.Vertex[2].y();
+            my_left = block.vertexX(0);
+            my_right = block.vertexX(1);
+            my_upper = block.vertexY(1);
+            my_bottom = block.vertexY(2);
 
             //if(MyFiltrateIn(pRoot -> yRow, pRoot -> xColumn, pRoot -> nWidth, pRoot -> nHeight ))
             if (MyFiltrateOr(pRoot -> yRow, pRoot -> xColumn, pRoot -> nWidth, pRoot -> nHeight)) {

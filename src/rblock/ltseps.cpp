@@ -104,19 +104,19 @@ void SeparatorsGet (void)
 #define ABS1 10
 #define ABS2 40
     PAGEINFO pInfo;
-    Handle pPage;
+    CPageHandle pPage;
     uint32_t ResolutionCoeff;
     uint32_t i, j;
-    Handle hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage( ));
-    Handle hBlock;
+    CPageHandle hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPageNumber());
+    CBlockHandle hBlock;
     uint32_t key;
     uint32_t color;
     int32_t nPics;
-    POLY_ *pPics;
+    cf::cpage::PolyBlock *pPics;
     uint32_t size_line_com = sizeof(LINE_COM);
     CLINE_handle hline;
     extern CLINE_handle HCLINE;
-    pPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage( ));
+    pPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPageNumber());
     CPAGE_GetPageData( pPage, PT_PAGEINFO, (void*)&pInfo, sizeof(pInfo));
     ResolutionCoeff = pInfo.DPIY / 2;
     SeparatorsFreeData ();
@@ -181,20 +181,20 @@ void SeparatorsGet (void)
             hBlock != NULL;
             hBlock = CPAGE_GetBlockNext(hPage, hBlock, TYPE_IMAGE)) {
         if (nPics % PICS_QUANTUM == 0) {
-            pPics = static_cast<POLY_*>(realloc (pPics,
+            pPics = static_cast<cf::cpage::PolyBlock*>(realloc (pPics,
                             (size_t) ((nPics / PICS_QUANTUM + 1)
-                                    * PICS_QUANTUM * sizeof (POLY_))));
+                                    * PICS_QUANTUM * sizeof (cf::cpage::PolyBlock))));
         }
 
-        CPAGE_GetBlockData(hPage, hBlock, TYPE_IMAGE, &pPics[nPics++], sizeof(POLY_));
+        CPAGE_GetBlockData(hBlock, TYPE_IMAGE, &pPics[nPics++], sizeof(cf::cpage::PolyBlock));
     }
 
     for (i = 0; i < nPics; i++) {
         for (j = 0; j < nSeps; j++) {
-            if ( (pSeps[j].xBegin > pPics[i].com.Vertex[0].x() - 10) &&
-                    (pSeps[j].yBegin > pPics[i].com.Vertex[0].y() - 10) &&
-                    (pSeps[j].xEnd < pPics[i].com.Vertex[1].x() + 10) &&
-                    (pSeps[j].yEnd < pPics[i].com.Vertex[2].y() + 10)) {
+            if ( (pSeps[j].xBegin > pPics[i].vertexX(0) - 10) &&
+                    (pSeps[j].yBegin > pPics[i].vertexY(0) - 10) &&
+                    (pSeps[j].xEnd < pPics[i].vertexX(1) + 10) &&
+                    (pSeps[j].yEnd < pPics[i].vertexY(2) + 10)) {
                 DeleteSeps(j);
                 j--;
             }

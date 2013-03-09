@@ -59,6 +59,7 @@
 
 #include "new_c.h"
 #include "minmax.h"
+#include "internal.h"
 
 using namespace cf;
 
@@ -71,14 +72,13 @@ extern uint16_t run_options;
 extern Handle hShowString;
 extern Handle hShowCells;
 
-static void LayoutFromCPAGE(Handle hCPAGE);
-static int IsInPoly(Point16 a, void * pPoly);
+static void LayoutFromCPAGE(CPageHandle hCPAGE);
 
 // Piter /////////////////////////////////////
 void RotatePageToIdeal(void);
 void RotatePageToReal(void);
 
-void PageLayoutStrings(CCOM_handle hCCOM, Handle hCPAGE)
+void PageLayoutStrings(CCOM_handle hCCOM, CPageHandle hCPAGE)
 {
     if (ReadRoots(hCCOM, FALSE)) {
         run_options = FORCE_ONE_COLUMN;
@@ -288,13 +288,11 @@ void file_string(STRING * s)
         //      LDPUMA_CSTR_Monitor(NULL,lin_in,0,myMonitorProc);
     }
 }
-;
-/////////////////////////////////////
 
-static void LayoutFromCPAGE(Handle hCPAGE)
+static void LayoutFromCPAGE(CPageHandle hCPAGE)
 {
-    Handle h = NULL;
-    POLY_ block;
+    CBlockHandle h = NULL;
+    cpage::PolyBlock block;
     int nBlocks = FIRST_REGULAR_BLOCK_NUMBER;
     Point16 pLeftTop, pRightTop, pLeftBottom, pRightBottom;
     ROOT * pRoot = NULL;
@@ -318,11 +316,10 @@ static void LayoutFromCPAGE(Handle hCPAGE)
 
     for (h = CPAGE_GetBlockFirst(hCPAGE, TYPE_TEXT); h != NULL; h
             = CPAGE_GetBlockNext(hCPAGE, h, TYPE_TEXT)) {
-        uint32_t f = CPAGE_GetBlockFlags(hCPAGE, h);
+        uint32_t f = CPAGE_GetBlockFlags(h);
 
         //BlockNumber = CPAGE_GetBlockUserNum(hCPAGE,h)*64000;// Piter 030399
-        if (CPAGE_GetBlockData(hCPAGE, h, TYPE_TEXT, &block, sizeof(block))
-                != sizeof(block)) {
+        if (CPAGE_GetBlockData(h, TYPE_TEXT, &block, sizeof(block)) != sizeof(block)) {
             SetReturnCode_rblock(CPAGE_GetReturnCode());
             longjmp(fatal_error_exit, -1);
         }
@@ -349,7 +346,7 @@ static void LayoutFromCPAGE(Handle hCPAGE)
         }
 
         //CPAGE_SetBlockUserNum(hCPAGE,h,BlockNumber);// Piter 030399
-        CPAGE_SetBlockInterNum(hCPAGE, h, BlockNumber);
+        CPAGE_SetBlockInterNum(h, BlockNumber);
         BlockNumber++;
     }
 
@@ -360,52 +357,4 @@ static void LayoutFromCPAGE(Handle hCPAGE)
 
     BlocksExtract();
 }
-////////////////////////////////////////
-int IsInPoly(Point16 a, void * pPoly)
-{
-    int i, y, n, ind;
-    int Count = 0;
-    POLY_ *p;
-    p = (POLY_*) pPoly;
-    n = p->com.count;
 
-    for (i = 0; i < n; i++) {
-        int j = (i + 1) % n;
-
-        if (p->com.Vertex[i].y() == p->com.Vertex[j].y())
-            continue;
-
-        if (p->com.Vertex[i].y() > a.y() && p->com.Vertex[j].y() > a.y())
-            continue;
-
-        if (p->com.Vertex[i].y() < a.y() && p->com.Vertex[j].y() < a.y())
-            continue;
-
-        y = p->com.Vertex[i].y();
-        ind = i;
-
-        if (p->com.Vertex[j].y() > y) {
-            y = p->com.Vertex[j].y();
-            ind = j;
-        }
-
-        if ((y == a.y()) && (p->com.Vertex[ind].x() >= a.x()))
-            Count++;
-
-        else if (MIN(p->com.Vertex[i].y(), p->com.Vertex[j].y()) == a.y())
-            continue;
-
-        else {
-            double t = ((double) (a.y() - p->com.Vertex[i].y())
-                        / ((double) (p->com.Vertex[j].y()
-                                     - (double) p->com.Vertex[i].y())));
-
-            if (t > 0 && t < 1 && (double) p->com.Vertex[i].x() + t
-                    * ((double) p->com.Vertex[j].x()
-                       - (double) p->com.Vertex[i].x()) >= (double) a.x())
-                Count++;
-        }
-    }
-
-    return Count & 1;
-}

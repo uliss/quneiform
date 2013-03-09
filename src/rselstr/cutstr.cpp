@@ -60,6 +60,7 @@
 #include <cstring>
 
 #include "rselstr.h"
+#include "cutstr.h"
 #include "roots.h"
 #include "layout.h"
 #include "recdefs.h"
@@ -67,8 +68,8 @@
 #include "ccom/ccomdefs.h"
 #include "cimage/ctiimage.h"
 #include "cpage/cpage.h"
+#include "cpage/polyblock.h"
 #include "dpuma.h"
-#include "polyblock.h"
 #include "rcutp/rcutp.h"
 #include "minmax.h"
 #include "cfcompat.h"
@@ -88,7 +89,7 @@ int sup_dust_w = 5;
 int min_cut_down_let_w = 3;
 int sup_prob_w = 20;
 Bool type_let;
-extern Handle HCPAGE;
+extern CPageHandle HCPAGE;
 extern Handle hDebugCutStr;
 extern Handle CutStrD;
 extern Handle MainWindowD;
@@ -102,7 +103,7 @@ Bool32 WasDif = FALSE;
 uint32_t Code_UB_Kill = 0;
 uint32_t Code_UB_Create = 0;
 
-int CutStrings(POLY_* pBLOCK);
+int CutStrings(cf::cpage::PolyBlock* pBLOCK);
 int GetStatisticsH(void);
 void IfDifCut(void);
 
@@ -111,71 +112,21 @@ extern FILE* f_cut_str;
 extern FILE* f_temp_cut;
 extern FILE* f_old_cut;
 
-int GetMediumHeight(POLY_*);
-Bool GetMasP(Handle hCPage, Rect16 Rc, uchar** ppmasp);
+int GetMediumHeight(cf::cpage::PolyBlock*);
 Bool Increase2(RecRaster* rast, CCOM_comp* comp);
 int GetCountNumbers(int num);
 void StrDrawRect(Handle wnd, uint32_t OperCode, uint32_t color, int top,
 		int bottom, int left, int right);
 Bool IfEqv(char* buf1, char* buf2);
 Bool IfEqv(Rect16 r1, Rect16 r2);
-Bool AddLenBlockMas(POLY_** ppRc, int& len, int add);
-void DelBlockMas(POLY_* masp);
-Bool InitBlockMas(POLY_** ppRc, int len);
-int IsInPoly(const cf::Point16& a, POLY_* pPoly);
-Bool CutComp(Handle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound,
+Bool AddLenBlockMas(cf::cpage::PolyBlock** ppRc, int& len, int add);
+void DelBlockMas(cf::cpage::PolyBlock* masp);
+Bool InitBlockMas(cf::cpage::PolyBlock** ppRc, int len);
+Bool CutComp(CPageHandle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound,
 		Bool fl_cut);
 void UndoCutInRect(Handle hCPAGE, CCOM_handle hCCOM, Rect32* Rc);
 
-void RSELSTR_CutCompInTableZones(Handle hCPAGE, CCOM_handle hCCOM) {
-}
-
-
-int IsInPoly(const cf::Point16& a, POLY_* pPoly)
-{
-    int y, ind;
-    int Count = 0;
-    POLY_ *p = pPoly;
-    int n = p->com.count;
-
-    for (int i = 0; i < n; i++) {
-        int j = (i + 1) % n;
-
-        if (p->com.Vertex[i].y() == p->com.Vertex[j].y())
-            continue;
-
-        if (p->com.Vertex[i].y() > a.y() && p->com.Vertex[j].y() > a.y())
-            continue;
-
-        if (p->com.Vertex[i].y() < a.y() && p->com.Vertex[j].y() < a.y())
-            continue;
-
-        y = p->com.Vertex[i].y();
-        ind = i;
-
-        if (p->com.Vertex[j].y() > y) {
-            y = p->com.Vertex[j].y();
-            ind = j;
-        }
-
-        if ((y == a.y()) && (p->com.Vertex[ind].x() >= a.x()))
-            Count++;
-
-        else if (MIN(p->com.Vertex[i].y(), p->com.Vertex[j].y()) == a.y())
-            continue;
-
-        else {
-            double t = ((double) (a.y() - p->com.Vertex[i].y()) / ((double) (p->com.Vertex[j].y()
-                    - (double) p->com.Vertex[i].y())));
-
-            if (t > 0 && t < 1 && (double) p->com.Vertex[i].x() + t
-                    * ((double) p->com.Vertex[j].x() - (double) p->com.Vertex[i].x())
-                    >= (double) a.x())
-                Count++;
-        }
-    }
-
-    return Count & 1;
+void RSELSTR_CutCompInTableZones(CPageHandle hCPAGE, CCOM_handle hCCOM) {
 }
 
 void UndoCutInRect(Handle hCPAGE, CCOM_handle hCCOM, Rect32* Rc) {
@@ -213,7 +164,7 @@ void UndoCutInRect(Handle hCPAGE, CCOM_handle hCCOM, Rect32* Rc) {
 	}
 }
 
-int CutStrings(POLY_* pBlock) {
+int CutStrings(cf::cpage::PolyBlock* pBlock) {
 	medium_h = GetMediumHeight(pBlock);
 
 	int cut_h = (int) ((double) (medium_h) * k_cut);
@@ -222,7 +173,7 @@ int CutStrings(POLY_* pBlock) {
 	CCOM_comp* prev_comp = NULL;
 
 	PAGEINFO info;
-	GetPageInfo(HCPAGE, &info);
+    CPAGE_GetPageInfo(HCPAGE, &info);
 	int nIncline = info.Incline2048;
 
     cf::Point16 pLeftTop;
@@ -265,9 +216,10 @@ int CutStrings(POLY_* pBlock) {
 		IDEAL_XY(pLeftBottom.rx(), pLeftBottom.ry());
 		IDEAL_XY(pRightBottom.rx(), pRightBottom.ry());
 
-		if (IsInPoly(pLeftTop, pBlock) || IsInPoly(pRightTop, pBlock)
-				|| IsInPoly(pLeftBottom, pBlock) || IsInPoly(pRightBottom,
-				pBlock)) {
+        if (pBlock->isInPoly(pLeftTop)
+                || pBlock->isInPoly(pRightTop)
+                || pBlock->isInPoly(pLeftBottom)
+                || pBlock->isInPoly(pRightBottom)) {
 			if (comp->h >= cut_h && comp->h <= medium_h * 5 && comp->w
 					>= inf_let_w - 1) {
 				uchar Data[1000];
@@ -303,7 +255,7 @@ int CutStrings(POLY_* pBlock) {
 	return 1;
 }
 
-int GetMediumHeight(POLY_* pBlock) {
+int GetMediumHeight(cf::cpage::PolyBlock* pBlock) {
 	CCOM_comp * comp;
 	int sum_height = 0;
 	int count = 0;
@@ -313,7 +265,7 @@ int GetMediumHeight(POLY_* pBlock) {
     cf::Point16 pRightBottom;
 
 	PAGEINFO info;
-	GetPageInfo(HCPAGE, &info);
+    CPAGE_GetPageInfo(HCPAGE, &info);
 	int nIncline = info.Incline2048;
 
 	for (comp = CCOM_GetFirst((CCOM_handle) HCCOM, NULL); comp; comp
@@ -335,9 +287,10 @@ int GetMediumHeight(POLY_* pBlock) {
 		IDEAL_XY(pLeftBottom.rx(), pLeftBottom.ry());
 		IDEAL_XY(pRightBottom.rx(), pRightBottom.ry());
 
-		if (IsInPoly(pLeftTop, pBlock) || IsInPoly(pRightTop, pBlock)
-				|| IsInPoly(pLeftBottom, pBlock) || IsInPoly(pRightBottom,
-				pBlock)) {
+        if (pBlock->isInPoly(pLeftTop)
+                || pBlock->isInPoly(pRightTop)
+                || pBlock->isInPoly(pLeftBottom)
+                || pBlock->isInPoly(pRightBottom)) {
 			sum_height += comp->h;
 			count++;
 		}
@@ -390,7 +343,7 @@ int GetStatisticsH() {
 	return sum / count;
 }
 
-Bool GetMasP(Handle hCPage, Rect16 Rc, uchar** ppmasp) {
+Bool GetMasP(CPageHandle hCPage, Rect16 Rc, uchar** ppmasp) {
 	int prewide;
 	int left = Rc.left;
 	int h = Rc.bottom - Rc.top + 1;
@@ -417,7 +370,7 @@ Bool GetMasP(Handle hCPage, Rect16 Rc, uchar** ppmasp) {
 	DataInto.wByteWidth = (uint16_t)(prewide / 8);
 	DataInto.dwX = left;
 	DataInto.dwY = upper;
-	GetPageInfo(hCPage, &info);
+    CPAGE_GetPageInfo(hCPage, &info);
 	for (i = 0; i < CPAGE_MAXNAME; i++)
 		Name[i] = info.szImageName[i];
 	DataOut.dwWidth = DataInto.dwWidth;
@@ -808,15 +761,14 @@ Bool IfEqv(Rect16 r1, Rect16 r2) {
 	return TRUE;
 }
 
-Bool AddLenBlockMas(POLY_** ppRc, int& len, int add) {
-	POLY_ *dop;
+Bool AddLenBlockMas(cf::cpage::PolyBlock** ppRc, int& len, int add) {
+    cf::cpage::PolyBlock *dop;
 	int i;
 	if (!(InitBlockMas(&dop, len)))
 		return FALSE;
 	for (i = 0; i < len; i++) {
-		for (int j = 0; j < (*ppRc)[i].com.count; j++) {
-			dop[i].com.Vertex[j].rx() =  (*ppRc)[i].com.Vertex[i].x();
-			dop[i].com.Vertex[j].ry() = (*ppRc)[i].com.Vertex[i].y();
+        for (int j = 0; j < (*ppRc)[i].vertexCount(); j++) {
+            dop[i].setVertex(j, (*ppRc)[i].vertexAt(i));
 		}
 	}
 
@@ -827,9 +779,8 @@ Bool AddLenBlockMas(POLY_** ppRc, int& len, int add) {
 	}
 
 	for (i = 0; i < len; i++) {
-		for (int j = 0; j < (*ppRc)[i].com.count; j++) {
-			(*ppRc)[i].com.Vertex[i].rx() =  dop[i].com.Vertex[j].x();
-			(*ppRc)[i].com.Vertex[i].ry() = dop[i].com.Vertex[j].y();
+        for (int j = 0; j < (*ppRc)[i].vertexCount(); j++) {
+            (*ppRc)[i].setVertex(i, dop[i].vertexAt(j));
 		}
 	}
 
@@ -838,13 +789,13 @@ Bool AddLenBlockMas(POLY_** ppRc, int& len, int add) {
 	return TRUE;
 }
 
-void DelBlockMas(POLY_ *masp) {
+void DelBlockMas(cf::cpage::PolyBlock *masp) {
 	delete[] masp;
 }
 
-Bool InitBlockMas(POLY_** ppRc, int len) {
+Bool InitBlockMas(cf::cpage::PolyBlock** ppRc, int len) {
 	(*ppRc) = NULL;
-	if (!((*ppRc) = new POLY_[len]))
+    if (!((*ppRc) = new cf::cpage::PolyBlock[len]))
 		return FALSE;
 	return TRUE;
 }

@@ -63,6 +63,7 @@
 
 #include "status.h"
 #include "ccom/ccom.h"
+#include "cpage/cpagedefs.h"
 
 #define IS_IN_TABLE 111
 
@@ -81,13 +82,13 @@ void PageLayoutPart1(void);
 void PageLayoutPart2(void);
 
 void PageLayoutBlocks(CCOM_handle hCCOM);
-void PageLayoutStrings(CCOM_handle hCCOM, Handle hCPAGE);
+void PageLayoutStrings(CCOM_handle hCCOM, CPageHandle hCPAGE);
 
 void SetReturnCode_rblock(uint32_t rc);
 uint32_t GetReturnCode_rblock(void);
 char * GetModulesString(uint32_t dwError);
 
-Bool32 OutputFragments(Handle hPage);
+Bool32 OutputFragments(CPageHandle hPage);
 void CalculatePageIncline(Handle hCCOM, int32_t * lpNominator,
                           int32_t * lpDenominator);
 

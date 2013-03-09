@@ -57,7 +57,7 @@
 /*----------------------------------------------------------------------------*/
 #include <stdio.h>
 /*  interface our-other  */
-#include "polyblock.h"
+#include "cpage/polyblock.h"
 #include "cpage/cpage.h"
 /*  interface our-our    */
 #include "un_err.h"
@@ -176,39 +176,23 @@ Bool LoadComps_rv(CCOM_handle hC, void *vB, char *pStr, int Filter) {
 	return RV_TRUE;
 }
 /*---------------------------------------------------------------------------*/
-Bool MakeRectFromPict(Rect16 *pCurr, void *vPict) {
-	int n;
-	POLY_ *pPict;
-	pPict = (POLY_ *) vPict;
-	n = pPict->com.count;
-	if (n != 4)
-		return FALSE;
-	if (pPict->com.Vertex[0].x() != pPict->com.Vertex[3].x())
-		return FALSE;
-	if (pPict->com.Vertex[1].x() != pPict->com.Vertex[2].x())
-		return FALSE;
-	if (pPict->com.Vertex[0].y() != pPict->com.Vertex[1].y())
-		return FALSE;
-	if (pPict->com.Vertex[3].y() != pPict->com.Vertex[2].y())
-		return FALSE;
-	if (pPict->com.Vertex[0].x() >= pPict->com.Vertex[1].x())
-		return FALSE;
-	if (pPict->com.Vertex[0].y() >= pPict->com.Vertex[3].y())
-		return FALSE;
-	pCurr->left = (int16_t) pPict->com.Vertex[0].x();
-	pCurr->right = (int16_t) pPict->com.Vertex[1].x();
-	pCurr->top = (int16_t) pPict->com.Vertex[0].y();
-	pCurr->bottom = (int16_t) pPict->com.Vertex[3].y();
+Bool MakeRectFromPict(Rect16 *pCurr, cf::cpage::PolyBlock *pPict) {
+    if(!pPict->isRect())
+        return FALSE;
+    pCurr->left = (int16_t) pPict->vertexAt(0).x();
+    pCurr->right = (int16_t) pPict->vertexAt(1).x();
+    pCurr->top = (int16_t) pPict->vertexAt(0).y();
+    pCurr->bottom = (int16_t) pPict->vertexAt(3).y();
 	return TRUE;
 }
 /*---------------------------------------------------------------------------*/
-Bool LoadPicts_rv(Handle hC, void *vB, char *pStr) {
+Bool LoadPicts_rv(CPageHandle hC, void *vB, char *pStr) {
 	int SizeCurr, Deficit, nRc;
 	uint32_t err32, nTeor, nReal;
 	Bool ret;
-	POLY_ Pict;
-	Handle hBlockPictSpec;
-	Handle hBlockPictPrev;
+    cf::cpage::PolyBlock Pict;
+    CBlockHandle hBlockPictSpec;
+    CBlockHandle hBlockPictPrev;
 	UN_BUFF *pB;
 	Rect16 *pCurr;
 	pB = (UN_BUFF *) vB;
@@ -216,7 +200,7 @@ Bool LoadPicts_rv(Handle hC, void *vB, char *pStr) {
 	Deficit = 0;
 	pCurr = (Rect16 *) pB->vCurr;
 	SizeCurr = pB->SizeCurr;
-	nTeor = sizeof(POLY_);
+    nTeor = sizeof(cf::cpage::PolyBlock);
 	hBlockPictPrev = NULL;
 	while (1) {
 		/*  ключ к данным  */
@@ -235,8 +219,7 @@ Bool LoadPicts_rv(Handle hC, void *vB, char *pStr) {
 			return FALSE;
 		}
 		/*  собственно данные  */
-		nReal = CPAGE_GetBlockData(hC, hBlockPictSpec, TYPE_IMAGE,
-				(void *) (&Pict), nTeor);
+        nReal = CPAGE_GetBlockData(hBlockPictSpec, TYPE_IMAGE, (void *) (&Pict), nTeor);
 		err32 = CPAGE_GetReturnCode();
 		if ((nReal != nTeor) || (err32 != 0)) {
 			sprintf(pStr, "[GetBlockData]");
@@ -248,7 +231,7 @@ Bool LoadPicts_rv(Handle hC, void *vB, char *pStr) {
 			continue;
 		}
 		nRc++;
-		ret = MakeRectFromPict(pCurr, (void *) (&Pict));
+        ret = MakeRectFromPict(pCurr, &Pict);
 #include "am_comm.h"
 #ifdef Almi
 #include "ft_rule.h"

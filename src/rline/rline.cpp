@@ -473,7 +473,7 @@ Bool32 RLINE_SubInit(void) {
 
 //////////////////////////////////////////////////////////////////////////////////
 
-Bool32 RLINE_SearchLines(void* lpInPage, void* phCLINE) {
+Bool32 RLINE_SearchLines(CPageHandle lpInPage, void* phCLINE) {
 
 	CLINE_handle* PHCLINE = (CLINE_handle*) phCLINE;
 	CLINE_DeleteContainer(*PHCLINE);
@@ -687,7 +687,7 @@ Bool32 RLINE_SearchLines(void* lpInPage, void* phCLINE) {
 	return TRUE;
 }
 
-Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB) {
+Bool32 RLINE_DeleteLines(CPageHandle lpInPage, const char* lpOutDIB) {
 	LinesTotalInfo lti2;
 	PAGEINFO PInfo; // Описание страницы
 	char* pImage; // Указатель на изображение

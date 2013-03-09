@@ -103,8 +103,12 @@ int IfStr(Rect16*, int, Bool);
 void StrMoveMas(Rect16*, int&, int);
 void StrMoveMas(int*, int&, int);
 void StrMoveMasR(Rect16*, int&, int);
-Bool GetMasP(Handle, uchar*, Rect16, uchar**);
-CCOM_handle GetStrCCOM(Handle, uchar*, Rect16, Bool, Bool);
+Bool GetMasP(CPageHandle hCPage, Rect16 Rc, uchar** ppmasp);
+Bool GetMasP(CPageHandle, uchar*, Rect16, uchar**);
+Bool GetMasP(CPageHandle hCPage, uchar* ImageName, Rect16 Rc, uchar** ppmasp);
+CCOM_handle GetStrCCOM(CPageHandle, uchar*, Rect16, Bool, Bool);
+CCOM_handle GetStrCCOM(CPageHandle hCPage, uchar* ImageName, Rect16 Rc, Bool neg, Bool vertical,
+        RecRaster* rast, int min_h);
 Bool InitStrMas(Rect16**, int);
 void InitRc(Rect16*, int, CCOM_comp *);
 //void DelStrMas(Rect16*);

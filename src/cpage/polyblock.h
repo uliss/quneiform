@@ -54,38 +54,36 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-// NAMEDATA.h: interface for the NAMEDATA class.
-//
-//////////////////////////////////////////////////////////////////////
+#ifndef __POLYBLOCK_H__
+#define __POLYBLOCK_H__
 
-#if !defined(AFX_NAMEDATA_H__EA9423F3_FBA7_11D2_BB1B_0000E8D9FDF6__INCLUDED_)
-#define AFX_NAMEDATA_H__EA9423F3_FBA7_11D2_BB1B_0000E8D9FDF6__INCLUDED_
+#include "cpagedefs.h"
+#include "commondata.h"
+#include "common/point.h"
+#include "common/rect.h"
 
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
-#include <string.h>
+namespace cf {
+namespace cpage {
 
-#include "cttypes.h"
-
-class NAMEDATA
+class PolyBlock : public CommonData
 {
-    private:
-        char Name[260];
-    public:
-        NAMEDATA(const char * name = NULL);
-        virtual ~NAMEDATA();
+public:
+    PolyBlock();
+    bool isNegative() const { return negative_ == CPAGE_BLOCK_NEGATIVE; }
+    void setLight(block_light_t type);
 
-        Bool32 operator==(NAMEDATA & nd);
-        NAMEDATA & operator=(NAMEDATA & nd);
-        NAMEDATA & operator=(char *  nd);
-        inline operator char *() {
-            return Name;
-        };
-        inline operator int   () {
-            return strlen(Name) + 1;
-        }
+    void setOrientation(block_orientation_t dir);
+    block_orientation_t orientation() const;
 
+    int alphabet() const;
+    void setAlphabet(int alph);
+private:
+    int32_t alphabet_; // Цифры,Цифры и буквы, Буквы
+    int32_t negative_;
+    int32_t orient_;
 };
 
-#endif // !defined(AFX_NAMEDATA_H__EA9423F3_FBA7_11D2_BB1B_0000E8D9FDF6__INCLUDED_)
+}
+}
+
+#endif

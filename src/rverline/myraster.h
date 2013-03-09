@@ -61,6 +61,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  Содержание :  Структуры заданий на работу с изображением.                */
 /*  Назначение :  Изоляция алгоритмов библиотеки от чужеродных типов данных. */
 /*---------------------------------------------------------------------------*/
+
+#ifndef _MYRASTER_H_
+#define _MYRASTER_H_
+
 typedef struct tagVL_I_TASK {
     /*  параметры верификации  */
     int       MaxHeight;
@@ -77,3 +81,5 @@ typedef struct tagVL_I_TASK {
     int       LineWid;
 } VL_I_TASK;
 /*---------------------------------------------------------------------------*/
+
+#endif

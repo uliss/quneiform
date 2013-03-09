@@ -54,213 +54,178 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <iostream>
+
 #include "backup.h"
 
-Handle hCurPage = NULL;
-
 namespace cf {
+namespace cpage {
 
-BackupPage::BackupPage()
+BackupPage::BackupPage() :
+    current_(NULL)
+{}
+
+BackupPage::BackupPage(const BackupPage& page) :
+    Page(page),
+    current_(NULL)
 {
-    hCurBackUp = NULL;
+    const size_t count = page.backupCount();
+
+    for (size_t i = 0; i < count; i++)
+        backups_.push_back(new Page(*page.backups_.at(i)));
+
+    const int current_pos = page.currentPos();
+    if(current_pos >= 0)
+        current_ = backups_.at(current_pos);
+    else
+        current_ = NULL;
 }
 
 BackupPage::~BackupPage()
 {
-    backups_.Clear();
+    clearBackups();
 }
 
 size_t BackupPage::backupCount() const
 {
-    return backups_.GetCount();
+    return backups_.size();
 }
 
-Handle BackupPage::backupAt(size_t pos)
+Page * BackupPage::backupAt(size_t pos)
 {
-    return backups_.GetHandle(pos);
+    if(pos < backups_.size())
+        return backups_.at(pos);
+    return NULL;
 }
 
-void BackupPage::Clear()
+void BackupPage::clearBackups()
 {
-    backups_.Clear();
-    hCurBackUp = NULL;
+    for(size_t i = 0 ; i < backups_.size(); i++)
+        delete backups_[i];
+
+    backups_.clear();
+    current_ = NULL;
 }
-//#################################
-Handle BackupPage::BackUp(Handle backup)
+
+Page * BackupPage::current()
 {
-    Handle hBackupPage = backup == NULL ? hCurBackUp : backup;
-// Удалить все страницы позднее текущей.
-    Handle prevPage  = NULL;
+    return current_;
+}
 
-    while (hBackupPage != prevPage) {
-        prevPage = hBackupPage;
-        PAGE & p = backups_.GetNext(hBackupPage);
+Page * BackupPage::makeBackup()
+{
+    backups_.push_back(new Page(*this));
+    current_ = backups_.back();
+    return backups_.back();
+}
 
-        if (hCurBackUp != prevPage)
-            backups_.Del(prevPage);
+bool BackupPage::redo()
+{
+    if(backups_.empty())
+        return false;
+
+    PageList::iterator curr_it;
+    if(current_ == NULL) {
+        curr_it = backups_.begin();
+    }
+    else {
+        curr_it = std::find(backups_.begin(), backups_.end(), current_);
+        if(curr_it == backups_.end()) {
+            current_ = NULL;
+            return false;
+        }
     }
 
-    Handle hPage = backups_.AddTail(*this);
+    curr_it++;
+    if(curr_it == backups_.end())
+        return false;
 
-    if (hPage == NULL)
-        return NULL;
-
-    hCurBackUp = hPage;
-    return  hCurBackUp;
+    current_ = *curr_it;
+    Page::operator=(*current_);
+    return true;
 }
-//#################################
-Bool32 BackupPage::Redo(Handle backup)
-{
-    if (hCurBackUp) {
-        if (backup) {
-            *(PAGE*)this = backups_.GetItem(backup);
-            hCurBackUp = backup;
-        }
 
+bool BackupPage::undo()
+{
+    if(backups_.empty())
+        return false;
+
+    PageList::iterator curr_it = std::find(backups_.begin(), backups_.end(), current_);
+    if(curr_it == backups_.end())
+        return false;
+
+    if(curr_it == backups_.begin()) {
+        current_ = NULL;
+    }
+    else {
+        curr_it--;
+        current_ = *curr_it;
+    }
+
+    Page::operator=(*(*curr_it));
+
+    return true;
+}
+
+bool BackupPage::save(std::ostream& os) const
+{
+    uint32_t count = backupCount();
+
+    os.write((char*) &count, sizeof(count));
+    if(os.fail())
+        return false;
+
+    for (uint32_t i = 0; i < count; i++)
+        backups_.at(i)->save(os);
+
+    return Page::save(os);
+}
+
+bool BackupPage::restore(std::istream& is)
+{
+    clearBackups();
+
+    uint32_t count = 0;
+    is.read((char*) &count, sizeof(count));
+
+    for (uint32_t i = 0; i < count; i++) {
+        Page page;
+        if(page.restore(is))
+            backups_.push_back(new Page(page));
+    }
+
+    return Page::restore(is);
+}
+
+int BackupPage::currentPos() const
+{
+    PageList::const_iterator it = std::find(backups_.begin(), backups_.end(), current_);
+    if(it == backups_.end())
+        return -1;
+
+    return std::distance(backups_.begin(), it);
+}
+
+BackupPage& BackupPage::operator=(const BackupPage& page)
+{
+    clearBackups();
+    const size_t count = page.backupCount();
+
+    for (size_t i = 0; i < count; i++)
+        backups_.push_back(new Page(*page.backups_.at(i)));
+
+    if (count) {
+        const int current_pos = page.currentPos();
+        if(current_pos >= 0)
+            current_ = backups_.at(current_pos);
         else
-            *(PAGE*)this = backups_.GetNext(hCurBackUp);
-
-        return TRUE;
+            current_ = NULL;
     }
 
-    return FALSE;
-}
-//#################################
-Bool32 BackupPage::Undo(Handle backup)
-{
-    if (hCurBackUp) {
-        if (backup) {
-            *(PAGE*)this = backups_.GetItem(backup);
-            hCurBackUp = backup;
-        }
-
-        else
-            *(PAGE*)this = backups_.GetPrev(hCurBackUp);
-
-        return TRUE;
-    }
-
-    return FALSE;
-}
-//#################################
-Bool32 BackupPage::Save(Handle to)
-{
-    int count = backups_.GetCount();
-    Bool32 rc = FALSE;
-    int i, position;
-    rc = myWrite(to, &count, sizeof(count)) == sizeof(count);
-
-    if (count) {
-        position = backups_.GetPos(hCurBackUp);
-
-        if (rc) rc = myWrite(to, &position, sizeof(position)) == sizeof(position);
-
-        if (rc == TRUE && count)
-            for (i = 0; i < count; i++)
-                backups_.GetItem(backups_.GetHandle(i)).Save(to);
-    }
-
-    if (rc)
-        rc = PAGE::Save(to);
-
-    return rc;
-}
-//#################################
-Bool32 BackupPage::Restore(Handle from)
-{
-    Bool32 rc = FALSE;
-    int count, i, position;
-    backups_.Clear();
-    rc = myRead(from, &count, sizeof(count)) == sizeof(count);
-
-    if (count) {
-        if (rc) rc = myRead(from, &position, sizeof(position)) == sizeof(position);
-
-        for (i = 0; i < count && rc == TRUE; i++) {
-            PAGE page;
-            rc = page.Restore(from);
-
-            if (rc)
-                backups_.AddTail(page);
-        }
-
-        if (rc && position >= 0)
-            hCurBackUp = backups_.GetHandle(position);
-    }
-
-    if (rc)
-        rc = PAGE::Restore(from);
-
-    return rc;
-}
-//#################################
-Bool32 BackupPage::SaveCompress(Handle to)
-{
-    int count = backups_.GetCount();
-    Bool32 rc = FALSE;
-    int i, position;
-    rc = myWrite(to, &count, sizeof(count)) == sizeof(count);
-
-    if (count) {
-        position = backups_.GetPos(hCurBackUp);
-
-        if (rc) rc = myWrite(to, &position, sizeof(position)) == sizeof(position);
-
-        if (rc == TRUE && count)
-            for (i = 0; i < count; i++)
-                backups_.GetItem(backups_.GetHandle(i)).SaveCompress(to);
-    }
-
-    if (rc)
-        rc = PAGE::SaveCompress(to);
-
-    return rc;
-}
-//#################################
-Bool32 BackupPage::RestoreCompress(Handle from)
-{
-    Bool32 rc = FALSE;
-    int count, i, position;
-    backups_.Clear();
-    rc = myRead(from, &count, sizeof(count)) == sizeof(count);
-
-    if (count) {
-        if (rc) rc = myRead(from, &position, sizeof(position)) == sizeof(position);
-
-        for (i = 0; i < count && rc == TRUE; i++) {
-            PAGE page;
-            rc = page.RestoreCompress(from);
-
-            if (rc)
-                backups_.AddTail(page);
-        }
-
-        if (rc && position >= 0)
-            hCurBackUp = backups_.GetHandle(position);
-    }
-
-    if (rc)
-        rc = PAGE::RestoreCompress(from);
-
-    return rc;
-}
-
-BackupPage & BackupPage::operator = (BackupPage & Page)
-{
-    int count = Page.backups_.GetCount();
-    backups_.Clear();
-
-    for (int i = 0; i < count; i++)
-        backups_.AddTail(Page.backups_.GetItem(Page.backups_.GetHandle(i)));
-
-    if (count) {
-        int curr = Page.backups_.GetPos(Page.hCurBackUp);
-        hCurBackUp = backups_.GetHandle(curr);
-    }
-
-    *(PAGE *)this = Page;
+    Page::operator =((const Page&) page);
     return *this;
 }
 
+}
 }
 

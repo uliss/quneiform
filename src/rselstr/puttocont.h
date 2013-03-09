@@ -63,4 +63,4 @@
 extern CLhstr* list;
 extern Handle SkewFromRLTABLE;
 
-Bool32 GetObjects(CCOM_handle hCCOM, Handle hCPage);
+Bool32 GetObjects(CCOM_handle hCCOM, CPageHandle hCPage);

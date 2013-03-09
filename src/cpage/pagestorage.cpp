@@ -17,11 +17,19 @@
  ***************************************************************************/
 
 #include "pagestorage.h"
+#include "backup.h"
 
 namespace cf {
+namespace cpage {
 
-PageStorage::PageStorage()
+PageStorage::PageStorage() :
+    current_(NULL)
+{}
+
+PageStorage::~PageStorage()
 {
+    clearPages();
+    clearNameDataPrivate();
 }
 
 PageStorage& PageStorage::instance()
@@ -35,64 +43,133 @@ PageList& PageStorage::pages()
     return instance().pages_;
 }
 
-Handle PageStorage::append(BackupPage &p)
+CDataType PageStorage::appendName(const char * name)
 {
-    return pages().AddTail(p);
+    namedata_.push_back(name);
+    return namedata_.size();
 }
 
-Handle PageStorage::backupPage(Handle p)
+PageHandle PageStorage::append(const BackupPage& p)
 {
-    return page(p).BackUp();
+    pages().push_back(new BackupPage(p));
+    instance().current_ = pages().back();
+    return pages().back();
+}
+
+CDataType PageStorage::appendNameData(const char * name)
+{
+    return instance().appendName(name);
 }
 
 void PageStorage::clear()
 {
-    pages().Clear();
+    instance().clearPages();
 }
 
-void PageStorage::clearPage(Handle p)
+PageHandle PageStorage::currentPage()
 {
-    page(p).Clear();
+    return instance().current_;
 }
 
-BackupPage& PageStorage::page(Handle p)
+int PageStorage::currentPageNumber()
 {
-    return pages().GetItem(p);
+    if(!currentPage())
+        return -1;
+
+    return findPage(currentPage());
 }
 
-BackupPage& PageStorage::pageAt(size_t pos)
+CDataType PageStorage::findNameData(const char * name)
 {
-    return page(pageHandleAt(pos));
+    return instance().findName(name);
 }
 
-Handle PageStorage::pageHandleAt(size_t pos)
+int PageStorage::findPage(PageHandle p)
 {
-    return pages().GetHandle(pos);
+    return instance().find(p);
 }
 
-Handle PageStorage::pageType(Handle p)
+const char * PageStorage::namedata(CDataType type)
 {
-    return page(p).GetType();
+    return instance().namedata_.at(type - 1).c_str();
 }
 
-size_t PageStorage::pagePosition(Handle p)
+int PageStorage::find(PageHandle page) const
 {
-    return pages().GetPos(p);
+    for(size_t i = 0; i < pages_.size(); i++) {
+        if(pages_[i] == page)
+            return i;
+    }
+
+    return -1;
 }
 
-size_t PageStorage::size()
+CDataType PageStorage::findName(const char * name)
 {
-    return pages().GetCount();
+    NameMap::iterator it = std::find(namedata_.begin(), namedata_.end(), name);
+    if(it == namedata_.end())
+        return 0;
+    return std::distance(namedata_.begin(), it) + 1;
 }
 
-void PageStorage::remove(Handle p)
+PageHandle PageStorage::pageAt(size_t pos)
 {
-    pages().Del(p);
+    if(pos < pageCount())
+        return pages().at(pos);
+
+    return NULL;
 }
 
-bool PageStorage::undo(Handle p, Handle num)
+size_t PageStorage::pageCount()
 {
-    return page(p).Undo(num);
+    return pages().size();
 }
 
+void PageStorage::remove(PageHandle p)
+{
+    instance().removePage(p);
+}
+
+bool PageStorage::setCurrentPage(size_t pos)
+{
+    if(pos < pageCount()) {
+        instance().current_ = pages().at(pos);
+        return true;
+    }
+
+    return false;
+}
+
+void PageStorage::clearNameData()
+{
+    instance().clearNameDataPrivate();
+}
+
+void PageStorage::clearPages()
+{
+    for(size_t i = 0; i < pages_.size(); i++)
+        delete pages_[i];
+
+    pages_.clear();
+    current_ = NULL;
+}
+
+void PageStorage::clearNameDataPrivate()
+{
+    namedata_.clear();
+}
+
+void PageStorage::removePage(PageHandle p)
+{
+    PageList::iterator it = std::find(pages_.begin(), pages_.end(), p);
+    if(it != pages_.end()) {
+        pages_.erase(it);
+        delete p;
+    }
+
+    if(current_ == p)
+        current_ = NULL;
+}
+
+}
 }
