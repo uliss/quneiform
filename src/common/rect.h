@@ -165,10 +165,6 @@ class RectImpl
                         );
         }
 
-        bool isPositive() const {
-            return pt0_.isPositive() && pt1_.isPositive();
-        }
-
         bool isNull() const {
             return left() == std::numeric_limits<T>::max() &&
                     top() == std::numeric_limits<T>::max() &&
@@ -208,12 +204,6 @@ class RectImpl
 
         PointImpl<T> leftTop() const {
             return pt0_;
-        }
-
-        template<class U>
-        void moveBy(const PointImpl<U>& pt) {
-            pt0_ += pt;
-            pt1_ += pt;
         }
 
         void moveXTo(T x) {
@@ -326,8 +316,7 @@ class RectImpl
         }
 
         void setLeftBottom(const PointImpl<T>& pt) {
-            setLeft(pt.x());
-            setBottom(pt.y());
+            setLeftBottom(pt.x(), pt.y());
         }
 
         void setLeftBottom(T x, T y) {
@@ -358,19 +347,17 @@ class RectImpl
             NormalizeChecker::check(*this);
         }
 
-        void setRightBottom(const PointImpl<T>& pt) {
-            pt1_ = pt;
-            NormalizeChecker::check(*this);
-        }
-
         void setRightBottom(T x, T y) {
             pt1_.set(x, y);
             NormalizeChecker::check(*this);
         }
 
+        void setRightBottom(const PointImpl<T>& pt) {
+            setRightBottom(pt.x(), pt.y());
+        }
+
         void setRightTop(const PointImpl<T>& pt) {
-            setRight(pt.x());
-            setTop(pt.y());
+            setRightTop(pt.x(), pt.y());
         }
 
         void setRightTop(T x, T y) {
