@@ -39,7 +39,7 @@ endif()
 
 if(CF_USE_IMAGE_LIBRARY_IMAGE_MAGICK)
     # try to find ImageMagick++
-    find_package(ImageMagick COMPONENTS Magick++)
+    find_package(ImageMagick COMPONENTS Magick++ MagickCore)
     if(ImageMagick_Magick++_FOUND)
         message(STATUS "Image library: ImageMagick++ found at ${ImageMagick_Magick++_INCLUDE_DIR}.")
         message(STATUS "Image library: ImageMagick++ library is ${ImageMagick_Magick++_LIBRARY}.")  
