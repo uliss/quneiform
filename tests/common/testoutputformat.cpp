@@ -32,4 +32,14 @@ void TestOutputFormat::testInit()
     CPPUNIT_ASSERT(std::find(lst.begin(), lst.end(), FORMAT_TEXT) != lst.end());
     CPPUNIT_ASSERT(std::find(lst.begin(), lst.end(), FORMAT_SMARTTEXT) != lst.end());
     CPPUNIT_ASSERT(std::find(lst.begin(), lst.end(), FORMAT_DEBUG) != lst.end());
+
+    OutputFormat f(FORMAT_FB2);
+    CPPUNIT_ASSERT_EQUAL(FORMAT_FB2, f.get());
+    CPPUNIT_ASSERT(f.isValid());
+    CPPUNIT_ASSERT_EQUAL(std::string("fb2"), f.name());
+    CPPUNIT_ASSERT_EQUAL(std::string("fb2"), f.extension());
+    CPPUNIT_ASSERT_EQUAL(std::string("Fiction Book 2 format"), f.description());
+    CPPUNIT_ASSERT(!OutputFormat(FORMAT_NONE).isValid());
+
+    CPPUNIT_ASSERT_EQUAL(FORMAT_HTML, OutputFormat::byName("html").get());
 }
