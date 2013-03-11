@@ -55,6 +55,7 @@
  */
 
 #include <stdlib.h>
+#include <cassert>
 #define TIGER_CORR       //alik
 #include "lst3_win.h"
 #include "ful_txt.h"
