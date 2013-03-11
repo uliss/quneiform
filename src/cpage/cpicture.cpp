@@ -56,6 +56,7 @@
 
 #include <stdlib.h>
 #include <algorithm>
+#include <cassert>
 
 #include "cpage.h"
 #include "backup.h"
