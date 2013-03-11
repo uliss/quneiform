@@ -16,6 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <sstream>
+
 #include "testimageurl.h"
 #include "../test_common.h"
 #include "common/imageurl.h"
@@ -24,6 +26,8 @@
 CPPUNIT_TEST_SUITE_REGISTRATION(TestImageURL);
 
 using namespace cf;
+
+#define STR_EQ(expected, actual) CPPUNIT_ASSERT_EQUAL(std::string(expected), actual)
 
 void TestImageURL::testInit()
 {
@@ -36,6 +40,11 @@ void TestImageURL::testInit()
     CPPUNIT_ASSERT(ImageURL("test").simple());
 
     CPPUNIT_ASSERT(!ImageURL(__FILE__, 1).simple());
+
+    u.setPath("path");
+    STR_EQ("path", u.path());
+    u.setImageNumber(1024);
+    CPPUNIT_ASSERT_EQUAL(1024, u.imageNumber());
 }
 
 void TestImageURL::testExists()
@@ -106,4 +115,24 @@ void TestImageURL::testSerializeXml()
         CPPUNIT_ASSERT_EQUAL(url2, new_url);
     }
 #endif
+}
+
+void TestImageURL::testExtension()
+{
+    ImageURL url("TEST.TIFF", 3);
+    STR_EQ("tiff", url.extension());
+    STR_EQ("tiff", url.extension());
+}
+
+void TestImageURL::testOutput()
+{
+    ImageURL url("test.tif");
+    std::ostringstream buf;
+    buf << url;
+    STR_EQ("test.tif", buf.str());
+
+    url.setImageNumber(10);
+    std::ostringstream buf1;
+    buf1 << url;
+    STR_EQ("test.tif; image: 10", buf1.str());
 }
