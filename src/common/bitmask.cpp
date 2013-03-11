@@ -258,11 +258,8 @@ std::ostream& operator<<(std::ostream& os, const cf::BitMask& mask)
             else
                 os << 0;
         }
-
         os << "\n";
     }
-
-    os << "\n";
 
     return os;
 }

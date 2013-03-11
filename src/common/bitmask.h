@@ -85,6 +85,6 @@ private:
 
 }
 
-std::ostream& operator<<(std::ostream& os, const cf::BitMask& mask);
+FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const cf::BitMask& mask);
 
 #endif // BITMASK_H
