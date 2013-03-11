@@ -26,7 +26,15 @@ using namespace cf;
 void TestCTDIB::testInit()
 {
     cf::CTDIB image;
+    CPPUNIT_ASSERT_EQUAL(size_t(0), image.pixelCount());
+    CPPUNIT_ASSERT(!image.imageData());
+    CPPUNIT_ASSERT_EQUAL(cf::CTDIB::VERSION_UNKNOWN, image.version());
+    CPPUNIT_ASSERT(image.whitePixel() == 0);
+    CPPUNIT_ASSERT(image.blackPixel() == 0);
     CPPUNIT_ASSERT(image.createBegin(10, 20, 24));
+    CPPUNIT_ASSERT(image.whitePixel() == 0x00FFFFFF);
+    CPPUNIT_ASSERT(image.blackPixel() == 0);
+    CPPUNIT_ASSERT_EQUAL(size_t(10 * 20), image.pixelCount());
     CPPUNIT_ASSERT(image.createEnd());
     CPPUNIT_ASSERT(image.version() == cf::CTDIB::VERSION_WINDOWS);
     CPPUNIT_ASSERT(image.header()->biBitCount == 24);
@@ -222,4 +230,101 @@ void TestCTDIB::testSetPixelColor()
 
     image.pixelColor(1, 0, &c);
     CPPUNIT_ASSERT(c == gray);
+}
+
+void TestCTDIB::testWhitePixel()
+{
+    CTDIB b1;
+    CPPUNIT_ASSERT_EQUAL(uint32_t(0), b1.whitePixel());
+    b1.createBegin(10, 10, 1);
+    b1.createEnd();
+    CPPUNIT_ASSERT_EQUAL(uint32_t(1), b1.whitePixel());
+
+    CTDIB b4;
+    b4.createBegin(10, 10, 4);
+    b4.createEnd();
+    b4.setPalleteColor(3, RGBQuad::black());
+    b4.setPalleteColor(2, RGBQuad::white());
+    b4.setPalleteColor(0, RGBQuad::green());
+    b4.setPalleteColor(1, RGBQuad::red());
+    CPPUNIT_ASSERT_EQUAL(uint32_t(2), b4.whitePixel());
+
+    CTDIB b8;
+    b8.createBegin(10, 10, 8);
+    b8.createEnd();
+    b8.setPalleteColor(3, RGBQuad::black());
+    b8.setPalleteColor(2, RGBQuad::white());
+    b8.setPalleteColor(0, RGBQuad::green());
+    b8.setPalleteColor(1, RGBQuad::red());
+    CPPUNIT_ASSERT_EQUAL(uint32_t(2), b8.whitePixel());
+
+    CTDIB b16;
+    b16.createBegin(10, 10, 16);
+    b16.createEnd();
+    CPPUNIT_ASSERT_EQUAL(uint32_t(0x00007fff), b16.whitePixel());
+
+    CTDIB b24;
+    b24.createBegin(10, 10, 24);
+    b24.createEnd();
+    CPPUNIT_ASSERT_EQUAL(uint32_t(0x00ffffff), b24.whitePixel());
+
+    CTDIB b32;
+    b32.createBegin(10, 10, 32);
+    b32.createEnd();
+    CPPUNIT_ASSERT_EQUAL(uint32_t(0xffffffff), b32.whitePixel());
+}
+
+void TestCTDIB::testBlackPixel()
+{
+    CTDIB b1;
+    CPPUNIT_ASSERT_EQUAL(uint32_t(0), b1.blackPixel());
+    b1.createBegin(10, 10, 1);
+    b1.createEnd();
+    CPPUNIT_ASSERT_EQUAL(uint32_t(0), b1.blackPixel());
+    CPPUNIT_ASSERT_EQUAL(uint32_t(1), b1.whitePixel());
+
+    CPPUNIT_ASSERT(!b1.createBegin(20, 20, 24));
+
+    b1.setPalleteColor(1, RGBQuad::black());
+    b1.setPalleteColor(0, RGBQuad::white());
+    CPPUNIT_ASSERT_EQUAL(uint32_t(1), b1.blackPixel());
+    CPPUNIT_ASSERT_EQUAL(uint32_t(0), b1.whitePixel());
+
+    b1.setPalleteColor(0, RGBQuad::black());
+    b1.setPalleteColor(1, RGBQuad::white());
+    CPPUNIT_ASSERT_EQUAL(uint32_t(0), b1.blackPixel());
+    CPPUNIT_ASSERT_EQUAL(uint32_t(1), b1.whitePixel());
+
+    CTDIB b4;
+    b4.createBegin(10, 10, 4);
+    b4.createEnd();
+    b4.setPalleteColor(3, RGBQuad::black());
+    b4.setPalleteColor(0, RGBQuad::white());
+    b4.setPalleteColor(2, RGBQuad::green());
+    b4.setPalleteColor(1, RGBQuad::red());
+    CPPUNIT_ASSERT_EQUAL(uint32_t(3), b4.blackPixel());
+
+    CTDIB b8;
+    b8.createBegin(10, 10, 8);
+    b8.createEnd();
+    b8.setPalleteColor(3, RGBQuad::black());
+    b8.setPalleteColor(0, RGBQuad::white());
+    b8.setPalleteColor(2, RGBQuad::green());
+    b8.setPalleteColor(1, RGBQuad::red());
+    CPPUNIT_ASSERT_EQUAL(uint32_t(3), b8.blackPixel());
+
+    CTDIB b16;
+    b16.createBegin(10, 10, 16);
+    b16.createEnd();
+    CPPUNIT_ASSERT_EQUAL(uint32_t(0), b16.blackPixel());
+
+    CTDIB b24;
+    b24.createBegin(10, 10, 24);
+    b24.createEnd();
+    CPPUNIT_ASSERT_EQUAL(uint32_t(0), b24.blackPixel());
+
+    CTDIB b32;
+    b32.createBegin(10, 10, 32);
+    b32.createEnd();
+    CPPUNIT_ASSERT_EQUAL(uint32_t(0), b32.blackPixel());
 }

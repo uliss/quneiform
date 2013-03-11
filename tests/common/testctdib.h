@@ -30,6 +30,8 @@ class TestCTDIB : public CppUnit::TestFixture
     CPPUNIT_TEST(testMapTo24);
     CPPUNIT_TEST(testMapTo32);
     CPPUNIT_TEST(testSetPixelColor);
+    CPPUNIT_TEST(testWhitePixel);
+    CPPUNIT_TEST(testBlackPixel);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
@@ -38,6 +40,8 @@ public:
     void testMapTo32();
     void testMapTo24();
     void testSetPixelColor();
+    void testWhitePixel();
+    void testBlackPixel();
 };
 
 #endif // TESTCTDIB_H

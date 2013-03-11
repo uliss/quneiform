@@ -1349,11 +1349,12 @@ uint32_t CTDIB::whitePixel() const
     case 8:
         if (palleteColor(0, &fQ)) {
             for (uint i = 1; i < palleteUsedColorsNum(); i++) {
-                if (palleteColor(i, &sQ))
+                if (palleteColor(i, &sQ)) {
                     if (firstQUADLighterThenSecond(sQ, fQ)) {
                         Color = i;
                         palleteColor(i, &fQ);
                     }
+                }
             }
         }
         return Color;
@@ -1386,11 +1387,12 @@ uint32_t CTDIB::blackPixel() const
     case 8:
         if (palleteColor(0, &fQ)) {
             for (uint i = 1; i < palleteUsedColorsNum(); i++) {
-                if (palleteColor(i, &sQ))
+                if (palleteColor(i, &sQ)) {
                     if (firstQUADLighterThenSecond(fQ, sQ)) {
                         Color = i;
                         palleteColor(i, &fQ);
                     }
+                }
             }
         }
         return Color;
