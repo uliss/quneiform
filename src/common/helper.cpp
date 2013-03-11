@@ -49,16 +49,6 @@ std::string escapeHtmlSpecialChars(const std::string& path) {
     return ret;
 }
 
-#if defined _WIN32 || defined __WIN32__
-inline bool IS_SLASH(char ch) {
-    return ch == '\\' || ch == '/';
-}
-#else
-inline bool IS_SLASH(char ch) {
-    return ch == '/';
-}
-#endif
-
 size_t streamSize(std::stringstream& s) {
     return streamSize(static_cast<std::istream&>(s));
 }
