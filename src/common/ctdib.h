@@ -65,6 +65,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 namespace cf {
 
+class BitMask;
+
 class CLA_EXPO CTDIB
 {
 public:
@@ -79,6 +81,15 @@ public:
     // empty constructor
     CTDIB();
     ~CTDIB();
+
+    /**
+     * Applies mask to image
+     * Areas where mask is '1' - stays untouched,
+     * areas with '0' - filled with white color
+     * @param mask - bit mask
+     * @return true on succes, false on error
+     */
+    bool applyMask(const BitMask& mask);
 
     typedef void (*ConstFunction32)(const RGBQuad*);
     void mapToPixels32(ConstFunction32 func) const;
@@ -406,6 +417,10 @@ private:
         DIRECTION_BOTTOM_UP
     };
 private:
+    void applyTo1Bit(const BitMask& mask);
+    void applyTo8Bit(const BitMask& mask);
+    void applyTo24Bit(const BitMask& mask);
+    void applyTo32Bit(const BitMask& mask);
     // open DIB properties
     bool attachDIB();
     // close DIB properties

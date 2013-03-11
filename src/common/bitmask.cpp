@@ -55,49 +55,6 @@ BitMask::~BitMask() {
     delete[] mask_;
 }
 
-bool BitMask::apply(CTDIB * dib) const
-{
-    if(!dib) {
-        COMMON_ERROR_FUNC << "NULL image given";
-        return false;
-    }
-
-    if(dib->lineWidth() != size_.width()) {
-        COMMON_ERROR_FUNC << "image and mask widths not equal";
-        return false;
-    }
-
-    if(dib->linesNumber() != size_.height()) {
-        COMMON_ERROR_FUNC << "image and mask heights not equal";
-        return false;
-    }
-
-    if(!size_.isValid()) {
-        COMMON_ERROR_FUNC << "invalid image mask size";
-        return false;
-    }
-
-    switch (dib->bpp()) {
-    case 1:
-        applyTo1Bit(dib);
-        break;
-    case 8:
-        applyTo8Bit(dib);
-        break;
-    case 24:
-        applyTo24Bit(dib);
-        break;
-    case 32:
-        applyTo32Bit(dib);
-        break;
-    default:
-        COMMON_ERROR_FUNC << "image depth is not supported:" << dib->bpp();
-        return false;
-    }
-
-    return true;
-}
-
 void BitMask::fill(bool value)
 {
     memset(mask_, value ? 0xFF : 0, maskSize());
@@ -150,76 +107,6 @@ void BitMask::unset(uint x, uint y)
 void BitMask::allocate()
 {
     mask_ = new uchar[maskSize()];
-}
-
-void BitMask::applyTo1Bit(CTDIB * dib) const
-{
-    assert(dib);
-
-    const uchar white_pixel = (uchar) dib->whitePixel();
-
-    for (int y = 0; y < size_.height(); y++) {
-        puchar line = (puchar) dib->lineAt(y);
-
-        for(int x = 0; x < size_.width(); x++) {
-            if(!isSet(x, y)) {
-                if(white_pixel == 1)
-                    line[x / BITS] |= (0x80 >> (x % BITS));
-                else
-                    line[x / BITS] &= (0x80 >> (x % BITS));
-            }
-        }
-    }
-}
-
-void BitMask::applyTo8Bit(CTDIB * dib) const
-{
-    assert(dib);
-
-    uchar white_pixel = (uchar) dib->whitePixel();
-
-    for (int x = 0; x < size_.width(); x++) {
-        for(int y = 0; y < size_.height(); y++) {
-            if(!isSet(x, y)) {
-                puchar pixel = (puchar) dib->lineAt(y) + x;
-                (*pixel) = white_pixel;
-            }
-        }
-    }
-}
-
-void BitMask::applyTo24Bit(CTDIB * dib) const
-{
-    assert(dib);
-
-    const int BYTES = 24 / 8;
-    uchar white_pixel = (uchar) dib->whitePixel();
-
-    for (int x = 0; x < size_.width(); x++) {
-        for(int y = 0; y < size_.height(); y++) {
-            if(!isSet(x, y)) {
-                puchar pixel = (puchar) dib->lineAt(y) + x * BYTES;
-                memset(pixel, white_pixel, BYTES);
-            }
-        }
-    }
-}
-
-void BitMask::applyTo32Bit(CTDIB * dib) const
-{
-    assert(dib);
-
-    const int BYTES = 32 / 8;
-    uchar white_pixel = (uchar) dib->whitePixel();
-
-    for (int x = 0; x < size_.width(); x++) {
-        for(int y = 0; y < size_.height(); y++) {
-            if(!isSet(x, y)) {
-                puchar pixel = (puchar) dib->lineAt(y) + x * BYTES;
-                memset(pixel, white_pixel, BYTES - 1);
-            }
-        }
-    }
 }
 
 bool BitMask::check_(uint bit) const

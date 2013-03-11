@@ -66,8 +66,16 @@
 #include "ctdib.h"
 #include "debug.h"
 #include "bmp.h"
+#include "bitmask.h"
+#include "common_debug.h"
 
 using namespace cf;
+
+namespace {
+
+const int BITS = 8;
+
+}
 
 static inline size_t dibBitsToBytes(size_t b)
 {
@@ -124,6 +132,101 @@ CTDIB::CTDIB() :
 CTDIB::~CTDIB()
 {
     destroyDIB();
+}
+
+bool CTDIB::applyMask(const BitMask& mask)
+{
+    if(lineWidth() != mask.width()) {
+        COMMON_ERROR_FUNC << "image and mask widths not equal";
+        return false;
+    }
+
+    if(linesNumber() != mask.height()) {
+        COMMON_ERROR_FUNC << "image and mask heights not equal";
+        return false;
+    }
+
+    switch (bpp()) {
+    case 1:
+        applyTo1Bit(mask);
+        break;
+    case 8:
+        applyTo8Bit(mask);
+        break;
+    case 24:
+        applyTo24Bit(mask);
+        break;
+    case 32:
+        applyTo32Bit(mask);
+        break;
+    default:
+        COMMON_ERROR_FUNC << "image depth is not supported:" << bpp();
+        return false;
+    }
+
+    return true;
+}
+
+void CTDIB::applyTo1Bit(const BitMask& mask)
+{
+    const uchar white_pixel = static_cast<uchar>(whitePixel());
+
+    for (int y = 0; y < mask.height(); y++) {
+        puchar line = static_cast<puchar>(lineAt(y));
+
+        for(int x = 0; x < mask.width(); x++) {
+            if(!mask.isSet(x, y)) {
+                if(white_pixel == 1)
+                    line[x / BITS] |= (0x80 >> (x % BITS));
+                else
+                    line[x / BITS] &= (0x80 >> (x % BITS));
+            }
+        }
+    }
+}
+
+void CTDIB::applyTo8Bit(const BitMask& mask)
+{
+    const uchar white_pixel = static_cast<uchar>(whitePixel());
+
+    for (int x = 0; x < mask.width(); x++) {
+        for(int y = 0; y < mask.height(); y++) {
+            if(!mask.isSet(x, y)) {
+                puchar pixel = static_cast<puchar>(lineAt(y)) + x;
+                (*pixel) = white_pixel;
+            }
+        }
+    }
+}
+
+void CTDIB::applyTo24Bit(const BitMask& mask)
+{
+    const int BYTES = 24 / BITS;
+    const uchar white_pixel = static_cast<uchar>(whitePixel());
+
+    for (int x = 0; x < mask.width(); x++) {
+        for(int y = 0; y < mask.height(); y++) {
+            if(!mask.isSet(x, y)) {
+                puchar pixel = static_cast<puchar>(lineAt(y)) + x * BYTES;
+                memset(pixel, white_pixel, BYTES);
+            }
+        }
+    }
+}
+
+void CTDIB::applyTo32Bit(const BitMask& mask)
+{
+    const int BYTES = 32 / BITS;
+    const uchar white_pixel = static_cast<uchar>(whitePixel());
+
+    for (int x = 0; x < mask.width(); x++) {
+        for(int y = 0; y < mask.height(); y++) {
+            if(!mask.isSet(x, y)) {
+                puchar pixel = static_cast<puchar>(lineAt(y)) + x * BYTES;
+                memset(pixel, white_pixel, BYTES - 1);
+            }
+        }
+    }
 }
 
 void CTDIB::mapToPixels32(ConstFunction32 func) const

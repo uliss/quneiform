@@ -157,7 +157,7 @@ void TestBitMask::testApply1Bit()
     mask.fillRect(Rect(Point(20, 20), 60, 60), true);
     mask.fillRect(Rect(Point(35, 35), 30, 30), false);
 
-    CPPUNIT_ASSERT(mask.apply(dib));
+    CPPUNIT_ASSERT(dib->applyMask(mask));
     CTIControl::writeDIBtoBMP("cimage_bit_mask_apply_1.bmp", dib);
     IS_WHITE_DIB1(dib, 0, 0);
     IS_BLACK_DIB1(dib, 20, 20);
@@ -172,7 +172,7 @@ void TestBitMask::testApply32Bit()
     mask.fillRect(Rect(Point(20, 20), 60, 60), true);
     mask.fillRect(Rect(Point(35, 35), 30, 30), false);
 
-    CPPUNIT_ASSERT(mask.apply(dib));
+    CPPUNIT_ASSERT(dib->applyMask(mask));
     CTIControl::writeDIBtoBMP("cimage_bit_mask_apply_32.bmp", dib);
     IS_WHITE_DIB32(dib, 0, 0);
     IS_BLACK_DIB32(dib, 20, 20);
@@ -187,11 +187,11 @@ void TestBitMask::testApply8Bit()
     mask.fillRect(Rect(Point(20, 20), 60, 60), true);
     mask.fillRect(Rect(Point(35, 35), 30, 30), false);
 
-    CPPUNIT_ASSERT(mask.apply(dib));
+    CPPUNIT_ASSERT(dib->applyMask(mask));
     CTIControl::writeDIBtoBMP("cimage_bit_mask_apply_8.bmp", dib);
 
     DibPtr dib2("black_gray.bmp");
-    CPPUNIT_ASSERT(mask.apply(dib2));
+    CPPUNIT_ASSERT(dib2->applyMask(mask));
     CTIControl::writeDIBtoBMP("cimage_bit_mask_apply_gray.bmp", dib2);
     IS_WHITE_DIB1(dib2, 0, 0);
     IS_BLACK_DIB1(dib2, 20, 20);
@@ -206,7 +206,7 @@ void TestBitMask::testApply24Bit()
     mask.fillRect(Rect(Point(20, 20), 60, 60), true);
     mask.fillRect(Rect(Point(35, 35), 30, 30), false);
 
-    CPPUNIT_ASSERT(mask.apply(dib));
+    CPPUNIT_ASSERT(dib->applyMask(mask));
     CTIControl::writeDIBtoBMP("cimage_bit_mask_apply_24.bmp", dib);
     IS_WHITE_DIB32(dib, 0, 0);
     IS_BLACK_DIB32(dib, 20, 20);

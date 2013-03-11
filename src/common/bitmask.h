@@ -28,8 +28,6 @@
 namespace cf
 {
 
-class CTDIB;
-
 class CLA_EXPO BitMask
 {
 public:
@@ -55,8 +53,6 @@ public:
     BitMask(uint width, uint height, const uchar * data);
     ~BitMask();
 
-    bool apply(CTDIB * dib) const;
-
     void fill(bool value);
     void fillRect(const Rect& r, bool value);
     void invert();
@@ -65,13 +61,11 @@ public:
     void unset(uint x, uint y);
 
     Size size() const { return size_; }
+    int height() const { return size_.height(); }
+    int width() const { return size_.width(); }
 private:
     BitMask(const BitMask&);
     void allocate();
-    void applyTo1Bit(CTDIB * dib) const;
-    void applyTo8Bit(CTDIB * dib) const;
-    void applyTo24Bit(CTDIB * dib) const;
-    void applyTo32Bit(CTDIB * dib) const;
     uint bit(uint x, uint y) const;
     uint byteLineWidth() const;
     bool check_(uint bit) const;

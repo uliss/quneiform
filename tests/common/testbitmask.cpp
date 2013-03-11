@@ -44,6 +44,8 @@ void TestBitMask::testInit()
     uchar data = 0x7F; // 0b01111111
     BitMask bm2(1, 4, &data);
     CPPUNIT_ASSERT_EQUAL(Size(1, 4), bm2.size());
+    CPPUNIT_ASSERT_EQUAL(1, bm2.width());
+    CPPUNIT_ASSERT_EQUAL(4, bm2.height());
     CPPUNIT_ASSERT(!bm2.isSet(0, 0));
     CPPUNIT_ASSERT(bm2.isSet(0, 1));
     CPPUNIT_ASSERT(bm2.isSet(0, 2));
