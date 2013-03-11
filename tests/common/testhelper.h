@@ -33,6 +33,8 @@ class TestHelper: public CppUnit::TestFixture
     CPPUNIT_TEST(testToLower);
     CPPUNIT_TEST(testToUpper);
     CPPUNIT_TEST(testReplaceAll);
+    CPPUNIT_TEST(testException);
+    CPPUNIT_TEST(testSingleton);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testBaseName();
@@ -44,6 +46,8 @@ public:
     void testToLower();
     void testToUpper();
     void testReplaceAll();
+    void testException();
+    void testSingleton();
 };
 
 #endif /* TESTHELPER_H_ */

@@ -112,3 +112,57 @@ void TestPoint::testSerializeXml() {
 #endif
 }
 
+void TestPoint::testOperator()
+{
+    Point p;
+    p += 100;
+    CPPUNIT_ASSERT_EQUAL(Point(100, 100), p);
+
+    p-= 50;
+    CPPUNIT_ASSERT_EQUAL(Point(50, 50), p);
+}
+
+void TestPoint::testDeskew()
+{
+    Point p;
+    p.deskew(0);
+    CPPUNIT_ASSERT_EQUAL(Point(), p);
+
+    p.deskew(1024);
+    CPPUNIT_ASSERT_EQUAL(Point(), p);
+    p.deskew(512);
+    CPPUNIT_ASSERT_EQUAL(Point(), p);
+    p.deskew(-1024);
+    CPPUNIT_ASSERT_EQUAL(Point(), p);
+    p.deskew(-512);
+    CPPUNIT_ASSERT_EQUAL(Point(), p);
+
+    Point p1(1024, 0);
+    p1.deskew(1024);
+    CPPUNIT_ASSERT_EQUAL(Point(512, 1024), p1);
+
+    p1.set(100, 0);
+    CPPUNIT_ASSERT_EQUAL(10000, p1.x() * p1.x() + p1.y() * p1.y());
+    p1.deskew(128);
+    CPPUNIT_ASSERT_EQUAL(9970, p1.x() * p1.x() + p1.y() * p1.y());
+    p1.set(100, 0);
+    p1.deskew(256);
+    CPPUNIT_ASSERT_EQUAL(10034, p1.x() * p1.x() + p1.y() * p1.y());
+    p1.set(100, 0);
+    p1.deskew(512);
+    CPPUNIT_ASSERT_EQUAL(10069, p1.x() * p1.x() + p1.y() * p1.y());
+    p1.set(100, 0);
+    p1.deskew(512);
+    CPPUNIT_ASSERT_EQUAL(10069, p1.x() * p1.x() + p1.y() * p1.y());
+    p1.set(100, 0);
+    p1.deskew(640);
+    CPPUNIT_ASSERT_EQUAL(10369, p1.x() * p1.x() + p1.y() * p1.y());
+    p1.set(100, 0);
+    p1.deskew(768);
+    CPPUNIT_ASSERT_EQUAL(10809, p1.x() * p1.x() + p1.y() * p1.y());
+
+    p1.set(100, 0);
+    p1.deskew_rel(512, Point(100, 0));
+    CPPUNIT_ASSERT_EQUAL(Point(100, 0), p1);
+}
+

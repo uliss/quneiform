@@ -22,6 +22,8 @@
 #include "testhelper.h"
 #include "common/helper.h"
 #include "common/filesystem.h"
+#include "common/exception.h"
+#include "common/singleton.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestHelper);
 
@@ -134,6 +136,25 @@ void TestHelper::testReplaceAll()
     CPPUNIT_ASSERT_EQUAL(std::string("som xampl mssag"), str);
     cf::replaceAll(str, "m", "");
     CPPUNIT_ASSERT_EQUAL(std::string("so xapl ssag"), str);
+}
+
+void TestHelper::testException()
+{
+    typedef RuntimeExceptionImpl<int> Excpt;
+    try {
+        throw Excpt("test");
+    }
+    catch(Excpt& e) {
+        CPPUNIT_ASSERT_EQUAL(std::string("test"), std::string(e.what()));
+    }
+}
+
+struct Foo { int f; };
+
+void TestHelper::testSingleton()
+{
+    typedef cf::Singleton<Foo, CreateUsingNew> SingFoo;
+    SingFoo::instance().f = 0;
 }
 
 void TestHelper::testFileExists() {
