@@ -26,7 +26,7 @@
 #include "qtimageexporter.h"
 #include "bmpimageexporter.h"
 #include "imageexporterfactory.h"
-#include "common/debug.h"
+#include "common/log.h"
 #include "common/imagerawdata.h"
 #include "common/helper.h"
 
@@ -111,7 +111,7 @@ void QtImageExporter::saveToStream(const ImageRawData& image, std::ostream& os)
 
         QImage tmp;
         if(!loader.read(&tmp)) {
-            Debug() << METHOD_SIGNATURE() << " image load error\n";
+            cfError(MODULE_EXPORT) << METHOD_SIGNATURE() << " image load error";
             throw Exception() << METHOD_SIGNATURE() << "can't load image";
         }
 
@@ -125,7 +125,7 @@ void QtImageExporter::saveToStream(const ImageRawData& image, std::ostream& os)
             writer.setFormat("JPEG");
             break;
         default:
-            Debug() << format() << "\n";
+            cfError(MODULE_EXPORT) << format();
             throw Exception() << METHOD_SIGNATURE() << "Unsupported format:" << imageFormatToString(format());
         }
 
@@ -142,7 +142,7 @@ void QtImageExporter::saveToStream(const ImageRawData& image, std::ostream& os)
         os.write(buffer.data(), buffer.size());
     }
     catch (ImageExporter::Exception& e) {
-        Debug() << e.what() << std::endl;
+        cfError(MODULE_EXPORT) << e.what();
         throw e;
     }
 }

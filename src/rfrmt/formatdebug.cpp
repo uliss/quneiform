@@ -20,7 +20,7 @@
 #include <stdio.h>
 
 #include "formatdebug.h"
-#include "common/debug.h"
+#include "common/log.h"
 
 namespace cf
 {
@@ -51,7 +51,7 @@ void FMT_DBG(FormatDebug::debug_t level, const char * format, ...) {
     va_start(list, format);
     vsnprintf(strbuf, sizeof(strbuf) - 1, format, list);
     va_end(list);
-    Debug() << strbuf << "\n";
+    cfDebug(MODULE_RFRMT) << strbuf;
 }
 #endif
 

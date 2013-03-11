@@ -31,7 +31,7 @@
 #include "ced/cedparagraph.h"
 #include "common/tostring.h"
 #include "common/helper.h"
-#include "common/debug.h"
+#include "common/log.h"
 #include "common/fontstyle.h"
 #include "compat/filefunc.h"
 #include "config-version.h" // for CF_VERSION
@@ -357,7 +357,7 @@ void OdfExporter::writePicture(CEDPicture& picture) {
         writeCloseTag("draw:frame");
 
     } catch (Exception& e) {
-        Debug() << "[OdfExporter::writePicture] failed: " << e.what() << std::endl;
+        cfError(MODULE_EXPORT) << "[OdfExporter::writePicture] failed:" << e.what();
     }
 }
 

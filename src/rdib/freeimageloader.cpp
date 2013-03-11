@@ -23,7 +23,7 @@
 
 #include "freeimageloader.h"
 #include "imageloaderfactory.h"
-#include "common/debug.h"
+#include "common/log.h"
 #include "common/imageurl.h"
 #include "common/helper.h"
 
@@ -36,7 +36,7 @@ cf::ImageLoader * create() {
 }
 
 void ErrorHandler(FREE_IMAGE_FORMAT fif, const char *message) {
-    Debug() << "[RDIB] ERROR: " << FreeImage_GetFormatFromFIF(fif) << " " << message << "\n";
+    cfError(MODULE_RDIB) << FreeImage_GetFormatFromFIF(fif) << message;
 }
 
 bool initFreeImage()
@@ -110,8 +110,8 @@ ImagePtr FreeImageLoader::load(const ImageURL& url)
         if(url.imageNumber() < 0 || page_count <= url.imageNumber())
             throw Exception() << METHOD_SIGNATURE() << "Invalid image number";
 
-        Debug() << METHOD_SIGNATURE() << " multi page image: " << page_count << " pages\n";
-        Debug() << METHOD_SIGNATURE() << " loading page: " << url.imageNumber() << "\n";
+        cfDebug(MODULE_RDIB) << METHOD_SIGNATURE() << "multi page image:" << page_count << "pages";
+        cfDebug(MODULE_RDIB) << METHOD_SIGNATURE() << "loading page:" << url.imageNumber();
 
         dib = FreeImage_LockPage(multi_image, url.imageNumber());
         if(!dib) {

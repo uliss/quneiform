@@ -21,10 +21,10 @@
 
 #include <boost/current_function.hpp>
 
-#include "common/debug.h"
+#include "common/log.h"
 
-#define SCANNER_ERROR cf::Debug() << "[Error][Scan] " << BOOST_CURRENT_FUNCTION << " "
-#define SCANNER_WARNING cf::Debug() << "[Warning][Scan] " << BOOST_CURRENT_FUNCTION << " "
-#define SCANNER_DEBUG cf::Debug() << "[Debug][Scan] " << BOOST_CURRENT_FUNCTION << " "
+#define SCANNER_ERROR cfError(cf::MODULE_SCAN) << BOOST_CURRENT_FUNCTION
+#define SCANNER_WARNING cfWarning(cf::MODULE_SCAN) << BOOST_CURRENT_FUNCTION
+#define SCANNER_DEBUG cfDebug(cf::MODULE_SCAN) << BOOST_CURRENT_FUNCTION
 
 #endif // SCAN_DEBUG_H

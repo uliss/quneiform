@@ -64,8 +64,7 @@
 
 #include <cstdlib>
 #include "resource.h"
-#include "common/debug.h"
-#include "common/cifconfig.h"
+#include "common/log.h"
 #define __RSL__
 #define __RSL_EXTERN__
 #include "dsnap.h"
@@ -290,8 +289,7 @@ RSL_FUNC(Bool32) RSL_SetImportData(uint32_t dwType, void * pData) {
             }
 
             if (!*Image->pgneed_clean_line) {
-                if (Config::instance().debug())
-                    Debug() << "Warning: RSL said that the lines don't need to be erased from the picture.\n";
+                cfWarning(MODULE_RSL) << "Warning: RSL said that the lines don't need to be erased from the picture.";
             }
         } else
             LDPUMA_Console("Missing stage of the evaluation lines.\n");

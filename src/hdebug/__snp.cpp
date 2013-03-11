@@ -61,7 +61,6 @@
 #define __SNAP_C
 #include "dpuma.h"
 #include "cfcompat.h"
-#include "common/debug.h"
 
 using namespace cf;
 
@@ -259,10 +258,6 @@ Bool32 LDPUMA_GetExportData(uint32_t wType, void * pData)
 
 void LDPUMA_DestroySnap()
 {
-#ifdef _DEBUG
-    Debug() << "LDPUMA_DestroySnap()\n";
-#endif
-
     if (DestroySnap)
         DestroySnap();
 }
@@ -270,9 +265,6 @@ void LDPUMA_DestroySnap()
 uint32_t LDPUMA_CreateSnap()
 {
     uint32_t rc = 0;
-#ifdef _DEBUG
-    Debug() << "LDPUMA_CreateSnap()\n";
-#endif
 
     if (CreateSnap)
         rc = CreateSnap();

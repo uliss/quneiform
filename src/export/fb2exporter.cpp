@@ -24,7 +24,7 @@
 #include <boost/archive/iterators/transform_width.hpp>
 
 #include "fb2exporter.h"
-#include "common/debug.h"
+#include "common/log.h"
 #include "common/helper.h"
 #include "common/fontstyle.h"
 #include "common/language.h"
@@ -93,7 +93,7 @@ void FB2Exporter::writeFontStyleBegin(int style) {
         writeStartTag("emphasis");
 
     if (formatOptions().isUnderlinedUsed() && style & FONT_UNDERLINE)
-        Debug() << "[Warning] FB2 format has no underlined text support" << std::endl;
+        cfWarning(MODULE_EXPORT) << "FB2 format has no underlined text support";
 
     if (style & FONT_SUB)
         writeStartTag("sub");
@@ -193,7 +193,7 @@ void FB2Exporter::writePictures() {
             writeCloseTag("binary", "\n");
         }
     } catch (Exception& e) {
-        Debug() << "[FB2Exporter::writePicture] failed: " << e.what() << std::endl;
+        cfError(MODULE_EXPORT) << "[FB2Exporter::writePicture] failed: " << e.what();
     }
 }
 

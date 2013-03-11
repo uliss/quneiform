@@ -20,7 +20,7 @@
 
 #include "imageexporterfactory.h"
 #include "bmpimageexporter.h"
-#include "common/debug.h"
+#include "common/log.h"
 
 namespace cf
 {
@@ -34,9 +34,8 @@ ImageExporterPtr ImageExporterFactoryImpl::make()
     Iterator it = findBestCreator(format);
 
     if(it == map_.end()) {
-        Debug() << "[WARNING] " << BOOST_CURRENT_FUNCTION
-                << " creator not found for format: "
-                << format << "\n";
+        cfWarning(MODULE_RFRMT) << BOOST_CURRENT_FUNCTION
+                << "creator not found for format:" << format;
 
         return ImageExporterPtr(new BmpImageExporter);
     }

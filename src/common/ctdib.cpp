@@ -64,7 +64,6 @@
 #include <boost/scoped_array.hpp>
 
 #include "ctdib.h"
-#include "debug.h"
 #include "bmp.h"
 #include "bitmask.h"
 #include "common_debug.h"
@@ -582,7 +581,7 @@ bool CTDIB::attachDIB()
         version_ = VERSION_5;
         break;
     default:
-        Debug() << "CTDIB::AttachDIB: Unknown DIB header size: " << pSimpleHead->biSize << "\n";
+        COMMON_ERROR_FUNC << "Unknown DIB header size: " << pSimpleHead->biSize;
         detachDIB();
         return false;
     }

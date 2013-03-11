@@ -20,15 +20,12 @@
 #include "rdib/bmpimageloader.h"
 #include "rdib/bmp.h"
 #include "common/tostring.h"
-#include "common/debug.h"
 #include "common/cifconfig.h"
 #include "common/imageurl.h"
 #include "loaders_common.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestBmpLoader);
 using namespace cf;
-
-#define URL(fname) ImageURL(LOADER_TEST_IMAGE_DIR + std::string(fname))
 
 void TestBmpLoader::testInit() {
     std::auto_ptr<ImageLoader> loader(new BmpImageLoader);

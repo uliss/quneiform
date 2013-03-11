@@ -208,17 +208,17 @@ ImagePtr SaneScanner::start()
         sleep(1);
         break;
     default:
-        Debug() << sane_strstatus(s) << "\n";
+        cfError(MODULE_SCAN) << sane_strstatus(s);
         return ImagePtr();
     }
 
     if(params.pixels_per_line <= 0) {
-        SCANNER_ERROR << "invalid image width: " << params.pixels_per_line << "\n";
+        SCANNER_ERROR << "invalid image width: " << params.pixels_per_line;
         return ImagePtr();
     }
 
     if(params.lines < -1) {
-        SCANNER_ERROR << "invalid image height: " << params.lines << "\n";
+        SCANNER_ERROR << "invalid image height: " << params.lines;
         return ImagePtr();
     }
     else if(params.lines == -1) {

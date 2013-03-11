@@ -83,7 +83,7 @@
 #include "ced/cedparagraph.h"
 #include "ced/cedsection.h"
 #include "compat/filefunc.h"
-#include "common/debug.h"
+#include "common/log.h"
 
 #include "minmax.h"
 
@@ -211,7 +211,7 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
     BitmapPtr pOutDIB = NULL;
 
     if (!CIMAGE_GetDIBData(PUMA_IMAGE_USER, Rect(in.dwX, in.dwY, in.dwWidth, in.dwHeight), NULL, &pOutDIB)) {
-        Debug() << "[WritePict] CIMAGE_GetDIBData failed: " << PUMA_IMAGE_USER << "\n";
+        cfError(MODULE_RFRMT) << "[WritePict] CIMAGE_GetDIBData failed: " << PUMA_IMAGE_USER;
         return false;
     }
 
@@ -241,16 +241,16 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
         }
 
         if (!rc) {
-            Debug() << "[WritePict] RIMAGE_Turn failed";
+            cfError(MODULE_RFRMT) << "[WritePict] RIMAGE_Turn failed";
             rc = FALSE;
         }
     } else {
-        Debug() << "[WritePict] CIMAGE_WriteDIB failed: " << szPictName << "\n";
+        cfError(MODULE_RFRMT) << "[WritePict] CIMAGE_WriteDIB failed: " << szPictName;
     }
 
     // Довернем изображение на малый угол.
     if (!RIMAGE_Rotate(lpName, szRotateName, pinfo.Incline2048, 2048)) {
-        Debug() << "[WritePict] RIMAGE_Rotate failed\n";
+        cfError(MODULE_RFRMT) << "[WritePict] RIMAGE_Rotate failed";
         rc = FALSE;
     } else {
         CIMAGE_RemoveImage(lpName);
@@ -295,18 +295,18 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
                      cf::BitMask bit_mask(0, 0, (uchar*) lpMask + sizeof(in));
 
                     if (!CIMAGE_GetDIBData(lpName, Rect(in.dwX, in.dwY, in.dwWidth, in.dwHeight), &bit_mask, &pOutDIB)) {
-                        Debug() << "CIMAGE_GetDIBData failed\n";
+                        cfError(MODULE_RFRMT) << "CIMAGE_GetDIBData failed";
                         rc = FALSE;
                     }
                 } else {
-                    Debug() << "PAGE_PictureGetMask failed\n";
+                    cfError(MODULE_RFRMT) << "PAGE_PictureGetMask failed";
                     rc = FALSE;
                 }
 
                 free(lpMask);
             }
         } else {
-            Debug() << "PAGE_PictureGetMask() failed\n";
+            cfError(MODULE_RFRMT) << "PAGE_PictureGetMask() failed";
             rc = FALSE;
         }
     }

@@ -26,7 +26,6 @@
 #include "rsfunc.h"
 #include "resolutionchecker.h"
 #include "common/recognizeoptions.h"
-#include "common/debug.h"
 #include "common/log.h"
 #include "puma/pumadef.h"
 #include "smetric/smetric.h"
@@ -160,7 +159,7 @@ void RStuff::preProcessImage()
         //проверим наличие разрешения и попытаемся определить по компонентам, если его нет
         checkImageResolution();
     } else
-        Debug() << "Component extraction skipped\n";
+        cfDebug(MODULE_RSTUFF) << "Component extraction skipped";
 
     // reinit CPAGE container
     {
@@ -188,7 +187,7 @@ void RStuff::searchNewLines()
 void RStuff::searchLines()
 {
     if(hasFlag(SKIP_LINE_SEARCH)) {
-        Debug() << "[RStuff] line seach skipped\n";
+        cfDebug(MODULE_RSTUFF) << "line seach skipped";
         return;
     }
 

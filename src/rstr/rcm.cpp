@@ -86,7 +86,7 @@
 #include "cline/cline.h"
 
 #include "cfcompat.h"
-#include "common/debug.h"
+#include "common/log.h"
 #include "rbal/bal.h"
 
 #define LOCAL_GREY_CTB "page6666"
@@ -1817,7 +1817,7 @@ Bool32 Reload_lang_vocs(uchar lang) {
 	lang = LANGUAGE_RUSSIAN;
 	if ( !RLING_LoadDictonary( lang , (pchar)lnOcrLingPath) )
 	{
-	    cf::Debug() << "RLING_LoadDictonary failed: " << lnOcrLingPath << "\n";
+        cfError(cf::MODULE_RSTR) << "RLING_LoadDictonary failed: " << lnOcrLingPath;
 		wLowRC = RSTR_ERR_NOINITRSTR;
 		local_ret_error_code=RLING_GetReturnCode();
 		local_ret_error_str =(fun_error)RLING_GetReturnString;
@@ -1916,18 +1916,18 @@ Bool32 RSTR_SetOptions(RSTR_Options *opt) {
 	if (old_language != opt->language) {
 		if (!trees_load()) {
 			wLowRC = RSTR_ERR_NOINITRSTR;
-			cf::Debug() << "trees_load() error\n";
+            cfError(cf::MODULE_RSTR) << "trees_load() error";
 			return FALSE;
 		}
 
 		if (!Reload_lang_vocs(slanguage)) {
-		    cf::Debug() << "Reload_lang_vocs() error\n";
+            cfError(cf::MODULE_RSTR) << "Reload_lang_vocs() error";
 			wLowRC = RSTR_ERR_NOINITRSTR;
 			return FALSE;
 		}
 		if (language == LANGUAGE_RUSSIAN && multy_language) {
 			if (!Reload_lang_vocs_aux(LANGUAGE_ENGLISH)) {
-			    cf::Debug() << "Reload_lang_vocs_aux() error\n";
+                cfError(cf::MODULE_RSTR) << "Reload_lang_vocs_aux() error";
 				wLowRC = RSTR_ERR_NOINITRSTR;
 				return FALSE;
 			}

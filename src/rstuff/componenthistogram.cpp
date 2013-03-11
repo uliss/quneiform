@@ -21,8 +21,7 @@
 #include <iomanip>
 
 #include "componenthistogram.h"
-#include "common/debug.h"
-#include "common/cifconfig.h"
+#include "common/log.h"
 #include "ccom/ccom.h"
 #include "cpage/cpage.h"
 
@@ -30,8 +29,8 @@ namespace cf
 {
 
 #define MSG_PREFIX "[RStuff::ComponentHistogram] "
-#define RSTUFF_DEBUG(msg, value) if(Config::instance().debug()) {\
-    Debug() << MSG_PREFIX << " " << msg << ": " << value << "\n";}
+#define RSTUFF_DEBUG(msg, value) {\
+    cfDebug() << MSG_PREFIX << " " << msg << ": " << value ;}
 
 static const int DEFAULT_DPI = 300;
 

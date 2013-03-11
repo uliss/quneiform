@@ -25,7 +25,7 @@
 #include "processrecognitionserver.h"
 #endif
 
-#include "common/debug.h"
+#include "common/log.h"
 
 namespace cf {
 
@@ -50,7 +50,7 @@ RecognitionPtr RecognitionFactoryImpl::make(RecognitionServerType type)
         break;
 #endif
     default:
-        Debug() << BOOST_CURRENT_FUNCTION << "default recognition server used.\n";
+        cfDebug(MODULE_PUMA) << BOOST_CURRENT_FUNCTION << "default recognition server used.";
         ptr_.reset(new LocalRecognitionServer);
         break;
     }

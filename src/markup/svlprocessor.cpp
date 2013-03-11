@@ -23,7 +23,7 @@
 #include "svlprocessor.h"
 #include "shortverticallinesfilter.h"
 
-#include "common/debug.h"
+#include "common/log.h"
 #include "lns/lnsdefs.h"
 #include "cline/cline.h"
 
@@ -120,7 +120,7 @@ void SVLProcessor::readSVL(LinesTotalInfo * info)
         }
 
         if(count >= MAX_LINES) {
-            Debug() << BOOST_CURRENT_FUNCTION << " Warning: too many SVL lines!\n";
+            cfWarning(MODULE_MARKUP) << BOOST_CURRENT_FUNCTION << " Warning: too many SVL lines!";
             break;
         }
 
