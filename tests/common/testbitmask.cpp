@@ -18,6 +18,7 @@
 
 #include "testbitmask.h"
 #include "common/bitmask.h"
+#include "common/tostring.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestBitMask);
 
@@ -26,17 +27,20 @@ using namespace cf;
 void TestBitMask::testInit()
 {
     BitMask bm(Size(2, 2));
+    CPPUNIT_ASSERT_EQUAL(Size(2, 2), bm.size());
     CPPUNIT_ASSERT(!bm.isSet(0, 0));
     CPPUNIT_ASSERT(!bm.isSet(1, 0));
     CPPUNIT_ASSERT(!bm.isSet(0, 1));
     CPPUNIT_ASSERT(!bm.isSet(0, 1));
 
     BitMask bm1(1, 2);
+    CPPUNIT_ASSERT_EQUAL(Size(1, 2), bm1.size());
     CPPUNIT_ASSERT(!bm1.isSet(0, 0));
     CPPUNIT_ASSERT(!bm1.isSet(1, 1));
 
     uchar data = 0x7F; // 0b01111111
     BitMask bm2(1, 4, &data);
+    CPPUNIT_ASSERT_EQUAL(Size(1, 4), bm2.size());
     CPPUNIT_ASSERT(!bm2.isSet(0, 0));
     CPPUNIT_ASSERT(bm2.isSet(0, 1));
     CPPUNIT_ASSERT(bm2.isSet(0, 2));
