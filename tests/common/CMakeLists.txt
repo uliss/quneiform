@@ -3,6 +3,7 @@ add_definitions(-DTEST_DATADIR="${CMAKE_CURRENT_SOURCE_DIR}")
 add_executable(test_common
     test_common.cpp
     testbinarizeoptions.cpp
+    testbitmask.cpp
     testcolor.cpp
     testenvpaths.cpp
     testfilesystem.cpp

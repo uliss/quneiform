@@ -33,9 +33,26 @@ class CTDIB;
 class CLA_EXPO BitMask
 {
 public:
+    /**
+     * Construct bitmask filled with zeroes.
+     * @param sz - bitmask dimensions
+     */
     BitMask(const Size& sz);
+
+    /**
+     * Construct bitmask filled with zeroes.
+     * @param width - bitmask width
+     * @param height - bitmask height
+     */
     BitMask(uint width, uint height);
-    BitMask(uint width, uint height, uchar * data);
+
+    /**
+     * Construct bitmask initiated from given bitmask data
+     * @param width - bitmask width
+     * @param height - bitmask height
+     * @param data - pointer to raw bitmask data
+     */
+    BitMask(uint width, uint height, const uchar * data);
     ~BitMask();
 
     bool apply(CTDIB * dib) const;

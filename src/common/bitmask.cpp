@@ -42,13 +42,13 @@ BitMask::BitMask(uint width, uint height) :
     fill(0);
 }
 
-BitMask::BitMask(uint width, uint height, uchar * data) :
+BitMask::BitMask(uint width, uint height, const uchar * data) :
     size_((int) width, (int) height),
     mask_(0)
 {
     allocate();
     fill(0);
-    memcpy(data, mask_, maskSize());
+    memcpy(mask_, data, maskSize());
 }
 
 BitMask::~BitMask() {
