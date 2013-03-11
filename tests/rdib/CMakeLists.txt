@@ -2,8 +2,7 @@ set(CF_TEST_RDIB_SRC
     test_rdib.cpp
 )
 
-
-list(APPEND CF_TEST_RDIB_SRC testctdib.cpp)
+#list(APPEND CF_TEST_RDIB_SRC testctdib.cpp)
 
 add_executable(test_rdib ${CF_TEST_RDIB_SRC})
 

@@ -26,8 +26,8 @@ class TestOutputFormat: public CppUnit::TestFixture
     CPPUNIT_TEST_SUITE(TestOutputFormat);
     CPPUNIT_TEST(testInit);
     CPPUNIT_TEST_SUITE_END();
-    public:
-        void testInit();
+public:
+    void testInit();
 };
 
 #endif /* TESTOUTPUTFORMAT_H_ */
