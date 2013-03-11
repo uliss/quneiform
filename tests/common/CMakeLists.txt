@@ -5,6 +5,7 @@ add_executable(test_common
     testbinarizeoptions.cpp
     testcolor.cpp
     testenvpaths.cpp
+    testfilesystem.cpp
     testhelper.cpp
     testhistogram.cpp
     testiconv.cpp

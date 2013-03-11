@@ -44,7 +44,7 @@ namespace cf {
 
         std::string replaceFileExtension(const std::string& filename, const std::string& new_ext)
         {
-            return removeFileExtension(filename) + new_ext;
+            return removeFileExtension(filename) + std::string(1, '.') + new_ext;
         }
 
         std::string baseName(const std::string& path)
