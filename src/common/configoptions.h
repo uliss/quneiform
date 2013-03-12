@@ -40,11 +40,14 @@ public:
     static std::string getString(const std::string&value, const std::string& fallback);
 
     static bool hasOption(const std::string& value);
+    static void setConfigPath(const std::string& path);
 private:
     static void checkOpened();
+    static std::string getConfigPath();
     static void open();
 private:
     static ConfigParser parser_;
+    static std::string config_path_;
     static bool is_opened_;
 };
 

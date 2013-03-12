@@ -16,20 +16,26 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTFILESYSTEM_H
-#define TESTFILESYSTEM_H
+#ifndef TESTCONFIGOPTIONS_H
+#define TESTCONFIGOPTIONS_H
 
 #include <cppunit/extensions/HelperMacros.h>
 
-class TestFileSystem : public CppUnit::TestFixture
+class TestConfigOptions : public CppUnit::TestFixture
 {
-    CPPUNIT_TEST_SUITE(TestFileSystem);
-    CPPUNIT_TEST(testExtensions);
-    CPPUNIT_TEST(testDirName);
+    CPPUNIT_TEST_SUITE(TestConfigOptions);
+    CPPUNIT_TEST(testBool);
+    CPPUNIT_TEST(testInt);
+    CPPUNIT_TEST(testFloat);
+    CPPUNIT_TEST(testString);
     CPPUNIT_TEST_SUITE_END();
 public:
-    void testExtensions();
-    void testDirName();
+    void testBool();
+    void testInt();
+    void testFloat();
+    void testString();
+    void setUp();
+    void tearDown();
 };
 
-#endif // TESTFILESYSTEM_H
+#endif // TESTCONFIGOPTIONS_H

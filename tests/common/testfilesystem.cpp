@@ -45,3 +45,15 @@ void TestFileSystem::testExtensions()
     STR_EQ("no-extension.zip", fs::replaceFileExtension("no-extension", "zip"));
     STR_EQ(".zip", fs::replaceFileExtension(".xml", "zip"));
 }
+
+void TestFileSystem::testDirName()
+{
+    STR_EQ("/home/user", fs::dirName("/home/user/text.txt"));
+    STR_EQ("/", fs::dirName("/"));
+    STR_EQ("/", fs::dirName("/////"));
+    STR_EQ("/", fs::dirName("//dir//"));
+    STR_EQ("//dir", fs::dirName("//dir//d//"));
+    STR_EQ("//dir//d", fs::dirName("//dir//d//test.rar"));
+    STR_EQ(".", fs::dirName("test.txt"));
+    STR_EQ(".", fs::dirName("test.txt/"));
+}

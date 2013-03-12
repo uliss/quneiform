@@ -69,5 +69,38 @@ namespace cf {
 
             return res.back();
         }
+
+        std::string dirName(const std::string& path)
+        {
+            if(path.empty())
+                return "";
+
+            int i = path.length();
+            bool sep_found = false;
+            bool dir_found = (path[path.length()-1] == '/');
+            while(--i >= 0) {
+                if(path[i] == '/')
+                    sep_found = true;
+
+                if(sep_found) {
+                    if(i > 0) {
+                        if(path[i-1] == '/')
+                            continue;
+
+                        if(dir_found) {
+                            sep_found = false;
+                            dir_found = false;
+                            continue;
+                        }
+
+                        return path.substr(0, i);
+                    }
+                    else
+                        return "/";
+                }
+            }
+
+            return ".";
+        }
     }
 }

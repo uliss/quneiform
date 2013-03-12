@@ -12,6 +12,7 @@ add_executable(test_common
     testhelper.cpp
     testhistogram.cpp
     testiconv.cpp
+    testconfigoptions.cpp
     testconfigparser.cpp
     testlanguage.cpp
     testletter.cpp
