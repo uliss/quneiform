@@ -40,6 +40,9 @@ class TestCTDIB : public CppUnit::TestFixture
     CPPUNIT_TEST(testBlackPixel);
     CPPUNIT_TEST(testResolutionInch);
     CPPUNIT_TEST(testResolutionMeter);
+    CPPUNIT_TEST(testLineAt);
+    CPPUNIT_TEST(testBitmap);
+    CPPUNIT_TEST(testPixelAt);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
@@ -58,6 +61,9 @@ public:
     void testBlackPixel();
     void testResolutionInch();
     void testResolutionMeter();
+    void testLineAt();
+    void testBitmap();
+    void testPixelAt();
 };
 
 #endif // TESTCTDIB_H

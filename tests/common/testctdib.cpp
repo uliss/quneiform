@@ -29,6 +29,20 @@ void TestCTDIB::testInit()
     cf::CTDIB image;
     CPPUNIT_ASSERT(!image.reset());
     CPPUNIT_ASSERT(!image.pixelAt(0, 0));
+    CPPUNIT_ASSERT(!image.bpp());
+    CPPUNIT_ASSERT(!image.width());
+    CPPUNIT_ASSERT(!image.height());
+    CPPUNIT_ASSERT(!image.linesNumber());
+    CPPUNIT_ASSERT(!image.lineWidth());
+    CPPUNIT_ASSERT(!image.lineRealWidthInBytes());
+    CPPUNIT_ASSERT(!image.lineWidthInBytes());
+    CPPUNIT_ASSERT(!image.imageSizeInBytes());
+    CPPUNIT_ASSERT(!image.palleteUsedColorsNum());
+    CPPUNIT_ASSERT(!image.header());
+    CPPUNIT_ASSERT(!image.pallete());
+    CPPUNIT_ASSERT(!image.dibSize());
+    CPPUNIT_ASSERT(!image.palleteSize());
+    CPPUNIT_ASSERT(!image.headerSize());
     CPPUNIT_ASSERT(!image.palleteColor(0, NULL));
     CPPUNIT_ASSERT_EQUAL(size_t(0), image.pixelCount());
     CPPUNIT_ASSERT(!image.imageData());
@@ -373,7 +387,7 @@ void TestCTDIB::testFill()
        for(int y = 0; y < 10; y++) {
            cf::RGBQuad tmpc;
            CPPUNIT_ASSERT(image.pixelColor(x, y, &tmpc));
-           CPPUNIT_ASSERT(tmpc == cf::RGBQuad::green());
+           CPPUNIT_ASSERT_EQUAL(RGBQuad::green(), tmpc);
        }
    }
 
@@ -853,4 +867,82 @@ void TestCTDIB::testResolutionMeter()
     image.createEnd();
 
     CPPUNIT_ASSERT(!image.setResolutionDotsPerMeter(200));
+}
+
+void TestCTDIB::testLineAt()
+{
+    CTDIB image;
+    CPPUNIT_ASSERT(!image.lineAt(0));
+
+    image.createBegin(3, -3, 24, CTDIB::VERSION_4);
+    image.createEnd();
+
+    CPPUNIT_ASSERT(image.lineAt(0));
+    CPPUNIT_ASSERT(!image.lineAt(3));
+
+    image.fill(RGBQuad::white());
+    uchar * pixel = ((uchar*) image.lineAt(0));
+    CPPUNIT_ASSERT_EQUAL(image.imageData(), image.lineAt(0));
+    pixel[0] = 0;
+    pixel[1] = 0;
+
+    IS_RED(image, 0, 0);
+    IS_WHITE(image, 1, 0);
+    IS_WHITE(image, 2, 0);
+    IS_WHITE(image, 0, 1);
+    IS_WHITE(image, 1, 1);
+    IS_WHITE(image, 2, 1);
+    IS_WHITE(image, 0, 2);
+    IS_WHITE(image, 1, 2);
+    IS_WHITE(image, 2, 2);
+
+    CTDIB image2;
+    image2.createBegin(3, 3, 24);
+    image2.createEnd();
+
+    CPPUNIT_ASSERT(image2.imageData() != image2.lineAt(0));
+
+    image2.fill(RGBQuad::white());
+    pixel = ((uchar*) image2.lineAt(0));
+    pixel[0] = 0;
+    pixel[1] = 0;
+
+    IS_RED(image2, 0, 0);
+    IS_WHITE(image2, 1, 0);
+    IS_WHITE(image2, 2, 0);
+    IS_WHITE(image2, 0, 1);
+    IS_WHITE(image2, 1, 1);
+    IS_WHITE(image2, 2, 1);
+    IS_WHITE(image2, 0, 2);
+    IS_WHITE(image2, 1, 2);
+    IS_WHITE(image2, 2, 2);
+}
+
+void TestCTDIB::testBitmap()
+{
+    BitmapPtr dib = NULL;
+    CTDIB image;
+    CPPUNIT_ASSERT(!image.bitmap(&dib));
+    CPPUNIT_ASSERT(!dib);
+
+    image.createBegin(1, 1, 24, CTDIB::VERSION_5);
+    image.createEnd();
+    CPPUNIT_ASSERT(image.bitmap(&dib));
+    CPPUNIT_ASSERT(dib);
+}
+
+void TestCTDIB::testPixelAt()
+{
+    CTDIB image;
+    CPPUNIT_ASSERT(!image.pixelAt(0, 0));
+    image.createBegin(10, 10, 24);
+    image.createEnd();
+
+    CPPUNIT_ASSERT(!image.pixelAt(10, 0));
+    CPPUNIT_ASSERT(!image.pixelAt(0, 10));
+    CPPUNIT_ASSERT(!image.pixelAt(10, 10));
+    CPPUNIT_ASSERT(image.pixelAt(0, 0));
+    CPPUNIT_ASSERT(image.pixelAt(9, 9));
+    CPPUNIT_ASSERT(image.pixelAt(0, 9));
+    CPPUNIT_ASSERT(image.pixelAt(9, 0));
 }
