@@ -33,12 +33,12 @@ public:
         hist = h;
     }
 
-    static void map32(const RGBQuad * c)
+    static void map32(const RGBQuad * c, uint, uint)
     {
         hist->add(c->grayAverage());
     }
 
-    static void map24(const uchar * pixel)
+    static void map24(const uchar * pixel, uint, uint)
     {
         hist->add((pixel[0] + pixel[1] + pixel[2]) / 3);
     }

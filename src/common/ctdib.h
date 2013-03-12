@@ -91,14 +91,14 @@ public:
      */
     bool applyMask(const BitMask& mask);
 
-    typedef void (*ConstFunction32)(const RGBQuad*);
+    typedef void (*ConstFunction32)(const RGBQuad*, uint, uint);
     void mapToPixels32(ConstFunction32 func) const;
-    typedef void (*Function32)(RGBQuad*);
+    typedef void (*Function32)(RGBQuad*, uint, uint);
     void mapToPixels32(Function32 func);
 
-    typedef void (*ConstFunction24)(const uchar*);
+    typedef void (*ConstFunction24)(const uchar*, uint, uint);
     void mapToPixels24(ConstFunction24 func) const;
-    typedef void (*Function24)(uchar*);
+    typedef void (*Function24)(uchar*, uint, uint);
     void mapToPixels24(Function24 func);
 
     /**

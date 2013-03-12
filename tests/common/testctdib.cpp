@@ -394,7 +394,7 @@ void TestCTDIB::testFill()
 }
 
 static std::vector<cf::RGBQuad> test_map_32_vector;
-void testMap32Function(cf::RGBQuad * pixel)
+void testMap32Function(cf::RGBQuad * pixel, uint /*x*/, uint /*y*/)
 {
     test_map_32_vector.push_back(*pixel);
 }
@@ -425,20 +425,44 @@ void TestCTDIB::testMapTo32()
 
 struct Map24Tester
 {
-    static void f(uchar * pixel)
+    static void clear()
+    {
+        data.clear();
+        data_x.clear();
+        data_y.clear();
+    }
+
+    static void f(uchar * pixel, uint x, uint y)
     {
         RGBQuad c;
         c.rgbBlue = pixel[0];
         c.rgbGreen = pixel[1];
         c.rgbRed = pixel[2];
         data.push_back(c);
+        data_x.push_back(x);
+        data_y.push_back(y);
+    }
+
+    static void fConst(const uchar * pixel, uint x, uint y)
+    {
+        RGBQuad c;
+        c.rgbBlue = pixel[0];
+        c.rgbGreen = pixel[1];
+        c.rgbRed = pixel[2];
+        data.push_back(c);
+        data_x.push_back(x);
+        data_y.push_back(y);
     }
 
     static size_t size() { return data.size(); }
     static std::vector<RGBQuad> data;
+    static std::vector<uint> data_x;
+    static std::vector<uint> data_y;
 };
 
 std::vector<RGBQuad> Map24Tester::data;
+std::vector<uint> Map24Tester::data_x;
+std::vector<uint> Map24Tester::data_y;
 
 void TestCTDIB::testMapTo24()
 {
@@ -455,8 +479,108 @@ void TestCTDIB::testMapTo24()
     CPPUNIT_ASSERT_EQUAL(size_t(16), image.pixelCount());
 
     CPPUNIT_ASSERT(Map24Tester::size() == 0);
+    CPPUNIT_ASSERT(Map24Tester::data_y.size() == 0);
+    CPPUNIT_ASSERT(Map24Tester::data_y.size() == 0);
     image.mapToPixels24(&Map24Tester::f);
     CPPUNIT_ASSERT(Map24Tester::size() == 16);
+    CPPUNIT_ASSERT(Map24Tester::data_x.size() == 16);
+    CPPUNIT_ASSERT(Map24Tester::data_y.size() == 16);
+
+    CPPUNIT_ASSERT_EQUAL(0, (int) Map24Tester::data_x[0]);
+    CPPUNIT_ASSERT_EQUAL(1, (int) Map24Tester::data_x[1]);
+    CPPUNIT_ASSERT_EQUAL(2, (int) Map24Tester::data_x[2]);
+    CPPUNIT_ASSERT_EQUAL(3, (int) Map24Tester::data_x[3]);
+
+    CPPUNIT_ASSERT_EQUAL(0, (int) Map24Tester::data_x[4]);
+    CPPUNIT_ASSERT_EQUAL(1, (int) Map24Tester::data_x[5]);
+    CPPUNIT_ASSERT_EQUAL(2, (int) Map24Tester::data_x[6]);
+    CPPUNIT_ASSERT_EQUAL(3, (int) Map24Tester::data_x[7]);
+
+    CPPUNIT_ASSERT_EQUAL(0, (int) Map24Tester::data_x[8]);
+    CPPUNIT_ASSERT_EQUAL(1, (int) Map24Tester::data_x[9]);
+    CPPUNIT_ASSERT_EQUAL(2, (int) Map24Tester::data_x[10]);
+    CPPUNIT_ASSERT_EQUAL(3, (int) Map24Tester::data_x[11]);
+
+    CPPUNIT_ASSERT_EQUAL(0, (int) Map24Tester::data_x[12]);
+    CPPUNIT_ASSERT_EQUAL(1, (int) Map24Tester::data_x[13]);
+    CPPUNIT_ASSERT_EQUAL(2, (int) Map24Tester::data_x[14]);
+    CPPUNIT_ASSERT_EQUAL(3, (int) Map24Tester::data_x[15]);
+
+    CPPUNIT_ASSERT_EQUAL(0, (int) Map24Tester::data_y[0]);
+    CPPUNIT_ASSERT_EQUAL(0, (int) Map24Tester::data_y[1]);
+    CPPUNIT_ASSERT_EQUAL(0, (int) Map24Tester::data_y[2]);
+    CPPUNIT_ASSERT_EQUAL(0, (int) Map24Tester::data_y[3]);
+
+    CPPUNIT_ASSERT_EQUAL(1, (int) Map24Tester::data_y[4]);
+    CPPUNIT_ASSERT_EQUAL(1, (int) Map24Tester::data_y[5]);
+    CPPUNIT_ASSERT_EQUAL(1, (int) Map24Tester::data_y[6]);
+    CPPUNIT_ASSERT_EQUAL(1, (int) Map24Tester::data_y[7]);
+
+    CPPUNIT_ASSERT_EQUAL(2, (int) Map24Tester::data_y[8]);
+    CPPUNIT_ASSERT_EQUAL(2, (int) Map24Tester::data_y[9]);
+    CPPUNIT_ASSERT_EQUAL(2, (int) Map24Tester::data_y[10]);
+    CPPUNIT_ASSERT_EQUAL(2, (int) Map24Tester::data_y[11]);
+
+    CPPUNIT_ASSERT_EQUAL(3, (int) Map24Tester::data_y[12]);
+    CPPUNIT_ASSERT_EQUAL(3, (int) Map24Tester::data_y[13]);
+    CPPUNIT_ASSERT_EQUAL(3, (int) Map24Tester::data_y[14]);
+    CPPUNIT_ASSERT_EQUAL(3, (int) Map24Tester::data_y[15]);
+
+    // NOTE: line order is bottom to top
+    CPPUNIT_ASSERT(Map24Tester::data[11] == gray);
+    CPPUNIT_ASSERT(Map24Tester::data[12] == RGBQuad::white());
+    CPPUNIT_ASSERT(Map24Tester::data[13] == gray);
+
+    //
+    CTDIB empty;
+    empty.mapToPixels24(&Map24Tester::f);
+    const_cast<const CTDIB&>(empty).mapToPixels24(&Map24Tester::fConst);
+
+    Map24Tester::clear();
+    const_cast<const CTDIB&>(image).mapToPixels24(&Map24Tester::fConst);
+    CPPUNIT_ASSERT(Map24Tester::size() == 16);
+    CPPUNIT_ASSERT(Map24Tester::data_x.size() == 16);
+    CPPUNIT_ASSERT(Map24Tester::data_y.size() == 16);
+
+    CPPUNIT_ASSERT_EQUAL(0, (int) Map24Tester::data_x[0]);
+    CPPUNIT_ASSERT_EQUAL(1, (int) Map24Tester::data_x[1]);
+    CPPUNIT_ASSERT_EQUAL(2, (int) Map24Tester::data_x[2]);
+    CPPUNIT_ASSERT_EQUAL(3, (int) Map24Tester::data_x[3]);
+
+    CPPUNIT_ASSERT_EQUAL(0, (int) Map24Tester::data_x[4]);
+    CPPUNIT_ASSERT_EQUAL(1, (int) Map24Tester::data_x[5]);
+    CPPUNIT_ASSERT_EQUAL(2, (int) Map24Tester::data_x[6]);
+    CPPUNIT_ASSERT_EQUAL(3, (int) Map24Tester::data_x[7]);
+
+    CPPUNIT_ASSERT_EQUAL(0, (int) Map24Tester::data_x[8]);
+    CPPUNIT_ASSERT_EQUAL(1, (int) Map24Tester::data_x[9]);
+    CPPUNIT_ASSERT_EQUAL(2, (int) Map24Tester::data_x[10]);
+    CPPUNIT_ASSERT_EQUAL(3, (int) Map24Tester::data_x[11]);
+
+    CPPUNIT_ASSERT_EQUAL(0, (int) Map24Tester::data_x[12]);
+    CPPUNIT_ASSERT_EQUAL(1, (int) Map24Tester::data_x[13]);
+    CPPUNIT_ASSERT_EQUAL(2, (int) Map24Tester::data_x[14]);
+    CPPUNIT_ASSERT_EQUAL(3, (int) Map24Tester::data_x[15]);
+
+    CPPUNIT_ASSERT_EQUAL(0, (int) Map24Tester::data_y[0]);
+    CPPUNIT_ASSERT_EQUAL(0, (int) Map24Tester::data_y[1]);
+    CPPUNIT_ASSERT_EQUAL(0, (int) Map24Tester::data_y[2]);
+    CPPUNIT_ASSERT_EQUAL(0, (int) Map24Tester::data_y[3]);
+
+    CPPUNIT_ASSERT_EQUAL(1, (int) Map24Tester::data_y[4]);
+    CPPUNIT_ASSERT_EQUAL(1, (int) Map24Tester::data_y[5]);
+    CPPUNIT_ASSERT_EQUAL(1, (int) Map24Tester::data_y[6]);
+    CPPUNIT_ASSERT_EQUAL(1, (int) Map24Tester::data_y[7]);
+
+    CPPUNIT_ASSERT_EQUAL(2, (int) Map24Tester::data_y[8]);
+    CPPUNIT_ASSERT_EQUAL(2, (int) Map24Tester::data_y[9]);
+    CPPUNIT_ASSERT_EQUAL(2, (int) Map24Tester::data_y[10]);
+    CPPUNIT_ASSERT_EQUAL(2, (int) Map24Tester::data_y[11]);
+
+    CPPUNIT_ASSERT_EQUAL(3, (int) Map24Tester::data_y[12]);
+    CPPUNIT_ASSERT_EQUAL(3, (int) Map24Tester::data_y[13]);
+    CPPUNIT_ASSERT_EQUAL(3, (int) Map24Tester::data_y[14]);
+    CPPUNIT_ASSERT_EQUAL(3, (int) Map24Tester::data_y[15]);
 
     // NOTE: line order is bottom to top
     CPPUNIT_ASSERT(Map24Tester::data[11] == gray);

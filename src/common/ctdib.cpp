@@ -263,8 +263,10 @@ void CTDIB::mapToPixels32(CTDIB::Function32 func, void * data, size_t width, siz
 
     uchar * begin =  (uchar*) data;
     uchar * end = begin + (width * height * 4); // 32/8
-    for(uchar * it = begin; it != end; it += 4)
-        func((RGBQuad*) it);
+    for(uchar * it = begin; it != end; it += 4) {
+        ptrdiff_t pos = end - begin;
+        func((RGBQuad*) it, pos % width, pos / height);
+    }
 }
 
 void CTDIB::mapToPixels32(ConstFunction32 func, const void *data, size_t width, size_t height)
@@ -274,8 +276,10 @@ void CTDIB::mapToPixels32(ConstFunction32 func, const void *data, size_t width, 
 
     const uchar * begin =  (uchar*) data;
     const uchar * end = begin + (width * height * 4); // 32/8
-    for(const uchar * it = begin; it != end; it += 4)
-        func((const RGBQuad*) it);
+    for(const uchar * it = begin; it != end; it += 4) {
+        ptrdiff_t pos = end - begin;
+        func((const RGBQuad*) it, pos % width, pos / height);
+    }
 }
 
 void CTDIB::mapToPixels24(CTDIB::ConstFunction24 func) const
@@ -304,7 +308,7 @@ void CTDIB::mapToPixels24(Function24 func, void * data, size_t width, size_t hei
 
     for(size_t y = 0; y < height; y++, line += line_stride) {
         for(size_t x = 0; x < width; x++)
-            func(line + x*3); // 24/8
+            func(line + x*3, x, y); // 24/8
     }
 }
 
@@ -318,7 +322,7 @@ void CTDIB::mapToPixels24(ConstFunction24 func, const void * data, size_t width,
 
     for(size_t y = 0; y < height; y++, line += line_stride) {
         for(size_t x = 0; x < width; x++)
-            func(line + x*3); // 24/8
+            func(line + x*3, x, y); // 24/8
     }
 }
 
