@@ -18,6 +18,7 @@
 
 #include <boost/current_function.hpp>
 #include <streambuf>
+#include <fstream>
 
 #include "testhelper.h"
 #include "common/helper.h"
@@ -49,6 +50,11 @@ void TestHelper::testEscapeHtmlSpecialChars() {
     CPPUNIT_ASSERT_EQUAL(std::string("&amp;"), escapeHtmlSpecialChars("&"));
     CPPUNIT_ASSERT_EQUAL(std::string("&apos;"), escapeHtmlSpecialChars("'"));
     CPPUNIT_ASSERT_EQUAL(std::string("&amp;&lt;abc&gt;"), escapeHtmlSpecialChars("&<abc>"));
+
+    std::string str = escapeHtmlSpecialChars("&&&&");
+    CPPUNIT_ASSERT(!str.empty());
+    CPPUNIT_ASSERT(str.find("&") != std::string::npos);
+    CPPUNIT_ASSERT_EQUAL(std::string("&amp;&amp;&amp;&amp;"), str);
 }
 
 void TestHelper::testStreamSize() {
@@ -56,20 +62,25 @@ void TestHelper::testStreamSize() {
     CPPUNIT_ASSERT_EQUAL(streamSize(os), (size_t) 0);
     os << "test";
     CPPUNIT_ASSERT_EQUAL(streamSize(os), (size_t) 4);
-    os.setstate(std::ios_base::failbit);
-    CPPUNIT_ASSERT_EQUAL(streamSize(os), (size_t) 0);
+    CPPUNIT_ASSERT_EQUAL(streamSize(std::cout), (size_t) 0);
 
     std::istringstream iempty;
     CPPUNIT_ASSERT_EQUAL(streamSize(iempty), (size_t) 0);
     std::ostringstream is("hello");
     CPPUNIT_ASSERT_EQUAL(streamSize(is), (size_t) 5);
-    is.setstate(std::ios_base::failbit);
-    CPPUNIT_ASSERT_EQUAL(streamSize(is), (size_t) 0);
 
     std::stringstream s;
     CPPUNIT_ASSERT_EQUAL(streamSize(s), (size_t) 0);
     s << "stream";
     CPPUNIT_ASSERT_EQUAL(streamSize(s), (size_t) 6);
+    int i = 0;
+    s >> i;
+    CPPUNIT_ASSERT_EQUAL(streamSize(s), (size_t) 0);
+
+    std::ofstream ofs;
+    CPPUNIT_ASSERT_EQUAL(streamSize(ofs), (size_t) 0);
+    std::ifstream ifs;
+    CPPUNIT_ASSERT_EQUAL(streamSize(ifs), (size_t) 0);
 }
 
 void TestHelper::testMethodName()

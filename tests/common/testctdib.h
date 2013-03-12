@@ -43,6 +43,10 @@ class TestCTDIB : public CppUnit::TestFixture
     CPPUNIT_TEST(testLineAt);
     CPPUNIT_TEST(testBitmap);
     CPPUNIT_TEST(testPixelAt);
+    CPPUNIT_TEST(testPixelColorIndex);
+    CPPUNIT_TEST(testSetPalleteColor);
+    CPPUNIT_TEST(testPixelColor);
+    CPPUNIT_TEST(testSizes);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
@@ -64,6 +68,10 @@ public:
     void testLineAt();
     void testBitmap();
     void testPixelAt();
+    void testPixelColorIndex();
+    void testSetPalleteColor();
+    void testPixelColor();
+    void testSizes();
 };
 
 #endif // TESTCTDIB_H

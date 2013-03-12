@@ -51,6 +51,8 @@ void TestCTDIB::testInit()
     CPPUNIT_ASSERT(image.whitePixel() == 0);
     CPPUNIT_ASSERT(image.blackPixel() == 0);
 
+    CPPUNIT_ASSERT(!image.createBegin(10, 10, 24, (CTDIB::version_t) 1024));
+
     CPPUNIT_ASSERT(image.createBegin(10, 20, 24));
     CPPUNIT_ASSERT(image.createEnd());
 
@@ -338,6 +340,7 @@ void TestCTDIB::testFill()
 
    // 1 bit
    CPPUNIT_ASSERT(image.createBegin(10, 10, 1));
+   image.makeBlackAndWhitePallete();
    CPPUNIT_ASSERT(image.createEnd());
    CPPUNIT_ASSERT(image.fill(cf::RGBQuad::white()));
 
@@ -348,6 +351,10 @@ void TestCTDIB::testFill()
            CPPUNIT_ASSERT(tmpc == cf::RGBQuad::white());
        }
    }
+
+   image.setPixelColor(0, 0, RGBQuad::white());
+   image.setPixelColor(0, 1, RGBQuad::black());
+   CPPUNIT_ASSERT(!image.fill(RGBQuad::red()));
 
    // 4 bit
    CPPUNIT_ASSERT(image.reset());
@@ -706,6 +713,7 @@ void TestCTDIB::testSetPixelColor()
 {
     const RGBQuad gray(127, 127, 127);
     CTDIB image;
+    CPPUNIT_ASSERT(!image.setPixelColor(0, 0, RGBQuad::red()));
     image.createBegin(4, 4, 24);
     image.createEnd();
     image.fill(gray);
@@ -720,6 +728,29 @@ void TestCTDIB::testSetPixelColor()
 
     image.pixelColor(1, 0, &c);
     CPPUNIT_ASSERT(c == gray);
+
+    image.reset();
+    image.createBegin(3, 3, 1);
+    image.createEnd();
+    CPPUNIT_ASSERT(image.setPixelColor(0, 0, RGBQuad::black()));
+    CPPUNIT_ASSERT(image.setPixelColor(1, 0, RGBQuad::white()));
+    CPPUNIT_ASSERT(!image.setPixelColor(2, 0, RGBQuad::green()));
+    CPPUNIT_ASSERT(!image.setPixelColor(4, 0, RGBQuad::white()));
+
+    image.reset();
+    image.createBegin(3, 3, 24);
+    image.createEnd();
+    CPPUNIT_ASSERT(image.setPixelColor(2, 2, RGBQuad::white()));
+    CPPUNIT_ASSERT(!image.setPixelColor(20, 20, RGBQuad::white()));
+
+    image.reset();
+    image.createBegin(3, 3, 32);
+    image.createEnd();
+    CPPUNIT_ASSERT(image.setPixelColor(2, 2, RGBQuad::white()));
+    CPPUNIT_ASSERT(!image.setPixelColor(20, 20, RGBQuad::white()));
+
+    image.header()->biBitCount = 15;
+    CPPUNIT_ASSERT(!image.setPixelColor(2, 2, RGBQuad::white()));
 }
 
 void TestCTDIB::testWhitePixel()
@@ -945,4 +976,344 @@ void TestCTDIB::testPixelAt()
     CPPUNIT_ASSERT(image.pixelAt(9, 9));
     CPPUNIT_ASSERT(image.pixelAt(0, 9));
     CPPUNIT_ASSERT(image.pixelAt(9, 0));
+}
+
+void TestCTDIB::testPixelColorIndex()
+{
+    uint idx = 0;
+    CTDIB image;
+
+    CPPUNIT_ASSERT(!image.makeBlackAndWhitePallete());
+    CPPUNIT_ASSERT(!image.pixelColorIndex(0, 0, &idx));
+
+    CPPUNIT_ASSERT(image.createBegin(10, 10, 24));
+    CPPUNIT_ASSERT(image.createEnd());
+    CPPUNIT_ASSERT(!image.pixelColorIndex(0, 0, &idx));
+    CPPUNIT_ASSERT(!image.setPixelColorIndex(0, 0, 1));
+    CPPUNIT_ASSERT(image.reset());
+
+    CPPUNIT_ASSERT(image.createBegin(10, 10, 32));
+    CPPUNIT_ASSERT(image.createEnd());
+    CPPUNIT_ASSERT(!image.pixelColorIndex(0, 0, &idx));
+    CPPUNIT_ASSERT(!image.setPixelColorIndex(0, 0, 1));
+    CPPUNIT_ASSERT(image.reset());
+
+    CPPUNIT_ASSERT(image.createBegin(10, 10, 16));
+    CPPUNIT_ASSERT(image.createEnd());
+    CPPUNIT_ASSERT(!image.pixelColorIndex(0, 0, &idx));
+    CPPUNIT_ASSERT(!image.setPixelColorIndex(0, 0, 1));
+    CPPUNIT_ASSERT(image.reset());
+
+    CPPUNIT_ASSERT(image.createBegin(10, 10, 1));
+    CPPUNIT_ASSERT(image.makeBlackAndWhitePallete());
+    CPPUNIT_ASSERT(image.createEnd());
+    image.fill(RGBQuad::white());
+    CPPUNIT_ASSERT(image.pixelColorIndex(0, 0, &idx));
+    CPPUNIT_ASSERT_EQUAL(uint(1), idx);
+    image.setPixelColor(1, 0, RGBQuad::black());
+    CPPUNIT_ASSERT(image.pixelColorIndex(0, 0, &idx));
+    CPPUNIT_ASSERT_EQUAL(uint(1), idx);
+    CPPUNIT_ASSERT(image.pixelColorIndex(1, 0, &idx));
+    CPPUNIT_ASSERT_EQUAL(uint(0), idx);
+
+    CPPUNIT_ASSERT(!image.pixelColorIndex(1, 1, NULL));
+
+    image.reset();
+    CPPUNIT_ASSERT(!image.setPixelColorIndex(0, 0, 0));
+    image.createBegin(10, 10, 1);
+    image.makeBlackAndWhitePallete();
+    image.createEnd();
+    CPPUNIT_ASSERT(image.setPixelColorIndex(0, 0, 1));
+    CPPUNIT_ASSERT(image.setPixelColorIndex(1, 0, 0));
+    CPPUNIT_ASSERT(!image.setPixelColorIndex(100, 200, 0));
+    IS_WHITE(image, 0, 0);
+    IS_BLACK(image, 1, 0);
+    CPPUNIT_ASSERT(!image.setPixelColorIndex(1, 1, 23));
+
+    image.reset();
+    image.createBegin(2, 2, 4);
+    image.setPalleteColor(0, RGBQuad::green());
+    image.setPalleteColor(1, RGBQuad::red());
+    image.setPalleteColor(2, RGBQuad::white());
+    image.setPalleteColor(3, RGBQuad::black());
+    image.createEnd();
+
+    image.setPixelColorIndex(0, 0, 0);
+    image.setPixelColorIndex(1, 0, 1);
+    image.setPixelColorIndex(0, 1, 2);
+    image.setPixelColorIndex(1, 1, 3);
+
+    IS_GREEN(image, 0, 0);
+    IS_RED(image, 1, 0);
+    IS_WHITE(image, 0, 1);
+    IS_BLACK(image, 1, 1);
+}
+
+void TestCTDIB::testSetPalleteColor()
+{
+    CTDIB image;
+    CPPUNIT_ASSERT(!image.setPalleteColor(0, RGBQuad::green()));
+    CPPUNIT_ASSERT(image.palleteColorIndex(RGBQuad::black()) == -1);
+
+    image.createBegin(10, 10, 24);
+    image.createEnd();
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.palleteUsedColorsNum());
+    CPPUNIT_ASSERT(!image.setPalleteColor(0, RGBQuad::green()));
+    CPPUNIT_ASSERT_EQUAL(size_t(0), image.palleteSize());
+    CPPUNIT_ASSERT(image.palleteColorIndex(RGBQuad::black()) == -1);
+    image.reset();
+
+    image.createBegin(10, 10, 32);
+    image.createEnd();
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.palleteUsedColorsNum());
+    CPPUNIT_ASSERT(!image.setPalleteColor(0, RGBQuad::green()));
+    CPPUNIT_ASSERT_EQUAL(size_t(0), image.palleteSize());
+    CPPUNIT_ASSERT(image.palleteColorIndex(RGBQuad::black()) == -1);
+    image.reset();
+
+    image.createBegin(10, 10, 16);
+    image.createEnd();
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.palleteUsedColorsNum());
+    CPPUNIT_ASSERT(!image.setPalleteColor(0, RGBQuad::green()));
+    CPPUNIT_ASSERT_EQUAL(size_t(0), image.palleteSize());
+    CPPUNIT_ASSERT(image.palleteColorIndex(RGBQuad::black()) == -1);
+    image.reset();
+
+    image.createBegin(10, 10, 1);
+    image.createEnd();
+    CPPUNIT_ASSERT_EQUAL(uint(2), image.palleteUsedColorsNum());
+    CPPUNIT_ASSERT(image.setPalleteColor(0, RGBQuad::green()));
+    CPPUNIT_ASSERT(image.setPalleteColor(1, RGBQuad::red()));
+    CPPUNIT_ASSERT(!image.setPalleteColor(2, RGBQuad::blue()));
+    CPPUNIT_ASSERT(image.palleteColorIndex(RGBQuad::black()) == -1);
+    CPPUNIT_ASSERT(image.palleteColorIndex(RGBQuad::white()) == -1);
+
+    image.setPixelColorIndex(0, 0, 1);
+    IS_RED(image, 0, 0);
+
+    RGBQuad c;
+    CPPUNIT_ASSERT(image.palleteColor(0, &c));
+    CPPUNIT_ASSERT(image.palleteColor(1, &c));
+    CPPUNIT_ASSERT(!image.palleteColor(2, &c));
+
+    CPPUNIT_ASSERT_EQUAL(size_t(8), image.palleteSize());
+
+    image.reset();
+    image.createBegin(10, 10, 1);
+    image.createEnd();
+
+    CPPUNIT_ASSERT(image.palleteColorIndex(RGBQuad::black()) == 0);
+    CPPUNIT_ASSERT(image.palleteColorIndex(RGBQuad::white()) == -1);
+
+    image.reset();
+    image.createBegin(10, 10, 1);
+    image.makeBlackAndWhitePallete();
+    image.createEnd();
+
+    CPPUNIT_ASSERT(image.palleteColorIndex(RGBQuad::black()) == 0);
+    CPPUNIT_ASSERT(image.palleteColorIndex(RGBQuad::white()) == 1);
+
+    image.reset();
+    image.createBegin(10, 10, 1);
+    image.createEnd();
+
+    CPPUNIT_ASSERT(image.palleteColorIndex(RGBQuad::black()) == 0);
+    CPPUNIT_ASSERT(image.setPixelColorIndex(0, 0, 0));
+    int idx = image.addPalleteColor(RGBQuad::green());
+    CPPUNIT_ASSERT(idx == 1);
+    CPPUNIT_ASSERT(image.setPixelColorIndex(1, 0, idx));
+    CPPUNIT_ASSERT(image.addPalleteColor(RGBQuad::red()) == -1);
+    CPPUNIT_ASSERT(image.setPixelColorIndex(2, 0, 0));
+    CPPUNIT_ASSERT(image.addPalleteColor(RGBQuad::blue()) == -1);
+
+    image.reset();
+    image.createBegin(10, 10, 4);
+    image.createEnd();
+
+    CPPUNIT_ASSERT(image.palleteColorIndex(RGBQuad::black()) == 0);
+    CPPUNIT_ASSERT(image.setPixelColorIndex(0, 0, 0));
+    idx = image.addPalleteColor(RGBQuad::green());
+    CPPUNIT_ASSERT(idx == 1);
+    CPPUNIT_ASSERT(image.setPixelColorIndex(1, 0, idx));
+    CPPUNIT_ASSERT(image.addPalleteColor(RGBQuad::red()) == 2);
+    CPPUNIT_ASSERT(image.setPixelColorIndex(2, 0, 2));
+    CPPUNIT_ASSERT(image.addPalleteColor(RGBQuad::blue()) == 3);
+    CPPUNIT_ASSERT(image.setPixelColorIndex(3, 0, 3));
+    CPPUNIT_ASSERT(image.addPalleteColor(RGBQuad::blue()) == 4);
+    CPPUNIT_ASSERT(image.setPixelColorIndex(2, 0,  0));
+    CPPUNIT_ASSERT(image.addPalleteColor(RGBQuad(1, 2, 3)) == 2);
+}
+
+void TestCTDIB::testPixelColor()
+{
+    RGBQuad c;
+    CTDIB image;
+    CPPUNIT_ASSERT(!image.pixelColor(0, 0, NULL));
+
+    image.createBegin(3, 3, 32);
+    image.createEnd();
+    CPPUNIT_ASSERT(image.pixelColor(0, 0, &c));
+    CPPUNIT_ASSERT(!image.pixelColor(0, 0, NULL));
+    CPPUNIT_ASSERT(!image.pixelColor(100, 3000, &c));
+
+    image.header()->biBitCount = 15;
+    CPPUNIT_ASSERT(!image.pixelColor(0, 0, NULL));
+
+    image.reset();
+    image.createBegin(3, 3, 24);
+    image.createEnd();
+    CPPUNIT_ASSERT(image.pixelColor(0, 0, &c));
+    CPPUNIT_ASSERT(!image.pixelColor(0, 0, NULL));
+    CPPUNIT_ASSERT(!image.pixelColor(100, 3000, &c));
+
+    image.reset();
+    image.createBegin(3, 3, 16);
+    image.createEnd();
+    CPPUNIT_ASSERT(image.pixelColor(0, 0, &c));
+    CPPUNIT_ASSERT(!image.pixelColor(0, 0, NULL));
+    CPPUNIT_ASSERT(!image.pixelColor(100, 3000, &c));
+
+    image.reset();
+    image.createBegin(3, 3, 16);
+    image.header()->biCompression = 3;
+    image.createEnd();
+    CPPUNIT_ASSERT(!image.pixelColor(0, 0, &c));
+
+    image.reset();
+    image.createBegin(3, 3, 16, CTDIB::VERSION_4);
+    image.header()->biCompression = 3;
+    image.createEnd();
+    CPPUNIT_ASSERT(!image.pixelColor(0, 0, &c));
+
+    image.reset();
+    image.createBegin(3, 3, 8);
+    image.makeBlackAndWhitePallete();
+    image.createEnd();
+    image.setPixelColor(0, 0, RGBQuad::white());
+    CPPUNIT_ASSERT(image.pixelColor(0, 0, &c));
+    CPPUNIT_ASSERT_EQUAL(RGBQuad::white(), c);
+    char * pixel = (char*) image.pixelAt(0, 0);
+    pixel[0] = 12;
+    CPPUNIT_ASSERT(image.pixelColor(0, 0, &c));
+    CPPUNIT_ASSERT_EQUAL(size_t(3), image.lineRealWidthInBytes());
+}
+
+void TestCTDIB::testSizes()
+{
+    CTDIB image;
+    CPPUNIT_ASSERT(!image.pixelShiftInByte(1));
+
+    image.createBegin(3, -3, 32);
+    image.createEnd();
+    CPPUNIT_ASSERT_EQUAL(size_t(0), image.palleteSize());
+    CPPUNIT_ASSERT_EQUAL(size_t(3), image.lineWidth());
+    CPPUNIT_ASSERT_EQUAL(size_t(3 * 4), image.lineWidthInBytes());
+    CPPUNIT_ASSERT_EQUAL(size_t(3 * 4), image.lineRealWidthInBytes());
+    CPPUNIT_ASSERT_EQUAL(size_t(3 * 4 * 3), image.imageSizeInBytes());
+    CPPUNIT_ASSERT_EQUAL(size_t(DIB_VERSION_3_HEADER_SIZE), image.headerSize());
+    CPPUNIT_ASSERT_EQUAL(size_t(40 + 3 * 4 * 3), image.dibSize());
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(0));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(1));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(2));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(3));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(4));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(5));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(6));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(7));
+
+    image.reset();
+    image.createBegin(3, -3, 24);
+    image.createEnd();
+    CPPUNIT_ASSERT_EQUAL(size_t(0), image.palleteSize());
+    CPPUNIT_ASSERT_EQUAL(size_t(3), image.lineWidth());
+    CPPUNIT_ASSERT_EQUAL(size_t(3 * 4), image.lineWidthInBytes());
+    CPPUNIT_ASSERT_EQUAL(size_t(3 * 3), image.lineRealWidthInBytes());
+    CPPUNIT_ASSERT_EQUAL(size_t(3 * 4 * 3), image.imageSizeInBytes());
+    CPPUNIT_ASSERT_EQUAL(size_t(DIB_VERSION_3_HEADER_SIZE), image.headerSize());
+    CPPUNIT_ASSERT_EQUAL(size_t(40 + 3 * 4 * 3), image.dibSize());
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(0));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(1));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(2));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(3));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(4));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(5));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(6));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(7));
+
+    image.reset();
+    image.createBegin(3, -3, 16);
+    image.createEnd();
+    CPPUNIT_ASSERT_EQUAL(size_t(0), image.palleteSize());
+    CPPUNIT_ASSERT_EQUAL(size_t(3), image.lineWidth());
+    CPPUNIT_ASSERT_EQUAL(size_t(6 + 2 /* padding */), image.lineWidthInBytes());
+    CPPUNIT_ASSERT_EQUAL(size_t(3 * 2), image.lineRealWidthInBytes());
+    CPPUNIT_ASSERT_EQUAL(size_t((6 + 2) * 3), image.imageSizeInBytes());
+    CPPUNIT_ASSERT_EQUAL(size_t(DIB_VERSION_3_HEADER_SIZE), image.headerSize());
+    CPPUNIT_ASSERT_EQUAL(size_t(40 + (6 + 2) * 3), image.dibSize());
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(0));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(1));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(2));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(3));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(4));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(5));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(6));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(7));
+
+    image.reset();
+    image.createBegin(3, -3, 8);
+    image.createEnd();
+    CPPUNIT_ASSERT_EQUAL(size_t(256 * 4), image.palleteSize());
+    CPPUNIT_ASSERT_EQUAL(size_t(3), image.lineWidth());
+    CPPUNIT_ASSERT_EQUAL(size_t(3 + 1 /* padding */), image.lineWidthInBytes());
+    CPPUNIT_ASSERT_EQUAL(size_t(3), image.lineRealWidthInBytes());
+    CPPUNIT_ASSERT_EQUAL(size_t((3 + 1) * 3), image.imageSizeInBytes());
+    CPPUNIT_ASSERT_EQUAL(size_t(DIB_VERSION_3_HEADER_SIZE), image.headerSize());
+    CPPUNIT_ASSERT_EQUAL(size_t(40 + (3 + 1) * 3 + 1024), image.dibSize());
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(0));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(1));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(2));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(3));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(4));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(5));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(6));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(7));
+
+    image.reset();
+    image.createBegin(3, -3, 4);
+    image.createEnd();
+    CPPUNIT_ASSERT_EQUAL(size_t(16 * 4), image.palleteSize());
+    CPPUNIT_ASSERT_EQUAL(size_t(3), image.lineWidth());
+    CPPUNIT_ASSERT_EQUAL(size_t(2 + 2 /* padding */), image.lineWidthInBytes());
+    CPPUNIT_ASSERT_EQUAL(size_t(2), image.lineRealWidthInBytes());
+    CPPUNIT_ASSERT_EQUAL(size_t((3 + 1) * 3), image.imageSizeInBytes());
+    CPPUNIT_ASSERT_EQUAL(size_t(DIB_VERSION_3_HEADER_SIZE), image.headerSize());
+    CPPUNIT_ASSERT_EQUAL(size_t(40 + (2 + 2) * 3 + 16 * 4), image.dibSize());
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(0));
+    CPPUNIT_ASSERT_EQUAL(uint(4), image.pixelShiftInByte(1));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(2));
+    CPPUNIT_ASSERT_EQUAL(uint(4), image.pixelShiftInByte(3));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(4));
+    CPPUNIT_ASSERT_EQUAL(uint(4), image.pixelShiftInByte(5));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(6));
+    CPPUNIT_ASSERT_EQUAL(uint(4), image.pixelShiftInByte(7));
+
+    image.reset();
+    image.createBegin(3, -3, 1);
+    image.createEnd();
+    CPPUNIT_ASSERT_EQUAL(size_t(2 * 4), image.palleteSize());
+    CPPUNIT_ASSERT_EQUAL(size_t(3), image.lineWidth());
+    CPPUNIT_ASSERT_EQUAL(size_t(1 + 3 /* padding */), image.lineWidthInBytes());
+    CPPUNIT_ASSERT_EQUAL(size_t(1), image.lineRealWidthInBytes());
+    CPPUNIT_ASSERT_EQUAL(size_t((1 + 3) * 3), image.imageSizeInBytes());
+    CPPUNIT_ASSERT_EQUAL(size_t(DIB_VERSION_3_HEADER_SIZE), image.headerSize());
+    CPPUNIT_ASSERT_EQUAL(size_t(40 + (2 + 2) * 3 + 2 * 4), image.dibSize());
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(0));
+    CPPUNIT_ASSERT_EQUAL(uint(1), image.pixelShiftInByte(1));
+    CPPUNIT_ASSERT_EQUAL(uint(2), image.pixelShiftInByte(2));
+    CPPUNIT_ASSERT_EQUAL(uint(3), image.pixelShiftInByte(3));
+    CPPUNIT_ASSERT_EQUAL(uint(4), image.pixelShiftInByte(4));
+    CPPUNIT_ASSERT_EQUAL(uint(5), image.pixelShiftInByte(5));
+    CPPUNIT_ASSERT_EQUAL(uint(6), image.pixelShiftInByte(6));
+    CPPUNIT_ASSERT_EQUAL(uint(7), image.pixelShiftInByte(7));
+    CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(8));
 }

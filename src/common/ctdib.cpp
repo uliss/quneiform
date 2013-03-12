@@ -61,7 +61,7 @@
 #include <stdlib.h>
 #include <fstream>
 #include <algorithm>
-#include <boost/scoped_array.hpp>
+#include <bitset>
 
 #include "ctdib.h"
 #include "bmp.h"
@@ -341,6 +341,11 @@ bool CTDIB::pixelColor(uint x, uint y, RGBQuad * dest) const
     if(!pixel_data)
         return false;
 
+    if(!dest) {
+        COMMON_WARNING_FUNC << "NULL destination given";
+        return false;
+    }
+
     switch(bpp()) {
     case 1:
     case 4:
@@ -483,6 +488,9 @@ bool CTDIB::setPixelColor(uint x, uint y, const RGBQuad &c)
     }
     case 24: {
         uchar * rgb = (uchar*) pixelAt(x, y);
+        if(!rgb)
+            return false;
+
         rgb[0] = c.rgbBlue;
         rgb[1] = c.rgbGreen;
         rgb[2] = c.rgbRed;
@@ -847,8 +855,6 @@ uint CTDIB::usedColors(uint bitCount, uint colorUsed)
         return colorUsed;
 
     switch (bitCount) {
-    case 0:
-        return 0;
     case 1:
         return 2;
     case 4:
@@ -997,7 +1003,7 @@ bool CTDIB::setPalleteColor(uint32_t idx, const RGBQuad& color)
     if (rgb_quads_ == NULL)
         return false;
 
-    if (idx > palleteUsedColorsNum())
+    if (idx >= palleteUsedColorsNum())
         return false;
 
     RGBQuad * pCurrentQuad = (RGBQuad*) pallete();
@@ -1080,8 +1086,8 @@ int CTDIB::addPalleteColor(const RGBQuad& c)
         return -1;
 
     const uint total = palleteUsedColorsNum();
-    uint * colors_private = new uint[total]();
-    boost::scoped_array<uint> colors_hist(colors_private);
+    const size_t MAX_PALLETE_SIZE = 256;
+    std::bitset<MAX_PALLETE_SIZE> colors_hist;
 
     for(uint y = 0; y < linesNumber(); y++) {
         for(uint x = 0; x < lineWidth(); x++) {
@@ -1089,16 +1095,22 @@ int CTDIB::addPalleteColor(const RGBQuad& c)
             if(!pixelColorIndex(x, y, &color_idx))
                 return -1;
 
-            if(color_idx >= total)
+            if(color_idx >= total) {
+                COMMON_ERROR_FUNC << "invalid color index:" << color_idx;
                 return -1;
+            }
 
-            colors_hist[color_idx]++;
+            colors_hist[color_idx] = 1;
         }
     }
 
+    if(colors_hist.count() >= total) {
+        COMMON_WARNING_FUNC << "can't add color: pallete is full";
+        return -1;
+    }
 
     for(uint i = 0; i < total; i++) {
-        if(colors_hist[i] == 0) {
+        if(!colors_hist.test(i)) {
             // unused color found
             COMMON_DEBUG_FUNC << "color set: " << i;
             setPalleteColor(i, c);
@@ -1199,7 +1211,7 @@ bool CTDIB::palleteColor(size_t idx, RGBQuad * dest) const
     if (rgb_quads_ == NULL)
         return false;
 
-    if (idx > palleteUsedColorsNum())
+    if (idx >= palleteUsedColorsNum())
         return false;
 
     RGBQuad * current = (RGBQuad*) pallete();

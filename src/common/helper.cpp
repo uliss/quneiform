@@ -66,8 +66,6 @@ size_t streamSize(std::istream& is) {
     if (ret < 0)
         return 0;
     is.seekg(prev_pos);
-    if (is.fail())
-        return 0;
     return ret;
 }
 
@@ -84,8 +82,6 @@ size_t streamSize(std::ostream& os) {
     if (ret < 0)
         return 0;
     os.seekp(prev_pos);
-    if (os.fail())
-        return 0;
     return ret;
 }
 
