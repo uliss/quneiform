@@ -1203,7 +1203,7 @@ bool CTDIB::saveToBMP(std::ostream& os, BitmapPtr bitmap)
     if(!dib.setBitmap(bitmap))
         return false;
 
-    return dib.saveToBMP(os, bitmap);
+    return dib.saveToBMP(os);
 }
 
 bool CTDIB::palleteColor(size_t idx, RGBQuad * dest) const
@@ -1250,6 +1250,9 @@ CTDIB::version_t CTDIB::version() const
 
 bool CTDIB::copyLineFromDIB(const CTDIB * src, uint srcLine, uint destLine, uint srcX)
 {
+    if(isNull())
+        return false;
+
     if (src == NULL)
         return false;
 
@@ -1271,8 +1274,9 @@ bool CTDIB::copyLineFromDIB(const CTDIB * src, uint srcLine, uint destLine, uint
         uint t = (src->lineRealWidthInBytes() > this->lineRealWidthInBytes() + ((srcX
                 * bpp()) / 8)) ? 1 : 0;
 
-        uchar * buf = new uchar[src->lineRealWidthInBytes()];
-        memset(buf, 0, src->lineRealWidthInBytes());
+        const size_t src_width = src->lineRealWidthInBytes();
+        uchar * buf = new uchar[src_width];
+        memset(buf, 0, src_width);
         memcpy(buf, srcStart, this->lineRealWidthInBytes() + t);
 
         uint pixelShift = src->pixelShiftInByte(srcX);

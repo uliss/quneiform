@@ -323,6 +323,7 @@ void TestCTDIB::testSaveToBMP()
 {
     cf::CTDIB image;
     CPPUNIT_ASSERT(!image.saveToBMP("test_rdib_save.bmp"));
+    CPPUNIT_ASSERT(!image.saveToBMP(std::cerr));
 
     CPPUNIT_ASSERT(image.createBegin(10, 20, 24));
     CPPUNIT_ASSERT(image.createEnd());
@@ -331,6 +332,15 @@ void TestCTDIB::testSaveToBMP()
     CPPUNIT_ASSERT(image.saveToBMP("test_rdib_save.bmp"));
 
     CPPUNIT_ASSERT(!cf::CTDIB::saveToBMP(std::cerr, NULL));
+
+    std::ostringstream buf;
+    BitmapPtr dib = NULL;
+    CPPUNIT_ASSERT(image.bitmap(&dib));
+    CPPUNIT_ASSERT(cf::CTDIB::saveToBMP(buf, dib));
+    CPPUNIT_ASSERT(!buf.str().empty());
+
+    CPPUNIT_ASSERT(CTDIB::saveToBMP("test_rdib_save.bmp", dib));
+    CPPUNIT_ASSERT(!CTDIB::saveToBMP("test_rdib_save.bmp", NULL));
 }
 
 void TestCTDIB::testFill()
@@ -1381,4 +1391,135 @@ void TestCTDIB::testCopyDPI()
     CPPUNIT_ASSERT_EQUAL(uint(1024), y);
 
     CPPUNIT_ASSERT(!image2.copyDPIFromDIB(&image));
+}
+
+void TestCTDIB::testCopyLine()
+{
+    CTDIB image1;
+    image1.createBegin(3, 3, 1);
+    image1.makeBlackAndWhitePallete();
+    image1.createEnd();
+
+    image1.setPixelColor(0, 0, RGBQuad::white());
+    image1.setPixelColor(1, 0, RGBQuad::black());
+    image1.setPixelColor(2, 0, RGBQuad::white());
+    image1.setPixelColor(0, 1, RGBQuad::black());
+    image1.setPixelColor(1, 1, RGBQuad::white());
+    image1.setPixelColor(2, 1, RGBQuad::black());
+    image1.setPixelColor(0, 2, RGBQuad::white());
+    image1.setPixelColor(1, 2, RGBQuad::black());
+    image1.setPixelColor(2, 2, RGBQuad::white());
+
+    // * . *
+    // . * .
+    // * . *
+
+    IS_WHITE(image1, 0, 0);
+    IS_BLACK(image1, 1, 0);
+    IS_WHITE(image1, 2, 0);
+    IS_BLACK(image1, 0, 1);
+    IS_WHITE(image1, 1, 1);
+    IS_BLACK(image1, 2, 1);
+    IS_WHITE(image1, 0, 2);
+    IS_BLACK(image1, 1, 2);
+    IS_WHITE(image1, 2, 2);
+
+    CTDIB image2;
+    CPPUNIT_ASSERT(!image2.copyLineFromDIB(&image1, 0, 0, 0));
+    image2.createBegin(3, 3, 1);
+    image2.copyPalleteFromDIB(&image1);
+    image2.createEnd();
+
+     CPPUNIT_ASSERT(!image2.copyLineFromDIB(NULL, 1, 0, 0));
+    // copy 2nd row to first
+    CPPUNIT_ASSERT(image2.copyLineFromDIB(&image1, 1, 0, 0));
+
+    // . * .
+    // . . .
+    // . . .
+    IS_BLACK(image2, 0, 0);
+    IS_WHITE(image2, 1, 0);
+    IS_BLACK(image2, 2, 0);
+    IS_BLACK(image2, 0, 1);
+    IS_BLACK(image2, 1, 1);
+    IS_BLACK(image2, 2, 1);
+    IS_BLACK(image2, 0, 2);
+    IS_BLACK(image2, 1, 2);
+    IS_BLACK(image2, 2, 2);
+
+    // copy 1st row to 2nd
+    CPPUNIT_ASSERT(image2.copyLineFromDIB(&image1, 0, 1, 0));
+
+    // . * .
+    // * . *
+    // . . .
+    IS_BLACK(image2, 0, 0);
+    IS_WHITE(image2, 1, 0);
+    IS_BLACK(image2, 2, 0);
+    IS_WHITE(image2, 0, 1);
+    IS_BLACK(image2, 1, 1);
+    IS_WHITE(image2, 2, 1);
+    IS_BLACK(image2, 0, 2);
+    IS_BLACK(image2, 1, 2);
+    IS_BLACK(image2, 2, 2);
+
+    // copy 3rd row to 3rd
+    CPPUNIT_ASSERT(image2.copyLineFromDIB(&image1, 2, 2, 0));
+
+    // . * .
+    // * . *
+    // * . *
+    IS_BLACK(image2, 0, 0);
+    IS_WHITE(image2, 1, 0);
+    IS_BLACK(image2, 2, 0);
+    IS_WHITE(image2, 0, 1);
+    IS_BLACK(image2, 1, 1);
+    IS_WHITE(image2, 2, 1);
+    IS_WHITE(image2, 0, 2);
+    IS_BLACK(image2, 1, 2);
+    IS_WHITE(image2, 2, 2);
+
+    CTDIB img32_1;
+    img32_1.createBegin(3, 3, 32);
+    img32_1.createEnd();
+    img32_1.fill(RGBQuad::red());
+
+    CTDIB img32_2;
+    img32_2.createBegin(3, 3, 32);
+    img32_2.createEnd();
+
+    CPPUNIT_ASSERT(img32_2.copyLineFromDIB(&img32_1, 2, 0, 0));
+    IS_RED(img32_2, 0, 0);
+    IS_RED(img32_2, 1, 0);
+    IS_RED(img32_2, 2, 0);
+
+    // invalid bpp
+    CPPUNIT_ASSERT(!img32_2.copyLineFromDIB(&image2, 0, 0, 0));
+    // invalid line src and dest
+    CPPUNIT_ASSERT(!img32_2.copyLineFromDIB(&img32_1, 3, 3, 0));
+    // invalid offset and line width
+    CPPUNIT_ASSERT(!img32_2.copyLineFromDIB(&img32_1, 0, 0, 2));
+    // invalid bpp
+    img32_1.header()->biBitCount = 128;
+    img32_2.header()->biBitCount = 128;
+    // unknown bit count
+    CPPUNIT_ASSERT(!img32_2.copyLineFromDIB(&img32_1, 0, 0, 0));
+
+}
+
+void TestCTDIB::testAddPalleteColor()
+{
+    CTDIB image;
+    CPPUNIT_ASSERT(image.addPalleteColor(RGBQuad::green()) < 0);
+    image.createBegin(3, 3, 24);
+    image.createEnd();
+    CPPUNIT_ASSERT(image.addPalleteColor(RGBQuad::green()) < 0);
+}
+
+void TestCTDIB::testRGBQuadOutput()
+{
+    RGBQuad c = RGBQuad::green();
+    std::ostringstream buf;
+    buf << c;
+    CPPUNIT_ASSERT_EQUAL(std::string("RGBQuad: 0,255,0"), buf.str());
 }
