@@ -804,3 +804,53 @@ void TestCTDIB::testBlackPixel()
     b32.createEnd();
     CPPUNIT_ASSERT_EQUAL(uint32_t(0), b32.blackPixel());
 }
+
+void TestCTDIB::testResolutionInch()
+{
+    CTDIB image;
+    uint x, y;
+    CPPUNIT_ASSERT(!image.setResolutionDotsPerInch(10, 10));
+    CPPUNIT_ASSERT(!image.resolutionDotsPerInch(&x, NULL));
+
+    image.createBegin(10, 10, 1);
+    CPPUNIT_ASSERT(image.setResolutionDotsPerInch(100));
+    CPPUNIT_ASSERT(image.resolutionDotsPerInch(&x, &y));
+    CPPUNIT_ASSERT_EQUAL(uint(99), x);
+    CPPUNIT_ASSERT_EQUAL(uint(99), y);
+    x = 0;
+    CPPUNIT_ASSERT(image.resolutionDotsPerInch(&x, NULL));
+    CPPUNIT_ASSERT_EQUAL(uint(99), x);
+    CPPUNIT_ASSERT(!image.resolutionDotsPerInch(NULL, NULL));
+    image.createEnd();
+
+    CPPUNIT_ASSERT(!image.setResolutionDotsPerInch(200));
+}
+
+void TestCTDIB::testResolutionMeter()
+{
+    CTDIB image;
+    uint x, y;
+    CPPUNIT_ASSERT(!image.setResolutionDotsPerMeter(1000, 1000));
+    CPPUNIT_ASSERT(!image.resolutionDotsPerMeter(&x, NULL));
+
+    image.createBegin(10, 10, 1);
+    CPPUNIT_ASSERT(image.setResolutionDotsPerMeter(1000));
+    CPPUNIT_ASSERT(image.resolutionDotsPerMeter(&x, &y));
+    CPPUNIT_ASSERT_EQUAL(uint(1000), x);
+    CPPUNIT_ASSERT_EQUAL(uint(1000), y);
+    x = 0;
+    CPPUNIT_ASSERT(image.resolutionDotsPerMeter(&x, NULL));
+    CPPUNIT_ASSERT_EQUAL(uint(1000), x);
+    CPPUNIT_ASSERT(!image.resolutionDotsPerMeter(NULL, NULL));
+
+    x = 0;
+    y = 0;
+    CPPUNIT_ASSERT(image.setResolutionDotsPerMeter(1024, 1025));
+    CPPUNIT_ASSERT(image.resolutionDotsPerMeter(&x, &y));
+    CPPUNIT_ASSERT_EQUAL(uint(1024), x);
+    CPPUNIT_ASSERT_EQUAL(uint(1025), y);
+
+    image.createEnd();
+
+    CPPUNIT_ASSERT(!image.setResolutionDotsPerMeter(200));
+}

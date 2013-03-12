@@ -100,6 +100,11 @@ static inline uint dpmToDpi(uint a)
     return (uint) floor((a / 100 ) * 2.54 + 0.5);
 }
 
+static inline uint dpiToDpm(uint a)
+{
+    return (uint) floor((a / 2.54) * 100);
+}
+
 static bool equal(const RGBQuad& q1, const RGBQuad& q2)
 {
     return q1.rgbBlue == q2.rgbBlue &&
@@ -122,8 +127,6 @@ static const int CTDIB_DEFAULT_COMPRESSION = 0;
 static const int CTDIB_DEFAULT_COLORSUSED = 0;
 static const int CTDIB_DEFAULT_COLORSIMPORTANT = 0;
 static const int CTDIB_DEFAULT_RESOLUTION = 0;
-
-#define CTDIB_DPI_TO_DPM(a)                 (((a) / 2.54) * 100)
 
 namespace cf {
 
@@ -865,7 +868,7 @@ bool CTDIB::setResolutionDotsPerInch(uint x, uint y)
     if (!under_construction_)
         return false;
 
-    return setResolutionDotsPerMeter((uint) CTDIB_DPI_TO_DPM(x), (uint) CTDIB_DPI_TO_DPM(y));
+    return setResolutionDotsPerMeter(dpiToDpm(x), dpiToDpm(y));
 }
 
 bool CTDIB::setResolutionDotsPerMeter(uint x, uint y)

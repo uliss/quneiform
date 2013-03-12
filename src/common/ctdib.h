@@ -320,7 +320,9 @@ public:
 
     /**
      * Sets resolution of DIB: x,[y].
-     * @seesetResolutionDotsPerInch()
+     * @see setResolutionDotsPerInch()
+     * @param x - x axis resolution
+     * @param y - y axis resolution, if equal '0' - set equal to x resolution.
      * @note available if DIB constructed by CTDIB
      */
     bool setResolutionDotsPerMeter(uint x, uint y = 0);
@@ -328,7 +330,12 @@ public:
     /**
      * Sets resolution of DIB: x,[y].
      * @see setResolutionDotsPerMeter()
-     * @note available if DIB constructed by CTDIB
+     * @param x - x axis resolution
+     * @param y - y axis resolution, if equal '0' - set equal to x resolution.
+     * @note available if DIB constructed by CTDIB, also
+     * cause resolution stored in dot per meter units as unsigned integer, there is
+     * some rounding error exists.
+     * For example setResolutionDotsPerInch(100) != resoltionDotPerInch()
      */
     bool setResolutionDotsPerInch(uint x, uint y = 0);
 
