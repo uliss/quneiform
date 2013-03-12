@@ -1319,6 +1319,11 @@ bool CTDIB::copyPalleteFromDIB(const CTDIB * src)
     if(isNull())
         return false;
 
+    if(!src) {
+        COMMON_ERROR_FUNC << "NULL source pointer";
+        return false;
+    }
+
     uint dest_colors = palleteUsedColorsNum();
     uint src_colors = src->palleteUsedColorsNum();
 
@@ -1356,8 +1361,10 @@ bool CTDIB::copyDPIFromDIB(const CTDIB * src)
     if (!under_construction_)
         return false;
 
-    if (!src)
+    if (!src) {
+        COMMON_ERROR_FUNC << "NULL source pointer";
         return false;
+    }
 
     uint x = 0;
     uint y = 0;

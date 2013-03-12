@@ -48,6 +48,7 @@ class TestCTDIB : public CppUnit::TestFixture
     CPPUNIT_TEST(testPixelColor);
     CPPUNIT_TEST(testSizes);
     CPPUNIT_TEST(testCopyPallete);
+    CPPUNIT_TEST(testCopyDPI);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
@@ -74,6 +75,7 @@ public:
     void testPixelColor();
     void testSizes();
     void testCopyPallete();
+    void testCopyDPI();
 };
 
 #endif // TESTCTDIB_H

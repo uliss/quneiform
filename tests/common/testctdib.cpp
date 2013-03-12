@@ -1356,4 +1356,29 @@ void TestCTDIB::testCopyPallete()
     CPPUNIT_ASSERT_EQUAL(img2.palleteColorIndex(RGBQuad::white()), img4.palleteColorIndex(RGBQuad::white()));
     CPPUNIT_ASSERT_EQUAL(img2.palleteColorIndex(RGBQuad::black()), img4.palleteColorIndex(RGBQuad::black()));
 
+    CPPUNIT_ASSERT(!img4.copyPalleteFromDIB(NULL));
+}
+
+void TestCTDIB::testCopyDPI()
+{
+    CTDIB image;
+    image.createBegin(10, 40, 24);
+    image.setResolutionDotsPerMeter(1024);
+    image.createEnd();
+
+    CTDIB image2;
+    CTDIB image3;
+    CPPUNIT_ASSERT(!image2.copyDPIFromDIB(&image));
+    image2.createBegin(1, 2, 1);
+    CPPUNIT_ASSERT(!image2.copyDPIFromDIB(NULL));
+    CPPUNIT_ASSERT(image2.copyDPIFromDIB(&image));
+    CPPUNIT_ASSERT(!image2.copyDPIFromDIB(&image3));
+    image2.createEnd();
+
+    uint x, y;
+    CPPUNIT_ASSERT(image2.resolutionDotsPerMeter(&x, &y));
+    CPPUNIT_ASSERT_EQUAL(uint(1024), x);
+    CPPUNIT_ASSERT_EQUAL(uint(1024), y);
+
+    CPPUNIT_ASSERT(!image2.copyDPIFromDIB(&image));
 }
