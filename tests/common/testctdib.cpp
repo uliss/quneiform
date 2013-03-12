@@ -18,6 +18,7 @@
 
 #include "testctdib.h"
 #include "common/ctdib.h"
+#include "common/bitmask.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestCTDIB);
 
@@ -26,16 +27,24 @@ using namespace cf;
 void TestCTDIB::testInit()
 {
     cf::CTDIB image;
+    CPPUNIT_ASSERT(!image.reset());
+    CPPUNIT_ASSERT(!image.pixelAt(0, 0));
+    CPPUNIT_ASSERT(!image.palleteColor(0, NULL));
     CPPUNIT_ASSERT_EQUAL(size_t(0), image.pixelCount());
     CPPUNIT_ASSERT(!image.imageData());
+    CPPUNIT_ASSERT(!const_cast<const CTDIB&>(image).imageData());
     CPPUNIT_ASSERT_EQUAL(cf::CTDIB::VERSION_UNKNOWN, image.version());
     CPPUNIT_ASSERT(image.whitePixel() == 0);
     CPPUNIT_ASSERT(image.blackPixel() == 0);
+
     CPPUNIT_ASSERT(image.createBegin(10, 20, 24));
+    CPPUNIT_ASSERT(image.createEnd());
+
     CPPUNIT_ASSERT(image.whitePixel() == 0x00FFFFFF);
     CPPUNIT_ASSERT(image.blackPixel() == 0);
     CPPUNIT_ASSERT_EQUAL(size_t(10 * 20), image.pixelCount());
-    CPPUNIT_ASSERT(image.createEnd());
+    CPPUNIT_ASSERT(image.imageData());
+    CPPUNIT_ASSERT(const_cast<const CTDIB&>(image).imageData());
     CPPUNIT_ASSERT(image.version() == cf::CTDIB::VERSION_WINDOWS);
     CPPUNIT_ASSERT(image.header()->biBitCount == 24);
     CPPUNIT_ASSERT(image.header()->biSize == 40);
@@ -49,6 +58,153 @@ void TestCTDIB::testInit()
     }
 
     CPPUNIT_ASSERT(image.saveToBMP("test_rdib_draw.bmp"));
+}
+
+void TestCTDIB::testApplyMask1()
+{
+    CTDIB image;
+    BitMask mask(3, 3);
+
+    CPPUNIT_ASSERT(!image.applyMask(mask));
+
+    image.createBegin(3, 3, 1);
+    image.makeBlackAndWhitePallete();
+    image.createEnd();
+    image.fill(RGBQuad::black());
+
+    BitMask m1(3, 1);
+    CPPUNIT_ASSERT(!image.applyMask(m1));
+    BitMask m2(9, 3);
+    CPPUNIT_ASSERT(!image.applyMask(m2));
+
+#define IS_BLACK(image, x, y) {\
+    RGBQuad c;\
+    CPPUNIT_ASSERT(image.pixelColor(x, y, &c));\
+    CPPUNIT_ASSERT_EQUAL(RGBQuad::black(), c);\
+}
+
+#define IS_WHITE(image, x, y) {\
+    RGBQuad c;\
+    CPPUNIT_ASSERT(image.pixelColor(x, y, &c));\
+    CPPUNIT_ASSERT_EQUAL(RGBQuad::white(), c);\
+}
+
+    IS_BLACK(image, 0, 0);
+    IS_BLACK(image, 1, 0);
+    IS_BLACK(image, 2, 0);
+    IS_BLACK(image, 0, 1);
+    IS_BLACK(image, 1, 1);
+    IS_BLACK(image, 2, 1);
+    IS_BLACK(image, 0, 2);
+    IS_BLACK(image, 1, 2);
+    IS_BLACK(image, 2, 2);
+
+    CPPUNIT_ASSERT(image.applyMask(mask));
+
+    IS_WHITE(image, 0, 0);
+    IS_WHITE(image, 1, 0);
+    IS_WHITE(image, 2, 0);
+    IS_WHITE(image, 0, 1);
+    IS_WHITE(image, 1, 1);
+    IS_WHITE(image, 2, 1);
+    IS_WHITE(image, 0, 2);
+    IS_WHITE(image, 1, 2);
+    IS_WHITE(image, 2, 2);
+    image.fill(RGBQuad::black());
+
+    mask.fillRect(Rect(1, 1, 3, 3), true);
+    CPPUNIT_ASSERT(image.applyMask(mask));
+
+    IS_WHITE(image, 0, 0);
+    IS_WHITE(image, 1, 0);
+    IS_WHITE(image, 2, 0);
+    IS_WHITE(image, 0, 1);
+    IS_BLACK(image, 1, 1);
+    IS_BLACK(image, 2, 1);
+    IS_WHITE(image, 0, 2);
+    IS_BLACK(image, 1, 2);
+    IS_BLACK(image, 2, 2);
+
+    image.setPalleteColor(0, RGBQuad::white());
+    image.setPalleteColor(1, RGBQuad::black());
+    image.fill(RGBQuad::black());
+    IS_BLACK(image, 0, 0);
+
+    CPPUNIT_ASSERT(image.applyMask(mask));
+
+    IS_WHITE(image, 0, 0);
+    IS_WHITE(image, 1, 0);
+    IS_WHITE(image, 2, 0);
+    IS_WHITE(image, 0, 1);
+    IS_BLACK(image, 1, 1);
+    IS_BLACK(image, 2, 1);
+    IS_WHITE(image, 0, 2);
+    IS_BLACK(image, 1, 2);
+    IS_BLACK(image, 2, 2);
+}
+
+void TestCTDIB::testApplyMask4()
+{
+    CTDIB image;
+    image.createBegin(3, 3, 4);
+    image.createEnd();
+
+    BitMask mask(3, 3);
+    CPPUNIT_ASSERT(!image.applyMask(mask));
+}
+
+void TestCTDIB::testApplyMask8()
+{
+    CTDIB image;
+    image.createBegin(3, 3, 8);
+    image.addPalleteColor(RGBQuad::black());
+    image.addPalleteColor(RGBQuad::green());
+    image.addPalleteColor(RGBQuad::white());
+    image.createEnd();
+    CPPUNIT_ASSERT(image.fill(RGBQuad::black()));
+
+    IS_BLACK(image, 0, 0);
+    IS_BLACK(image, 1, 0);
+    IS_BLACK(image, 2, 0);
+    IS_BLACK(image, 0, 1);
+    IS_BLACK(image, 1, 1);
+    IS_BLACK(image, 2, 1);
+    IS_BLACK(image, 0, 2);
+    IS_BLACK(image, 1, 2);
+    IS_BLACK(image, 2, 2);
+
+    BitMask mask(3, 3);
+    CPPUNIT_ASSERT(image.applyMask(mask));
+
+    IS_WHITE(image, 0, 0);
+    IS_WHITE(image, 1, 0);
+    IS_WHITE(image, 2, 0);
+    IS_WHITE(image, 0, 1);
+    IS_WHITE(image, 1, 1);
+    IS_WHITE(image, 2, 1);
+    IS_WHITE(image, 0, 2);
+    IS_WHITE(image, 1, 2);
+    IS_WHITE(image, 2, 2);
+
+    image.fill(RGBQuad::green());
+    mask.fillRect(Rect(1, 1, 3, 3), true);
+    CPPUNIT_ASSERT(image.applyMask(mask));
+
+#define IS_GREEN(image, x, y) {\
+    RGBQuad c;\
+    CPPUNIT_ASSERT(image.pixelColor(x, y, &c));\
+    CPPUNIT_ASSERT_EQUAL(RGBQuad::green(), c);\
+}
+
+    IS_WHITE(image, 0, 0);
+    IS_WHITE(image, 1, 0);
+    IS_WHITE(image, 2, 0);
+    IS_WHITE(image, 0, 1);
+    IS_GREEN(image, 1, 1);
+    IS_GREEN(image, 2, 1);
+    IS_WHITE(image, 0, 2);
+    IS_GREEN(image, 1, 2);
+    IS_GREEN(image, 2, 2);
 }
 
 void TestCTDIB::testSaveToBMP()

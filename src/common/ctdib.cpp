@@ -76,6 +76,15 @@ const int BITS = 8;
 
 }
 
+std::ostream& operator<<(std::ostream& os, const RGBQuad& c)
+{
+    os << "RGBQuad: "
+       << static_cast<int>(c.rgbRed) << ','
+       << static_cast<int>(c.rgbGreen) << ','
+       << static_cast<int>(c.rgbBlue);
+    return os;
+}
+
 static inline size_t dibBitsToBytes(size_t b)
 {
     return ((((b + 7) / 8) + 3) / 4) * 4;
@@ -135,6 +144,9 @@ CTDIB::~CTDIB()
 
 bool CTDIB::applyMask(const BitMask& mask)
 {
+    if(isNull())
+        return false;
+
     if(lineWidth() != mask.width()) {
         COMMON_ERROR_FUNC << "image and mask widths not equal";
         return false;
@@ -178,7 +190,7 @@ void CTDIB::applyTo1Bit(const BitMask& mask)
                 if(white_pixel == 1)
                     line[x / BITS] |= (0x80 >> (x % BITS));
                 else
-                    line[x / BITS] &= (0x80 >> (x % BITS));
+                    line[x / BITS] &= ~(0x80 >> (x % BITS));
             }
         }
     }
@@ -1079,7 +1091,7 @@ int CTDIB::addPalleteColor(const RGBQuad& c)
     for(uint i = 0; i < total; i++) {
         if(colors_hist[i] == 0) {
             // unused color found
-            std::cerr << "color set: " << i << "\n";
+            COMMON_DEBUG_FUNC << "color set: " << i;
             setPalleteColor(i, c);
             return (int) i;
         }
@@ -1183,7 +1195,9 @@ bool CTDIB::palleteColor(size_t idx, RGBQuad * dest) const
 
     RGBQuad * current = (RGBQuad*) pallete();
     current += idx;
-    *dest = *current;
+    if(dest)
+        *dest = *current;
+
     return true;
 }
 
