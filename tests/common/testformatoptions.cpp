@@ -61,6 +61,9 @@ void TestFormatOptions::testSerializeTxt()
     fopts_src.setSerifName("Georgia");
     fopts_src.setSansSerifName("Terminus");
     fopts_src.setMonospaceName("Comis Sans");
+    fopts_src.setLanguage(LANGUAGE_BELARUSIAN);
+    fopts_src.setUnrecognizedChar('$');
+    fopts_src.setImageExportFormat(FORMAT_PDF);
 
     const char * TXT = "serialize_format_options.txt";
     writeToTextArchive(TXT, fopts_src);
