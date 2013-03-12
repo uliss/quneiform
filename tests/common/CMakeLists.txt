@@ -24,6 +24,7 @@ add_executable(test_common
     testimageurl.cpp
     testpercentcounter.cpp
     testpoint.cpp
+    testrecognizeoptions.cpp
     testrect.cpp
     testsize.cpp
     testtostring.cpp

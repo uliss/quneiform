@@ -55,6 +55,9 @@ class CLA_EXPO RecognizeOptions
             ANGLE_270 = 270
         };
 
+        bool operator==(const RecognizeOptions& ropts) const;
+        bool operator!=(const RecognizeOptions& ropts) const;
+
         void addReadRect(const Rect& r);
         std::vector<Rect> readRects() const;
         void clearReadRects();
