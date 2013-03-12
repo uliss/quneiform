@@ -9,6 +9,7 @@ add_executable(test_common
     testctdib.cpp
     testenvpaths.cpp
     testfilesystem.cpp
+    testformatoptions.cpp
     testhelper.cpp
     testhistogram.cpp
     testiconv.cpp

@@ -66,6 +66,23 @@ FormatOptions::FormatOptions() :
 
 FormatOptions::~FormatOptions() {}
 
+bool FormatOptions::operator==(const FormatOptions& fopts) const
+{
+    return flags_ == fopts.flags_ &&
+           serif_name_ == fopts.serif_name_ &&
+           sans_serif_name_ == fopts.sans_serif_name_ &&
+           monospace_name_ == fopts.monospace_name_ &&
+           format_mode_ == fopts.format_mode_ &&
+           unrecognized_char_ == fopts.unrecognized_char_ &&
+           language_ == fopts.language_ &&
+           image_format_ == fopts.image_format_;
+}
+
+bool FormatOptions::operator!=(const FormatOptions& fopts) const
+{
+    return !(this->operator==(fopts));
+}
+
 FormatOptions::format_mode_t FormatOptions::formatMode() const {
     return format_mode_;
 }
