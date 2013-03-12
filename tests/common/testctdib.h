@@ -28,6 +28,9 @@ class TestCTDIB : public CppUnit::TestFixture
     CPPUNIT_TEST(testApplyMask1);
     CPPUNIT_TEST(testApplyMask4);
     CPPUNIT_TEST(testApplyMask8);
+    CPPUNIT_TEST(testApplyMask16);
+    CPPUNIT_TEST(testApplyMask24);
+    CPPUNIT_TEST(testApplyMask32);
     CPPUNIT_TEST(testSaveToBMP);
     CPPUNIT_TEST(testFill);
     CPPUNIT_TEST(testMapTo24);
@@ -41,6 +44,9 @@ public:
     void testApplyMask1();
     void testApplyMask4();
     void testApplyMask8();
+    void testApplyMask16();
+    void testApplyMask24();
+    void testApplyMask32();
     void testSaveToBMP();
     void testFill();
     void testMapTo32();

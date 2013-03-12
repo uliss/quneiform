@@ -83,11 +83,11 @@ public:
     ~CTDIB();
 
     /**
-     * Applies mask to image
-     * Areas where mask is '1' - stays untouched,
-     * areas with '0' - filled with white color
+     * Apply mask to image
+     * areas where mask is '1' - stays untouched,
+     * areas where mask is '0' - filled with white color
      * @param mask - bit mask
-     * @return true on succes, false on error
+     * @return true on success, false on error
      */
     bool applyMask(const BitMask& mask);
 
