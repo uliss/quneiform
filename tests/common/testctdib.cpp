@@ -1206,6 +1206,7 @@ void TestCTDIB::testSizes()
     image.createBegin(3, -3, 32);
     image.createEnd();
     CPPUNIT_ASSERT_EQUAL(size_t(0), image.palleteSize());
+    CPPUNIT_ASSERT(!image.makeBlackAndWhitePallete());
     CPPUNIT_ASSERT_EQUAL(size_t(3), image.lineWidth());
     CPPUNIT_ASSERT_EQUAL(size_t(3 * 4), image.lineWidthInBytes());
     CPPUNIT_ASSERT_EQUAL(size_t(3 * 4), image.lineRealWidthInBytes());
@@ -1316,4 +1317,43 @@ void TestCTDIB::testSizes()
     CPPUNIT_ASSERT_EQUAL(uint(6), image.pixelShiftInByte(6));
     CPPUNIT_ASSERT_EQUAL(uint(7), image.pixelShiftInByte(7));
     CPPUNIT_ASSERT_EQUAL(uint(0), image.pixelShiftInByte(8));
+}
+
+void TestCTDIB::testCopyPallete()
+{
+    CTDIB img1;
+    img1.createBegin(10, 10, 1);
+    img1.makeBlackAndWhitePallete();
+    img1.createEnd();
+
+    CTDIB img2;
+    img2.createBegin(10, 10, 1);
+    img2.setPalleteColor(0, RGBQuad::white());
+    img2.setPalleteColor(1, RGBQuad::black());
+    img2.createEnd();
+
+    CPPUNIT_ASSERT_EQUAL(img2.palleteColorIndex(RGBQuad::white()), img1.palleteColorIndex(RGBQuad::black()));
+    CPPUNIT_ASSERT_EQUAL(img1.palleteColorIndex(RGBQuad::white()), img2.palleteColorIndex(RGBQuad::black()));
+
+    CTDIB img3;
+    CPPUNIT_ASSERT(!img3.copyPalleteFromDIB(&img2));
+    img3.createBegin(20, 40, 1);
+    img3.createEnd();
+
+    CPPUNIT_ASSERT(img3.copyPalleteFromDIB(&img1));
+    CPPUNIT_ASSERT_EQUAL(img1.palleteColorIndex(RGBQuad::white()), img3.palleteColorIndex(RGBQuad::white()));
+    CPPUNIT_ASSERT_EQUAL(img1.palleteColorIndex(RGBQuad::black()), img3.palleteColorIndex(RGBQuad::black()));
+
+    CPPUNIT_ASSERT(img3.copyPalleteFromDIB(&img2));
+    CPPUNIT_ASSERT_EQUAL(img2.palleteColorIndex(RGBQuad::white()), img3.palleteColorIndex(RGBQuad::white()));
+    CPPUNIT_ASSERT_EQUAL(img2.palleteColorIndex(RGBQuad::black()), img3.palleteColorIndex(RGBQuad::black()));
+
+    CTDIB img4;
+    img4.createBegin(20, 40, 4);
+    img4.createEnd();
+    CPPUNIT_ASSERT(!img3.copyPalleteFromDIB(&img4));
+    CPPUNIT_ASSERT(img4.copyPalleteFromDIB(&img3));
+    CPPUNIT_ASSERT_EQUAL(img2.palleteColorIndex(RGBQuad::white()), img4.palleteColorIndex(RGBQuad::white()));
+    CPPUNIT_ASSERT_EQUAL(img2.palleteColorIndex(RGBQuad::black()), img4.palleteColorIndex(RGBQuad::black()));
+
 }

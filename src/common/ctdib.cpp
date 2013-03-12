@@ -1211,8 +1211,10 @@ bool CTDIB::palleteColor(size_t idx, RGBQuad * dest) const
     if (rgb_quads_ == NULL)
         return false;
 
-    if (idx >= palleteUsedColorsNum())
+    if (idx >= palleteUsedColorsNum()) {
+        COMMON_ERROR_FUNC << "invalid pallete index:" << idx;
         return false;
+    }
 
     RGBQuad * current = (RGBQuad*) pallete();
     current += idx;
@@ -1317,16 +1319,20 @@ bool CTDIB::copyPalleteFromDIB(const CTDIB * src)
     if(isNull())
         return false;
 
-    uint n_colors = palleteUsedColorsNum();
+    uint dest_colors = palleteUsedColorsNum();
+    uint src_colors = src->palleteUsedColorsNum();
 
-    if (src->palleteUsedColorsNum() > n_colors)
+    if (src_colors > dest_colors) {
+        COMMON_ERROR_FUNC << "source pallete bigger then destination:"
+                          << src->palleteUsedColorsNum() << '>' << dest_colors;
         return false;
+    }
 
-    for (uint i = 0; i < n_colors; i++) {
+    for (uint i = 0; i < src_colors; i++) {
         RGBQuad Quad;
-        if (!src->palleteColor(i, &Quad))
-            return false;
-        if(!setPalleteColor(i, Quad))
+        src->palleteColor(i, &Quad);
+
+        if (!setPalleteColor(i, Quad))
             return false;
     }
 
