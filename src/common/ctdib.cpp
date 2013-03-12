@@ -263,9 +263,10 @@ void CTDIB::mapToPixels32(CTDIB::Function32 func, void * data, size_t width, siz
 
     uchar * begin =  (uchar*) data;
     uchar * end = begin + (width * height * 4); // 32/8
+    uint pos = 0;
     for(uchar * it = begin; it != end; it += 4) {
-        ptrdiff_t pos = end - begin;
         func((RGBQuad*) it, pos % width, pos / height);
+        ++pos;
     }
 }
 
@@ -276,9 +277,10 @@ void CTDIB::mapToPixels32(ConstFunction32 func, const void *data, size_t width, 
 
     const uchar * begin =  (uchar*) data;
     const uchar * end = begin + (width * height * 4); // 32/8
+    uint pos = 0;
     for(const uchar * it = begin; it != end; it += 4) {
-        ptrdiff_t pos = end - begin;
         func((const RGBQuad*) it, pos % width, pos / height);
+        pos++;
     }
 }
 

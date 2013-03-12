@@ -394,9 +394,20 @@ void TestCTDIB::testFill()
 }
 
 static std::vector<cf::RGBQuad> test_map_32_vector;
-void testMap32Function(cf::RGBQuad * pixel, uint /*x*/, uint /*y*/)
+static std::vector<uint> test_map_32_vector_x;
+static std::vector<uint> test_map_32_vector_y;
+void testMap32Function(cf::RGBQuad * pixel, uint x, uint y)
 {
     test_map_32_vector.push_back(*pixel);
+    test_map_32_vector_x.push_back(x);
+    test_map_32_vector_y.push_back(y);
+}
+
+void testMap32FunctionConst(const cf::RGBQuad * pixel, uint x, uint y)
+{
+    test_map_32_vector.push_back(*pixel);
+    test_map_32_vector_x.push_back(x);
+    test_map_32_vector_y.push_back(y);
 }
 
 void TestCTDIB::testMapTo32()
@@ -416,11 +427,100 @@ void TestCTDIB::testMapTo32()
     CPPUNIT_ASSERT(test_map_32_vector.empty());
     image.mapToPixels32(testMap32Function);
     CPPUNIT_ASSERT_EQUAL(size_t(16), test_map_32_vector.size());
+    CPPUNIT_ASSERT_EQUAL(size_t(16), test_map_32_vector_x.size());
+    CPPUNIT_ASSERT_EQUAL(size_t(16), test_map_32_vector_y.size());
+
+    CPPUNIT_ASSERT_EQUAL(0, (int) test_map_32_vector_x[0]);
+    CPPUNIT_ASSERT_EQUAL(1, (int) test_map_32_vector_x[1]);
+    CPPUNIT_ASSERT_EQUAL(2, (int) test_map_32_vector_x[2]);
+    CPPUNIT_ASSERT_EQUAL(3, (int) test_map_32_vector_x[3]);
+    CPPUNIT_ASSERT_EQUAL(0, (int) test_map_32_vector_x[4]);
+    CPPUNIT_ASSERT_EQUAL(1, (int) test_map_32_vector_x[5]);
+    CPPUNIT_ASSERT_EQUAL(2, (int) test_map_32_vector_x[6]);
+    CPPUNIT_ASSERT_EQUAL(3, (int) test_map_32_vector_x[7]);
+    CPPUNIT_ASSERT_EQUAL(0, (int) test_map_32_vector_x[8]);
+    CPPUNIT_ASSERT_EQUAL(1, (int) test_map_32_vector_x[9]);
+    CPPUNIT_ASSERT_EQUAL(2, (int) test_map_32_vector_x[10]);
+    CPPUNIT_ASSERT_EQUAL(3, (int) test_map_32_vector_x[11]);
+    CPPUNIT_ASSERT_EQUAL(0, (int) test_map_32_vector_x[12]);
+    CPPUNIT_ASSERT_EQUAL(1, (int) test_map_32_vector_x[13]);
+    CPPUNIT_ASSERT_EQUAL(2, (int) test_map_32_vector_x[14]);
+    CPPUNIT_ASSERT_EQUAL(3, (int) test_map_32_vector_x[15]);
+
+    CPPUNIT_ASSERT_EQUAL(0, (int) test_map_32_vector_y[0]);
+    CPPUNIT_ASSERT_EQUAL(0, (int) test_map_32_vector_y[1]);
+    CPPUNIT_ASSERT_EQUAL(0, (int) test_map_32_vector_y[2]);
+    CPPUNIT_ASSERT_EQUAL(0, (int) test_map_32_vector_y[3]);
+    CPPUNIT_ASSERT_EQUAL(1, (int) test_map_32_vector_y[4]);
+    CPPUNIT_ASSERT_EQUAL(1, (int) test_map_32_vector_y[5]);
+    CPPUNIT_ASSERT_EQUAL(1, (int) test_map_32_vector_y[6]);
+    CPPUNIT_ASSERT_EQUAL(1, (int) test_map_32_vector_y[7]);
+    CPPUNIT_ASSERT_EQUAL(2, (int) test_map_32_vector_y[8]);
+    CPPUNIT_ASSERT_EQUAL(2, (int) test_map_32_vector_y[9]);
+    CPPUNIT_ASSERT_EQUAL(2, (int) test_map_32_vector_y[10]);
+    CPPUNIT_ASSERT_EQUAL(2, (int) test_map_32_vector_y[11]);
+    CPPUNIT_ASSERT_EQUAL(3, (int) test_map_32_vector_y[12]);
+    CPPUNIT_ASSERT_EQUAL(3, (int) test_map_32_vector_y[13]);
+    CPPUNIT_ASSERT_EQUAL(3, (int) test_map_32_vector_y[14]);
+    CPPUNIT_ASSERT_EQUAL(3, (int) test_map_32_vector_y[15]);
 
     // NOTE: line order is bottom to top
     CPPUNIT_ASSERT(test_map_32_vector[11] == gray);
     CPPUNIT_ASSERT(test_map_32_vector[12] == RGBQuad::white());
     CPPUNIT_ASSERT(test_map_32_vector[13] == gray);
+
+    CTDIB empty;
+    empty.mapToPixels32(&testMap32Function);
+    const_cast<const CTDIB&>(empty).mapToPixels32(&testMap32FunctionConst);
+
+    test_map_32_vector.clear();
+    test_map_32_vector_x.clear();
+    test_map_32_vector_y.clear();
+
+    const_cast<const CTDIB&>(image).mapToPixels32(&testMap32FunctionConst);
+    CPPUNIT_ASSERT_EQUAL(size_t(16), test_map_32_vector.size());
+    CPPUNIT_ASSERT_EQUAL(size_t(16), test_map_32_vector_x.size());
+    CPPUNIT_ASSERT_EQUAL(size_t(16), test_map_32_vector_y.size());
+
+    CPPUNIT_ASSERT_EQUAL(0, (int) test_map_32_vector_x[0]);
+    CPPUNIT_ASSERT_EQUAL(1, (int) test_map_32_vector_x[1]);
+    CPPUNIT_ASSERT_EQUAL(2, (int) test_map_32_vector_x[2]);
+    CPPUNIT_ASSERT_EQUAL(3, (int) test_map_32_vector_x[3]);
+    CPPUNIT_ASSERT_EQUAL(0, (int) test_map_32_vector_x[4]);
+    CPPUNIT_ASSERT_EQUAL(1, (int) test_map_32_vector_x[5]);
+    CPPUNIT_ASSERT_EQUAL(2, (int) test_map_32_vector_x[6]);
+    CPPUNIT_ASSERT_EQUAL(3, (int) test_map_32_vector_x[7]);
+    CPPUNIT_ASSERT_EQUAL(0, (int) test_map_32_vector_x[8]);
+    CPPUNIT_ASSERT_EQUAL(1, (int) test_map_32_vector_x[9]);
+    CPPUNIT_ASSERT_EQUAL(2, (int) test_map_32_vector_x[10]);
+    CPPUNIT_ASSERT_EQUAL(3, (int) test_map_32_vector_x[11]);
+    CPPUNIT_ASSERT_EQUAL(0, (int) test_map_32_vector_x[12]);
+    CPPUNIT_ASSERT_EQUAL(1, (int) test_map_32_vector_x[13]);
+    CPPUNIT_ASSERT_EQUAL(2, (int) test_map_32_vector_x[14]);
+    CPPUNIT_ASSERT_EQUAL(3, (int) test_map_32_vector_x[15]);
+
+    CPPUNIT_ASSERT_EQUAL(0, (int) test_map_32_vector_y[0]);
+    CPPUNIT_ASSERT_EQUAL(0, (int) test_map_32_vector_y[1]);
+    CPPUNIT_ASSERT_EQUAL(0, (int) test_map_32_vector_y[2]);
+    CPPUNIT_ASSERT_EQUAL(0, (int) test_map_32_vector_y[3]);
+    CPPUNIT_ASSERT_EQUAL(1, (int) test_map_32_vector_y[4]);
+    CPPUNIT_ASSERT_EQUAL(1, (int) test_map_32_vector_y[5]);
+    CPPUNIT_ASSERT_EQUAL(1, (int) test_map_32_vector_y[6]);
+    CPPUNIT_ASSERT_EQUAL(1, (int) test_map_32_vector_y[7]);
+    CPPUNIT_ASSERT_EQUAL(2, (int) test_map_32_vector_y[8]);
+    CPPUNIT_ASSERT_EQUAL(2, (int) test_map_32_vector_y[9]);
+    CPPUNIT_ASSERT_EQUAL(2, (int) test_map_32_vector_y[10]);
+    CPPUNIT_ASSERT_EQUAL(2, (int) test_map_32_vector_y[11]);
+    CPPUNIT_ASSERT_EQUAL(3, (int) test_map_32_vector_y[12]);
+    CPPUNIT_ASSERT_EQUAL(3, (int) test_map_32_vector_y[13]);
+    CPPUNIT_ASSERT_EQUAL(3, (int) test_map_32_vector_y[14]);
+    CPPUNIT_ASSERT_EQUAL(3, (int) test_map_32_vector_y[15]);
+
+    // NOTE: line order is bottom to top
+    CPPUNIT_ASSERT(test_map_32_vector[11] == gray);
+    CPPUNIT_ASSERT(test_map_32_vector[12] == RGBQuad::white());
+    CPPUNIT_ASSERT(test_map_32_vector[13] == gray);
+
 }
 
 struct Map24Tester
