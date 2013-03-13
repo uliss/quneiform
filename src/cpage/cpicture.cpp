@@ -224,13 +224,6 @@ bool CPAGE_PictureGetMask(CBlockHandle hPict, char * data, uint32_t * size)
         }
     }
 
-//    for(int y = 0; y < (nMaxHor-1); y++ ) {
-//        for(int x = 0; x < nMaxVer; x++) {
-//            printf("%2d ", lpMatrix[x + y * nMaxVer]);
-//        }
-//        printf("\n");
-//    }
-
     // Создадим маску по матрице
     int sz_x = (lpVer[nMaxVer - 1] - lpVer[0] + 7) / 8;
     int sz_y = lpHor[nMaxHor - 1] - lpHor[0];
@@ -263,7 +256,6 @@ bool CPAGE_PictureGetMask(CBlockHandle hPict, char * data, uint32_t * size)
 
                         for (int i = beg_y; i < end_y; i++) {
                             for (int j = beg_x; j < end_x; j++) {
-                                std::cout << j << "\n";
 //                                *(data + i * sz_x + j) = (char) 0xFF;
                                 data[i * sz_x + (j)/8] |= ((1 << 7) >> (j % 8));
                             }
