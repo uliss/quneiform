@@ -25,19 +25,23 @@ class TestBitMask : public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE(TestBitMask);
     CPPUNIT_TEST(testInit);
+    CPPUNIT_TEST(testInitWithString);
     CPPUNIT_TEST(testRevert);
     CPPUNIT_TEST(testFill);
     CPPUNIT_TEST(testFillRect);
     CPPUNIT_TEST(testOutput);
     CPPUNIT_TEST(testSetUnset);
+    CPPUNIT_TEST(testCompare);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
+    void testInitWithString();
     void testRevert();
     void testFill();
     void testFillRect();
     void testOutput();
     void testSetUnset();
+    void testCompare();
 };
 
 

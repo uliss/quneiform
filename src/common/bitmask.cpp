@@ -18,6 +18,7 @@
 
 #include <cassert>
 #include <string.h> // for memset
+#include <algorithm>
 
 #include "bitmask.h"
 #include "common_debug.h"
@@ -31,7 +32,7 @@ BitMask::BitMask(const Size& sz) :
     mask_(0)
 {
     allocate();
-    fill(0);
+    fill(false);
 }
 
 BitMask::BitMask(uint width, uint height) :
@@ -39,7 +40,7 @@ BitMask::BitMask(uint width, uint height) :
     mask_(0)
 {
     allocate();
-    fill(0);
+    fill(false);
 }
 
 BitMask::BitMask(uint width, uint height, const uchar * data) :
@@ -47,12 +48,42 @@ BitMask::BitMask(uint width, uint height, const uchar * data) :
     mask_(0)
 {
     allocate();
-    fill(0);
+    fill(false);
     memcpy(mask_, data, maskSize());
+}
+
+BitMask::BitMask(uint width, uint height, const std::string& data)
+    : size_((int) width, (int) height),
+      mask_(0)
+{
+    allocate();
+    fill(0);
+    set(data);
 }
 
 BitMask::~BitMask() {
     delete[] mask_;
+}
+
+bool BitMask::operator==(const BitMask& bm) const
+{
+    if(size_ != bm.size_)
+        return false;
+
+    for(int y = 0; y < height(); y++) {
+        for(int x = 0; x < width(); x++) {
+            uint bit_pos = bit(x, y);
+            if(check_(bit_pos) != bm.check_(bit_pos))
+                return false;
+        }
+    }
+
+    return true;
+}
+
+bool BitMask::operator!=(const BitMask& bm) const
+{
+    return !(this->operator==(bm));
 }
 
 void BitMask::fill(bool value)
@@ -95,6 +126,20 @@ void BitMask::set(uint x, uint y)
     mask_[b / BITS] |= (0x80 >> (b % BITS));
 }
 
+void BitMask::set(const std::string& data)
+{
+    const int total = std::min((size_t) size_.width() * size_.height(), data.length());
+    for(int i = 0; i < total; i++) {
+        char digit = data[i];
+        if(digit == '1')
+            mask_[i / BITS] |= (0x80 >> (i % BITS));
+        else if(digit == '0')
+            mask_[i / BITS] &= ~(0x80 >> (i % BITS));
+        else
+            continue;
+    }
+}
+
 void BitMask::unset(uint x, uint y)
 {
     if(!inRange(x, y))
@@ -134,9 +179,7 @@ uint BitMask::byteLineWidth() const
     return (size_.width() + 7) / 8;
 }
 
-}
-
-std::ostream& operator<<(std::ostream& os, const cf::BitMask& mask)
+std::ostream& operator<<(std::ostream& os, const BitMask& mask)
 {
     for(int row = 0; row < mask.size().height(); row++) {
         for(int col = 0; col < mask.size().width(); col++) {
@@ -149,5 +192,7 @@ std::ostream& operator<<(std::ostream& os, const cf::BitMask& mask)
     }
 
     return os;
+}
+
 }
 

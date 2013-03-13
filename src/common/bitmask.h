@@ -20,6 +20,7 @@
 #define BITMASK_H
 
 #include <iostream>
+#include <string>
 
 #include "globus.h"
 #include "common/size.h"
@@ -51,13 +52,31 @@ public:
      * @param data - pointer to raw bitmask data
      */
     BitMask(uint width, uint height, const uchar * data);
+
+    /**
+     * Construct bitmask initiated from given string
+     * @param width - bitmask width
+     * @param height - bitmask height
+     * @param data - string that contains only 0 or 1: @example "1010100101"
+     */
+    BitMask(uint width, uint height, const std::string& data);
+
     ~BitMask();
+
+    bool operator==(const BitMask& bm) const;
+    bool operator!=(const BitMask& bm) const;
 
     void fill(bool value);
     void fillRect(const Rect& r, bool value);
     void invert();
     bool isSet(uint x, uint y) const;
     void set(uint x, uint y);
+
+    /**
+     * Sets mask data
+     * @param data - string that contains only 0 or 1: "010100100"
+     */
+    void set(const std::string& data);
     void unset(uint x, uint y);
 
     Size size() const { return size_; }
@@ -77,8 +96,8 @@ private:
     uchar * mask_;
 };
 
-}
+FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const BitMask& mask);
 
-FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const cf::BitMask& mask);
+}
 
 #endif // BITMASK_H
