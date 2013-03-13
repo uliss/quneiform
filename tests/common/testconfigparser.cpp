@@ -40,3 +40,20 @@ void TestConfigParser::testInit()
     CPPUNIT_ASSERT_EQUAL(p.getInt("int"), int(-100));
     CPPUNIT_ASSERT_EQUAL(p.getString("string"), std::string("test string"));
 }
+
+void TestConfigParser::testGetValue()
+{
+    cf::ConfigParser p;
+    p.load(TEST_DATADIR "/test.json");
+    CPPUNIT_ASSERT(p.getBool("bool"));
+    CPPUNIT_ASSERT_THROW(!p.getBool("unknown"), std::exception);
+
+    CPPUNIT_ASSERT_EQUAL(p.getFloat("float"), 1.234f);
+    CPPUNIT_ASSERT_THROW(p.getFloat("unknown"), std::exception);
+
+    CPPUNIT_ASSERT_EQUAL(p.getInt("int"), int(-100));
+    CPPUNIT_ASSERT_THROW(p.getInt("unknown"), std::exception);
+
+    CPPUNIT_ASSERT_EQUAL(p.getString("string"), std::string("test string"));
+    CPPUNIT_ASSERT_THROW(p.getString("unknown"), std::exception);
+}

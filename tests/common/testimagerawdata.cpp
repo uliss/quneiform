@@ -15,13 +15,18 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
-#include "testimagerawdata.h"
+
 #include <cstring>
 #include <fstream>
+#include <sstream>
+
+#include "testimagerawdata.h"
+
 #include "../test_common.h"
-#include <common/tostring.h>
+#include "common/tostring.h"
 #define private public
-#include <common/imagerawdata.h>
+#include "common/imagerawdata.h"
+
 CPPUNIT_TEST_SUITE_REGISTRATION(TestImageRawData);
 
 using namespace cf;
@@ -148,4 +153,15 @@ void TestImageRawData::testClone()
     }
     delete data_copy;
 
+}
+
+void TestImageRawData::testOutput()
+{
+    ImageRawData data;
+    data.set(new uchar[10], 10, ImageRawData::AllocatorNew);
+    memset(data.data(), 'a', 10);
+
+    std::ostringstream buf;
+    buf << data;
+    CPPUNIT_ASSERT_EQUAL(std::string(10, 'a'), buf.str());
 }

@@ -20,7 +20,7 @@
 #include <algorithm>
 
 #include "imageexporter.h"
-#include "common/debug.h"
+#include "common/log.h"
 #include "common/helper.h"
 
 using namespace std;
@@ -97,7 +97,7 @@ void ImageExporter::save(const ImageRawData& image, const string& path)
     if (!file)
         throw Exception() << METHOD_SIGNATURE() << "save failed to:" + path;
 
-    Debug() << METHOD_SIGNATURE() << path << "\n";
+    cfTrace(MODULE_EXPORT) << METHOD_SIGNATURE() << path;
 
     saveToStream(image, file);
 }

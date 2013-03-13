@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2012 by Serge Poltavski                                 *
+ *   Copyright (C) 2013 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,28 +16,25 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTCTDIB_H
-#define TESTCTDIB_H
+#ifndef TESTRECOGNIZEOPTIONS_H
+#define TESTRECOGNIZEOPTIONS_H
 
 #include <cppunit/extensions/HelperMacros.h>
 
-class TestCTDIB : public CppUnit::TestFixture
+class TestRecognizeOptions : public CppUnit::TestFixture
 {
-    CPPUNIT_TEST_SUITE(TestCTDIB);
+    CPPUNIT_TEST_SUITE(TestRecognizeOptions);
     CPPUNIT_TEST(testInit);
-    CPPUNIT_TEST(testSaveToBMP);
-    CPPUNIT_TEST(testFill);
-    CPPUNIT_TEST(testMapTo24);
-    CPPUNIT_TEST(testMapTo32);
-    CPPUNIT_TEST(testSetPixelColor);
+    CPPUNIT_TEST(testOutput);
+    CPPUNIT_TEST(testSerializeTxt);
+    CPPUNIT_TEST(testSerializeXml);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
-    void testSaveToBMP();
-    void testFill();
-    void testMapTo32();
-    void testMapTo24();
-    void testSetPixelColor();
+    void testOutput();
+    void testSerializeTxt();
+    void testSerializeXml();
 };
 
-#endif // TESTCTDIB_H
+
+#endif // TESTRECOGNIZEOPTIONS_H

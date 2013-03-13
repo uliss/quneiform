@@ -46,6 +46,9 @@ class CLA_EXPO FormatOptions
             FORMAT_ONLY_FRAME = 0x0002
         };
 
+        bool operator==(const FormatOptions& fopts) const;
+        bool operator!=(const FormatOptions& fopts) const;
+
         format_mode_t formatMode() const;
         image_format_t imageExportFormat() const;
         bool isBoldUsed() const;

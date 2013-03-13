@@ -30,43 +30,11 @@
 #undef max
 #endif
 
-#include <limits>
-#include <cassert>
 #include "cttypes.h"
 #include "serialize.h"
 
 namespace cf
 {
-
-struct OverflowCheckNumeric
-{
-        template<class T>
-        static void check(long long int value) {
-            assert(value <= std::numeric_limits<T>::max());
-        }
-};
-
-struct UnderflowCheckNumeric
-{
-        template<class T>
-        static void check(long long int value) {
-            assert(value >= std::numeric_limits<T>::min());
-        }
-};
-
-struct OverflowCheckNone
-{
-        template<class T>
-        static void check(long long int) {
-        }
-};
-
-struct UnderflowCheckNone
-{
-        template<class T>
-        static void check(long long int) {
-        }
-};
 
 template<class T>
 class PointImpl
@@ -91,7 +59,7 @@ class PointImpl
             x_ -= ddx;
             y_ += dy;
             y_ -= ddy;
-            return *this;;
+            return *this;
         }
 
         PointImpl& deskew_rel(int skew1024, const PointImpl& rel) {
@@ -246,7 +214,7 @@ PointImpl<T> rightmost(PointImpl<T>& p0, PointImpl<T>& p1) {
 }
 
 typedef PointImpl<int> Point;
-typedef PointImpl<short> Point16;
+typedef PointImpl<int16_t> Point16;
 
 }
 

@@ -3,13 +3,20 @@ add_definitions(-DTEST_DATADIR="${CMAKE_CURRENT_SOURCE_DIR}")
 add_executable(test_common
     test_common.cpp
     testbinarizeoptions.cpp
+    testbitmask.cpp
     testcolor.cpp
+    testconsolemessages.cpp
+    testctdib.cpp
     testenvpaths.cpp
+    testfilesystem.cpp
+    testformatoptions.cpp
     testhelper.cpp
     testhistogram.cpp
     testiconv.cpp
+    testconfigoptions.cpp
     testconfigparser.cpp
     testlanguage.cpp
+    testletter.cpp
     testlog.cpp
     testmodules.cpp
     testimage.cpp
@@ -17,6 +24,7 @@ add_executable(test_common
     testimageurl.cpp
     testpercentcounter.cpp
     testpoint.cpp
+    testrecognizeoptions.cpp
     testrect.cpp
     testsize.cpp
     testtostring.cpp

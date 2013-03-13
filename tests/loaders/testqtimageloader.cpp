@@ -26,7 +26,7 @@
 CPPUNIT_TEST_SUITE_REGISTRATION(TestQtImageLoader);
 
 #include "loaders_common.h"
-#include "common/debug.h"
+#include "common/log.h"
 #include "common/cifconfig.h"
 #include "rdib/qtimageloader.h"
 #include "common/ctdib.h"
@@ -38,11 +38,11 @@ using namespace cf;
 #endif
 
 #define ASSERT_LOAD(loader, name) \
-    Debug() << "LOADING " LOADER_TEST_IMAGE_DIR name "\n";\
+    cfDebug() << "LOADING " LOADER_TEST_IMAGE_DIR name "\n";\
     CPPUNIT_ASSERT_NO_THROW(loader.load(ImageURL(LOADER_TEST_IMAGE_DIR name)))
 
 #define ASSERT_LOAD_PAGE(loader, name, page) \
-    Debug() << "LOADING "LOADER_TEST_IMAGE_DIR name "; page: " << page << "\n";\
+    cfDebug() << "LOADING "LOADER_TEST_IMAGE_DIR name "; page: " << page << "\n";\
     CPPUNIT_ASSERT_NO_THROW(loader.load(ImageURL(LOADER_TEST_IMAGE_DIR name, page)))
 
 #define FORMAT_SUPPORTED(loader, fmt) \

@@ -62,8 +62,7 @@
 #include "svlprocessor.h"
 #include "dpuma.h"
 #include "common/recognizeoptions.h"
-#include "common/debug.h"
-#include "common/cifconfig.h"
+#include "common/log.h"
 #include "lns/lnsdefs.h"
 #include "rblock/rblock.h"
 #include "rline/rline.h"
@@ -109,7 +108,7 @@ CPageHandle PageMarker::cpage() {
 void PageMarker::extractBlocks()
 {
     if(hasFlag(SKIP_EXTRACT_BLOCKS)) {
-        Debug() << "Markup: automatic layout skipped.\n";
+        cfInfo(MODULE_MARKUP) << "Markup: automatic layout skipped.";
         return;
     }
 
@@ -118,9 +117,9 @@ void PageMarker::extractBlocks()
     RBLOCK_SetImportData(RBLOCK_Bool32_OneColumn, &(image_data_->gbOneColumn));
 
     if (!RBLOCK_ExtractTextBlocks(image_data_->hCCOM, image_data_->hCPAGE, image_data_->hCLINE)) {
-        Debug() << BOOST_CURRENT_FUNCTION
+        cfError(MODULE_MARKUP) << BOOST_CURRENT_FUNCTION
                 << " RBLOCK_ExtractTextBlocks failed with code: "
-                << RBLOCK_GetReturnCode() << std::endl;
+                << RBLOCK_GetReturnCode();
 
         throw Exception("extractBlocks failed.");
     }
@@ -159,15 +158,15 @@ void PageMarker::restoreLayout()
     image_data_->hCPAGE = CPAGE_RestorePage(true, layout_filename_.c_str());
 
     if (image_data_->hCPAGE == NULL) {
-        Debug() << BOOST_CURRENT_FUNCTION
+        cfError(MODULE_MARKUP) << BOOST_CURRENT_FUNCTION
                 << " CPAGE_RestorePage failed with code: "
-                << CPAGE_GetReturnCode() << std::endl;
+                << CPAGE_GetReturnCode();
 
         throw Exception("CPAGE_RestorePage failed");
     }
 
     CPAGE_SetCurrentPage(CPAGE_GetPageNumber(image_data_->hCPAGE));
-    Debug() << "Layout restored from file: \"" << layout_filename_ << "\"\n";
+    cfDebug(MODULE_MARKUP) << "Layout restored from file: \"" << layout_filename_ << "\"";
 }
 
 void PageMarker::markupPage()
@@ -203,9 +202,9 @@ void PageMarker::searchPictures(CCOM_cont * contBig) {
         return;
 
     if(!RPIC_SearchPictures(image_data_->hCCOM, contBig, image_data_->hCPAGE)) {
-        Debug() << BOOST_CURRENT_FUNCTION
+        cfError(MODULE_MARKUP) << BOOST_CURRENT_FUNCTION
                 << "RPIC_SearchPictures failed with code: "
-                << RPIC_GetReturnCode() << "\n";
+                << RPIC_GetReturnCode();
 
         throw Exception("Picture search failed.");
     }

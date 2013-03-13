@@ -19,8 +19,10 @@
 #ifndef DIB_H
 #define DIB_H
 
+#include <iosfwd>
 #include <boost/static_assert.hpp>
 
+#include "globus.h"
 #include "cttypes.h"
 
 namespace cf {
@@ -147,6 +149,10 @@ struct RGBQuad
                 rgbGreen == r.rgbGreen &&
                 rgbRed == r.rgbRed;
     }
+
+    bool operator!=(const RGBQuad& r) const {
+        return !(this->operator==(r));
+    }
 public:
     uint grayAverage() const { return (rgbRed + rgbGreen + rgbBlue) / 3; }
     uint grayLuminance() const { return (rgbRed * 30 + rgbGreen * 59 + rgbBlue * 11) / 100; }
@@ -176,5 +182,7 @@ BOOST_STATIC_ASSERT(sizeof(BitmapInfoV5Header) == 124);
 typedef cf::BitmapInfoHeader * BitmapPtr;
 
 }
+
+FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const cf::RGBQuad& c);
 
 #endif // DIB_H

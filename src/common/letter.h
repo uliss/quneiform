@@ -61,6 +61,11 @@ class CLA_EXPO Letter
                     probability_ == letter.probability_;
         }
 
+        bool operator!=(const Letter& letter) const
+        {
+            return !(this->operator==(letter));
+        }
+
         unsigned char probability() const {
             return probability_;
         }

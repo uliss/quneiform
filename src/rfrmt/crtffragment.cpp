@@ -35,7 +35,7 @@
 #include "ced/cedline.h"
 #include "ced/cedsection.h"
 #include "common/cifconfig.h"
-#include "common/debug.h"
+#include "common/log.h"
 #include "common/tostring.h"
 #include "minmax.h"
 
@@ -428,7 +428,7 @@ void CRtfFragment::updateFirstStringPairAlignment() {
         previous->setEqualCenter(true);
         count_equal_center_++;
     } else {
-        Debug() << "[CRtfFragment::updateFirstStringPairAlignment] no string alignment\n";
+        cfDebug(MODULE_RFRMT) << "[CRtfFragment::updateFirstStringPairAlignment] no string alignment\n";
     }
 }
 

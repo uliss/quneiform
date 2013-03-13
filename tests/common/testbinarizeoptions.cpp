@@ -27,6 +27,13 @@ void TestBinarizeOptions::testInit()
 {
     BinarizeOptions bopts;
     CPPUNIT_ASSERT_EQUAL(BINARIZATOR_DEFAULT, bopts.binarizator());
+
+    bopts.setBinarizator(BINARIZATOR_OTSU);
+    CPPUNIT_ASSERT_EQUAL(BINARIZATOR_OTSU, bopts.binarizator());
+
+
+    BinarizeOptions bopts2(BINARIZATOR_KRONROD);
+    CPPUNIT_ASSERT_EQUAL(BINARIZATOR_KRONROD, bopts2.binarizator());
 }
 
 void TestBinarizeOptions::testBoolOptions()
@@ -97,4 +104,7 @@ void TestBinarizeOptions::testStringOptions()
     // other type
     bopts.setOption("str", 1.123f);
     CPPUNIT_ASSERT_THROW(bopts.optionString("str", ""), BinarizeOptions::Exception);
+
+    bopts.setOption("key", std::string("value"));
+    CPPUNIT_ASSERT_EQUAL(std::string("value"), bopts.optionString("key", ""));
 }

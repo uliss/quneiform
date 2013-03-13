@@ -22,7 +22,7 @@
 #include "common/tostring.h"
 #include "common/cifconfig.h"
 #include "common/helper.h"
-#include "common/debug.h"
+#include "common/log.h"
 
 #include "loaders_common.h"
 
@@ -73,7 +73,7 @@ void TestFreeImageLoader::testLoad()
         std::string image_name = "test.";
         image_name += imageFormatToString(formats[i]);
 
-        Debug() << METHOD_SIGNATURE() << ": " << image_name << "\n";
+        cfDebug() << METHOD_SIGNATURE() << ":" << image_name;
         ASSERT_LOAD(image_name);
     }
 

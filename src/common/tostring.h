@@ -23,6 +23,7 @@
 #include <iomanip>
 #include <sstream>
 #include <vector>
+#include <list>
 #include <string>
 
 #include "point.h"
@@ -73,6 +74,15 @@ template<class T>
 std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec)
 {
     for(typename std::vector<T>::const_iterator it = vec.begin(); it != vec.end(); ++it)
+        os << *it;
+
+    return os;
+}
+
+template<class T>
+std::ostream& operator<<(std::ostream& os, const std::list<T>& lst)
+{
+    for(typename std::list<T>::const_iterator it = lst.begin(); it != lst.end(); ++it)
         os << *it;
 
     return os;

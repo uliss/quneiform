@@ -30,7 +30,7 @@
 #include "ced/cedparagraph.h"
 #include "ced/cedpage.h"
 #include "ced/cedtable.h"
-#include "common/debug.h"
+#include "common/log.h"
 #include "common/filesystem.h" // for baseName
 #include "common/cifconfig.h"
 #include "common/imagerawdata.h"
@@ -73,8 +73,8 @@ std::string GenericExporter::createPicturesFolder() {
 
     // check if folder already exists
     if (_access(path.c_str(), 0) == 0) {
-        Debug() << "[GenericExporter::createPicturesFolder]: folder \"" << path
-                << "\" already exists.\n";
+        cfWarning(MODULE_EXPORT) << "[GenericExporter::createPicturesFolder]: folder \"" << path
+                << "\" already exists.";
         return path;
     }
 
@@ -121,7 +121,7 @@ void GenericExporter::exportFrame(CEDFrame& frame) {
 void GenericExporter::exportLine(CEDLine& line) {
     if (skipLine(line)) {
         if (Config::instance().debugHigh())
-            Debug() << "[GenericExporter::exportLine] skipping empty line\n";
+            cfWarning(MODULE_EXPORT) << "[GenericExporter::exportLine] skipping empty line";
         return;
     }
 
@@ -140,7 +140,7 @@ void GenericExporter::exportPage(CEDPage& page) {
 void GenericExporter::exportParagraph(CEDParagraph& par) {
     if (skipParagraph(par)) {
         if (Config::instance().debugHigh())
-            Debug() << "[GenericExporter::exportParagraph] skipping empty paragraph\n";
+            cfWarning(MODULE_EXPORT) << "[GenericExporter::exportParagraph] skipping empty paragraph";
         return;
     }
 

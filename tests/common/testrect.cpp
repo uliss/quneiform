@@ -76,6 +76,41 @@ void TestRect::testInit() {
     CPPUNIT_ASSERT_EQUAL(r1.right(), 41);
     CPPUNIT_ASSERT_EQUAL(r1.bottom(), 56);
 
+    Rect r32;
+    cf::Rect16 r16(1, 2, 30, 40);
+    r32 = r16;
+    CPPUNIT_ASSERT_EQUAL(Rect(1, 2, 30, 40), r32);
+
+    r32.set(Point(4, 6), 50, 10);
+    CPPUNIT_ASSERT_EQUAL(Rect(4, 6, 50, 10), r32);
+
+    r32.setBottom(10);
+    CPPUNIT_ASSERT_EQUAL(Rect(4, 6, 50, 4), r32);
+
+    r32.setLeftBottom(Point(0, 16));
+    CPPUNIT_ASSERT_EQUAL(Rect(0, 6, 54, 10), r32);
+
+    r32.setLeftTop(Point(0, 0));
+    CPPUNIT_ASSERT_EQUAL(Rect(0, 0, 54, 16), r32);
+
+    r32.setRight(20);
+    CPPUNIT_ASSERT_EQUAL(Rect(0, 0, 20, 16), r32);
+
+    r32.setRightBottom(Point(30, 10));
+    CPPUNIT_ASSERT_EQUAL(Rect(0, 0, 30, 10), r32);
+
+    r32.setRightTop(Point(20, -10));
+    CPPUNIT_ASSERT_EQUAL(Rect(0, -10, 20, 20), r32);
+
+    r32.setSize(Size(30, 40));
+    CPPUNIT_ASSERT_EQUAL(Rect(0, -10, 30, 40), r32);
+    CPPUNIT_ASSERT_EQUAL(Size(30, 40), r32.size());
+
+    r32.scale(2.0);
+    CPPUNIT_ASSERT_EQUAL(Size(60, 80), r32.size());
+
+    r32.set(Point(0, 0), 10, 10);
+    CPPUNIT_ASSERT_EQUAL(14, (int) r32.diagonal());
 }
 
 void TestRect::testSerialize() {
@@ -130,6 +165,12 @@ void TestRect::testUnite() {
     CPPUNIT_ASSERT(!r2.intersects(r1));
 
     CPPUNIT_ASSERT_EQUAL(Rect(pt, Point(300, 300)), r2.united(r1));
+
+    r1.set(Point(0, 0), 10, 20);
+    r2.set(Point(30, 0), 50, 50);
+    r1 |= r2;
+
+    CPPUNIT_ASSERT_EQUAL(Rect(0, 0, 80, 50), r1);
 }
 
 void TestRect::testNormalize() {
@@ -144,6 +185,11 @@ void TestRect::testNormalize() {
     r1.normalize();
     CPPUNIT_ASSERT_EQUAL(Rect(Point(-10, 10), Point(0, 40)), r1);
     CPPUNIT_ASSERT_EQUAL(r1, r1.normalized());
+
+    r1.setRightBottom(0, -10);
+    CPPUNIT_ASSERT(!r1.isValid());
+    r1.normalize();
+    CPPUNIT_ASSERT_EQUAL(Rect(Point(-10, -10), Point(0, 10)), r1);
 }
 
 void TestRect::testHeight() {
@@ -202,6 +248,9 @@ void TestRect::testMoveTo()
     r.moveTo(-1, -2);
     CPPUNIT_ASSERT_EQUAL(Rect(-1, -2, 20, 30), r);
 
+    Point16 p16(4, 5);
+    r.moveTo(p16);
+    CPPUNIT_ASSERT_EQUAL(Rect(4, 5, 20, 30), r);
 }
 
 void TestRect::testIntersects()
@@ -215,4 +264,56 @@ void TestRect::testIntersected()
 {
     Rect r0(0, 0, 100, 200);
     CPPUNIT_ASSERT_EQUAL(Rect(1, 2, 30, 40), r0.intersected(Rect(1, 2, 30, 40)));
+}
+
+void TestRect::testContains()
+{
+    Rect r0(0, 0, 100, 200);
+    CPPUNIT_ASSERT(r0.contains(0, 0, false));
+    CPPUNIT_ASSERT(r0.contains(100, 0, false));
+    CPPUNIT_ASSERT(r0.contains(100, 200, false));
+    CPPUNIT_ASSERT(r0.contains(0, 200, false));
+
+    CPPUNIT_ASSERT(!r0.contains(0, 0, true));
+    CPPUNIT_ASSERT(!r0.contains(100, 0, true));
+    CPPUNIT_ASSERT(!r0.contains(100, 200, true));
+    CPPUNIT_ASSERT(!r0.contains(0, 200, true));
+
+    CPPUNIT_ASSERT(!r0.contains(Point(0, 0), true));
+
+    Rect r1 = r0;
+    CPPUNIT_ASSERT(r0.contains(r1));
+    CPPUNIT_ASSERT(r1.contains(r0));
+    CPPUNIT_ASSERT(!r0.contains(r1, true));
+    r1.adjust(1, 1, -1, -1);
+    CPPUNIT_ASSERT(r0.contains(r1, true));
+}
+
+void TestRect::testAdjust()
+{
+    Rect r(0, 0, 100, 200);
+    r.adjust(1, 1, 1, 1);
+    CPPUNIT_ASSERT_EQUAL(Rect(Point(1, 1), Point(101, 201)), r);
+
+    r.adjusted(-1, -1, -1, -1);
+    CPPUNIT_ASSERT_EQUAL(Rect(Point(1, 1), Point(101, 201)), r);
+    CPPUNIT_ASSERT_EQUAL(Rect(Point(0, 0), Point(100, 200)), r.adjusted(-1, -1, -1, -1));
+}
+
+void TestRect::testTranslate()
+{
+    Rect r(1, 2, 100, 200);
+    r.translate(Point(1, 2));
+    CPPUNIT_ASSERT_EQUAL(Rect(2, 4, 100, 200), r);
+
+    r.translated(Point(-1, -2));
+    CPPUNIT_ASSERT_EQUAL(Rect(2, 4, 100, 200), r);
+    CPPUNIT_ASSERT_EQUAL(Rect(1, 2, 100, 200), r.translated(Point(-1, -2)));
+
+    r.translateX(100);
+    r.translateY(10);
+    CPPUNIT_ASSERT_EQUAL(Rect(102, 14, 100, 200), r);
+
+    r.translate(-2, -4);
+    CPPUNIT_ASSERT_EQUAL(Rect(100, 10, 100, 200), r);
 }

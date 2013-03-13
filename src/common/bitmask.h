@@ -28,17 +28,30 @@
 namespace cf
 {
 
-class CTDIB;
-
 class CLA_EXPO BitMask
 {
 public:
+    /**
+     * Construct bitmask filled with zeroes.
+     * @param sz - bitmask dimensions
+     */
     BitMask(const Size& sz);
-    BitMask(uint width, uint height);
-    BitMask(uint width, uint height, uchar * data);
-    ~BitMask();
 
-    bool apply(CTDIB * dib) const;
+    /**
+     * Construct bitmask filled with zeroes.
+     * @param width - bitmask width
+     * @param height - bitmask height
+     */
+    BitMask(uint width, uint height);
+
+    /**
+     * Construct bitmask initiated from given bitmask data
+     * @param width - bitmask width
+     * @param height - bitmask height
+     * @param data - pointer to raw bitmask data
+     */
+    BitMask(uint width, uint height, const uchar * data);
+    ~BitMask();
 
     void fill(bool value);
     void fillRect(const Rect& r, bool value);
@@ -48,13 +61,11 @@ public:
     void unset(uint x, uint y);
 
     Size size() const { return size_; }
+    int height() const { return size_.height(); }
+    int width() const { return size_.width(); }
 private:
     BitMask(const BitMask&);
     void allocate();
-    void applyTo1Bit(CTDIB * dib) const;
-    void applyTo8Bit(CTDIB * dib) const;
-    void applyTo24Bit(CTDIB * dib) const;
-    void applyTo32Bit(CTDIB * dib) const;
     uint bit(uint x, uint y) const;
     uint byteLineWidth() const;
     bool check_(uint bit) const;
@@ -68,6 +79,6 @@ private:
 
 }
 
-std::ostream& operator<<(std::ostream& os, const cf::BitMask& mask);
+FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const cf::BitMask& mask);
 
 #endif // BITMASK_H

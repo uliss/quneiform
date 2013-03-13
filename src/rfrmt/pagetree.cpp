@@ -82,7 +82,6 @@
 
 #include "cpage/cpage.h"
 #include "cpage/cpagetyps.h"
-#include "common/debug.h"
 
 #include "lst3_win.h"
 #include "ful_txt.h"

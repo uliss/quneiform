@@ -26,8 +26,11 @@
 namespace cf
 {
 
-static std::string getConfigPath()
+std::string ConfigOptions::getConfigPath()
 {
+    if(!config_path_.empty())
+        return config_path_;
+
 #ifdef _WIN32
     return "./config.json";
 #else
@@ -38,12 +41,21 @@ static std::string getConfigPath()
 }
 
 ConfigParser ConfigOptions::parser_;
+std::string ConfigOptions::config_path_;
 bool ConfigOptions::is_opened_ = false;
 
 bool ConfigOptions::hasOption(const std::string& value)
 {
     checkOpened();
     return parser_.hasValue(value);
+}
+
+void ConfigOptions::setConfigPath(const std::string& path)
+{
+    if(config_path_ != path) {
+        config_path_ = path;
+        is_opened_ = false;
+    }
 }
 
 void ConfigOptions::checkOpened()
@@ -57,13 +69,15 @@ void ConfigOptions::open()
     if(is_opened_)
         return;
 
+    std::string path;
     try {
-        std::string path = getConfigPath();
+        path = getConfigPath();
         if(fs::fileExists(path))
             parser_.load(path);
     }
     catch(std::exception& e) {
-        std::cerr << e.what() << std::endl;
+        std::cerr << "[Error] " << e.what() << std::endl;
+        throw e;
     }
 
     is_opened_ = true;

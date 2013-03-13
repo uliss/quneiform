@@ -29,6 +29,8 @@ class TestPoint: public CppUnit::TestFixture
     CPPUNIT_TEST(testOverflow);
     CPPUNIT_TEST(testSerialize);
     CPPUNIT_TEST(testSerializeXml);
+    CPPUNIT_TEST(testOperator);
+    CPPUNIT_TEST(testDeskew);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
@@ -36,6 +38,8 @@ public:
     void testOverflow();
     void testSerialize();
     void testSerializeXml();
+    void testOperator();
+    void testDeskew();
 };
 
 #endif /* TESTPOINT_H_ */

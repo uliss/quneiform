@@ -51,6 +51,21 @@ RecognizeOptions::RecognizeOptions() :
     setManualLayout(false);
 }
 
+bool RecognizeOptions::operator==(const RecognizeOptions& ropts) const
+{
+    return flags_ == ropts.flags_ &&
+           language_ == ropts.language_ &&
+           table_mode_ == ropts.table_mode_ &&
+           user_dict_name_ == ropts.user_dict_name_ &&
+           turn_angle_ == ropts.turn_angle_ &&
+            image_number_ == ropts.image_number_;
+}
+
+bool RecognizeOptions::operator!=(const RecognizeOptions& ropts) const
+{
+    return !(this->operator==(ropts));
+}
+
 void RecognizeOptions::addReadRect(const Rect &r)
 {
     read_rects_.push_back(r.normalized());

@@ -17,10 +17,14 @@
  ***************************************************************************/
 
 #include <boost/current_function.hpp>
+#include <streambuf>
+#include <fstream>
 
 #include "testhelper.h"
 #include "common/helper.h"
 #include "common/filesystem.h"
+#include "common/exception.h"
+#include "common/singleton.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestHelper);
 
@@ -46,6 +50,11 @@ void TestHelper::testEscapeHtmlSpecialChars() {
     CPPUNIT_ASSERT_EQUAL(std::string("&amp;"), escapeHtmlSpecialChars("&"));
     CPPUNIT_ASSERT_EQUAL(std::string("&apos;"), escapeHtmlSpecialChars("'"));
     CPPUNIT_ASSERT_EQUAL(std::string("&amp;&lt;abc&gt;"), escapeHtmlSpecialChars("&<abc>"));
+
+    std::string str = escapeHtmlSpecialChars("&&&&");
+    CPPUNIT_ASSERT(!str.empty());
+    CPPUNIT_ASSERT(str.find("&") != std::string::npos);
+    CPPUNIT_ASSERT_EQUAL(std::string("&amp;&amp;&amp;&amp;"), str);
 }
 
 void TestHelper::testStreamSize() {
@@ -53,6 +62,7 @@ void TestHelper::testStreamSize() {
     CPPUNIT_ASSERT_EQUAL(streamSize(os), (size_t) 0);
     os << "test";
     CPPUNIT_ASSERT_EQUAL(streamSize(os), (size_t) 4);
+    CPPUNIT_ASSERT_EQUAL(streamSize(std::cout), (size_t) 0);
 
     std::istringstream iempty;
     CPPUNIT_ASSERT_EQUAL(streamSize(iempty), (size_t) 0);
@@ -63,6 +73,14 @@ void TestHelper::testStreamSize() {
     CPPUNIT_ASSERT_EQUAL(streamSize(s), (size_t) 0);
     s << "stream";
     CPPUNIT_ASSERT_EQUAL(streamSize(s), (size_t) 6);
+    int i = 0;
+    s >> i;
+    CPPUNIT_ASSERT_EQUAL(streamSize(s), (size_t) 0);
+
+    std::ofstream ofs;
+    CPPUNIT_ASSERT_EQUAL(streamSize(ofs), (size_t) 0);
+    std::ifstream ifs;
+    CPPUNIT_ASSERT_EQUAL(streamSize(ifs), (size_t) 0);
 }
 
 void TestHelper::testMethodName()
@@ -77,6 +95,7 @@ void TestHelper::testMethodName()
     ASSERT_METHOD("int& cf::Foo::bar(const std::string&)", "bar");
     ASSERT_METHOD("void cf::Foo::bar<class T>(const std::string&)", "bar<class T>");
     ASSERT_METHOD("::(", "");
+    ASSERT_METHOD("::", "");
     ASSERT_METHOD(BOOST_CURRENT_FUNCTION, METHOD_NAME());
 
 #undef ASSERT_METHOD
@@ -93,9 +112,60 @@ void TestHelper::testMethodSignature()
     ASSERT_SIGNATURE("void CppUnit::Foo::bar(const std::string&)", "[CppUnit::Foo::bar]");
     ASSERT_SIGNATURE("int * CppUnit::Foo::bar(const std::string&)", "[CppUnit::Foo::bar]");
     ASSERT_SIGNATURE(" ::(", "");
+    ASSERT_SIGNATURE(" ::", "");
     ASSERT_SIGNATURE(BOOST_CURRENT_FUNCTION, METHOD_SIGNATURE());
 
 #undef ASSERT_METHOD
+}
+
+void TestHelper::testToLower()
+{
+    std::string str("ABCDEF");
+    cf::toLower(str);
+    CPPUNIT_ASSERT_EQUAL(std::string("abcdef"), str);
+}
+
+void TestHelper::testToUpper()
+{
+    std::string str("abcdef");
+    cf::toUpper(str);
+    CPPUNIT_ASSERT_EQUAL(std::string("ABCDEF"), str);
+}
+
+void TestHelper::testReplaceAll()
+{
+    std::string str("some test message");
+    cf::replaceAll(str, "test", "example");
+    CPPUNIT_ASSERT_EQUAL(std::string("some example message"), str);
+    cf::replaceAll(str, "e", "$");
+    CPPUNIT_ASSERT_EQUAL(std::string("som$ $xampl$ m$ssag$"), str);
+    cf::replaceAll(str, "%", "6");
+    CPPUNIT_ASSERT_EQUAL(std::string("som$ $xampl$ m$ssag$"), str);
+    cf::replaceAll(str, "", "SPACE");
+    CPPUNIT_ASSERT_EQUAL(std::string("som$ $xampl$ m$ssag$"), str);
+    cf::replaceAll(str, "$", "");
+    CPPUNIT_ASSERT_EQUAL(std::string("som xampl mssag"), str);
+    cf::replaceAll(str, "m", "");
+    CPPUNIT_ASSERT_EQUAL(std::string("so xapl ssag"), str);
+}
+
+void TestHelper::testException()
+{
+    typedef RuntimeExceptionImpl<int> Excpt;
+    try {
+        throw Excpt("test");
+    }
+    catch(Excpt& e) {
+        CPPUNIT_ASSERT_EQUAL(std::string("test"), std::string(e.what()));
+    }
+}
+
+struct Foo { int f; };
+
+void TestHelper::testSingleton()
+{
+    typedef cf::Singleton<Foo, CreateUsingNew> SingFoo;
+    SingFoo::instance().f = 0;
 }
 
 void TestHelper::testFileExists() {

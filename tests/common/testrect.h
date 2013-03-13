@@ -37,6 +37,9 @@ class TestRect: public CppUnit::TestFixture
     CPPUNIT_TEST(testMoveTo);
     CPPUNIT_TEST(testIntersects);
     CPPUNIT_TEST(testIntersected);
+    CPPUNIT_TEST(testContains);
+    CPPUNIT_TEST(testAdjust);
+    CPPUNIT_TEST(testTranslate);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
@@ -52,6 +55,9 @@ public:
     void testMoveTo();
     void testIntersects();
     void testIntersected();
+    void testContains();
+    void testAdjust();
+    void testTranslate();
 };
 
 #endif /* TESTPOINT_H_ */

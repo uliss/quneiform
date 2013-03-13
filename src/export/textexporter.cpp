@@ -27,7 +27,7 @@
 #include "ced/cedparagraph.h"
 #include "ced/cedpicture.h"
 #include "common/helper.h"
-#include "common/debug.h"
+#include "common/log.h"
 
 namespace cf
 {
@@ -61,7 +61,7 @@ void TextExporter::doExport(std::ostream& os) {
 
 void TextExporter::flushBuffer() {
     if (!outputStream()) {
-        Debug() << "[TextExporter::flushBuffer] pointer to output stream is NULL\n";
+        cfError(MODULE_EXPORT) << "[TextExporter::flushBuffer] pointer to output stream is NULL";
         return;
     }
 

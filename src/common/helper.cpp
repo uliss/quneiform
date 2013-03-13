@@ -49,16 +49,6 @@ std::string escapeHtmlSpecialChars(const std::string& path) {
     return ret;
 }
 
-#if defined _WIN32 || defined __WIN32__
-inline bool IS_SLASH(char ch) {
-    return ch == '\\' || ch == '/';
-}
-#else
-inline bool IS_SLASH(char ch) {
-    return ch == '/';
-}
-#endif
-
 size_t streamSize(std::stringstream& s) {
     return streamSize(static_cast<std::istream&>(s));
 }
@@ -76,8 +66,6 @@ size_t streamSize(std::istream& is) {
     if (ret < 0)
         return 0;
     is.seekg(prev_pos);
-    if (is.fail())
-        return 0;
     return ret;
 }
 
@@ -94,8 +82,6 @@ size_t streamSize(std::ostream& os) {
     if (ret < 0)
         return 0;
     os.seekp(prev_pos);
-    if (os.fail())
-        return 0;
     return ret;
 }
 

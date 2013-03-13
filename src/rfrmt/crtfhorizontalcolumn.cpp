@@ -26,7 +26,7 @@
 #include "crtfpage.h"
 #include "rfrmtoptions.h"
 
-#include "common/debug.h"
+#include "common/log.h"
 #include "ced/ced.h"
 #include "ced/cedcolumn.h"
 #include "ced/cedframe.h"
@@ -464,8 +464,8 @@ void CRtfHorizontalColumn::fillTerminalColumnsIndex() {
         fillTerminalFrameColumnIndex();
         break;
     default:
-        Debug() << "[CRtfHorizontalColumn::fillVTerminalColumnsIndex] unhandled column type: "
-                << type_ << "\n";
+        cfDebug(MODULE_RFRMT) << "[CRtfHorizontalColumn::fillVTerminalColumnsIndex] unhandled column type: "
+                << type_;
         break;
     }
 }

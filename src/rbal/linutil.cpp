@@ -58,6 +58,7 @@
 #include <cstdio>
 #include <cstring>
 #include <algorithm>
+#include <cassert>
 
 #include "tuner.h"
 #include "linear.h"

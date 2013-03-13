@@ -28,12 +28,14 @@ class TestImageRawData: public CppUnit::TestFixture
     CPPUNIT_TEST(testSerialize);
     CPPUNIT_TEST(testSerializeXml);
     CPPUNIT_TEST(testClone);
+    CPPUNIT_TEST(testOutput);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
     void testSerialize();
     void testSerializeXml();
     void testClone();
+    void testOutput();
 };
 
 #endif /* TESTIMAGERAWDATA_H_ */

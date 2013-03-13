@@ -41,8 +41,23 @@ void TestEnvPaths::testCommon()
 #endif
 }
 
-void TestEnvPaths::testFindInEnvPath() {
+void TestEnvPaths::testFindInEnvPath()
+{
+#ifndef _WIN32_
+    CPPUNIT_ASSERT(findInEnvPath("ls"));
+    std::string res;
+    CPPUNIT_ASSERT(findInEnvPath("ls", &res));
+    CPPUNIT_ASSERT(!res.empty());
 
+    res.clear();
+
+    PathList paths;
+    paths.push_back("ls");
+    paths.push_back("cat");
+    CPPUNIT_ASSERT(findInEnvPath(paths));
+    CPPUNIT_ASSERT(findInEnvPath(paths, &res));
+    CPPUNIT_ASSERT(!res.empty());
+#endif
 }
 
 void TestEnvPaths::testFindInPaths() {
@@ -53,6 +68,10 @@ void TestEnvPaths::testFindInPaths() {
     paths.push_back(".");
     CPPUNIT_ASSERT(!findInPaths("ls", paths));
     paths.push_back("/.fseventsd");
+    CPPUNIT_ASSERT(!findInPaths("ls", paths));
+    paths.push_back("/etc/");
+    CPPUNIT_ASSERT(!findInPaths("ls", paths));
+    paths.push_back("");
     CPPUNIT_ASSERT(!findInPaths("ls", paths));
     paths.push_back("/bin");
     CPPUNIT_ASSERT(findInPaths("ls", paths));

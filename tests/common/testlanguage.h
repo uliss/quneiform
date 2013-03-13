@@ -30,14 +30,20 @@ class TestLanguage : public CppUnit::TestFixture
     CPPUNIT_TEST(testIsValid);
     CPPUNIT_TEST(testByCode);
     CPPUNIT_TEST(testByName);
+    CPPUNIT_TEST(testOutput);
+    CPPUNIT_TEST(testEncodings);
+    CPPUNIT_TEST(testAll);
     CPPUNIT_TEST_SUITE_END();
-    public:
-        void testInit();
-        void testIsoNames();
-        void testNamesSort();
-        void testIsValid();
-        void testByCode();
-        void testByName();
+public:
+    void testInit();
+    void testIsoNames();
+    void testNamesSort();
+    void testIsValid();
+    void testByCode();
+    void testByName();
+    void testOutput();
+    void testEncodings();
+    void testAll();
 };
 
 #endif /* TESTLANGUAGE_H_ */

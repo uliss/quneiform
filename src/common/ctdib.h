@@ -65,6 +65,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 namespace cf {
 
+class BitMask;
+
 class CLA_EXPO CTDIB
 {
 public:
@@ -80,14 +82,23 @@ public:
     CTDIB();
     ~CTDIB();
 
-    typedef void (*ConstFunction32)(const RGBQuad*);
+    /**
+     * Apply mask to image
+     * areas where mask is '1' - stays untouched,
+     * areas where mask is '0' - filled with white color
+     * @param mask - bit mask
+     * @return true on success, false on error
+     */
+    bool applyMask(const BitMask& mask);
+
+    typedef void (*ConstFunction32)(const RGBQuad*, uint, uint);
     void mapToPixels32(ConstFunction32 func) const;
-    typedef void (*Function32)(RGBQuad*);
+    typedef void (*Function32)(RGBQuad*, uint, uint);
     void mapToPixels32(Function32 func);
 
-    typedef void (*ConstFunction24)(const uchar*);
+    typedef void (*ConstFunction24)(const uchar*, uint, uint);
     void mapToPixels24(ConstFunction24 func) const;
-    typedef void (*Function24)(uchar*);
+    typedef void (*Function24)(uchar*, uint, uint);
     void mapToPixels24(Function24 func);
 
     /**
@@ -309,7 +320,9 @@ public:
 
     /**
      * Sets resolution of DIB: x,[y].
-     * @seesetResolutionDotsPerInch()
+     * @see setResolutionDotsPerInch()
+     * @param x - x axis resolution
+     * @param y - y axis resolution, if equal '0' - set equal to x resolution.
      * @note available if DIB constructed by CTDIB
      */
     bool setResolutionDotsPerMeter(uint x, uint y = 0);
@@ -317,7 +330,12 @@ public:
     /**
      * Sets resolution of DIB: x,[y].
      * @see setResolutionDotsPerMeter()
-     * @note available if DIB constructed by CTDIB
+     * @param x - x axis resolution
+     * @param y - y axis resolution, if equal '0' - set equal to x resolution.
+     * @note available if DIB constructed by CTDIB, also
+     * cause resolution stored in dot per meter units as unsigned integer, there is
+     * some rounding error exists.
+     * For example setResolutionDotsPerInch(100) != resoltionDotPerInch()
      */
     bool setResolutionDotsPerInch(uint x, uint y = 0);
 
@@ -406,6 +424,10 @@ private:
         DIRECTION_BOTTOM_UP
     };
 private:
+    void applyTo1Bit(const BitMask& mask);
+    void applyTo8Bit(const BitMask& mask);
+    void applyTo24Bit(const BitMask& mask);
+    void applyTo32Bit(const BitMask& mask);
     // open DIB properties
     bool attachDIB();
     // close DIB properties

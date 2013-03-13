@@ -61,13 +61,29 @@
 #include <stdlib.h>
 #include <fstream>
 #include <algorithm>
-#include <boost/scoped_array.hpp>
+#include <bitset>
 
 #include "ctdib.h"
-#include "debug.h"
 #include "bmp.h"
+#include "bitmask.h"
+#include "common_debug.h"
 
 using namespace cf;
+
+namespace {
+
+const int BITS = 8;
+
+}
+
+std::ostream& operator<<(std::ostream& os, const RGBQuad& c)
+{
+    os << "RGBQuad: "
+       << static_cast<int>(c.rgbRed) << ','
+       << static_cast<int>(c.rgbGreen) << ','
+       << static_cast<int>(c.rgbBlue);
+    return os;
+}
 
 static inline size_t dibBitsToBytes(size_t b)
 {
@@ -82,6 +98,11 @@ static inline size_t bitsToBytes(size_t a)
 static inline uint dpmToDpi(uint a)
 {
     return (uint) floor((a / 100 ) * 2.54 + 0.5);
+}
+
+static inline uint dpiToDpm(uint a)
+{
+    return (uint) floor((a / 2.54) * 100);
 }
 
 static bool equal(const RGBQuad& q1, const RGBQuad& q2)
@@ -107,8 +128,6 @@ static const int CTDIB_DEFAULT_COLORSUSED = 0;
 static const int CTDIB_DEFAULT_COLORSIMPORTANT = 0;
 static const int CTDIB_DEFAULT_RESOLUTION = 0;
 
-#define CTDIB_DPI_TO_DPM(a)                 (((a) / 2.54) * 100)
-
 namespace cf {
 
 CTDIB::CTDIB() :
@@ -124,6 +143,104 @@ CTDIB::CTDIB() :
 CTDIB::~CTDIB()
 {
     destroyDIB();
+}
+
+bool CTDIB::applyMask(const BitMask& mask)
+{
+    if(isNull())
+        return false;
+
+    if(lineWidth() != mask.width()) {
+        COMMON_ERROR_FUNC << "image and mask widths not equal";
+        return false;
+    }
+
+    if(linesNumber() != mask.height()) {
+        COMMON_ERROR_FUNC << "image and mask heights not equal";
+        return false;
+    }
+
+    switch (bpp()) {
+    case 1:
+        applyTo1Bit(mask);
+        break;
+    case 8:
+        applyTo8Bit(mask);
+        break;
+    case 24:
+        applyTo24Bit(mask);
+        break;
+    case 32:
+        applyTo32Bit(mask);
+        break;
+    default:
+        COMMON_ERROR_FUNC << "image depth is not supported:" << bpp();
+        return false;
+    }
+
+    return true;
+}
+
+void CTDIB::applyTo1Bit(const BitMask& mask)
+{
+    const uchar white_pixel = static_cast<uchar>(whitePixel());
+
+    for (int y = 0; y < mask.height(); y++) {
+        puchar line = static_cast<puchar>(lineAt(y));
+
+        for(int x = 0; x < mask.width(); x++) {
+            if(!mask.isSet(x, y)) {
+                if(white_pixel == 1)
+                    line[x / BITS] |= (0x80 >> (x % BITS));
+                else
+                    line[x / BITS] &= ~(0x80 >> (x % BITS));
+            }
+        }
+    }
+}
+
+void CTDIB::applyTo8Bit(const BitMask& mask)
+{
+    const uchar white_pixel = static_cast<uchar>(whitePixel());
+
+    for (int x = 0; x < mask.width(); x++) {
+        for(int y = 0; y < mask.height(); y++) {
+            if(!mask.isSet(x, y)) {
+                puchar pixel = static_cast<puchar>(lineAt(y)) + x;
+                (*pixel) = white_pixel;
+            }
+        }
+    }
+}
+
+void CTDIB::applyTo24Bit(const BitMask& mask)
+{
+    const int BYTES = 24 / BITS;
+    const uchar white_pixel = static_cast<uchar>(whitePixel());
+
+    for (int x = 0; x < mask.width(); x++) {
+        for(int y = 0; y < mask.height(); y++) {
+            if(!mask.isSet(x, y)) {
+                puchar pixel = static_cast<puchar>(lineAt(y)) + x * BYTES;
+                memset(pixel, white_pixel, BYTES);
+            }
+        }
+    }
+}
+
+void CTDIB::applyTo32Bit(const BitMask& mask)
+{
+    const int BYTES = 32 / BITS;
+    const uchar white_pixel = static_cast<uchar>(whitePixel());
+
+    for (int x = 0; x < mask.width(); x++) {
+        for(int y = 0; y < mask.height(); y++) {
+            if(!mask.isSet(x, y)) {
+                puchar pixel = static_cast<puchar>(lineAt(y)) + x * BYTES;
+                memset(pixel, white_pixel, BYTES - 1);
+            }
+        }
+    }
 }
 
 void CTDIB::mapToPixels32(ConstFunction32 func) const
@@ -149,8 +266,11 @@ void CTDIB::mapToPixels32(CTDIB::Function32 func, void * data, size_t width, siz
 
     uchar * begin =  (uchar*) data;
     uchar * end = begin + (width * height * 4); // 32/8
-    for(uchar * it = begin; it != end; it += 4)
-        func((RGBQuad*) it);
+    uint pos = 0;
+    for(uchar * it = begin; it != end; it += 4) {
+        func((RGBQuad*) it, pos % width, pos / height);
+        ++pos;
+    }
 }
 
 void CTDIB::mapToPixels32(ConstFunction32 func, const void *data, size_t width, size_t height)
@@ -160,8 +280,11 @@ void CTDIB::mapToPixels32(ConstFunction32 func, const void *data, size_t width, 
 
     const uchar * begin =  (uchar*) data;
     const uchar * end = begin + (width * height * 4); // 32/8
-    for(const uchar * it = begin; it != end; it += 4)
-        func((const RGBQuad*) it);
+    uint pos = 0;
+    for(const uchar * it = begin; it != end; it += 4) {
+        func((const RGBQuad*) it, pos % width, pos / height);
+        pos++;
+    }
 }
 
 void CTDIB::mapToPixels24(CTDIB::ConstFunction24 func) const
@@ -190,7 +313,7 @@ void CTDIB::mapToPixels24(Function24 func, void * data, size_t width, size_t hei
 
     for(size_t y = 0; y < height; y++, line += line_stride) {
         for(size_t x = 0; x < width; x++)
-            func(line + x*3); // 24/8
+            func(line + x*3, x, y); // 24/8
     }
 }
 
@@ -204,7 +327,7 @@ void CTDIB::mapToPixels24(ConstFunction24 func, const void * data, size_t width,
 
     for(size_t y = 0; y < height; y++, line += line_stride) {
         for(size_t x = 0; x < width; x++)
-            func(line + x*3); // 24/8
+            func(line + x*3, x, y); // 24/8
     }
 }
 
@@ -217,6 +340,11 @@ bool CTDIB::pixelColor(uint x, uint y, RGBQuad * dest) const
 
     if(!pixel_data)
         return false;
+
+    if(!dest) {
+        COMMON_WARNING_FUNC << "NULL destination given";
+        return false;
+    }
 
     switch(bpp()) {
     case 1:
@@ -360,6 +488,9 @@ bool CTDIB::setPixelColor(uint x, uint y, const RGBQuad &c)
     }
     case 24: {
         uchar * rgb = (uchar*) pixelAt(x, y);
+        if(!rgb)
+            return false;
+
         rgb[0] = c.rgbBlue;
         rgb[1] = c.rgbGreen;
         rgb[2] = c.rgbRed;
@@ -479,7 +610,7 @@ bool CTDIB::attachDIB()
         version_ = VERSION_5;
         break;
     default:
-        Debug() << "CTDIB::AttachDIB: Unknown DIB header size: " << pSimpleHead->biSize << "\n";
+        COMMON_ERROR_FUNC << "Unknown DIB header size: " << pSimpleHead->biSize;
         detachDIB();
         return false;
     }
@@ -724,8 +855,6 @@ uint CTDIB::usedColors(uint bitCount, uint colorUsed)
         return colorUsed;
 
     switch (bitCount) {
-    case 0:
-        return 0;
     case 1:
         return 2;
     case 4:
@@ -745,7 +874,7 @@ bool CTDIB::setResolutionDotsPerInch(uint x, uint y)
     if (!under_construction_)
         return false;
 
-    return setResolutionDotsPerMeter((uint) CTDIB_DPI_TO_DPM(x), (uint) CTDIB_DPI_TO_DPM(y));
+    return setResolutionDotsPerMeter(dpiToDpm(x), dpiToDpm(y));
 }
 
 bool CTDIB::setResolutionDotsPerMeter(uint x, uint y)
@@ -874,7 +1003,7 @@ bool CTDIB::setPalleteColor(uint32_t idx, const RGBQuad& color)
     if (rgb_quads_ == NULL)
         return false;
 
-    if (idx > palleteUsedColorsNum())
+    if (idx >= palleteUsedColorsNum())
         return false;
 
     RGBQuad * pCurrentQuad = (RGBQuad*) pallete();
@@ -957,8 +1086,8 @@ int CTDIB::addPalleteColor(const RGBQuad& c)
         return -1;
 
     const uint total = palleteUsedColorsNum();
-    uint * colors_private = new uint[total]();
-    boost::scoped_array<uint> colors_hist(colors_private);
+    const size_t MAX_PALLETE_SIZE = 256;
+    std::bitset<MAX_PALLETE_SIZE> colors_hist;
 
     for(uint y = 0; y < linesNumber(); y++) {
         for(uint x = 0; x < lineWidth(); x++) {
@@ -966,18 +1095,24 @@ int CTDIB::addPalleteColor(const RGBQuad& c)
             if(!pixelColorIndex(x, y, &color_idx))
                 return -1;
 
-            if(color_idx >= total)
+            if(color_idx >= total) {
+                COMMON_ERROR_FUNC << "invalid color index:" << color_idx;
                 return -1;
+            }
 
-            colors_hist[color_idx]++;
+            colors_hist[color_idx] = 1;
         }
     }
 
+    if(colors_hist.count() >= total) {
+        COMMON_WARNING_FUNC << "can't add color: pallete is full";
+        return -1;
+    }
 
     for(uint i = 0; i < total; i++) {
-        if(colors_hist[i] == 0) {
+        if(!colors_hist.test(i)) {
             // unused color found
-            std::cerr << "color set: " << i << "\n";
+            COMMON_DEBUG_FUNC << "color set: " << i;
             setPalleteColor(i, c);
             return (int) i;
         }
@@ -1068,7 +1203,7 @@ bool CTDIB::saveToBMP(std::ostream& os, BitmapPtr bitmap)
     if(!dib.setBitmap(bitmap))
         return false;
 
-    return dib.saveToBMP(os, bitmap);
+    return dib.saveToBMP(os);
 }
 
 bool CTDIB::palleteColor(size_t idx, RGBQuad * dest) const
@@ -1076,12 +1211,16 @@ bool CTDIB::palleteColor(size_t idx, RGBQuad * dest) const
     if (rgb_quads_ == NULL)
         return false;
 
-    if (idx > palleteUsedColorsNum())
+    if (idx >= palleteUsedColorsNum()) {
+        COMMON_ERROR_FUNC << "invalid pallete index:" << idx;
         return false;
+    }
 
     RGBQuad * current = (RGBQuad*) pallete();
     current += idx;
-    *dest = *current;
+    if(dest)
+        *dest = *current;
+
     return true;
 }
 
@@ -1111,6 +1250,9 @@ CTDIB::version_t CTDIB::version() const
 
 bool CTDIB::copyLineFromDIB(const CTDIB * src, uint srcLine, uint destLine, uint srcX)
 {
+    if(isNull())
+        return false;
+
     if (src == NULL)
         return false;
 
@@ -1132,8 +1274,9 @@ bool CTDIB::copyLineFromDIB(const CTDIB * src, uint srcLine, uint destLine, uint
         uint t = (src->lineRealWidthInBytes() > this->lineRealWidthInBytes() + ((srcX
                 * bpp()) / 8)) ? 1 : 0;
 
-        uchar * buf = new uchar[src->lineRealWidthInBytes()];
-        memset(buf, 0, src->lineRealWidthInBytes());
+        const size_t src_width = src->lineRealWidthInBytes();
+        uchar * buf = new uchar[src_width];
+        memset(buf, 0, src_width);
         memcpy(buf, srcStart, this->lineRealWidthInBytes() + t);
 
         uint pixelShift = src->pixelShiftInByte(srcX);
@@ -1180,16 +1323,25 @@ bool CTDIB::copyPalleteFromDIB(const CTDIB * src)
     if(isNull())
         return false;
 
-    uint n_colors = palleteUsedColorsNum();
-
-    if (src->palleteUsedColorsNum() > n_colors)
+    if(!src) {
+        COMMON_ERROR_FUNC << "NULL source pointer";
         return false;
+    }
 
-    for (uint i = 0; i < n_colors; i++) {
+    uint dest_colors = palleteUsedColorsNum();
+    uint src_colors = src->palleteUsedColorsNum();
+
+    if (src_colors > dest_colors) {
+        COMMON_ERROR_FUNC << "source pallete bigger then destination:"
+                          << src->palleteUsedColorsNum() << '>' << dest_colors;
+        return false;
+    }
+
+    for (uint i = 0; i < src_colors; i++) {
         RGBQuad Quad;
-        if (!src->palleteColor(i, &Quad))
-            return false;
-        if(!setPalleteColor(i, Quad))
+        src->palleteColor(i, &Quad);
+
+        if (!setPalleteColor(i, Quad))
             return false;
     }
 
@@ -1213,8 +1365,10 @@ bool CTDIB::copyDPIFromDIB(const CTDIB * src)
     if (!under_construction_)
         return false;
 
-    if (!src)
+    if (!src) {
+        COMMON_ERROR_FUNC << "NULL source pointer";
         return false;
+    }
 
     uint x = 0;
     uint y = 0;
@@ -1247,11 +1401,12 @@ uint32_t CTDIB::whitePixel() const
     case 8:
         if (palleteColor(0, &fQ)) {
             for (uint i = 1; i < palleteUsedColorsNum(); i++) {
-                if (palleteColor(i, &sQ))
+                if (palleteColor(i, &sQ)) {
                     if (firstQUADLighterThenSecond(sQ, fQ)) {
                         Color = i;
                         palleteColor(i, &fQ);
                     }
+                }
             }
         }
         return Color;
@@ -1284,11 +1439,12 @@ uint32_t CTDIB::blackPixel() const
     case 8:
         if (palleteColor(0, &fQ)) {
             for (uint i = 1; i < palleteUsedColorsNum(); i++) {
-                if (palleteColor(i, &sQ))
+                if (palleteColor(i, &sQ)) {
                     if (firstQUADLighterThenSecond(fQ, sQ)) {
                         Color = i;
                         palleteColor(i, &fQ);
                     }
+                }
             }
         }
         return Color;

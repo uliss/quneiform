@@ -67,7 +67,7 @@
 #include "cpage/cpage.h"
 #include "cpage/cpagetyps.h"
 #include "cpage/polyblock.h"
-#include "common/debug.h"
+#include "common/log.h"
 #include "cstr/cstr.h"
 #include "rfrmt_prot.h"
 #include "rfrmtfile.h"
@@ -643,7 +643,7 @@ Bool CheckRect(InternalRect* Inner) {
     if (Inner->top >= Inner->bottom || Inner->left >= Inner->right) {
         sprintf(str, " Left = %d, Right = %d, Top = %d, Bottom = %d ", Inner->left, Inner->right,
                 Inner->top, Inner->bottom);
-		cf::Debug() << str << "\n";
+        cfDebug(MODULE_RFRMT) << str;
         //SetReturnCode_rfrmt(IDS_ERR_SIZEFRAGMENT);
         return FALSE;
     }

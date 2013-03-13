@@ -887,7 +887,7 @@ bool CTIControl::getDIBFromImage(const std::string& name, const Rect& r, BitMask
         }
 
         if(bitMask) {
-            if(!bitMask->apply(last_dib_)) {
+            if(!last_dib_->applyMask(*bitMask)) {
                 CIMAGE_ERROR_FUNC << "bit mask apply failed";
 //                return false;
             }

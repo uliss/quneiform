@@ -32,10 +32,15 @@ void TestPercentCounter::testConstruct() {
     CPPUNIT_ASSERT(!pc.parent());
     CPPUNIT_ASSERT(pc.get() == 0);
     CPPUNIT_ASSERT(pc.contribution() == 100);
+
+    pc.setContribution(101);
+    CPPUNIT_ASSERT_EQUAL(101, (int) pc.contribution());
 }
 
 void TestPercentCounter::testAlone() {
     PercentCounter pc;
+    pc.add(0);
+    CPPUNIT_ASSERT_EQUAL((uchar)0, pc.get());
     pc.add(10);
     CPPUNIT_ASSERT_EQUAL((uchar)10, pc.get());
     pc.setContribution(50);
@@ -47,6 +52,9 @@ void TestPercentCounter::testAlone() {
     CPPUNIT_ASSERT_EQUAL(pc.get(), perc_);
     pc.add(20);
     CPPUNIT_ASSERT_EQUAL(pc.get(), perc_);
+    pc.add(100);
+    pc.reset();
+    CPPUNIT_ASSERT_EQUAL(0, (int) pc.get());
 }
 
 void TestPercentCounter::testParent() {
@@ -63,5 +71,8 @@ void TestPercentCounter::testParent() {
     child.add(40);
     CPPUNIT_ASSERT_EQUAL((uchar)30, parent.get());
     CPPUNIT_ASSERT_EQUAL((uchar)30, perc_);
+
+    child.setParent(&parent);
+    child.setParent(&child);
 }
 

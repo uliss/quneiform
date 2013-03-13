@@ -40,7 +40,6 @@ set(CF_COMMON_HEADERS
     binarizeoptions.h
     bmp.h
     consoleprogresscounter.h
-    debug.h
     dib.h
     endianess.h
     language.h

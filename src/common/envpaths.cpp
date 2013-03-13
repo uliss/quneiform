@@ -19,7 +19,6 @@
 #include <cstdlib>
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
-#include <boost/current_function.hpp>
 
 #ifndef _WIN32
 #include <sys/stat.h>
@@ -27,6 +26,7 @@
 
 #include "envpaths.h"
 #include "filesystem.h"
+#include "common_debug.h"
 #include "common/log.h"
 
 namespace cf {
@@ -68,7 +68,7 @@ static bool findExeInPath(const std::string& file, const std::string& path)
 #ifndef _WIN32
     struct stat st;
     if (lstat(p.c_str(), &st)) {
-        cfDebug(MODULE_COMMON) << BOOST_CURRENT_FUNCTION << ": can't get stat info for " << p << "\n";
+        COMMON_WARNING_FUNC << ": can't get stat info for " << p;
         return false;
     }
 

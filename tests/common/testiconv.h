@@ -27,11 +27,13 @@ class TestIconv: public CppUnit::TestFixture
     CPPUNIT_TEST(testConstruct);
     CPPUNIT_TEST(testConvertChar);
     CPPUNIT_TEST(testConvertString);
+    CPPUNIT_TEST(testOpenToUtf8);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testConstruct();
     void testConvertChar();
     void testConvertString();
+    void testOpenToUtf8();
 };
 
 #endif // TESTICONV_H

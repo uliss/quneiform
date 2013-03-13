@@ -193,10 +193,13 @@ LanguageList Language::allLanguages(sort_t sort_mode) {
     switch (sort_mode) {
     case SORT_BY_CODE2:
         sortByCode2(ret);
+        break;
     case SORT_BY_CODE3:
         sortByCode3(ret);
+        break;
     case SORT_BY_NAME:
         sortByName(ret);
+        break;
     default:
         break;
     }

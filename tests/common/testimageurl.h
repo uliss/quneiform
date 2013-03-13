@@ -28,12 +28,16 @@ class TestImageURL : public CppUnit::TestFixture
     CPPUNIT_TEST(testExists);
     CPPUNIT_TEST(testSerialize);
     CPPUNIT_TEST(testSerializeXml);
+    CPPUNIT_TEST(testExtension);
+    CPPUNIT_TEST(testOutput);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
     void testExists();
     void testSerialize();
     void testSerializeXml();
+    void testExtension();
+    void testOutput();
 };
 
 #endif // TESTIMAGEURL_H

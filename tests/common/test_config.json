@@ -1,0 +1,10 @@
+{
+   "bool-true" : true,
+   "bool-false" : false,
+   "int-pos" : 123,
+   "int-neg" : -154,
+   "float-pos" : 0.124,
+   "float-neg" : -123.345,
+   "string1" : "",
+   "string2" : "str"
+}

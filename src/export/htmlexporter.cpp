@@ -24,7 +24,7 @@
 #include "imageexporterfactory.h"
 
 #include "common/helper.h"
-#include "common/debug.h"
+#include "common/log.h"
 #include "common/font.h"
 #include "common/fontstyle.h"
 #include "ced/cedchar.h"
@@ -283,7 +283,7 @@ void HtmlExporter::writePicture(CEDPicture& picture) {
         savePicture(picture);
         writePictureTag(picture);
     } catch (Exception& e) {
-        Debug() << "[HtmlExporter::writePicture] failed: " << e.what() << std::endl;
+        cfError(MODULE_EXPORT) << "[HtmlExporter::writePicture] failed: " << e.what();
     }
 }
 

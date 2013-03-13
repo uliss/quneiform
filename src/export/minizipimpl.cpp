@@ -26,7 +26,7 @@
 #include <boost/current_function.hpp>
 #include <boost/scoped_array.hpp>
 
-#include "common/debug.h"
+#include "common/log.h"
 #include "minizipimpl.h"
 
 #define ERROR_BUFFER(buf) std::ostringstream buf; buf << BOOST_CURRENT_FUNCTION << " "
@@ -72,7 +72,8 @@ MiniZipImpl::MiniZipImpl()
 
 void MiniZipImpl::addFile(const std::string& fname) {
     if (hasFile(fname)) {
-        Debug() << BOOST_CURRENT_FUNCTION << ": file " << fname << " already exists in zip archive" << std::endl;
+        cfError(MODULE_EXPORT) << BOOST_CURRENT_FUNCTION
+                               << ": file" << fname << "already exists in zip archive";
         return;
     }
 
@@ -122,24 +123,28 @@ bool MiniZipImpl::save(const std::string& fname) {
     zf = zipOpen(fname.c_str(), APPEND_STATUS_CREATE);
 
     if(zf == NULL) {
-        Debug() << BOOST_CURRENT_FUNCTION << ": error opening " << fname << std::endl;
+        cfError(MODULE_EXPORT) << BOOST_CURRENT_FUNCTION
+                               << ": error opening" << fname;
         return false;
     }
     else
-        Debug() << BOOST_CURRENT_FUNCTION << ": creating " << fname << std::endl;
+        cfTrace(MODULE_EXPORT) << BOOST_CURRENT_FUNCTION
+                               << ": creating" << fname;
 
     try {
         for(iterator it = files_.begin(), end = files_.end(); it != end; ++it)
             saveFile(*it);
     }
     catch(std::runtime_error& e) {
-        Debug() << BOOST_CURRENT_FUNCTION << ": Exception occured while saving file " << fname << std::endl;
-        Debug() << e.what();
+        cfError(MODULE_EXPORT) << BOOST_CURRENT_FUNCTION
+                               << ": Exception occured while saving file" << fname << "\n"
+                               << e.what();
         return false;
     }
 
     if(zipClose(zf, NULL) != ZIP_OK) {
-        Debug() << BOOST_CURRENT_FUNCTION << ": error in closing " << fname << std::endl;
+        cfError(MODULE_EXPORT) << BOOST_CURRENT_FUNCTION
+                               << ": error in closing" << fname;
         return false;
     }
 
@@ -203,7 +208,8 @@ void MiniZipImpl::setCompression(const std::string& fname, int level) {
 void MiniZipImpl::setContent(const std::string& fname, const std::string& content) {
     iterator it = find(fname);
     if(it == files_.end()) {
-        Debug() << BOOST_CURRENT_FUNCTION << ": invalid filename" << std::endl;
+        cfError(MODULE_EXPORT) << BOOST_CURRENT_FUNCTION
+                               << ": invalid filename:" << fname;
         return;
     }
 
@@ -213,7 +219,8 @@ void MiniZipImpl::setContent(const std::string& fname, const std::string& conten
 void MiniZipImpl::setSource(const std::string& fname, const std::string& sourceFile) {
     iterator it = find(fname);
     if(it == files_.end()) {
-        Debug() << BOOST_CURRENT_FUNCTION << ": invalid filename" << std::endl;
+        cfError(MODULE_EXPORT) << BOOST_CURRENT_FUNCTION
+                               << ": invalid filename:" << fname;
         return;
     }
 

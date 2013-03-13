@@ -28,9 +28,15 @@ namespace fs {
 
 /**
  * Returns filename portion of pathname
- * @see removeFileExt()
+ * @see removeFileExt(), dirName()
  */
 FUN_EXPO__ std::string baseName(const std::string& path);
+
+/**
+ * Strips last component from file name
+ * @see baseName()
+ */
+FUN_EXPO__ std::string dirName(const std::string& path);
 
 /**
  * Checks if file exists

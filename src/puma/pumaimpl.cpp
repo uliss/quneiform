@@ -27,7 +27,6 @@
 #include <iomanip>
 
 #include "common/cifconfig.h"
-#include "common/debug.h"
 #include "common/helper.h"
 #include "common/tostring.h"
 #include "common/memorybuffer.h"
@@ -611,7 +610,7 @@ void PumaImpl::pass2() {
     if (RSTR_NeedPass2())
         recognizePass2();
     else
-        Debug() << "RSTR said that second pass is not needed.\n";
+        cfInfo(MODULE_PUMA) << "RSTR said that second pass is not needed.";
 }
 
 void PumaImpl::spellCorrection() {
