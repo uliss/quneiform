@@ -33,10 +33,16 @@ class CLA_EXPO BitMask
 {
 public:
     /**
+     * Constructs empty bitmask
+     */
+    BitMask();
+
+    /**
      * Construct bitmask filled with zeroes.
      * @param sz - bitmask dimensions
      */
-    BitMask(const Size& sz);
+    explicit BitMask(const Size& sz);
+    explicit BitMask(const BitMask& mask);
 
     /**
      * Construct bitmask filled with zeroes.
@@ -60,9 +66,9 @@ public:
      * @param data - string that contains only 0 or 1: @example "1010100101"
      */
     BitMask(uint width, uint height, const std::string& data);
-
     ~BitMask();
 
+    BitMask& operator=(const BitMask& mask);
     bool operator==(const BitMask& bm) const;
     bool operator!=(const BitMask& bm) const;
 
@@ -77,18 +83,19 @@ public:
      * @param data - string that contains only 0 or 1: "010100100"
      */
     void set(const std::string& data);
+    void set(const BitMask& mask);
     void unset(uint x, uint y);
 
     Size size() const { return size_; }
     int height() const { return size_.height(); }
     int width() const { return size_.width(); }
 private:
-    BitMask(const BitMask&);
     void allocate();
     uint bit(uint x, uint y) const;
     uint byteLineWidth() const;
     bool check_(uint bit) const;
     bool inRange(uint x, uint y) const;
+    // Returns mask size in bytes
     uint maskSize() const;
 private:
     static const int BITS = 8;

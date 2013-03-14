@@ -268,13 +268,11 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
         } else {
             in.dwX = 0;
             //  Beg of Almi Corr
-            //                      in.dwY = ptWh.x*pinfo.Incline2048/2048;
             in.dwY = (-sz.width() * pinfo.Incline2048 / 2048);
             //  End of Almi Corr
         }
 
-        if (!RIMAGE_RotatePoint(lpName, in.dwX, in.dwY, (int32_t *) &in.dwX,
-                (int32_t *) &in.dwY)) {
+        if (!RIMAGE_RotatePoint(lpName, in.dwX, in.dwY, (int32_t*) &in.dwX, (int32_t*) &in.dwY)) {
             in.dwX = 0;
             in.dwY = 0;
         }
@@ -282,31 +280,18 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
         in.dwWidth = sz.width();
         in.dwHeight = sz.height();
         in.wByteWidth = (unsigned short) ((in.dwWidth + 7) / 8); //?
-        // Получим размер маски
-        uint32_t nSize = 0;
 
-        if (CPAGE_PictureGetMask(h_Pict, NULL, &nSize)) {
-            char * lpMask = (char*) malloc(sizeof(in) + nSize);
+        BitMask bit_mask(0, 0);
 
-            if (lpMask) {// Получаем маску
-                *(CIMAGE_InfoDataInGet*) lpMask = in;
+        if (CPAGE_PictureGetMask(h_Pict, bit_mask)) {
+            cfTrace(MODULE_RFRMT) << bit_mask;
 
-                if (CPAGE_PictureGetMask(h_Pict, lpMask + sizeof(in), &nSize)) {
-                     cf::BitMask bit_mask(0, 0, (uchar*) lpMask + sizeof(in));
-
-                    if (!CIMAGE_GetDIBData(lpName, Rect(in.dwX, in.dwY, in.dwWidth, in.dwHeight), &bit_mask, &pOutDIB)) {
-                        cfError(MODULE_RFRMT) << "CIMAGE_GetDIBData failed";
-                        rc = FALSE;
-                    }
-                } else {
-                    cfError(MODULE_RFRMT) << "PAGE_PictureGetMask failed";
-                    rc = FALSE;
-                }
-
-                free(lpMask);
+            if (!CIMAGE_GetDIBData(lpName, Rect(in.dwX, in.dwY, in.dwWidth, in.dwHeight), &bit_mask, &pOutDIB)) {
+                cfError(MODULE_RFRMT) << "CIMAGE_GetDIBData failed";
+                rc = FALSE;
             }
         } else {
-            cfError(MODULE_RFRMT) << "PAGE_PictureGetMask() failed";
+            cfError(MODULE_RFRMT) << "PAGE_PictureGetMask failed";
             rc = FALSE;
         }
     }

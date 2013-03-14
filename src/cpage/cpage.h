@@ -69,6 +69,10 @@
 #define CPAGE_FUNC  FUN_IMPO__
 #endif
 
+namespace cf {
+class BitMask;
+}
+
 CPAGE_FUNC Bool32 CPAGE_Init(uint16_t wHeightCode, Handle hStorage);
 CPAGE_FUNC bool CPAGE_Done();
 CPAGE_FUNC uint32_t CPAGE_GetReturnCode();
@@ -208,7 +212,7 @@ CPAGE_FUNC Bool32 CPAGE_UpdateBlocks(CPageHandle hPage, CDataType type);
 CPAGE_FUNC CBlockHandle CPAGE_PictureGetFirst(CPageHandle hPage);
 CPAGE_FUNC CBlockHandle CPAGE_PictureGetNext(CPageHandle hPage, CBlockHandle hPicture);
 CPAGE_FUNC bool CPAGE_PictureGetPlace(CBlockHandle picture, int skew2048, cf::Point * pos, cf::Size * size);
-CPAGE_FUNC bool CPAGE_PictureGetMask(CBlockHandle hPicture, char * data, uint32_t * size);
+CPAGE_FUNC bool CPAGE_PictureGetMask(CBlockHandle hPicture, cf::BitMask& mask);
 CPAGE_FUNC uint32_t CPAGE_GetBlockInterNum(CBlockHandle block);
 CPAGE_FUNC void CPAGE_SetBlockInterNum(CBlockHandle block, uint32_t inter);
 CPAGE_FUNC bool CPAGE_GetBlockDataPtr(CBlockHandle block, CDataType Type, void ** lpData);

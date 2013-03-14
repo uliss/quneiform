@@ -27,12 +27,23 @@
 namespace cf
 {
 
+BitMask::BitMask()
+    : mask_(0)
+{}
+
 BitMask::BitMask(const Size& sz) :
     size_(sz),
     mask_(0)
 {
     allocate();
     fill(false);
+}
+
+BitMask::BitMask(const BitMask& mask) :
+    size_(mask.size_)
+{
+    allocate();
+    memcpy(mask_, mask.mask_, maskSize());
 }
 
 BitMask::BitMask(uint width, uint height) :
@@ -63,6 +74,19 @@ BitMask::BitMask(uint width, uint height, const std::string& data)
 
 BitMask::~BitMask() {
     delete[] mask_;
+}
+
+BitMask& BitMask::operator=(const BitMask& mask)
+{
+    // self assign
+    if(&mask == this)
+        return *this;
+
+    delete[] mask_;
+    size_ = mask.size_;
+    allocate();
+    memcpy(mask_, mask.mask_, maskSize());
+    return *this;
 }
 
 bool BitMask::operator==(const BitMask& bm) const
@@ -184,9 +208,9 @@ std::ostream& operator<<(std::ostream& os, const BitMask& mask)
     for(int row = 0; row < mask.size().height(); row++) {
         for(int col = 0; col < mask.size().width(); col++) {
             if(mask.isSet(col, row))
-                os << 1;
+                os << '1';
             else
-                os << 0;
+                os << '0';
         }
         os << "\n";
     }

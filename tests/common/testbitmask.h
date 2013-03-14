@@ -32,6 +32,7 @@ class TestBitMask : public CppUnit::TestFixture
     CPPUNIT_TEST(testOutput);
     CPPUNIT_TEST(testSetUnset);
     CPPUNIT_TEST(testCompare);
+    CPPUNIT_TEST(testCopy);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
@@ -42,6 +43,7 @@ public:
     void testOutput();
     void testSetUnset();
     void testCompare();
+    void testCopy();
 };
 
 

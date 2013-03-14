@@ -21,6 +21,7 @@
 #include "cpage/picture.h"
 #include "common/tostring.h"
 #include "common/log.h"
+#include "common/bitmask.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestCPicture);
 
@@ -100,40 +101,33 @@ void TestCPicture::testGetMask()
     h_page = CPAGE_CreatePage(CPAGE_GetInternalType("test_picture"), NULL, 0);
     CBlockHandle pict = CPAGE_CreateBlock(h_page, TYPE_CPAGE_PICTURE, 3, 0, NULL, 0);
 
-    CPPUNIT_ASSERT(!CPAGE_PictureGetMask(pict, NULL, NULL));
-
-    uint32_t sz = 0;
-    CPPUNIT_ASSERT(!CPAGE_PictureGetMask(pict, NULL, &sz));
-
+    BitMask mask;
     cpage::Picture pict_data;
     pict_data.appendCorner(Point(0, 0));
     CPAGE_SetBlockData(pict, TYPE_CPAGE_PICTURE, &pict_data, sizeof(pict_data));
-    CPPUNIT_ASSERT(!CPAGE_PictureGetMask(pict, NULL, &sz));
+    CPPUNIT_ASSERT(!CPAGE_PictureGetMask(pict, mask));
     pict_data.appendCorner(Point(10, 0));
     pict_data.appendCorner(Point(10, 20));
     pict_data.appendCorner(Point(0, 20));
     CPAGE_SetBlockData(pict, TYPE_CPAGE_PICTURE, &pict_data, sizeof(pict_data));
 
-    CPPUNIT_ASSERT(CPAGE_PictureGetMask(pict, NULL, &sz));
-    CPPUNIT_ASSERT_EQUAL(2 * 20, (int) sz);
+    CPPUNIT_ASSERT(CPAGE_PictureGetMask(pict, mask));
+    CPPUNIT_ASSERT_EQUAL(Size(10, 20), mask.size());
 
-    char * matrix = new char[sz];
-    CPPUNIT_ASSERT(CPAGE_PictureGetMask(pict, matrix, &sz));
-//    printMatrix(matrix, 2, 20);
-    delete[] matrix;
+    CPPUNIT_ASSERT(CPAGE_PictureGetMask(pict, mask));
 
     //   0 1 2 3 4 5 6 7 8 9 10
-    // 0 * . . . . . . . . . *
-    // 1 . . . . . . . . . . |
-    // 2 . . * . . . . . . . *
-    // 3 . . . . . . . . . . .
-    // 4 . . . . . . . . . . .
-    // 5 . . . . . . . . . . .
-    // 6 . . * . . . . . . . *
-    // 7 . . . . . . . . . . |
-    // 8 . . . . . . . . . . |
-    // 9 . . . . . . . . . . |
-    //10 * . . . . . . . . . *
+    // 0 * - - - - - - - - - *
+    // 1 | . . . . . . . . . |
+    // 2 | . * - - - - - - - *
+    // 3 | . | . . . . . . . .
+    // 4 | . | . . . . . . . .
+    // 5 | . | . . . . . . . .
+    // 6 | . * - - - - - - - *
+    // 7 | . . . . . . . . . |
+    // 8 | . . . * - - * . . |
+    // 9 | . . . | . . | . . |
+    //10 * - - - * . . * - - *
 
     pict_data.clear();
     pict_data.appendCorner(0, 0);
@@ -144,22 +138,30 @@ void TestCPicture::testGetMask()
     pict_data.appendCorner(2, 6);
     pict_data.appendCorner(10, 6);
     pict_data.appendCorner(10, 10);
+    pict_data.appendCorner(7, 10);
+    pict_data.appendCorner(7, 8);
+    pict_data.appendCorner(4, 8);
+    pict_data.appendCorner(4, 10);
     pict_data.appendCorner(0, 10);
-//    pict_data.appendCorner(2, 5);
-//    pict_data.appendCorner(2, 3);
-//    pict_data.appendCorner(0, 3);
 
     CPAGE_SetBlockData(pict, TYPE_CPAGE_PICTURE, &pict_data, sizeof(pict_data));
 
-    CPPUNIT_ASSERT(CPAGE_PictureGetMask(pict, NULL, &sz));
-    CPPUNIT_ASSERT_EQUAL(20, (int) sz);
+    CPPUNIT_ASSERT(CPAGE_PictureGetMask(pict, mask));
+    CPPUNIT_ASSERT_EQUAL(Size(10, 10), mask.size());
 
-    matrix = new char[sz];
-    CPPUNIT_ASSERT(CPAGE_PictureGetMask(pict, matrix, &sz));
-    printMatrix(matrix, 2, 10);
-    delete[] matrix;
+    BitMask mask2(10, 10, "1111111111"
+                          "1111111111"
+                          "1111111111"
+                          "1110000000"
+                          "1110000000"
+                          "1110000000"
+                          "1111111111"
+                          "1111111111"
+                          "1111111111"
+                          "1111100111");
+    CPPUNIT_ASSERT_EQUAL(mask, mask2);
 
-    std::cout << std::dec;
+    CPPUNIT_ASSERT(!CPAGE_PictureGetMask(NULL, mask));
 }
 
 void TestCPicture::tearDown()

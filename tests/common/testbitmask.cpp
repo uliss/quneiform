@@ -32,6 +32,14 @@ using namespace cf;
 
 void TestBitMask::testInit()
 {
+    BitMask null;
+    CPPUNIT_ASSERT(!null.width());
+    CPPUNIT_ASSERT(!null.height());
+    CPPUNIT_ASSERT_EQUAL(Size(), null.size());
+    CPPUNIT_ASSERT(!null.isSet(0, 0));
+    null.fill(true);
+    null.fillRect(Rect(-10, -20, 300, 300), false);
+
     BitMask bm(Size(2, 2));
     CPPUNIT_ASSERT_EQUAL(Size(2, 2), bm.size());
     MASK_EQUAL(2, 2, "0000", bm);
@@ -39,6 +47,7 @@ void TestBitMask::testInit()
     CPPUNIT_ASSERT(!bm.isSet(1, 0));
     CPPUNIT_ASSERT(!bm.isSet(0, 1));
     CPPUNIT_ASSERT(!bm.isSet(1, 1));
+    CPPUNIT_ASSERT(!bm.isSet(100, 100));
 
     BitMask bm1(1, 2);
     CPPUNIT_ASSERT_EQUAL(Size(1, 2), bm1.size());
@@ -272,4 +281,25 @@ void TestBitMask::testCompare()
     MASK_EQUAL(9, 1, "000000001", bm5);
     bm5.unset(8, 0);
     MASK_EQUAL(9, 1, "000000000", bm5);
+}
+
+void TestBitMask::testCopy()
+{
+    BitMask m1(1, 5);
+    m1.set("00011");
+
+    {
+        BitMask m2(20, 40);
+        m2.fill(true);
+        m2 = m2;
+
+        m2 = m1;
+        CPPUNIT_ASSERT_EQUAL(m1, m2);
+        MASK_EQUAL(1, 5, "00011", m2);
+    }
+
+    MASK_EQUAL(1, 5, "00011", m1);
+
+    BitMask m3(m1);
+    MASK_EQUAL(1, 5, "00011", m3);
 }

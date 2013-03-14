@@ -63,6 +63,7 @@
 #include "polyblock.h"
 #include "picture.h"
 #include "cpage_debug.h"
+#include "common/bitmask.h"
 
 using namespace cf;
 
@@ -159,15 +160,9 @@ static void fillLineArrays(long * ver, long * hor, const cpage::Picture& pict)
     }
 }
 
-bool CPAGE_PictureGetMask(CBlockHandle hPict, char * data, uint32_t * size)
+bool CPAGE_PictureGetMask(CBlockHandle hPict, BitMask& mask)
 {
-    if(!size) {
-        CPAGE_ERROR_FUNC << "NULL size pointer given";
-        return false;
-    }
-
     cpage::Picture pict;
-
     if (CPAGE_GetBlockData(hPict, TYPE_CPAGE_PICTURE, &pict, sizeof(pict)) != sizeof(pict)) {
         CPAGE_ERROR_FUNC << "invalid picture data";
         return false;
@@ -210,55 +205,60 @@ bool CPAGE_PictureGetMask(CBlockHandle hPict, char * data, uint32_t * size)
         const int delta_x = PointXDistance(pt_cur, pt_next);
         const int delta_y = PointYDelta(pt_cur, pt_next);
 
+        // current and next corner at vertical position
         if (delta_x <= MAXDIFF) {// вертикальная граница
+            // sign is: '-1' if edge goes up, '1' if goes down
             int sign = (delta_y < 0) ? -1 : 1;
             int x = GetIndex(lpVer, nMaxVer, pt_cur.x());
             int y1 = GetIndex(lpHor, nMaxHor, pt_cur.y());
             int y2 = GetIndex(lpHor, nMaxHor, pt_next.y());
 
             if (x < nMaxVer && y1 < nMaxHor && y2 < nMaxHor) {
+                // fill with sign corner edge
                 for (int y = std::min(y1, y2); y < std::max(y1, y2); y++) {
-                    *(lpMatrix + x + y * nMaxVer) = sign;
+                    lpMatrix[x + y * nMaxVer] = sign;
                 }
             }
         }
     }
 
     // Создадим маску по матрице
-    int sz_x = (lpVer[nMaxVer - 1] - lpVer[0] + 7) / 8;
+    int sz_x = lpVer[nMaxVer - 1] - lpVer[0];
     int sz_y = lpHor[nMaxHor - 1] - lpHor[0];
-    assert(sz_x > 0 && sz_y > 0);
-    *size = sz_x * sz_y;
 
-    if (data) {
-        int sign = 0;
-        memset(data, 0, *size);
+    if(sz_x <= 0 || sz_y <= 0) {
+        CPAGE_ERROR_FUNC << "invalid mask size:" << sz_x << 'x' << sz_y;
+        return false;
+    }
 
-        for (int y = 0; y < (nMaxHor - 1); y++) {
-            int sp = 0;
+    BitMask res(sz_x, sz_y);
+    int sign = 0;
 
-            for (int x = 0; x < nMaxVer; x++) {
-                int cs = lpMatrix[x + y * nMaxVer];
+    for (int y = 0; y < (nMaxHor - 1); y++) {
+        int sign_pos = 0;
 
-                if (cs) {
-                    if (!sign)
-                        sign = cs;
+        for (int x = 0; x < nMaxVer; x++) {
+            int current_sign = lpMatrix[x + y * nMaxVer];
 
-                    if (cs == sign)
-                        sp = x;
-                    else { // Записываем маску
-//                        int beg_x = (lpVer[sp] - lpVer[0]) / 8;
-//                        int end_x = (lpVer[x] - lpVer[0] + 7) / 8;
-                        int beg_x = (lpVer[sp] - lpVer[0]);
-                        int end_x = (lpVer[x] - lpVer[0]);
-                        int beg_y = lpHor[y] - lpHor[0];
-                        int end_y = lpHor[y + 1] - lpHor[0];
+            // sign found
+            if (current_sign) {
+                // first time sign found on the mask raw
+                if (!sign)
+                    sign = current_sign;
 
-                        for (int i = beg_y; i < end_y; i++) {
-                            for (int j = beg_x; j < end_x; j++) {
-//                                *(data + i * sz_x + j) = (char) 0xFF;
-                                data[i * sz_x + (j)/8] |= ((1 << 7) >> (j % 8));
-                            }
+                // update sign position, begin of range stored in @var 'sign_pos'
+                if (current_sign == sign)
+                    sign_pos = x;
+                // other sign found, end of range stored in @var 'x'
+                else { // Записываем маску
+                    int beg_x = (lpVer[sign_pos] - lpVer[0]);
+                    int end_x = (lpVer[x] - lpVer[0]) + 1; // for full border
+                    int beg_y = lpHor[y] - lpHor[0]; // current row
+                    int end_y = lpHor[y + 1] - lpHor[0] + 1; // next row + 1, for full border
+
+                    for (int y = beg_y; y < end_y; y++) {
+                        for (int x = beg_x; x < end_x; x++) {
+                            res.set(x, y);
                         }
                     }
                 }
@@ -269,6 +269,8 @@ bool CPAGE_PictureGetMask(CBlockHandle hPict, char * data, uint32_t * size)
     delete[] lpHor;
     delete[] lpVer;
     delete[] lpMatrix;
+
+    mask = res;
 
     return true;
 }
