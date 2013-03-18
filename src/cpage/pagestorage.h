@@ -20,6 +20,7 @@
 #define PAGESTORAGE_H
 
 #include <vector>
+#include <string>
 
 #include "globus.h"
 #include "cpagedefs.h"

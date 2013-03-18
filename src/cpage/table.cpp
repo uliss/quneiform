@@ -55,6 +55,7 @@
  */
 
 #include <cassert>
+#include <string.h>
 
 #include "cpage.h"
 #include "polyblock.h"

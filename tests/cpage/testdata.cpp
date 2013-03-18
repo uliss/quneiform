@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include <fstream>
+#include <string.h>
 
 #include "testdata.h"
 #include "cpage/data.h"
