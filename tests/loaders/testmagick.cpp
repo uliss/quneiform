@@ -21,7 +21,7 @@
 #include <memory>
 #include <fstream>
 #include <math.h>
-#include <magick/method-attribute.h>
+#include <magick/api.h>
 #include <magick/version.h>
 
 #include "loaders_common.h"

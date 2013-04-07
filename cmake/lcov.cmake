@@ -26,6 +26,10 @@
 # (To distributed this file outside of CMake, substitute the full
 #  License text for the above reference.)
 
+find_program(XDG_OPEN
+             NAMES xdg-open
+             PATHS /usr/bin)
+
 ## lcov target
 ADD_CUSTOM_TARGET(lcov)
 ADD_CUSTOM_COMMAND(TARGET lcov
@@ -107,6 +111,13 @@ function(add_test_lcov _name)
             COMMAND open "${CMAKE_CURRENT_BINARY_DIR}/lcov/index.html"
             WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         )
+    else()
+        if(XDG_OPEN)
+            add_custom_command(TARGET ${LCOV_TARGET}
+                COMMAND ${XDG_OPEN} "${CMAKE_CURRENT_BINARY_DIR}/lcov/index.html"
+            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+            )
+        endif()
     endif()
 endfunction()
 

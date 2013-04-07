@@ -18,6 +18,7 @@
 
 #include <sstream>
 #include <fstream>
+#include <string.h>
 
 #include "testpage.h"
 #include "cpage/page.h"
