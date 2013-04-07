@@ -20,6 +20,7 @@
 #include <QMenu>
 #include <QDebug>
 #include <QSettings>
+#include <QStyle>
 
 #include "packet.h"
 #include "page.h"
@@ -50,6 +51,7 @@ ThumbnailList::ThumbnailList(QWidget * parent) :
     act_delete_(NULL),
     act_open_external_(NULL)
 {
+    setProperty("thumbnailList", true);
     setAcceptDrops(true);
     setupLayout();
     setupScrollBars();
@@ -428,8 +430,9 @@ void ThumbnailList::setupActionProperties()
 }
 
 void ThumbnailList::setupLayout() {
+//    setFixedWidth(150 + style()->pixelMetric(QStyle::PM_ScrollBarExtent) + 5);
     setFixedWidth(LIST_WIDTH);
-    setAlignment(Qt::AlignLeft | Qt::AlignTop);
+    setAlignment(Qt::AlignHCenter | Qt::AlignTop);
     layout_ = new ThumbLayout;
 }
 
@@ -443,7 +446,7 @@ void ThumbnailList::setupScene()
 
 void ThumbnailList::setupScrollBars() {
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+//    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     setAttribute(Qt::WA_StaticContents);
 }
 
@@ -458,6 +461,8 @@ void ThumbnailList::thumbAppend(ThumbnailWidget * thumb) {
     connect(thumb, SIGNAL(dropped(ThumbnailWidget*, QPointF)), SLOT(handleThumbDrop(ThumbnailWidget*, QPointF)));
     connect(thumb, SIGNAL(createContextMenu(ThumbnailWidget*,QPoint)), SLOT(handleThumbContextMenu(ThumbnailWidget*,QPoint)));
     connect(thumb, SIGNAL(showPageFault(Page*)), SIGNAL(showPageFault(Page*)));
+
+    updateLayout();
 }
 
 void ThumbnailList::thumbRemove(ThumbnailWidget * thumb) {

@@ -56,16 +56,15 @@ void ThumbLayout::append(ThumbnailWidget * thumb)
     }
 
     qreal y_pos = 0;
+    qreal x_pos = 0;
 
     if(!thumbs_.isEmpty()) {
         y_pos = thumbs_.last()->pos().y() + thumbs_.last()->boundingRect().height();
+        x_pos = thumbs_.last()->pos().x();
     }
 
     thumbs_.append(thumb);
-
-    if(y_pos)
-        thumb->setPos(0, y_pos);
-
+    thumbs_.last()->setPos(x_pos, y_pos);
     updateThumbNames();
 }
 
@@ -189,7 +188,7 @@ void ThumbLayout::update()
     static const int SPACING = 1;
     qreal y_pos = 0;
     foreach(ThumbnailWidget * t, thumbs_) {
-        t->setPos(0, y_pos);
+        t->setPos(t->x(), y_pos);
         y_pos += SPACING;
         y_pos += t->boundingRect().height();
     }

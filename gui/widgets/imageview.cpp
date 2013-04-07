@@ -63,6 +63,7 @@ ImageView::ImageView(QWidget * parent) :
         area_(NULL),
         current_selection_(NULL)
 {
+    setProperty("imageView", true);
     setupView();
     setupScene();
 }
