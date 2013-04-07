@@ -46,6 +46,7 @@ QuneiformApplication::QuneiformApplication(int& argc, char** argv)
 {
     platformInit();
     resourcesInit();
+    stylesheetInit();
 
     setOrganizationName("openocr.org");
     setApplicationName("Quneiform OCR");
@@ -120,4 +121,19 @@ void QuneiformApplication::resourcesInit()
 #ifdef WITH_THEME_SNOWISH
     Q_INIT_RESOURCE(theme_snowish);
 #endif
+}
+
+void QuneiformApplication::stylesheetInit()
+{
+    QString filename;
+#ifdef Q_OS_MAC
+    filename = ":/macosx/style.css";
+#endif
+    QFile f(filename);
+    if(!f.open(QFile::ReadOnly)) {
+        qWarning() << Q_FUNC_INFO << "Can't open stylesheet file";
+        return;
+    }
+
+    qApp->setStyleSheet(f.readAll());
 }
