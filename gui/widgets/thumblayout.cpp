@@ -68,6 +68,11 @@ void ThumbLayout::append(ThumbnailWidget * thumb)
     updateThumbNames();
 }
 
+ThumbnailWidget * ThumbLayout::at(int pos)
+{
+    return thumbs_.at(pos);
+}
+
 void ThumbLayout::clearSelection() {
     foreach(ThumbnailWidget * t, thumbs_) {
         t->selectThumb(false);
@@ -77,6 +82,11 @@ void ThumbLayout::clearSelection() {
 int ThumbLayout::count() const
 {
     return thumbs_.count();
+}
+
+bool ThumbLayout::isEmpty() const
+{
+    return thumbs_.isEmpty();
 }
 
 ThumbnailWidget * ThumbLayout::findByPage(Page *p)
@@ -216,6 +226,24 @@ void ThumbLayout::highlightAll(bool value)
     foreach(ThumbnailWidget * t, thumbs_) {
         t->highlight(value);
     }
+}
+
+int ThumbLayout::indexOf(ThumbnailWidget * thumb)
+{
+    return thumbs_.indexOf(thumb);
+}
+
+int ThumbLayout::indexOf(Page * page)
+{
+    int pos = 0;
+    foreach(ThumbnailWidget * t, thumbs_) {
+        if(t->page() == page)
+            return pos;
+
+        pos++;
+    }
+
+    return -1;
 }
 
 void ThumbLayout::updateThumbNames()

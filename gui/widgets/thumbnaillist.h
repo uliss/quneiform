@@ -86,6 +86,8 @@ signals:
       * Emitted on page recognition error request
       */
     void showPageFault(Page * page);
+protected:
+    void keyPressEvent(QKeyEvent *event);
 private:
     bool isValidDropPos(const QPointF& scenePos);
     ThumbnailWidget * findThumbByPos(const QPointF& scenePos);
@@ -100,6 +102,10 @@ private:
     void setupLayout();
     void setupScene();
     void setupScrollBars();
+    void showFirst();
+    void showLast();
+    void showNext();
+    void showPrevious();
     void thumbAppend(ThumbnailWidget * thumb);
     void thumbRemove(ThumbnailWidget * thumb);
 private slots:

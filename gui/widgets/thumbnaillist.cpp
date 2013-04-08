@@ -21,6 +21,7 @@
 #include <QDebug>
 #include <QSettings>
 #include <QStyle>
+#include <QKeyEvent>
 
 #include "packet.h"
 #include "page.h"
@@ -450,6 +451,91 @@ void ThumbnailList::setupScrollBars() {
     setAttribute(Qt::WA_StaticContents);
 }
 
+void ThumbnailList::showFirst()
+{
+    Q_CHECK_PTR(layout_);
+
+    if(layout_->isEmpty())
+        return;
+
+    ThumbnailWidget * thumb = layout_->at(0);
+    if(!thumb) {
+        qWarning() << Q_FUNC_INFO << "first is thumb not found";
+        return;
+    }
+
+    layout_->select(thumb);
+    current_page_ = thumb->page();
+    ensureVisible(thumb);
+    emit showPage(thumb->page());
+}
+
+void ThumbnailList::showLast()
+{
+    Q_CHECK_PTR(layout_);
+
+    if(layout_->isEmpty())
+        return;
+
+    int pos = layout_->count() - 1;
+    ThumbnailWidget * thumb = layout_->at(pos);
+    if(!thumb) {
+        qWarning() << Q_FUNC_INFO << "thumb not found at pos: " << pos;
+        return;
+    }
+
+    layout_->select(thumb);
+    current_page_ = thumb->page();
+    ensureVisible(thumb);
+    emit showPage(thumb->page());
+}
+
+void ThumbnailList::showNext()
+{
+    Q_CHECK_PTR(layout_);
+
+    int thumb_idx = layout_->indexOf(current_page_);
+    if(thumb_idx == -1) {
+        qWarning() << Q_FUNC_INFO << "current page not found:" << current_page_;
+        return;
+    }
+
+    if(thumb_idx < (layout_->count() - 1)) {
+        ThumbnailWidget * thumb = layout_->at(++thumb_idx);
+        if(!thumb) {
+            qWarning() << Q_FUNC_INFO << "thumb not found at position:" << thumb_idx;
+            return;
+        }
+
+        layout_->select(thumb);
+        current_page_ = thumb->page();
+        emit showPage(thumb->page());
+    }
+}
+
+void ThumbnailList::showPrevious()
+{
+    Q_CHECK_PTR(layout_);
+
+    int thumb_idx = layout_->indexOf(current_page_);
+    if(thumb_idx == -1) {
+        qWarning() << Q_FUNC_INFO << "current page not found:" << current_page_;
+        return;
+    }
+
+    if(thumb_idx > 0) {
+        ThumbnailWidget * thumb = layout_->at(--thumb_idx);
+        if(!thumb) {
+            qWarning() << Q_FUNC_INFO << "thumb not found at pos:" << thumb_idx;
+            return;
+        }
+
+        layout_->select(thumb);
+        current_page_ = thumb->page();
+        emit showPage(thumb->page());
+    }
+}
+
 void ThumbnailList::thumbAppend(ThumbnailWidget * thumb) {
     Q_CHECK_PTR(thumb);
 
@@ -484,4 +570,28 @@ void ThumbnailList::updateLayout()
     Q_CHECK_PTR(layout_);
 
     scene_->setSceneRect(QRectF(QPointF(), layout_->size()));
+}
+
+void ThumbnailList::keyPressEvent(QKeyEvent * event)
+{
+    if(current_page_) {
+        switch(event->key()) {
+        case Qt::Key_PageUp:
+            showPrevious();
+            break;
+        case Qt::Key_PageDown:
+            showNext();
+            break;
+        case Qt::Key_Home:
+            showFirst();
+            break;
+        case Qt::Key_End:
+            showLast();
+            break;
+        default:
+            break;
+        }
+    }
+
+    QGraphicsView::keyPressEvent(event);
 }

@@ -36,9 +36,19 @@ public:
     void append(ThumbnailWidget * thumb);
 
     /**
+     * Returns thumb at given index position
+     */
+    ThumbnailWidget * at(int pos);
+
+    /**
       * Returns thumbs count in layout
       */
     int count() const;
+
+    /**
+     * Checks if layout empty
+     */
+    bool isEmpty() const;
 
     /**
       * Returns thumb by given page
@@ -49,6 +59,12 @@ public:
       * Sets highlight for all thumbs
       */
     void highlightAll(bool value);
+
+    /**
+     * Returns thumb position index
+     */
+    int indexOf(ThumbnailWidget * thumb);
+    int indexOf(Page * page);
 
     /**
       * Selects thumb, other selected thumbs remains unchanged
