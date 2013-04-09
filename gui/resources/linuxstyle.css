@@ -10,7 +10,6 @@ QAbstractScrollArea[imageView="true"] {
 
 QToolBar[imageView="true"] {
     border-top: 1px solid lightgray;
-/*    background-color: red;*/
 }
 
 QAbstractScrollArea[thumbnailList="true"] {
