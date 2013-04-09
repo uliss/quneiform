@@ -165,7 +165,12 @@ struct Foo { int f; };
 void TestHelper::testSingleton()
 {
     typedef cf::Singleton<Foo, CreateUsingNew> SingFoo;
-    SingFoo::instance().f = 0;
+    SingFoo::instance().f = 100;
+    CPPUNIT_ASSERT_EQUAL(100, SingFoo::instance().f);
+
+    // free to reduce valgrind errors
+    Foo * foo = &SingFoo::instance();
+    delete foo;
 }
 
 void TestHelper::testFileExists() {

@@ -6,4 +6,7 @@
         <file>cuneiform_logo_64.png</file>
         <file>thumb-empty.png</file>
     </qresource>
+    <qresource prefix="/linux">
+        <file alias="style.css">linuxstyle.css</file>
+    </qresource>
 </RCC>

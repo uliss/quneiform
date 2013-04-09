@@ -111,9 +111,9 @@ void ImageWidget::setupLayout() {
 void ImageWidget::setupToolBar()
 {
     toolbar_ = new QToolBar(this);
+    toolbar_->setProperty("imageView", true);
     toolbar_->setIconSize(QSize(12, 12));
     toolbar_->setFloatable(false);
-    toolbar_->setStyleSheet("QToolBar{ background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #cdcdcd, stop: 1 #ababab)}");
 
     act_bin_ = toolbar_->addAction(iconFromTheme("binarize"), tr("Binarize"));
     act_bin_->setToolTip(tr("Binarize"));

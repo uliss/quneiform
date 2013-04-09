@@ -836,6 +836,7 @@ BitmapPtr CTDIB::createBegin(int width, int height, uint bitCount, version_t ver
     uint fuel_size = header_size;
     fuel_size += usedColors(bitCount, 0) * sizeof(RGBQuad);
     fuel_size += dibBitsToBytes(width * bitCount) * abs(height);
+    free(dib_);
     dib_ = calloc(1, fuel_size);
     created_by_me_ = true;
     memcpy(dib_, header, header_size);
@@ -980,8 +981,7 @@ bool CTDIB::reset()
     if(isNull())
         return false;
 
-    detachDIB();
-    return true;
+    return destroyDIB();
 }
 
 bool CTDIB::isNull() const

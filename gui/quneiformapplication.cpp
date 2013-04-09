@@ -129,6 +129,11 @@ void QuneiformApplication::stylesheetInit()
 #ifdef Q_OS_MAC
     filename = ":/macosx/style.css";
 #endif
+
+#ifdef Q_OS_LINUX
+    filename = ":/linux/style.css";
+#endif
+
     QFile f(filename);
     if(!f.open(QFile::ReadOnly)) {
         qWarning() << Q_FUNC_INFO << "Can't open stylesheet file";
