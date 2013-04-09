@@ -1,5 +1,5 @@
 # ignore qtcreator cmake files
-CMakeLists.txt.user
+CMakeLists.txt.user*
 # ignore build version
 /version
 .DS_Store
