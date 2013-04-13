@@ -16,44 +16,49 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef SANEDIALOG_H
-#define SANEDIALOG_H
+#include <QFormLayout>
+#include <QCheckBox>
 
-#include <QDialog>
+#include "scanpreferences.h"
+#include "iconutils.h"
+#include "settingskeys.h"
 
-class SaneWidget;
-class QHBoxLayout;
-class QImage;
-class QProgressDialog;
-
-class SaneDialog : public QDialog
+ScanPreferences::ScanPreferences(QWidget * parent) :
+    PreferencesWidget(parent),
+    layout_(NULL)
 {
-    Q_OBJECT
-public:
-    explicit SaneDialog(QWidget * parent = 0);
-    QImage * image();
-    QString imagePath() const;
-public slots:
-    int run();
-private slots:
-    void scanStart();
-    void scanEnd();
-    void scanFailed();
-    void imageReady();
-private:
-    QString autosaveDir() const;
-    QString autosaveImageName(const QString& dir) const;
-    QString makeFullAutosaveName(const QString& dir) const;
-    void initIcons();
-    void initUi();
-    void initLayout();
-    void saveImage(const QString& path);
-private:
-    SaneWidget * sane_widget_;
-    QHBoxLayout * layout_;
-    QImage * image_;
-    QString saved_;
-    QProgressDialog * progress_;
-};
+    setIcon(iconFromTheme("scanner"));
+    setTitle(tr("Scanning"));
 
-#endif // SANEDIALOG_H
+    setupLayout();
+    setupUseLastScanner();
+    setupAutosave();
+}
+
+void ScanPreferences::setupLayout()
+{
+    layout_ = new QFormLayout;
+    layout_->setFieldGrowthPolicy(QFormLayout::FieldsStayAtSizeHint);
+    setLayout(layout_);
+}
+
+void ScanPreferences::setupUseLastScanner()
+{
+    Q_CHECK_PTR(layout_);
+
+    QCheckBox * use_last_scanner = new QCheckBox(this);
+    connectControl(use_last_scanner, SIGNAL(toggled(bool)), standartCallbacks(KEY_USE_LAST_SCANNER));
+    layout_->addRow(tr("Use last scanner:"), use_last_scanner);
+}
+
+void ScanPreferences::setupAutosave()
+{
+    Q_CHECK_PTR(layout_);
+
+    QCheckBox * autosave = new QCheckBox(this);
+    connectControl(autosave, SIGNAL(toggled(bool)), standartCallbacks(KEY_SCAN_AUTOSAVE));
+
+
+
+    layout_->addRow(tr("Autosave:"), autosave);
+}

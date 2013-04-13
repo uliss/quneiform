@@ -867,6 +867,21 @@ Page: %2</source>
     </message>
 </context>
 <context>
+    <name>ScanPreferences</name>
+    <message>
+        <source>Scanning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use last scanner:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Autosave:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>TextEditor</name>
     <message>
         <source>Alignment</source>

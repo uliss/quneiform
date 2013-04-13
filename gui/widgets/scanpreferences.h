@@ -16,44 +16,24 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef SANEDIALOG_H
-#define SANEDIALOG_H
+#ifndef SCANPREFERENCES_H
+#define SCANPREFERENCES_H
 
-#include <QDialog>
+#include "preferenceswidget.h"
 
-class SaneWidget;
-class QHBoxLayout;
-class QImage;
-class QProgressDialog;
+class QFormLayout;
 
-class SaneDialog : public QDialog
+class ScanPreferences : public PreferencesWidget
 {
     Q_OBJECT
 public:
-    explicit SaneDialog(QWidget * parent = 0);
-    QImage * image();
-    QString imagePath() const;
-public slots:
-    int run();
-private slots:
-    void scanStart();
-    void scanEnd();
-    void scanFailed();
-    void imageReady();
+    ScanPreferences(QWidget * parent = NULL);
 private:
-    QString autosaveDir() const;
-    QString autosaveImageName(const QString& dir) const;
-    QString makeFullAutosaveName(const QString& dir) const;
-    void initIcons();
-    void initUi();
-    void initLayout();
-    void saveImage(const QString& path);
+    void setupLayout();
+    void setupUseLastScanner();
+    void setupAutosave();
 private:
-    SaneWidget * sane_widget_;
-    QHBoxLayout * layout_;
-    QImage * image_;
-    QString saved_;
-    QProgressDialog * progress_;
+    QFormLayout * layout_;
 };
 
-#endif // SANEDIALOG_H
+#endif // SCANPREFERENCES_H
