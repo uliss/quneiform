@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2012 by Serge Poltavski                                 *
+ *   Copyright (C) 2013 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,32 +16,40 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef SETTINGSKEYS_H
-#define SETTINGSKEYS_H
+#ifndef SANEDIALOG_H
+#define SANEDIALOG_H
 
-extern const char * KEY_EXTERNAL_EDITOR;
-extern const char * KEY_ICON_THEME;
-extern const char * KEY_SHOW_CURRENT_CHAR;
-extern const char * KEY_EDITOR_FONT;
-extern const char * KEY_CURRENT_CHAR_COLOR;
-extern const char * KEY_ALTERNATIVE_CHAR_COLOR;
-extern const char * KEY_SETTINGS_LAST_PAGE;
-extern const char * KEY_PROCESS_RECOGNITION;
-extern const char * KEY_PRINT_CUNEIFORM_DEBUG;
-extern const char * KEY_MODULE_CIMAGE_DEBUG;
-extern const char * KEY_DEBUG_SECTIONS_BBOX;
-extern const char * KEY_DEBUG_COLUMNS_BBOX;
-extern const char * KEY_DEBUG_PARAGRAPHS_BBOX;
-extern const char * KEY_DEBUG_LINES_BBOX;
-extern const char * KEY_DEBUG_CHARACTERS_BBOX;
-extern const char * KEY_DEBUG_PICTURES_BBOX;
-extern const char * KEY_LAST_OPEN_DIRECTORY;
-extern const char * KEY_RECENT_FILES;
-extern const char * KEY_RECENT_PACKETS;
-extern const char * KEY_AUTOSAVE;
-extern const char * KEY_AUTOSAVE_INTERVAL;
-extern const char * KEY_LAST_SCANNER;
-extern const char * KEY_USE_LAST_SCANNER;
-extern const char * KEY_SCAN_AUTOSAVE;
+#include <QDialog>
 
-#endif // SETTINGSKEYS_H
+class SaneWidget;
+class QHBoxLayout;
+class QImage;
+class QProgressDialog;
+
+class SaneDialog : public QDialog
+{
+    Q_OBJECT
+public:
+    explicit SaneDialog(QWidget * parent = 0);
+    QImage * image();
+    QString imagePath() const;
+public slots:
+    int run();
+private slots:
+    void scanStart();
+    void scanEnd();
+    void scanFailed();
+    void imageReady();
+private:
+    void initIcons();
+    void initUi();
+    void initLayout();
+private:
+    SaneWidget * sane_widget_;
+    QHBoxLayout * layout_;
+    QImage * image_;
+    QString saved_;
+    QProgressDialog * progress_;
+};
+
+#endif // SANEDIALOG_H

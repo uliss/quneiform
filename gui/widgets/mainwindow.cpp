@@ -1085,7 +1085,8 @@ void MainWindow::showPreferences()
 
 void MainWindow::showScanDialog()
 {
-    utils::openScannerDialog(this);
+    QStringList images = utils::openScannerDialog(this);
+    open(images);
 }
 
 void MainWindow::showViewContentOnly()

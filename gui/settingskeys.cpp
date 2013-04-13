@@ -39,4 +39,8 @@ const char * KEY_RECENT_FILES = "recent-files";
 const char * KEY_RECENT_PACKETS = "recent-packets";
 const char * KEY_AUTOSAVE = "general/autosave";
 const char * KEY_AUTOSAVE_INTERVAL = "general/autosaveInterval";
+const char * KEY_LAST_SCANNER = "scan/lastScanner";
+const char * KEY_USE_LAST_SCANNER = "scan/useLastScanner";
+const char * KEY_SCAN_AUTOSAVE = "scan/autosave";
+
 

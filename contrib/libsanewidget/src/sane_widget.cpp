@@ -40,7 +40,15 @@ extern "C" {
 
 //************************************************************
 SaneWidget::SaneWidget(QWidget* parent)
-: QWidget(parent)
+    : QWidget(parent),
+      scan_btn(NULL),
+      prev_btn(NULL),
+      z_in_btn(NULL),
+      z_out_btn(NULL),
+      z_sel_btn(NULL),
+      z_fit_btn(NULL),
+      preview(NULL),
+      pr_img(NULL)
 {
     SANE_Int version;
 
@@ -133,6 +141,16 @@ QString SaneWidget::selectDevice(QWidget* parent)
 
 
     return QString(dev_list[i]->name);
+}
+
+bool SaneWidget::closeDevice()
+{
+    if(!s_handle)
+        return false;
+
+    sane_close((SANE_Handle)s_handle);
+    s_handle = NULL;
+    return true;
 }
 
 //************************************************************

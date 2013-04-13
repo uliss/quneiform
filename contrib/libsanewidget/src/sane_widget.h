@@ -36,8 +36,10 @@ extern "C" {
 
 #define MAX_NUM_OPTIONS 100
 #define IMG_DATA_R_SIZE 1000
-#define PROGRESS_MAX 100
-#define PROGRESS_MIN 0
+enum {
+    PROGRESS_MAX = 100,
+    PROGRESS_MIN = 0
+};
 
 typedef enum
 {
@@ -51,11 +53,11 @@ typedef enum
 class SaneWidget : public QWidget
 {
     Q_OBJECT
-
 public:
     SaneWidget(QWidget* parent=0);
     ~SaneWidget(void);
     QString selectDevice(QWidget* parent=0);
+    bool closeDevice();
     bool openDevice(const QString &device_name);
     QImage *getFinalImage(void);
     bool setIconColorMode(const QIcon &icon);

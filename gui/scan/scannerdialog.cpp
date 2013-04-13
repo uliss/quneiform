@@ -28,6 +28,10 @@
 #include "scanner.h"
 #include "scanarea.h"
 
+#ifdef WITH_SANE
+#include "sanedialog.h"
+#endif
+
 #ifdef Q_WS_MAC
 #include "macosx/imagecapture.h"
 #endif
@@ -37,11 +41,21 @@ static const char * PROPERTY_WIDGET_TYPE = "WidgetType";
 
 namespace utils {
 
-void openScannerDialog(QWidget * parent)
+QStringList openScannerDialog(QWidget * parent)
 {
+    QStringList res;
 #ifdef Q_WS_MAC
-    openImageCapture();
+#ifdef WITH_SANE
+    SaneDialog * sn = new SaneDialog(parent);
+    int rc = sn->run();
+    if(rc == QDialog::Accepted) {
+        res << sn->imagePath();
+    }
+//    openImageCapture();
 #endif
+#endif
+
+    return res;
 }
 
 }
