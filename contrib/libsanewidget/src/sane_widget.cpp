@@ -22,6 +22,7 @@ extern "C" {
 #include <sane/saneopts.h>
 }
 #include <iostream>
+#include <libintl.h>
 
 //#include <qlayout.h>
 #include <qeventloop.h>
@@ -335,8 +336,8 @@ void SaneWidget::createOptInterface(void)
 
     // basic/intermediate/All options
     QStringList strl;
-    strl << "Basic" << "Advanced" << "All Options";
-    LabeledCombo *opt_level = new LabeledCombo(opt_container, QString("Option Level"), strl);
+    strl << tr("Basic") << tr("Advanced") << tr("All Options");
+    LabeledCombo *opt_level = new LabeledCombo(opt_container, tr("Option Level"), strl);
     opt_layout->addWidget(opt_level);
 
     // add separator line
@@ -546,6 +547,11 @@ void SaneWidget::loadTranslations()
     }
 
     QApplication::installTranslator(&tr_);
+
+    setlocale(LC_ALL, locale.name().toAscii().constData());
+    bindtextdomain("sane-backends", "/usr/local/share/locale");
+    qDebug()  << textdomain( "sane-backends");
+    qDebug()  << gettext("Resolution");
 }
 
 //************************************************************

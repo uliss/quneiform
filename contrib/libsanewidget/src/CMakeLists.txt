@@ -43,6 +43,7 @@ qt4_create_translation(SANEWIDGET_TRANSLATIONS_QM
     ${sanewidget_SRCS}
     ${sanewidget_MOC_HDRS}
     ${SANEWIDGET_TRANSLATIONS_TS}
+    ${SANE_INCLUDE_DIR}/sane/saneopts.h
     OPTIONS -locations none
 )
 
@@ -63,4 +64,4 @@ ADD_LIBRARY(sanewidget STATIC
 
 # link the "sanewidget" target against the Qt libraries. which libraries exactly,
 # is defined by the "include(${QT_USE_FILE})" line above, which sets up this variable.
-TARGET_LINK_LIBRARIES(sanewidget ${QT_LIBRARIES} ${SANE_LIBRARY} ${SANEWIDGET_QRC})
+TARGET_LINK_LIBRARIES(sanewidget ${QT_LIBRARIES} ${SANE_LIBRARY} ${SANEWIDGET_QRC} ${LIBINTL_LIBRARIES})

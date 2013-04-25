@@ -69,5 +69,21 @@
         <source>Final Scan</source>
         <translation>Сканирование</translation>
     </message>
+    <message>
+        <source>Basic</source>
+        <translation>Простой</translation>
+    </message>
+    <message>
+        <source>Advanced</source>
+        <translation>Продвинутый</translation>
+    </message>
+    <message>
+        <source>All Options</source>
+        <translation>Все опции</translation>
+    </message>
+    <message>
+        <source>Option Level</source>
+        <translation>Режим настроек</translation>
+    </message>
 </context>
 </TS>

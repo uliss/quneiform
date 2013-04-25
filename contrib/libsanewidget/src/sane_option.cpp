@@ -19,10 +19,16 @@
 
 #include <stdio.h>
 #include <iostream>
+#include <libintl.h>
 
 #include "sane_option.h"
 
 #define MIN_FOAT_STEP 0.001
+
+static inline QString my_tr(const char * msg)
+{
+    return QString::fromUtf8(gettext(msg));
+}
 
 //************************************************************
 SaneOption::SaneOption(const SANE_Handle s_handle, const int opt_num):
@@ -84,20 +90,20 @@ void SaneOption::createWidget(QWidget *parent)
     switch(type)
     {
         case SW_GROUP:
-            frame = new LabeledSeparator(parent, QString(sane_option->title));
+            frame = new LabeledSeparator(parent, my_tr(sane_option->title));
             return;
         case SW_CHECKBOX:
-            frame = lchebx = new LabeledCheckbox(parent, QString(sane_option->title));
+            frame = lchebx = new LabeledCheckbox(parent, my_tr(sane_option->title));
             connect(lchebx, SIGNAL(toggled(bool)), this, SLOT(checkboxChanged(bool)));
             break;
         case SW_COMBO:
             cstrl = genComboStringList();
-            frame = lcombx = new LabeledCombo(parent, QString(sane_option->title), *cstrl);
+            frame = lcombx = new LabeledCombo(parent, my_tr(sane_option->title), *cstrl);
             connect(lcombx, SIGNAL(activated(int)), this, SLOT(comboboxChanged(int)));
             break;
         case SW_SLIDER:
             frame = lslider = new LabeledSlider(parent,
-                    QString(sane_option->title),
+                    my_tr(sane_option->title),
                     sane_option->constraint.range->min,
                     sane_option->constraint.range->max,
                     sane_option->constraint.range->quant);
@@ -106,7 +112,7 @@ void SaneOption::createWidget(QWidget *parent)
             break;
         case SW_SLIDER_INT:
             frame = lslider = new LabeledSlider(parent,
-                    QString(sane_option->title),
+                    my_tr(sane_option->title),
                     SW_INT_MIN,
                     SW_INT_MAX,
                     1);
@@ -118,7 +124,7 @@ void SaneOption::createWidget(QWidget *parent)
             if (tmp_step < MIN_FOAT_STEP) tmp_step = MIN_FOAT_STEP;
 
             frame = lfslider = new LabeledFSlider(parent,
-                    QString(sane_option->title),
+                    my_tr(sane_option->title),
                     SANE_UNFIX(sane_option->constraint.range->min),
                     SANE_UNFIX(sane_option->constraint.range->max),
                     tmp_step);
@@ -129,7 +135,7 @@ void SaneOption::createWidget(QWidget *parent)
         case SW_F_SLIDER_FIX:
 
             frame = lfslider = new LabeledFSlider(parent,
-                    QString(sane_option->title),
+                    my_tr(sane_option->title),
                     SW_FIXED_MIN,
                     SW_FIXED_MAX ,
                     MIN_FOAT_STEP);
@@ -138,12 +144,12 @@ void SaneOption::createWidget(QWidget *parent)
             connect(lfslider, SIGNAL(valueChanged(float)), this, SLOT(fsliderChanged(float)));
             break;
         case SW_ENTRY:
-            frame = lentry = new LabeledEntry(parent, QString(sane_option->title));
+            frame = lentry = new LabeledEntry(parent, my_tr(sane_option->title));
             connect(lentry, SIGNAL(entryEdited(const QString&)),
                     this, SLOT(entryChanged(const QString&)));
             break;
         case SW_GAMMA:
-            frame = lgamma = new LabeledGamma(parent, QString(sane_option->title),
+            frame = lgamma = new LabeledGamma(parent, my_tr(sane_option->title),
                                               sane_option->size/sizeof(SANE_Word));
             connect(lgamma, SIGNAL(gammaTableChanged(const QVector<int> &)),
                     this, SLOT(gammaTableChanged(const QVector<int> &)));
@@ -154,7 +160,7 @@ void SaneOption::createWidget(QWidget *parent)
         case SW_DETECT_FAIL:
             frame = new LabeledSeparator(parent, ">>> " +
                     QString().sprintf("%d \"", opt_number) +
-                            QString(sane_option->title)+"\" <<<");
+                            my_tr(sane_option->title)+"\" <<<");
             printf("SW_DETECT_FAIL opt(%d), %s\n", opt_number, sane_option->title);
             break;
     }
