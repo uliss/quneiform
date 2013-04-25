@@ -22,18 +22,25 @@
 #include "preferenceswidget.h"
 
 class QFormLayout;
+class QLineEdit;
 
 class ScanPreferences : public PreferencesWidget
 {
     Q_OBJECT
 public:
     ScanPreferences(QWidget * parent = NULL);
+private slots:
+    void handleDirectoryInput(int idx);
 private:
     void setupLayout();
     void setupUseLastScanner();
     void setupAutosave();
 private:
+    static bool loadAutosaveType(QWidget * w, const QVariant& data);
+    static bool saveAutosaveType(QWidget * w, const QVariant& data);
+private:
     QFormLayout * layout_;
+    QLineEdit * autosave_dir_;
 };
 
 #endif // SCANPREFERENCES_H

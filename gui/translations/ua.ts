@@ -880,6 +880,14 @@ Page: %2</source>
         <source>Autosave:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Save to directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save to packet directory</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TextEditor</name>
