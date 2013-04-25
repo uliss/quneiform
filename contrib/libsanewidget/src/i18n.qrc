@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/sanewidget">
+        <file>sanewidget_ru.qm</file>
+    </qresource>
+</RCC>

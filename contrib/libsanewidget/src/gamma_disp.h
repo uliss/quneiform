@@ -23,7 +23,7 @@
 #include <QWidget>
 
 /**
- *@author Kåre Särs
+ * @author Kåre Särs
  *
  * This is the widget that displays the gamma table.
  */
@@ -31,27 +31,23 @@
 class GammaDisp : public QWidget
 {
     Q_OBJECT
+public:
+    /**
+      * Create a gamma display.
+      * \param parent parent widget
+      */
+    GammaDisp(QWidget *parent, QVector<int> *tbl);
+    ~GammaDisp() {}
 
-    public:
-       /**
-        * Create a gamma display.
-        * \param parent parent widget
-        */
-        GammaDisp(QWidget *parent, QVector<int> *tbl);
-        ~GammaDisp() {};
-
-        QSize sizeHint(void) const;
-        QSize minimumSizeHint() const;
-
-        void setColor(QColor color);
-
-    protected:
-        void paintEvent (QPaintEvent *);
-        void resizeEvent(QResizeEvent *);
-
-    private:
-        QVector<int> *gam_tbl;
-        QColor gam_color;
+    QSize sizeHint(void) const;
+    QSize minimumSizeHint() const;
+    void setColor(QColor color);
+protected:
+    void paintEvent (QPaintEvent *);
+    void resizeEvent(QResizeEvent *);
+private:
+    QVector<int> *gam_tbl;
+    QColor gam_color;
 };
 
 #endif

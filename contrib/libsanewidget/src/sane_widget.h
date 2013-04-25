@@ -20,35 +20,31 @@
 #ifndef SANE_WIDGET_H
 #define SANE_WIDGET_H
 
-#include <QScrollArea>
+#include <sane/sane.h>
+
 #include <QWidget>
-#include <QString>
-#include <QPushButton>
-#include <QToolBar>
 #include <QTimer>
+#include <QTranslator>
 
 class SaneOption;
 class PreviewArea;
+class QImage;
+class QScrollArea;
+class QPushButton;
 
-extern "C" {
-#include <sane/sane.h>
-}
-
-#define MAX_NUM_OPTIONS 100
-#define IMG_DATA_R_SIZE 1000
 enum {
     PROGRESS_MAX = 100,
     PROGRESS_MIN = 0
 };
 
-typedef enum
+enum ReadStatus
 {
     READ_NOT_READING,
     READ_ON_GOING,
     READ_ERROR,
     READ_CANCEL,
     READ_FINISHED
-} ReadStatus;
+};
 
 class SaneWidget : public QWidget
 {
@@ -69,18 +65,14 @@ public:
     bool setIconZoomOut(const QIcon &icon);
     bool setIconZoomSel(const QIcon &icon);
     bool setIconZoomFit(const QIcon &icon);
-
-
 public slots:
     void scanCancel(void);
-
 signals:
     void scanStart(void);
     void scanProgress(int);
     void scanDone(void);
     void imageReady(void);
     void scanFaild(void);
-
 private slots:
     void opt_level_change(int level);
     void scheduleValReload(void);
@@ -93,10 +85,10 @@ private slots:
     void setTLY(float y);
     void setBRX(float x);
     void setBRY(float y);
-
 private:
     SaneOption *getOption(const QString &name);
     void createOptInterface(void);
+    void loadTranslations();
     void updatePreviewSize(void);
     void processData(void);
     void setDefaultValues(void);
@@ -143,16 +135,15 @@ private:
 
     // general scanning
     SANE_Parameters params;
-    //QSocketNotifier *sn;
     int progress;
-    SANE_Byte img_data[IMG_DATA_R_SIZE];
+    SANE_Byte * img_data;
     SANE_Byte px_colors[3];
     unsigned int px_c_index;
     int pixel_x, pixel_y;
     ReadStatus read_status;
     QImage *scan_img;
     QImage the_img;
-
+    QTranslator tr_;
 };
 
 #endif

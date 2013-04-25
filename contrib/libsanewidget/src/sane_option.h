@@ -20,14 +20,18 @@
 #ifndef SANE_OPTIONS_H
 #define SANE_OPTIONS_H
 
+#include <QtGlobal>
+
+#ifndef SANE_I18N
+#define SANE_I18N(text) QT_TR_NOOP(text)
+#endif
+
+#include <sane/sane.h>
+#include <sane/saneopts.h>
+
 #include <qframe.h>
 #include <qcheckbox.h>
 #include <qlayout.h>
-
-extern "C" {
-#include <sane/sane.h>
-#include <sane/saneopts.h>
-}
 
 #include "labeled_separator.h"
 #include "labeled_slider.h"

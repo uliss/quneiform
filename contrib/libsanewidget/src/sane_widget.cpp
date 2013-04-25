@@ -27,6 +27,8 @@ extern "C" {
 #include <qeventloop.h>
 #include <qapplication.h>
 #include <QComboBox>
+#include <QTranslator>
+#include <QDebug>
 
 #include "sane_option.h"
 #include "preview_area.h"
@@ -38,6 +40,20 @@ extern "C" {
 
 #define ENABLE_DEBUG
 
+namespace {
+bool init_resources()
+{
+//    Q_INIT_RESOURCE(sanewidget_i18n);
+    return true;
+}
+
+bool init_resources_res = init_resources();
+}
+
+enum {
+    IMG_DATA_R_SIZE = 1024 * 50
+};
+
 //************************************************************
 SaneWidget::SaneWidget(QWidget* parent)
     : QWidget(parent),
@@ -48,8 +64,10 @@ SaneWidget::SaneWidget(QWidget* parent)
       z_sel_btn(NULL),
       z_fit_btn(NULL),
       preview(NULL),
-      pr_img(NULL)
+      pr_img(NULL),
+      img_data(NULL)
 {
+    loadTranslations();
     SANE_Int version;
 
     device=0;
@@ -72,6 +90,8 @@ SaneWidget::SaneWidget(QWidget* parent)
     pr_img = 0;
     the_img = QImage(10, 10, QImage::Format_RGB32);
 
+    img_data = new SANE_Byte[IMG_DATA_R_SIZE];
+
     SANE_Status status;
     status = sane_init(&version, 0);
     if (status != SANE_STATUS_GOOD) {
@@ -90,6 +110,8 @@ SaneWidget::SaneWidget(QWidget* parent)
 //************************************************************
 SaneWidget::~SaneWidget(void)
 {
+    QApplication::removeTranslator(&tr_);
+    delete[] img_data;
     optList.clear();
     sane_exit();
 }
@@ -128,7 +150,7 @@ QString SaneWidget::selectDevice(QWidget* parent)
 
     RadioSelect sel;
     sel.setWindowTitle(qApp->applicationName());
-    i = sel.getSelectedIndex(parent, QString("Select Scanner"), dev_name_list, 0);
+    i = sel.getSelectedIndex(parent, tr("Select Scanner"), dev_name_list, 0);
     printf("i=%d\n", i);
 
     if (i == num_scaners) {
@@ -176,7 +198,7 @@ bool SaneWidget::openDevice(const QString &device_name)
 
     if (dev_list[i] == 0) {
 #ifdef ENABLE_DEBUG
-        modelname = QString("Test Scanner");
+        modelname = tr("Test Scanner");
 #else
         printf("openDevice: device '%s' not found\n", qPrintable(device_name));
         return false;
@@ -511,6 +533,19 @@ void SaneWidget::createOptInterface(void)
     // this could/should be set by saved settings.
     color_opts->setVisible(false);
     remain_opts->setVisible(false);
+}
+
+void SaneWidget::loadTranslations()
+{
+    QLocale locale;
+    QString tr_file = "sanewidget_" + locale.name();
+    bool res = tr_.load(tr_file, ":/sanewidget");
+    if(!res) {
+        qWarning() << Q_FUNC_INFO << "can't load translation: " << tr_file;
+        return;
+    }
+
+    QApplication::installTranslator(&tr_);
 }
 
 //************************************************************

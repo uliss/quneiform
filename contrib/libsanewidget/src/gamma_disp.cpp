@@ -59,16 +59,17 @@ void GammaDisp::paintEvent(QPaintEvent *)
 
     painter.fillRect(rect(), QBrush(Qt::white));
 
-    double xscale = (double)(size().width()-1) / (double)gam_tbl->size();
-    double yscale = (double)(size().height()-1) / (double)gam_tbl->size();
+    const double xscale = (double)(size().width()-1) / (double) gam_tbl->size();
+    const double yscale = (double)(size().height()-1) / (double) gam_tbl->size();
+    const int vsize = size().height()- 1;
 
     painter.setPen(gam_color);
     for (int i=0; i<gam_tbl->size()-1; i++) {
         p1.setX(i*xscale);
-        p1.setY(size().height()- 1 - (gam_tbl->at(i) * yscale));
+        p1.setY(vsize - (gam_tbl->at(i) * yscale));
 
         p2.setX((i+1)*xscale);
-        p2.setY(size().height()- 1 - (gam_tbl->at(i+1) * yscale));
+        p2.setY(vsize - (gam_tbl->at(i+1) * yscale));
 
         painter.drawLine(p1, p2);
     }
