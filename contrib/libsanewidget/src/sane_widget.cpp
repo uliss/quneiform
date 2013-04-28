@@ -16,17 +16,15 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-extern "C" {
+
 #include <stdio.h>
 #include <sys/ioctl.h>
 #include <sane/saneopts.h>
-}
 #include <iostream>
-#include <libintl.h>
+#include <libintl.h> // for gettext
 
-//#include <qlayout.h>
-#include <qeventloop.h>
-#include <qapplication.h>
+#include <QEventLoop>
+#include <QApplication>
 #include <QComboBox>
 #include <QTranslator>
 #include <QDebug>
@@ -39,7 +37,10 @@ extern "C" {
 #include "radio_select.h"
 #include "labeled_gamma.h"
 
-#define ENABLE_DEBUG
+static inline QString my_i18n(const char * msg)
+{
+    return QString::fromUtf8(gettext(msg));
+}
 
 namespace {
 bool init_resources()
@@ -55,9 +56,9 @@ enum {
     IMG_DATA_R_SIZE = 1024 * 50
 };
 
-//************************************************************
 SaneWidget::SaneWidget(QWidget* parent)
     : QWidget(parent),
+      device(NULL),
       scan_btn(NULL),
       prev_btn(NULL),
       z_in_btn(NULL),
@@ -66,49 +67,46 @@ SaneWidget::SaneWidget(QWidget* parent)
       z_fit_btn(NULL),
       preview(NULL),
       pr_img(NULL),
-      img_data(NULL)
+      img_data(NULL),
+      opt_area(0),
+      opt_tl_x(0),
+      opt_tl_y(0),
+      opt_br_x(0),
+      opt_br_y(0),
+      opt_res(0),
+      opt_res_y(0),
+      opt_gam_r(0),
+      opt_gam_g(0),
+      opt_gam_b(0),
+      previewWidth(0),
+      previewHeight(0),
+      read_status(READ_NOT_READING),
+      px_c_index(0),
+      color_opts(0),
+      remain_opts(0)
 {
     loadTranslations();
     SANE_Int version;
 
-    device=0;
-    previewWidth = 0;
-    previewHeight = 0;
-    read_status = READ_NOT_READING;
-    px_c_index = 0;
-    opt_area = 0;
-    opt_tl_x = 0;
-    opt_tl_y = 0;
-    opt_br_x = 0;
-    opt_br_y = 0;
-    opt_res = 0;
-    opt_res_y = 0;
-    opt_gam_r = 0;
-    opt_gam_g = 0;
-    opt_gam_b = 0;
-    color_opts = 0;
-    remain_opts = 0;
-    pr_img = 0;
     the_img = QImage(10, 10, QImage::Format_RGB32);
 
     img_data = new SANE_Byte[IMG_DATA_R_SIZE];
 
-    SANE_Status status;
-    status = sane_init(&version, 0);
+    SANE_Status status = sane_init(&version, 0);
     if (status != SANE_STATUS_GOOD) {
-        printf("SaneWidget: sane_init() failed(%s)\n", sane_strstatus(status));
+        qWarning() << Q_FUNC_INFO << QString("SaneWidget: sane_init() failed(%1)").
+                      arg(sane_strstatus(status));
     }
     else {
-        printf("Sane Version = %d.%d.%d\n",
-               SANE_VERSION_MAJOR(version),
-               SANE_VERSION_MINOR(version),
-               SANE_VERSION_BUILD(version));
+        qDebug() << QString("Sane Version = %1.%2.%3").
+                    arg(SANE_VERSION_MAJOR(version)).
+                    arg(SANE_VERSION_MINOR(version)).
+                    arg(SANE_VERSION_BUILD(version));
     }
     r_val_tmr.setSingleShot(true);
     connect (&r_val_tmr, SIGNAL(timeout(void)), this, SLOT(valReload()));
 }
 
-//************************************************************
 SaneWidget::~SaneWidget(void)
 {
     QApplication::removeTranslator(&tr_);
@@ -117,53 +115,21 @@ SaneWidget::~SaneWidget(void)
     sane_exit();
 }
 
-//************************************************************
-QString SaneWidget::selectDevice(QWidget* parent)
+QString SaneWidget::selectDevice(QWidget * parent)
 {
-    int i=0;
-    int num_scaners;
-    SANE_Status status;
-    SANE_Device const **dev_list;
-    QStringList dev_name_list;
-    QString tmp;
-
-    status = sane_get_devices(&dev_list, SANE_TRUE);
-
-    while(dev_list[i] != 0) {
-        printf("i=%d name='%s' vendor='%s' model='%s' type='%s'\n",
-               i, dev_list[i]->name,  dev_list[i]->vendor,
-               dev_list[i]->model, dev_list[i]->type);
-        tmp = QString(dev_list[i]->name);
-        tmp += "\n" + QString(dev_list[i]->vendor);
-        tmp += " : " + QString(dev_list[i]->model);
-        dev_name_list += tmp;
-        i++;
-    }
-    num_scaners = i;
-
-    // add the debug test scanner to the end
-#ifdef ENABLE_DEBUG
-    tmp = QString("test:0");
-    tmp += "\n" + QString("Tester");
-    tmp += " : " + QString("Model");
-    dev_name_list += tmp;
-#endif
+    QStringList scanner_list = scannerList();
 
     RadioSelect sel;
     sel.setWindowTitle(qApp->applicationName());
-    i = sel.getSelectedIndex(parent, tr("Select Scanner"), dev_name_list, 0);
-    printf("i=%d\n", i);
+    int idx = sel.getSelectedIndex(parent, tr("Select Scanner"), scanner_list, 0);
 
-    if (i == num_scaners) {
+    if (idx == scanner_list.count())
         return QString("test:0");
-    }
 
-    if ((i < 0) || (i >= num_scaners)) {
+    if ((idx < 0) || (idx >= scanner_list.count()))
         return QString("");
-    }
 
-
-    return QString(dev_list[i]->name);
+    return scanner_list.at(idx).split("\n").at(0);
 }
 
 bool SaneWidget::closeDevice()
@@ -171,12 +137,11 @@ bool SaneWidget::closeDevice()
     if(!s_handle)
         return false;
 
-    sane_close((SANE_Handle)s_handle);
+    sane_close(s_handle);
     s_handle = NULL;
     return true;
 }
 
-//************************************************************
 bool SaneWidget::openDevice(const QString &device_name)
 {
     SANE_Status status;
@@ -273,7 +238,7 @@ bool SaneWidget::openDevice(const QString &device_name)
     z_out_btn = new QPushButton(tr("Zoom Out"));
     z_sel_btn = new QPushButton(tr("Zoom to Selection"));
     z_fit_btn = new QPushButton(tr("Zoom to Fit"));
-    prev_btn = new QPushButton(tr("Preview"));;
+    prev_btn = new QPushButton(tr("Preview"));
     scan_btn = new QPushButton(tr("Final Scan"));
 
     connect(z_in_btn, SIGNAL(clicked(void)), preview, SLOT(zoomIn(void)));
@@ -465,8 +430,9 @@ void SaneWidget::createOptInterface(void)
 
     if ((opt_gam_r != 0) && (opt_gam_g != 0) && (opt_gam_b != 0)) {
         LabeledGamma *lgamma = new LabeledGamma(color_opts,
-                                  QString(SANE_TITLE_GAMMA_VECTOR),
+                                  my_i18n(SANE_TITLE_GAMMA_VECTOR),
                                   opt_gam_r->lgamma->size());
+        lgamma->setToolTip(my_i18n(SANE_DESC_GAMMA_VECTOR));
         color_lay->addWidget(lgamma);
         connect(lgamma, SIGNAL(gammaChanged(int,int,int)),
                 opt_gam_r->lgamma, SLOT(setValues(int,int,int)));
@@ -475,7 +441,7 @@ void SaneWidget::createOptInterface(void)
         connect(lgamma, SIGNAL(gammaChanged(int,int,int)),
                 opt_gam_b->lgamma, SLOT(setValues(int,int,int)));
 
-        QCheckBox *split_gam_btn = new QCheckBox("Separate color intensity tables", opt_container);
+        QCheckBox *split_gam_btn = new QCheckBox(tr("Separate color intensity tables"), opt_container);
         color_lay->addWidget(split_gam_btn);
         connect (split_gam_btn, SIGNAL(toggled(bool)), gamma_frm, SLOT(setVisible(bool)));
         connect (split_gam_btn, SIGNAL(toggled(bool)), lgamma, SLOT(setHidden(bool)));
@@ -538,20 +504,29 @@ void SaneWidget::createOptInterface(void)
 
 void SaneWidget::loadTranslations()
 {
+    loadTranslationsQt();
+    loadTranslationsGettext();
+}
+
+void SaneWidget::loadTranslationsQt()
+{
     QLocale locale;
-    QString tr_file = "sanewidget_" + locale.name();
-    bool res = tr_.load(tr_file, ":/sanewidget");
+    QString tr_fname = "sanewidget_" + locale.name();
+    bool res = tr_.load(tr_fname, ":/sanewidget");
     if(!res) {
-        qWarning() << Q_FUNC_INFO << "can't load translation: " << tr_file;
+        qWarning() << Q_FUNC_INFO << "can't load translation: " << tr_fname;
         return;
     }
 
     QApplication::installTranslator(&tr_);
+}
 
+void SaneWidget::loadTranslationsGettext()
+{
+    QLocale locale;
     setlocale(LC_ALL, locale.name().toAscii().constData());
     bindtextdomain("sane-backends", "/usr/local/share/locale");
-    qDebug()  << textdomain( "sane-backends");
-    qDebug()  << gettext("Resolution");
+    textdomain( "sane-backends");
 }
 
 //************************************************************
@@ -583,7 +558,7 @@ void SaneWidget::setDefaultValues(void)
 
     // Try to get Color mode by default
     if ((option = getOption(SANE_NAME_SCAN_MODE)) != 0) {
-        option->setValue(QString(SANE_VALUE_SCAN_MODE_COLOR));
+        option->setValue(QString::fromUtf8(gettext(SANE_VALUE_SCAN_MODE_COLOR)));
     }
 
     // Try to set 8 bit color
@@ -1214,7 +1189,36 @@ void SaneWidget::processData(void)
     }
 }
 
-//************************************************************
+QStringList SaneWidget::scannerList() const
+{
+    QStringList res;
+
+    SANE_Device const **dev_list;
+    SANE_Status status = sane_get_devices(&dev_list, SANE_TRUE);
+    if(status != SANE_STATUS_GOOD) {
+        qWarning() << Q_FUNC_INFO << "can't get device list:" << sane_strstatus(status);
+        return res;
+    }
+
+    int i = 0;
+    while(dev_list[i] != 0) {
+        qDebug() << Q_FUNC_INFO << QString("scanner: i=%1 name='%2' vendor='%3' model='%4' type='%5'").
+                    arg(i).
+                    arg(dev_list[i]->name).
+                    arg(dev_list[i]->vendor).
+                    arg(dev_list[i]->model).
+                    arg(dev_list[i]->type);
+
+        res << QString("%1\n%2 : %3").
+                arg(dev_list[i]->name).
+                arg(dev_list[i]->vendor).
+                arg(dev_list[i]->model);
+        i++;
+    }
+
+    return res;
+}
+
 QImage *SaneWidget::getFinalImage(void)
 {
     return &the_img;

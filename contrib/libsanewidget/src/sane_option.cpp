@@ -91,14 +91,17 @@ void SaneOption::createWidget(QWidget *parent)
     {
         case SW_GROUP:
             frame = new LabeledSeparator(parent, my_tr(sane_option->title));
+            frame->setToolTip(my_tr(sane_option->desc));
             return;
         case SW_CHECKBOX:
             frame = lchebx = new LabeledCheckbox(parent, my_tr(sane_option->title));
+            frame->setToolTip(my_tr(sane_option->desc));
             connect(lchebx, SIGNAL(toggled(bool)), this, SLOT(checkboxChanged(bool)));
             break;
         case SW_COMBO:
             cstrl = genComboStringList();
             frame = lcombx = new LabeledCombo(parent, my_tr(sane_option->title), *cstrl);
+            frame->setWhatsThis(my_tr(sane_option->desc));
             connect(lcombx, SIGNAL(activated(int)), this, SLOT(comboboxChanged(int)));
             break;
         case SW_SLIDER:
@@ -107,6 +110,7 @@ void SaneOption::createWidget(QWidget *parent)
                     sane_option->constraint.range->min,
                     sane_option->constraint.range->max,
                     sane_option->constraint.range->quant);
+            frame->setToolTip(my_tr(sane_option->desc));
             lslider->setSuffix(unitString());
             connect(lslider, SIGNAL(valueChanged(int)), this, SLOT(sliderChanged(int)));
             break;
@@ -116,6 +120,7 @@ void SaneOption::createWidget(QWidget *parent)
                     SW_INT_MIN,
                     SW_INT_MAX,
                     1);
+            frame->setToolTip(my_tr(sane_option->desc));
             lslider->setSuffix(unitString());
             connect(lslider, SIGNAL(valueChanged(int)), this, SLOT(sliderChanged(int)));
             break;
@@ -128,6 +133,7 @@ void SaneOption::createWidget(QWidget *parent)
                     SANE_UNFIX(sane_option->constraint.range->min),
                     SANE_UNFIX(sane_option->constraint.range->max),
                     tmp_step);
+            frame->setToolTip(my_tr(sane_option->desc));
             lfslider->setSuffix(unitString());
             min_change = lfslider->step()/2;
             connect(lfslider, SIGNAL(valueChanged(float)), this, SLOT(fsliderChanged(float)));
@@ -139,18 +145,21 @@ void SaneOption::createWidget(QWidget *parent)
                     SW_FIXED_MIN,
                     SW_FIXED_MAX ,
                     MIN_FOAT_STEP);
+            frame->setToolTip(my_tr(sane_option->desc));
             lfslider->setSuffix(unitString());
             min_change = lfslider->step()/2;
             connect(lfslider, SIGNAL(valueChanged(float)), this, SLOT(fsliderChanged(float)));
             break;
         case SW_ENTRY:
             frame = lentry = new LabeledEntry(parent, my_tr(sane_option->title));
+            frame->setToolTip(my_tr(sane_option->desc));
             connect(lentry, SIGNAL(entryEdited(const QString&)),
                     this, SLOT(entryChanged(const QString&)));
             break;
         case SW_GAMMA:
             frame = lgamma = new LabeledGamma(parent, my_tr(sane_option->title),
                                               sane_option->size/sizeof(SANE_Word));
+            frame->setToolTip(my_tr(sane_option->desc));
             connect(lgamma, SIGNAL(gammaTableChanged(const QVector<int> &)),
                     this, SLOT(gammaTableChanged(const QVector<int> &)));
             if (strcmp(sane_option->name, SANE_NAME_GAMMA_VECTOR_R) == 0) lgamma->setColor(Qt::red);
@@ -161,6 +170,7 @@ void SaneOption::createWidget(QWidget *parent)
             frame = new LabeledSeparator(parent, ">>> " +
                     QString().sprintf("%d \"", opt_number) +
                             my_tr(sane_option->title)+"\" <<<");
+            frame->setToolTip(my_tr(sane_option->desc));
             printf("SW_DETECT_FAIL opt(%d), %s\n", opt_number, sane_option->title);
             break;
     }
@@ -243,12 +253,12 @@ QString SaneOption::unitString(void)
     switch(sane_option->unit)
     {
         case SANE_UNIT_NONE:    return QString("");
-        case SANE_UNIT_PIXEL:   return QString(" Pixel");
-        case SANE_UNIT_BIT:     return QString(" Bit");
-        case SANE_UNIT_MM:      return QString(" mm");
-        case SANE_UNIT_DPI:     return QString(" DPI");
-        case SANE_UNIT_PERCENT: return QString(" %");
-        case SANE_UNIT_MICROSECOND: return QString(" usec");
+        case SANE_UNIT_PIXEL:   return tr(" Pixel");
+        case SANE_UNIT_BIT:     return tr(" Bit");
+        case SANE_UNIT_MM:      return tr(" mm");
+        case SANE_UNIT_DPI:     return tr(" DPI");
+        case SANE_UNIT_PERCENT: return tr(" %");
+        case SANE_UNIT_MICROSECOND: return tr(" usec");
     }
     return QString("");
 }
@@ -298,7 +308,7 @@ QStringList *SaneOption::genComboStringList(void)
 }
 
 //************************************************************
-QString SaneOption::getSaneComboString(unsigned char *data)
+QString SaneOption::getSaneComboString(const unsigned char *data)
 {
     QString tmp;
 
@@ -314,7 +324,7 @@ QString SaneOption::getSaneComboString(unsigned char *data)
         case SANE_TYPE_FIXED:
             return QString().sprintf("%f", SANE_UNFIX(toSANE_Word(data))) + unitString();
         case SANE_TYPE_STRING:
-            tmp = QString((char*)data);
+            tmp = QString::fromUtf8((const char*)data);
             // FIXME clean the end of the string !!
             if (tmp.length() > 25) {
                 tmp = tmp.left(22);
@@ -558,15 +568,15 @@ void SaneOption::readOption(void)
             lcombx->addItems(*cstrl);
             if (icon_color != 0) {
                 lcombx->setIcon(*icon_color,
-                                getSaneComboString((unsigned char*)SANE_VALUE_SCAN_MODE_COLOR));
+                                getSaneComboString((unsigned char*)gettext(SANE_VALUE_SCAN_MODE_COLOR)));
             }
             if (icon_gray != 0) {
                 lcombx->setIcon(*icon_gray,
-                                getSaneComboString((unsigned char*)SANE_VALUE_SCAN_MODE_GRAY));
+                                getSaneComboString((unsigned char*)gettext(SANE_VALUE_SCAN_MODE_GRAY)));
             }
             if (icon_bw != 0) {
                 lcombx->setIcon(*icon_bw,
-                                getSaneComboString((unsigned char*)SANE_VALUE_SCAN_MODE_LINEART));
+                                getSaneComboString((unsigned char*)gettext(SANE_VALUE_SCAN_MODE_LINEART)));
             }
             break;
         case SW_SLIDER:
@@ -704,7 +714,7 @@ void SaneOption::readValue(void)
 }
 
 //************************************************************
-SANE_Word SaneOption::toSANE_Word(unsigned char *data)
+SANE_Word SaneOption::toSANE_Word(const unsigned char *data)
 {
     SANE_Word tmp;
     tmp = data[0];
@@ -1016,7 +1026,7 @@ bool SaneOption::setIconColorMode(const QIcon &icon)
     {
         return false;
     }
-    return lcombx->setIcon(icon, getSaneComboString((unsigned char*)SANE_VALUE_SCAN_MODE_COLOR));
+    return lcombx->setIcon(icon, getSaneComboString((unsigned char*)gettext(SANE_VALUE_SCAN_MODE_COLOR)));
 }
 
 //************************************************************
@@ -1031,7 +1041,7 @@ bool SaneOption::setIconGrayMode(const QIcon &icon)
     {
         return false;
     }
-    return lcombx->setIcon(icon, getSaneComboString((unsigned char*)SANE_VALUE_SCAN_MODE_GRAY));
+    return lcombx->setIcon(icon, getSaneComboString((unsigned char*)gettext(SANE_VALUE_SCAN_MODE_GRAY)));
 }
 
 //************************************************************
@@ -1046,6 +1056,6 @@ bool SaneOption::setIconBWMode(const QIcon &icon)
     {
         return false;
     }
-    return lcombx->setIcon(icon, getSaneComboString((unsigned char*)SANE_VALUE_SCAN_MODE_LINEART));
+    return lcombx->setIcon(icon, getSaneComboString((unsigned char*)gettext(SANE_VALUE_SCAN_MODE_LINEART)));
 }
 

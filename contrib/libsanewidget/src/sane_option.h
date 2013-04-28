@@ -20,12 +20,6 @@
 #ifndef SANE_OPTIONS_H
 #define SANE_OPTIONS_H
 
-#include <QtGlobal>
-
-#ifndef SANE_I18N
-#define SANE_I18N(text) QT_TR_NOOP(text)
-#endif
-
 #include <sane/sane.h>
 #include <sane/saneopts.h>
 
@@ -72,7 +66,6 @@ typedef enum
 class SaneOption : public QObject
 {
     Q_OBJECT
-
 public:
     SaneOption(const SANE_Handle, const int);
     ~SaneOption();
@@ -122,8 +115,8 @@ private:
     // functions
     SaneOptWidget_t getWidgetType(void);
     QStringList *genComboStringList(void);
-    QString getSaneComboString(unsigned char *data);
-    SANE_Word toSANE_Word(unsigned char *data);
+    QString getSaneComboString(const unsigned char *data);
+    SANE_Word toSANE_Word(const unsigned char *data);
     void fromSANE_Word(unsigned char *data, SANE_Word from);
     QString unitString(void);
     bool writeData(unsigned char *data);

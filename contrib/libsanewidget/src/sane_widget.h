@@ -87,12 +87,15 @@ private slots:
     void setBRY(float y);
 private:
     SaneOption *getOption(const QString &name);
-    void createOptInterface(void);
+    void createOptInterface();
     void loadTranslations();
-    void updatePreviewSize(void);
-    void processData(void);
-    void setDefaultValues(void);
-
+    void loadTranslationsQt();
+    void loadTranslationsGettext();
+    void updatePreviewSize();
+    void processData();
+    QStringList scannerList() const;
+    void setDefaultValues();
+private:
     // device info
     SANE_Device const **dev_list;
     SANE_Device const *device;
