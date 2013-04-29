@@ -22,6 +22,8 @@
 #include <sane/saneopts.h>
 #include <iostream>
 #include <libintl.h> // for gettext
+#include <unistd.h> // for sleep
+
 
 #include <QEventLoop>
 #include <QApplication>
@@ -839,8 +841,6 @@ void SaneWidget::scanFinal()
     SANE_Status status;
     float v1,v2;
 
-    //std::cout << "scanFinal" << std::endl;
-
     if ((opt_tl_x_ != 0) && (opt_br_x_ != 0)) {
         opt_tl_x_->getValue(&v1);
         opt_br_x_->getValue(&v2);
@@ -875,7 +875,6 @@ void SaneWidget::scanFinal()
         sane_cancel(s_handle_);
         return;
     }
-    //printf("start OK\n");
 
     status = sane_get_parameters(s_handle_, &params_);
     if (status != SANE_STATUS_GOOD) {
@@ -915,16 +914,13 @@ void SaneWidget::scanFinal()
     this->setDisabled(false);
 }
 
-//************************************************************
 void SaneWidget::processData(void)
 {
     SANE_Status status = SANE_STATUS_GOOD;
     SANE_Int read_bytes = 0;
     int i, j;
 
-    //printf("Pre read()\n");
     status = sane_read(s_handle_, img_data_, IMG_DATA_R_SIZE, &read_bytes);
-    //printf("Post read() read=%d\n", read_bytes);
 
     if (status == SANE_STATUS_EOF) {
         //printf("Read finished read_bytes=%d\n", read_bytes);
