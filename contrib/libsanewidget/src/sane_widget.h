@@ -26,11 +26,14 @@
 #include <QTimer>
 #include <QTranslator>
 
+#include "icon_type.h"
+
 class SaneOption;
 class PreviewArea;
 class QImage;
 class QScrollArea;
 class QPushButton;
+class PreviewWidget;
 
 enum {
     PROGRESS_MAX = 100,
@@ -54,17 +57,12 @@ public:
     ~SaneWidget(void);
     QString selectDevice(QWidget* parent=0);
     bool closeDevice();
-    bool openDevice(const QString &device_name);
-    QImage *getFinalImage(void);
+    bool openDevice(const QString& deviceName);
+    QImage * getFinalImage(void);
+    bool setIcon(const QIcon& icon, IconType t);
     bool setIconColorMode(const QIcon &icon);
     bool setIconGrayMode(const QIcon &icon);
     bool setIconBWMode(const QIcon &icon);
-    bool setIconPreview(const QIcon &icon);
-    bool setIconFinal(const QIcon &icon);
-    bool setIconZoomIn(const QIcon &icon);
-    bool setIconZoomOut(const QIcon &icon);
-    bool setIconZoomSel(const QIcon &icon);
-    bool setIconZoomFit(const QIcon &icon);
 public slots:
     void scanCancel(void);
 signals:
@@ -78,7 +76,7 @@ private slots:
     void scheduleValReload(void);
     void optReload(void);
     void valReload(void);
-    void handleSelection(float tl_x, float tl_y, float br_x, float br_y);
+    void handleSelection(const QRect& rect);
     void scanPreview(void);
     void scanFinal(void);
     void setTLX(float x);
@@ -86,12 +84,16 @@ private slots:
     void setBRX(float x);
     void setBRY(float y);
 private:
-    SaneOption *getOption(const QString &name);
+    SaneOption * getOption(const QString &name);
+    void createLayout();
     void createOptInterface();
+    void createPreview();
+    bool fillSaneOptions();
     void loadTranslations();
     void loadTranslationsQt();
     void loadTranslationsGettext();
     void updatePreviewSize();
+    bool openSaneDevice(const QString& deviceName);
     void processData();
     QStringList scannerList() const;
     void setDefaultValues();
@@ -101,10 +103,10 @@ private:
     SANE_Device const *device;
     SANE_Handle s_handle;
     QString devname;
-    QString modelname;
+    QString modelname_;
 
     // Option variables
-    QScrollArea *opt_area;
+    QScrollArea *opt_area_;
     bool options_read;
     QList<SaneOption *> optList;
     SaneOption *opt_mode;
@@ -122,17 +124,8 @@ private:
     SaneOption *opt_gam_b;
     QTimer r_val_tmr;
 
-
-    QPushButton *scan_btn;
-    QPushButton *prev_btn;
-
-    QPushButton *z_in_btn;
-    QPushButton *z_out_btn;
-    QPushButton *z_sel_btn;
-    QPushButton *z_fit_btn;
     // preview variables
-    PreviewArea *preview;
-    QImage *pr_img;
+    PreviewWidget * preview_;
     float previewWidth;
     float previewHeight;
 

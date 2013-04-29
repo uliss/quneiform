@@ -36,7 +36,6 @@
 class PreviewArea : public QScrollArea
 {
     Q_OBJECT
-
     public:
         PreviewArea(QWidget *parent);
         ~PreviewArea();

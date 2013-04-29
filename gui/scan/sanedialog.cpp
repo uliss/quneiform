@@ -87,12 +87,12 @@ void SaneDialog::initIcons()
 //    sane_widget_->setIconColorMode(iconFromTheme("color"));
 //    sane_widget_->setIconGrayMode(iconFromTheme("gray"));
 //    sane_widget_->setIconBWMode(iconFromTheme("binarize"));
-//    sane_widget_->setIconPreview(iconFromTheme("preview"));
-    sane_widget_->setIconFinal(iconFromTheme("document-save"));
-    sane_widget_->setIconZoomIn(iconFromTheme("zoom-in"));
-    sane_widget_->setIconZoomOut(iconFromTheme("zoom-out"));
+    sane_widget_->setIcon(iconFromTheme("image-x-generic"), ICON_PREVIEW);
+    sane_widget_->setIcon(iconFromTheme("document-save"), ICON_SCAN);
+    sane_widget_->setIcon(iconFromTheme("zoom-in"), ICON_ZOOM_IN);
+    sane_widget_->setIcon(iconFromTheme("zoom-out"), ICON_ZOOM_OUT);
 //    sane_widget_->setIconZoomSel(iconFromTheme("zoom-fit-selection"));
-    sane_widget_->setIconZoomFit(iconFromTheme("zoom-fit-best"));
+    sane_widget_->setIcon(iconFromTheme("zoom-fit-best"), ICON_ZOOM_FIT);
 }
 
 void SaneDialog::initUi()
@@ -222,4 +222,5 @@ QString SaneDialog::autosaveImageName(const QString& dir) const
 
 QString SaneDialog::makeFullAutosaveName(const QString& dir) const
 {
+    return QString();
 }

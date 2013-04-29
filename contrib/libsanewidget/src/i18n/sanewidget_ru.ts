@@ -36,6 +36,33 @@
     </message>
 </context>
 <context>
+    <name>PreviewWidget</name>
+    <message>
+        <source>Zoom In</source>
+        <translation type="unfinished">Увеличить</translation>
+    </message>
+    <message>
+        <source>Zoom Out</source>
+        <translation type="unfinished">Уменьшить</translation>
+    </message>
+    <message>
+        <source>Zoom to Selection</source>
+        <translation type="unfinished">Уместить выделенное</translation>
+    </message>
+    <message>
+        <source>Zoom to Fit</source>
+        <translation type="unfinished">Уместить</translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation type="unfinished">Предпросмотр</translation>
+    </message>
+    <message>
+        <source>Final Scan</source>
+        <translation type="unfinished">Сканирование</translation>
+    </message>
+</context>
+<context>
     <name>SaneOption</name>
     <message>
         <source> Pixel</source>
@@ -70,31 +97,31 @@
     </message>
     <message>
         <source>Test Scanner</source>
-        <translation>Тестовый сканер</translation>
+        <translation type="obsolete">Тестовый сканер</translation>
     </message>
     <message>
         <source>Zoom In</source>
-        <translation>Увеличить</translation>
+        <translation type="obsolete">Увеличить</translation>
     </message>
     <message>
         <source>Zoom Out</source>
-        <translation>Уменьшить</translation>
+        <translation type="obsolete">Уменьшить</translation>
     </message>
     <message>
         <source>Zoom to Selection</source>
-        <translation>Уместить выделенное</translation>
+        <translation type="obsolete">Уместить выделенное</translation>
     </message>
     <message>
         <source>Zoom to Fit</source>
-        <translation>Уместить</translation>
+        <translation type="obsolete">Уместить</translation>
     </message>
     <message>
         <source>Preview</source>
-        <translation>Предпросмотр</translation>
+        <translation type="obsolete">Предпросмотр</translation>
     </message>
     <message>
         <source>Final Scan</source>
-        <translation>Сканирование</translation>
+        <translation type="obsolete">Сканирование</translation>
     </message>
     <message>
         <source>Basic</source>

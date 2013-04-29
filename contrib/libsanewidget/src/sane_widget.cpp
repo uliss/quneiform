@@ -28,11 +28,11 @@
 #include <QComboBox>
 #include <QTranslator>
 #include <QDebug>
+#include <QScrollArea>
 
 #include "sane_option.h"
-#include "preview_area.h"
+#include "previewwidget.h"
 #include "sane_widget.h"
-#include "sane_option.h"
 #include "labeled_separator.h"
 #include "radio_select.h"
 #include "labeled_gamma.h"
@@ -59,16 +59,9 @@ enum {
 SaneWidget::SaneWidget(QWidget* parent)
     : QWidget(parent),
       device(NULL),
-      scan_btn(NULL),
-      prev_btn(NULL),
-      z_in_btn(NULL),
-      z_out_btn(NULL),
-      z_sel_btn(NULL),
-      z_fit_btn(NULL),
-      preview(NULL),
-      pr_img(NULL),
+      preview_(NULL),
       img_data(NULL),
-      opt_area(0),
+      opt_area_(0),
       opt_tl_x(0),
       opt_tl_y(0),
       opt_br_x(0),
@@ -94,7 +87,7 @@ SaneWidget::SaneWidget(QWidget* parent)
 
     SANE_Status status = sane_init(&version, 0);
     if (status != SANE_STATUS_GOOD) {
-        qWarning() << Q_FUNC_INFO << QString("SaneWidget: sane_init() failed(%1)").
+        qWarning() << Q_FUNC_INFO << QString("SaneWidget: sane_init() failed()").
                       arg(sane_strstatus(status));
     }
     else {
@@ -142,134 +135,19 @@ bool SaneWidget::closeDevice()
     return true;
 }
 
-bool SaneWidget::openDevice(const QString &device_name)
+bool SaneWidget::openDevice(const QString& deviceName)
 {
-    SANE_Status status;
-    int i=0;
-    const SANE_Option_Descriptor *num_option_d;
-    SANE_Word num_sane_options;
-    SANE_Int res;
-    SANE_Device const **dev_list;
-
-    // get the device list to get the vendor and model info
-    status = sane_get_devices(&dev_list, SANE_TRUE);
-
-    while(dev_list[i] != 0) {
-        if (QString(dev_list[i]->name) == device_name) {
-            modelname = QString(dev_list[i]->vendor) + " " + QString(dev_list[i]->model);
-            break;
-        }
-        i++;
-    }
-
-    if (dev_list[i] == 0) {
-#ifdef ENABLE_DEBUG
-        modelname = tr("Test Scanner");
-#else
-        printf("openDevice: device '%s' not found\n", qPrintable(device_name));
+    if(!openSaneDevice(deviceName))
         return false;
-#endif
-    }
 
-    // Try to open the device
-    if (sane_open(device_name.toLatin1(), &s_handle) != SANE_STATUS_GOOD) {
-        printf("openDevice: sane_open(\"%s\", &handle) failed!\n", qPrintable(device_name));
+    if(!fillSaneOptions())
         return false;
-    }
-    //printf("openDevice: sane_open(\"%s\", &handle) == SANE_STATUS_GOOD\n", qPrintable(device_name));
 
-    devname = device_name;
-
-    // Read the options (start with option 0 the number of parameters)
-    num_option_d = sane_get_option_descriptor(s_handle, 0);
-    if (num_option_d == 0) {
-        return false;
-    }
-    char data[num_option_d->size];
-    status = sane_control_option(s_handle, 0, SANE_ACTION_GET_VALUE, data, &res);
-    if (status != SANE_STATUS_GOOD) {
-        return false;
-    }
-    num_sane_options = *(SANE_Word*)data;
-
-    // read the rest of the options
-    for (i=1; i<num_sane_options; i++) {
-        optList.append(new SaneOption(s_handle, i));
-    }
-
-    // do the connections of the option parameters
-    for (i=1; i<optList.size(); i++) {
-        connect (optList.at(i), SIGNAL(optsNeedReload()), this, SLOT(optReload()));
-        connect (optList.at(i), SIGNAL(valsNeedReload()), this, SLOT(scheduleValReload()));
-    }
-
-    // create the layout
-    QHBoxLayout *base_layout = new QHBoxLayout;
-    base_layout->setSpacing(2);
-    base_layout->setMargin(0);
-    setLayout(base_layout);
-    QVBoxLayout *opt_lay = new QVBoxLayout;
-    opt_lay->setSpacing(2);
-    opt_lay->setMargin(0);
-    QVBoxLayout *pr_layout = new QVBoxLayout;
-
-    base_layout->addLayout(opt_lay, 0);
-    base_layout->addLayout(pr_layout, 100);
-
-    // Create Option Scroll Area
-    opt_area = new QScrollArea(this);
-    opt_area->setWidgetResizable(true);
-    opt_area->setFrameShape(QFrame::NoFrame);
-    opt_lay->addWidget(opt_area, 0);
-    opt_lay->setSpacing(2);
-    opt_lay->setMargin(0);
-
+    createPreview();
+    // create base layout
+    createLayout();
     // Create the options interface
     createOptInterface();
-
-    // create the preview
-    preview = new PreviewArea(this);
-    connect (preview, SIGNAL(newSelection(float,float,float,float)),
-             this, SLOT(handleSelection(float,float,float,float)));
-    pr_img = preview->getImage();
-
-
-    z_in_btn = new QPushButton(tr("Zoom In"));
-    z_out_btn = new QPushButton(tr("Zoom Out"));
-    z_sel_btn = new QPushButton(tr("Zoom to Selection"));
-    z_fit_btn = new QPushButton(tr("Zoom to Fit"));
-    prev_btn = new QPushButton(tr("Preview"));
-    scan_btn = new QPushButton(tr("Final Scan"));
-
-    connect(z_in_btn, SIGNAL(clicked(void)), preview, SLOT(zoomIn(void)));
-    connect(z_out_btn, SIGNAL(clicked(void)), preview, SLOT(zoomOut(void)));
-    connect(z_sel_btn, SIGNAL(clicked(void)), preview, SLOT(zoomSel(void)));
-    connect(z_fit_btn, SIGNAL(clicked(void)), preview, SLOT(zoom2Fit(void)));
-    connect (scan_btn, SIGNAL(clicked(void)), this, SLOT(scanFinal(void)));
-    connect (prev_btn, SIGNAL(clicked(void)), this, SLOT(scanPreview(void)));
-
-
-    QHBoxLayout *zoom_layout = new QHBoxLayout;
-
-    pr_layout->addWidget(preview, 100);
-    pr_layout->addLayout(zoom_layout, 0);
-
-
-    zoom_layout->addWidget(z_in_btn);
-    zoom_layout->addWidget(z_out_btn);
-    zoom_layout->addWidget(z_sel_btn);
-    zoom_layout->addWidget(z_fit_btn);
-    zoom_layout->addStretch();
-    zoom_layout->addWidget(prev_btn);
-    zoom_layout->addWidget(scan_btn);
-
-    //QHBoxLayout *scan_layout = new QHBoxLayout;
-    //opt_lay->addLayout(scan_layout, 0);
-
-    //scan_layout->addStretch();
-    //scan_layout->addWidget(prev_btn);
-    //scan_layout->addWidget(scan_btn);
-
 
     // try to set SaneWidget default values
     setDefaultValues();
@@ -284,19 +162,18 @@ bool SaneWidget::openDevice(const QString &device_name)
     return true;
 }
 
-//************************************************************
 void SaneWidget::createOptInterface(void)
 {
     // create the container widget
-    QWidget *opt_container = new QWidget(opt_area);
-    opt_area->setWidget(opt_container);
+    QWidget * opt_container = new QWidget(opt_area_);
+    opt_area_->setWidget(opt_container);
     QVBoxLayout *opt_layout = new QVBoxLayout(opt_container);
     opt_layout->setSpacing(4);
     opt_layout->setMargin(3);
 
     // add the options
     // (Should Vendor and model always be visible?)
-    LabeledSeparator *model_label = new LabeledSeparator(opt_container, modelname);
+    LabeledSeparator *model_label = new LabeledSeparator(opt_container, modelname_);
     opt_layout->addWidget(model_label);
 
     // basic/intermediate/All options
@@ -495,11 +372,52 @@ void SaneWidget::createOptInterface(void)
     opt_layout->addStretch();
 
     // encsure that you do not get a scrollbar at the bottom of the option of the options
-    opt_area->setMinimumWidth(opt_container->sizeHint().width()+20);
+    opt_area_->setMinimumWidth(opt_container->sizeHint().width()+20);
 
     // this could/should be set by saved settings.
     color_opts->setVisible(false);
     remain_opts->setVisible(false);
+}
+
+void SaneWidget::createPreview()
+{
+    preview_ = new PreviewWidget(this);
+    connect(preview_, SIGNAL(newSelection(QRect)), this, SLOT(handleSelection(QRect)));
+    connect(preview_, SIGNAL(scan()), this, SLOT(scanFinal()));
+    connect(preview_, SIGNAL(preview()), this, SLOT(scanPreview()));
+}
+
+bool SaneWidget::fillSaneOptions()
+{
+    // Read the options (start with option 0 the number of parameters)
+    const SANE_Option_Descriptor * num_option_d = sane_get_option_descriptor(s_handle, 0);
+    if (num_option_d == 0) {
+        qWarning() << Q_FUNC_INFO << "no options";
+        return false;
+    }
+
+    char data[num_option_d->size];
+    SANE_Int res;
+    SANE_Status status = sane_control_option(s_handle, 0, SANE_ACTION_GET_VALUE, data, &res);
+    if (status != SANE_STATUS_GOOD) {
+        qWarning() << Q_FUNC_INFO << "can't read option";
+        return false;
+    }
+
+    SANE_Word num_sane_options = *(SANE_Word*)data;
+
+    // read the rest of the options
+    for (int i = 1; i < num_sane_options; i++) {
+        optList.append(new SaneOption(s_handle, i));
+    }
+
+    // do the connections of the option parameters
+    for (int i = 1; i < optList.size(); i++) {
+        connect (optList.at(i), SIGNAL(optsNeedReload()), this, SLOT(optReload()));
+        connect (optList.at(i), SIGNAL(valsNeedReload()), this, SLOT(scheduleValReload()));
+    }
+
+    return true;
 }
 
 void SaneWidget::loadTranslations()
@@ -630,40 +548,53 @@ SaneOption *SaneWidget::getOption(const QString &name)
     return 0;
 }
 
-//************************************************************
-void SaneWidget::handleSelection(float tl_x, float tl_y, float br_x, float br_y) {
-    float max_x, max_y;
+void SaneWidget::createLayout()
+{
+    QHBoxLayout * base_layout = new QHBoxLayout;
+    base_layout->setSpacing(2);
+    base_layout->setMargin(0);
+    setLayout(base_layout);
 
-    //printf("handleSelection0: %f %f %f %f\n", tl_x, tl_y, br_x, br_y);
-    if ((pr_img->width()==0) || (pr_img->height()==0)) return;
+    // Create Option Scroll Area
+    opt_area_ = new QScrollArea(this);
+    opt_area_->setWidgetResizable(true);
+    opt_area_->setFrameShape(QFrame::NoFrame);
 
-    opt_br_x->getMaxValue(&max_x);
-    opt_br_y->getMaxValue(&max_y);
-    float ftl_x = tl_x*max_x;
-    float ftl_y = tl_y*max_y;
-    float fbr_x = br_x*max_x;
-    float fbr_y = br_y*max_y;
+    QVBoxLayout * preview_layout = new QVBoxLayout;
+    QVBoxLayout * opt_layout = new QVBoxLayout;
 
-    //printf("handleSelection1: %f %f %f %f\n", ftl_x, ftl_y, fbr_x, fbr_y);
+    base_layout->addLayout(opt_layout, 0);
+    base_layout->addLayout(preview_layout, 100);
 
-    if (opt_tl_x != 0) opt_tl_x->setValue(ftl_x);
-    if (opt_tl_y != 0) opt_tl_y->setValue(ftl_y);
-    if (opt_br_x != 0) opt_br_x->setValue(fbr_x);
-    if (opt_br_y != 0) opt_br_y->setValue(fbr_y);
+    opt_layout->addWidget(opt_area_);
+    preview_layout->addWidget(preview_);
 }
 
-//************************************************************
+void SaneWidget::handleSelection(const QRect& rect)
+{
+    float max_x, max_y;
+    opt_br_x->getMaxValue(&max_x);
+    opt_br_y->getMaxValue(&max_y);
+
+    float ftl_x = rect.left() * max_x;
+    float ftl_y = rect.top() * max_y;
+    float fbr_x = rect.right() * max_x;
+    float fbr_y = rect.bottom() * max_y;
+
+    if(opt_tl_x != 0) opt_tl_x->setValue(ftl_x);
+    if(opt_tl_y != 0) opt_tl_y->setValue(ftl_y);
+    if(opt_br_x != 0) opt_br_x->setValue(fbr_x);
+    if(opt_br_y != 0) opt_br_y->setValue(fbr_y);
+}
+
 void SaneWidget::setTLX(float ftlx) {
     float max, ratio;
 
-    //std::cout << "setTLX " << ftlx;
     opt_br_x->getMaxValue(&max);
     ratio = ftlx / max;
-    //std::cout << " -> " << ratio << std::endl;
-    preview->setTLX(ratio);
+    preview_->setTLX(ratio);
 }
 
-//************************************************************
 void SaneWidget::setTLY(float ftly) {
     float max, ratio;
 
@@ -671,10 +602,9 @@ void SaneWidget::setTLY(float ftly) {
     opt_br_y->getMaxValue(&max);
     ratio = ftly / max;
     //std::cout << " -> " << ratio << std::endl;
-    preview->setTLY(ratio);
+    preview_->setTLY(ratio);
 }
 
-//************************************************************
 void SaneWidget::setBRX(float fbrx) {
     float max, ratio;
 
@@ -682,7 +612,7 @@ void SaneWidget::setBRX(float fbrx) {
     opt_br_x->getMaxValue(&max);
     ratio = fbrx / max;
     //std::cout << " -> " << ratio << std::endl;
-    preview->setBRX(ratio);
+    preview_->setBRX(ratio);
 }
 
 //************************************************************
@@ -693,10 +623,9 @@ void SaneWidget::setBRY(float fbry) {
     opt_br_y->getMaxValue(&max);
     ratio = fbry / max;
     //std::cout << " -> " << ratio << std::endl;
-    preview->setBRY(ratio);
+    preview_->setBRY(ratio);
 }
 
-//************************************************************
 void SaneWidget::updatePreviewSize(void)
 {
     SANE_Status status;
@@ -755,24 +684,45 @@ void SaneWidget::updatePreviewSize(void)
     } while ((params.pixels_per_line < 300) || (params.lines < 300));
 
 
-    if ((pr_img->width() != params.pixels_per_line) || (pr_img->height() != params.lines)) {
-        *pr_img = QImage(params.pixels_per_line, params.lines, QImage::Format_RGB32);
-        for (i=0; i<pr_img->height(); i++) {
-            for (j=0; j<pr_img->width(); j++) {
-                pr_img->setPixel(j, i, qRgb(255,255,255));
-            }
-        }
-
-        // clear the selection
-        preview->clearSelection();
-
-        // update the size of the preview widget.
-        preview->updateScaledImg();
-        //preview->resize(preview->sizeHint());
-    }
+    preview_->updateScanSize(params.pixels_per_line, params.lines);
 }
 
-//************************************************************
+bool SaneWidget::openSaneDevice(const QString& deviceName)
+{
+    SANE_Device const **dev_list;
+    // get the device list to get the vendor and model info
+    SANE_Status status = sane_get_devices(&dev_list, SANE_TRUE);
+    if(status != SANE_STATUS_GOOD) {
+        qWarning() << Q_FUNC_INFO << "can't get device list" << sane_strstatus(status);
+        return false;
+    }
+
+    int i = 0;
+    while(dev_list[i] != 0) {
+        if (QString(dev_list[i]->name) == deviceName) {
+            modelname_ = QString("%1 %2").arg(dev_list[i]->vendor).arg(dev_list[i]->model);
+            break;
+        }
+        i++;
+    }
+
+    if (dev_list[i] == 0) {
+        qWarning() << Q_FUNC_INFO << QString("device '%1' not found").arg(deviceName);
+        return false;
+    }
+
+    // Try to open the device
+    status = sane_open(deviceName.toLatin1(), &s_handle);
+    if (status != SANE_STATUS_GOOD) {
+        qWarning() << Q_FUNC_INFO << QString("openDevice: sane_open(\"%1\", &handle) failed! '%2'").
+                      arg(deviceName).arg(sane_strstatus(status));
+        return false;
+    }
+
+    devname = deviceName;
+    return true;
+}
+
 void SaneWidget::scanPreview(void)
 {
     SANE_Status status;
@@ -866,22 +816,8 @@ void SaneWidget::scanPreview(void)
     // create a new image if necessary
     //(This image should be small so who cares about waisted memory :)
     // FIXME optimize size
-    scan_img = pr_img;
-    if ((pr_img->height() != params.lines) ||
-         (pr_img->width() != params.pixels_per_line))
-    {
-        *pr_img = QImage(params.pixels_per_line, params.lines, QImage::Format_RGB32);
-    }
-
-    // clear the old image
-    for (i=0; i<pr_img->height(); i++) {
-        for (j=0; j<pr_img->width(); j++) {
-            pr_img->setPixel(j, i, qRgb(255,255,255));
-        }
-    }
-
-    // update the size of the preview widget.
-    preview->zoom2Fit();
+    scan_img = preview_->previewImage();
+    preview_->updatePreviewSize(params.pixels_per_line, params.lines);
 
     read_status = READ_ON_GOING;
     pixel_x = 0;
@@ -894,7 +830,7 @@ void SaneWidget::scanPreview(void)
         processData();
     }
 
-    preview->updateScaledImg();
+    preview_->updateScaledImg();
 
     // restore the original settings of the changed parameters
     if (opt_depth != 0) opt_depth->restoreSavedData();
@@ -1178,8 +1114,8 @@ void SaneWidget::processData(void)
         int new_progress = (int)( ((double)PROGRESS_MAX / params.lines) * pixel_y);
         if (abs (new_progress - progress) > 5) {
             progress = new_progress;
-            if (scan_img == pr_img) {
-                preview->updateScaledImg();
+            if (scan_img == preview_->previewImage()) {
+                preview_->updateScaledImg();
             }
             if ((progress < PROGRESS_MAX) && (scan_img == &the_img)) {
                 emit scanProgress(progress);
@@ -1219,20 +1155,26 @@ QStringList SaneWidget::scannerList() const
     return res;
 }
 
-QImage *SaneWidget::getFinalImage(void)
+QImage * SaneWidget::getFinalImage(void)
 {
     return &the_img;
 }
 
-//************************************************************
+bool SaneWidget::setIcon(const QIcon& icon, IconType t)
+{
+    if(!preview_)
+        return false;
+
+    preview_->setIcon(icon, t);
+    return true;
+}
+
 void SaneWidget::scanCancel(void)
 {
     sane_cancel(s_handle);
     read_status = READ_CANCEL;
 }
 
-
-//************************************************************
 bool SaneWidget::setIconColorMode(const QIcon &icon)
 {
     if ((opt_mode != 0) && (opt_mode->widget() != 0)) {
@@ -1242,7 +1184,6 @@ bool SaneWidget::setIconColorMode(const QIcon &icon)
     return false;
 }
 
-//************************************************************
 bool SaneWidget::setIconGrayMode(const QIcon &icon)
 {
     if ((opt_mode != 0) && (opt_mode->widget() != 0)) {
@@ -1252,83 +1193,10 @@ bool SaneWidget::setIconGrayMode(const QIcon &icon)
     return false;
 }
 
-//************************************************************
 bool SaneWidget::setIconBWMode(const QIcon &icon)
 {
     if ((opt_mode != 0) && (opt_mode->widget() != 0)) {
         opt_mode->setIconBWMode(icon);
-        return true;
-    }
-    return false;
-}
-
-//************************************************************
-bool SaneWidget::setIconPreview(const QIcon &icon)
-{
-    if (prev_btn != 0) {
-        prev_btn->setIcon(icon);
-        return true;
-    }
-    return false;
-}
-
-//************************************************************
-bool SaneWidget::setIconFinal(const QIcon &icon)
-{
-    if (scan_btn != 0) {
-        scan_btn->setIcon(icon);
-        return true;
-    }
-    return true;
-}
-
-//************************************************************
-bool SaneWidget::setIconZoomIn(const QIcon &icon)
-{
-    if (preview != 0) {
-        preview->setIconZoomIn(icon);
-        z_in_btn->setIcon(icon);
-        z_in_btn->setToolTip(z_in_btn->text());
-        z_in_btn->setText("");
-        return true;
-    }
-    return false;
-}
-
-//************************************************************
-bool SaneWidget::setIconZoomOut(const QIcon &icon)
-{
-    if (preview != 0) {
-        z_out_btn->setIcon(icon);
-        z_out_btn->setToolTip(z_out_btn->text());
-        z_out_btn->setText("");
-        preview->setIconZoomOut(icon);
-        return true;
-    }
-    return false;
-}
-
-//************************************************************
-bool SaneWidget::setIconZoomSel(const QIcon &icon)
-{
-    if (preview != 0) {
-        z_sel_btn->setIcon(icon);
-        z_sel_btn->setToolTip(z_sel_btn->text());
-        z_sel_btn->setText("");
-        preview->setIconZoomSel(icon);
-        return true;
-    }
-    return false;
-}
-
-//************************************************************
-bool SaneWidget::setIconZoomFit(const QIcon &icon)
-{
-    if (preview != 0) {
-        z_fit_btn->setIcon(icon);
-        z_fit_btn->setToolTip(z_fit_btn->text());
-        z_fit_btn->setText("");
-        preview->setIconZoomFit(icon);
         return true;
     }
     return false;

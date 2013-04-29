@@ -28,7 +28,7 @@ LabeledFSlider::LabeledFSlider(QWidget *parent, const QString& ltext,
    : QFrame(parent)
 {
     layout = new QGridLayout(this);
-    layout->setSpacing(3);
+    layout->setSpacing(10);
     layout->setMargin(0);
     label = new QLabel(ltext, this);
 
@@ -49,6 +49,8 @@ LabeledFSlider::LabeledFSlider(QWidget *parent, const QString& ltext,
     slider->setMaximum(imax);
     slider->setSingleStep(istep);
     slider->setValue(imin);
+    slider->setMinimumWidth(150);
+
 
     spinb = new QDoubleSpinBox(this);
     spinb->setMinimum(min);
@@ -77,7 +79,7 @@ LabeledFSlider::LabeledFSlider(QWidget *parent, const QString& ltext,
     layout->addWidget(slider, 0,1);
     layout->addWidget(spinb, 0, 2);
     layout->setColumnStretch(0, 0);
-    layout->setColumnStretch(1, 50);
+    layout->setColumnStretch(1, 100);
     layout->setColumnStretch(2, 0);
     layout->activate();
 

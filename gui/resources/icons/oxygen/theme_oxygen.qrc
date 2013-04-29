@@ -27,6 +27,7 @@
 <file>16x16/format-text-italic.png</file>
 <file>16x16/format-text-underline.png</file>
 <file>16x16/help-browser.png</file>
+<file>16x16/image-x-generic.png</file>
 <file>16x16/insert-image.png</file>
 <file>16x16/insert-table.png</file>
 <file>16x16/insert-text.png</file>
@@ -78,6 +79,7 @@
 <file>22x22/insert-image.png</file>
 <file>22x22/insert-table.png</file>
 <file>22x22/insert-text.png</file>
+<file>22x22/image-x-generic.png</file>
 <file>22x22/list-add.png</file>
 <file>22x22/list-remove.png</file>
 <file>22x22/object-rotate-left.png</file>
@@ -126,6 +128,7 @@
 <file>32x32/insert-image.png</file>
 <file>32x32/insert-table.png</file>
 <file>32x32/insert-text.png</file>
+<file>32x32/image-x-generic.png</file>
 <file>32x32/list-add.png</file>
 <file>32x32/list-remove.png</file>
 <file>32x32/object-rotate-left.png</file>

@@ -29,7 +29,7 @@ LabeledSlider::LabeledSlider(QWidget *parent, const QString& ltext,
    : QFrame(parent)
 {
     layout = new QGridLayout(this);
-    layout->setSpacing(3);
+    layout->setSpacing(10);
     layout->setMargin(0);
     label = new QLabel(ltext, this);
     step = ste; if (step == 0) step = 1;
@@ -39,6 +39,8 @@ LabeledSlider::LabeledSlider(QWidget *parent, const QString& ltext,
     slider->setMinimum(min);
     slider->setMaximum(max);
     slider->setSingleStep(step);
+    slider->setMinimumWidth(150);
+
 
     spinb = new QSpinBox(this);
     spinb->setMinimum(min);
@@ -60,7 +62,7 @@ LabeledSlider::LabeledSlider(QWidget *parent, const QString& ltext,
     layout->addWidget(slider, 0, 1);
     layout->addWidget(spinb, 0, 2);
     layout->setColumnStretch(0, 0);
-    layout->setColumnStretch(1, 50);
+    layout->setColumnStretch(1, 100);
     layout->setColumnStretch(2, 0);
 }
 

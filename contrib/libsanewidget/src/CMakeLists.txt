@@ -17,6 +17,7 @@ set(sanewidget_SRCS
     labeled_fslider.cpp
     labeled_slider.cpp
     preview_area.cpp
+    previewwidget.cpp
     radio_select.cpp
     sane_widget.cpp
 )
@@ -33,6 +34,7 @@ set(sanewidget_MOC_HDRS
     labeled_fslider.h
     labeled_slider.h
     preview_area.h
+    previewwidget.h
     radio_select.h
     sane_widget.h
 )
