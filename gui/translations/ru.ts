@@ -940,23 +940,23 @@ Page: %2</source>
     <name>ScanPreferences</name>
     <message>
         <source>Scanning</source>
-        <translation type="unfinished"></translation>
+        <translation>Сканирование</translation>
     </message>
     <message>
         <source>Use last scanner:</source>
-        <translation type="unfinished"></translation>
+        <translation>Использовать последний сканер:</translation>
     </message>
     <message>
         <source>Autosave:</source>
-        <translation type="unfinished">Автосохранение:</translation>
+        <translation>Автосохранение:</translation>
     </message>
     <message>
         <source>Save to directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранять в папку</translation>
     </message>
     <message>
         <source>Save to packet directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранять в папку пакета</translation>
     </message>
 </context>
 <context>

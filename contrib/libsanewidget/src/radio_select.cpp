@@ -19,6 +19,7 @@
 
 #include <QGroupBox>
 #include <QRadioButton>
+#include <QDialogButtonBox>
 #include <QPushButton>
 #include <QLayout>
 #include <QDebug>
@@ -34,20 +35,13 @@ RadioSelect::RadioSelect(QWidget * parent) :
     radio_group_ = new QGroupBox(this);
     layout->addWidget(radio_group_, 100);
 
-    QHBoxLayout *btn_layout = new QHBoxLayout;
-    layout->addLayout(btn_layout, 0);
-
-    // add the OK and Cancel buttons to the bottom
-    btn_layout->addStretch();
-    QPushButton *ok = new QPushButton;
-    ok->setText(tr("OK"));
-    btn_layout->addWidget(ok);
-    QPushButton *cancel = new QPushButton;
-    cancel->setText(tr("Cancel"));
-    btn_layout->addWidget(cancel);
-
+    QDialogButtonBox * btn_box = new QDialogButtonBox(this);
+    QPushButton * ok = btn_box->addButton(QDialogButtonBox::Ok);
+    QPushButton * cancel = btn_box->addButton(QDialogButtonBox::Cancel);
     connect (ok, SIGNAL(clicked()), this, SLOT(accept()));
     connect (cancel, SIGNAL(clicked()), this, SLOT(reject()));
+
+    layout->addWidget(btn_box);
 }
 
 int RadioSelect::getSelectedIndex(QWidget * parent,

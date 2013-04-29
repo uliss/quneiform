@@ -39,38 +39,34 @@
     <name>PreviewWidget</name>
     <message>
         <source>Zoom In</source>
-        <translation type="unfinished">Увеличить</translation>
+        <translation>Увеличить</translation>
     </message>
     <message>
         <source>Zoom Out</source>
-        <translation type="unfinished">Уменьшить</translation>
+        <translation>Уменьшить</translation>
     </message>
     <message>
         <source>Zoom to Selection</source>
-        <translation type="unfinished">Уместить выделенное</translation>
+        <translation>Уместить выделенное</translation>
     </message>
     <message>
         <source>Zoom to Fit</source>
-        <translation type="unfinished">Уместить</translation>
+        <translation>Уместить</translation>
     </message>
     <message>
         <source>Preview</source>
-        <translation type="unfinished">Предпросмотр</translation>
+        <translation>Предпросмотр</translation>
     </message>
     <message>
         <source>Final Scan</source>
-        <translation type="unfinished">Сканирование</translation>
+        <translation>Сканирование</translation>
     </message>
 </context>
 <context>
     <name>RadioSelect</name>
     <message>
-        <source>OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Отмена</translation>
     </message>
 </context>
 <context>
@@ -81,7 +77,7 @@
     </message>
     <message>
         <source> Bit</source>
-        <translation type="unfinished"></translation>
+        <translation>Бит</translation>
     </message>
     <message>
         <source> mm</source>
