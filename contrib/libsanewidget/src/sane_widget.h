@@ -55,14 +55,14 @@ class SaneWidget : public QWidget
 public:
     SaneWidget(QWidget* parent=0);
     ~SaneWidget();
-    QString selectDevice(QWidget* parent=0);
+    QString selectDevice(QWidget * parent=0);
     bool closeDevice();
     bool openDevice(const QString& deviceName);
     QImage * getFinalImage();
     bool setIcon(const QIcon& icon, IconType t);
-    bool setIconColorMode(const QIcon &icon);
-    bool setIconGrayMode(const QIcon &icon);
-    bool setIconBWMode(const QIcon &icon);
+    bool setIconColorMode(const QIcon& icon);
+    bool setIconGrayMode(const QIcon& icon);
+    bool setIconBWMode(const QIcon& icon);
 public slots:
     void scanCancel();
 signals:
@@ -84,7 +84,7 @@ private slots:
     void setBRX(float x);
     void setBRY(float y);
 private:
-    SaneOption * getOption(const QString &name);
+    SaneOption * getOption(const QString& name);
     void createLayout();
     void createOptInterface();
     void createPreview();
@@ -105,7 +105,7 @@ private:
 
     // Option variables
     QScrollArea * opt_area_;
-    QList<SaneOption *> opt_list_;
+    QList<SaneOption*> opt_list_;
     SaneOption * opt_mode_;
     SaneOption * opt_depth_;
     SaneOption * opt_res_;
