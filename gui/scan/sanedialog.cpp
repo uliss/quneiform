@@ -58,9 +58,11 @@ int SaneDialog::run()
     if(s.value(KEY_USE_LAST_SCANNER, false).toBool())
         device = s.value(KEY_LAST_SCANNER).toString();
 
+    int last_scanner_idx = QSettings().value(KEY_LAST_SCANNER_INDEX).toInt();
     // scanner open dialog
+    int selected_idx = 0;
     if(device.isEmpty())
-        device = sane_widget_->selectDevice(NULL);
+        device = sane_widget_->selectDevice(NULL, last_scanner_idx, &selected_idx);
 
     if(device.isEmpty()) // nothing selected
         return Rejected;
@@ -70,6 +72,8 @@ int SaneDialog::run()
         s.setValue(KEY_LAST_SCANNER, QString());
         return Rejected;
     }
+
+    QSettings().setValue(KEY_LAST_SCANNER_INDEX, selected_idx);
 
     // update last scanner
     s.setValue(KEY_LAST_SCANNER, device);

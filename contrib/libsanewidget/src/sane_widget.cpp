@@ -98,19 +98,22 @@ SaneWidget::~SaneWidget()
     sane_exit();
 }
 
-QString SaneWidget::selectDevice(QWidget * parent)
+QString SaneWidget::selectDevice(QWidget * parent, int defaultDeviceIdx, int * index)
 {
     QStringList scanner_list = scannerList();
 
     RadioSelect sel;
     sel.setWindowTitle(qApp->applicationName());
-    int idx = sel.getSelectedIndex(parent, tr("Select Scanner"), scanner_list, 0);
+    int idx = sel.getSelectedIndex(parent, tr("Select Scanner"), scanner_list, defaultDeviceIdx);
 
     if (idx == scanner_list.count())
         return QString("test:0");
 
     if ((idx < 0) || (idx >= scanner_list.count()))
         return QString("");
+
+    if(index)
+        *index = idx;
 
     return scanner_list.at(idx).split("\n").at(0);
 }

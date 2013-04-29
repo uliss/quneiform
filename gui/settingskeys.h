@@ -41,6 +41,7 @@ extern const char * KEY_RECENT_PACKETS;
 extern const char * KEY_AUTOSAVE;
 extern const char * KEY_AUTOSAVE_INTERVAL;
 extern const char * KEY_LAST_SCANNER;
+extern const char * KEY_LAST_SCANNER_INDEX;
 extern const char * KEY_USE_LAST_SCANNER;
 extern const char * KEY_SCAN_AUTOSAVE;
 extern const char * KEY_SCAN_AUTOSAVE_METHOD;

@@ -16,21 +16,23 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-//#include <QButtonGroup>
+
+#include <QGroupBox>
 #include <QRadioButton>
 #include <QPushButton>
 #include <QLayout>
+#include <QDebug>
 
 #include "radio_select.h"
 
-//************************************************************
-RadioSelect::RadioSelect(QWidget *parent) : QDialog(parent)
+RadioSelect::RadioSelect(QWidget * parent) :
+    QDialog(parent)
 {
-    QVBoxLayout *layout = new QVBoxLayout;
+    QVBoxLayout * layout = new QVBoxLayout;
     this->setLayout(layout);
 
-    radio_group = new QGroupBox(this);
-    layout->addWidget(radio_group, 100);
+    radio_group_ = new QGroupBox(this);
+    layout->addWidget(radio_group_, 100);
 
     QHBoxLayout *btn_layout = new QHBoxLayout;
     layout->addLayout(btn_layout, 0);
@@ -38,64 +40,63 @@ RadioSelect::RadioSelect(QWidget *parent) : QDialog(parent)
     // add the OK and Cancel buttons to the bottom
     btn_layout->addStretch();
     QPushButton *ok = new QPushButton;
-    ok->setText("OK");
+    ok->setText(tr("OK"));
     btn_layout->addWidget(ok);
     QPushButton *cancel = new QPushButton;
-    cancel->setText("Cancel");
+    cancel->setText(tr("Cancel"));
     btn_layout->addWidget(cancel);
 
     connect (ok, SIGNAL(clicked()), this, SLOT(accept()));
     connect (cancel, SIGNAL(clicked()), this, SLOT(reject()));
 }
 
-//************************************************************
-int RadioSelect::getSelectedIndex(QWidget *parent,
+int RadioSelect::getSelectedIndex(QWidget * parent,
                                   const QString& group_name,
                                   const QStringList& items,
                                   int default_index)
 {
-    int i;
-    if (items.size() == 0) {
+    if(items.isEmpty())
         return -1;
-    }
 
     this->setParent(parent);
-    radio_group->setTitle(group_name);
+    radio_group_->setTitle(group_name);
 
     // Create the RadioButton list
     QList<QRadioButton *> btn_list;
-    for (i=0; i < items.size(); i++) {
-        //printf("device[i] = %s\n", qPrintable(items.at(i)));
-        btn_list.append(new QRadioButton(items.at(i), radio_group));
+    for (int i = 0; i < items.size(); i++) {
+        btn_list.append(new QRadioButton(items.at(i), radio_group_));
     }
 
     // Add the device list to the layout
-    QVBoxLayout *radio_layout = new QVBoxLayout(radio_group);
-    for (i=0; i < btn_list.size(); i++) {
+    QVBoxLayout * radio_layout = new QVBoxLayout(radio_group_);
+    for (int i = 0; i < btn_list.size(); i++) {
         radio_layout->addWidget(btn_list.at(i));
     }
 
     int radio_index = default_index;
-    if (radio_index >= btn_list.size()) radio_index = btn_list.size()-1;
-    if (radio_index < 0) radio_index = 0;
+    if (radio_index >= btn_list.size())
+        radio_index = btn_list.size() - 1;
+    if (radio_index < 0)
+        radio_index = 0;
 
     btn_list.at(radio_index)->toggle();
 
     // show the dialog and get the selection
     if (this->exec()) {
         // check which one is selected
-        for (i=0; i < btn_list.size(); i++) {
-            if (btn_list.at(i)->isChecked()) break;
+        int i = 0;
+        for (; i < btn_list.size(); i++) {
+            if (btn_list.at(i)->isChecked())
+                break;
         }
+
         if (i == btn_list.size()) {
-            printf("This is a bad index :(\n");
+            qWarning() << Q_FUNC_INFO << QString("This is a bad index: %1").arg(i);
             return -1;
         }
         return i;
     }
-    else {
-        return -1;
-    }
+
     return -1;
 }
 

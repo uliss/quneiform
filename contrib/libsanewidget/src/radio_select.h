@@ -20,25 +20,24 @@
 #ifndef RADIO_SELECT_H
 #define RADIO_SELECT_H
 
-#include <QGroupBox>
 #include <QDialog>
 #include <QStringList>
+
+class QGroupBox;
 
 class RadioSelect : public QDialog
 {
     Q_OBJECT
+public:
+    RadioSelect(QWidget * parent = 0);
+    ~RadioSelect() {}
 
-    public:
-        RadioSelect(QWidget *parent=0);
-        ~RadioSelect(void) {};
-
-        int getSelectedIndex(QWidget *parent,
-                             const QString& group_name,
-                             const QStringList& items,
-                             int default_index=0);
-
-    private:
-        QGroupBox *radio_group;
+    int getSelectedIndex(QWidget * parent,
+                         const QString& group_name,
+                         const QStringList& items,
+                         int default_index = 0);
+private:
+    QGroupBox * radio_group_;
 };
 
 #endif

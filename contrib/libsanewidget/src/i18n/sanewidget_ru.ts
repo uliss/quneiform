@@ -63,6 +63,17 @@
     </message>
 </context>
 <context>
+    <name>RadioSelect</name>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SaneOption</name>
     <message>
         <source> Pixel</source>

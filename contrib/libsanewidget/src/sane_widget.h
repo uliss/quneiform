@@ -53,9 +53,9 @@ class SaneWidget : public QWidget
 {
     Q_OBJECT
 public:
-    SaneWidget(QWidget* parent=0);
+    SaneWidget(QWidget * parent = 0);
     ~SaneWidget();
-    QString selectDevice(QWidget * parent=0);
+    QString selectDevice(QWidget * parent = 0, int defaultDeviceIdx = 0, int * index = NULL);
     bool closeDevice();
     bool openDevice(const QString& deviceName);
     QImage * getFinalImage();
