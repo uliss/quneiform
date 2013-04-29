@@ -54,31 +54,31 @@ class SaneWidget : public QWidget
     Q_OBJECT
 public:
     SaneWidget(QWidget* parent=0);
-    ~SaneWidget(void);
+    ~SaneWidget();
     QString selectDevice(QWidget* parent=0);
     bool closeDevice();
     bool openDevice(const QString& deviceName);
-    QImage * getFinalImage(void);
+    QImage * getFinalImage();
     bool setIcon(const QIcon& icon, IconType t);
     bool setIconColorMode(const QIcon &icon);
     bool setIconGrayMode(const QIcon &icon);
     bool setIconBWMode(const QIcon &icon);
 public slots:
-    void scanCancel(void);
+    void scanCancel();
 signals:
-    void scanStart(void);
+    void scanStart();
     void scanProgress(int);
-    void scanDone(void);
-    void imageReady(void);
-    void scanFaild(void);
+    void scanDone();
+    void imageReady();
+    void scanFaild();
 private slots:
     void opt_level_change(int level);
-    void scheduleValReload(void);
-    void optReload(void);
-    void valReload(void);
+    void scheduleValReload();
+    void optReload();
+    void valReload();
     void handleSelection(const QRect& rect);
-    void scanPreview(void);
-    void scanFinal(void);
+    void scanPreview();
+    void scanFinal();
     void setTLX(float x);
     void setTLY(float y);
     void setBRX(float x);
@@ -99,46 +99,44 @@ private:
     void setDefaultValues();
 private:
     // device info
-    SANE_Device const **dev_list;
-    SANE_Device const *device;
-    SANE_Handle s_handle;
-    QString devname;
+    SANE_Handle s_handle_;
+    QString devname_;
     QString modelname_;
 
     // Option variables
-    QScrollArea *opt_area_;
-    bool options_read;
-    QList<SaneOption *> optList;
-    SaneOption *opt_mode;
-    SaneOption *opt_depth;
-    SaneOption *opt_res;
-    SaneOption *opt_res_y;
-    SaneOption *opt_tl_x;
-    SaneOption *opt_tl_y;
-    SaneOption *opt_br_x;
-    SaneOption *opt_br_y;
-    QWidget *color_opts;
-    QWidget *remain_opts;
-    SaneOption *opt_gam_r;
-    SaneOption *opt_gam_g;
-    SaneOption *opt_gam_b;
-    QTimer r_val_tmr;
+    QScrollArea * opt_area_;
+    QList<SaneOption *> opt_list_;
+    SaneOption * opt_mode_;
+    SaneOption * opt_depth_;
+    SaneOption * opt_res_;
+    SaneOption * opt_res_y_;
+    SaneOption * opt_tl_x_;
+    SaneOption * opt_tl_y_;
+    SaneOption * opt_br_x_;
+    SaneOption * opt_br_y_;
+    QWidget * color_opts_;
+    QWidget * remain_opts_;
+    SaneOption * opt_gam_r_;
+    SaneOption * opt_gam_g_;
+    SaneOption * opt_gam_b_;
+    QTimer r_val_tmr_;
 
     // preview variables
     PreviewWidget * preview_;
-    float previewWidth;
-    float previewHeight;
+    float preview_width_;
+    float preview_height_;
 
     // general scanning
-    SANE_Parameters params;
-    int progress;
-    SANE_Byte * img_data;
-    SANE_Byte px_colors[3];
-    unsigned int px_c_index;
-    int pixel_x, pixel_y;
-    ReadStatus read_status;
-    QImage *scan_img;
-    QImage the_img;
+    SANE_Parameters params_;
+    int progress_;
+    SANE_Byte * img_data_;
+    SANE_Byte px_colors_[3];
+    unsigned int px_c_index_;
+    int pixel_x_;
+    int pixel_y_;
+    ReadStatus read_status_;
+    QImage * scan_img_;
+    QImage the_img_;
     QTranslator tr_;
 };
 

@@ -42,48 +42,38 @@ static inline QString my_i18n(const char * msg)
     return QString::fromUtf8(gettext(msg));
 }
 
-namespace {
-bool init_resources()
-{
-//    Q_INIT_RESOURCE(sanewidget_i18n);
-    return true;
-}
-
-bool init_resources_res = init_resources();
-}
-
 enum {
     IMG_DATA_R_SIZE = 1024 * 50
 };
 
 SaneWidget::SaneWidget(QWidget* parent)
     : QWidget(parent),
-      device(NULL),
-      preview_(NULL),
-      img_data(NULL),
       opt_area_(0),
-      opt_tl_x(0),
-      opt_tl_y(0),
-      opt_br_x(0),
-      opt_br_y(0),
-      opt_res(0),
-      opt_res_y(0),
-      opt_gam_r(0),
-      opt_gam_g(0),
-      opt_gam_b(0),
-      previewWidth(0),
-      previewHeight(0),
-      read_status(READ_NOT_READING),
-      px_c_index(0),
-      color_opts(0),
-      remain_opts(0)
+      opt_res_(0),
+      opt_res_y_(0),
+      opt_tl_x_(0),
+      opt_tl_y_(0),
+      opt_br_x_(0),
+      opt_br_y_(0),
+      color_opts_(0),
+      remain_opts_(0),
+      opt_gam_r_(0),
+      opt_gam_g_(0),
+      opt_gam_b_(0),
+      preview_(NULL),
+      preview_width_(0),
+      preview_height_(0),
+      img_data_(NULL),
+      px_c_index_(0),
+      read_status_(READ_NOT_READING),
+      scan_img_(NULL)
 {
     loadTranslations();
     SANE_Int version;
 
-    the_img = QImage(10, 10, QImage::Format_RGB32);
+    the_img_ = QImage(10, 10, QImage::Format_RGB32);
 
-    img_data = new SANE_Byte[IMG_DATA_R_SIZE];
+    img_data_ = new SANE_Byte[IMG_DATA_R_SIZE];
 
     SANE_Status status = sane_init(&version, 0);
     if (status != SANE_STATUS_GOOD) {
@@ -96,15 +86,15 @@ SaneWidget::SaneWidget(QWidget* parent)
                     arg(SANE_VERSION_MINOR(version)).
                     arg(SANE_VERSION_BUILD(version));
     }
-    r_val_tmr.setSingleShot(true);
-    connect (&r_val_tmr, SIGNAL(timeout(void)), this, SLOT(valReload()));
+    r_val_tmr_.setSingleShot(true);
+    connect (&r_val_tmr_, SIGNAL(timeout(void)), this, SLOT(valReload()));
 }
 
-SaneWidget::~SaneWidget(void)
+SaneWidget::~SaneWidget()
 {
     QApplication::removeTranslator(&tr_);
-    delete[] img_data;
-    optList.clear();
+    delete[] img_data_;
+    opt_list_.clear();
     sane_exit();
 }
 
@@ -127,11 +117,11 @@ QString SaneWidget::selectDevice(QWidget * parent)
 
 bool SaneWidget::closeDevice()
 {
-    if(!s_handle)
+    if(!s_handle_)
         return false;
 
-    sane_close(s_handle);
-    s_handle = NULL;
+    sane_close(s_handle_);
+    s_handle_ = NULL;
     return true;
 }
 
@@ -162,12 +152,12 @@ bool SaneWidget::openDevice(const QString& deviceName)
     return true;
 }
 
-void SaneWidget::createOptInterface(void)
+void SaneWidget::createOptInterface()
 {
     // create the container widget
     QWidget * opt_container = new QWidget(opt_area_);
     opt_area_->setWidget(opt_container);
-    QVBoxLayout *opt_layout = new QVBoxLayout(opt_container);
+    QVBoxLayout * opt_layout = new QVBoxLayout(opt_container);
     opt_layout->setSpacing(4);
     opt_layout->setMargin(3);
 
@@ -209,13 +199,13 @@ void SaneWidget::createOptInterface(void)
     }
     // Scan mode
     if ((option = getOption(SANE_NAME_SCAN_MODE)) != 0) {
-        opt_mode = option;
+        opt_mode_ = option;
         option->createWidget(opt_container);
         opt_layout->addWidget(option->widget());
     }
     // Bitdepth
     if ((option = getOption(SANE_NAME_BIT_DEPTH)) != 0) {
-        opt_depth = option;
+        opt_depth_ = option;
         option->createWidget(opt_container);
         opt_layout->addWidget(option->widget());
     }
@@ -226,97 +216,97 @@ void SaneWidget::createOptInterface(void)
     }
     // Resolution
     if ((option = getOption(SANE_NAME_SCAN_RESOLUTION)) != 0) {
-        opt_res = option;
+        opt_res_ = option;
         option->createWidget(opt_container);
         opt_layout->addWidget(option->widget());
     }
     else if ((option = getOption(SANE_NAME_SCAN_X_RESOLUTION)) != 0) {
-        opt_res = option;
+        opt_res_ = option;
         option->createWidget(opt_container);
         opt_layout->addWidget(option->widget());
     }
     if ((option = getOption(SANE_NAME_SCAN_Y_RESOLUTION)) != 0) {
-        opt_res_y = option;
+        opt_res_y_ = option;
         option->createWidget(opt_container);
         opt_layout->addWidget(option->widget());
     }
     // scan area
     if ((option = getOption(SANE_NAME_SCAN_TL_X)) != 0) {
-        opt_tl_x = option;
+        opt_tl_x_ = option;
         connect (option, SIGNAL(fValueRead(float)), this, SLOT(setTLX(float)));
     }
     if ((option = getOption(SANE_NAME_SCAN_TL_Y)) != 0) {
-        opt_tl_y = option;
+        opt_tl_y_ = option;
         connect (option, SIGNAL(fValueRead(float)), this, SLOT(setTLY(float)));
     }
     if ((option = getOption(SANE_NAME_SCAN_BR_X)) != 0) {
-        opt_br_x = option;
+        opt_br_x_ = option;
         connect (option, SIGNAL(fValueRead(float)), this, SLOT(setBRX(float)));
     }
     if ((option = getOption(SANE_NAME_SCAN_BR_Y)) != 0) {
-        opt_br_y = option;
+        opt_br_y_ = option;
         connect (option, SIGNAL(fValueRead(float)), this, SLOT(setBRY(float)));
     }
 
     // Color Options Frame
-    color_opts = new QWidget(opt_container);
-    opt_layout->addWidget(color_opts);
-    QVBoxLayout *color_lay = new QVBoxLayout(color_opts);
+    color_opts_ = new QWidget(opt_container);
+    opt_layout->addWidget(color_opts_);
+    QVBoxLayout *color_lay = new QVBoxLayout(color_opts_);
     color_lay->setSpacing(2);
     color_lay->setMargin(0);
 
     // add separator line
     color_lay->addSpacing(6);
-    QFrame *line1 = new QFrame(color_opts);
+    QFrame *line1 = new QFrame(color_opts_);
     line1->setFrameShape(QFrame::HLine);
     line1->setFrameShadow(QFrame::Sunken);
     color_lay->addWidget(line1);
     color_lay->addSpacing(2);
 
     if ((option = getOption(SANE_NAME_BRIGHTNESS)) != 0) {
-        option->createWidget(color_opts);
+        option->createWidget(color_opts_);
         color_lay->addWidget(option->widget());
     }
     if ((option = getOption(SANE_NAME_CONTRAST)) != 0) {
-        option->createWidget(color_opts);
+        option->createWidget(color_opts_);
         color_lay->addWidget(option->widget());
     }
 
     // gamma tables
-    QWidget *gamma_frm = new QWidget(color_opts);
+    QWidget *gamma_frm = new QWidget(color_opts_);
     color_lay->addWidget(gamma_frm);
     QVBoxLayout *gam_frm_l = new QVBoxLayout(gamma_frm);
     gam_frm_l->setSpacing(2);
     gam_frm_l->setMargin(0);
 
     if ((option = getOption(SANE_NAME_GAMMA_VECTOR_R)) != 0) {
-        opt_gam_r= option;
+        opt_gam_r_= option;
         option->createWidget(gamma_frm);
         gam_frm_l->addWidget(option->widget());
     }
     if ((option = getOption(SANE_NAME_GAMMA_VECTOR_G)) != 0) {
-        opt_gam_g= option;
+        opt_gam_g_= option;
         option->createWidget(gamma_frm);
         gam_frm_l->addWidget(option->widget());
     }
     if ((option = getOption(SANE_NAME_GAMMA_VECTOR_B)) != 0) {
-        opt_gam_b= option;
+        opt_gam_b_= option;
         option->createWidget(gamma_frm);
         gam_frm_l->addWidget(option->widget());
     }
 
-    if ((opt_gam_r != 0) && (opt_gam_g != 0) && (opt_gam_b != 0)) {
-        LabeledGamma *lgamma = new LabeledGamma(color_opts,
+    if ((opt_gam_r_ != 0) && (opt_gam_g_ != 0) && (opt_gam_b_ != 0)) {
+        LabeledGamma *lgamma = new LabeledGamma(color_opts_,
                                   my_i18n(SANE_TITLE_GAMMA_VECTOR),
-                                  opt_gam_r->lgamma->size());
+                                  opt_gam_r_->lgamma->size());
         lgamma->setToolTip(my_i18n(SANE_DESC_GAMMA_VECTOR));
         color_lay->addWidget(lgamma);
         connect(lgamma, SIGNAL(gammaChanged(int,int,int)),
-                opt_gam_r->lgamma, SLOT(setValues(int,int,int)));
+                opt_gam_r_->lgamma, SLOT(setValues(int,int,int)));
         connect(lgamma, SIGNAL(gammaChanged(int,int,int)),
-                opt_gam_g->lgamma, SLOT(setValues(int,int,int)));
+                opt_gam_g_->lgamma, SLOT(setValues(int,int,int)));
         connect(lgamma, SIGNAL(gammaChanged(int,int,int)),
-                opt_gam_b->lgamma, SLOT(setValues(int,int,int)));
+                opt_gam_b_->lgamma, SLOT(setValues(int,int,int)));
 
         QCheckBox *split_gam_btn = new QCheckBox(tr("Separate color intensity tables"), opt_container);
         color_lay->addWidget(split_gam_btn);
@@ -327,41 +317,41 @@ void SaneWidget::createOptInterface(void)
     }
 
     if ((option = getOption(SANE_NAME_BLACK_LEVEL)) != 0) {
-        option->createWidget(color_opts);
+        option->createWidget(color_opts_);
         color_lay->addWidget(option->widget());
     }
     if ((option = getOption(SANE_NAME_WHITE_LEVEL)) != 0) {
-        option->createWidget(color_opts);
+        option->createWidget(color_opts_);
         color_lay->addWidget(option->widget());
     }
 
     // Remaining (un known) Options Frame
-    remain_opts = new QWidget(opt_container);
-    opt_layout->addWidget(remain_opts);
-    QVBoxLayout *remain_lay = new QVBoxLayout(remain_opts);
+    remain_opts_ = new QWidget(opt_container);
+    opt_layout->addWidget(remain_opts_);
+    QVBoxLayout *remain_lay = new QVBoxLayout(remain_opts_);
     remain_lay->setSpacing(2);
     remain_lay->setMargin(0);
 
     // add separator line
     remain_lay->addSpacing(4);
-    QFrame *line2 = new QFrame(remain_opts);
+    QFrame *line2 = new QFrame(remain_opts_);
     line2->setFrameShape(QFrame::HLine);
     line2->setFrameShadow(QFrame::Sunken);
     remain_lay->addWidget(line2);
     remain_lay->addSpacing(4);
 
     // add remaining parameters
-    for (int i=0; i<optList.size(); i++) {
-        if ((optList.at(i)->widget() == 0) &&
-             (optList.at(i)->name() != SANE_NAME_SCAN_TL_X) &&
-             (optList.at(i)->name() != SANE_NAME_SCAN_TL_Y) &&
-             (optList.at(i)->name() != SANE_NAME_SCAN_BR_X) &&
-             (optList.at(i)->name() != SANE_NAME_SCAN_BR_Y) &&
-             (optList.at(i)->sw_type() != SW_GROUP)
+    for (int i=0; i<opt_list_.size(); i++) {
+        if ((opt_list_.at(i)->widget() == 0) &&
+             (opt_list_.at(i)->name() != SANE_NAME_SCAN_TL_X) &&
+             (opt_list_.at(i)->name() != SANE_NAME_SCAN_TL_Y) &&
+             (opt_list_.at(i)->name() != SANE_NAME_SCAN_BR_X) &&
+             (opt_list_.at(i)->name() != SANE_NAME_SCAN_BR_Y) &&
+             (opt_list_.at(i)->sw_type() != SW_GROUP)
            )
         {
-            optList.at(i)->createWidget(remain_opts);
-            remain_lay->addWidget(optList.at(i)->widget());
+            opt_list_.at(i)->createWidget(remain_opts_);
+            remain_lay->addWidget(opt_list_.at(i)->widget());
         }
     }
 
@@ -372,11 +362,11 @@ void SaneWidget::createOptInterface(void)
     opt_layout->addStretch();
 
     // encsure that you do not get a scrollbar at the bottom of the option of the options
-    opt_area_->setMinimumWidth(opt_container->sizeHint().width()+20);
+    opt_area_->setMinimumWidth(opt_container->sizeHint().width() + 20);
 
     // this could/should be set by saved settings.
-    color_opts->setVisible(false);
-    remain_opts->setVisible(false);
+    color_opts_->setVisible(false);
+    remain_opts_->setVisible(false);
 }
 
 void SaneWidget::createPreview()
@@ -390,7 +380,7 @@ void SaneWidget::createPreview()
 bool SaneWidget::fillSaneOptions()
 {
     // Read the options (start with option 0 the number of parameters)
-    const SANE_Option_Descriptor * num_option_d = sane_get_option_descriptor(s_handle, 0);
+    const SANE_Option_Descriptor * num_option_d = sane_get_option_descriptor(s_handle_, 0);
     if (num_option_d == 0) {
         qWarning() << Q_FUNC_INFO << "no options";
         return false;
@@ -398,7 +388,7 @@ bool SaneWidget::fillSaneOptions()
 
     char data[num_option_d->size];
     SANE_Int res;
-    SANE_Status status = sane_control_option(s_handle, 0, SANE_ACTION_GET_VALUE, data, &res);
+    SANE_Status status = sane_control_option(s_handle_, 0, SANE_ACTION_GET_VALUE, data, &res);
     if (status != SANE_STATUS_GOOD) {
         qWarning() << Q_FUNC_INFO << "can't read option";
         return false;
@@ -408,13 +398,13 @@ bool SaneWidget::fillSaneOptions()
 
     // read the rest of the options
     for (int i = 1; i < num_sane_options; i++) {
-        optList.append(new SaneOption(s_handle, i));
+        opt_list_.append(new SaneOption(s_handle_, i));
     }
 
     // do the connections of the option parameters
-    for (int i = 1; i < optList.size(); i++) {
-        connect (optList.at(i), SIGNAL(optsNeedReload()), this, SLOT(optReload()));
-        connect (optList.at(i), SIGNAL(valsNeedReload()), this, SLOT(scheduleValReload()));
+    for (int i = 1; i < opt_list_.size(); i++) {
+        connect (opt_list_.at(i), SIGNAL(optsNeedReload()), this, SLOT(optReload()));
+        connect (opt_list_.at(i), SIGNAL(valsNeedReload()), this, SLOT(scheduleValReload()));
     }
 
     return true;
@@ -444,28 +434,27 @@ void SaneWidget::loadTranslationsGettext()
     QLocale locale;
     setlocale(LC_ALL, locale.name().toAscii().constData());
     bindtextdomain("sane-backends", "/usr/local/share/locale");
-    textdomain( "sane-backends");
+    textdomain("sane-backends");
 }
 
-//************************************************************
 void SaneWidget::opt_level_change(int level)
 {
-    if (color_opts == 0) return;
-    if (remain_opts == 0) return;
+    if (color_opts_ == 0) return;
+    if (remain_opts_ == 0) return;
 
     switch (level)
     {
         case 1:
-            color_opts->setVisible(true);
-            remain_opts->setVisible(false);
+            color_opts_->setVisible(true);
+            remain_opts_->setVisible(false);
             break;
         case 2:
-            color_opts->setVisible(true);
-            remain_opts->setVisible(true);
+            color_opts_->setVisible(true);
+            remain_opts_->setVisible(true);
             break;
         default:
-            color_opts->setVisible(false);
-            remain_opts->setVisible(false);
+            color_opts_->setVisible(false);
+            remain_opts_->setVisible(false);
     }
 }
 
@@ -485,28 +474,26 @@ void SaneWidget::setDefaultValues(void)
     }
 
     // Try to set Scan resolution to 600 DPI
-    if (opt_res != 0) {
-        opt_res->setValue(600);
+    if (opt_res_ != 0) {
+        opt_res_->setValue(600);
     }
 }
 
-//************************************************************
-void SaneWidget::scheduleValReload(void)
+void SaneWidget::scheduleValReload()
 {
-    r_val_tmr.start(5);
+    r_val_tmr_.start(5);
 }
 
-//************************************************************
 void SaneWidget::optReload(void)
 {
     int i;
     //printf("Reload Options\n");
 
-    for (i=0; i<optList.size(); i++)
+    for (i=0; i<opt_list_.size(); i++)
     {
-        optList.at(i)->readOption();
+        opt_list_.at(i)->readOption();
         // Also read the values
-        optList.at(i)->readValue();
+        opt_list_.at(i)->readValue();
     }
     // estimate the preview size and create an empty image
     // this is done so that you can select scanarea without
@@ -521,9 +508,9 @@ void SaneWidget::valReload(void)
     QString tmp;
     //printf("Reload Values\n");
 
-    for (i=0; i<optList.size(); i++)
+    for (i=0; i<opt_list_.size(); i++)
     {
-        optList.at(i)->readValue();
+        opt_list_.at(i)->readValue();
         /*
         if (optList.at(i)->getValue(&tmp)) {
             printf("option(%s)=%s\n",
@@ -539,10 +526,10 @@ SaneOption *SaneWidget::getOption(const QString &name)
 {
     int i;
 
-    for (i=0; i<optList.size(); i++)
+    for (i=0; i<opt_list_.size(); i++)
     {
-        if (optList.at(i)->name() == name) {
-            return optList.at(i);
+        if (opt_list_.at(i)->name() == name) {
+            return opt_list_.at(i);
         }
     }
     return 0;
@@ -573,24 +560,24 @@ void SaneWidget::createLayout()
 void SaneWidget::handleSelection(const QRect& rect)
 {
     float max_x, max_y;
-    opt_br_x->getMaxValue(&max_x);
-    opt_br_y->getMaxValue(&max_y);
+    opt_br_x_->getMaxValue(&max_x);
+    opt_br_y_->getMaxValue(&max_y);
 
     float ftl_x = rect.left() * max_x;
     float ftl_y = rect.top() * max_y;
     float fbr_x = rect.right() * max_x;
     float fbr_y = rect.bottom() * max_y;
 
-    if(opt_tl_x != 0) opt_tl_x->setValue(ftl_x);
-    if(opt_tl_y != 0) opt_tl_y->setValue(ftl_y);
-    if(opt_br_x != 0) opt_br_x->setValue(fbr_x);
-    if(opt_br_y != 0) opt_br_y->setValue(fbr_y);
+    if(opt_tl_x_ != 0) opt_tl_x_->setValue(ftl_x);
+    if(opt_tl_y_ != 0) opt_tl_y_->setValue(ftl_y);
+    if(opt_br_x_ != 0) opt_br_x_->setValue(fbr_x);
+    if(opt_br_y_ != 0) opt_br_y_->setValue(fbr_y);
 }
 
 void SaneWidget::setTLX(float ftlx) {
     float max, ratio;
 
-    opt_br_x->getMaxValue(&max);
+    opt_br_x_->getMaxValue(&max);
     ratio = ftlx / max;
     preview_->setTLX(ratio);
 }
@@ -599,7 +586,7 @@ void SaneWidget::setTLY(float ftly) {
     float max, ratio;
 
     //std::cout << "setTLY " << ftly;
-    opt_br_y->getMaxValue(&max);
+    opt_br_y_->getMaxValue(&max);
     ratio = ftly / max;
     //std::cout << " -> " << ratio << std::endl;
     preview_->setTLY(ratio);
@@ -609,7 +596,7 @@ void SaneWidget::setBRX(float fbrx) {
     float max, ratio;
 
     //std::cout << "setBRX " << fbrx;
-    opt_br_x->getMaxValue(&max);
+    opt_br_x_->getMaxValue(&max);
     ratio = fbrx / max;
     //std::cout << " -> " << ratio << std::endl;
     preview_->setBRX(ratio);
@@ -620,7 +607,7 @@ void SaneWidget::setBRY(float fbry) {
     float max, ratio;
 
     //std::cout << "setBRY " << fbry;
-    opt_br_y->getMaxValue(&max);
+    opt_br_y_->getMaxValue(&max);
     ratio = fbry / max;
     //std::cout << " -> " << ratio << std::endl;
     preview_->setBRY(ratio);
@@ -629,35 +616,35 @@ void SaneWidget::setBRY(float fbry) {
 void SaneWidget::updatePreviewSize(void)
 {
     SANE_Status status;
-    int i, j, dpi;
+    int dpi;
     float max_x=0, max_y=0;
 
     // check if an update is necessary
-    if (opt_br_x != 0) {
-        opt_br_x->getMaxValue(&max_x);
+    if (opt_br_x_ != 0) {
+        opt_br_x_->getMaxValue(&max_x);
     }
-    if (opt_br_y != 0) {
-        opt_br_y->getMaxValue(&max_y);
+    if (opt_br_y_ != 0) {
+        opt_br_y_->getMaxValue(&max_y);
     }
-    if ((max_x == previewWidth) && (max_y == previewHeight)) {
+    if ((max_x == preview_width_) && (max_y == preview_height_)) {
         return;
     }
 
-    previewWidth = max_x;
-    previewHeight = max_y;
+    preview_width_ = max_x;
+    preview_height_ = max_y;
     // set the scan area to the whole area
-    if (opt_tl_x != 0) {
-        opt_tl_x->setValue(0);
+    if (opt_tl_x_ != 0) {
+        opt_tl_x_->setValue(0);
     }
-    if (opt_tl_y != 0) {
-        opt_tl_y->setValue(0);
+    if (opt_tl_y_ != 0) {
+        opt_tl_y_->setValue(0);
     }
 
-    if (opt_br_x != 0) {
-        opt_br_x->setValue(max_x);
+    if (opt_br_x_ != 0) {
+        opt_br_x_->setValue(max_x);
     }
-    if (opt_br_y != 0) {
-        opt_br_y->setValue(max_y);
+    if (opt_br_y_ != 0) {
+        opt_br_y_->setValue(max_y);
     }
 
     // set the resopution to 100 dpi and increase if necessary
@@ -665,14 +652,14 @@ void SaneWidget::updatePreviewSize(void)
     do {
         // Increase the dpi value
         dpi += 100;
-        if (opt_res != 0) {
-            opt_res->setValue(dpi);
+        if (opt_res_ != 0) {
+            opt_res_->setValue(dpi);
         }
-        if (opt_res_y != 0) {
-            opt_res_y->setValue(dpi);
+        if (opt_res_y_ != 0) {
+            opt_res_y_->setValue(dpi);
         }
         //check what image size we would get in a scan
-        status = sane_get_parameters(s_handle, &params);
+        status = sane_get_parameters(s_handle_, &params_);
         if (status != SANE_STATUS_GOOD) {
             printf("ERROR status=%s\n", sane_strstatus(status));
             return;
@@ -681,10 +668,10 @@ void SaneWidget::updatePreviewSize(void)
         //printf("lines = %d\n", params.lines);
         //printf("pixels_per_line = %d\n", params.pixels_per_line);
         if (dpi > 800) break;
-    } while ((params.pixels_per_line < 300) || (params.lines < 300));
+    } while ((params_.pixels_per_line < 300) || (params_.lines < 300));
 
 
-    preview_->updateScanSize(params.pixels_per_line, params.lines);
+    preview_->updateScanSize(params_.pixels_per_line, params_.lines);
 }
 
 bool SaneWidget::openSaneDevice(const QString& deviceName)
@@ -712,54 +699,54 @@ bool SaneWidget::openSaneDevice(const QString& deviceName)
     }
 
     // Try to open the device
-    status = sane_open(deviceName.toLatin1(), &s_handle);
+    status = sane_open(deviceName.toLatin1(), &s_handle_);
     if (status != SANE_STATUS_GOOD) {
         qWarning() << Q_FUNC_INFO << QString("openDevice: sane_open(\"%1\", &handle) failed! '%2'").
                       arg(deviceName).arg(sane_strstatus(status));
         return false;
     }
 
-    devname = deviceName;
+    devname_ = deviceName;
     return true;
 }
 
-void SaneWidget::scanPreview(void)
+void SaneWidget::scanPreview()
 {
     SANE_Status status;
     float max;
-    int i, j, dpi;
+    int dpi;
 
     //std::cout << "scanPreview" << std::endl;
 
     // store the current settings of parameters to be changed
-    if (opt_depth != 0) opt_depth->storeCurrentData();
-    if (opt_res != 0) opt_res->storeCurrentData();
-    if (opt_res_y != 0) opt_res_y->storeCurrentData();
-    if (opt_tl_x != 0) opt_tl_x->storeCurrentData();
-    if (opt_tl_y != 0) opt_tl_y->storeCurrentData();
-    if (opt_br_x != 0) opt_br_x->storeCurrentData();
-    if (opt_br_y != 0) opt_br_y->storeCurrentData();
+    if (opt_depth_ != 0) opt_depth_->storeCurrentData();
+    if (opt_res_ != 0) opt_res_->storeCurrentData();
+    if (opt_res_y_ != 0) opt_res_y_->storeCurrentData();
+    if (opt_tl_x_ != 0) opt_tl_x_->storeCurrentData();
+    if (opt_tl_y_ != 0) opt_tl_y_->storeCurrentData();
+    if (opt_br_x_ != 0) opt_br_x_->storeCurrentData();
+    if (opt_br_y_ != 0) opt_br_y_->storeCurrentData();
 
     // set 8 bits per color if possible
-    if (opt_depth != 0) {
-        opt_depth->setValue(8);
+    if (opt_depth_ != 0) {
+        opt_depth_->setValue(8);
     }
 
     // select the whole area
-    if (opt_tl_x != 0) {
-        opt_tl_x->setValue(0);
+    if (opt_tl_x_ != 0) {
+        opt_tl_x_->setValue(0);
     }
-    if (opt_tl_y != 0) {
-        opt_tl_y->setValue(0);
+    if (opt_tl_y_ != 0) {
+        opt_tl_y_->setValue(0);
     }
 
-    if (opt_br_x != 0) {
-        opt_br_x->getMaxValue(&max);
-        opt_br_x->setValue(max);
+    if (opt_br_x_ != 0) {
+        opt_br_x_->getMaxValue(&max);
+        opt_br_x_->setValue(max);
     }
-    if (opt_br_y != 0) {
-        opt_br_y->getMaxValue(&max);
-        opt_br_y->setValue(max);
+    if (opt_br_y_ != 0) {
+        opt_br_y_->getMaxValue(&max);
+        opt_br_y_->setValue(max);
     }
 
     // set the resopution to 100 dpi and increase if necessary
@@ -767,14 +754,14 @@ void SaneWidget::scanPreview(void)
     do {
         // Increase the dpi value
         dpi += 100;
-        if (opt_res != 0) {
-            opt_res->setValue(dpi);
+        if (opt_res_ != 0) {
+            opt_res_->setValue(dpi);
         }
-        if (opt_res_y != 0) {
-            opt_res_y->setValue(dpi);
+        if (opt_res_y_ != 0) {
+            opt_res_y_->setValue(dpi);
         }
         //check what image size we would get in a scan
-        status = sane_get_parameters(s_handle, &params);
+        status = sane_get_parameters(s_handle_, &params_);
         if (status != SANE_STATUS_GOOD) {
             printf("ERROR status=%s\n", sane_strstatus(status));
             return;
@@ -783,26 +770,26 @@ void SaneWidget::scanPreview(void)
         //printf("lines = %d\n", params.lines);
         //printf("pixels_per_line = %d\n", params.pixels_per_line);
         if (dpi > 800) break;
-    } while ((params.pixels_per_line < 300) || (params.lines < 300));
+    } while ((params_.pixels_per_line < 300) || (params_.lines < 300));
 
     // execute valReload if there is a pending value reload
-    while (r_val_tmr.isActive()) {
-        r_val_tmr.stop();
+    while (r_val_tmr_.isActive()) {
+        r_val_tmr_.stop();
         valReload();
     }
 
     // Start the scanning
-    status = sane_start(s_handle);
+    status = sane_start(s_handle_);
     if (status != SANE_STATUS_GOOD) {
         printf("sane_start ERROR: status=%s\n", sane_strstatus(status));
-        sane_cancel(s_handle);
+        sane_cancel(s_handle_);
         return;
     }
 
-    status = sane_get_parameters(s_handle, &params);
+    status = sane_get_parameters(s_handle_, &params_);
     if (status != SANE_STATUS_GOOD) {
         printf("sane_get_parameters ERROR: status=%s\n", sane_strstatus(status));
-        sane_cancel(s_handle);
+        sane_cancel(s_handle_);
         return;
     }
 
@@ -816,82 +803,81 @@ void SaneWidget::scanPreview(void)
     // create a new image if necessary
     //(This image should be small so who cares about waisted memory :)
     // FIXME optimize size
-    scan_img = preview_->previewImage();
-    preview_->updatePreviewSize(params.pixels_per_line, params.lines);
+    scan_img_ = preview_->previewImage();
+    preview_->updatePreviewSize(params_.pixels_per_line, params_.lines);
 
-    read_status = READ_ON_GOING;
-    pixel_x = 0;
-    pixel_y = 0;
-    px_c_index = 0;
+    read_status_ = READ_ON_GOING;
+    pixel_x_ = 0;
+    pixel_y_ = 0;
+    px_c_index_ = 0;
 
     this->setDisabled(true);
 
-    while (read_status == READ_ON_GOING) {
+    while (read_status_ == READ_ON_GOING) {
         processData();
     }
 
     preview_->updateScaledImg();
 
     // restore the original settings of the changed parameters
-    if (opt_depth != 0) opt_depth->restoreSavedData();
-    if (opt_res != 0) opt_res->restoreSavedData();
-    if (opt_res_y != 0) opt_res_y->restoreSavedData();
-    if (opt_tl_x != 0) opt_tl_x->restoreSavedData();
-    if (opt_tl_y != 0) opt_tl_y->restoreSavedData();
-    if (opt_br_x != 0) opt_br_x->restoreSavedData();
-    if (opt_br_y != 0) opt_br_y->restoreSavedData();
+    if (opt_depth_ != 0) opt_depth_->restoreSavedData();
+    if (opt_res_ != 0) opt_res_->restoreSavedData();
+    if (opt_res_y_ != 0) opt_res_y_->restoreSavedData();
+    if (opt_tl_x_ != 0) opt_tl_x_->restoreSavedData();
+    if (opt_tl_y_ != 0) opt_tl_y_->restoreSavedData();
+    if (opt_br_x_ != 0) opt_br_x_->restoreSavedData();
+    if (opt_br_y_ != 0) opt_br_y_->restoreSavedData();
 
     this->setDisabled(false);
 }
 
-//************************************************************
-void SaneWidget::scanFinal(void)
+void SaneWidget::scanFinal()
 {
     SANE_Status status;
     float v1,v2;
 
     //std::cout << "scanFinal" << std::endl;
 
-    if ((opt_tl_x != 0) && (opt_br_x != 0)) {
-        opt_tl_x->getValue(&v1);
-        opt_br_x->getValue(&v2);
+    if ((opt_tl_x_ != 0) && (opt_br_x_ != 0)) {
+        opt_tl_x_->getValue(&v1);
+        opt_br_x_->getValue(&v2);
         if (v1 == v2) {
-            opt_tl_x->setValue(0);
-            opt_br_x->getMaxValue(&v2);
-            opt_br_x->setValue(v2);
+            opt_tl_x_->setValue(0);
+            opt_br_x_->getMaxValue(&v2);
+            opt_br_x_->setValue(v2);
         }
     }
 
-    if ((opt_tl_y != 0) && (opt_br_y != 0)) {
-        opt_tl_y->getValue(&v1);
-        opt_br_y->getValue(&v2);
+    if ((opt_tl_y_ != 0) && (opt_br_y_ != 0)) {
+        opt_tl_y_->getValue(&v1);
+        opt_br_y_->getValue(&v2);
         if (v1 == v2) {
-            opt_tl_y->setValue(0);
-            opt_br_y->getMaxValue(&v2);
-            opt_br_y->setValue(v2);
+            opt_tl_y_->setValue(0);
+            opt_br_y_->getMaxValue(&v2);
+            opt_br_y_->setValue(v2);
         }
     }
 
     // execute a pending value reload
-    while (r_val_tmr.isActive()) {
-        r_val_tmr.stop();
+    while (r_val_tmr_.isActive()) {
+        r_val_tmr_.stop();
         valReload();
     }
 
     // Start the scanning
     emit scanStart();
-    status = sane_start(s_handle);
+    status = sane_start(s_handle_);
     if (status != SANE_STATUS_GOOD) {
         printf("sane_start ERROR: status=%s\n", sane_strstatus(status));
-        sane_cancel(s_handle);
+        sane_cancel(s_handle_);
         return;
     }
     //printf("start OK\n");
 
-    status = sane_get_parameters(s_handle, &params);
+    status = sane_get_parameters(s_handle_, &params_);
     if (status != SANE_STATUS_GOOD) {
         printf("sane_get_parameters ERROR: status=%s\n", sane_strstatus(status));
-        sane_cancel(s_handle);
+        sane_cancel(s_handle_);
         return;
     }
 
@@ -905,22 +891,22 @@ void SaneWidget::scanFinal(void)
     // create a new image
     //(This image should be small so who cares about waisted memory :)
     // FIXME optimize size
-    scan_img = &the_img;
-    *scan_img = QImage(params.pixels_per_line, params.lines, QImage::Format_RGB32);
+    scan_img_ = &the_img_;
+    *scan_img_ = QImage(params_.pixels_per_line, params_.lines, QImage::Format_RGB32);
 
     // Signal for a progress dialog
     emit scanProgress(0);
 
-    read_status = READ_ON_GOING;
-    pixel_x = 0;
-    pixel_y = 0;
-    px_c_index = 0;
+    read_status_ = READ_ON_GOING;
+    pixel_x_ = 0;
+    pixel_y_ = 0;
+    px_c_index_ = 0;
 
     this->setDisabled(true);
-    while (read_status == READ_ON_GOING) {
+    while (read_status_ == READ_ON_GOING) {
         processData();
     }
-    if (read_status != READ_FINISHED) {
+    if (read_status_ != READ_FINISHED) {
         emit scanFaild();
     }
     this->setDisabled(false);
@@ -934,128 +920,128 @@ void SaneWidget::processData(void)
     int i, j;
 
     //printf("Pre read()\n");
-    status = sane_read(s_handle, img_data, IMG_DATA_R_SIZE, &read_bytes);
+    status = sane_read(s_handle_, img_data_, IMG_DATA_R_SIZE, &read_bytes);
     //printf("Post read() read=%d\n", read_bytes);
 
     if (status == SANE_STATUS_EOF) {
         //printf("Read finished read_bytes=%d\n", read_bytes);
-        if (pixel_y < params.lines) {
-            printf("pixel_y(%d) < params.lines(%d)\n", pixel_y, params.lines);
+        if (pixel_y_ < params_.lines) {
+            printf("pixel_y(%d) < params.lines(%d)\n", pixel_y_, params_.lines);
             sleep(1);
             //sane_cancel(s_handle);
         }
-        if (params.last_frame == SANE_TRUE) {
+        if (params_.last_frame == SANE_TRUE) {
             // this is where it all ends well :)
-            read_status = READ_FINISHED;
-            if (scan_img == &the_img) {
+            read_status_ = READ_FINISHED;
+            if (scan_img_ == &the_img_) {
                 emit scanDone();
                 emit imageReady();
             }
             return;
         }
         else {
-            sane_start(s_handle);
+            sane_start(s_handle_);
             if (status != SANE_STATUS_GOOD) {
                 printf("sane_start ERROR: status=%s\n", sane_strstatus(status));
-                sane_cancel(s_handle);
-                read_status = READ_ERROR;
+                sane_cancel(s_handle_);
+                read_status_ = READ_ERROR;
                 return;
             }
         }
     }
     else if (status != SANE_STATUS_GOOD) {
         printf("Reading error, status=%s\n", sane_strstatus(status));
-        sane_cancel(s_handle);
-        read_status = READ_ERROR;
+        sane_cancel(s_handle_);
+        read_status_ = READ_ERROR;
         return;
     }
 
-    switch (params.format)
+    switch (params_.format)
     {
         case SANE_FRAME_RGB:
-            if (params.depth == 8) {
+            if (params_.depth == 8) {
                 // go through the data
                 for (i=0; i<read_bytes; i++) {
-                    if (pixel_y >= params.lines) {
+                    if (pixel_y_ >= params_.lines) {
                         printf("processData: reached image height before EOF\n");
-                        sane_cancel(s_handle);
-                        read_status = READ_ERROR;
+                        sane_cancel(s_handle_);
+                        read_status_ = READ_ERROR;
                         return;
                     }
-                    px_colors[px_c_index] = img_data[i];
-                    px_c_index++;
-                    if (px_c_index >= 3) px_c_index = 0;
+                    px_colors_[px_c_index_] = img_data_[i];
+                    px_c_index_++;
+                    if (px_c_index_ >= 3) px_c_index_ = 0;
 
-                    if (px_c_index == 0) {
-                        scan_img->setPixel(pixel_x, pixel_y,
-                                         qRgb(px_colors[0],
-                                              px_colors[1],
-                                              px_colors[2]));
-                        pixel_x++;
-                        if (pixel_x >= params.pixels_per_line) {
-                            pixel_x = 0;
-                            pixel_y++;
+                    if (px_c_index_ == 0) {
+                        scan_img_->setPixel(pixel_x_, pixel_y_,
+                                         qRgb(px_colors_[0],
+                                              px_colors_[1],
+                                              px_colors_[2]));
+                        pixel_x_++;
+                        if (pixel_x_ >= params_.pixels_per_line) {
+                            pixel_x_ = 0;
+                            pixel_y_++;
                         }
                     }
                 }
             }
             else {
                 printf("Only 8-bit colors are supported!\n");
-                sane_cancel(s_handle);
-                read_status = READ_ERROR;
+                sane_cancel(s_handle_);
+                read_status_ = READ_ERROR;
                 return;
             }
             break;
 
         case SANE_FRAME_GRAY:
-            if (params.depth == 8) {
+            if (params_.depth == 8) {
                 for (i=0; i<read_bytes; i++) {
-                    if (pixel_y >= params.lines) {
+                    if (pixel_y_ >= params_.lines) {
                         printf("reached image height before EOF\n");
-                        sane_cancel(s_handle);
-                        read_status = READ_ERROR;
+                        sane_cancel(s_handle_);
+                        read_status_ = READ_ERROR;
                         return;
                     }
-                    scan_img->setPixel(pixel_x, pixel_y,
-                                     qRgb(img_data[i],
-                                          img_data[i],
-                                          img_data[i]));
-                    pixel_x++;
-                    if (pixel_x >= params.pixels_per_line) {
-                        pixel_x = 0;
-                        pixel_y++;
+                    scan_img_->setPixel(pixel_x_, pixel_y_,
+                                     qRgb(img_data_[i],
+                                          img_data_[i],
+                                          img_data_[i]));
+                    pixel_x_++;
+                    if (pixel_x_ >= params_.pixels_per_line) {
+                        pixel_x_ = 0;
+                        pixel_y_++;
                     }
                 }
             }
-            else if (params.depth == 1){
+            else if (params_.depth == 1){
                 for (i=0; i<read_bytes; i++) {
-                    if (pixel_y >= params.lines) {
+                    if (pixel_y_ >= params_.lines) {
                         printf("reached image height before EOF\n");
-                        sane_cancel(s_handle);
-                        read_status = READ_ERROR;
+                        sane_cancel(s_handle_);
+                        read_status_ = READ_ERROR;
                         return;
                     }
                     for (j=7; j>=0; j--) {
-                        if ((img_data[i] & (1<<j)) == 0) {
-                            scan_img->setPixel(pixel_x, pixel_y, qRgb(255,255,255));
+                        if ((img_data_[i] & (1<<j)) == 0) {
+                            scan_img_->setPixel(pixel_x_, pixel_y_, qRgb(255,255,255));
                         }
                         else {
-                            scan_img->setPixel(pixel_x, pixel_y, qRgb(0,0,0));
+                            scan_img_->setPixel(pixel_x_, pixel_y_, qRgb(0,0,0));
                         }
-                        pixel_x++;
-                        if(pixel_x >= params.pixels_per_line) {
-                            pixel_x = 0;
-                            pixel_y++;
+                        pixel_x_++;
+                        if(pixel_x_ >= params_.pixels_per_line) {
+                            pixel_x_ = 0;
+                            pixel_y_++;
                             break;
                         }
-                        if (pixel_y >= params.lines) break;
+                        if (pixel_y_ >= params_.lines) break;
                     }
                 }
             }
             else {
                 printf("Only 1 and 8-bit colors are supported for grayscale!\n");
-                sane_cancel(s_handle);
-                read_status = READ_ERROR;
+                sane_cancel(s_handle_);
+                read_status_ = READ_ERROR;
                 return;
             }
             break;
@@ -1105,20 +1091,20 @@ void SaneWidget::processData(void)
             break;
         */
         default :
-            printf("This frame format (%d) is not yet suppoeted!\n", params.format);
-            sane_cancel(s_handle);
-            read_status = READ_ERROR;
+            printf("This frame format (%d) is not yet suppoeted!\n", params_.format);
+            sane_cancel(s_handle_);
+            read_status_ = READ_ERROR;
             return;
     }
-    if (params.lines > 0) {
-        int new_progress = (int)( ((double)PROGRESS_MAX / params.lines) * pixel_y);
-        if (abs (new_progress - progress) > 5) {
-            progress = new_progress;
-            if (scan_img == preview_->previewImage()) {
+    if (params_.lines > 0) {
+        int new_progress = (int)( ((double)PROGRESS_MAX / params_.lines) * pixel_y_);
+        if (abs (new_progress - progress_) > 5) {
+            progress_ = new_progress;
+            if (scan_img_ == preview_->previewImage()) {
                 preview_->updateScaledImg();
             }
-            if ((progress < PROGRESS_MAX) && (scan_img == &the_img)) {
-                emit scanProgress(progress);
+            if ((progress_ < PROGRESS_MAX) && (scan_img_ == &the_img_)) {
+                emit scanProgress(progress_);
             }
             qApp->processEvents();
         }
@@ -1155,9 +1141,9 @@ QStringList SaneWidget::scannerList() const
     return res;
 }
 
-QImage * SaneWidget::getFinalImage(void)
+QImage * SaneWidget::getFinalImage()
 {
-    return &the_img;
+    return &the_img_;
 }
 
 bool SaneWidget::setIcon(const QIcon& icon, IconType t)
@@ -1169,16 +1155,16 @@ bool SaneWidget::setIcon(const QIcon& icon, IconType t)
     return true;
 }
 
-void SaneWidget::scanCancel(void)
+void SaneWidget::scanCancel()
 {
-    sane_cancel(s_handle);
-    read_status = READ_CANCEL;
+    sane_cancel(s_handle_);
+    read_status_ = READ_CANCEL;
 }
 
 bool SaneWidget::setIconColorMode(const QIcon &icon)
 {
-    if ((opt_mode != 0) && (opt_mode->widget() != 0)) {
-        opt_mode->setIconColorMode(icon);
+    if ((opt_mode_ != 0) && (opt_mode_->widget() != 0)) {
+        opt_mode_->setIconColorMode(icon);
         return true;
     }
     return false;
@@ -1186,8 +1172,8 @@ bool SaneWidget::setIconColorMode(const QIcon &icon)
 
 bool SaneWidget::setIconGrayMode(const QIcon &icon)
 {
-    if ((opt_mode != 0) && (opt_mode->widget() != 0)) {
-        opt_mode->setIconGrayMode(icon);
+    if ((opt_mode_ != 0) && (opt_mode_->widget() != 0)) {
+        opt_mode_->setIconGrayMode(icon);
         return true;
     }
     return false;
@@ -1195,8 +1181,8 @@ bool SaneWidget::setIconGrayMode(const QIcon &icon)
 
 bool SaneWidget::setIconBWMode(const QIcon &icon)
 {
-    if ((opt_mode != 0) && (opt_mode->widget() != 0)) {
-        opt_mode->setIconBWMode(icon);
+    if ((opt_mode_ != 0) && (opt_mode_->widget() != 0)) {
+        opt_mode_->setIconBWMode(icon);
         return true;
     }
     return false;
