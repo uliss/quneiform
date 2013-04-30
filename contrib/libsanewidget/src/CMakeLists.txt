@@ -39,6 +39,8 @@ set(sanewidget_MOC_HDRS
     sane_widget.h
 )
 
+add_definitions(-DSANE_GETTEXT_DIR="${SANE_INCLUDE_DIR}/../share/locale")
+
 set(SANEWIDGET_TRANSLATIONS_TS i18n/sanewidget_ru.ts)
 
 qt4_create_translation(SANEWIDGET_TRANSLATIONS_QM

@@ -39,6 +39,10 @@
 #include "radio_select.h"
 #include "labeled_gamma.h"
 
+#ifndef SANE_GETTEXT_DIR
+#define SANE_GETTEXT_DIR "/usr/share/locale"
+#endif
+
 static inline QString my_i18n(const char * msg)
 {
     return QString::fromUtf8(gettext(msg));
@@ -438,7 +442,7 @@ void SaneWidget::loadTranslationsGettext()
 {
     QLocale locale;
     setlocale(LC_ALL, locale.name().toAscii().constData());
-    bindtextdomain("sane-backends", "/usr/local/share/locale");
+    bindtextdomain("sane-backends", SANE_GETTEXT_DIR);
     textdomain("sane-backends");
 }
 
