@@ -30,9 +30,9 @@ LabeledEntry::LabeledEntry(QWidget *parent, const QString& ltext)
     label = new QLabel(ltext, this);
     entry = new QLineEdit(this);
     reset = new QPushButton(this);
-    reset->setText("Reset");
+    reset->setText(tr("Reset"));
     set = new QPushButton(this);
-    set->setText("Set");
+    set->setText(tr("Set"));
 
     hb->addWidget(label);
     hb->addWidget(entry);

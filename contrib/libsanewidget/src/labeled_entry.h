@@ -45,16 +45,12 @@ public:
     */
     LabeledEntry(QWidget *parent, const QString& text);
     ~LabeledEntry();
-
     void setText(const QString& text);
-
 private slots:
     void setClicked(void);
     void resetClicked(void);
-
 signals:
     void entryEdited(const QString& text);
-
 private:
     QLabel *label;
     QLineEdit *entry;

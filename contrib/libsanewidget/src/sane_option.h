@@ -72,20 +72,20 @@ public:
 
     void createWidget(QWidget *parent);
 
-    void readOption(void);
-    void readValue(void);
+    void readOption();
+    void readValue();
 
-    QFrame *widget(void) {return (QFrame *)frame;}
-    SaneOptWidget_t sw_type(void) {return type;}
-    QString name(void);
+    QFrame * widget() { return frame; }
+    SaneOptWidget_t sw_type() { return type; }
+    QString name();
     bool getMaxValue(float *max);
     bool getValue(float *val);
     bool setValue(float percent);
     bool getValue(QString *val);
     bool setValue(const QString &val);
     bool setChecked(bool check);
-    bool storeCurrentData(void);
-    bool restoreSavedData(void);
+    bool storeCurrentData();
+    bool restoreSavedData();
     bool setIconColorMode(const QIcon &icon);
     bool setIconGrayMode(const QIcon &icon);
     bool setIconBWMode(const QIcon &icon);
@@ -94,14 +94,12 @@ public:
     LabeledCombo *lcombx;
     LabeledSlider *lslider;
     LabeledFSlider *lfslider;
-
 signals:
     void optsNeedReload(void);
     void valsNeedReload(void);
     void fValueRead(float val);
     void iValueRead(int val);
     void cbValueRead(bool val);
-
 private slots:
     void comboboxChanged(int i);
     void checkboxChanged(bool toggled);
@@ -110,11 +108,10 @@ private slots:
     void fsliderChanged(float val);
     void entryChanged(const QString& text);
     void gammaTableChanged(const QVector<int> &gam_tbl);
-
 private:
     // functions
-    SaneOptWidget_t getWidgetType(void);
-    QStringList *genComboStringList(void);
+    SaneOptWidget_t getWidgetType();
+    QStringList *genComboStringList();
     QString getSaneComboString(const unsigned char *data);
     SANE_Word toSANE_Word(const unsigned char *data);
     void fromSANE_Word(unsigned char *data, SANE_Word from);

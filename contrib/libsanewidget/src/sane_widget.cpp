@@ -441,7 +441,11 @@ void SaneWidget::loadTranslationsQt()
 void SaneWidget::loadTranslationsGettext()
 {
     QLocale locale;
+
+#ifdef Q_OS_MAC
     setlocale(LC_ALL, locale.name().toAscii().constData());
+#endif
+
     bindtextdomain("sane-backends", SANE_GETTEXT_DIR);
     textdomain("sane-backends");
 }

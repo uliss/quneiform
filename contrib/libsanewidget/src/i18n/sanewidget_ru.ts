@@ -2,6 +2,17 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="ru_RU">
 <context>
+    <name>LabeledEntry</name>
+    <message>
+        <source>Reset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>LabeledGamma</name>
     <message>
         <source>Brightness</source>
@@ -72,28 +83,44 @@
 <context>
     <name>SaneOption</name>
     <message>
-        <source> Pixel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> Bit</source>
-        <translation>Бит</translation>
+        <translation type="obsolete">Бит</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation> мм</translation>
-    </message>
-    <message>
-        <source> DPI</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete"> мм</translation>
     </message>
     <message>
         <source> %</source>
-        <translation> %</translation>
+        <translation type="obsolete"> %</translation>
     </message>
     <message>
         <source> usec</source>
-        <translation> мсек</translation>
+        <translation type="obsolete"> мсек</translation>
+    </message>
+    <message>
+        <source>Pixel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DPI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>usec</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
