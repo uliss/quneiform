@@ -44,7 +44,6 @@ namespace utils {
 QStringList openScannerDialog(QWidget * parent)
 {
     QStringList res;
-#ifdef Q_WS_MAC
 #ifdef WITH_SANE
     SaneDialog * sn = new SaneDialog(parent);
     int rc = sn->run();
@@ -52,7 +51,6 @@ QStringList openScannerDialog(QWidget * parent)
         res << sn->imagePath();
     }
 //    openImageCapture();
-#endif
 #endif
 
     return res;
