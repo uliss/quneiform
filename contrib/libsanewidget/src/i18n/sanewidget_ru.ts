@@ -177,5 +177,13 @@
         <source>Separate color intensity tables</source>
         <translation>Разделить таблицы интенсивности цветов</translation>
     </message>
+    <message>
+        <source>Information</source>
+        <translation>Информация</translation>
+    </message>
+    <message>
+        <source>No scanners found.</source>
+        <translation>Сканеры не найдены.</translation>
+    </message>
 </context>
 </TS>

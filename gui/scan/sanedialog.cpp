@@ -64,8 +64,9 @@ int SaneDialog::run()
     if(device.isEmpty())
         device = sane_widget_->selectDevice(NULL, last_scanner_idx, &selected_idx);
 
-    if(device.isEmpty()) // nothing selected
+    if(device.isEmpty()) { // nothing selected
         return Rejected;
+    }
 
     if(!sane_widget_->openDevice(device)) {
         QMessageBox::warning(this, tr("Scan error"), tr("Can't open selected scanner: \"%1\"").arg(device));

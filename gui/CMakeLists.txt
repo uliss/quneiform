@@ -201,11 +201,19 @@ set(QT_USE_QTPLUGIN TRUE)
 find_package(Qt4 4.5 COMPONENTS QtCore QtGui QtXml QtXmlPatterns REQUIRED)
 include(${QT_USE_FILE})
 
+add_subdirectory(spell)
+add_subdirectory(scan)
+
 qt4_add_resources(QRC_SOURCES ${RESOURCES})
 qt4_wrap_cpp(MOC_SOURCES ${HEADERS})
 qt4_wrap_ui(UI_HEADERS ${FORMS})
-qt4_create_translation(TRANSLATIONS_QM ${HEADERS} ${SOURCES} ${UI_HEADERS} ${FORMS}
+qt4_create_translation(TRANSLATIONS_QM
+    ${HEADERS}
+    ${SOURCES}
+    ${UI_HEADERS}
+    ${FORMS}
     ${TRANSLATIONS_TS}
+    scan/sanedialog.cpp
     OPTIONS -locations none)
 
 source_group("Header Files" FILES ${HEADERS})
@@ -253,9 +261,6 @@ if(MINGW)
 elseif(MSVC)
 	list(APPEND EXTRA_RES ${CMAKE_CURRENT_SOURCE_DIR}/resources/win_quneiform.rc)
 endif()
-
-add_subdirectory(spell)
-add_subdirectory(scan)
 
 if(APPLE)
     add_subdirectory(macosx)

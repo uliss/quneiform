@@ -937,6 +937,49 @@ Page: %2</source>
     </message>
 </context>
 <context>
+    <name>SaneDialog</name>
+    <message>
+        <source>Scanning</source>
+        <translation>Сканирование</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation type="obsolete">Информация</translation>
+    </message>
+    <message>
+        <source>No scanners found.</source>
+        <translation type="obsolete">Сканеры не найдены.</translation>
+    </message>
+    <message>
+        <source>Scan error</source>
+        <translation>Ошибка сканирования</translation>
+    </message>
+    <message>
+        <source>Can&apos;t open selected scanner: &quot;%1&quot;</source>
+        <translation>Невозможно открыть выбранный сканер &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Scanner: %1</source>
+        <translation>Сканер %1</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Предупреждение</translation>
+    </message>
+    <message>
+        <source>Image saving failed to &quot;%1&quot;</source>
+        <translation>Ошибка сохранения изображения &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Scanning...</source>
+        <translation>Сканирование...</translation>
+    </message>
+    <message>
+        <source>Save image to</source>
+        <translation>Сохранить изображение в</translation>
+    </message>
+</context>
+<context>
     <name>ScanPreferences</name>
     <message>
         <source>Scanning</source>

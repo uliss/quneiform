@@ -31,6 +31,7 @@
 #include <QTranslator>
 #include <QDebug>
 #include <QScrollArea>
+#include <QMessageBox>
 
 #include "sane_option.h"
 #include "previewwidget.h"
@@ -108,6 +109,11 @@ QString SaneWidget::selectDevice(QWidget * parent, int defaultDeviceIdx, int * i
 {
     QStringList scanner_list = scannerList();
 
+    if(scanner_list.isEmpty()) {
+        QMessageBox::information(this, tr("Information"), tr("No scanners found."));
+        return QString();
+    }
+
     RadioSelect sel;
     sel.setWindowTitle(qApp->applicationName());
     int idx = sel.getSelectedIndex(parent, tr("Select Scanner"), scanner_list, defaultDeviceIdx);
@@ -116,7 +122,7 @@ QString SaneWidget::selectDevice(QWidget * parent, int defaultDeviceIdx, int * i
         return QString("test:0");
 
     if ((idx < 0) || (idx >= scanner_list.count()))
-        return QString("");
+        return QString();
 
     if(index)
         *index = idx;
@@ -949,7 +955,7 @@ void SaneWidget::processData(void)
         else {
             sane_start(s_handle_);
             if (status != SANE_STATUS_GOOD) {
-                printf("sane_start ERROR: status=%s\n", sane_strstatus(status));
+                qWarning() << Q_FUNC_INFO << "sane_start ERROR: status:" << sane_strstatus(status);
                 sane_cancel(s_handle_);
                 read_status_ = READ_ERROR;
                 return;
@@ -957,7 +963,7 @@ void SaneWidget::processData(void)
         }
     }
     else if (status != SANE_STATUS_GOOD) {
-        printf("Reading error, status=%s\n", sane_strstatus(status));
+        qWarning() << Q_FUNC_INFO << "Reading error, status: " << sane_strstatus(status);
         sane_cancel(s_handle_);
         read_status_ = READ_ERROR;
         return;

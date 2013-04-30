@@ -248,7 +248,6 @@ SaneOptWidget_t SaneOption::getWidgetType()
                         return SW_GAMMA;
                     }
 
-                    return SW_COMBO;
                     break;
                 case SANE_TYPE_FIXED:
                     if (sane_option->size == sizeof(SANE_Word))
