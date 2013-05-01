@@ -186,6 +186,10 @@ bool ScanPreferences::saveAutosaveType(QWidget * w, const QVariant& data)
 
             cb->setCurrentIndex(PLACE_DIR_IDX);
         }
+        else {
+            cb->setCurrentIndex(PLACE_PACKET_IDX);
+        }
+
         return true;
     }
     case PLACE_PACKET_IDX:
