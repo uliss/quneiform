@@ -1003,23 +1003,23 @@ Page: %2</source>
     </message>
     <message>
         <source>Image format:</source>
-        <translation type="unfinished"></translation>
+        <translation>Формат изображения:</translation>
     </message>
     <message>
         <source>Image quality:</source>
-        <translation type="unfinished"></translation>
+        <translation>Качество изображения:</translation>
     </message>
     <message>
         <source>Choose directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбрать папку</translation>
     </message>
     <message>
         <source>Autosave place:</source>
-        <translation type="unfinished"></translation>
+        <translation>Место автосохранения:</translation>
     </message>
     <message>
-        <source>Autosave directory</source>
-        <translation type="unfinished"></translation>
+        <source>Choose autosave directory</source>
+        <translation>Выбор каталога для автосохранения</translation>
     </message>
 </context>
 <context>

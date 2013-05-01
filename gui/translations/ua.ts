@@ -936,7 +936,7 @@ Page: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Autosave directory</source>
+        <source>Choose autosave directory</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

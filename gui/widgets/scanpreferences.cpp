@@ -170,7 +170,7 @@ bool ScanPreferences::saveAutosaveType(QWidget * w, const QVariant& data)
     switch(idx) {
     case PLACE_CHOOSE_IDX: {
         QString path = QFileDialog::getExistingDirectory(NULL,
-                                                         tr("Autosave directory"),
+                                                         tr("Choose autosave directory"),
                                                          QDesktopServices::storageLocation(QDesktopServices::PicturesLocation));
 
         if(!path.isEmpty()) {
