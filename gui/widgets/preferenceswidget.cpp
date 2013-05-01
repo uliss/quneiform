@@ -131,7 +131,9 @@ bool PreferencesWidget::standartLoadCallback(QWidget * w, const QVariant& data)
             return false;
         }
 
-        cb->setCurrentIndex(QSettings().value(key, 0).toInt());
+        int idx = cb->findData(QSettings().value(key));
+        if(idx != -1)
+            cb->setCurrentIndex(idx);
     }
 
     if(class_name == "QSlider") {
@@ -176,7 +178,7 @@ bool PreferencesWidget::standartSaveCallback(QWidget * w, const QVariant& data)
             return false;
         }
 
-        QSettings().setValue(key, cb->currentIndex());
+        QSettings().setValue(key, cb->itemData(cb->currentIndex()));
     }
 
     if(class_name == "QSlider") {
