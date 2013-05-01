@@ -23,6 +23,10 @@
 
 class QFormLayout;
 class QLineEdit;
+class QSlider;
+class QSpinBox;
+class QComboBox;
+class QCheckBox;
 
 class ScanPreferences : public PreferencesWidget
 {
@@ -30,17 +34,23 @@ class ScanPreferences : public PreferencesWidget
 public:
     ScanPreferences(QWidget * parent = NULL);
 private slots:
-    void handleDirectoryInput(int idx);
+    void handleAutosaveToggle(bool value);
 private:
     void setupLayout();
     void setupUseLastScanner();
     void setupAutosave();
+    void setupFormat();
+    void setupQuality();
 private:
     static bool loadAutosaveType(QWidget * w, const QVariant& data);
     static bool saveAutosaveType(QWidget * w, const QVariant& data);
 private:
     QFormLayout * layout_;
-    QLineEdit * autosave_dir_;
+    QSlider * save_quality_;
+    QSpinBox * save_quality_box_;
+    QComboBox * save_format_;
+    QCheckBox * autosave_;
+    QComboBox * autosave_dir_;
 };
 
 #endif // SCANPREFERENCES_H

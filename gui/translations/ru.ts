@@ -995,11 +995,31 @@ Page: %2</source>
     </message>
     <message>
         <source>Save to directory</source>
-        <translation>Сохранять в папку</translation>
+        <translation type="obsolete">Сохранять в папку</translation>
     </message>
     <message>
         <source>Save to packet directory</source>
         <translation>Сохранять в папку пакета</translation>
+    </message>
+    <message>
+        <source>Image format:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image quality:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Autosave place:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Autosave directory</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

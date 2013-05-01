@@ -24,15 +24,29 @@
 #include <QHBoxLayout>
 #include <QComboBox>
 #include <QLineEdit>
+#include <QSlider>
+#include <QSpinBox>
+#include <QFileDialog>
+#include <QDesktopServices>
 #include <QSettings>
+#include <QDebug>
 
 #include "scanpreferences.h"
 #include "iconutils.h"
 #include "settingskeys.h"
 
+static const int PLACE_CHOOSE_IDX = 0;
+static const int PLACE_PACKET_IDX = 1;
+static const int PLACE_DIR_IDX = 2;
+static const int PLACE_COMBO_WIDTH = 200;
+
 ScanPreferences::ScanPreferences(QWidget * parent) :
     PreferencesWidget(parent),
     layout_(NULL),
+    save_quality_(NULL),
+    save_quality_box_(NULL),
+    save_format_(NULL),
+    autosave_(NULL),
     autosave_dir_(NULL)
 {
     setIcon(iconFromTheme("scanner"));
@@ -40,21 +54,18 @@ ScanPreferences::ScanPreferences(QWidget * parent) :
 
     setupLayout();
     setupUseLastScanner();
+    setupQuality();
+    setupFormat();
     setupAutosave();
 }
 
-void ScanPreferences::handleDirectoryInput(int idx)
+void ScanPreferences::handleAutosaveToggle(bool value)
 {
-    QComboBox * s = qobject_cast<QComboBox*>(sender());
-    if(!s)
-        return;
+    QWidget * label = layout_->labelForField(autosave_dir_);
+    if(label)
+        label->setVisible(value);
 
-    if(s->itemData(idx).toString() == "dir") {
-        autosave_dir_->setEnabled(true);
-    }
-    else {
-        autosave_dir_->setEnabled(false);
-    }
+    autosave_dir_->setVisible(value);
 }
 
 void ScanPreferences::setupLayout()
@@ -77,38 +88,74 @@ void ScanPreferences::setupAutosave()
 {
     Q_CHECK_PTR(layout_);
 
-    QCheckBox * autosave = new QCheckBox(this);
-    connectControl(autosave, SIGNAL(toggled(bool)), standartCallbacks(KEY_SCAN_AUTOSAVE));
+    autosave_ = new QCheckBox(this);
+    connectControl(autosave_, SIGNAL(toggled(bool)), standartCallbacks(KEY_SCAN_AUTOSAVE));
+    connect(autosave_, SIGNAL(toggled(bool)), this, SLOT(handleAutosaveToggle(bool)));
+    layout_->addRow(tr("Autosave:"), autosave_);
 
-    autosave_dir_ = new QLineEdit(this);
+    autosave_dir_ = new QComboBox(this);
+    // NOTE: do not change order, cause PLACE_DIR_IDX and PLACE_PACKET_DIR are set constant
+    autosave_dir_->addItem(tr("Choose directory"), "");
+    autosave_dir_->addItem(tr("Save to packet directory"), "");
+    connectControl(autosave_dir_, SIGNAL(currentIndexChanged(int)), Callbacks(&loadAutosaveType, &saveAutosaveType));
 
-    QComboBox * autosave_type = new QComboBox(this);
-    autosave_type->setEnabled(autosave->isChecked());
-    autosave_dir_->setEnabled(autosave->isChecked());
-    autosave_type->addItem(tr("Save to directory"), "dir");
-    autosave_type->addItem(tr("Save to packet directory"), "packet");
-
-    Callbacks autosave_type_cb(&loadAutosaveType, &saveAutosaveType);
-    connectControl(autosave_type, SIGNAL(activated(int)), autosave_type_cb);
-    connect(autosave, SIGNAL(toggled(bool)), autosave_type, SLOT(setEnabled(bool)));
-    connect(autosave, SIGNAL(toggled(bool)), autosave_dir_, SLOT(setEnabled(bool)));
-    connect(autosave_type, SIGNAL(activated(int)), this, SLOT(handleDirectoryInput(int)));
-
-    layout_->addRow(tr("Autosave:"), autosave);
-    layout_->addRow("", autosave_type);
-    layout_->addRow("", autosave_dir_);
+    layout_->addRow(tr("Autosave place:"), autosave_dir_);
+    handleAutosaveToggle(autosave_->isChecked());
 }
 
-bool ScanPreferences::loadAutosaveType(QWidget * w, const QVariant& data)
+void ScanPreferences::setupFormat()
+{
+    save_format_ = new QComboBox(this);
+    save_format_->addItem("PNG", "PNG");
+    save_format_->addItem("JPEG", "JPEG");
+    save_format_->addItem("GIF", "GIF");
+    connectControl(save_format_, SIGNAL(currentIndexChanged(int)), standartCallbacks(KEY_SCAN_AUTOSAVE_IMAGE_FORMAT));
+
+    layout_->addRow(tr("Image format:"), save_format_);
+}
+
+void ScanPreferences::setupQuality()
+{
+    save_quality_ = new QSlider(Qt::Horizontal, this);
+    save_quality_->setTracking(true);
+    save_quality_->setRange(0, 100);
+    connectControl(save_quality_, SIGNAL(valueChanged(int)), standartCallbacks(KEY_SCAN_AUTOSAVE_IMAGE_QUALITY));
+
+    save_quality_box_ = new QSpinBox(this);
+    save_quality_box_->setRange(0, 100);
+    save_quality_box_->setValue(save_quality_->sliderPosition());
+    connect(save_quality_, SIGNAL(sliderMoved(int)), save_quality_box_, SLOT(setValue(int)));
+    connect(save_quality_box_, SIGNAL(valueChanged(int)), save_quality_, SLOT(setValue(int)));
+
+    QHBoxLayout * quality_layout = new QHBoxLayout();
+    quality_layout->addWidget(save_quality_);
+    quality_layout->addWidget(save_quality_box_);
+
+    layout_->addRow(tr("Image quality:"), quality_layout);
+}
+
+bool ScanPreferences::loadAutosaveType(QWidget * w, const QVariant& /*data*/)
 {
     QComboBox * cb = qobject_cast<QComboBox*>(w);
     if(!cb)
         return false;
 
-    int current_idx = cb->findData(QSettings().value(KEY_SCAN_AUTOSAVE_METHOD, "packet").toString());
-    if(current_idx >= 0)
-        cb->setCurrentIndex(current_idx);
+    QString path = QSettings().value(KEY_SCAN_AUTOSAVE_METHOD).toString();
+    if(path.isEmpty()) {
+        cb->setCurrentIndex(PLACE_PACKET_IDX);
+        return true;
+    }
 
+    QString text = cb->fontMetrics().elidedText(path, Qt::ElideLeft, PLACE_COMBO_WIDTH);
+
+    // add dir item
+    if(cb->count() == 2) {
+        cb->addItem(text, path);
+    }
+
+    cb->setItemData(PLACE_DIR_IDX, path);
+    cb->setItemText(PLACE_DIR_IDX, text);
+    cb->setCurrentIndex(PLACE_DIR_IDX);
     return true;
 }
 
@@ -119,9 +166,36 @@ bool ScanPreferences::saveAutosaveType(QWidget * w, const QVariant& data)
         return false;
 
     int idx = cb->currentIndex();
-    if(idx < 0)
-        return false;
 
-    QSettings().setValue(KEY_SCAN_AUTOSAVE_METHOD, cb->itemData(idx).toString());
-    return true;
+    switch(idx) {
+    case PLACE_CHOOSE_IDX: {
+        QString path = QFileDialog::getExistingDirectory(NULL,
+                                                         tr("Autosave directory"),
+                                                         QDesktopServices::storageLocation(QDesktopServices::PicturesLocation));
+
+        if(!path.isEmpty()) {
+            QString text = cb->fontMetrics().elidedText(path, Qt::ElideLeft, PLACE_COMBO_WIDTH);
+
+            if(cb->count() == 2) { // add new
+                cb->addItem(text, path);
+            }
+            else { // update old
+                cb->setItemText(PLACE_DIR_IDX, text);
+                cb->setItemData(PLACE_DIR_IDX, path);
+            }
+
+            cb->setCurrentIndex(PLACE_DIR_IDX);
+        }
+        return true;
+    }
+    case PLACE_PACKET_IDX:
+        QSettings().setValue(KEY_SCAN_AUTOSAVE_METHOD, "");
+        return true;
+    case PLACE_DIR_IDX:
+        QSettings().setValue(KEY_SCAN_AUTOSAVE_METHOD, cb->itemData(PLACE_DIR_IDX));
+        return true;
+    default:
+        qWarning() << Q_FUNC_INFO << "Unknown item index:" << idx;
+        return false;
+    }
 }
