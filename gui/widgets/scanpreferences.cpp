@@ -28,6 +28,7 @@
 #include <QSpinBox>
 #include <QFileDialog>
 #include <QDesktopServices>
+#include <QImageWriter>
 #include <QSettings>
 #include <QDebug>
 
@@ -38,7 +39,7 @@
 static const int PLACE_CHOOSE_IDX = 0;
 static const int PLACE_PACKET_IDX = 1;
 static const int PLACE_DIR_IDX = 2;
-static const int PLACE_COMBO_WIDTH = 200;
+static const int PLACE_COMBO_WIDTH = 250;
 
 ScanPreferences::ScanPreferences(QWidget * parent) :
     PreferencesWidget(parent),
@@ -106,10 +107,23 @@ void ScanPreferences::setupAutosave()
 void ScanPreferences::setupFormat()
 {
     save_format_ = new QComboBox(this);
-    save_format_->addItem("PNG", "PNG");
-    save_format_->addItem("JPEG", "JPEG");
-    save_format_->addItem("GIF", "GIF");
-    connectControl(save_format_, SIGNAL(currentIndexChanged(int)), standartCallbacks(KEY_SCAN_AUTOSAVE_IMAGE_FORMAT));
+
+    QList<QByteArray> formats = QImageWriter::supportedImageFormats();
+    typedef QList<QByteArray>::iterator Iterator;
+    for(Iterator it = formats.begin(); it != formats.end(); ++it) {
+        *it = it->toUpper();
+    }
+
+    if(formats.contains("PNG"))
+        save_format_->addItem("PNG", "PNG");
+    if(formats.contains("BMP"))
+        save_format_->addItem("BMP", "BMP");
+    if(formats.contains("TIFF"))
+        save_format_->addItem("TIFF", "TIFF");
+    if(formats.contains("JPEG"))
+        save_format_->addItem("JPEG", "JPEG");
+
+    connectControl(save_format_, SIGNAL(currentIndexChanged(int)), standartCallbacks(KEY_SCAN_IMAGE_FORMAT));
 
     layout_->addRow(tr("Image format:"), save_format_);
 }
@@ -119,7 +133,7 @@ void ScanPreferences::setupQuality()
     save_quality_ = new QSlider(Qt::Horizontal, this);
     save_quality_->setTracking(true);
     save_quality_->setRange(0, 100);
-    connectControl(save_quality_, SIGNAL(valueChanged(int)), standartCallbacks(KEY_SCAN_AUTOSAVE_IMAGE_QUALITY));
+    connectControl(save_quality_, SIGNAL(valueChanged(int)), standartCallbacks(KEY_SCAN_IMAGE_QUALITY));
 
     save_quality_box_ = new QSpinBox(this);
     save_quality_box_->setRange(0, 100);
@@ -140,7 +154,7 @@ bool ScanPreferences::loadAutosaveType(QWidget * w, const QVariant& /*data*/)
     if(!cb)
         return false;
 
-    QString path = QSettings().value(KEY_SCAN_AUTOSAVE_METHOD).toString();
+    QString path = QSettings().value(KEY_SCAN_AUTOSAVE_PLACE).toString();
     if(path.isEmpty()) {
         cb->setCurrentIndex(PLACE_PACKET_IDX);
         return true;
@@ -193,10 +207,10 @@ bool ScanPreferences::saveAutosaveType(QWidget * w, const QVariant& data)
         return true;
     }
     case PLACE_PACKET_IDX:
-        QSettings().setValue(KEY_SCAN_AUTOSAVE_METHOD, "");
+        QSettings().setValue(KEY_SCAN_AUTOSAVE_PLACE, "");
         return true;
     case PLACE_DIR_IDX:
-        QSettings().setValue(KEY_SCAN_AUTOSAVE_METHOD, cb->itemData(PLACE_DIR_IDX));
+        QSettings().setValue(KEY_SCAN_AUTOSAVE_PLACE, cb->itemData(PLACE_DIR_IDX));
         return true;
     default:
         qWarning() << Q_FUNC_INFO << "Unknown item index:" << idx;

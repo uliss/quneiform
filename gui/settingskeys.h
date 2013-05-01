@@ -44,10 +44,9 @@ extern const char * KEY_LAST_SCANNER;
 extern const char * KEY_LAST_SCANNER_INDEX;
 extern const char * KEY_USE_LAST_SCANNER;
 extern const char * KEY_SCAN_AUTOSAVE;
-extern const char * KEY_SCAN_AUTOSAVE_METHOD;
-extern const char * KEY_SCAN_AUTOSAVE_IMAGE_FORMAT;
-extern const char * KEY_SCAN_AUTOSAVE_IMAGE_QUALITY;
-extern const char * KEY_SCAN_AUTOSAVE_DIR;
+extern const char * KEY_SCAN_AUTOSAVE_PLACE;
+extern const char * KEY_SCAN_IMAGE_FORMAT;
+extern const char * KEY_SCAN_IMAGE_QUALITY;
 extern const char * KEY_SCAN_AUTOSAVE_FILENAME_TEMPLATE;
 
 #endif // SETTINGSKEYS_H

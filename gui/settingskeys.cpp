@@ -43,10 +43,9 @@ const char * KEY_LAST_SCANNER = "scan/lastScanner";
 const char * KEY_LAST_SCANNER_INDEX = "scan/lastScannerIndex";
 const char * KEY_USE_LAST_SCANNER = "scan/useLastScanner";
 const char * KEY_SCAN_AUTOSAVE = "scan/autosave";
-const char * KEY_SCAN_AUTOSAVE_METHOD = "scan/autosaveMethod";
-const char * KEY_SCAN_AUTOSAVE_DIR = "scan/autosaveDir";
-const char * KEY_SCAN_AUTOSAVE_IMAGE_FORMAT = "scan/autosaveImageFormat";
-const char * KEY_SCAN_AUTOSAVE_IMAGE_QUALITY = "scan/autosaveImageQuality";
+const char * KEY_SCAN_AUTOSAVE_PLACE = "scan/autosavePlace";
+const char * KEY_SCAN_IMAGE_FORMAT = "scan/imageFormat";
+const char * KEY_SCAN_IMAGE_QUALITY = "scan/imageQuality";
 const char * KEY_SCAN_AUTOSAVE_FILENAME_TEMPLATE = "scan/autosaveFilenameTemplate";
 
 

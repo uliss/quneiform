@@ -123,8 +123,8 @@ void SaneDialog::saveImage(const QString& path)
     }
 
     QSettings s;
-    QString format = s.value(KEY_SCAN_AUTOSAVE_IMAGE_FORMAT, "PNG").toString();
-    int quality = s.value(KEY_SCAN_AUTOSAVE_IMAGE_QUALITY, -1).toInt();
+    QString format = s.value(KEY_SCAN_IMAGE_FORMAT, "PNG").toString();
+    int quality = s.value(KEY_SCAN_IMAGE_QUALITY, -1).toInt();
 
     if(!image_->save(path, format.toAscii().constData(), quality)) {
         QMessageBox::warning(this, tr("Warning"), tr("Image saving failed to \"%1\"").arg(path));
@@ -194,17 +194,8 @@ QString SaneDialog::autosaveDir() const
 {
     QSettings s;
 
-    QString method = s.value(KEY_SCAN_AUTOSAVE_METHOD).toString();
-    if(method == "dir") { // save to specified directory
-        QString path = s.value(KEY_SCAN_AUTOSAVE_DIR).toString();
-        if(path.isEmpty())
-            return QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
-
-        return path;
-    }
-    else if(method == "packetdir") { // save to packet directory
-
-    }
+    QString place = s.value(KEY_SCAN_AUTOSAVE_PLACE).toString();
+    return place;
 
     return QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
 }
@@ -215,7 +206,7 @@ QString SaneDialog::autosaveImageName(const QString& dir) const
 
     int img_number = 0;
     const QString fname = s.value(KEY_SCAN_AUTOSAVE_FILENAME_TEMPLATE, "page").toString();
-    const QString img_format = s.value(KEY_SCAN_AUTOSAVE_IMAGE_FORMAT, "PNG").toString().toLower();
+    const QString img_format = s.value(KEY_SCAN_IMAGE_FORMAT, "PNG").toString().toLower();
     QString full_name;
     do {
         full_name = QString("%1/%2%3.%4").arg(dir).arg(fname).arg(++img_number).arg(img_format);
