@@ -1,16 +1,9 @@
-qt4_wrap_cpp(CF_SCAN_MOC_HEADERS
-    kscandialog.h
-)
-
 set(QF_SCAN_LIB)
-
-set(QF_SCAN_SRC
-    kscandialog.cpp
-    scannerdialog.cpp
-    ${CF_SCAN_MOC_HEADERS}
-    ${CF_SCAN_UI_HEADERS})
+set(QF_SCAN_SRC scannerdialog.cpp)
 
 if(CF_SANE_SCANNER_SUPPORT)
+    qt4_wrap_cpp(CF_SCAN_MOC_HEADERS kscandialog.h)
+    list(APPEND QF_SCAN_SRC kscandialog.cpp ${CF_SCAN_MOC_HEADERS})
     add_definitions(-DWITH_SANE)
     include_directories(${CMAKE_SOURCE_DIR}/contrib/libksane/libksane)
     list(APPEND QF_SCAN_LIB ksane)
