@@ -16,38 +16,30 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef KSCANDIALOG_H
-#define KSCANDIALOG_H
+#include "globalstate.h"
 
-#include <QDialog>
-
-namespace KSaneIface {
-class KSaneWidget;
+void GlobalState::set(const QString& key, const QVariant& value)
+{
+    map().insert(key, value);
 }
 
-class QHBoxLayout;
-
-class KScanDialog : public QDialog
+bool GlobalState::contains(const QString& key)
 {
-    Q_OBJECT
-public:
-    KScanDialog(QWidget * parent = 0);
-    QString imagePath() const;
-    int run();
-private Q_SLOTS:
-    void imageReady(QByteArray& data, int width, int height, int bytes_per_line, int format);
-private:
-    QString autosaveDir() const;
-    QString autosaveImageName(const QString& dir) const;
-    QString makeFullAutosaveName(const QString& dir) const;
-    void initLayout();
-    void initUi();
-    bool autoSaveImage(const QString &path);
-private:
-    KSaneIface::KSaneWidget * sane_widget_;
-    QHBoxLayout * layout_;
-    QImage * image_;
-    QString saved_;
-};
+    return map().contains(key);
+}
 
-#endif // KSCANDIALOG_H
+QVariant GlobalState::get(const QString& key)
+{
+    return map().value(key);
+}
+
+QMap<QString, QVariant>& GlobalState::map()
+{
+    static QMap<QString, QVariant> map_;
+    return map_;
+}
+
+QVariant GlobalState::get(const QString& key, const QVariant& defValue)
+{
+    return map().value(key, defValue);
+}

@@ -92,6 +92,7 @@ set(SOURCES
     exportsettings.cpp
     formatsettings.cpp
     fullscreen.cpp
+    globalstate.cpp
     graphicsitemlayout.cpp
     iconutils.cpp
     imagecache.cpp

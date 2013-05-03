@@ -16,38 +16,23 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef KSCANDIALOG_H
-#define KSCANDIALOG_H
+#ifndef GLOBALSTATE_H
+#define GLOBALSTATE_H
 
-#include <QDialog>
+#include <QString>
+#include <QVariant>
+#include <QMap>
 
-namespace KSaneIface {
-class KSaneWidget;
-}
-
-class QHBoxLayout;
-
-class KScanDialog : public QDialog
+class GlobalState
 {
-    Q_OBJECT
 public:
-    KScanDialog(QWidget * parent = 0);
-    QString imagePath() const;
-    int run();
-private Q_SLOTS:
-    void imageReady(QByteArray& data, int width, int height, int bytes_per_line, int format);
+    static bool contains(const QString& key);
+    static QVariant get(const QString& key);
+    static QVariant get(const QString& key, const QVariant& defValue);
+    static void set(const QString& key, const QVariant& value = QVariant());
 private:
-    QString autosaveDir() const;
-    QString autosaveImageName(const QString& dir) const;
-    QString makeFullAutosaveName(const QString& dir) const;
-    void initLayout();
-    void initUi();
-    bool autoSaveImage(const QString &path);
-private:
-    KSaneIface::KSaneWidget * sane_widget_;
-    QHBoxLayout * layout_;
-    QImage * image_;
-    QString saved_;
+    GlobalState();
+    static QMap<QString, QVariant>& map();
 };
 
-#endif // KSCANDIALOG_H
+#endif // GLOBALSTATE_H

@@ -30,7 +30,6 @@
 #include <QDesktopServices>
 #include <QImageWriter>
 #include <QSettings>
-#include <QToolButton>
 #include <QDebug>
 
 #include "scanpreferences.h"

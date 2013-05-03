@@ -16,18 +16,21 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "kscandialog.h"
-#include "ksane.h"
-#include "icons.h"
-#include "iconutils.h"
-#include "settingskeys.h"
-
 #include <QSettings>
 #include <QMessageBox>
 #include <QHBoxLayout>
 #include <QDebug>
 #include <QFileDialog>
 #include <QDesktopServices>
+
+#include "kscandialog.h"
+#include "ksane.h"
+#include "icons.h"
+#include "iconutils.h"
+#include "settingskeys.h"
+#include "globalstate.h"
+
+#define PACKET_FULL_PATH "packetFullPath"
 
 using namespace KSaneIface;
 
@@ -94,9 +97,22 @@ QString KScanDialog::autosaveDir() const
     QSettings s;
 
     QString place = s.value(KEY_SCAN_AUTOSAVE_PLACE).toString();
-    return place;
 
-    return QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
+    if(place.isEmpty()) { // means save to packet dir
+        QString defaultPath = QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
+        QString p_fullpath = GlobalState::get(PACKET_FULL_PATH).toString();
+        if(p_fullpath.isEmpty())
+            return defaultPath;
+
+        QFileInfo fi(p_fullpath);
+        QString dir = fi.absolutePath();
+        if(dir.isEmpty())
+            return defaultPath;
+
+        return dir;
+    }
+
+    return place;
 }
 
 QString KScanDialog::autosaveImageName(const QString& dir) const
@@ -132,11 +148,11 @@ void KScanDialog::initUi()
     sane_widget_->initGetDeviceList();
 }
 
-void KScanDialog::autoSaveImage(const QString& path)
+bool KScanDialog::autoSaveImage(const QString& path)
 {
     if(!image_) {
         qWarning() << Q_FUNC_INFO << "image in NULL";
-        return;
+        return false;
     }
 
     QSettings s;
@@ -144,11 +160,12 @@ void KScanDialog::autoSaveImage(const QString& path)
     int quality = s.value(KEY_SCAN_IMAGE_QUALITY, -1).toInt();
 
     if(!image_->save(path, format.toAscii().constData(), quality)) {
-        QMessageBox::warning(this, tr("Warning"), tr("Image saving failed to \"%1\"").arg(path));
-        return;
+        QMessageBox::warning(this, tr("Warning"), tr("Image saving failed to \"%1\". Check autosave settings!").arg(path));
+        return false;
     }
 
     saved_ = path;
+    return true;
 }
 
 int KScanDialog::run()
@@ -202,8 +219,8 @@ void KScanDialog::imageReady(QByteArray& data, int width, int height, int bytes_
     if(s.value(KEY_SCAN_AUTOSAVE).toBool()) {
         QString dir = autosaveDir();
         QString full_path = autosaveImageName(dir);
-        autoSaveImage(full_path);
-        accept();
+        bool rc = autoSaveImage(full_path);
+        rc ? accept() : reject();
     }
     else {
         QSettings s;
