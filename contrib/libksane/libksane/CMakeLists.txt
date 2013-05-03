@@ -6,6 +6,7 @@ INCLUDE_DIRECTORIES(${SANE_INCLUDE_DIR}
 )
 
 SET(ksane_LIB_SRCS
+    icons.cpp
     widgets/gamma_disp.cpp
     widgets/labeled_gamma.cpp
     widgets/labeled_checkbox.cpp

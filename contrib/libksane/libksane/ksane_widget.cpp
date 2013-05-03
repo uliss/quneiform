@@ -29,7 +29,6 @@
  * ============================================================ */
 
 #include "ksane.h"
-#include "i18n.h"
 
 #include <unistd.h>
 
@@ -55,6 +54,7 @@
 #include "ksane_opt_slider.h"
 #include "ksane_device_dialog.h"
 #include "labeled_gamma.h"
+#include "icons.h"
 
 namespace KSaneIface
 {
@@ -81,14 +81,7 @@ KSaneWidget::KSaneWidget(QWidget* parent)
         // only call sane init for the first instance
         status = sane_init(&version, &KSaneAuth::authorization);
         if (status != SANE_STATUS_GOOD) {
-            qDebug() << "libksane: sane_init() failed("
-            << sane_strstatus(status) << ")";
-        }
-        else {
-            //kDebug() << "Sane Version = "
-            //         << SANE_VERSION_MAJOR(version) << "."
-            //         << SANE_VERSION_MINORparent(version) << "."
-            //         << SANE_VERSION_BUILD(version);
+            qCritical() << "libksane: sane_init() failed(" << sane_strstatus(status) << ")";
         }
     }
     s_objectMutex.unlock();
@@ -111,7 +104,7 @@ KSaneWidget::KSaneWidget(QWidget* parent)
 
     
     d->m_warmingUp = new QLabel;
-    d->m_warmingUp->setText(i18n("Waiting for the scan to start."));
+    d->m_warmingUp->setText(tr("Waiting for the scan to start."));
     d->m_warmingUp->setAlignment(Qt::AlignCenter);
     d->m_warmingUp->setAutoFillBackground(true);
     d->m_warmingUp->setBackgroundRole(QPalette::Highlight);
@@ -122,8 +115,8 @@ KSaneWidget::KSaneWidget(QWidget* parent)
     d->m_progressBar->setMaximum(100);
 
     d->m_cancelBtn   = new QPushButton;
-    d->m_cancelBtn->setIcon(QIcon("process-stop"));
-    d->m_cancelBtn->setToolTip(i18n("Cancel current scan operation"));
+    d->m_cancelBtn->setIcon(KSaneIcons::get("process-stop"));
+    d->m_cancelBtn->setToolTip(tr("Cancel current scan operation"));
     connect(d->m_cancelBtn, SIGNAL(clicked()), this, SLOT(scanCancel()));
     
     d->m_activityFrame = new QWidget;
@@ -135,38 +128,38 @@ KSaneWidget::KSaneWidget(QWidget* parent)
     
     d->m_zInBtn  = new QToolButton(this);
     d->m_zInBtn->setAutoRaise(true);
-    d->m_zInBtn->setIcon(QIcon("zoom-in"));
-    d->m_zInBtn->setToolTip(i18n("Zoom In"));
+    d->m_zInBtn->setIcon(KSaneIcons::get("zoom-in"));
+    d->m_zInBtn->setToolTip(tr("Zoom In"));
     connect(d->m_zInBtn, SIGNAL(clicked()), d->m_previewViewer, SLOT(zoomIn()));
     
     d->m_zOutBtn = new QToolButton(this);
     d->m_zOutBtn->setAutoRaise(true);
-    d->m_zOutBtn->setIcon(QIcon("zoom-out"));
-    d->m_zOutBtn->setToolTip(i18n("Zoom Out"));
+    d->m_zOutBtn->setIcon(KSaneIcons::get("zoom-out"));
+    d->m_zOutBtn->setToolTip(tr("Zoom Out"));
     connect(d->m_zOutBtn, SIGNAL(clicked()), d->m_previewViewer, SLOT(zoomOut()));
     
     d->m_zSelBtn = new QToolButton(this);
     d->m_zSelBtn->setAutoRaise(true);
-    d->m_zSelBtn->setIcon(QIcon("zoom-fit-best"));
-    d->m_zSelBtn->setToolTip(i18n("Zoom to Selection"));
+    d->m_zSelBtn->setIcon(KSaneIcons::get("zoom-fit-best"));
+    d->m_zSelBtn->setToolTip(tr("Zoom to Selection"));
     connect(d->m_zSelBtn, SIGNAL(clicked()), d->m_previewViewer, SLOT(zoomSel()));
     
     d->m_zFitBtn = new QToolButton(this);
     d->m_zFitBtn->setAutoRaise(true);
-    d->m_zFitBtn->setIcon(QIcon("document-preview"));
-    d->m_zFitBtn->setToolTip(i18n("Zoom to Fit"));
+    d->m_zFitBtn->setIcon(KSaneIcons::get("document-preview"));
+    d->m_zFitBtn->setToolTip(tr("Zoom to Fit"));
     connect(d->m_zFitBtn, SIGNAL(clicked()), d->m_previewViewer, SLOT(zoom2Fit()));
     
     d->m_prevBtn = new QPushButton(this);
-    d->m_prevBtn->setIcon(QIcon("document-import"));
-    d->m_prevBtn->setToolTip(i18n("Scan Preview Image"));
-    d->m_prevBtn->setText(i18nc("Preview button text", "Preview"));
+    d->m_prevBtn->setIcon(KSaneIcons::get("image-x-generic"));
+    d->m_prevBtn->setToolTip(tr("Scan Preview Image"));
+    d->m_prevBtn->setText(tr("Preview"));
     connect(d->m_prevBtn,   SIGNAL(clicked()), d, SLOT(startPreviewScan()));
     
     d->m_scanBtn = new QPushButton(this);
-    d->m_scanBtn->setIcon(QIcon("document-save"));
-    d->m_scanBtn->setToolTip(i18n("Scan Final Image"));
-    d->m_scanBtn->setText(i18nc("Final scan button text", "Scan"));
+    d->m_scanBtn->setIcon(KSaneIcons::get("document-save"));
+    d->m_scanBtn->setToolTip(tr("Scan Final Image"));
+    d->m_scanBtn->setText(tr("Scan"));
     d->m_scanBtn->setFocus(Qt::OtherFocusReason);
     connect(d->m_scanBtn,   SIGNAL(clicked()), d, SLOT(startFinalScan()));
     
@@ -204,13 +197,13 @@ KSaneWidget::KSaneWidget(QWidget* parent)
     d->m_basicScrollA = new QScrollArea;
     d->m_basicScrollA->setWidgetResizable(true);
     d->m_basicScrollA->setFrameShape(QFrame::NoFrame);
-    d->m_optsTabWidget->addTab(d->m_basicScrollA, i18n("Basic Options"));
+    d->m_optsTabWidget->addTab(d->m_basicScrollA, tr("Basic Options"));
 
     // Add the other options tab
     d->m_otherScrollA = new QScrollArea;
     d->m_otherScrollA->setWidgetResizable(true);
     d->m_otherScrollA->setFrameShape(QFrame::NoFrame);
-    d->m_optsTabWidget->addTab(d->m_otherScrollA, i18n("Scanner Specific Options"));
+    d->m_optsTabWidget->addTab(d->m_otherScrollA, tr("Scanner Specific Options"));
     
     
     d->m_splitter = new QSplitter(this);
@@ -630,7 +623,7 @@ QImage KSaneWidget::toQImage(const QByteArray &data,
 {
     
     if ((format == FormatRGB_16_C) || (format == FormatGrayScale16)) {
-        d->alertUser(KSaneWidget::ErrorGeneral, i18n("The image data contained 16 bits per color, "
+        d->alertUser(KSaneWidget::ErrorGeneral, tr("The image data contained 16 bits per color, "
                     "but the color depth has been truncated to 8 bits per color."));
     }
     return toQImageSilent(data, width, height, bytes_per_line, format);

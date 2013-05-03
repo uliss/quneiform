@@ -18,6 +18,8 @@
 
 #include "kscandialog.h"
 #include "ksane.h"
+#include "icons.h"
+#include "iconutils.h"
 #include "settingskeys.h"
 
 #include <QSettings>
@@ -118,7 +120,10 @@ void KScanDialog::initUi()
 //    connect(sane_widget_, SIGNAL(buttonPressed(QString, QString, bool)),
 //            this,     SLOT(buttonPressed(QString, QString, bool)));
 
+
     sane_widget_->initGetDeviceList();
+
+    KSaneIcons::setCallback(iconFromTheme);
 }
 
 void KScanDialog::saveImage(const QString& path)
@@ -173,8 +178,6 @@ int KScanDialog::run()
     // update last scanner
     settings.setValue(KEY_LAST_SCANNER, device);
     setWindowTitle(tr("Scanner: %1").arg(device));
-
-//    initIcons();
 
     int rc = exec();
 
