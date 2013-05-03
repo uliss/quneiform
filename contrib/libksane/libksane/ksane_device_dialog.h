@@ -40,11 +40,7 @@
 #include <QCheckBox>
 #include <QPushButton>
 #include <QBoxLayout>
-
-
-// KDE includes
 #include <QDialog>
-#include <QLocale>
 
 namespace KSaneIface
 {
@@ -52,22 +48,17 @@ namespace KSaneIface
 class KSaneDeviceDialog : public QDialog
 {
     Q_OBJECT
-
 public:
-
     KSaneDeviceDialog(QWidget *parent=0);
     ~KSaneDeviceDialog();
 
     QString getSelectedName();
     void setDefault(QString);
-
 public Q_SLOTS:
     void reloadDevicesList();
-
 private Q_SLOTS:
     void setAvailable(bool avail);
     void updateDevicesList();
-
 private:
     QWidget                *m_btnContainer;
     QGroupBox              *m_btnBox;
@@ -76,6 +67,9 @@ private:
     QString                 m_defaultBackend;
     QString                 m_selectedDevice;
     FindSaneDevicesThread  *m_findDevThread;
+    QPushButton            *m_ok;
+    QPushButton            *m_cancel;
+    QPushButton            *m_reload;
 };
 
 }  // NameSpace KSaneIface

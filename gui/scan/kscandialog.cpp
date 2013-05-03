@@ -70,7 +70,7 @@ int KScanDialog::run()
     // scanner open dialog
     int selected_idx = 0;
     if(device.isEmpty())
-        device = sane_widget_->selectDevice(NULL);
+        device = sane_widget_->selectDevice(this);
 
 //        device = sane_widget_->selectDevice(NULL, last_scanner_idx, &selected_idx);
 

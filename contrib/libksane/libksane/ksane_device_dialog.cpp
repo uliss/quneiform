@@ -30,7 +30,6 @@
 #include "ksane_device_dialog.h"
 #include "i18n.h"
 
-
 // Sane includes.
 extern "C"
 {
@@ -38,25 +37,36 @@ extern "C"
 #include <sane/sane.h>
 }
 
-
-// KDE includes.
 #include <QDebug>
 #include <QPushButton>
 #include <QScrollArea>
+#include <QDialogButtonBox>
 
 namespace KSaneIface
 {
 
 KSaneDeviceDialog::KSaneDeviceDialog(QWidget *parent)
-    : QDialog(parent)
+    : QDialog(parent),
+      m_ok(NULL),
+      m_cancel(NULL),
+      m_reload(NULL)
 {
+    QVBoxLayout * main_layout = new QVBoxLayout(this);
+    setLayout(main_layout);
 
-//    setButtons(QDialog::User1 | KDialog::Ok | KDialog::Cancel);
-//    setButtonText(User1, i18n("Reload devices list"));
-    
+    QDialogButtonBox * btn_box = new QDialogButtonBox(this);
+    m_ok = btn_box->addButton(QDialogButtonBox::Ok);
+    m_cancel = btn_box->addButton(QDialogButtonBox::Cancel);
+    m_reload = btn_box->addButton(QDialogButtonBox::Retry);
+    m_reload->setText(tr("Reload"));
+
+    connect(m_ok, SIGNAL(clicked()), this, SLOT(accept()));
+    connect(m_cancel, SIGNAL(clicked()), this, SLOT(reject()));
+    connect(m_reload, SIGNAL(clicked()), this, SLOT(reloadDevicesList()));
+
     m_btnGroup = new QButtonGroup(this);
     
-    m_btnBox = new QGroupBox;
+    m_btnBox = new QGroupBox("Scanners");
     m_btnLayout = new QVBoxLayout;
     QVBoxLayout *layout = new QVBoxLayout;
     m_btnContainer = new QWidget;
@@ -68,11 +78,13 @@ KSaneDeviceDialog::KSaneDeviceDialog(QWidget *parent)
     layout->addWidget(area);
     layout->setContentsMargins(0,0,0,0);
 
+    main_layout->addWidget(m_btnBox);
+    main_layout->addWidget(btn_box);
+
     area->setWidgetResizable(true);
     area->setFrameShape(QFrame::NoFrame);
     area->setWidget(m_btnContainer);
     
-//    setMainWidget(m_btnBox);
     setMinimumHeight(200);
     m_findDevThread = FindSaneDevicesThread::getInstance();
 
@@ -92,8 +104,8 @@ void KSaneDeviceDialog::reloadDevicesList()
     while (!m_btnGroup->buttons().isEmpty()) {
         delete m_btnGroup->buttons().takeFirst();
     }
-    m_btnBox->setTitle(i18n("Looking for devices. Please wait."));
-//    enableButton(QDialog::User1, false);
+    m_btnBox->setTitle(tr("Looking for devices. Please wait."));
+    m_reload->setDisabled(true);
 
     if(!m_findDevThread->isRunning()) {
         m_findDevThread->start();
@@ -102,10 +114,10 @@ void KSaneDeviceDialog::reloadDevicesList()
 
 void KSaneDeviceDialog::setAvailable(bool avail)
 {
-//    enableButtonOk(avail);
+    m_ok->setEnabled(avail);
     if(avail) {
         m_selectedDevice = getSelectedName();
-//        setButtonFocus(KDialog::Ok);
+        m_ok->setFocus();
     }
 }
 
@@ -130,15 +142,15 @@ void KSaneDeviceDialog::updateDevicesList()
 
     const QList<KSaneWidget::DeviceInfo> list = m_findDevThread->devicesList();
     if (list.isEmpty()) {
-        m_btnBox->setTitle(i18n("Sorry. No devices found."));
-//        enableButton(KDialog::User1, true);
+        m_btnBox->setTitle(tr("Sorry. No devices found."));
+        m_reload->setEnabled(true);
         return;
     }
 
     delete m_btnLayout;
     m_btnLayout = new QVBoxLayout;
     m_btnContainer->setLayout(m_btnLayout);
-    m_btnBox->setTitle(i18n("Found devices:"));
+    m_btnBox->setTitle(tr("Found devices:"));
     
     for (int i=0; i< list.size(); i++) {
         QRadioButton *b = new QRadioButton(this);
@@ -161,10 +173,10 @@ void KSaneDeviceDialog::updateDevicesList()
     m_btnLayout->addStretch();
 
     if(list.size() == 1) {
-//        button(KDialog::Ok)->animateClick();
+        m_ok->animateClick();
     }
 
-//    enableButton(KDialog::User1, true);
+    m_reload->setEnabled(true);
 }
 
 }  // NameSpace KSaneIface
