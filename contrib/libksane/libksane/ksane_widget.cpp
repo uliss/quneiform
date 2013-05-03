@@ -271,17 +271,18 @@ QString KSaneWidget::model() const
     return d->m_model;
 }
 
-QString KSaneWidget::selectDevice(QWidget* parent)
+QString KSaneWidget::selectDevice(QWidget* parent, const QString& defaultScanner)
 {
-  QString selected_name;
-  QPointer<KSaneDeviceDialog> sel = new KSaneDeviceDialog(parent);
+    qDebug() << Q_FUNC_INFO << "default scanner" << defaultScanner;
 
-  // sel.setDefault(prev_backend); // set default scanner - perhaps application using libksane should remember that
-  if(sel->exec() == QDialog::Accepted) {
-      selected_name = sel->getSelectedName();
-  }
-  delete sel;
-  return selected_name;
+    QString selected_name;
+    QPointer<KSaneDeviceDialog> sel = new KSaneDeviceDialog(parent, defaultScanner);
+
+    if(sel->exec() == QDialog::Accepted) {
+        selected_name = sel->getSelectedName();
+    }
+    delete sel;
+    return selected_name;
 }
 
 void KSaneWidget::initGetDeviceList() const

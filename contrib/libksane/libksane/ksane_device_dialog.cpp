@@ -28,7 +28,6 @@
 
 // Local includes.
 #include "ksane_device_dialog.h"
-#include "i18n.h"
 
 // Sane includes.
 extern "C"
@@ -45,11 +44,12 @@ extern "C"
 namespace KSaneIface
 {
 
-KSaneDeviceDialog::KSaneDeviceDialog(QWidget *parent)
+KSaneDeviceDialog::KSaneDeviceDialog(QWidget * parent, const QString& defaultScanner)
     : QDialog(parent),
       m_ok(NULL),
       m_cancel(NULL),
-      m_reload(NULL)
+      m_reload(NULL),
+      m_selectedDevice(defaultScanner)
 {
     QVBoxLayout * main_layout = new QVBoxLayout(this);
     setLayout(main_layout);
@@ -66,7 +66,7 @@ KSaneDeviceDialog::KSaneDeviceDialog(QWidget *parent)
 
     m_btnGroup = new QButtonGroup(this);
     
-    m_btnBox = new QGroupBox("Scanners");
+    m_btnBox = new QGroupBox;
     m_btnLayout = new QVBoxLayout;
     QVBoxLayout *layout = new QVBoxLayout;
     m_btnContainer = new QWidget;
@@ -89,7 +89,6 @@ KSaneDeviceDialog::KSaneDeviceDialog(QWidget *parent)
     m_findDevThread = FindSaneDevicesThread::getInstance();
 
     connect(m_findDevThread, SIGNAL(finished()), this, SLOT(updateDevicesList()));
-    connect(this, SIGNAL(user1Clicked()),        this, SLOT(reloadDevicesList()));
 
     reloadDevicesList();
 }
@@ -115,15 +114,13 @@ void KSaneDeviceDialog::reloadDevicesList()
 void KSaneDeviceDialog::setAvailable(bool avail)
 {
     m_ok->setEnabled(avail);
-    if(avail) {
-        m_selectedDevice = getSelectedName();
+    if(avail)
         m_ok->setFocus();
-    }
 }
 
-void KSaneDeviceDialog::setDefault(QString defaultBackend)
+void KSaneDeviceDialog::setDefault(const QString& defaultBackend)
 {
-        m_selectedDevice = defaultBackend;
+    m_selectedDevice = defaultBackend;
 }
 
 QString KSaneDeviceDialog::getSelectedName() {
@@ -152,7 +149,7 @@ void KSaneDeviceDialog::updateDevicesList()
     m_btnContainer->setLayout(m_btnLayout);
     m_btnBox->setTitle(tr("Found devices:"));
     
-    for (int i=0; i< list.size(); i++) {
+    for (int i = 0; i < list.size(); i++) {
         QRadioButton *b = new QRadioButton(this);
         b->setObjectName(list[i].name);
         b->setToolTip(list[i].name);
@@ -164,11 +161,13 @@ void KSaneDeviceDialog::updateDevicesList()
         m_btnLayout->addWidget(b);
         m_btnGroup->addButton(b);
         connect(b, SIGNAL(clicked(bool)), this, SLOT(setAvailable(bool)));
-        if((i==0) || (list[i].name == m_selectedDevice)) {
+        if((i == 0) || (list[i].name == m_selectedDevice)) {
             b->setChecked(true);
             setAvailable(true);
         }
     }
+
+
 
     m_btnLayout->addStretch();
 

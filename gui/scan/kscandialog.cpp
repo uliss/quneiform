@@ -22,26 +22,81 @@
 
 #include <QSettings>
 #include <QMessageBox>
-#include <QProgressDialog>
 #include <QHBoxLayout>
+#include <QDebug>
+#include <QFileDialog>
+#include <QDesktopServices>
 
 using namespace KSaneIface;
+
+typedef QMap<QString, QString> ScanOptions;
+
+static ScanOptions toScanOpts(const QMap<QString, QVariant>& map)
+{
+    ScanOptions res;
+
+    QMap<QString, QVariant>::const_iterator it = map.constBegin();
+    while (it != map.constEnd()) {
+        res.insert(it.key(), it.value().toString());
+        ++it;
+    }
+
+    return res;
+}
+
+static QMap<QString, QVariant> toMap(const ScanOptions& opts)
+{
+    QMap<QString, QVariant> res;
+
+    ScanOptions::const_iterator it = opts.constBegin();
+    while (it != opts.constEnd()) {
+        res.insert(it.key(), it.value());
+        ++it;
+    }
+
+    return res;
+}
 
 KScanDialog::KScanDialog(QWidget * parent) :
     QDialog(parent),
     sane_widget_(NULL),
     layout_(NULL),
-    image_(NULL),
-    progress_(NULL)
+    image_(new QImage)
 {
     setWindowTitle(tr("Scanning"));
     initUi();
     initLayout();
 }
 
-QStringList KScanDialog::imagePath() const
+QString KScanDialog::imagePath() const
 {
-    return QStringList();
+    return saved_;
+}
+
+QString KScanDialog::autosaveDir() const
+{
+    QSettings s;
+
+    QString place = s.value(KEY_SCAN_AUTOSAVE_PLACE).toString();
+    return place;
+
+    return QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
+}
+
+QString KScanDialog::autosaveImageName(const QString& dir) const
+{
+    QSettings s;
+
+    int img_number = 0;
+    const QString fname = s.value(KEY_SCAN_AUTOSAVE_FILENAME_TEMPLATE, "page").toString();
+    const QString img_format = s.value(KEY_SCAN_IMAGE_FORMAT, "PNG").toString().toLower();
+    QString full_name;
+    do {
+        full_name = QString("%1/%2%3.%4").arg(dir).arg(fname).arg(++img_number).arg(img_format);
+    }
+    while(QFileInfo(full_name).exists());
+
+    return full_name;
 }
 
 void KScanDialog::initLayout()
@@ -53,46 +108,105 @@ void KScanDialog::initLayout()
 void KScanDialog::initUi()
 {
     sane_widget_ = new KSaneWidget(this);
-    connect(sane_widget_, SIGNAL(scanStart()), this, SLOT(scanStart()));
-    connect(sane_widget_, SIGNAL(scanFaild()), this, SLOT(scanFailed()));
-    connect(sane_widget_, SIGNAL(scanDone()),  this, SLOT(scanEnd()));
-    connect(sane_widget_, SIGNAL(imageReady()), this, SLOT(imageReady()));
+
+    connect(sane_widget_, SIGNAL(imageReady(QByteArray &, int, int, int, int)),
+            this,     SLOT(imageReady(QByteArray &, int, int, int, int)));
+//    connect(sane_widget_, SIGNAL(availableDevices(QList<KSaneWidget::DeviceInfo>)),
+//            this,     SLOT(availableDevices(QList<KSaneWidget::DeviceInfo>)));
+//    connect(sane_widget_, SIGNAL(userMessage(int, QString)),
+//            this,     SLOT(alertUser(int, QString)));
+//    connect(sane_widget_, SIGNAL(buttonPressed(QString, QString, bool)),
+//            this,     SLOT(buttonPressed(QString, QString, bool)));
+
+    sane_widget_->initGetDeviceList();
+}
+
+void KScanDialog::saveImage(const QString& path)
+{
+    if(!image_) {
+        qWarning() << Q_FUNC_INFO << "image in NULL";
+        return;
+    }
+
+    QSettings s;
+    QString format = s.value(KEY_SCAN_IMAGE_FORMAT, "PNG").toString();
+    int quality = s.value(KEY_SCAN_IMAGE_QUALITY, -1).toInt();
+
+    if(!image_->save(path, format.toAscii().constData(), quality)) {
+        QMessageBox::warning(this, tr("Warning"), tr("Image saving failed to \"%1\"").arg(path));
+        return;
+    }
+
+    saved_ = path;
 }
 
 int KScanDialog::run()
 {
+    QSettings settings;
+
+    ScanOptions opts = toScanOpts(settings.value("scan_options").toMap());
+//    sane_widget_->setOptVals(opts);
+
     QString device;
-    QSettings s;
-    if(s.value(KEY_USE_LAST_SCANNER, false).toBool())
-        device = s.value(KEY_LAST_SCANNER).toString();
-
-    int last_scanner_idx = QSettings().value(KEY_LAST_SCANNER_INDEX).toInt();
-    // scanner open dialog
-    int selected_idx = 0;
-    if(device.isEmpty())
-        device = sane_widget_->selectDevice(this);
-
-//        device = sane_widget_->selectDevice(NULL, last_scanner_idx, &selected_idx);
-
-    if(device.isEmpty()) { // nothing selected
-        return Rejected;
+    // use last scanner
+    if(settings.value(KEY_USE_LAST_SCANNER, false).toBool()) {
+        if(settings.value(KEY_LAST_SCANNER).isNull()) // no last scanner, open selection dialog
+            device = sane_widget_->selectDevice(this);
+        else // open last used scanner
+            device = settings.value(KEY_LAST_SCANNER).toString();
     }
+    else {
+        // open selection dialog with default last scanner
+        device = sane_widget_->selectDevice(this, settings.value(KEY_LAST_SCANNER).toString());
+    }
+
+    // nothing selected
+    if(device.isEmpty())
+        return Rejected;
 
     if(!sane_widget_->openDevice(device)) {
         QMessageBox::warning(this, tr("Scan error"), tr("Can't open selected scanner: \"%1\"").arg(device));
-        s.setValue(KEY_LAST_SCANNER, QString());
+        settings.setValue(KEY_LAST_SCANNER, QString());
         return Rejected;
     }
 
-    QSettings().setValue(KEY_LAST_SCANNER_INDEX, selected_idx);
-
     // update last scanner
-    s.setValue(KEY_LAST_SCANNER, device);
+    settings.setValue(KEY_LAST_SCANNER, device);
     setWindowTitle(tr("Scanner: %1").arg(device));
+
 //    initIcons();
 
     int rc = exec();
 
+    sane_widget_->getOptVals(opts);
+    settings.setValue("scan_options", toMap(opts));
     sane_widget_->closeDevice();
     return rc;
+}
+
+void KScanDialog::imageReady(QByteArray& data, int width, int height, int bytes_per_line, int format)
+{
+    *image_ = sane_widget_->toQImageSilent(data, width, height, bytes_per_line,
+                                           (KSaneWidget::ImageFormat)format);
+
+    QSettings s;
+    if(s.value(KEY_SCAN_AUTOSAVE).toBool()) {
+        QString dir = autosaveDir();
+        QString full_path = autosaveImageName(dir);
+        saveImage(full_path);
+        accept();
+    }
+    else {
+        QString path = QFileDialog::getSaveFileName(this, tr("Save image to"), ".", "*.jpg");
+        if(path.isEmpty()) {
+            return;
+        }
+
+        if(!image_->save(path, "JPEG")) {
+
+        }
+
+        saved_ = path;
+        accept();
+    }
 }

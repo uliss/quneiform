@@ -26,24 +26,28 @@ class KSaneWidget;
 }
 
 class QHBoxLayout;
-class QProgressDialog;
 
 class KScanDialog : public QDialog
 {
     Q_OBJECT
 public:
     KScanDialog(QWidget * parent = 0);
-    QStringList imagePath() const;
+    QString imagePath() const;
     int run();
+private Q_SLOTS:
+    void imageReady(QByteArray& data, int width, int height, int bytes_per_line, int format);
 private:
+    QString autosaveDir() const;
+    QString autosaveImageName(const QString& dir) const;
+    QString makeFullAutosaveName(const QString& dir) const;
     void initLayout();
     void initUi();
+    void saveImage(const QString &path);
 private:
     KSaneIface::KSaneWidget * sane_widget_;
     QHBoxLayout * layout_;
     QImage * image_;
     QString saved_;
-    QProgressDialog * progress_;
 };
 
 #endif // KSCANDIALOG_H

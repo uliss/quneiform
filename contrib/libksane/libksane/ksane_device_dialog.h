@@ -49,11 +49,11 @@ class KSaneDeviceDialog : public QDialog
 {
     Q_OBJECT
 public:
-    KSaneDeviceDialog(QWidget *parent=0);
+    KSaneDeviceDialog(QWidget *parent = 0, const QString& defaultScanner = QString());
     ~KSaneDeviceDialog();
 
     QString getSelectedName();
-    void setDefault(QString);
+    void setDefault(const QString&);
 public Q_SLOTS:
     void reloadDevicesList();
 private Q_SLOTS:
@@ -64,7 +64,6 @@ private:
     QGroupBox              *m_btnBox;
     QButtonGroup           *m_btnGroup;
     QVBoxLayout            *m_btnLayout;
-    QString                 m_defaultBackend;
     QString                 m_selectedDevice;
     FindSaneDevicesThread  *m_findDevThread;
     QPushButton            *m_ok;

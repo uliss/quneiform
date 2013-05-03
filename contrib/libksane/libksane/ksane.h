@@ -96,7 +96,7 @@ public:
 
     /** This helper method displays a dialog for selecting a scanner. The libsane
      * device name of the selected scanner device is returned. */
-    QString selectDevice(QWidget* parent=0);
+    QString selectDevice(QWidget* parent = 0, const QString& defaultScanner = QString());
 
     /**
      * Get the list of available scanning devices. Connect to availableDevices()
