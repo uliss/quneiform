@@ -19,8 +19,9 @@
 #ifndef SCANNERDIALOG_H
 #define SCANNERDIALOG_H
 
-#include <QWidget>
 #include <QStringList>
+
+class QWidget;
 
 namespace utils {
 QStringList openScannerDialog(QWidget * parent = 0);
