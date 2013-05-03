@@ -154,11 +154,8 @@ void KScanDialog::autoSaveImage(const QString& path)
 int KScanDialog::run()
 {
     QSettings settings;
-
-    ScanOptions opts = toScanOpts(settings.value("scan_options").toMap());
-//    sane_widget_->setOptVals(opts);
-
     QString device;
+
     // use last scanner
     if(settings.value(KEY_USE_LAST_SCANNER, false).toBool()) {
         if(settings.value(KEY_LAST_SCANNER).isNull()) // no last scanner, open selection dialog
@@ -180,6 +177,9 @@ int KScanDialog::run()
         settings.setValue(KEY_LAST_SCANNER, QString());
         return Rejected;
     }
+
+    ScanOptions opts = toScanOpts(settings.value("scan_options").toMap());
+    sane_widget_->setOptVals(opts);
 
     // update last scanner
     settings.setValue(KEY_LAST_SCANNER, device);

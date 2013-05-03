@@ -722,20 +722,23 @@ bool KSaneWidget::getOptVal(const QString &optname, QString &value)
     return false;
 }
 
-int KSaneWidget::setOptVals(const QMap <QString, QString> &opts)
+int KSaneWidget::setOptVals(const QMap<QString, QString> &opts)
 {
     QString tmp;
-    int i;
-    int ret=0;
+    int ret = 0;
 
-    for (i=0; i<d->m_optList.size(); i++) {
+    for (int i = 0; i < d->m_optList.size(); i++) {
         if (opts.contains(d->m_optList.at(i)->name())) {
             tmp = opts[d->m_optList.at(i)->name()];
+            if(!d->m_optList[i])
+                continue;
+
             if (d->m_optList.at(i)->setValue(tmp) == false) {
                 ret++;
             }
         }
     }
+
     if ((d->m_splitGamChB) &&
         (d->m_optGamR) &&
         (d->m_optGamG) &&
@@ -762,15 +765,13 @@ int KSaneWidget::setOptVals(const QMap <QString, QString> &opts)
     // special handling for non-sane option
     if (opts.contains(InvetColorsOption)) {
         tmp = opts[InvetColorsOption];
-        if ((tmp.compare("true", Qt::CaseInsensitive) == 0) ||
-            (tmp.compare("1") == 0))
-        {
-            d->m_invertColors->setChecked(true);
-        }
-        else {
-            d->m_invertColors->setChecked(false);
+        if(d->m_invertColors) {
+            bool value = (tmp.compare("true", Qt::CaseInsensitive) == 0) ||
+                    (tmp.compare("1") == 0);
+            d->m_invertColors->setChecked(value);
         }
     }
+
     return ret;
 }
 

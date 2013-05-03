@@ -43,13 +43,7 @@ add_definitions(-DSANE_GETTEXT_DIR="${SANE_INCLUDE_DIR}/../share/locale")
 
 set(SANEWIDGET_TRANSLATIONS_TS i18n/sanewidget_ru.ts)
 
-qt4_create_translation(SANEWIDGET_TRANSLATIONS_QM
-    ${sanewidget_SRCS}
-    ${sanewidget_MOC_HDRS}
-    ${SANEWIDGET_TRANSLATIONS_TS}
-    ${SANE_INCLUDE_DIR}/sane/saneopts.h
-    OPTIONS -locations none
-)
+qt4_add_translation(SANEWIDGET_TRANSLATIONS_QM ${SANEWIDGET_TRANSLATIONS_TS})
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/i18n.qrc
                ${CMAKE_CURRENT_BINARY_DIR}/sanewidget_i18n.qrc

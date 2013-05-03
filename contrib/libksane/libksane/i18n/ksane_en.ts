@@ -196,7 +196,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ksane_widget.cpp" line="662"/>
+        <location filename="../ksane_widget.cpp" line="353"/>
+        <source>Warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ksane_widget.cpp" line="353"/>
+        <source>Authentification not implemented yet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ksane_widget.cpp" line="661"/>
         <source>The image data contained 16 bits per color, but the color depth has been truncated to 8 bits per color.</source>
         <translation type="unfinished"></translation>
     </message>
