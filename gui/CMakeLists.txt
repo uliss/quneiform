@@ -213,7 +213,6 @@ qt4_create_translation(TRANSLATIONS_QM
     ${UI_HEADERS}
     ${FORMS}
     ${TRANSLATIONS_TS}
-    scan/sanedialog.cpp
     OPTIONS -locations none)
 
 source_group("Header Files" FILES ${HEADERS})

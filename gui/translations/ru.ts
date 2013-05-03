@@ -940,7 +940,7 @@ Page: %2</source>
     <name>SaneDialog</name>
     <message>
         <source>Scanning</source>
-        <translation>Сканирование</translation>
+        <translation type="obsolete">Сканирование</translation>
     </message>
     <message>
         <source>Information</source>
@@ -952,31 +952,31 @@ Page: %2</source>
     </message>
     <message>
         <source>Scan error</source>
-        <translation>Ошибка сканирования</translation>
+        <translation type="obsolete">Ошибка сканирования</translation>
     </message>
     <message>
         <source>Can&apos;t open selected scanner: &quot;%1&quot;</source>
-        <translation>Невозможно открыть выбранный сканер &quot;%1&quot;</translation>
+        <translation type="obsolete">Невозможно открыть выбранный сканер &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Scanner: %1</source>
-        <translation>Сканер %1</translation>
+        <translation type="obsolete">Сканер %1</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Предупреждение</translation>
+        <translation type="obsolete">Предупреждение</translation>
     </message>
     <message>
         <source>Image saving failed to &quot;%1&quot;</source>
-        <translation>Ошибка сохранения изображения &quot;%1&quot;</translation>
+        <translation type="obsolete">Ошибка сохранения изображения &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Scanning...</source>
-        <translation>Сканирование...</translation>
+        <translation type="obsolete">Сканирование...</translation>
     </message>
     <message>
         <source>Save image to</source>
-        <translation>Сохранить изображение в</translation>
+        <translation type="obsolete">Сохранить изображение в</translation>
     </message>
 </context>
 <context>

@@ -867,41 +867,6 @@ Page: %2</source>
     </message>
 </context>
 <context>
-    <name>SaneDialog</name>
-    <message>
-        <source>Scanning</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Scan error</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Can&apos;t open selected scanner: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Scanner: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Image saving failed to &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Scanning...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Save image to</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>ScanPreferences</name>
     <message>
         <source>Scanning</source>
