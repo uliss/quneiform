@@ -333,10 +333,6 @@ bool KSaneWidget::openDevice(const QString &deviceName)
     SANE_Status                    status;
     SANE_Word                      numSaneOptions;
     SANE_Int                       res;
-//    KPasswordDialog               *dlg;
-//    KWallet::Wallet               *saneWallet;
-    QString                        myFolderName("ksane");
-    QMap<QString, QString>         wallet_entry;
 
     // don't bother trying to open if the device string is empty
     if (deviceName.isEmpty()) {
@@ -351,27 +347,9 @@ bool KSaneWidget::openDevice(const QString &deviceName)
     // prepare wallet for authentication and create password dialog
     if(status == SANE_STATUS_ACCESS_DENIED) {
         QMessageBox::warning(this, tr("Warning"), tr("Authentification not implemented yet"));
-
-//        saneWallet = KWallet::Wallet::openWallet(KWallet::Wallet::LocalWallet(), winId() );
-//
-//        if(saneWallet) {
-//            dlg = new KPasswordDialog(this, KPasswordDialog::ShowUsernameLine | KPasswordDialog::ShowKeepPassword);
-//            if(!saneWallet->hasFolder(myFolderName)) {
-//                saneWallet->createFolder(myFolderName);
-//            }
-//            saneWallet->setFolder(myFolderName);
-//            saneWallet->readMap(deviceName.toLatin1(), wallet_entry);
-//            if(!wallet_entry.empty() || true) {
-//                dlg->setUsername( wallet_entry["username"] );
-//                dlg->setPassword( wallet_entry["password"] );
-//                dlg->setKeepPassword( true );
-//            }
-//        } else {
-//            qWarning() << Q_FUNC_INFO << "not implemented yet";
 //            dlg = new KPasswordDialog(this, KPasswordDialog::ShowUsernameLine);
 //        }
 //        dlg->setPrompt(i18n("Authentication required for resource: %1")/*, deviceName )*/);
-
     }
 
     // sane_open failed due to insufficient authorization
@@ -468,7 +446,6 @@ bool KSaneWidget::openDevice(const QString &deviceName)
 
     // do the connections of the option parameters
     for (i=1; i<d->m_optList.size(); ++i) {
-        //kDebug() << d->m_optList.at(i)->name();
         connect (d->m_optList.at(i), SIGNAL(optsNeedReload()), d, SLOT(optReload()));
         connect (d->m_optList.at(i), SIGNAL(valsNeedReload()), d, SLOT(scheduleValReload()));
 

@@ -28,9 +28,7 @@
 #include "ksane_option.h"
 #include "i18n.h"
 
-// KDE includes
 #include <QDebug>
-#include <QLocale>
 
 #include "ksane_option_widget.h"
 
@@ -110,7 +108,6 @@ bool KSaneOption::needsPolling()
     if (!m_optDesc) return false;
 
     if ((m_optDesc->cap & SANE_CAP_SOFT_DETECT) && !(m_optDesc->cap & SANE_CAP_SOFT_SELECT)) {
-        kDebug() << name() << "optDesc->cap =" << m_optDesc->cap;
         return true;
     }
 
@@ -140,7 +137,6 @@ bool KSaneOption::writeData(void *data)
         return false;
     }
     if ((res & SANE_INFO_INEXACT) && (m_widget != 0)) {
-        //kDebug() << "write was inexact. Reload value just in case...";
         readValue();
     }
 
@@ -232,15 +228,15 @@ KSaneOption::KSaneOptType KSaneOption::optionType(const SANE_Option_Descriptor *
                     return TYPE_CHECKBOX;
                 case SANE_TYPE_INT:
                     if (optDesc->size == sizeof(SANE_Word)) return TYPE_SLIDER;
-                    kDebug() << "Can not handle:"<< optDesc->title;
-                    kDebug() << "SANE_CONSTRAINT_NONE && SANE_TYPE_INT";
-                    kDebug() << "size" << optDesc->size<< "!= sizeof(SANE_Word)";
+                    kDebug() << Q_FUNC_INFO << "Can not handle:"<< optDesc->title
+                             <<"SANE_CONSTRAINT_NONE && SANE_TYPE_INT"
+                            << "size" << optDesc->size<< "!= sizeof(SANE_Word)";
                     break;
                 case SANE_TYPE_FIXED:
                     if (optDesc->size == sizeof(SANE_Word)) return TYPE_F_SLIDER;
-                    kDebug() << "Can not handle:"<< optDesc->title;
-                    kDebug() << "SANE_CONSTRAINT_NONE && SANE_TYPE_FIXED";
-                    kDebug() << "size" << optDesc->size<< "!= sizeof(SANE_Word)";
+                    kDebug() << Q_FUNC_INFO << "Can not handle:"<< optDesc->title
+                             << "SANE_CONSTRAINT_NONE && SANE_TYPE_FIXED"
+                             << "size" << optDesc->size<< "!= sizeof(SANE_Word)";
                     break;
                 case SANE_TYPE_BUTTON:
                     return TYPE_BUTTON;
@@ -264,20 +260,20 @@ KSaneOption::KSaneOptType KSaneOption::optionType(const SANE_Option_Descriptor *
                     {
                         return TYPE_GAMMA;
                     }
-                    kDebug() << "Can not handle:"<< optDesc->title;
-                    kDebug() << "SANE_CONSTRAINT_RANGE && SANE_TYPE_INT && !SANE_NAME_GAMMA_VECTOR...";
-                    kDebug() << "size" << optDesc->size<< "!= sizeof(SANE_Word)";
+                    kDebug() << Q_FUNC_INFO << "Can not handle:"<< optDesc->title
+                             << "SANE_CONSTRAINT_RANGE && SANE_TYPE_INT && !SANE_NAME_GAMMA_VECTOR..."
+                             << "size" << optDesc->size<< "!= sizeof(SANE_Word)";
                     break;
                 case SANE_TYPE_FIXED:
                     if (optDesc->size == sizeof(SANE_Word)) return TYPE_F_SLIDER;
-                    kDebug() << "Can not handle:"<< optDesc->title;
-                    kDebug() << "SANE_CONSTRAINT_RANGE && SANE_TYPE_FIXED";
-                    kDebug() << "size" << optDesc->size<< "!= sizeof(SANE_Word)";
-                    kDebug() << "Analog Gamma vector?";
+                    kDebug() << Q_FUNC_INFO << "Can not handle:"<< optDesc->title
+                             << "SANE_CONSTRAINT_RANGE && SANE_TYPE_FIXED"
+                             << "size" << optDesc->size<< "!= sizeof(SANE_Word)"
+                             << "Analog Gamma vector?";
                     break;
                 case SANE_TYPE_STRING:
-                    kDebug() << "Can not handle:" << optDesc->title;
-                    kDebug() << "SANE_CONSTRAINT_RANGE && SANE_TYPE_STRING";
+                    kDebug() << Q_FUNC_INFO << "Can not handle:" << optDesc->title
+                             << "SANE_CONSTRAINT_RANGE && SANE_TYPE_STRING";
                     return TYPE_DETECT_FAIL;
                 case SANE_TYPE_BUTTON:
                     return TYPE_BUTTON;

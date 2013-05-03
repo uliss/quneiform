@@ -36,8 +36,6 @@
 #include <QScrollBar>
 #include <QList>
 #include <QLabel>
-
-// KDE includes
 #include <QPushButton>
 
 #define SCALED_PREVIEW_MAX_SIDE 400
@@ -145,7 +143,6 @@ void KSaneWidgetPrivate::devListUpdated()
         const QList<KSaneWidget::DeviceInfo> list = m_findDevThread->devicesList();
         if (list.size() == 0) return;
         for (int i=0; i<list.size(); i++) {
-            qDebug() << list[i].name;
             if (list[i].name == m_devName) {
                 m_vendor    = list[i].vendor;
                 m_model     = list[i].model;
@@ -603,10 +600,8 @@ void KSaneWidgetPrivate::setTLY(float ftly)
     
     float max, ratio;
     
-    //kDebug() << "setTLY " << ftly;
     m_optBrY->getMaxValue(max);
     ratio = ftly / max;
-    //kDebug() << " -> " << ratio;
     m_previewViewer->setTLY(ratio);
 }
 
@@ -619,10 +614,8 @@ void KSaneWidgetPrivate::setBRX(float fbrx)
     
     float max, ratio;
     
-    //kDebug() << "setBRX " << fbrx;
     m_optBrX->getMaxValue(max);
     ratio = fbrx / max;
-    //kDebug() << " -> " << ratio;
     m_previewViewer->setBRX(ratio);
 }
 
@@ -635,10 +628,8 @@ void KSaneWidgetPrivate::setBRY(float fbry)
     
     float max, ratio;
     
-    //kDebug() << "setBRY " << fbry;
     m_optBrY->getMaxValue(max);
     ratio = fbry / max;
-    //kDebug() << " -> " << ratio;
     m_previewViewer->setBRY(ratio);
 }
 
@@ -656,7 +647,6 @@ void KSaneWidgetPrivate::updatePreviewSize()
         m_optBrY->getMaxValue(max_y);
     }
     if ((max_x == m_previewWidth) && (max_y == m_previewHeight)) {
-        //kDebug() << "no preview size change";
         return;
     }
     
