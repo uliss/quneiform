@@ -30,6 +30,7 @@
 
 #ifdef WITH_SANE
 #include "sanedialog.h"
+#include "kscandialog.h"
 #endif
 
 #ifdef Q_WS_MAC
@@ -45,7 +46,7 @@ QStringList openScannerDialog(QWidget * parent)
 {
     QStringList res;
 #ifdef WITH_SANE
-    SaneDialog * sn = new SaneDialog(parent);
+    KScanDialog * sn = new KScanDialog(parent);
     int rc = sn->run();
     if(rc == QDialog::Accepted) {
         res << sn->imagePath();

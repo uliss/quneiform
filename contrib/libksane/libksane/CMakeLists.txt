@@ -35,9 +35,37 @@ SET(ksane_LIB_SRCS
     options/ksane_opt_combo.cpp
     )
 
-qt4_wrap_cpp(ksane_LIB_SRCS ${ksane_MOC_HDRS})
+set(ksane_MOC_HDRS
+    widgets/gamma_disp.h
+    widgets/labeled_gamma.h
+    widgets/labeled_checkbox.h
+    widgets/labeled_entry.h
+    widgets/labeled_combo.h
+    widgets/labeled_fslider.h
+    widgets/labeled_slider.h
+    widgets/ksane_button.h
+    widgets/ksane_option_widget.h
+    ksane_viewer.h
+    ksane_device_dialog.h
+    ksane_find_devices_thread.h
+    ksane.h
+    ksane_scan_thread.h
+    ksane_preview_thread.h
+    ksane_widget_private.h
+    splittercollapser.h
+    options/ksane_option.h
+    options/ksane_opt_button.h
+    options/ksane_opt_checkbox.h
+    options/ksane_opt_entry.h
+    options/ksane_opt_gamma.h
+    options/ksane_opt_slider.h
+    options/ksane_opt_fslider.h
+    options/ksane_opt_combo.h
+)
 
-ADD_LIBRARY(ksane STATIC ${ksane_LIB_SRCS})
+qt4_wrap_cpp(ksane_MOC_SRCS ${ksane_MOC_HDRS})
+
+ADD_LIBRARY(ksane STATIC ${ksane_LIB_SRCS} ${ksane_MOC_SRCS})
 
 TARGET_LINK_LIBRARIES(ksane ${QT4_LIBRARIES}
                             ${SANE_LIBRARY}
