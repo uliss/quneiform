@@ -1,6 +1,5 @@
 qt4_wrap_cpp(CF_SCAN_MOC_HEADERS
     kscandialog.h
-    scannerdialog.h
 )
 
 set(QF_SCAN_LIB)
