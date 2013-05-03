@@ -8,4 +8,5 @@ endif()
 
 if(SANE_FOUND)
     add_subdirectory(libsanewidget)
+    add_subdirectory(libksane)
 endif()
