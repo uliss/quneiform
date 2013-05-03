@@ -33,6 +33,20 @@ using namespace KSaneIface;
 
 typedef QMap<QString, QString> ScanOptions;
 
+namespace {
+
+QString saveFilters(const QString& format)
+{
+    QString fmt = format.toLower();
+    if(fmt == "png")        return "Images (*.png)";
+    else if(fmt == "jpeg")  return "Images (*.jpeg *.jpg)";
+    else if(fmt == "tiff")  return "Images (*.tiff *.tif)";
+    else if(fmt == "bmp")   return "Images (*.bmp)";
+    else return "*";
+}
+
+}
+
 static ScanOptions toScanOpts(const QMap<QString, QVariant>& map)
 {
     ScanOptions res;
@@ -114,18 +128,11 @@ void KScanDialog::initUi()
 
     connect(sane_widget_, SIGNAL(imageReady(QByteArray &, int, int, int, int)),
             this,     SLOT(imageReady(QByteArray &, int, int, int, int)));
-//    connect(sane_widget_, SIGNAL(availableDevices(QList<KSaneWidget::DeviceInfo>)),
-//            this,     SLOT(availableDevices(QList<KSaneWidget::DeviceInfo>)));
-    connect(sane_widget_, SIGNAL(userMessage(int, QString)),
-            this,     SLOT(alertUser(int, QString)));
-//    connect(sane_widget_, SIGNAL(buttonPressed(QString, QString, bool)),
-//            this,     SLOT(buttonPressed(QString, QString, bool)));
-
 
     sane_widget_->initGetDeviceList();
 }
 
-void KScanDialog::saveImage(const QString& path)
+void KScanDialog::autoSaveImage(const QString& path)
 {
     if(!image_) {
         qWarning() << Q_FUNC_INFO << "image in NULL";
@@ -195,17 +202,26 @@ void KScanDialog::imageReady(QByteArray& data, int width, int height, int bytes_
     if(s.value(KEY_SCAN_AUTOSAVE).toBool()) {
         QString dir = autosaveDir();
         QString full_path = autosaveImageName(dir);
-        saveImage(full_path);
+        autoSaveImage(full_path);
         accept();
     }
     else {
-        QString path = QFileDialog::getSaveFileName(this, tr("Save image to"), ".", "*.jpg");
+        QSettings s;
+        QString format = s.value(KEY_SCAN_IMAGE_FORMAT, "PNG").toString();
+        int quality = s.value(KEY_SCAN_IMAGE_QUALITY, -1).toInt();
+        QString name = QString("page.%1").arg(format.toLower());
+
+        QString path = QFileDialog::getSaveFileName(this, tr("Save image to"), name, saveFilters(format));
+
         if(path.isEmpty()) {
+            reject();
             return;
         }
 
-        if(!image_->save(path, "JPEG")) {
-
+        if(!image_->save(path, format.toLocal8Bit().constData(), quality)) {
+            QMessageBox::warning(this, tr("Warning"), tr("Can't save image to %1").arg(path));
+            reject();
+            return;
         }
 
         saved_ = path;

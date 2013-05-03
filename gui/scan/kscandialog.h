@@ -42,7 +42,7 @@ private:
     QString makeFullAutosaveName(const QString& dir) const;
     void initLayout();
     void initUi();
-    void saveImage(const QString &path);
+    void autoSaveImage(const QString &path);
 private:
     KSaneIface::KSaneWidget * sane_widget_;
     QHBoxLayout * layout_;

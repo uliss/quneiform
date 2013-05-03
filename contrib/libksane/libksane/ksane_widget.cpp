@@ -348,10 +348,10 @@ bool KSaneWidget::openDevice(const QString &deviceName)
     // Try to open the device
     status = sane_open(deviceName.toLatin1(), &d->m_saneHandle);
 
-    bool password_dialog_ok = true;
-
     // prepare wallet for authentication and create password dialog
     if(status == SANE_STATUS_ACCESS_DENIED) {
+        QMessageBox::warning(this, tr("Warning"), tr("Authentification not implemented yet"));
+
 //        saneWallet = KWallet::Wallet::openWallet(KWallet::Wallet::LocalWallet(), winId() );
 //
 //        if(saneWallet) {
@@ -473,7 +473,6 @@ bool KSaneWidget::openDevice(const QString &deviceName)
         connect (d->m_optList.at(i), SIGNAL(valsNeedReload()), d, SLOT(scheduleValReload()));
 
         if (d->m_optList.at(i)->needsPolling()) {
-            //kDebug() << d->m_optList.at(i)->name() << " needs polling";
             d->m_pollList.append(d->m_optList.at(i));
             KSaneOptCheckBox *buttonOption = qobject_cast<KSaneOptCheckBox *>(d->m_optList.at(i));
             if (buttonOption) {
