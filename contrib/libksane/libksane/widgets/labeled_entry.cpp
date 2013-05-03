@@ -44,9 +44,9 @@ LabeledEntry::LabeledEntry(QWidget *parent, const QString& ltext)
 {
     m_entry = new QLineEdit(this);
     m_reset = new QPushButton(this);
-    m_reset->setText(i18nc("Label for button to reset text in a KLineEdit", "Reset"));
+    m_reset->setText(tr("Reset"));
     m_set = new QPushButton(this);
-    m_set->setText(i18nc("Label for button to write text in a KLineEdit to sane", "Set"));
+    m_set->setText(tr("Set"));
 
     m_layout->addWidget(m_entry, 1, 0, 1, 2);
     m_layout->addWidget(m_reset, 1, 2);

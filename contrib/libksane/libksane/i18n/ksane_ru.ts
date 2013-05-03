@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.0" language="ru_RU">
+<defaultcodec>UTF-8</defaultcodec>
 <context>
     <name>KSaneIface::KSaneDeviceDialog</name>
     <message>
@@ -27,34 +28,81 @@
 <context>
     <name>KSaneIface::KSaneOptCombo</name>
     <message>
-        <location filename="../options/ksane_opt_combo.cpp" line="159"/>
+        <location filename="../options/ksane_opt_combo.cpp" line="160"/>
         <source>%1 Pixel</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../options/ksane_opt_combo.cpp" line="160"/>
+        <location filename="../options/ksane_opt_combo.cpp" line="161"/>
         <source>%1 Bit</source>
         <translation>%1 бит</translation>
     </message>
     <message>
-        <location filename="../options/ksane_opt_combo.cpp" line="161"/>
+        <location filename="../options/ksane_opt_combo.cpp" line="162"/>
         <source>%1 mm</source>
         <translation>%1 мм</translation>
     </message>
     <message>
-        <location filename="../options/ksane_opt_combo.cpp" line="162"/>
+        <location filename="../options/ksane_opt_combo.cpp" line="163"/>
         <source>%1 DPI</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../options/ksane_opt_combo.cpp" line="163"/>
+        <location filename="../options/ksane_opt_combo.cpp" line="164"/>
         <source>%1 %</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../options/ksane_opt_combo.cpp" line="164"/>
-        <source>%1 Âµs</source>
+        <location filename="../options/ksane_opt_combo.cpp" line="165"/>
+        <source>%1 µs</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>KSaneIface::KSaneOption</name>
+    <message>
+        <location filename="../options/ksane_option.cpp" line="300"/>
+        <source> Pixel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../options/ksane_option.cpp" line="301"/>
+        <source> Bit</source>
+        <translation> бит</translation>
+    </message>
+    <message>
+        <location filename="../options/ksane_option.cpp" line="302"/>
+        <location filename="../options/ksane_option.cpp" line="317"/>
+        <source> mm</source>
+        <translation> мм</translation>
+    </message>
+    <message>
+        <location filename="../options/ksane_option.cpp" line="303"/>
+        <location filename="../options/ksane_option.cpp" line="318"/>
+        <source> DPI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../options/ksane_option.cpp" line="304"/>
+        <location filename="../options/ksane_option.cpp" line="319"/>
+        <source> %</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../options/ksane_option.cpp" line="305"/>
+        <location filename="../options/ksane_option.cpp" line="320"/>
+        <source> µs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../options/ksane_option.cpp" line="315"/>
+        <source> Pixels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../options/ksane_option.cpp" line="316"/>
+        <source> Bits</source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -72,12 +120,12 @@
     <message>
         <location filename="../ksane_viewer.cpp" line="136"/>
         <source>Zoom to Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Уместить выделенное</translation>
     </message>
     <message>
         <location filename="../ksane_viewer.cpp" line="139"/>
         <source>Zoom to Fit</source>
-        <translation type="unfinished"></translation>
+        <translation>Уместить</translation>
     </message>
     <message>
         <location filename="../ksane_viewer.cpp" line="142"/>
@@ -88,69 +136,123 @@
 <context>
     <name>KSaneIface::KSaneWidget</name>
     <message>
-        <location filename="../ksane_widget.cpp" line="127"/>
+        <location filename="../ksane_widget.cpp" line="143"/>
         <source>Waiting for the scan to start.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ожидание начала сканирования.</translation>
     </message>
     <message>
-        <location filename="../ksane_widget.cpp" line="139"/>
+        <location filename="../ksane_widget.cpp" line="155"/>
         <source>Cancel current scan operation</source>
-        <translation type="unfinished"></translation>
+        <translation>Отменить сканирование</translation>
     </message>
     <message>
-        <location filename="../ksane_widget.cpp" line="152"/>
+        <location filename="../ksane_widget.cpp" line="168"/>
         <source>Zoom In</source>
         <translation>Увеличить</translation>
     </message>
     <message>
-        <location filename="../ksane_widget.cpp" line="158"/>
+        <location filename="../ksane_widget.cpp" line="174"/>
         <source>Zoom Out</source>
         <translation>Уменьшить</translation>
     </message>
     <message>
-        <location filename="../ksane_widget.cpp" line="164"/>
+        <location filename="../ksane_widget.cpp" line="180"/>
         <source>Zoom to Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Уместить выделенное</translation>
     </message>
     <message>
-        <location filename="../ksane_widget.cpp" line="170"/>
+        <location filename="../ksane_widget.cpp" line="186"/>
         <source>Zoom to Fit</source>
-        <translation type="unfinished"></translation>
+        <translation>Уместить</translation>
     </message>
     <message>
-        <location filename="../ksane_widget.cpp" line="175"/>
+        <location filename="../ksane_widget.cpp" line="191"/>
         <source>Scan Preview Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Предварительный просмотр полученного изображения</translation>
     </message>
     <message>
-        <location filename="../ksane_widget.cpp" line="176"/>
+        <location filename="../ksane_widget.cpp" line="192"/>
         <source>Preview</source>
         <translation>Предпросмотр</translation>
     </message>
     <message>
-        <location filename="../ksane_widget.cpp" line="181"/>
+        <location filename="../ksane_widget.cpp" line="197"/>
         <source>Scan Final Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Сканировать окончательный вариант изображения</translation>
     </message>
     <message>
-        <location filename="../ksane_widget.cpp" line="182"/>
+        <location filename="../ksane_widget.cpp" line="198"/>
         <source>Scan</source>
         <translation>Сканировать</translation>
     </message>
     <message>
-        <location filename="../ksane_widget.cpp" line="220"/>
+        <location filename="../ksane_widget.cpp" line="236"/>
         <source>Basic Options</source>
         <translation>Основные опции</translation>
     </message>
     <message>
-        <location filename="../ksane_widget.cpp" line="226"/>
+        <location filename="../ksane_widget.cpp" line="242"/>
         <source>Scanner Specific Options</source>
+        <translation>Дополнительные настройки</translation>
+    </message>
+    <message>
+        <location filename="../ksane_widget.cpp" line="662"/>
+        <source>The image data contained 16 bits per color, but the color depth has been truncated to 8 bits per color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>KSaneIface::KSaneWidgetPrivate</name>
+    <message>
+        <location filename="../ksane_widget_private.cpp" line="370"/>
+        <source>Separate color intensity tables</source>
+        <translation>Разделить таблицы интенсивности цветов</translation>
+    </message>
+    <message>
+        <location filename="../ksane_widget_private.cpp" line="388"/>
+        <source>Invert colors</source>
+        <translation>Инвертировать цвета</translation>
+    </message>
+    <message>
+        <location filename="../ksane_widget_private.cpp" line="1054"/>
+        <source>Transparency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ksane_widget.cpp" line="646"/>
-        <source>The image data contained 16 bits per color, but the color depth has been truncated to 8 bits per color.</source>
+        <location filename="../ksane_widget_private.cpp" line="1055"/>
+        <source>Negative</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>KSaneIface::LabeledEntry</name>
+    <message>
+        <location filename="../widgets/labeled_entry.cpp" line="47"/>
+        <source>Reset</source>
+        <translation>Сбросить</translation>
+    </message>
+    <message>
+        <location filename="../widgets/labeled_entry.cpp" line="49"/>
+        <source>Set</source>
+        <translation>Установить</translation>
+    </message>
+</context>
+<context>
+    <name>KSaneIface::LabeledGamma</name>
+    <message>
+        <location filename="../widgets/labeled_gamma.cpp" line="44"/>
+        <source>Brightness</source>
+        <translation>Яркость</translation>
+    </message>
+    <message>
+        <location filename="../widgets/labeled_gamma.cpp" line="47"/>
+        <source>Contrast</source>
+        <translation>Контрастность</translation>
+    </message>
+    <message>
+        <location filename="../widgets/labeled_gamma.cpp" line="50"/>
+        <source>Gamma</source>
+        <translation>Гамма</translation>
     </message>
 </context>
 </TS>

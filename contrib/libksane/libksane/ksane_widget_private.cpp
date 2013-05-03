@@ -1051,10 +1051,8 @@ void KSaneWidgetPrivate::checkInvert()
     m_optSource->getValue(source);
     m_optFilmType->getValue(filmtype);
     
-    if ((source.contains(i18nc("This is compared to the option string returned by sane", 
-        "Transparency"), Qt::CaseInsensitive)) &&
-        (filmtype.contains(i18nc("This is compared to the option string returned by sane", 
-        "Negative"), Qt::CaseInsensitive)))
+    if ((source.contains(tr("Transparency"), Qt::CaseInsensitive)) &&
+        (filmtype.contains(tr("Negative"), Qt::CaseInsensitive)))
     {
         m_invertColors->setChecked(true);
     }

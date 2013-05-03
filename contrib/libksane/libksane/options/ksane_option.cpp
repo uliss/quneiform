@@ -297,12 +297,12 @@ QString KSaneOption::unitString()
     switch(m_optDesc->unit)
     {
         case SANE_UNIT_NONE:        return QString();
-        case SANE_UNIT_PIXEL:       return QString(" Pixel");
-        case SANE_UNIT_BIT:         return QString(" Bit");
-        case SANE_UNIT_MM:          return QString(" mm");
-        case SANE_UNIT_DPI:         return QString(" DPI");
-        case SANE_UNIT_PERCENT:     return QString(" %");
-        case SANE_UNIT_MICROSECOND: return QString(" µs");
+        case SANE_UNIT_PIXEL:       return tr(" Pixel");
+        case SANE_UNIT_BIT:         return tr(" Bit");
+        case SANE_UNIT_MM:          return tr(" mm");
+        case SANE_UNIT_DPI:         return tr(" DPI");
+        case SANE_UNIT_PERCENT:     return tr(" %");
+        case SANE_UNIT_MICROSECOND: return tr(" µs");
     }
     return QString();
 }
@@ -312,12 +312,12 @@ QString KSaneOption::unitDoubleString()
     switch(m_optDesc->unit)
     {
         case SANE_UNIT_NONE:        return QString("");
-        case SANE_UNIT_PIXEL:       return i18nc("Double numbers. SpinBox parameter unit", " Pixels");
-        case SANE_UNIT_BIT:         return i18nc("Double numbers. SpinBox parameter unit", " Bits");
-        case SANE_UNIT_MM:          return i18nc("Double numbers. SpinBox parameter unit (Millimeter)", " mm");
-        case SANE_UNIT_DPI:         return i18nc("Double numbers. SpinBox parameter unit (Dots Per Inch)", " DPI");
-        case SANE_UNIT_PERCENT:     return i18nc("Double numbers. SpinBox parameter unit (Percentage)", " %");
-        case SANE_UNIT_MICROSECOND: return i18nc("Double numbers. SpinBox parameter unit (Microseconds)", " µs");
+        case SANE_UNIT_PIXEL:       return tr(" Pixels");
+        case SANE_UNIT_BIT:         return tr(" Bits");
+        case SANE_UNIT_MM:          return tr(" mm");
+        case SANE_UNIT_DPI:         return tr(" DPI");
+        case SANE_UNIT_PERCENT:     return tr(" %");
+        case SANE_UNIT_MICROSECOND: return tr(" µs");
     }
     return QString("");
 }
