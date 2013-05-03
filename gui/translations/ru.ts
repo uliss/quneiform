@@ -1021,6 +1021,10 @@ Page: %2</source>
         <source>Choose autosave directory</source>
         <translation>Выбор каталога для автосохранения</translation>
     </message>
+    <message>
+        <source>Select</source>
+        <translation type="obsolete">Выбрать</translation>
+    </message>
 </context>
 <context>
     <name>Settings</name>

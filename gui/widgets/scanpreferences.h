@@ -33,8 +33,9 @@ class ScanPreferences : public PreferencesWidget
     Q_OBJECT
 public:
     ScanPreferences(QWidget * parent = NULL);
-private slots:
+private Q_SLOTS:
     void handleAutosaveToggle(bool value);
+    void chooseAutosaveDir(int idx);
 private:
     void setupLayout();
     void setupUseLastScanner();

@@ -30,6 +30,7 @@
 #include <QDesktopServices>
 #include <QImageWriter>
 #include <QSettings>
+#include <QToolButton>
 #include <QDebug>
 
 #include "scanpreferences.h"
@@ -69,6 +70,33 @@ void ScanPreferences::handleAutosaveToggle(bool value)
     autosave_dir_->setVisible(value);
 }
 
+void ScanPreferences::chooseAutosaveDir(int idx)
+{
+    if(idx != PLACE_CHOOSE_IDX)
+        return;
+
+    QString path = QFileDialog::getExistingDirectory(NULL,
+                                                     tr("Choose autosave directory"),
+                                                     QDesktopServices::storageLocation(QDesktopServices::PicturesLocation));
+
+    if(!path.isEmpty()) {
+        QString text = autosave_dir_->fontMetrics().elidedText(path, Qt::ElideLeft, PLACE_COMBO_WIDTH);
+
+        if(autosave_dir_->count() == 2) { // add new
+            autosave_dir_->addItem(text, path);
+        }
+        else { // update old
+            autosave_dir_->setItemText(PLACE_DIR_IDX, text);
+            autosave_dir_->setItemData(PLACE_DIR_IDX, path);
+        }
+
+        autosave_dir_->setCurrentIndex(PLACE_DIR_IDX);
+    }
+    else {
+        autosave_dir_->setCurrentIndex(PLACE_PACKET_IDX);
+    }
+}
+
 void ScanPreferences::setupLayout()
 {
     layout_ = new QFormLayout;
@@ -98,6 +126,7 @@ void ScanPreferences::setupAutosave()
     // NOTE: do not change order, cause PLACE_DIR_IDX and PLACE_PACKET_DIR are set constant
     autosave_dir_->addItem(tr("Choose directory"), "");
     autosave_dir_->addItem(tr("Save to packet directory"), "");
+    connect(autosave_dir_, SIGNAL(currentIndexChanged(int)), this, SLOT(chooseAutosaveDir(int)));
     connectControl(autosave_dir_, SIGNAL(currentIndexChanged(int)), Callbacks(&loadAutosaveType, &saveAutosaveType));
 
     layout_->addRow(tr("Autosave place:"), autosave_dir_);
@@ -183,28 +212,7 @@ bool ScanPreferences::saveAutosaveType(QWidget * w, const QVariant& data)
 
     switch(idx) {
     case PLACE_CHOOSE_IDX: {
-        QString path = QFileDialog::getExistingDirectory(NULL,
-                                                         tr("Choose autosave directory"),
-                                                         QDesktopServices::storageLocation(QDesktopServices::PicturesLocation));
-
-        if(!path.isEmpty()) {
-            QString text = cb->fontMetrics().elidedText(path, Qt::ElideLeft, PLACE_COMBO_WIDTH);
-
-            if(cb->count() == 2) { // add new
-                cb->addItem(text, path);
-            }
-            else { // update old
-                cb->setItemText(PLACE_DIR_IDX, text);
-                cb->setItemData(PLACE_DIR_IDX, path);
-            }
-
-            cb->setCurrentIndex(PLACE_DIR_IDX);
-        }
-        else {
-            cb->setCurrentIndex(PLACE_PACKET_IDX);
-        }
-
-        return true;
+        return false;
     }
     case PLACE_PACKET_IDX:
         QSettings().setValue(KEY_SCAN_AUTOSAVE_PLACE, "");
