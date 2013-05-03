@@ -57,7 +57,7 @@ void KSaneOptGamma::createWidget(QWidget *parent)
         return;
     }
 
-    m_widget = m_gamma = new LabeledGamma(parent, i18n(m_optDesc->title),
+    m_widget = m_gamma = new LabeledGamma(parent, sane_i18n(m_optDesc->title),
                                           m_optDesc->size/sizeof(SANE_Word));
     connect(m_gamma, SIGNAL(gammaTableChanged(QVector<int>)),
              this, SLOT(gammaTableChanged(QVector<int>)));
@@ -65,7 +65,7 @@ void KSaneOptGamma::createWidget(QWidget *parent)
     if (strcmp(m_optDesc->name, SANE_NAME_GAMMA_VECTOR_G) == 0) m_gamma->setColor(Qt::green);
     if (strcmp(m_optDesc->name, SANE_NAME_GAMMA_VECTOR_B) == 0) m_gamma->setColor(Qt::blue);
 
-    m_widget->setToolTip(i18n(m_optDesc->desc));
+    m_widget->setToolTip(sane_i18n(m_optDesc->desc));
     updateVisibility();
     readValue();
 }

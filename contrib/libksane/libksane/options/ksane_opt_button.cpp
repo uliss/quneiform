@@ -54,8 +54,8 @@ void KSaneOptButton::createWidget(QWidget *parent)
         return;
     }
 
-    m_widget = m_button = new KSaneButton(parent, i18n(m_optDesc->title));
-    m_widget->setToolTip(i18n(m_optDesc->desc));
+    m_widget = m_button = new KSaneButton(parent, sane_i18n(m_optDesc->title));
+    m_widget->setToolTip(sane_i18n(m_optDesc->desc));
     connect(m_button, SIGNAL(clicked()), this, SLOT(buttonClicked()));
 
     updateVisibility();

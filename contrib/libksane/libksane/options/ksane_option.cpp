@@ -63,7 +63,7 @@ void KSaneOption::createWidget(QWidget *parent)
     }
 
     if (m_optDesc) {
-        m_widget->setToolTip(i18n(m_optDesc->desc));
+        m_widget->setToolTip(sane_i18n(m_optDesc->desc));
     }
 
     readOption();

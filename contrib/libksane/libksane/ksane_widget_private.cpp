@@ -357,17 +357,17 @@ void KSaneWidgetPrivate::createOptInterface()
 
     if ((m_optGamR != 0) && (m_optGamG != 0) && (m_optGamB != 0)) {
         LabeledGamma *gamma = reinterpret_cast<LabeledGamma *>(m_optGamR->widget());
-        m_commonGamma = new LabeledGamma(m_colorOpts, i18n(SANE_TITLE_GAMMA_VECTOR), gamma->size());
+        m_commonGamma = new LabeledGamma(m_colorOpts, sane_i18n(SANE_TITLE_GAMMA_VECTOR), gamma->size());
         
         color_lay->addWidget(m_commonGamma);
         
-        m_commonGamma->setToolTip(i18n(SANE_DESC_GAMMA_VECTOR));
+        m_commonGamma->setToolTip(sane_i18n(SANE_DESC_GAMMA_VECTOR));
         
         connect(m_commonGamma, SIGNAL(gammaChanged(int,int,int)), m_optGamR->widget(), SLOT(setValues(int,int,int)));
         connect(m_commonGamma, SIGNAL(gammaChanged(int,int,int)), m_optGamG->widget(), SLOT(setValues(int,int,int)));
         connect(m_commonGamma, SIGNAL(gammaChanged(int,int,int)), m_optGamB->widget(), SLOT(setValues(int,int,int)));
 
-        m_splitGamChB = new LabeledCheckbox(m_colorOpts, i18n("Separate color intensity tables"));
+        m_splitGamChB = new LabeledCheckbox(m_colorOpts, tr("Separate color intensity tables"));
         color_lay->addWidget(m_splitGamChB);
         
         connect (m_splitGamChB, SIGNAL(toggled(bool)), gamma_frm, SLOT(setVisible(bool)));
@@ -385,7 +385,7 @@ void KSaneWidgetPrivate::createOptInterface()
         color_lay->addWidget(option->widget());
     }
     
-    m_invertColors = new LabeledCheckbox(m_colorOpts, i18n("Invert colors"));
+    m_invertColors = new LabeledCheckbox(m_colorOpts, tr("Invert colors"));
     color_lay->addWidget(m_invertColors);
     m_invertColors->setChecked(false);
     connect(m_invertColors, SIGNAL(toggled(bool)), this, SLOT(invertPreview()));
@@ -490,7 +490,7 @@ void KSaneWidgetPrivate::setDefaultValues()
 
     // Try to get Color mode by default
     if ((option = getOption(SANE_NAME_SCAN_MODE)) != 0) {
-        option->setValue(i18n(SANE_VALUE_SCAN_MODE_COLOR));
+        option->setValue(sane_i18n(SANE_VALUE_SCAN_MODE_COLOR));
     }
 
     // Try to set 8 bit color
@@ -821,7 +821,7 @@ void KSaneWidgetPrivate::previewScanDone()
     if ((m_previewThread->status != SANE_STATUS_GOOD) &&
         (m_previewThread->status != SANE_STATUS_EOF))
     {
-        alertUser(KSaneWidget::ErrorGeneral, i18n(sane_strstatus(m_previewThread->status)));
+        alertUser(KSaneWidget::ErrorGeneral, sane_i18n(sane_strstatus(m_previewThread->status)));
     }
     else if (m_autoSelect) {
         m_previewViewer->findSelections();
@@ -992,8 +992,8 @@ void KSaneWidgetPrivate::oneFinalScanDone()
             case SANE_STATUS_EOF:
                 break;
             case SANE_STATUS_NO_DOCS:
-                emit q->scanDone(KSaneWidget::Information, i18n(sane_strstatus(m_scanThread->saneStatus())));
-                alertUser(KSaneWidget::Information, i18n(sane_strstatus(m_scanThread->saneStatus())));
+                emit q->scanDone(KSaneWidget::Information, sane_i18n(sane_strstatus(m_scanThread->saneStatus())));
+                alertUser(KSaneWidget::Information, sane_i18n(sane_strstatus(m_scanThread->saneStatus())));
                 break;
             case SANE_STATUS_UNSUPPORTED:
             case SANE_STATUS_IO_ERROR:
@@ -1003,8 +1003,8 @@ void KSaneWidgetPrivate::oneFinalScanDone()
             case SANE_STATUS_COVER_OPEN:
             case SANE_STATUS_DEVICE_BUSY:
             case SANE_STATUS_ACCESS_DENIED:
-                emit q->scanDone(KSaneWidget::ErrorGeneral, i18n(sane_strstatus(m_scanThread->saneStatus())));
-                alertUser(KSaneWidget::ErrorGeneral, i18n(sane_strstatus(m_scanThread->saneStatus())));
+                emit q->scanDone(KSaneWidget::ErrorGeneral, sane_i18n(sane_strstatus(m_scanThread->saneStatus())));
+                alertUser(KSaneWidget::ErrorGeneral, sane_i18n(sane_strstatus(m_scanThread->saneStatus())));
                 break;
         }
     }

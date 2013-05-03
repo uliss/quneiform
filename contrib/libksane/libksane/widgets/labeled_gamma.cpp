@@ -41,13 +41,13 @@ namespace KSaneIface
 LabeledGamma::LabeledGamma(QWidget *parent, const QString& text, int size)
 : KSaneOptionWidget(parent, text)
 {
-    m_bri_slider = new LabeledSlider(this, i18n("Brightness"), -50, 50, 1);
+    m_bri_slider = new LabeledSlider(this, tr("Brightness"), -50, 50, 1);
     m_bri_slider->setValue(0);
 
-    m_con_slider = new LabeledSlider(this, i18n("Contrast"), -50, 50, 1);
+    m_con_slider = new LabeledSlider(this, tr("Contrast"), -50, 50, 1);
     m_con_slider->setValue(0);
 
-    m_gam_slider = new LabeledSlider(this, i18n("Gamma"), 30, 300, 1);
+    m_gam_slider = new LabeledSlider(this, tr("Gamma"), 30, 300, 1);
     m_gam_slider->setValue(100);
 
     // Calculate the size of the widgets in the sliders

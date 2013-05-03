@@ -52,9 +52,9 @@ void KSaneOptFSlider::createWidget(QWidget *parent)
 {
     if (m_widget) return;
 
-    m_widget = m_slider = new LabeledFSlider(parent, "", FIXED_MIN, FIXED_MAX, MIN_FIXED_STEP);
+    m_widget = m_slider = new LabeledFSlider(parent, sane_i18n(m_optDesc->title), FIXED_MIN, FIXED_MAX, MIN_FIXED_STEP);
     readOption();
-    m_widget->setToolTip(i18n(m_optDesc->desc));
+    m_widget->setToolTip(sane_i18n(m_optDesc->desc));
     connect(m_slider, SIGNAL(valueChanged(float)), this, SLOT(sliderChanged(float)));
     readValue();
 }
@@ -79,7 +79,7 @@ void KSaneOptFSlider::readOption()
     }
     m_minChange = m_slider->step()/2;
     m_slider->setSuffix(unitDoubleString());
-    m_slider->setLabelText(i18n(m_optDesc->title));
+    m_slider->setLabelText(sane_i18n(m_optDesc->title));
 }
 
 void KSaneOptFSlider::readValue()

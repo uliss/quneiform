@@ -53,7 +53,7 @@ void KSaneOptCombo::createWidget(QWidget *parent)
 
     m_widget = m_combo = new LabeledCombo(parent, "", QStringList());
     readOption();
-    m_widget->setToolTip(i18n(m_optDesc->desc));
+    m_widget->setToolTip(sane_i18n(m_optDesc->desc));
     connect(m_combo, SIGNAL(activated(int)), this, SLOT(comboboxChangedIndex(int)));
     readValue();
 }
@@ -91,7 +91,8 @@ void KSaneOptCombo::readOption()
     
     m_strList = genComboStringList();
     m_combo->clear();
-    m_combo->setLabelText(tr(m_optDesc->title));
+    m_combo->setLabelText(sane_i18n(m_optDesc->title));
+    m_combo->setToolTip(sane_i18n(m_optDesc->desc));
     m_combo->addItems(m_strList);
     m_combo->setIcon(KSaneIcons::get("color"), getSaneComboString((unsigned char*)SANE_VALUE_SCAN_MODE_COLOR));
     m_combo->setIcon(KSaneIcons::get("gray-scale"),
@@ -178,7 +179,7 @@ QString KSaneOptCombo::getSaneComboString(unsigned char *data)
         case SANE_TYPE_FIXED:
             return getSaneComboString((float)SANE_UNFIX(toSANE_Word(data)));
         case SANE_TYPE_STRING:
-            tmp = i18n(reinterpret_cast<char*>(data));
+            tmp = sane_i18n(reinterpret_cast<char*>(data));
             tmp = tmp.simplified();
             return tmp;
         default :

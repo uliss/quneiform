@@ -109,21 +109,20 @@ void KScanDialog::initLayout()
 
 void KScanDialog::initUi()
 {
+    KSaneIcons::setCallback(iconFromTheme);
     sane_widget_ = new KSaneWidget(this);
 
     connect(sane_widget_, SIGNAL(imageReady(QByteArray &, int, int, int, int)),
             this,     SLOT(imageReady(QByteArray &, int, int, int, int)));
 //    connect(sane_widget_, SIGNAL(availableDevices(QList<KSaneWidget::DeviceInfo>)),
 //            this,     SLOT(availableDevices(QList<KSaneWidget::DeviceInfo>)));
-//    connect(sane_widget_, SIGNAL(userMessage(int, QString)),
-//            this,     SLOT(alertUser(int, QString)));
+    connect(sane_widget_, SIGNAL(userMessage(int, QString)),
+            this,     SLOT(alertUser(int, QString)));
 //    connect(sane_widget_, SIGNAL(buttonPressed(QString, QString, bool)),
 //            this,     SLOT(buttonPressed(QString, QString, bool)));
 
 
     sane_widget_->initGetDeviceList();
-
-    KSaneIcons::setCallback(iconFromTheme);
 }
 
 void KScanDialog::saveImage(const QString& path)

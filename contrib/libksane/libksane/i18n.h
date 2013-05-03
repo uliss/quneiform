@@ -19,11 +19,18 @@
 #ifndef I18N_H
 #define I18N_H
 
-#define i18n(txt) txt
+#include <QString>
+#include <libintl.h>
+
 #define i18nc(txt1, txt2) txt2
 
 #define kDebug() qDebug()
 
 #define ki18ncp(str) str
+
+static inline QString sane_i18n(const char * msg)
+{
+    return QString::fromUtf8(gettext(msg));
+}
 
 #endif // I18N_H

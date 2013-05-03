@@ -29,6 +29,7 @@
  * ============================================================ */
 
 #include "ksane.h"
+#include "i18n.h"
 
 #include <unistd.h>
 #include <libintl.h>

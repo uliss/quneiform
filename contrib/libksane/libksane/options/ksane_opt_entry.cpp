@@ -57,8 +57,8 @@ void KSaneOptEntry::createWidget(QWidget *parent)
         return;
     }
 
-    m_widget = m_entry = new LabeledEntry(parent, i18n(m_optDesc->title));
-    m_widget->setToolTip(i18n(m_optDesc->desc));
+    m_widget = m_entry = new LabeledEntry(parent, sane_i18n(m_optDesc->title));
+    m_widget->setToolTip(sane_i18n(m_optDesc->desc));
     connect(m_entry, SIGNAL(entryEdited(QString)), this, SLOT(entryChanged(QString)));
     updateVisibility();
     readValue();
