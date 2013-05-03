@@ -12,6 +12,7 @@
 <file>16x16/dialog-warning.png</file>
 <file>16x16/document-open-recent.png</file>
 <file>16x16/document-open.png</file>
+<file>16x16/document-preview.png</file>
 <file>16x16/document-properties.png</file>
 <file>16x16/document-save-as.png</file>
 <file>16x16/document-save.png</file>
@@ -35,6 +36,7 @@
 <file>16x16/list-remove.png</file>
 <file>16x16/object-rotate-left.png</file>
 <file>16x16/object-rotate-right.png</file>
+<file>16x16/process-stop.png</file>
 <file>16x16/recognize.png</file>
 <file>16x16/scanner.png</file>
 <file>16x16/select-rectangular.png</file>
@@ -61,6 +63,7 @@
 <file>22x22/dialog-warning.png</file>
 <file>22x22/document-open-recent.png</file>
 <file>22x22/document-open.png</file>
+<file>22x22/document-preview.png</file>
 <file>22x22/document-properties.png</file>
 <file>22x22/document-save-as.png</file>
 <file>22x22/document-save.png</file>
@@ -84,6 +87,7 @@
 <file>22x22/list-remove.png</file>
 <file>22x22/object-rotate-left.png</file>
 <file>22x22/object-rotate-right.png</file>
+<file>22x22/process-stop.png</file>
 <file>22x22/recognize.png</file>
 <file>22x22/scanner.png</file>
 <file>22x22/select-rectangular.png</file>
@@ -110,6 +114,7 @@
 <file>32x32/dialog-warning.png</file>
 <file>32x32/document-open-recent.png</file>
 <file>32x32/document-open.png</file>
+<file>32x32/document-preview.png</file>
 <file>32x32/document-properties.png</file>
 <file>32x32/document-save-as.png</file>
 <file>32x32/document-save.png</file>
@@ -133,6 +138,7 @@
 <file>32x32/list-remove.png</file>
 <file>32x32/object-rotate-left.png</file>
 <file>32x32/object-rotate-right.png</file>
+<file>32x32/process-stop.png</file>
 <file>32x32/recognize.png</file>
 <file>32x32/scanner.png</file>
 <file>32x32/select-rectangular.png</file>

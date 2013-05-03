@@ -176,13 +176,13 @@ KSaneWidget::KSaneWidget(QWidget* parent)
     
     d->m_zSelBtn = new QToolButton(this);
     d->m_zSelBtn->setAutoRaise(true);
-    d->m_zSelBtn->setIcon(KSaneIcons::get("zoom-fit-best"));
+    d->m_zSelBtn->setIcon(KSaneIcons::get("document-preview"));
     d->m_zSelBtn->setToolTip(tr("Zoom to Selection"));
     connect(d->m_zSelBtn, SIGNAL(clicked()), d->m_previewViewer, SLOT(zoomSel()));
     
     d->m_zFitBtn = new QToolButton(this);
     d->m_zFitBtn->setAutoRaise(true);
-    d->m_zFitBtn->setIcon(KSaneIcons::get("document-preview"));
+    d->m_zFitBtn->setIcon(KSaneIcons::get("zoom-fit-best"));
     d->m_zFitBtn->setToolTip(tr("Zoom to Fit"));
     connect(d->m_zFitBtn, SIGNAL(clicked()), d->m_previewViewer, SLOT(zoom2Fit()));
     
