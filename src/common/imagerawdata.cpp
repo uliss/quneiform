@@ -49,6 +49,11 @@ ImageRawData::~ImageRawData() {
     clear();
 }
 
+ImageRawData::allocator_t ImageRawData::allocator() const
+{
+    return allocator_;
+}
+
 void ImageRawData::clear() {
     switch (allocator_) {
     case AllocatorMalloc:

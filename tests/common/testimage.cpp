@@ -18,6 +18,7 @@
 
 #include <fstream>
 #include <string.h>
+#include <algorithm>
 
 #include "testimage.h"
 #include "../test_common.h"
@@ -41,29 +42,33 @@ void TestImage::testInit() {
 void TestImage::testSerialize() {
 #ifdef CF_SERIALIZE
     const char * FNAME = "serialize_image.txt";
-    uchar * data = new uchar[100];
-    Image im(data, 100, Image::AllocatorNew);
+    static const size_t data_size = 100;
+    uchar * data = new uchar[data_size];
+    memset(data, 0, data_size);
+    Image im(data, data_size, Image::AllocatorNew);
     im.setFileName("test image.png");
     im.setSize(Size(20, 40));
 
     writeToTextArchive(FNAME, im);
 
-    Image new_img(NULL, 0, Image::AllocatorNew);
+    Image new_img(NULL, 0, Image::AllocatorNone);
     readFromTextArchive(FNAME, new_img);
 
+    CPPUNIT_ASSERT_EQUAL(Image::AllocatorNew, new_img.allocator());
     CPPUNIT_ASSERT_EQUAL(im.fileName(), new_img.fileName());
     CPPUNIT_ASSERT_EQUAL(im.size(), new_img.size());
     CPPUNIT_ASSERT_EQUAL(im.width(), new_img.width());
     CPPUNIT_ASSERT_EQUAL(im.height(), new_img.height());
-
 #endif
 }
 
 void TestImage::testSerializeXml() {
 #ifdef CF_SERIALIZE
     const char * FNAME = "serialize_image.xml";
-    uchar * data = new uchar[100];
-    Image im(data, 100, Image::AllocatorNew);
+    static const size_t data_size = 100;
+    uchar * data = new uchar[data_size];
+    std::fill(data, data + data_size, '\0');
+    Image im(data, data_size, Image::AllocatorNew);
     im.setFileName("test <>&image.png");
     im.setSize(Size(20, 40));
 
@@ -76,7 +81,6 @@ void TestImage::testSerializeXml() {
     CPPUNIT_ASSERT_EQUAL(im.size(), new_img.size());
     CPPUNIT_ASSERT_EQUAL(im.width(), new_img.width());
     CPPUNIT_ASSERT_EQUAL(im.height(), new_img.height());
-
 #endif
 }
 
@@ -105,5 +109,4 @@ void TestImage::testClone()
     CPPUNIT_ASSERT(im.data() != im_copy->data());
     CPPUNIT_ASSERT_EQUAL(im.dataSize(), im_copy->dataSize());
     delete im_copy;
-
 }

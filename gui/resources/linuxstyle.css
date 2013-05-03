@@ -1,0 +1,20 @@
+QTextEdit {
+    border: 0px;
+    border-radius: 0px;
+}
+
+QAbstractScrollArea[imageView="true"] {
+    border: 0px;
+    border-radius: 0px;
+}
+
+QToolBar[imageView="true"] {
+    border-top: 1px solid lightgray;
+}
+
+QAbstractScrollArea[thumbnailList="true"] {
+    border-left: 0px;
+    border-top: 0px;
+    border-bottom: 0px;
+    border-right: 1px solid #999;
+ }

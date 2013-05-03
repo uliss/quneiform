@@ -60,8 +60,12 @@ void TestImageRawData::testInit() {
 void TestImageRawData::testSerialize() {
 #ifdef CF_SERIALIZE
     ImageRawData img;
-    img.set(new uchar[10], 10, ImageRawData::AllocatorNew);
-    memset(img.data(), 0x21, 10);
+    static const size_t data_size = 10;
+    uchar * data0 = new uchar[data_size];
+    memset(data0, 0x21, data_size);
+    img.set(data0, data_size, ImageRawData::AllocatorNew);
+
+    CPPUNIT_ASSERT_EQUAL(data_size, img.dataSize());
 
     const char * FNAME = "serialize_imageraw.txt";
     writeToTextArchive(FNAME, img);
@@ -75,14 +79,14 @@ void TestImageRawData::testSerialize() {
         CPPUNIT_ASSERT(new_img.data()[i] == 0x21);
     }
 
-    unsigned char data1[10];
+    unsigned char data1[10] = {};
     data1[0] = 1;
     img.set(data1, sizeof(data1), ImageRawData::AllocatorNone);
 
     writeToTextArchive(FNAME, img);
 
     {
-        unsigned char data2[10];
+        unsigned char data2[10] = {};
         data2[0] = 2;
         ImageRawData new_img(data2, 10, ImageRawData::AllocatorNone);
         CPPUNIT_ASSERT_EQUAL(uchar(2), new_img.data()[0]);

@@ -45,6 +45,11 @@ class CLA_EXPO ImageRawData
         virtual ~ImageRawData();
 
         /**
+         * Returns data allocator
+         */
+        allocator_t allocator() const;
+
+        /**
          * Deletes image raw data
          */
         void clear();
@@ -88,12 +93,14 @@ class CLA_EXPO ImageRawData
         {
             using boost::serialization::make_nvp;
             a << make_nvp("data_size", data_size_);
-            a << make_nvp("data", boost::serialization::make_binary_object(data_, data_size_ * sizeof(unsigned char)));
+            a << make_nvp("data", boost::serialization::make_binary_object(data_, data_size_));
         }
 
         template<class Archive>
         void load(Archive& a, const unsigned /*version*/)
         {
+            clear();
+
             using boost::serialization::make_nvp;
             a >> make_nvp("data_size", data_size_);
             // allocating memory
