@@ -273,16 +273,15 @@ QString KSaneWidget::model() const
 
 QString KSaneWidget::selectDevice(QWidget* parent, const QString& defaultScanner)
 {
-    qDebug() << Q_FUNC_INFO << "default scanner" << defaultScanner;
-
-    QString selected_name;
+    QString device;
     QPointer<KSaneDeviceDialog> sel = new KSaneDeviceDialog(parent, defaultScanner);
 
-    if(sel->exec() == QDialog::Accepted) {
-        selected_name = sel->getSelectedName();
-    }
+    if(sel->exec() == QDialog::Accepted)
+        device = sel->getSelectedName();
+
     delete sel;
-    return selected_name;
+
+    return device;
 }
 
 void KSaneWidget::initGetDeviceList() const
