@@ -31,6 +31,7 @@
 #include "ksane.h"
 
 #include <unistd.h>
+#include <libintl.h>
 
 // Qt includes
 #include <QApplication>
@@ -40,6 +41,7 @@
 #include <QMutex>
 #include <QPointer>
 #include <QPushButton>
+#include <QTranslator>
 #include <QDebug>
 
 // Local includes.
@@ -63,16 +65,49 @@ static QMutex  s_objectMutex;
 
 static const QString InvetColorsOption = QString("KSane::InvertColors");
 
+namespace {
+
+void loadTranslationsQt()
+{
+    static QTranslator tr;
+
+    QLocale locale;
+    QString tr_fname = "ksane_" + locale.name();
+    bool res = tr.load(tr_fname, ":/ksane");
+    if(!res) {
+        qWarning() << Q_FUNC_INFO << "can't load translation: " << tr_fname;
+        return;
+    }
+
+    QApplication::installTranslator(&tr);
+}
+
+void loadTranslationsGettext()
+{
+    QLocale locale;
+
+#ifdef Q_OS_MAC
+    setlocale(LC_ALL, locale.name().toAscii().constData());
+#endif
+
+#ifndef SANE_GETTEXT_DIR
+#define SANE_GETTEXT_DIR "/usr/share/locale"
+#endif
+
+    bindtextdomain("sane-backends", SANE_GETTEXT_DIR);
+    textdomain("sane-backends");
+}
+
+}
+
 KSaneWidget::KSaneWidget(QWidget* parent)
     : QWidget(parent), d(new KSaneWidgetPrivate(this))
 {
+    loadTranslationsQt();
+    loadTranslationsGettext();
+
     SANE_Int    version;
     SANE_Status status;
-
-    //kDebug() <<  "The language is:" << KGlobal::locale()->language();
-    //kDebug() <<  "Languagelist" << KGlobal::locale()->languageList();
-//    KGlobal::locale()->insertCatalog("libksane");
-//    KGlobal::locale()->insertCatalog("sane-backends");
 
     s_objectMutex.lock();
     s_objectCount++;

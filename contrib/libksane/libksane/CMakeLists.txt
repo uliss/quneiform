@@ -1,11 +1,10 @@
-
-INCLUDE_DIRECTORIES(${SANE_INCLUDE_DIR}
+include_directories(${SANE_INCLUDE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/options
     ${CMAKE_CURRENT_SOURCE_DIR}/widgets
 )
 
-SET(ksane_LIB_SRCS
+set(ksane_LIB_SRCS
     icons.cpp
     widgets/gamma_disp.cpp
     widgets/labeled_gamma.cpp
@@ -64,36 +63,20 @@ set(ksane_MOC_HDRS
     options/ksane_opt_combo.h
 )
 
+set(KSANE_TRANSLATIONS_TS i18n/ksane_ru.ts)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/i18n.qrc
+               ${CMAKE_CURRENT_BINARY_DIR}/ksane_i18n.qrc
+               COPYONLY)
+
 qt4_wrap_cpp(ksane_MOC_SRCS ${ksane_MOC_HDRS})
+qt4_add_translation(KSANE_TRANSLATIONS_QM ${KSANE_TRANSLATIONS_TS})
+qt4_add_resources(KSANE_QRC ${CMAKE_CURRENT_BINARY_DIR}/ksane_i18n.qrc)
 
-ADD_LIBRARY(ksane STATIC ${ksane_LIB_SRCS} ${ksane_MOC_SRCS})
-
-TARGET_LINK_LIBRARIES(ksane ${QT4_LIBRARIES}
-                            ${SANE_LIBRARY}
-                     )
-
-SET_TARGET_PROPERTIES(ksane PROPERTIES VERSION ${KSANE_LIB_SO_VERSION_STRING} SOVERSION ${KSANE_LIB_SO_CUR_VERSION})
-
-#INSTALL(TARGETS ksane ${INSTALL_TARGETS_DEFAULT_ARGS} )
-
-#INSTALL(FILES ksane.h
-#              libksane_export.h
-#              ${CMAKE_CURRENT_BINARY_DIR}/version.h
-#        DESTINATION ${INCLUDE_INSTALL_DIR}/libksane COMPONENT Devel)
-#
-#KDE4_INSTALL_ICONS(${ICON_INSTALL_DIR})
-
+add_library(ksane STATIC ${ksane_LIB_SRCS} ${ksane_MOC_SRCS} ${KSANE_TRANSLATIONS_QM} ${KSANE_QRC})
+target_link_libraries(ksane ${QT4_LIBRARIES} ${SANE_LIBRARY} ${KSANE_QRC} ${LIBINTL_LIBRARIES})
 
 SET(INCLUDE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/include)
 GET_TARGET_PROPERTY(LIB_OUT_NAME ksane LOCATION)
 GET_FILENAME_COMPONENT(LIB_OUT_NAME ${LIB_OUT_NAME} NAME)
 SET(LIBPATH ${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX})
 
-#CONFIGURE_FILE(
-#    ../KSaneConfig.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/KSaneConfig.cmake @ONLY
-#)
-
-#INSTALL(
-#    FILES ${CMAKE_CURRENT_BINARY_DIR}/KSaneConfig.cmake
-#    DESTINATION ${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}/cmake/KSane
-#)

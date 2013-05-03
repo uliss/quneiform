@@ -26,8 +26,8 @@
  * ============================================================ */
 // Local includes.
 #include "ksane_opt_combo.h"
+#include "icons.h"
 #include "i18n.h"
-
 #include "labeled_combo.h"
 
 // Qt includes
@@ -91,15 +91,15 @@ void KSaneOptCombo::readOption()
     
     m_strList = genComboStringList();
     m_combo->clear();
-    m_combo->setLabelText(i18n(m_optDesc->title));
+    m_combo->setLabelText(tr(m_optDesc->title));
     m_combo->addItems(m_strList);
-    m_combo->setIcon(QIcon("color"), getSaneComboString((unsigned char*)SANE_VALUE_SCAN_MODE_COLOR));
-    m_combo->setIcon(QIcon("gray-scale"),
+    m_combo->setIcon(KSaneIcons::get("color"), getSaneComboString((unsigned char*)SANE_VALUE_SCAN_MODE_COLOR));
+    m_combo->setIcon(KSaneIcons::get("gray-scale"),
                      getSaneComboString((unsigned char*)SANE_VALUE_SCAN_MODE_GRAY));
-    m_combo->setIcon(QIcon("black-white"),
+    m_combo->setIcon(KSaneIcons::get("black-white"),
                      getSaneComboString((unsigned char*)SANE_VALUE_SCAN_MODE_LINEART));
                      // The epkowa/epson backend uses "Binary" which is the same as "Lineart"
-    m_combo->setIcon(QIcon("black-white"), i18n(tmp_binary));
+    m_combo->setIcon(KSaneIcons::get("black-white"), tr(tmp_binary));
     
     // set the previous value
     m_combo->setCurrentText(saved);
@@ -156,12 +156,12 @@ QString KSaneOptCombo::getSaneComboString(float fval)
     switch(m_optDesc->unit)
     {
         case SANE_UNIT_NONE:        break;
-        case SANE_UNIT_PIXEL:       return QString("%1 Pixel").arg(fval);
-        case SANE_UNIT_BIT:         return QString("%1 Bit").arg(fval);
-        case SANE_UNIT_MM:          return QString("%1 mm").arg(fval);
-        case SANE_UNIT_DPI:         return QString("%1 DPI").arg(fval);
-        case SANE_UNIT_PERCENT:     return QString("%1 %").arg(fval);
-        case SANE_UNIT_MICROSECOND: return QString("%1 µs").arg(fval);
+        case SANE_UNIT_PIXEL:       return tr("%1 Pixel").arg(fval);
+        case SANE_UNIT_BIT:         return tr("%1 Bit").arg(fval);
+        case SANE_UNIT_MM:          return tr("%1 mm").arg(fval);
+        case SANE_UNIT_DPI:         return tr("%1 DPI").arg(fval);
+        case SANE_UNIT_PERCENT:     return tr("%1 %").arg(fval);
+        case SANE_UNIT_MICROSECOND: return tr("%1 µs").arg(fval);
     }
     return QString::number(fval, 'F', 4);
 }
@@ -186,8 +186,6 @@ QString KSaneOptCombo::getSaneComboString(unsigned char *data)
     }
     return QString();
 }
-
-
 
 void KSaneOptCombo::comboboxChangedIndex(int i)
 {

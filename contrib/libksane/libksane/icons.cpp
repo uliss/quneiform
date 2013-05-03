@@ -26,7 +26,6 @@ KSaneIcons::callback KSaneIcons::callback_ = NULL;
 
 QIcon KSaneIcons::get(const QString& name, bool fallback)
 {
-    qDebug() << Q_FUNC_INFO << "icon request:" << name;
     if(!callback_)
         return QIcon(name);
     else

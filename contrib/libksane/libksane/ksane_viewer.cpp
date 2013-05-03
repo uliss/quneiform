@@ -27,7 +27,7 @@
 
 #include "ksane_viewer.h"
 #include "selectionitem.h"
-#include "i18n.h"
+#include "icons.h"
 
 #include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
@@ -37,7 +37,6 @@
 #include <QAction>
 #include <QList>
 #include <QVector>
-#include <QIcon>
 #include <QLocale>
 
 #include <QDebug>
@@ -128,19 +127,19 @@ KSaneViewer::KSaneViewer(QImage * img, QWidget *parent) : QGraphicsView(parent),
     d->selectionList.clear();
     
     // create context menu
-    d->zoomInAction = new QAction(QIcon("zoom-in"), i18n("Zoom In"), this);
+    d->zoomInAction = new QAction(KSaneIcons::get("zoom-in"), tr("Zoom In"), this);
     connect(d->zoomInAction, SIGNAL(triggered()), this, SLOT(zoomIn()));
     
-    d->zoomOutAction = new QAction(QIcon("zoom-out"), i18n("Zoom Out"), this);
+    d->zoomOutAction = new QAction(KSaneIcons::get("zoom-out"), tr("Zoom Out"), this);
     connect(d->zoomOutAction, SIGNAL(triggered()), this, SLOT(zoomOut()));
     
-    d->zoomSelAction = new QAction(QIcon("zoom-fit-best"), i18n("Zoom to Selection"), this);
+    d->zoomSelAction = new QAction(KSaneIcons::get("zoom-fit-best"), tr("Zoom to Selection"), this);
     connect(d->zoomSelAction, SIGNAL(triggered()), this, SLOT(zoomSel()));
     
-    d->zoom2FitAction = new QAction(QIcon("document-preview"), i18n("Zoom to Fit"), this);
+    d->zoom2FitAction = new QAction(KSaneIcons::get("document-preview"), tr("Zoom to Fit"), this);
     connect(d->zoom2FitAction, SIGNAL(triggered()), this, SLOT(zoom2Fit()));
     
-    d->clrSelAction = new QAction(QIcon("edit-clear"), i18n("Clear Selections"), this);
+    d->clrSelAction = new QAction(KSaneIcons::get("edit-clear"), tr("Clear Selections"), this);
     connect(d->clrSelAction, SIGNAL(triggered()), this, SLOT(clearSelections()));
     
     addAction(d->zoomInAction);
