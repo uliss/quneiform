@@ -31,6 +31,10 @@ mkdir -p "${APPR}/share/cuneiform/locale"
 mkdir -p "${APPR}/lib"
 mkdir -p "${APPR}/bin"
 
+echo "Making locale folders..."
+mkdir -p "${APPR}/en.lproj"
+cp -R "${SRCDIR}/gui/resources/ru.lproj/" "${APPR}" 
+
 VERSION=`cat "${SRCDIR}/version" | cut -d ' ' -f 3 | tr -d '"'`
 echo "Build version: $VERSION"
 
