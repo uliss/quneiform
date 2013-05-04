@@ -87,6 +87,36 @@ bool macAddToolBar(QWidget* widget, const QList<QAction*> actions)
     return true;
 }
 
+bool macToolBarSelect(QWidget * widget, int idx)
+{
+    if(!widget) {
+        qWarning() << Q_FUNC_INFO << "NULL widget given";
+        return false;
+    }
+
+    if(!widget->isWindow()) {
+        qWarning() << Q_FUNC_INFO << "not a window widget" << widget;
+        return false;
+    }
+
+    NSToolbar * tb = widgetNSToolbar(widget);
+    if(tb == nil) {
+        qWarning() << Q_FUNC_INFO << "toolbar not exists";
+        return false;
+    }
+
+    if(idx >= 0 && idx < [[tb items] count]) {
+        NSToolbarItem * item = [[tb items] objectAtIndex:idx];
+        [tb setSelectedItemIdentifier:[item itemIdentifier]];
+    }
+    else {
+        NSLog(@"invalid toolbar index: %@", idx);
+        return false;
+    }
+
+    return true;
+}
+
 bool macRemoveToolBar(QWidget * widget)
 {
     if(!widget) {
@@ -107,7 +137,6 @@ bool macRemoveToolBar(QWidget * widget)
     }
 
     [window setToolbar: nil];
-
     return true;
 }
 

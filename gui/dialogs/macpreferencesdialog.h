@@ -28,8 +28,10 @@ class MacPreferencesDialog : public AbstractPreferencesDialog
     Q_OBJECT
 public:
     MacPreferencesDialog(QWidget * parent = 0);
+    ~MacPreferencesDialog();
 protected:
     void setPreferenceActions(const PreferencesList& pages);
+    void setCurrentIndex(int idx);
 private slots:
     void showCategory();
 private:
