@@ -44,6 +44,11 @@ Q_IMPORT_PLUGIN(pdf_imageplugin)
 QuneiformApplication::QuneiformApplication(int& argc, char** argv)
     : QApplication(argc, argv)
 {
+    TranslationLoader loader;
+    loader.load();
+    installTranslator(loader.systemTranslator());
+    installTranslator(loader.applicationTranslator());
+
     platformInit();
     resourcesInit();
     stylesheetInit();
@@ -54,10 +59,6 @@ QuneiformApplication::QuneiformApplication(int& argc, char** argv)
     iconThemeSetup();
 
     MetaTypeRegistrator registrator;
-    TranslationLoader loader;
-    loader.load();
-    installTranslator(loader.systemTranslator());
-    installTranslator(loader.applicationTranslator());
 }
 
 bool QuneiformApplication::event(QEvent * ev)

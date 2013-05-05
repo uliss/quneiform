@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2013 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,47 +16,13 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QDebug>
+#ifndef MACLOCALE_H
+#define MACLOCALE_H
 
-#include "quneiformapplication.h"
-#include "mainwindow.h"
+#include <QString>
 
-int main(int argc, char *argv[])
-{
-#ifdef Q_WS_X11
-    QApplication::setGraphicsSystem("raster");
-#endif
-
-    QuneiformApplication::setDesktopSettingsAware(true);
-    QuneiformApplication app(argc, argv);
-    app.connect(&app, SIGNAL(lastWindowClosed()), &app, SLOT(quit()));
-
-    MainWindow w;
-    app.connect(&app, SIGNAL(openFiles(QStringList)), &w, SLOT(open(QStringList)));
-    w.show();
-
-    if(argc > 1) {
-        bool do_recognize = false;
-        QStringList files;
-        QStringList params = QCoreApplication::arguments();
-        params.removeFirst();
-        foreach(QString p, params) {
-            if(p == "-r" || p == "--recognize")
-                do_recognize = true;
-            else if(p.startsWith('-')) {
-                qDebug() << "skip option:" << p;
-            }
-            else
-                files.append(p);
-        }
-
-        if(!files.isEmpty()) {
-            w.open(files);
-
-            if(do_recognize)
-                w.recognizeAll();
-        }
-    }
-
-    return app.exec();
+namespace utils {
+void macSetLocale(const QString& locale);
 }
+
+#endif // MACLOCALE_H
