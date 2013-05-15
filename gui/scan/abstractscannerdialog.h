@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2012 by Serge Poltavski                                 *
+ *   Copyright (C) 2013 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,19 +16,29 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QTest>
-#include <QtPlugin>
+#ifndef ABSTRACTSCANNERDIALOG_H
+#define ABSTRACTSCANNERDIALOG_H
 
-#include "testscanner.h"
-#include "gui/scan/abstractscannerdialog.h"
+#include <QObject>
+#include <QMap>
 
-void TestScanner::testInit()
+class AbstractScannerDialog : public QObject
 {
-    AbstractScannerDialog * dlg = AbstractScannerDialog::make(NULL);
-    dlg->exec();
-    delete dlg;
-}
+    Q_OBJECT
+protected:
+    AbstractScannerDialog(QObject * parent = 0);
+    AbstractScannerDialog(const AbstractScannerDialog&);
+public:
+    virtual void exec() = 0;
+public:
+    static AbstractScannerDialog * make(QWidget * parent);
+    typedef AbstractScannerDialog *(*dialogFunc)();
+    static void registerDialogFunc(dialogFunc f, int order);
+signals:
+    void pageSaved(const QString& path);
+private:
+    static QMap<int, dialogFunc> func_;
+    static bool registered_;
+};
 
-Q_IMPORT_PLUGIN(dib_imageplugin)
-
-QTEST_MAIN(TestScanner)
+#endif // ABSTRACTSCANNERDIALOG_H

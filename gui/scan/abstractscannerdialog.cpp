@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2012 by Serge Poltavski                                 *
+ *   Copyright (C) 2013 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,19 +16,56 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QTest>
-#include <QtPlugin>
+#include <QDebug>
+#include <QWidget>
 
-#include "testscanner.h"
-#include "gui/scan/abstractscannerdialog.h"
+#include "abstractscannerdialog.h"
+#include "dummyscannerdialog.h"
+#include "sanescannerdialog.h"
 
-void TestScanner::testInit()
+namespace {
+
+bool registerDialogs()
 {
-    AbstractScannerDialog * dlg = AbstractScannerDialog::make(NULL);
-    dlg->exec();
-    delete dlg;
+    DummyScannerDialog::registerDialog(100);
+
+#ifdef WITH_SANE
+    SaneScannerDialog::registerDialog(50);
+#endif
+
+    return true;
 }
 
-Q_IMPORT_PLUGIN(dib_imageplugin)
+}
 
-QTEST_MAIN(TestScanner)
+QMap<int, AbstractScannerDialog::dialogFunc> AbstractScannerDialog::func_;
+bool AbstractScannerDialog::registered_ = registerDialogs();
+
+AbstractScannerDialog::AbstractScannerDialog(QObject *parent) :
+    QObject(parent)
+{}
+
+AbstractScannerDialog * AbstractScannerDialog::make(QWidget * parent)
+{
+    dialogFunc res = NULL;
+
+    if(!func_.values().isEmpty())
+        res = func_.values().first();
+
+    if(!res) {
+        qWarning() << Q_FUNC_INFO << "no registered functions for scanning";
+        return NULL;
+    }
+
+    AbstractScannerDialog * d = res();
+    d->setParent(parent);
+    return d;
+}
+
+void AbstractScannerDialog::registerDialogFunc(AbstractScannerDialog::dialogFunc f, int order)
+{
+    if(func_.contains(order))
+        qWarning() << Q_FUNC_INFO << "overwriting dialog function for key:" << order;
+
+    func_[order] = f;
+}

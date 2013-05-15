@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2012 by Serge Poltavski                                 *
+ *   Copyright (C) 2013 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,34 +16,34 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <QMessageBox>
 #include <QDebug>
-#include <QWidget>
 
-#include "scannerdialog.h"
+#include "dummyscannerdialog.h"
 
-#ifdef WITH_SANE
-#include "kscandialog.h"
-#endif
+namespace {
 
-#ifdef Q_WS_MAC
-#include "macosx/imagecapture.h"
-#endif
-
-namespace utils {
-
-QStringList openScannerDialog(QWidget * parent)
+AbstractScannerDialog * createDummyScannerDialog()
 {
-    QStringList res;
-#ifdef WITH_SANE
-    KScanDialog * sn = new KScanDialog(parent);
-    int rc = sn->run();
-    if(rc == QDialog::Accepted) {
-        res << sn->imagePath();
-    }
-//    openImageCapture();
-#endif
-
-    return res;
+    DummyScannerDialog * d = new DummyScannerDialog();
+    return d;
 }
 
+}
+
+DummyScannerDialog::DummyScannerDialog(QObject *parent) :
+    AbstractScannerDialog(parent)
+{
+}
+
+void DummyScannerDialog::exec()
+{
+    QMessageBox::information(qobject_cast<QWidget*>(parent()),
+                             tr("Information"),
+                             tr("No scanner support"));
+}
+
+void DummyScannerDialog::registerDialog(int order)
+{
+    AbstractScannerDialog::registerDialogFunc(&createDummyScannerDialog, order);
 }

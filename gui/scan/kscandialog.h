@@ -32,8 +32,12 @@ class KScanDialog : public QDialog
     Q_OBJECT
 public:
     KScanDialog(QWidget * parent = 0);
+    ~KScanDialog();
     QString imagePath() const;
-    int run();
+    void run();
+signals:
+    void pageSaved(const QString& path);
+
 private Q_SLOTS:
     void imageReady(QByteArray& data, int width, int height, int bytes_per_line, int format);
 private:
@@ -42,7 +46,9 @@ private:
     QString makeFullAutosaveName(const QString& dir) const;
     void initLayout();
     void initUi();
-    bool autoSaveImage(const QString &path);
+    bool autoSaveImage(const QString& path);
+    bool chooseScanner(QString * device);
+    bool openScanner(const QString& device);
 private:
     KSaneIface::KSaneWidget * sane_widget_;
     QHBoxLayout * layout_;

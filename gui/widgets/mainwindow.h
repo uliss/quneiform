@@ -25,6 +25,7 @@ namespace Ui {
 class MainWindow;
 }
 
+class AbstractScannerDialog;
 class Language;
 class Packet;
 class LanguageMenu;
@@ -51,6 +52,7 @@ public slots:
       * Opens given files
       */
     void open(const QStringList& paths);
+    void open(const QString& path);
 
     /**
       * Recognizes all opened images
@@ -169,6 +171,7 @@ private:
     RecentMenu * recent_images_;
     QSplitter * view_splitter_;
     QTimer * autosave_timer_;
+    AbstractScannerDialog * scanner_dialog_;
 };
 
 #endif // MAINWINDOW_H

@@ -672,10 +672,13 @@ void KSaneWidget::getOptVals(QMap <QString, QString> &opts)
 {
     KSaneOption *option;
     opts.clear();
-    QString tmp;
 
-    for (int i=1; i<d->m_optList.size(); i++) {
+    for (int i = 1; i < d->m_optList.size(); i++) {
         option = d->m_optList.at(i);
+        if(!option)
+            continue;
+
+        QString tmp;
         if (option->getValue(tmp)) {
             opts[option->name()] = tmp;
         }
@@ -699,18 +702,20 @@ bool KSaneWidget::getOptVal(const QString &optname, QString &value)
     return false;
 }
 
-int KSaneWidget::setOptVals(const QMap<QString, QString> &opts)
+int KSaneWidget::setOptVals(const QMap<QString, QString> &options)
 {
-    QString tmp;
     int ret = 0;
 
     for (int i = 0; i < d->m_optList.size(); i++) {
-        if (opts.contains(d->m_optList.at(i)->name())) {
-            tmp = opts[d->m_optList.at(i)->name()];
-            if(!d->m_optList[i])
-                continue;
+        KSaneOption * opt = d->m_optList.at(i);
+        if(!opt)
+            continue;
 
-            if (d->m_optList.at(i)->setValue(tmp) == false) {
+        const QString opt_name = opt->name();
+        if (options.contains(opt_name)) {
+            QString tmp = options.value(opt_name);
+
+            if (opt->setValue(tmp) == false) {
                 ret++;
             }
         }
@@ -740,8 +745,8 @@ int KSaneWidget::setOptVals(const QMap<QString, QString> &opts)
     }
 
     // special handling for non-sane option
-    if (opts.contains(InvetColorsOption)) {
-        tmp = opts[InvetColorsOption];
+    if (options.contains(InvetColorsOption)) {
+        QString tmp = options[InvetColorsOption];
         if(d->m_invertColors) {
             bool value = (tmp.compare("true", Qt::CaseInsensitive) == 0) ||
                     (tmp.compare("1") == 0);

@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2012 by Serge Poltavski                                 *
+ *   Copyright (C) 2013 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,15 +16,36 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef SCANNERDIALOG_H
-#define SCANNERDIALOG_H
+#include "sanescannerdialog.h"
+#include "kscandialog.h"
 
-#include <QStringList>
+namespace {
 
-class QWidget;
-
-namespace utils {
-QStringList openScannerDialog(QWidget * parent = 0);
+AbstractScannerDialog * createSaneScannerDialog()
+{
+    SaneScannerDialog * d = new SaneScannerDialog();
+    return d;
 }
 
-#endif // SCANNERDIALOG_H
+}
+
+SaneScannerDialog::SaneScannerDialog(QObject * parent) :
+    AbstractScannerDialog(parent),
+    dlg_(NULL)
+{
+}
+
+void SaneScannerDialog::exec()
+{
+    if(!dlg_) {
+        dlg_ = new KScanDialog(qobject_cast<QWidget*>(parent()));
+        connect(dlg_, SIGNAL(pageSaved(QString)), this, SIGNAL(pageSaved(QString)));
+    }
+
+    dlg_->run();
+}
+
+void SaneScannerDialog::registerDialog(int order)
+{
+    AbstractScannerDialog::registerDialogFunc(&createSaneScannerDialog, order);
+}

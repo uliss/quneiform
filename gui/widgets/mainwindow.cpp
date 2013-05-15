@@ -58,7 +58,7 @@
 #include "iconutils.h"
 #include "fullscreen.h"
 #include "settingskeys.h"
-#include "scan/scannerdialog.h"
+#include "scan/abstractscannerdialog.h"
 
 //#ifndef Q_WS_MAC || Q_OS_LINUX
 //#define DISABLE_SCANNER_MENU
@@ -77,7 +77,8 @@ MainWindow::MainWindow(QWidget *parent) :
         progress_(new OpenProgressDialog(this)),
         image_widget_(NULL),
         view_splitter_(NULL),
-        autosave_timer_(NULL)
+        autosave_timer_(NULL),
+        scanner_dialog_(NULL)
 {
     setupUi();
     setupPacket();
@@ -529,6 +530,11 @@ void MainWindow::open(const QStringList& paths) {
     QApplication::processEvents();
 
     packet_->updateThumbs();
+}
+
+void MainWindow::open(const QString& path)
+{
+    open(QStringList(path));
 }
 
 void MainWindow::openImagesDialog()
@@ -1085,8 +1091,17 @@ void MainWindow::showPreferences()
 
 void MainWindow::showScanDialog()
 {
-    QStringList images = utils::openScannerDialog(this);
-    open(images);
+    if(!scanner_dialog_) {
+        scanner_dialog_ = AbstractScannerDialog::make(this);
+        if(!scanner_dialog_) {
+            qWarning() << Q_FUNC_INFO << "can't create scanner dialog";
+            return;
+        }
+
+        connect(scanner_dialog_, SIGNAL(pageSaved(QString)), this, SLOT(open(QString)));
+    }
+
+    scanner_dialog_->exec();
 }
 
 void MainWindow::showViewContentOnly()

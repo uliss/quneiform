@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2012 by Serge Poltavski                                 *
+ *   Copyright (C) 2013 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,19 +16,19 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QTest>
-#include <QtPlugin>
+#ifndef DUMMYSCANNERDIALOG_H
+#define DUMMYSCANNERDIALOG_H
 
-#include "testscanner.h"
-#include "gui/scan/abstractscannerdialog.h"
+#include "abstractscannerdialog.h"
 
-void TestScanner::testInit()
+class DummyScannerDialog : public AbstractScannerDialog
 {
-    AbstractScannerDialog * dlg = AbstractScannerDialog::make(NULL);
-    dlg->exec();
-    delete dlg;
-}
+    Q_OBJECT
+public:
+    explicit DummyScannerDialog(QObject * parent = 0);
+    void exec();
+public:
+    static void registerDialog(int order);
+};
 
-Q_IMPORT_PLUGIN(dib_imageplugin)
-
-QTEST_MAIN(TestScanner)
+#endif // DUMMYSCANNERDIALOG_H
