@@ -61,3 +61,12 @@ QString Workspace::showChooseApplicationDialog()
                                        "");
 
 }
+
+bool Workspace::launchApplication(const QString& appPath)
+{
+#ifdef Q_OS_MAC
+    return utils::macLaunchApplication(appPath);
+#else
+    return QProcess::startDetached(appPath);
+#endif
+}

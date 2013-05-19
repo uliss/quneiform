@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2012 by Serge Poltavski                                 *
+ *   Copyright (C) 2013 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,47 +16,19 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#import <AppKit/NSWorkspace.h>
+#ifndef EXTERNALAPPSCANNERDIALOG_H
+#define EXTERNALAPPSCANNERDIALOG_H
 
-#include "macopenfile.h"
-#include "macstring.h"
-#include "macpool.h"
+#include "abstractscannerdialog.h"
 
-namespace utils {
-
-bool macOpenFile(const QString& fullPath)
+class ExternalAppScannerDialog : public AbstractScannerDialog
 {
-    const MacPool pool;
-    const MacString file(fullPath);
+    Q_OBJECT
+public:
+    explicit ExternalAppScannerDialog(QObject * parent = 0);
+    void exec();
+public:
+    static void registerDialog(int order);
+};
 
-    BOOL rc = [[NSWorkspace sharedWorkspace]
-            openFile: (NSString *)(CFStringRef) file
-    ];
-
-    return rc;
-}
-
-bool macOpenFileWithApplication(const QString& fullPath, const QString& appName)
-{
-    const MacPool pool;
-
-    BOOL rc = [[NSWorkspace sharedWorkspace]
-            openFile: MacString::toNSString(fullPath)
-            withApplication: MacString::toNSString(appName)
-     ];
-
-    return rc;
-}
-
-bool macLaunchApplication(const QString& appName)
-{
-    const MacPool pool;
-
-    BOOL rc = [[NSWorkspace sharedWorkspace]
-            launchApplication: MacString::toNSString(appName)
-     ];
-
-    return rc;
-}
-
-}
+#endif // EXTERNALAPPSCANNERDIALOG_H

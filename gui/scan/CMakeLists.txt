@@ -2,11 +2,13 @@ set(QF_SCAN_LIB)
 set(QF_SCAN_SRC
     abstractscannerdialog.cpp
     dummyscannerdialog.cpp
+    externalappscannerdialog.cpp
 )
 
 qt4_wrap_cpp(QF_SCAN_MOC_HEADERS
     abstractscannerdialog.h
     dummyscannerdialog.h
+    externalappscannerdialog.h
 )
 
 list(APPEND QF_SCAN_SRC ${QF_SCAN_MOC_HEADERS})

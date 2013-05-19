@@ -27,6 +27,7 @@ class Workspace
 public:
     static bool openFileWithApplication(const QString& filePath, const QString& applicationPath);
     static QString showChooseApplicationDialog();
+    static bool launchApplication(const QString& appPath);
 };
 
 #endif // WORKSPACE_H

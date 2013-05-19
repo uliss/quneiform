@@ -22,12 +22,14 @@
 #include "abstractscannerdialog.h"
 #include "dummyscannerdialog.h"
 #include "sanescannerdialog.h"
+#include "externalappscannerdialog.h"
 
 namespace {
 
 bool registerDialogs()
 {
     DummyScannerDialog::registerDialog(100);
+    ExternalAppScannerDialog::registerDialog(49);
 
 #ifdef WITH_SANE
     SaneScannerDialog::registerDialog(50);

@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2012 by Serge Poltavski                                 *
+ *   Copyright (C) 2013 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,47 +16,52 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#import <AppKit/NSWorkspace.h>
+#include <QSettings>
+#include <QFileDialog>
+#include <QDebug>
 
-#include "macopenfile.h"
-#include "macstring.h"
-#include "macpool.h"
+#include "settingskeys.h"
+#include "externalappscannerdialog.h"
+#include "workspace.h"
 
-namespace utils {
+namespace {
 
-bool macOpenFile(const QString& fullPath)
+AbstractScannerDialog * createExternalScannerDialog()
 {
-    const MacPool pool;
-    const MacString file(fullPath);
-
-    BOOL rc = [[NSWorkspace sharedWorkspace]
-            openFile: (NSString *)(CFStringRef) file
-    ];
-
-    return rc;
+    ExternalAppScannerDialog * d = new ExternalAppScannerDialog();
+    return d;
 }
 
-bool macOpenFileWithApplication(const QString& fullPath, const QString& appName)
-{
-    const MacPool pool;
-
-    BOOL rc = [[NSWorkspace sharedWorkspace]
-            openFile: MacString::toNSString(fullPath)
-            withApplication: MacString::toNSString(appName)
-     ];
-
-    return rc;
 }
 
-bool macLaunchApplication(const QString& appName)
+ExternalAppScannerDialog::ExternalAppScannerDialog(QObject * parent) :
+    AbstractScannerDialog(parent)
 {
-    const MacPool pool;
-
-    BOOL rc = [[NSWorkspace sharedWorkspace]
-            launchApplication: MacString::toNSString(appName)
-     ];
-
-    return rc;
 }
 
+void ExternalAppScannerDialog::exec()
+{
+    QSettings s;
+    QString app_path = s.value(KEY_SCAN_EXTERNAL_APP).toString();
+
+    // try to choose scanning application
+    if(app_path.isEmpty())
+        app_path = Workspace::showChooseApplicationDialog();
+
+    if(app_path.isEmpty())
+        return;
+
+    bool rc = Workspace::launchApplication(app_path);
+
+    if(rc) {
+        s.setValue(KEY_SCAN_EXTERNAL_APP, app_path);
+    }
+    else {
+        qDebug() << Q_FUNC_INFO << "can't launch application:" << app_path;
+    }
+}
+
+void ExternalAppScannerDialog::registerDialog(int order)
+{
+    AbstractScannerDialog::registerDialogFunc(&createExternalScannerDialog, order);
 }
