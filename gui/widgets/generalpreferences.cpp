@@ -31,13 +31,14 @@
 #include <QComboBox>
 
 #include "generalpreferences.h"
+#include "fileselectwidget.h"
 #include "iconutils.h"
 #include "settingskeys.h"
 
 GeneralPreferences::GeneralPreferences(QWidget * parent) :
     PreferencesWidget(parent),
     layout_(NULL),
-    ext_editor_(NULL)
+    editor_(NULL)
 {
     setIcon(iconFromTheme("configure"));
     setTitle(tr("General"));
@@ -73,18 +74,13 @@ void GeneralPreferences::setupExternalEditor()
 {
     Q_CHECK_PTR(layout_);
 
-    ext_editor_ = new QLineEdit(this);
-    ext_editor_->setMinimumWidth(200);
-    QPushButton * ext_editor_btn = new QPushButton(tr("Select"), this);
-    connect(ext_editor_btn, SIGNAL(clicked()), this, SLOT(showSelectApplicationDialog()));
-    QHBoxLayout * ext_editor_layout = new QHBoxLayout;
-    ext_editor_layout->addWidget(ext_editor_);
-    ext_editor_layout->addWidget(ext_editor_btn);
-
-    layout_->addRow(tr("External editor:"), ext_editor_layout);
+    editor_ = new FileSelectWidget(this);
+    editor_->setDirectory(QDesktopServices::storageLocation(QDesktopServices::ApplicationsLocation));
+    editor_->setTitle(tr("Select application"));
+    layout_->addRow(tr("External editor:"), editor_);
 
     Callbacks cb(&loadExternalEditor, &saveExternalEditor);
-    connectControl(ext_editor_, SIGNAL(textChanged(QString)), cb);
+    connectControl(editor_, SIGNAL(textChanged(QString)), cb);
 }
 
 void GeneralPreferences::setupIconTheme()
@@ -105,32 +101,18 @@ void GeneralPreferences::setupLayout()
     setLayout(layout_);
 }
 
-void GeneralPreferences::showSelectApplicationDialog()
-{
-    QString path = QFileDialog::getOpenFileName(this,
-                                           tr("Select application"),
-                                           QDesktopServices::storageLocation(QDesktopServices::ApplicationsLocation));
-
-    activateWindow();
-
-    if(path.isNull())
-        return;
-
-    ext_editor_->setText(path);
-}
-
 bool GeneralPreferences::loadExternalEditor(QWidget * w, const QVariant& data)
 {
     Q_UNUSED(data);
 
-    QLineEdit * le = qobject_cast<QLineEdit*>(w);
-    if(!le)
+    FileSelectWidget * fs = qobject_cast<FileSelectWidget*>(w);
+    if(!fs)
         return false;
 
     QSettings s;
-    le->blockSignals(true);
-    le->setText(s.value(KEY_EXTERNAL_EDITOR, QString()).toString());
-    le->blockSignals(false);
+    fs->blockSignals(true);
+    fs->setPath(s.value(KEY_EXTERNAL_EDITOR, QString()).toString());
+    fs->blockSignals(false);
     return true;
 }
 
@@ -138,12 +120,12 @@ bool GeneralPreferences::saveExternalEditor(QWidget * w, const QVariant &data)
 {
     Q_UNUSED(data);
 
-    QLineEdit * le = qobject_cast<QLineEdit*>(w);
-    if(!le)
+    FileSelectWidget * fs = qobject_cast<FileSelectWidget*>(w);
+    if(!fs)
         return false;
 
     QSettings s;
-    s.setValue(KEY_EXTERNAL_EDITOR, le->text());
+    s.setValue(KEY_EXTERNAL_EDITOR, fs->path());
     return true;
 }
 

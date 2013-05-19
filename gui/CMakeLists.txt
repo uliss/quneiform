@@ -64,6 +64,7 @@ set(HEADERS
     widgets/colorbutton.h
     widgets/debugpreferences.h
     widgets/editorpreferences.h
+    widgets/fileselectwidget.h
     widgets/fontbutton.h
     widgets/generalpreferences.h
     widgets/histogramwidget.h
@@ -135,6 +136,7 @@ set(SOURCES
     widgets/colorbutton.cpp
     widgets/debugpreferences.cpp
     widgets/editorpreferences.cpp
+    widgets/fileselectwidget.cpp
     widgets/fontbutton.cpp
     widgets/generalpreferences.cpp
     widgets/graphicsroundedrectitem.cpp

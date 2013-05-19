@@ -145,6 +145,17 @@
     </message>
 </context>
 <context>
+    <name>FileSelectWidget</name>
+    <message>
+        <source>Select</source>
+        <translation type="unfinished">Выбрать</translation>
+    </message>
+    <message>
+        <source>Select file</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FormatSettingsDialog</name>
     <message>
         <source>Format settings</source>
@@ -211,7 +222,7 @@
     <name>GeneralPreferences</name>
     <message>
         <source>Select</source>
-        <translation>Выбрать</translation>
+        <translation type="obsolete">Выбрать</translation>
     </message>
     <message>
         <source>External editor:</source>

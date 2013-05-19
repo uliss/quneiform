@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2012 by Serge Poltavski                                 *
+ *   Copyright (C) 2013 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,35 +16,34 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef GENERALPREFERENCES_H
-#define GENERALPREFERENCES_H
+#ifndef FILESELECTWIDGET_H
+#define FILESELECTWIDGET_H
 
-#include "preferenceswidget.h"
+#include <QWidget>
 
-class QFormLayout;
 class QLineEdit;
-class FileSelectWidget;
 
-class GeneralPreferences : public PreferencesWidget
+class FileSelectWidget : public QWidget
 {
     Q_OBJECT
 public:
-    GeneralPreferences(QWidget * parent = NULL);
+    explicit FileSelectWidget(QWidget * parent = 0, const QString& dir = QString());
+    QString directory() const;
+    void setDirectory(const QString& dir);
+
+    QString path() const;
+    void setPath(const QString& path);
+
+    QString title() const;
+    void setTitle(const QString& title);
+signals:
+    void textChanged(const QString& path);
+private slots:
+    void showSelectDialog();
 private:
-    void setupAutosave();
-    void setupExternalEditor();
-    void setupIconTheme();
-    void setupLayout();
-private:
-    static bool loadExternalEditor(QWidget * w, const QVariant& data);
-    static bool saveExternalEditor(QWidget * w, const QVariant& data);
-    static bool loadIconTheme(QWidget * w, const QVariant& data);
-    static bool saveIconTheme(QWidget * w, const QVariant& data);
-    static bool loadAutosaveInterval(QWidget * w, const QVariant& data);
-    static bool saveAutosaveInterval(QWidget * w, const QVariant& data);
-private:
-    QFormLayout * layout_;
-    FileSelectWidget * editor_;
+    QLineEdit * line_edit_;
+    QString dir_;
+    QString title_;
 };
 
-#endif // GENERALPREFERENCES_H
+#endif // FILESELECTWIDGET_H
