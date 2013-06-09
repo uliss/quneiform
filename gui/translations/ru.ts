@@ -994,15 +994,15 @@ Page: %2</source>
     <name>ScanPreferences</name>
     <message>
         <source>Scanning</source>
-        <translation>Сканирование</translation>
+        <translation type="obsolete">Сканирование</translation>
     </message>
     <message>
         <source>Use last scanner:</source>
-        <translation>Использовать последний сканер:</translation>
+        <translation type="obsolete">Использовать последний сканер:</translation>
     </message>
     <message>
         <source>Autosave:</source>
-        <translation>Автосохранение:</translation>
+        <translation type="obsolete">Автосохранение:</translation>
     </message>
     <message>
         <source>Save to directory</source>
@@ -1010,27 +1010,27 @@ Page: %2</source>
     </message>
     <message>
         <source>Save to packet directory</source>
-        <translation>Сохранять в папку пакета</translation>
+        <translation type="obsolete">Сохранять в папку пакета</translation>
     </message>
     <message>
         <source>Image format:</source>
-        <translation>Формат изображения:</translation>
+        <translation type="obsolete">Формат изображения:</translation>
     </message>
     <message>
         <source>Image quality:</source>
-        <translation>Качество изображения:</translation>
+        <translation type="obsolete">Качество изображения:</translation>
     </message>
     <message>
         <source>Choose directory</source>
-        <translation>Выбрать папку</translation>
+        <translation type="obsolete">Выбрать папку</translation>
     </message>
     <message>
         <source>Autosave place:</source>
-        <translation>Место автосохранения:</translation>
+        <translation type="obsolete">Место автосохранения:</translation>
     </message>
     <message>
         <source>Choose autosave directory</source>
-        <translation>Выбор каталога для автосохранения</translation>
+        <translation type="obsolete">Выбор каталога для автосохранения</translation>
     </message>
     <message>
         <source>Select</source>

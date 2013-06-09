@@ -76,7 +76,6 @@ set(HEADERS
     widgets/pageindicator.h
     widgets/preferenceswidget.h
     widgets/recentmenu.h
-    widgets/scanpreferences.h
     widgets/scannerpreferences.h
     widgets/texteditor.h
     widgets/thumbnaillist.h
@@ -150,7 +149,6 @@ set(SOURCES
     widgets/pageindicator.cpp
     widgets/preferenceswidget.cpp
     widgets/recentmenu.cpp
-    widgets/scanpreferences.cpp
     widgets/scannerpreferences.cpp
     widgets/texteditor.cpp
     widgets/thumblayout.cpp
