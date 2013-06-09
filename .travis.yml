@@ -1,0 +1,12 @@
+language: cpp
+compiler: gcc
+script: cmake . && make
+branches:
+  only:
+    - dev
+notifications:
+  recipients:
+    - serge.poltavski@gmail.com
+  email:
+    on_success: change
+    on_failure: always
