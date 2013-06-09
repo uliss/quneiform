@@ -1,6 +1,6 @@
 language: cpp
 compiler: gcc
-script: cmake . && make
+script: mkdir -p build && cd build && cmake .. && make
 branches:
   only:
     - dev
