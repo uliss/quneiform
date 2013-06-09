@@ -26,6 +26,7 @@
 #include "ui_scannerpreferences.h"
 #include "iconutils.h"
 #include "settingskeys.h"
+#include "scan/scandialogtypes.h"
 
 enum {
     USE_OS_DIALOG = 2,
@@ -88,10 +89,14 @@ void ScannerPreferences::handlePageSelect(int idx)
 {
     int data = ui_->scanTypeComboBox->itemData(idx).toInt();
     switch(data) {
-    case USE_EXTERNAL_APP:
-    case USE_QF_DIALOG:
-    case USE_OS_DIALOG:
-        ui_->stackedLayout->setCurrentIndex(data);
+    case SCAN_DIALOG_EXTERNAL_APP:
+        ui_->stackedLayout->setCurrentIndex(USE_EXTERNAL_APP);
+        break;
+    case SCAN_DIALOG_QUNEIFORM:
+        ui_->stackedLayout->setCurrentIndex(USE_QF_DIALOG);
+        break;
+    case SCAN_DIALOG_OS:
+        ui_->stackedLayout->setCurrentIndex(USE_OS_DIALOG);
         break;
     default:
         qWarning() << Q_FUNC_INFO << "unknown data index:" << data;
@@ -126,12 +131,12 @@ void ScannerPreferences::setupUi()
 
 void ScannerPreferences::setupStack()
 {
-    ui_->scanTypeComboBox->addItem(tr("Use operating system scan dialog"), USE_OS_DIALOG);
-    ui_->scanTypeComboBox->addItem(tr("Use quneiform dialog"), USE_QF_DIALOG);
-    ui_->scanTypeComboBox->addItem(tr("Use external application"), USE_EXTERNAL_APP);
+    ui_->scanTypeComboBox->addItem(tr("Use operating system scan dialog"), SCAN_DIALOG_OS);
+    ui_->scanTypeComboBox->addItem(tr("Use quneiform dialog"), SCAN_DIALOG_QUNEIFORM);
+    ui_->scanTypeComboBox->addItem(tr("Use external application"), SCAN_DIALOG_EXTERNAL_APP);
 
     connect(ui_->scanTypeComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(handlePageSelect(int)));
-    connectControl(ui_->scanTypeComboBox, SIGNAL(currentIndexChanged(int)), standartCallbacks(KEY_SCAN_CURRENT_TAB));
+    connectControl(ui_->scanTypeComboBox, SIGNAL(currentIndexChanged(int)), standartCallbacks(KEY_SCAN_DIALOG_TYPE));
     handlePageSelect(ui_->scanTypeComboBox->currentIndex());
 }
 

@@ -49,5 +49,6 @@ extern const char * KEY_SCAN_IMAGE_QUALITY;
 extern const char * KEY_SCAN_AUTOSAVE_FILENAME_TEMPLATE;
 extern const char * KEY_SCAN_EXTERNAL_APP;
 extern const char * KEY_SCAN_CURRENT_TAB;
+extern const char * KEY_SCAN_DIALOG_TYPE;
 
 #endif // SETTINGSKEYS_H

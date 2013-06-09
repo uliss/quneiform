@@ -16,19 +16,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef DUMMYSCANNERDIALOG_H
-#define DUMMYSCANNERDIALOG_H
+#ifndef SCANDIALOGTYPES_H
+#define SCANDIALOGTYPES_H
 
-#include "abstractscannerdialog.h"
-
-class DummyScannerDialog : public AbstractScannerDialog
-{
-    Q_OBJECT
-public:
-    explicit DummyScannerDialog(QObject * parent = 0);
-    void exec();
-public:
-    static void registerDialog();
+enum ScanDialogType {
+    SCAN_DIALOG_OS,
+    SCAN_DIALOG_QUNEIFORM,
+    SCAN_DIALOG_EXTERNAL_APP,
+    SCAN_DIALOG_DUMMY
 };
 
-#endif // DUMMYSCANNERDIALOG_H
+#endif // SCANDIALOGTYPES_H

@@ -18,6 +18,7 @@
 
 #include "sanescannerdialog.h"
 #include "kscandialog.h"
+#include "scandialogtypes.h"
 
 namespace {
 
@@ -45,7 +46,7 @@ void SaneScannerDialog::exec()
     dlg_->run();
 }
 
-void SaneScannerDialog::registerDialog(int order)
+void SaneScannerDialog::registerDialog()
 {
-    AbstractScannerDialog::registerDialogFunc(&createSaneScannerDialog, order);
+    AbstractScannerDialog::registerDialogFunc(&createSaneScannerDialog, SCAN_DIALOG_QUNEIFORM);
 }

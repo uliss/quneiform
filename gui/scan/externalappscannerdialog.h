@@ -28,7 +28,7 @@ public:
     explicit ExternalAppScannerDialog(QObject * parent = 0);
     void exec();
 public:
-    static void registerDialog(int order);
+    static void registerDialog();
 };
 
 #endif // EXTERNALAPPSCANNERDIALOG_H

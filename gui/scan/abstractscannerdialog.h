@@ -33,7 +33,8 @@ public:
 public:
     static AbstractScannerDialog * make(QWidget * parent);
     typedef AbstractScannerDialog *(*dialogFunc)();
-    static void registerDialogFunc(dialogFunc f, int order);
+protected:
+    static void registerDialogFunc(dialogFunc f, int type);
 signals:
     void pageSaved(const QString& path);
 private:

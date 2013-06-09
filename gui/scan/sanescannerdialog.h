@@ -30,7 +30,7 @@ public:
     explicit SaneScannerDialog(QObject * parent = 0);
     void exec();
 public:
-    static void registerDialog(int order);
+    static void registerDialog();
 private:
     KScanDialog * dlg_;
 };

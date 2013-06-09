@@ -77,8 +77,7 @@ MainWindow::MainWindow(QWidget *parent) :
         progress_(new OpenProgressDialog(this)),
         image_widget_(NULL),
         view_splitter_(NULL),
-        autosave_timer_(NULL),
-        scanner_dialog_(NULL)
+        autosave_timer_(NULL)
 {
     setupUi();
     setupPacket();
@@ -1091,17 +1090,10 @@ void MainWindow::showPreferences()
 
 void MainWindow::showScanDialog()
 {
-    if(!scanner_dialog_) {
-        scanner_dialog_ = AbstractScannerDialog::make(this);
-        if(!scanner_dialog_) {
-            qWarning() << Q_FUNC_INFO << "can't create scanner dialog";
-            return;
-        }
-
-        connect(scanner_dialog_, SIGNAL(pageSaved(QString)), this, SLOT(open(QString)));
-    }
-
-    scanner_dialog_->exec();
+    AbstractScannerDialog * d = AbstractScannerDialog::make(this);
+    connect(d, SIGNAL(pageSaved(QString)), this, SLOT(open(QString)));
+    d->exec();
+    delete d;
 }
 
 void MainWindow::showViewContentOnly()

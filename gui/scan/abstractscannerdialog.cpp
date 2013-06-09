@@ -25,16 +25,17 @@
 #include "sanescannerdialog.h"
 #include "externalappscannerdialog.h"
 #include "settingskeys.h"
+#include "scandialogtypes.h"
 
 namespace {
 
 bool registerDialogs()
 {
-    DummyScannerDialog::registerDialog(2);
-    ExternalAppScannerDialog::registerDialog(1);
+    DummyScannerDialog::registerDialog();
+    ExternalAppScannerDialog::registerDialog();
 
 #ifdef WITH_SANE
-    SaneScannerDialog::registerDialog(0);
+    SaneScannerDialog::registerDialog();
 #endif
 
     return true;
@@ -54,22 +55,23 @@ AbstractScannerDialog * AbstractScannerDialog::make(QWidget * parent)
     dialogFunc res = NULL;
 
     if(!func_.values().isEmpty()) {
-        int idx = QSettings().value(KEY_SCAN_CURRENT_TAB, -1).toInt();
+        int idx = QSettings().value(KEY_SCAN_DIALOG_TYPE, -1).toInt();
         switch(idx) {
-        case 0:
-        case 1:
-        case 2:
+        case SCAN_DIALOG_EXTERNAL_APP:
+        case SCAN_DIALOG_OS:
+        case SCAN_DIALOG_QUNEIFORM:
+        case SCAN_DIALOG_DUMMY:
             res = func_.value(idx);
             break;
-        default:
-            res = func_.value(2);
+        default: // dialog not specified
+            res = func_.value(SCAN_DIALOG_OS);
             break;
         }
     }
 
     if(!res) {
-        qWarning() << Q_FUNC_INFO << "no registered functions for scanning";
-        return NULL;
+        qWarning() << Q_FUNC_INFO << "no registered functions for scanning. Check scanner settings.";
+        return new DummyScannerDialog(parent);
     }
 
     AbstractScannerDialog * d = res();
@@ -77,10 +79,10 @@ AbstractScannerDialog * AbstractScannerDialog::make(QWidget * parent)
     return d;
 }
 
-void AbstractScannerDialog::registerDialogFunc(AbstractScannerDialog::dialogFunc f, int order)
+void AbstractScannerDialog::registerDialogFunc(AbstractScannerDialog::dialogFunc f, int type)
 {
-    if(func_.contains(order))
-        qWarning() << Q_FUNC_INFO << "overwriting dialog function for key:" << order;
+    if(func_.contains(type))
+        qWarning() << Q_FUNC_INFO << "overwriting dialog function for key:" << type;
 
-    func_[order] = f;
+    func_[type] = f;
 }

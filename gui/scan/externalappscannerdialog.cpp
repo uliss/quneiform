@@ -23,6 +23,7 @@
 #include "settingskeys.h"
 #include "externalappscannerdialog.h"
 #include "workspace.h"
+#include "scandialogtypes.h"
 
 namespace {
 
@@ -61,7 +62,7 @@ void ExternalAppScannerDialog::exec()
     }
 }
 
-void ExternalAppScannerDialog::registerDialog(int order)
+void ExternalAppScannerDialog::registerDialog()
 {
-    AbstractScannerDialog::registerDialogFunc(&createExternalScannerDialog, order);
+    AbstractScannerDialog::registerDialogFunc(&createExternalScannerDialog, SCAN_DIALOG_EXTERNAL_APP);
 }

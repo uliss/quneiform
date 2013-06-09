@@ -20,6 +20,7 @@
 #include <QDebug>
 
 #include "dummyscannerdialog.h"
+#include "scandialogtypes.h"
 
 namespace {
 
@@ -43,7 +44,7 @@ void DummyScannerDialog::exec()
                              tr("No scanner support"));
 }
 
-void DummyScannerDialog::registerDialog(int order)
+void DummyScannerDialog::registerDialog()
 {
-    AbstractScannerDialog::registerDialogFunc(&createDummyScannerDialog, order);
+    AbstractScannerDialog::registerDialogFunc(&createDummyScannerDialog, SCAN_DIALOG_DUMMY);
 }

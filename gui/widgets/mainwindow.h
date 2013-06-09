@@ -25,7 +25,6 @@ namespace Ui {
 class MainWindow;
 }
 
-class AbstractScannerDialog;
 class Language;
 class Packet;
 class LanguageMenu;
@@ -171,7 +170,6 @@ private:
     RecentMenu * recent_images_;
     QSplitter * view_splitter_;
     QTimer * autosave_timer_;
-    AbstractScannerDialog * scanner_dialog_;
 };
 
 #endif // MAINWINDOW_H
