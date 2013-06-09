@@ -1,6 +1,10 @@
 language: cpp
 compiler: gcc
-script: mkdir -p build && cd build && cmake .. && make
+before_install:
+    - sudo apt-get install libboost-dev
+    - mkdir -p build
+    - cd build
+script: cmake .. && make
 branches:
   only:
     - dev
