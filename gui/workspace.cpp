@@ -22,8 +22,11 @@
 #include <QDesktopServices>
 #include <QFileDialog>
 #include <QProcess>
+#include <QSettings>
 
 #include "workspace.h"
+#include "settingskeys.h"
+#include "scan/scandialogtypes.h"
 
 #ifdef Q_WS_MAC
 #include "macosx/macopenfile.h"
@@ -69,4 +72,44 @@ bool Workspace::launchApplication(const QString& appPath)
 #else
     return QProcess::startDetached(appPath);
 #endif
+}
+
+static QString platformExternalScanApp()
+{
+    QString res;
+
+#ifdef Q_OS_MAC
+    res = "/Applications/Image Capture.app";
+#endif
+
+    return res;
+}
+
+static void initPlatformExternalScanApp()
+{
+    QSettings s;
+    if(!s.contains(KEY_SCAN_EXTERNAL_APP))
+        s.setValue(KEY_SCAN_EXTERNAL_APP, platformExternalScanApp());
+}
+
+static int platformScanType()
+{
+#ifdef Q_OS_MAC
+    return SCAN_DIALOG_EXTERNAL_APP;
+#else
+    return SCAN_DIALOG_QUNEIFORM;
+#endif
+}
+
+static void initPlatformScanType()
+{
+    QSettings s;
+    if(!s.contains(KEY_SCAN_DIALOG_TYPE))
+        s.setValue(KEY_SCAN_DIALOG_TYPE, platformScanType());
+}
+
+void Workspace::initPlatformDefaultSettings()
+{
+    initPlatformScanType();
+    initPlatformExternalScanApp();
 }

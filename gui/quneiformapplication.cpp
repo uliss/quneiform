@@ -30,6 +30,7 @@
 #include "guilog.h"
 #include "iconutils.h"
 #include "theme-config.h"
+#include "workspace.h"
 
 Q_IMPORT_PLUGIN(dib_imageplugin)
 
@@ -57,6 +58,7 @@ QuneiformApplication::QuneiformApplication(int& argc, char** argv)
     setApplicationName("Quneiform OCR");
     setApplicationVersion(CF_VERSION);
     iconThemeSetup();
+    Workspace::initPlatformDefaultSettings();
 
     MetaTypeRegistrator registrator;
 }
