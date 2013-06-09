@@ -19,3 +19,6 @@ option(WITH_THEME_HUMAN "Build icon theme human" OFF)
 option(WITH_THEME_FAENZA "Build icon theme faenza" OFF)
 option(WITH_THEME_SNOWISH "Build icon theme snowish" OFF)
 option(WITH_COVERAGE "Build with coverage analysis support" OFF)
+
+option(WITH_SANE "Build with SANE scanner support" ON)
+

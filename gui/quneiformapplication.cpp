@@ -30,6 +30,7 @@
 #include "guilog.h"
 #include "iconutils.h"
 #include "theme-config.h"
+#include "workspace.h"
 
 Q_IMPORT_PLUGIN(dib_imageplugin)
 
@@ -44,6 +45,11 @@ Q_IMPORT_PLUGIN(pdf_imageplugin)
 QuneiformApplication::QuneiformApplication(int& argc, char** argv)
     : QApplication(argc, argv)
 {
+    TranslationLoader loader;
+    loader.load();
+    installTranslator(loader.systemTranslator());
+    installTranslator(loader.applicationTranslator());
+
     platformInit();
     resourcesInit();
     stylesheetInit();
@@ -52,12 +58,9 @@ QuneiformApplication::QuneiformApplication(int& argc, char** argv)
     setApplicationName("Quneiform OCR");
     setApplicationVersion(CF_VERSION);
     iconThemeSetup();
+    Workspace::initPlatformDefaultSettings();
 
     MetaTypeRegistrator registrator;
-    TranslationLoader loader;
-    loader.load();
-    installTranslator(loader.systemTranslator());
-    installTranslator(loader.applicationTranslator());
 }
 
 bool QuneiformApplication::event(QEvent * ev)

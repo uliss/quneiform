@@ -51,6 +51,7 @@ public slots:
       * Opens given files
       */
     void open(const QStringList& paths);
+    void open(const QString& path);
 
     /**
       * Recognizes all opened images

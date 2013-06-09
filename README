@@ -36,6 +36,7 @@ Configuration
    -DWITH_PHP=Yes              - enable PHP binding
    -DWITH_JAVA=Yes             - enable Java binding
    -DWITH_COVERAGE=Yes         - build with coverage anaysys support
+   -DWITH_SANE=Yes             - enable SANE scanner support
 
 Contact information
 ===================

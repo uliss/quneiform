@@ -40,10 +40,10 @@ public:
 
     QDialogButtonBox * dialogButtons();
     void setDialogButtons(QDialogButtonBox * buttons);
-
+    virtual QSize sizeHint() const;
+protected:
     virtual void setCurrentIndex(int idx);
     virtual void setCurrentPage(PreferencesWidget * pref);
-protected:
     virtual void setPreferenceActions(const PreferencesList& pages) = 0;
 private slots:
     void loadCurrentPage();

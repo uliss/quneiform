@@ -40,5 +40,15 @@ extern const char * KEY_RECENT_FILES;
 extern const char * KEY_RECENT_PACKETS;
 extern const char * KEY_AUTOSAVE;
 extern const char * KEY_AUTOSAVE_INTERVAL;
+extern const char * KEY_LAST_SCANNER;
+extern const char * KEY_USE_LAST_SCANNER;
+extern const char * KEY_SCAN_AUTOSAVE;
+extern const char * KEY_SCAN_AUTOSAVE_PLACE;
+extern const char * KEY_SCAN_IMAGE_FORMAT;
+extern const char * KEY_SCAN_IMAGE_QUALITY;
+extern const char * KEY_SCAN_AUTOSAVE_FILENAME_TEMPLATE;
+extern const char * KEY_SCAN_EXTERNAL_APP;
+extern const char * KEY_SCAN_CURRENT_TAB;
+extern const char * KEY_SCAN_DIALOG_TYPE;
 
 #endif // SETTINGSKEYS_H

@@ -25,6 +25,7 @@
 #include "generalpreferences.h"
 #include "editorpreferences.h"
 #include "debugpreferences.h"
+#include "scannerpreferences.h"
 #include "iconutils.h"
 #include "settingskeys.h"
 
@@ -40,10 +41,12 @@ void PreferencesDialogFactory::initPreferences(AbstractPreferencesDialog * dlg)
     PreferencesWidget * general = new GeneralPreferences;
     PreferencesWidget * debug = new DebugPreferences;
     PreferencesWidget * editor = new EditorPreferences;
+    PreferencesWidget * scan = new ScannerPreferences;
 
     PreferencesList prefs;
     prefs.append(general);
     prefs.append(editor);
+    prefs.append(scan);
     prefs.append(debug);
 
     dlg->setPages(prefs);

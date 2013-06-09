@@ -18,6 +18,8 @@
 
 #include <QDebug>
 #include <QCheckBox>
+#include <QComboBox>
+#include <QSlider>
 #include <QSettings>
 
 #include "preferenceswidget.h"
@@ -121,6 +123,36 @@ bool PreferencesWidget::standartLoadCallback(QWidget * w, const QVariant& data)
         return true;
     }
 
+    if(class_name == "QComboBox") {
+        QComboBox * cb = qobject_cast<QComboBox*>(w);
+        QString key = data.toString();
+        if(key.isEmpty()) {
+            qWarning() << Q_FUNC_INFO << "widget name is empty. Don't know how to load it.";
+            return false;
+        }
+
+        int idx = cb->findData(QSettings().value(key));
+
+        if(idx != -1) {
+            cb->setCurrentIndex(idx);
+        }
+        else {
+            if(cb->count() != 0)
+                cb->setCurrentIndex(0);
+        }
+    }
+
+    if(class_name == "QSlider") {
+        QSlider * sl = static_cast<QSlider*>(w);
+        QString key = data.toString();
+        if(key.isEmpty()) {
+            qWarning() << Q_FUNC_INFO << "widget name is empty. Don't know how to load it.";
+            return false;
+        }
+
+        sl->setSliderPosition(QSettings().value(key, 80).toInt());
+    }
+
     return false;
 }
 
@@ -144,12 +176,34 @@ bool PreferencesWidget::standartSaveCallback(QWidget * w, const QVariant& data)
         QSettings().setValue(key, cb->isChecked());
     }
 
+    if(class_name == "QComboBox") {
+        QComboBox * cb = static_cast<QComboBox*>(w);
+        QString key = data.toString();
+        if(key.isEmpty()) {
+            qWarning() << Q_FUNC_INFO << "widget name is empty. Don't know how to load it.";
+            return false;
+        }
+
+        QSettings().setValue(key, cb->itemData(cb->currentIndex()));
+    }
+
+    if(class_name == "QSlider") {
+        QSlider * sl = static_cast<QSlider*>(w);
+        QString key = data.toString();
+        if(key.isEmpty()) {
+            qWarning() << Q_FUNC_INFO << "widget name is empty. Don't know how to load it.";
+            return false;
+        }
+
+        QSettings().setValue(key, sl->sliderPosition());
+    }
+
     return false;
 }
 
 void PreferencesWidget::connectControl(QWidget * control,
                                        const char * signal,
-                                       const Callbacks &callbacks)
+                                       const Callbacks& callbacks)
 {
     if(!control) {
         qWarning() << Q_FUNC_INFO << "NULL control widget given";
@@ -161,7 +215,7 @@ void PreferencesWidget::connectControl(QWidget * control,
         return;
     }
 
-    control->setParent(this);
+//    control->setParent(this);
     connect(control, signal, this, SLOT(handleControlSignal()));
     addCallbacks(control, callbacks);
     load(control);

@@ -20,6 +20,7 @@
 #include <QtGlobal>
 #include <QLocale>
 #include <QLibraryInfo>
+#include <QSystemLocale>
 #include <QDebug>
 #include <QApplication>
 
@@ -28,14 +29,37 @@
 
 #ifdef Q_WS_MAC
 #include "macosx/macbundle.h"
+#include "macosx/maclocale.h"
 #endif
 
 // static members init
 QTranslator TranslationLoader::app_;
 QTranslator TranslationLoader::system_;
 
+static QString qtTranslationPath()
+{
+#ifndef Q_OS_MAC
+     return QLibraryInfo::location(QLibraryInfo::TranslationsPath);
+#else
+     return utils::applicationBundle() + QString("/Contents/Resources");
+#endif
+}
+
 TranslationLoader::TranslationLoader()
 {
+#ifdef Q_OS_MAC
+    QString loc_name = locale_.name();
+    QStringList loc_lst = locale_.uiLanguages();
+    if(!loc_lst.isEmpty()) {
+        // expected value like 'ru-Ru'
+        loc_name = loc_lst.first().split('-').first();
+    }
+
+    qDebug() << Q_FUNC_INFO << loc_name;
+    utils::macSetLocale(loc_name);
+#endif
+
+    QLocale::setDefault(locale_);
 }
 
 QTranslator * TranslationLoader::applicationTranslator() {
@@ -49,8 +73,7 @@ void TranslationLoader::load() {
 
 void TranslationLoader::loadSystemTranslation() {
     qDebug() << Q_FUNC_INFO << "loading qt system translations for locale:" << locale_.name();
-    bool res = system_.load("qt_" + locale_.name(),
-                 QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    bool res = system_.load("qt_" + locale_.name(), qtTranslationPath());
 
     if(!res)
         qDebug() << Q_FUNC_INFO << "unable to load translation for locale:" << locale_.name();

@@ -92,9 +92,9 @@ void ImageRawData::set(unsigned char * data, size_t size, allocator_t allocator)
     allocator_ = allocator;
 }
 
-}
-
-std::ostream& operator<<(std::ostream& os, const cf::ImageRawData& image) {
+std::ostream& operator<<(std::ostream& os, const ImageRawData& image) {
     os.write((char*) image.data(), static_cast<std::streamsize>(image.dataSize()));
     return os;
+}
+
 }

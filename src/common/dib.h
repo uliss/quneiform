@@ -181,8 +181,8 @@ BOOST_STATIC_ASSERT(sizeof(BitmapInfoV5Header) == 124);
 
 typedef cf::BitmapInfoHeader * BitmapPtr;
 
-}
+FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const RGBQuad& c);
 
-FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const cf::RGBQuad& c);
+}
 
 #endif // DIB_H

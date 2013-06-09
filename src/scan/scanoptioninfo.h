@@ -114,8 +114,8 @@ private:
     ValueList list_;
 };
 
-}
-
 std::ostream& operator<<(std::ostream& os, const cf::ScanOptionInfo& info);
+
+}
 
 #endif // SCANOPTIONINFO_H

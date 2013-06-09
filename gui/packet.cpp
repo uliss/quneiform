@@ -25,8 +25,10 @@
 #include "page.h"
 #include "thumbnailgenerator.h"
 #include "export/cedpagemerge.h"
+#include "globalstate.h"
 
 static const QString DEFAULT_NAME = "untitled.qfp";
+#define PACKET_FULL_PATH "packetFullPath"
 
 Packet::Packet(QObject * parent) :
         QObject(parent),
@@ -170,6 +172,7 @@ bool Packet::open(const QString& filename) {
     }
 
     file.close();
+    GlobalState::set(PACKET_FULL_PATH, filename);
     filename_ = filename;
     changed_ = false;
     is_new_ = false;
@@ -286,6 +289,7 @@ bool Packet::save(const QString& filename) {
 
     packet.close();
     filename_ = filename;
+    GlobalState::set(PACKET_FULL_PATH, filename);
     changed_ = false;
     is_new_ = false;
 

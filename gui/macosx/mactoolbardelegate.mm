@@ -65,6 +65,15 @@ static NSImage * toNSImage(const QPixmap& pixmap)
     return [self toolbarDefaultItemIdentifiers: tb];
 }
 
+-(NSArray*) toolbarSelectableItemIdentifiers:(NSToolbar*) tb
+{
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    for (NSToolbarItem *item in [tb items]) {
+        [arr addObject:[item itemIdentifier]];
+    }
+    return [arr autorelease];
+}
+
 -(IBAction) itemClicked:(id)sender
 {
     NSToolbarItem * item = reinterpret_cast<NSToolbarItem*>(sender);

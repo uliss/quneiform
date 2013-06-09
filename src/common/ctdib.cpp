@@ -76,15 +76,6 @@ const int BITS = 8;
 
 }
 
-std::ostream& operator<<(std::ostream& os, const RGBQuad& c)
-{
-    os << "RGBQuad: "
-       << static_cast<int>(c.rgbRed) << ','
-       << static_cast<int>(c.rgbGreen) << ','
-       << static_cast<int>(c.rgbBlue);
-    return os;
-}
-
 static inline size_t dibBitsToBytes(size_t b)
 {
     return ((((b + 7) / 8) + 3) / 4) * 4;
@@ -129,6 +120,15 @@ static const int CTDIB_DEFAULT_COLORSIMPORTANT = 0;
 static const int CTDIB_DEFAULT_RESOLUTION = 0;
 
 namespace cf {
+
+std::ostream& operator<<(std::ostream& os, const RGBQuad& c)
+{
+    os << "RGBQuad: "
+       << static_cast<int>(c.rgbRed) << ','
+       << static_cast<int>(c.rgbGreen) << ','
+       << static_cast<int>(c.rgbBlue);
+    return os;
+}
 
 CTDIB::CTDIB() :
     valid_(false)

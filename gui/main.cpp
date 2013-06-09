@@ -16,6 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <QDebug>
+
 #include "quneiformapplication.h"
 #include "mainwindow.h"
 
@@ -41,6 +43,9 @@ int main(int argc, char *argv[])
         foreach(QString p, params) {
             if(p == "-r" || p == "--recognize")
                 do_recognize = true;
+            else if(p.startsWith('-')) {
+                qDebug() << "skip option:" << p;
+            }
             else
                 files.append(p);
         }

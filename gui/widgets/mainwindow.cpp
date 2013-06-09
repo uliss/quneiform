@@ -58,11 +58,11 @@
 #include "iconutils.h"
 #include "fullscreen.h"
 #include "settingskeys.h"
-#include "scan/scannerdialog.h"
+#include "scan/abstractscannerdialog.h"
 
-#ifndef Q_WS_MAC
-#define DISABLE_SCANNER_MENU
-#endif
+//#ifndef Q_WS_MAC || Q_OS_LINUX
+//#define DISABLE_SCANNER_MENU
+//#endif
 
 static const int VERSION_MAJOR = 0;
 static const int VERSION_MINOR = 0;
@@ -529,6 +529,11 @@ void MainWindow::open(const QStringList& paths) {
     QApplication::processEvents();
 
     packet_->updateThumbs();
+}
+
+void MainWindow::open(const QString& path)
+{
+    open(QStringList(path));
 }
 
 void MainWindow::openImagesDialog()
@@ -1085,7 +1090,10 @@ void MainWindow::showPreferences()
 
 void MainWindow::showScanDialog()
 {
-    utils::openScannerDialog(this);
+    AbstractScannerDialog * d = AbstractScannerDialog::make(this);
+    connect(d, SIGNAL(pageSaved(QString)), this, SLOT(open(QString)));
+    d->exec();
+    delete d;
 }
 
 void MainWindow::showViewContentOnly()

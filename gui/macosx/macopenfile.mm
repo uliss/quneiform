@@ -48,5 +48,15 @@ bool macOpenFileWithApplication(const QString& fullPath, const QString& appName)
     return rc;
 }
 
+bool macLaunchApplication(const QString& appName)
+{
+    const MacPool pool;
+
+    BOOL rc = [[NSWorkspace sharedWorkspace]
+            launchApplication: MacString::toNSString(appName)
+     ];
+
+    return rc;
+}
 
 }

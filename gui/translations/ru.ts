@@ -145,6 +145,17 @@
     </message>
 </context>
 <context>
+    <name>FileSelectWidget</name>
+    <message>
+        <source>Select</source>
+        <translation>Выбрать</translation>
+    </message>
+    <message>
+        <source>Select file</source>
+        <translation>Выбрать файл</translation>
+    </message>
+</context>
+<context>
     <name>FormatSettingsDialog</name>
     <message>
         <source>Format settings</source>
@@ -211,7 +222,7 @@
     <name>GeneralPreferences</name>
     <message>
         <source>Select</source>
-        <translation>Выбрать</translation>
+        <translation type="obsolete">Выбрать</translation>
     </message>
     <message>
         <source>External editor:</source>
@@ -934,6 +945,155 @@ Page: %2</source>
     <message>
         <source>Recognition settings</source>
         <translation>Настройки распознавания</translation>
+    </message>
+</context>
+<context>
+    <name>SaneDialog</name>
+    <message>
+        <source>Scanning</source>
+        <translation type="obsolete">Сканирование</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation type="obsolete">Информация</translation>
+    </message>
+    <message>
+        <source>No scanners found.</source>
+        <translation type="obsolete">Сканеры не найдены.</translation>
+    </message>
+    <message>
+        <source>Scan error</source>
+        <translation type="obsolete">Ошибка сканирования</translation>
+    </message>
+    <message>
+        <source>Can&apos;t open selected scanner: &quot;%1&quot;</source>
+        <translation type="obsolete">Невозможно открыть выбранный сканер &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Scanner: %1</source>
+        <translation type="obsolete">Сканер %1</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation type="obsolete">Предупреждение</translation>
+    </message>
+    <message>
+        <source>Image saving failed to &quot;%1&quot;</source>
+        <translation type="obsolete">Ошибка сохранения изображения &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Scanning...</source>
+        <translation type="obsolete">Сканирование...</translation>
+    </message>
+    <message>
+        <source>Save image to</source>
+        <translation type="obsolete">Сохранить изображение в</translation>
+    </message>
+</context>
+<context>
+    <name>ScanPreferences</name>
+    <message>
+        <source>Scanning</source>
+        <translation>Сканирование</translation>
+    </message>
+    <message>
+        <source>Use last scanner:</source>
+        <translation>Использовать последний сканер:</translation>
+    </message>
+    <message>
+        <source>Autosave:</source>
+        <translation>Автосохранение:</translation>
+    </message>
+    <message>
+        <source>Save to directory</source>
+        <translation type="obsolete">Сохранять в папку</translation>
+    </message>
+    <message>
+        <source>Save to packet directory</source>
+        <translation>Сохранять в папку пакета</translation>
+    </message>
+    <message>
+        <source>Image format:</source>
+        <translation>Формат изображения:</translation>
+    </message>
+    <message>
+        <source>Image quality:</source>
+        <translation>Качество изображения:</translation>
+    </message>
+    <message>
+        <source>Choose directory</source>
+        <translation>Выбрать папку</translation>
+    </message>
+    <message>
+        <source>Autosave place:</source>
+        <translation>Место автосохранения:</translation>
+    </message>
+    <message>
+        <source>Choose autosave directory</source>
+        <translation>Выбор каталога для автосохранения</translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation type="obsolete">Выбрать</translation>
+    </message>
+</context>
+<context>
+    <name>ScannerPreferences</name>
+    <message>
+        <source>Use external application</source>
+        <translation>Использовать внешнюю программу</translation>
+    </message>
+    <message>
+        <source>Use operating system scan dialog</source>
+        <translation>Использовать ситемный диалог сканирования</translation>
+    </message>
+    <message>
+        <source>Use last scanner:</source>
+        <translation>Использовать последний сканер:</translation>
+    </message>
+    <message>
+        <source>Image quality:</source>
+        <translation>Качество изображения:</translation>
+    </message>
+    <message>
+        <source>Autosave:</source>
+        <translation>Автосохранение:</translation>
+    </message>
+    <message>
+        <source>Autosave place:</source>
+        <translation>Место автосохранения:</translation>
+    </message>
+    <message>
+        <source>Use quneiform dialog</source>
+        <translation>Использовать диалог quneiform</translation>
+    </message>
+    <message>
+        <source>Scanning</source>
+        <translation>Сканирование</translation>
+    </message>
+    <message>
+        <source>Format:</source>
+        <translation>Формат:</translation>
+    </message>
+    <message>
+        <source>Select application</source>
+        <translation>Выбор программы</translation>
+    </message>
+    <message>
+        <source>Scan application:</source>
+        <translation>Программа сканирования:</translation>
+    </message>
+    <message>
+        <source>Choose directory</source>
+        <translation>Выбрать папку</translation>
+    </message>
+    <message>
+        <source>Save to packet directory</source>
+        <translation>Сохранять в папку пакета</translation>
+    </message>
+    <message>
+        <source>Choose autosave directory</source>
+        <translation>Выбор каталога для автосохранения</translation>
     </message>
 </context>
 <context>
