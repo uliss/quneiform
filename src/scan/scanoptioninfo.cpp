@@ -194,8 +194,6 @@ void ScanOptionInfo::resetConstraints()
     list_.clear();
 }
 
-}
-
 static inline std::string toString(cf::ScanOptionInfo::Type t)
 {
     using namespace cf;
@@ -283,4 +281,6 @@ std::ostream& operator<<(std::ostream& os, const cf::ScanOptionInfo& info)
         break;
     }
     return os;
+}
+
 }

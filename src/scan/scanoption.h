@@ -59,8 +59,8 @@ private:
     bool enabled_;
 };
 
-}
+std::ostream& operator<<(std::ostream& os, const ScanOption& opt);
 
-std::ostream& operator<<(std::ostream& os, const cf::ScanOption& opt);
+}
 
 #endif // SCANOPTION_H
