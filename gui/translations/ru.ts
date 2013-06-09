@@ -148,11 +148,11 @@
     <name>FileSelectWidget</name>
     <message>
         <source>Select</source>
-        <translation type="unfinished">Выбрать</translation>
+        <translation>Выбрать</translation>
     </message>
     <message>
         <source>Select file</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбрать файл</translation>
     </message>
 </context>
 <context>
@@ -1035,6 +1035,65 @@ Page: %2</source>
     <message>
         <source>Select</source>
         <translation type="obsolete">Выбрать</translation>
+    </message>
+</context>
+<context>
+    <name>ScannerPreferences</name>
+    <message>
+        <source>Use external application</source>
+        <translation>Использовать внешнюю программу</translation>
+    </message>
+    <message>
+        <source>Use operating system scan dialog</source>
+        <translation>Использовать ситемный диалог сканирования</translation>
+    </message>
+    <message>
+        <source>Use last scanner:</source>
+        <translation>Использовать последний сканер:</translation>
+    </message>
+    <message>
+        <source>Image quality:</source>
+        <translation>Качество изображения:</translation>
+    </message>
+    <message>
+        <source>Autosave:</source>
+        <translation>Автосохранение:</translation>
+    </message>
+    <message>
+        <source>Autosave place:</source>
+        <translation>Место автосохранения:</translation>
+    </message>
+    <message>
+        <source>Use quneiform dialog</source>
+        <translation>Использовать диалог quneiform</translation>
+    </message>
+    <message>
+        <source>Scanning</source>
+        <translation>Сканирование</translation>
+    </message>
+    <message>
+        <source>Format:</source>
+        <translation>Формат:</translation>
+    </message>
+    <message>
+        <source>Select application</source>
+        <translation>Выбор программы</translation>
+    </message>
+    <message>
+        <source>Scan application:</source>
+        <translation>Программа сканирования:</translation>
+    </message>
+    <message>
+        <source>Choose directory</source>
+        <translation>Выбрать папку</translation>
+    </message>
+    <message>
+        <source>Save to packet directory</source>
+        <translation>Сохранять в папку пакета</translation>
+    </message>
+    <message>
+        <source>Choose autosave directory</source>
+        <translation>Выбор каталога для автосохранения</translation>
     </message>
 </context>
 <context>

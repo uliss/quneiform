@@ -35,6 +35,7 @@
 #include "scanpreferences.h"
 #include "iconutils.h"
 #include "settingskeys.h"
+#include "scannerpreferences.h"
 
 static const int PLACE_CHOOSE_IDX = 0;
 static const int PLACE_PACKET_IDX = 1;
@@ -53,11 +54,13 @@ ScanPreferences::ScanPreferences(QWidget * parent) :
     setIcon(iconFromTheme("scanner"));
     setTitle(tr("Scanning"));
 
-    setupLayout();
-    setupUseLastScanner();
-    setupQuality();
-    setupFormat();
-    setupAutosave();
+    ScannerPreferences * scan_pref_widget = new ScannerPreferences(this);
+
+//    setupLayout();
+//    setupUseLastScanner();
+//    setupQuality();
+//    setupFormat();
+//    setupAutosave();
 }
 
 void ScanPreferences::handleAutosaveToggle(bool value)

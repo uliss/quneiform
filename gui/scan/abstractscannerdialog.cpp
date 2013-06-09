@@ -18,21 +18,23 @@
 
 #include <QDebug>
 #include <QWidget>
+#include <QSettings>
 
 #include "abstractscannerdialog.h"
 #include "dummyscannerdialog.h"
 #include "sanescannerdialog.h"
 #include "externalappscannerdialog.h"
+#include "settingskeys.h"
 
 namespace {
 
 bool registerDialogs()
 {
-    DummyScannerDialog::registerDialog(100);
-    ExternalAppScannerDialog::registerDialog(49);
+    DummyScannerDialog::registerDialog(2);
+    ExternalAppScannerDialog::registerDialog(1);
 
 #ifdef WITH_SANE
-    SaneScannerDialog::registerDialog(50);
+    SaneScannerDialog::registerDialog(0);
 #endif
 
     return true;
@@ -51,8 +53,19 @@ AbstractScannerDialog * AbstractScannerDialog::make(QWidget * parent)
 {
     dialogFunc res = NULL;
 
-    if(!func_.values().isEmpty())
-        res = func_.values().first();
+    if(!func_.values().isEmpty()) {
+        int idx = QSettings().value(KEY_SCAN_CURRENT_TAB, -1).toInt();
+        switch(idx) {
+        case 0:
+        case 1:
+        case 2:
+            res = func_.value(idx);
+            break;
+        default:
+            res = func_.value(2);
+            break;
+        }
+    }
 
     if(!res) {
         qWarning() << Q_FUNC_INFO << "no registered functions for scanning";

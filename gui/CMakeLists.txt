@@ -77,6 +77,7 @@ set(HEADERS
     widgets/preferenceswidget.h
     widgets/recentmenu.h
     widgets/scanpreferences.h
+    widgets/scannerpreferences.h
     widgets/texteditor.h
     widgets/thumbnaillist.h
     widgets/thumbscene.h
@@ -150,6 +151,7 @@ set(SOURCES
     widgets/preferenceswidget.cpp
     widgets/recentmenu.cpp
     widgets/scanpreferences.cpp
+    widgets/scannerpreferences.cpp
     widgets/texteditor.cpp
     widgets/thumblayout.cpp
     widgets/thumbscene.cpp
@@ -181,6 +183,7 @@ set(FORMS
     dialogs/pagepropertiesdialog.ui
     dialogs/recognitionsettingsdialog.ui
     widgets/mainwindow.ui
+    widgets/scannerpreferences.ui
 )
 
 include_directories(

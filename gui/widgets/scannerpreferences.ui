@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ScannerPreferences</class>
+ <widget class="QWidget" name="ScannerPreferences">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Scanning</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QComboBox" name="scanTypeComboBox"/>
+   </item>
+   <item>
+    <layout class="QStackedLayout" name="stackedLayout">
+     <item>
+	 <widget class="QWidget" name="page1">
+      <layout class="QFormLayout" name="page1_Layout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="useLastScannerLabel">
+         <property name="text">
+          <string>Use last scanner:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QCheckBox" name="useLastScanner"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="imageQualityLabel">
+         <property name="text">
+          <string>Image quality:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <layout class="QHBoxLayout" name="imageQualityLayout">
+          <item>
+            <widget class="QSlider" name="imageQualitySlider">
+              <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+              </property>
+            </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="imageQuality"/>
+          </item>
+        </layout>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="saveFormatLabel">
+         <property name="text">
+          <string>Format:</string>
+         </property>
+        </widget>
+	   </item>
+       <item row="2" column="1">
+         <widget class="QComboBox" name="saveFormat"/>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="autosaveLabel">
+         <property name="text">
+          <string>Autosave:</string>
+         </property>
+        </widget>
+	   </item>
+       <item row="3" column="1">
+        <widget class="QCheckBox" name="autosave"/>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="autosavePlaceLabel">
+         <property name="text">
+          <string>Autosave place:</string>
+         </property>
+        </widget>
+	   </item>
+       <item row="4" column="1">
+        <widget class="QComboBox" name="autosavePlace"/>
+       </item>
+      </layout>
+     </widget>
+     </item>
+     <item>
+      <widget class="QWidget" name="page2">
+      <layout class="QFormLayout" name="page2_Layout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="selectApplicationLabel">
+         <property name="text">
+          <string>Scan application:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="FileSelectWidget" name="selectApplicationWidget" native="true"/>
+       </item>
+      </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QWidget" name="page3">
+      </widget>    
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>FileSelectWidget</class>
+   <extends>QLineEdit</extends>
+   <header>fileselectwidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

@@ -913,6 +913,65 @@ Page: %2</source>
     </message>
 </context>
 <context>
+    <name>ScannerPreferences</name>
+    <message>
+        <source>Use external application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use operating system scan dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use last scanner:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image quality:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Autosave:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Autosave place:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use quneiform dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scanning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Format:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scan application:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save to packet directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose autosave directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>TextEditor</name>
     <message>
         <source>Alignment</source>

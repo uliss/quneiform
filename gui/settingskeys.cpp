@@ -47,5 +47,6 @@ const char * KEY_SCAN_IMAGE_FORMAT = "scan/imageFormat";
 const char * KEY_SCAN_IMAGE_QUALITY = "scan/imageQuality";
 const char * KEY_SCAN_AUTOSAVE_FILENAME_TEMPLATE = "scan/autosaveFilenameTemplate";
 const char * KEY_SCAN_EXTERNAL_APP = "scan/externalScanApplication";
+const char * KEY_SCAN_CURRENT_TAB = "scan/currenDialogTab";
 
 
