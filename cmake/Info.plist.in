@@ -25,6 +25,10 @@
     <string>${MACOSX_BUNDLE_BUNDLE_NAME}</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
+    <key>CFBundleHelpBookFolder</key>
+    <string>Quneiform.help</string>
+    <key>CFBundleHelpBookName</key>
+    <string>Quneiform help</string>
     <key>CFBundleDocumentTypes</key>
     <array>
         <dict>
