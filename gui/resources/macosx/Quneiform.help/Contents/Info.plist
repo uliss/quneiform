@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en_US</string>
+	<key>CFBundleIdentifier</key>
+	<string>Quneiform.help</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>Quneiform</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>5.2</string>
+	<key>CFBundleSignature</key>
+	<string>hbwr</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+	<key>HPDBookAccessPath</key>
+	<string>Quneiform.html</string>
+	<key>HPDBookIconPath</key>
+	<string>shrd/cuneiform.png</string>
+	<key>HPDBookIndexPath</key>
+	<string>Quneiform.helpindex</string>
+	<key>HPDBookKBProduct</key>
+	<string>quneiform2</string>
+	<key>HPDBookKBURL</key>
+	<string></string>
+	<key>HPDBookRemoteURL</key>
+	<string></string>
+	<key>HPDBookTitle</key>
+	<string>Quneiform Help</string>
+	<key>HPDBookType</key>
+	<string>3</string>
+</dict>
+</plist>
