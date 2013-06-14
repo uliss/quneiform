@@ -39,8 +39,8 @@ sleep 1
 echo "Adding logo and background..."
 DMG_BACKGROUND="$mountdir/logo.png"
 DMG_ICON="$mountdir/.VolumeIcon.icns"
-cp "$SRCDIR/gui/resources/dmg_background.png" "$DMG_BACKGROUND"
-cp "$SRCDIR/gui/resources/disk_logo.icns" "$DMG_ICON"
+cp "$SRCDIR/gui/resources/macosx/dmg_background.png" "$DMG_BACKGROUND"
+cp "$SRCDIR/gui/resources/macosx/disk_logo.icns" "$DMG_ICON"
 SetFile -c icnC "$DMG_ICON"
 SetFile -a C "$mountdir"
 
