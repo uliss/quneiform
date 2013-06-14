@@ -507,7 +507,7 @@
     </message>
     <message>
         <source>&amp;Help</source>
-        <translation>&amp;Справка</translation>
+        <translation></translation>
     </message>
     <message>
         <source>Image</source>
@@ -790,6 +790,10 @@ Are you shure?</source>
     <message>
         <source>Save Quneiform packet as</source>
         <translation>Сохранить пакет Quneiform как</translation>
+    </message>
+    <message>
+        <source>Quneiform Help</source>
+        <translation>Справка по Quneiform</translation>
     </message>
 </context>
 <context>

@@ -28,7 +28,7 @@
     <key>CFBundleHelpBookFolder</key>
     <string>Quneiform.help</string>
     <key>CFBundleHelpBookName</key>
-    <string>Quneiform help</string>
+    <string>com.github.Quneiform.help</string>
     <key>CFBundleDocumentTypes</key>
     <array>
         <dict>

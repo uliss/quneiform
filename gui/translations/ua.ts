@@ -729,6 +729,10 @@ Do you want to save it?</source>
         <source>Save Quneiform packet as</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Quneiform Help</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OpenProgressDialog</name>

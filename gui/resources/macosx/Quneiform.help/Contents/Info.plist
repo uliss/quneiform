@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en_US</string>
 	<key>CFBundleIdentifier</key>
-	<string>Quneiform.help</string>
+	<string>com.github.Quneiform.help</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -25,7 +25,7 @@
 	<key>HPDBookIndexPath</key>
 	<string>Quneiform.helpindex</string>
 	<key>HPDBookKBProduct</key>
-	<string>quneiform2</string>
+	<string>qif3</string>
 	<key>HPDBookKBURL</key>
 	<string></string>
 	<key>HPDBookRemoteURL</key>
