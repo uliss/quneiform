@@ -46,6 +46,7 @@
      <string>&amp;Help</string>
     </property>
     <addaction name="actionAbout"/>
+    <addaction name="actionQuneiformHelp"/>
     <addaction name="actionReportBug"/>
    </widget>
    <widget class="QMenu" name="menuImage">
@@ -323,6 +324,11 @@
   <action name="actionSavePacketAs">
    <property name="text">
     <string>Save packet as...</string>
+   </property>
+  </action>
+  <action name="actionQuneiformHelp">
+   <property name="text">
+    <string>Quneiform Help</string>
    </property>
   </action>
  </widget>

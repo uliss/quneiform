@@ -791,6 +791,10 @@ Are you shure?</source>
         <source>Save Quneiform packet as</source>
         <translation>Сохранить пакет Quneiform как</translation>
     </message>
+    <message>
+        <source>Quneiform Help</source>
+        <translation>Справка по Quneiform</translation>
+    </message>
 </context>
 <context>
     <name>OpenProgressDialog</name>

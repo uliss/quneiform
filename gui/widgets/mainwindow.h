@@ -98,6 +98,7 @@ private slots:
     void savePage(Page * page);
     void segmentPage(Page * page);
     void selectLanguage(const Language& lang);
+    void showApplicationHelp();
     void showLog();
     void showPageFault(Page * page);
     void showPageImage(Page * page);

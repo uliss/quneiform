@@ -87,6 +87,7 @@ set(HEADERS
 )
 
 set(SOURCES
+    applicationhelpfactory.cpp
     binarizationsettings.cpp
     block.cpp
     cfutils.cpp
@@ -95,6 +96,7 @@ set(SOURCES
     fullscreen.cpp
     globalstate.cpp
     graphicsitemlayout.cpp
+    htmlapplicationhelp.cpp
     iconutils.cpp
     imagecache.cpp
     imageurl.cpp

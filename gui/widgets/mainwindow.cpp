@@ -59,10 +59,7 @@
 #include "fullscreen.h"
 #include "settingskeys.h"
 #include "scan/abstractscannerdialog.h"
-
-//#ifndef Q_WS_MAC || Q_OS_LINUX
-//#define DISABLE_SCANNER_MENU
-//#endif
+#include "applicationhelpfactory.h"
 
 static const int VERSION_MAJOR = 0;
 static const int VERSION_MINOR = 0;
@@ -211,6 +208,7 @@ void MainWindow::connectActions() {
     connect(ui_->actionFullScreen, SIGNAL(triggered()), SLOT(handleShowFullScreen()));
     connect(ui_->actionMinimize, SIGNAL(triggered()), SLOT(handleShowMinimized()));
     connect(ui_->actionExportPacket, SIGNAL(triggered()), SLOT(exportPacket()));
+    connect(ui_->actionQuneiformHelp, SIGNAL(triggered()), SLOT(showApplicationHelp()));
 
     QActionGroup * view_group = new QActionGroup(this);
     view_group->addAction(ui_->actionViewThumbnails);
@@ -804,6 +802,11 @@ void MainWindow::selectLanguage(const Language& lang) {
         lang_menu_->select(lang);
 
     changePacketLanguage(lang);
+}
+
+void MainWindow::showApplicationHelp()
+{
+    ApplicationHelpFactory::get()->show();
 }
 
 void MainWindow::showLog()
