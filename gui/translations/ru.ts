@@ -507,7 +507,7 @@
     </message>
     <message>
         <source>&amp;Help</source>
-        <translation></translation>
+        <translation>&amp;Справка</translation>
     </message>
     <message>
         <source>Image</source>
