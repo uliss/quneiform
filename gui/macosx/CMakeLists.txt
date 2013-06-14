@@ -3,7 +3,6 @@ set(HEADERS
 )
 
 set(SOURCES
-    imagecapture.cpp
     macapplicationhelp.cpp
     macbundle.cpp
     machelp.mm
