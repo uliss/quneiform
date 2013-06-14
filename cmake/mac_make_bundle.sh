@@ -36,15 +36,15 @@ mkdir -p "${APPR}/bin"
 
 echo "Making locale folders..."
 mkdir -p "${APPR}/en.lproj"
-cp -R "${SRCDIR}/gui/resources/ru.lproj/" "${APPR}" 
+cp -R "${SRCDIR}/gui/resources/macosx/ru.lproj/" "${APPR}" 
 cp /Developer/Applications/Qt/translations/qt_*.qm "${APPR}"
 
 VERSION=`cat "${SRCDIR}/version" | cut -d ' ' -f 3 | tr -d '"'`
 echo "Build version: $VERSION"
 
 echo "Copying bundle icon..."
-cp "${SRCDIR}/gui/resources/cuneiform.icns" "${APPR}/Quneiform.icns"
-cp "${SRCDIR}/gui/resources/packet.icns" "${APPR}/packet.icns"
+cp "${SRCDIR}/gui/resources/macosx/cuneiform.icns" "${APPR}/Quneiform.icns"
+cp "${SRCDIR}/gui/resources/macosx/packet.icns" "${APPR}/packet.icns"
 echo "Copying documentation..."
 cp -R "${SRCDIR}/gui/resources/macosx/Quneiform.help" "${APPR}"
 cp "${SRCDIR}/gui/resources/cuneiform_logo_32.png" "${APPR}/Quneiform.help/Contents/Resources/shrd/cuneiform.png"
