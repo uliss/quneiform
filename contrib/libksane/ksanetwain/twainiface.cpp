@@ -113,14 +113,14 @@ bool KSaneWidgetPrivate::InitTwain()
         m_AppId.Version.MinorNum = 2;
         m_AppId.Version.Language = TWLG_USA;
         m_AppId.Version.Country  = TWCY_USA;
-        strcpy(m_AppId.Version.Info, "libksane");
+        strcpy(m_AppId.Version.Info, "quneiform");
 
         m_AppId.ProtocolMajor    = TWON_PROTOCOLMAJOR;
         m_AppId.ProtocolMinor    = TWON_PROTOCOLMINOR;
         m_AppId.SupportedGroups  = DG_IMAGE | DG_CONTROL;
-        strcpy(m_AppId.Manufacturer,  "KDE");
+        strcpy(m_AppId.Manufacturer,  "Quneiform");
         strcpy(m_AppId.ProductFamily, "Generic");
-        strcpy(m_AppId.ProductName,   "libksane");
+        strcpy(m_AppId.ProductName,   "quneiform");
 
         m_bDSMOpen= CallTwainProc(&m_AppId, NULL, DG_CONTROL,
                                   DAT_PARENT, MSG_OPENDSM, (TW_MEMREF)&m_hMessageWnd);
@@ -395,7 +395,7 @@ bool KSaneWidgetPrivate::SetCapability(TW_CAPABILITY& cap)
     return false;
 }
 
-/** Sets the number of images which can be accpeted by the application at one time */
+/** Sets the number of images which can be accepted by the application at one time */
 bool KSaneWidgetPrivate::SetImageCount(TW_INT16 nCount)
 {
     if(SetCapability(CAP_XFERCOUNT,(TW_UINT16)nCount,true)) {
