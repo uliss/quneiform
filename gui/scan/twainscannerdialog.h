@@ -16,28 +16,23 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QDebug>
-#include <QDesktopServices>
-#include <QUrl>
+#ifndef TWAINSCANNERDIALOG_H
+#define TWAINSCANNERDIALOG_H
 
-#include "htmlapplicationhelp.h"
+#include "abstractscannerdialog.h"
 
-HtmlApplicationHelp::HtmlApplicationHelp()
+class KScanDialog;
+
+class TwainScannerDialog : public AbstractScannerDialog
 {
-}
+    Q_OBJECT
+public:
+    explicit TwainScannerDialog(QObject * parent = 0);
+    void exec();
+public:
+    static void registerDialog();
+private:
+    KScanDialog * dlg_;
+};
 
-HtmlApplicationHelp::~HtmlApplicationHelp()
-{
-}
-
-void HtmlApplicationHelp::show(const QString& topic)
-{
-    QDesktopServices::openUrl(QUrl("http://ya.ru"));
-    qDebug() << Q_FUNC_INFO << topic;
-}
-
-bool HtmlApplicationHelp::search(const QString& str)
-{
-    qDebug() << Q_FUNC_INFO << str;
-    return true;
-}
+#endif // TWAINSCANNERDIALOG_H

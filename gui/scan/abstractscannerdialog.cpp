@@ -23,6 +23,7 @@
 #include "abstractscannerdialog.h"
 #include "dummyscannerdialog.h"
 #include "sanescannerdialog.h"
+#include "twainscannerdialog.h"
 #include "externalappscannerdialog.h"
 #include "settingskeys.h"
 #include "scandialogtypes.h"
@@ -36,6 +37,10 @@ bool registerDialogs()
 
 #ifdef WITH_SANE
     SaneScannerDialog::registerDialog();
+#endif
+
+#ifdef WITH_TWAIN
+    TwainScannerDialog::registerDialog();
 #endif
 
     return true;

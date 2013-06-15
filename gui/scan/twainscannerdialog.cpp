@@ -16,28 +16,40 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <QMessageBox>
 #include <QDebug>
-#include <QDesktopServices>
-#include <QUrl>
 
-#include "htmlapplicationhelp.h"
+#include "twainscannerdialog.h"
+#include "scandialogtypes.h"
+#include "kscandialog.h"
 
-HtmlApplicationHelp::HtmlApplicationHelp()
+namespace {
+
+AbstractScannerDialog * createTwainScannerDialog()
+{
+    TwainScannerDialog * d = new TwainScannerDialog();
+    return d;
+}
+
+}
+
+TwainScannerDialog::TwainScannerDialog(QObject *parent) :
+    AbstractScannerDialog(parent),
+    dlg_(NULL)
 {
 }
 
-HtmlApplicationHelp::~HtmlApplicationHelp()
+void TwainScannerDialog::exec()
 {
+    if(!dlg_) {
+        dlg_ = new KScanDialog(qobject_cast<QWidget*>(parent()));
+        connect(dlg_, SIGNAL(pageSaved(QString)), this, SIGNAL(pageSaved(QString)));
+    }
+
+    dlg_->run();
 }
 
-void HtmlApplicationHelp::show(const QString& topic)
+void TwainScannerDialog::registerDialog()
 {
-    QDesktopServices::openUrl(QUrl("http://ya.ru"));
-    qDebug() << Q_FUNC_INFO << topic;
-}
-
-bool HtmlApplicationHelp::search(const QString& str)
-{
-    qDebug() << Q_FUNC_INFO << str;
-    return true;
+    AbstractScannerDialog::registerDialogFunc(&createTwainScannerDialog, SCAN_DIALOG_OS);
 }
