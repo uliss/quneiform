@@ -34,6 +34,11 @@ CommonData::CommonData() :
 {
 }
 
+void CommonData::addVertex(int x, int y)
+{ 
+    addVertex(Point(x, y)); 
+}
+
 void CommonData::addVertex(const Point &pt)
 {
     vertex_[count_] = pt;

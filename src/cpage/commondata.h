@@ -30,12 +30,12 @@ typedef PointImpl<int32_t> Point32;
 
 namespace cpage {
 
-class CommonData
+class CLA_EXPO CommonData
 {
 public:
     CommonData();
 
-    void addVertex(int x, int y) { addVertex(Point(x, y)); }
+    void addVertex(int x, int y);
     void addVertex(const Point& pt);
     void clearVertexes();
     void copyVertexes(const Picture& pict);
