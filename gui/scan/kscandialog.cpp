@@ -139,7 +139,10 @@ void KScanDialog::initLayout()
 
 void KScanDialog::initUi()
 {
+#ifdef WITH_SANE
     KSaneIcons::setCallback(iconFromTheme);
+#endif
+
     sane_widget_ = new KSaneWidget(this);
 
     connect(sane_widget_, SIGNAL(imageReady(QByteArray &, int, int, int, int)),

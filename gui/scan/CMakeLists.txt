@@ -9,6 +9,14 @@ if(CF_SANE_SCANNER_SUPPORT)
     list(APPEND QF_SCAN_LIB ksane)
 endif()
 
+if(CF_TWAIN_SCANNER_SUPPORT)
+    qt4_wrap_cpp(CF_SCAN_MOC_HEADERS kscandialog.h)
+    list(APPEND QF_SCAN_SRC kscandialog.cpp ${CF_SCAN_MOC_HEADERS})
+    add_definitions(-DWITH_TWAIN)
+    include_directories(${CMAKE_SOURCE_DIR}/contrib/libksane/libksane)
+    list(APPEND QF_SCAN_LIB ksane)
+endif()
+
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_library(quneiform_scan STATIC ${QF_SCAN_SRC})

@@ -31,7 +31,6 @@
  // the need for a wrapper class with this name. (Kare)
 
 #include "twainiface.h"
-#include "twainiface.moc"
 #include "ksane.h"
 
 #define TWCPP_ANYCOUNT   (-1)

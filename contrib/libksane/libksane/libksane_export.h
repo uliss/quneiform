@@ -27,7 +27,7 @@
 #ifndef LIBKSANE_EXPORT
 # if defined(MAKE_KSANE_LIB)
    /* We are building this library */ 
-#  define LIBKSANE_EXPORT KDE_EXPORT
+#  define LIBKSANE_EXPORT
 # else
    /* We are using this library */ 
 #  define LIBKSANE_EXPORT

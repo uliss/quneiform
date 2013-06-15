@@ -1,6 +1,6 @@
 PROJECT(libksane)
 
-find_package(Sane REQUIRED)
+find_package(Sane)
 include(FindLibintl.cmake)
 
 find_package(Qt4 REQUIRED) # find and setup Qt4 for this project
@@ -23,6 +23,8 @@ endif()
 
 if(SANE_FOUND)
     ADD_SUBDIRECTORY(libksane)
-else()
+endif()
+
+if(WIN32)
     ADD_SUBDIRECTORY(ksanetwain)
 endif()

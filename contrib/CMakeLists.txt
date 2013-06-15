@@ -6,6 +6,4 @@ if(OCRTK OR TESTS)
     add_subdirectory(ocrtk)
 endif()
 
-if(SANE_FOUND)
-    add_subdirectory(libksane)
-endif()
+add_subdirectory(libksane)

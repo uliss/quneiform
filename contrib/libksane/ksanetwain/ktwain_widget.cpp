@@ -25,18 +25,14 @@
  *
  * ============================================================ */
 
-#include "../libksane/ksane.h"
-#include "../libksane/ksane.moc"
+#include "ksane.h"
 
 // Qt includes
 #include <QMap>
 #include <QHBoxLayout>
 #include <QTimer>
 #include <QDebug>
-
-// KDE includes
-#include <klocalizedstring.h>
-#include <kpushbutton.h>
+#include <QPushButton>
 
 // Local includes.
 #include "twainiface.h"
@@ -48,8 +44,8 @@ namespace KSaneIface
 KSaneWidget::KSaneWidget(QWidget* parent)
     : QWidget(parent), d(new KSaneWidgetPrivate)
 {
-    KPushButton *openDialog = new KPushButton;
-    openDialog->setText(i18n("Open scan dialog"));
+    QPushButton *openDialog = new QPushButton;
+    openDialog->setText(tr("Open scan dialog"));
     QHBoxLayout *lay = new QHBoxLayout;
     lay->addWidget(openDialog);
     setLayout(lay);
@@ -61,9 +57,6 @@ KSaneWidget::KSaneWidget(QWidget* parent)
     connect(d, SIGNAL(ImageReady(QByteArray&,int,int,int,int)),
             this, SIGNAL(imageReady(QByteArray&,int,int,int,int)));
     //connect(d, SIGNAL(scanDone(int,QString)), this, SIGNAL(scanDone(int,QString)));
-    
-
-
 }
 
 KSaneWidget::~KSaneWidget()
@@ -71,7 +64,7 @@ KSaneWidget::~KSaneWidget()
     delete d;
 }
 
-QString KSaneWidget::selectDevice(QWidget* parent)
+QString KSaneWidget::selectDevice(QWidget* parent, const QString& defaultScanner)
 {
   //qDebug() << "KSaneWidget::selectDevice";
   return d->SelectSource();
@@ -124,7 +117,7 @@ void KSaneWidget::scanFinal()
 
 void KSaneWidget::scanCancel()
 {
-    emit scanProgress(0);
+    //emit scanProgress(0);
 }
 
 // stubbed functions that will not get an implementation any time soon.

@@ -21,7 +21,7 @@
 
 #include "scannerdialog.h"
 
-#ifdef WITH_SANE
+#if defined(WITH_SANE) || defined(WITH_TWAIN)
 #include "kscandialog.h"
 #endif
 
@@ -34,7 +34,7 @@ namespace utils {
 QStringList openScannerDialog(QWidget * parent)
 {
     QStringList res;
-#ifdef WITH_SANE
+#if defined(WITH_SANE) || defined(WITH_TWAIN)
     KScanDialog * sn = new KScanDialog(parent);
     int rc = sn->run();
     if(rc == QDialog::Accepted) {
