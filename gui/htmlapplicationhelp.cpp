@@ -32,7 +32,7 @@ HtmlApplicationHelp::~HtmlApplicationHelp()
 
 void HtmlApplicationHelp::show(const QString& topic)
 {
-    QDesktopServices::openUrl(QUrl("http://ya.ru"));
+    QDesktopServices::openUrl(QUrl("https://github.com/uliss/quneiform/wiki"));
     qDebug() << Q_FUNC_INFO << topic;
 }
 
