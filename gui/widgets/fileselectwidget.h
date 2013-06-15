@@ -16,42 +16,34 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef SCANPREFERENCES_H
-#define SCANPREFERENCES_H
+#ifndef FILESELECTWIDGET_H
+#define FILESELECTWIDGET_H
 
-#include "preferenceswidget.h"
+#include <QWidget>
 
-class QFormLayout;
 class QLineEdit;
-class QSlider;
-class QSpinBox;
-class QComboBox;
-class QCheckBox;
 
-class ScanPreferences : public PreferencesWidget
+class FileSelectWidget : public QWidget
 {
     Q_OBJECT
 public:
-    ScanPreferences(QWidget * parent = NULL);
-private Q_SLOTS:
-    void handleAutosaveToggle(bool value);
-    void chooseAutosaveDir(int idx);
+    explicit FileSelectWidget(QWidget * parent = 0, const QString& dir = QString());
+    QString directory() const;
+    void setDirectory(const QString& dir);
+
+    QString path() const;
+    void setPath(const QString& path);
+
+    QString title() const;
+    void setTitle(const QString& title);
+signals:
+    void textChanged(const QString& path);
+private slots:
+    void showSelectDialog();
 private:
-    void setupLayout();
-    void setupUseLastScanner();
-    void setupAutosave();
-    void setupFormat();
-    void setupQuality();
-private:
-    static bool loadAutosaveType(QWidget * w, const QVariant& data);
-    static bool saveAutosaveType(QWidget * w, const QVariant& data);
-private:
-    QFormLayout * layout_;
-    QSlider * save_quality_;
-    QSpinBox * save_quality_box_;
-    QComboBox * save_format_;
-    QCheckBox * autosave_;
-    QComboBox * autosave_dir_;
+    QLineEdit * line_edit_;
+    QString dir_;
+    QString title_;
 };
 
-#endif // SCANPREFERENCES_H
+#endif // FILESELECTWIDGET_H

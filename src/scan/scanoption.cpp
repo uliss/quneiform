@@ -219,7 +219,6 @@ bool ScanOption::setValue(const std::string& v)
     return false;
 }
 
-}
 
 static std::string toString(const cf::ScanOptionValue * v, cf::ScanOptionInfo::Unit unit)
 {
@@ -281,3 +280,6 @@ std::ostream& operator<<(std::ostream& os, const cf::ScanOption& opt)
     os << "\t value:       " << toString(opt.value(), opt.info()->unit()) << "\n";
     return os;
 }
+
+}
+

@@ -51,6 +51,7 @@ public slots:
       * Opens given files
       */
     void open(const QStringList& paths);
+    void open(const QString& path);
 
     /**
       * Recognizes all opened images
@@ -97,6 +98,7 @@ private slots:
     void savePage(Page * page);
     void segmentPage(Page * page);
     void selectLanguage(const Language& lang);
+    void showApplicationHelp();
     void showLog();
     void showPageFault(Page * page);
     void showPageImage(Page * page);

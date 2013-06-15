@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2012 by Serge Poltavski                                 *
+ *   Copyright (C) 2013 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,34 +16,40 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QDebug>
-#include <QWidget>
+#ifndef SCANNERPREFERENCES_H
+#define SCANNERPREFERENCES_H
 
-#include "scannerdialog.h"
+#include "preferenceswidget.h"
 
-#if defined(WITH_SANE) || defined(WITH_TWAIN)
-#include "kscandialog.h"
-#endif
+namespace Ui {
+class ScannerPreferences;
+}
 
-#ifdef Q_WS_MAC
-#include "macosx/imagecapture.h"
-#endif
-
-namespace utils {
-
-QStringList openScannerDialog(QWidget * parent)
+class ScannerPreferences : public PreferencesWidget
 {
-    QStringList res;
-#if defined(WITH_SANE) || defined(WITH_TWAIN)
-    KScanDialog * sn = new KScanDialog(parent);
-    int rc = sn->run();
-    if(rc == QDialog::Accepted) {
-        res << sn->imagePath();
-    }
-//    openImageCapture();
-#endif
+    Q_OBJECT  
+public:
+    explicit ScannerPreferences(QWidget *parent = 0);
+    ~ScannerPreferences();
+private slots:
+    void chooseAutosaveDir(int idx);
+    void handlePageSelect(int idx);
+    void handleAutosaveToggle(bool state);
+private:
+    void setupFormat();
+    void setupUi();
+    void setupStack();
+    void setupExternalScanApp();
+    void setupUseLastScanner();
+    void setupImageQuality();
+    void setupAutosave();
+private:
+    static bool loadAutosaveType(QWidget * w, const QVariant& data);
+    static bool saveAutosaveType(QWidget * w, const QVariant& data);
+    static bool loadExternalApp(QWidget * w, const QVariant& data);
+    static bool saveExternalApp(QWidget * w, const QVariant& data);
+private:
+    Ui::ScannerPreferences * ui_;
+};
 
-    return res;
-}
-
-}
+#endif // SCANNERPREFERENCES_H

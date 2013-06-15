@@ -121,6 +121,11 @@ void AbstractPreferencesDialog::setCurrentPage(PreferencesWidget * pref)
     adjustSize();
 }
 
+QSize AbstractPreferencesDialog::sizeHint() const
+{
+    return QSize(550, 100);
+}
+
 void AbstractPreferencesDialog::loadCurrentPage()
 {
     setCurrentIndex(QSettings().value(KEY_SETTINGS_LAST_PAGE, 0).toInt());

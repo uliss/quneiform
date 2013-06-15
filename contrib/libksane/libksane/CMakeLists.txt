@@ -1,3 +1,4 @@
+include(${QT_USE_FILE})
 include_directories(${SANE_INCLUDE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/options
@@ -73,7 +74,7 @@ qt4_add_translation(KSANE_TRANSLATIONS_QM ${KSANE_TRANSLATIONS_TS})
 qt4_add_resources(KSANE_QRC ${CMAKE_CURRENT_BINARY_DIR}/ksane_i18n.qrc)
 
 add_library(ksane STATIC ${ksane_LIB_SRCS} ${ksane_MOC_SRCS} ${KSANE_TRANSLATIONS_QM} ${KSANE_QRC})
-target_link_libraries(ksane ${QT4_LIBRARIES} ${SANE_LIBRARY} ${KSANE_QRC} ${LIBINTL_LIBRARIES})
+target_link_libraries(ksane ${QT4_LIBRARIES} ${SANE_LIBRARY} ${LIBINTL_LIBRARIES})
 
 SET(INCLUDE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/include)
 GET_TARGET_PROPERTY(LIB_OUT_NAME ksane LOCATION)

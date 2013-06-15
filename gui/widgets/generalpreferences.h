@@ -23,6 +23,7 @@
 
 class QFormLayout;
 class QLineEdit;
+class FileSelectWidget;
 
 class GeneralPreferences : public PreferencesWidget
 {
@@ -34,8 +35,6 @@ private:
     void setupExternalEditor();
     void setupIconTheme();
     void setupLayout();
-private slots:
-    void showSelectApplicationDialog();
 private:
     static bool loadExternalEditor(QWidget * w, const QVariant& data);
     static bool saveExternalEditor(QWidget * w, const QVariant& data);
@@ -45,7 +44,7 @@ private:
     static bool saveAutosaveInterval(QWidget * w, const QVariant& data);
 private:
     QFormLayout * layout_;
-    QLineEdit * ext_editor_;
+    FileSelectWidget * editor_;
 };
 
 #endif // GENERALPREFERENCES_H

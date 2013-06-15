@@ -24,7 +24,8 @@
 class QWidget;
 class QAction;
 
-bool macAddToolBar(QWidget* widget, const QList<QAction*> actions = QList<QAction*>());
+bool macAddToolBar(QWidget * widget, const QList<QAction*> actions = QList<QAction*>());
 bool macRemoveToolBar(QWidget * widget);
+bool macToolBarSelect(QWidget * widget, int idx);
 
 #endif // MACTOOLBAR_H

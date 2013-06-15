@@ -64,6 +64,7 @@ set(HEADERS
     widgets/colorbutton.h
     widgets/debugpreferences.h
     widgets/editorpreferences.h
+    widgets/fileselectwidget.h
     widgets/fontbutton.h
     widgets/generalpreferences.h
     widgets/histogramwidget.h
@@ -75,7 +76,7 @@ set(HEADERS
     widgets/pageindicator.h
     widgets/preferenceswidget.h
     widgets/recentmenu.h
-    widgets/scanpreferences.h
+    widgets/scannerpreferences.h
     widgets/texteditor.h
     widgets/thumbnaillist.h
     widgets/thumbscene.h
@@ -86,6 +87,7 @@ set(HEADERS
 )
 
 set(SOURCES
+    applicationhelpfactory.cpp
     binarizationsettings.cpp
     block.cpp
     cfutils.cpp
@@ -94,6 +96,7 @@ set(SOURCES
     fullscreen.cpp
     globalstate.cpp
     graphicsitemlayout.cpp
+    htmlapplicationhelp.cpp
     iconutils.cpp
     imagecache.cpp
     imageurl.cpp
@@ -135,6 +138,7 @@ set(SOURCES
     widgets/colorbutton.cpp
     widgets/debugpreferences.cpp
     widgets/editorpreferences.cpp
+    widgets/fileselectwidget.cpp
     widgets/fontbutton.cpp
     widgets/generalpreferences.cpp
     widgets/graphicsroundedrectitem.cpp
@@ -147,7 +151,7 @@ set(SOURCES
     widgets/pageindicator.cpp
     widgets/preferenceswidget.cpp
     widgets/recentmenu.cpp
-    widgets/scanpreferences.cpp
+    widgets/scannerpreferences.cpp
     widgets/texteditor.cpp
     widgets/thumblayout.cpp
     widgets/thumbscene.cpp
@@ -179,6 +183,7 @@ set(FORMS
     dialogs/pagepropertiesdialog.ui
     dialogs/recognitionsettingsdialog.ui
     widgets/mainwindow.ui
+    widgets/scannerpreferences.ui
 )
 
 include_directories(

@@ -25,12 +25,19 @@ if(WIN32)
 endif()
  
 if(APPLE)
-    add_custom_target(dmg COMMAND "${CMAKE_SOURCE_DIR}/cmake/makeapp.sh"
+    add_custom_target(dmg COMMAND "${CMAKE_SOURCE_DIR}/cmake/mac_make_dmg.sh"
                                   "${CMAKE_BINARY_DIR}" # dest dir
                                   "${CMAKE_SOURCE_DIR}" # source dir
                                   "${CMAKE_BINARY_DIR}" # build dir
                           DEPENDS  Quneiform
-)
+    )
+
+    add_custom_target(bundle COMMAND "${CMAKE_SOURCE_DIR}/cmake/mac_make_bundle.sh"
+                                  "${CMAKE_BINARY_DIR}" # dest dir
+                                  "${CMAKE_SOURCE_DIR}" # source dir
+                                  "${CMAKE_BINARY_DIR}" # build dir
+                          DEPENDS  Quneiform
+    )
 endif()
 
 if(APPLE)

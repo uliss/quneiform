@@ -145,6 +145,17 @@
     </message>
 </context>
 <context>
+    <name>FileSelectWidget</name>
+    <message>
+        <source>Select</source>
+        <translation>Выбрать</translation>
+    </message>
+    <message>
+        <source>Select file</source>
+        <translation>Выбрать файл</translation>
+    </message>
+</context>
+<context>
     <name>FormatSettingsDialog</name>
     <message>
         <source>Format settings</source>
@@ -211,7 +222,7 @@
     <name>GeneralPreferences</name>
     <message>
         <source>Select</source>
-        <translation>Выбрать</translation>
+        <translation type="obsolete">Выбрать</translation>
     </message>
     <message>
         <source>External editor:</source>
@@ -780,6 +791,10 @@ Are you shure?</source>
         <source>Save Quneiform packet as</source>
         <translation>Сохранить пакет Quneiform как</translation>
     </message>
+    <message>
+        <source>Quneiform Help</source>
+        <translation>Справка по Quneiform</translation>
+    </message>
 </context>
 <context>
     <name>OpenProgressDialog</name>
@@ -983,15 +998,15 @@ Page: %2</source>
     <name>ScanPreferences</name>
     <message>
         <source>Scanning</source>
-        <translation>Сканирование</translation>
+        <translation type="obsolete">Сканирование</translation>
     </message>
     <message>
         <source>Use last scanner:</source>
-        <translation>Использовать последний сканер:</translation>
+        <translation type="obsolete">Использовать последний сканер:</translation>
     </message>
     <message>
         <source>Autosave:</source>
-        <translation>Автосохранение:</translation>
+        <translation type="obsolete">Автосохранение:</translation>
     </message>
     <message>
         <source>Save to directory</source>
@@ -999,31 +1014,90 @@ Page: %2</source>
     </message>
     <message>
         <source>Save to packet directory</source>
-        <translation>Сохранять в папку пакета</translation>
+        <translation type="obsolete">Сохранять в папку пакета</translation>
     </message>
     <message>
         <source>Image format:</source>
-        <translation>Формат изображения:</translation>
+        <translation type="obsolete">Формат изображения:</translation>
+    </message>
+    <message>
+        <source>Image quality:</source>
+        <translation type="obsolete">Качество изображения:</translation>
+    </message>
+    <message>
+        <source>Choose directory</source>
+        <translation type="obsolete">Выбрать папку</translation>
+    </message>
+    <message>
+        <source>Autosave place:</source>
+        <translation type="obsolete">Место автосохранения:</translation>
+    </message>
+    <message>
+        <source>Choose autosave directory</source>
+        <translation type="obsolete">Выбор каталога для автосохранения</translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation type="obsolete">Выбрать</translation>
+    </message>
+</context>
+<context>
+    <name>ScannerPreferences</name>
+    <message>
+        <source>Use external application</source>
+        <translation>Использовать внешнюю программу</translation>
+    </message>
+    <message>
+        <source>Use operating system scan dialog</source>
+        <translation>Использовать ситемный диалог сканирования</translation>
+    </message>
+    <message>
+        <source>Use last scanner:</source>
+        <translation>Использовать последний сканер:</translation>
     </message>
     <message>
         <source>Image quality:</source>
         <translation>Качество изображения:</translation>
     </message>
     <message>
-        <source>Choose directory</source>
-        <translation>Выбрать папку</translation>
+        <source>Autosave:</source>
+        <translation>Автосохранение:</translation>
     </message>
     <message>
         <source>Autosave place:</source>
         <translation>Место автосохранения:</translation>
     </message>
     <message>
-        <source>Choose autosave directory</source>
-        <translation>Выбор каталога для автосохранения</translation>
+        <source>Use quneiform dialog</source>
+        <translation>Использовать диалог quneiform</translation>
     </message>
     <message>
-        <source>Select</source>
-        <translation type="obsolete">Выбрать</translation>
+        <source>Scanning</source>
+        <translation>Сканирование</translation>
+    </message>
+    <message>
+        <source>Format:</source>
+        <translation>Формат:</translation>
+    </message>
+    <message>
+        <source>Select application</source>
+        <translation>Выбор программы</translation>
+    </message>
+    <message>
+        <source>Scan application:</source>
+        <translation>Программа сканирования:</translation>
+    </message>
+    <message>
+        <source>Choose directory</source>
+        <translation>Выбрать папку</translation>
+    </message>
+    <message>
+        <source>Save to packet directory</source>
+        <translation>Сохранять в папку пакета</translation>
+    </message>
+    <message>
+        <source>Choose autosave directory</source>
+        <translation>Выбор каталога для автосохранения</translation>
     </message>
 </context>
 <context>

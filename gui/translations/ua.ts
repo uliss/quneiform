@@ -141,6 +141,17 @@
     </message>
 </context>
 <context>
+    <name>FileSelectWidget</name>
+    <message>
+        <source>Select</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select file</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FormatSettingsDialog</name>
     <message>
         <source>Format settings</source>
@@ -207,10 +218,6 @@
     <name>GeneralPreferences</name>
     <message>
         <source>General</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Select</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -722,6 +729,10 @@ Do you want to save it?</source>
         <source>Save Quneiform packet as</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Quneiform Help</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OpenProgressDialog</name>
@@ -867,9 +878,13 @@ Page: %2</source>
     </message>
 </context>
 <context>
-    <name>ScanPreferences</name>
+    <name>ScannerPreferences</name>
     <message>
-        <source>Scanning</source>
+        <source>Use external application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use operating system scan dialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -877,19 +892,35 @@ Page: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Image quality:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Autosave:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Save to packet directory</source>
+        <source>Autosave place:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Image format:</source>
+        <source>Use quneiform dialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Image quality:</source>
+        <source>Scanning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Format:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scan application:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -897,7 +928,7 @@ Page: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Autosave place:</source>
+        <source>Save to packet directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

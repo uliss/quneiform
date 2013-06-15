@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2012 by Serge Poltavski                                 *
+ *   Copyright (C) 2013 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,15 +16,17 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef SCANNERDIALOG_H
-#define SCANNERDIALOG_H
+#ifndef IAPPLICATIONHELP_H
+#define IAPPLICATIONHELP_H
 
-#include <QStringList>
+#include <QString>
 
-class QWidget;
+class IApplicationHelp
+{
+public:
+    virtual ~IApplicationHelp() {}
+    virtual void show(const QString& topic = "") = 0;
+    virtual bool search(const QString& str) = 0;
+};
 
-namespace utils {
-QStringList openScannerDialog(QWidget * parent = 0);
-}
-
-#endif // SCANNERDIALOG_H
+#endif // IAPPLICATIONHELP_H

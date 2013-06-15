@@ -25,7 +25,7 @@
 #include "generalpreferences.h"
 #include "editorpreferences.h"
 #include "debugpreferences.h"
-#include "scanpreferences.h"
+#include "scannerpreferences.h"
 #include "iconutils.h"
 #include "settingskeys.h"
 
@@ -41,7 +41,7 @@ void PreferencesDialogFactory::initPreferences(AbstractPreferencesDialog * dlg)
     PreferencesWidget * general = new GeneralPreferences;
     PreferencesWidget * debug = new DebugPreferences;
     PreferencesWidget * editor = new EditorPreferences;
-    PreferencesWidget * scan = new ScanPreferences;
+    PreferencesWidget * scan = new ScannerPreferences;
 
     PreferencesList prefs;
     prefs.append(general);

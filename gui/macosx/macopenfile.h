@@ -33,6 +33,11 @@ bool macOpenFile(const QString& fullPath);
  */
 bool macOpenFileWithApplication(const QString& fullPath, const QString& appName);
 
+/**
+ * Runs specified application
+ */
+bool macLaunchApplication(const QString& appName);
+
 }
 
 #endif // MACOPENFILE_H

@@ -1,0 +1,16 @@
+language: cpp
+compiler: gcc
+before_install:
+    - sudo apt-get install libboost-dev
+    - mkdir -p build
+    - cd build
+script: cmake .. && make
+branches:
+  only:
+    - dev
+notifications:
+  recipients:
+    - serge.poltavski@gmail.com
+  email:
+    on_success: change
+    on_failure: always

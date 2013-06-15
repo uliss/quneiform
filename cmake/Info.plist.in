@@ -4,6 +4,11 @@
 <dict>
     <key>CFBundleDevelopmentRegion</key>
     <string>English</string>
+    <key>CFBundleLocalizations</key>
+    <array>
+        <string>en</string>
+        <string>ru</string>
+    </array>
     <key>CFBundleExecutable</key>
     <string>${MACOSX_BUNDLE_EXECUTABLE_NAME}.sh</string>
     <key>CFBundleGetInfoString</key>
@@ -20,6 +25,10 @@
     <string>${MACOSX_BUNDLE_BUNDLE_NAME}</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
+    <key>CFBundleHelpBookFolder</key>
+    <string>Quneiform.help</string>
+    <key>CFBundleHelpBookName</key>
+    <string>com.github.Quneiform.help</string>
     <key>CFBundleDocumentTypes</key>
     <array>
         <dict>

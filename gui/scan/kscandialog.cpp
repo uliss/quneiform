@@ -87,6 +87,9 @@ KScanDialog::KScanDialog(QWidget * parent) :
     initLayout();
 }
 
+KScanDialog::~KScanDialog()
+{}
+
 QString KScanDialog::imagePath() const
 {
     return saved_;
@@ -171,31 +174,62 @@ bool KScanDialog::autoSaveImage(const QString& path)
     return true;
 }
 
-int KScanDialog::run()
+bool KScanDialog::chooseScanner(QString * device)
+{
+    Q_CHECK_PTR(sane_widget_);
+
+    if(!device)
+        return false;
+
+    QString scanner = sane_widget_->selectDevice(this, QSettings().value(KEY_LAST_SCANNER).toString());
+    if(scanner.isEmpty())
+        return false;
+
+    *device = scanner;
+    return true;
+}
+
+bool KScanDialog::openScanner(const QString& device)
+{
+    Q_CHECK_PTR(sane_widget_);
+
+    bool rc = sane_widget_->openDevice(device);
+
+    if(!rc) {
+        QMessageBox::warning(this, tr("Scan error"), tr("Can't open selected scanner: \"%1\"").arg(device));
+        QSettings().setValue(KEY_LAST_SCANNER, QString());
+    }
+
+    return rc;
+}
+
+void KScanDialog::run()
 {
     QSettings settings;
     QString device;
 
+    // init first all scanner list
+    sane_widget_->initGetDeviceList();
+
     // use last scanner
-    if(settings.value(KEY_USE_LAST_SCANNER, false).toBool()) {
-        if(settings.value(KEY_LAST_SCANNER).isNull()) // no last scanner, open selection dialog
-            device = sane_widget_->selectDevice(this);
-        else // open last used scanner
+    if(settings.value(KEY_USE_LAST_SCANNER, false).toBool()) { // auto choose
+        if(settings.value(KEY_LAST_SCANNER).isNull()) { // no last scanner, open choose dialog
+            if(!chooseScanner(&device))
+                return;
+        }
+        else { // auto open last used scanner
             device = settings.value(KEY_LAST_SCANNER).toString();
+            if(!openScanner(device))
+                return;
+        }
     }
-    else {
+    else { // manually choose scanner
         // open selection dialog with default last scanner
-        device = sane_widget_->selectDevice(this, settings.value(KEY_LAST_SCANNER).toString());
-    }
+        if(!chooseScanner(&device))
+            return;
 
-    // nothing selected
-    if(device.isEmpty())
-        return Rejected;
-
-    if(!sane_widget_->openDevice(device)) {
-        QMessageBox::warning(this, tr("Scan error"), tr("Can't open selected scanner: \"%1\"").arg(device));
-        settings.setValue(KEY_LAST_SCANNER, QString());
-        return Rejected;
+        if(!openScanner(device))
+            return;
     }
 
     ScanOptions opts = toScanOpts(settings.value("scan_options").toMap());
@@ -205,12 +239,11 @@ int KScanDialog::run()
     settings.setValue(KEY_LAST_SCANNER, device);
     setWindowTitle(tr("Scanner: %1").arg(device));
 
-    int rc = exec();
+    exec();
 
     sane_widget_->getOptVals(opts);
     settings.setValue("scan_options", toMap(opts));
     sane_widget_->closeDevice();
-    return rc;
 }
 
 void KScanDialog::imageReady(QByteArray& data, int width, int height, int bytes_per_line, int format)
@@ -223,7 +256,11 @@ void KScanDialog::imageReady(QByteArray& data, int width, int height, int bytes_
         QString dir = autosaveDir();
         QString full_path = autosaveImageName(dir);
         bool rc = autoSaveImage(full_path);
-        rc ? accept() : reject();
+        if(rc) {
+            emit pageSaved(saved_);
+        }
+        else
+            reject();
     }
     else {
         QSettings s;
@@ -245,6 +282,6 @@ void KScanDialog::imageReady(QByteArray& data, int width, int height, int bytes_
         }
 
         saved_ = path;
-        accept();
+        emit pageSaved(saved_);
     }
 }

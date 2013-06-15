@@ -43,6 +43,7 @@ class QAction;
 
 -(NSArray*) toolbarDefaultItemIdentifiers:(NSToolbar*)toolbar;
 -(NSArray*) toolbarAllowedItemIdentifiers:(NSToolbar*)toolbar;
+-(NSArray*) toolbarSelectableItemIdentifiers:(NSToolbar*)toolbar;
 -(BOOL) addAction:(QAction*)action;
 -(IBAction) itemClicked:(id)sender;
 @end

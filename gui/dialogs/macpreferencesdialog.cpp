@@ -53,10 +53,21 @@ MacPreferencesDialog::MacPreferencesDialog(QWidget * parent) :
     setupLayout();
 }
 
+MacPreferencesDialog::~MacPreferencesDialog()
+{
+    macRemoveToolBar(this);
+}
+
 void MacPreferencesDialog::setPreferenceActions(const PreferencesList& pages)
 {
     macAddToolBar(this, toActionList(this, pages));
     connectPreferences();
+}
+
+void MacPreferencesDialog::setCurrentIndex(int idx)
+{
+    macToolBarSelect(this, idx);
+    AbstractPreferencesDialog::setCurrentIndex(idx);
 }
 
 void MacPreferencesDialog::showCategory()

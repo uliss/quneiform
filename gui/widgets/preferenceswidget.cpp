@@ -124,7 +124,7 @@ bool PreferencesWidget::standartLoadCallback(QWidget * w, const QVariant& data)
     }
 
     if(class_name == "QComboBox") {
-        QComboBox * cb = static_cast<QComboBox*>(w);
+        QComboBox * cb = qobject_cast<QComboBox*>(w);
         QString key = data.toString();
         if(key.isEmpty()) {
             qWarning() << Q_FUNC_INFO << "widget name is empty. Don't know how to load it.";
@@ -132,8 +132,14 @@ bool PreferencesWidget::standartLoadCallback(QWidget * w, const QVariant& data)
         }
 
         int idx = cb->findData(QSettings().value(key));
-        if(idx != -1)
+
+        if(idx != -1) {
             cb->setCurrentIndex(idx);
+        }
+        else {
+            if(cb->count() != 0)
+                cb->setCurrentIndex(0);
+        }
     }
 
     if(class_name == "QSlider") {
@@ -209,7 +215,7 @@ void PreferencesWidget::connectControl(QWidget * control,
         return;
     }
 
-    control->setParent(this);
+//    control->setParent(this);
     connect(control, signal, this, SLOT(handleControlSignal()));
     addCallbacks(control, callbacks);
     load(control);

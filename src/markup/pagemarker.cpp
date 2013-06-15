@@ -55,6 +55,7 @@
  */
 
 #include <fstream>
+#include <cassert>
 #include <boost/current_function.hpp>
 
 #include "pagemarker.h"

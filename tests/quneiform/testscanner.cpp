@@ -20,12 +20,13 @@
 #include <QtPlugin>
 
 #include "testscanner.h"
-#include "gui/scan/scannerdialog.h"
+#include "gui/scan/abstractscannerdialog.h"
 
 void TestScanner::testInit()
 {
-//    utils::openScannerDialog(this);
-//    s.open();
+    AbstractScannerDialog * dlg = AbstractScannerDialog::make(NULL);
+    dlg->exec();
+    delete dlg;
 }
 
 Q_IMPORT_PLUGIN(dib_imageplugin)
