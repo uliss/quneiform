@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2012 by Serge Poltavski                                 *
+ *   Copyright (C) 2013 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,64 +16,24 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef SCANNER_H
-#define SCANNER_H
+#ifndef ICONS_H
+#define ICONS_H
 
-#include <QObject>
-#include <QImage>
-#include <QStringList>
+#include <QIcon>
 
-#include "scanneroption.h"
+namespace KSaneIface {
 
-namespace cf {
-class IScanner;
-}
-
-class Scanner : public QObject
+class KSaneIcons
 {
-    Q_OBJECT
 public:
-    explicit Scanner(QObject * parent = 0);
-    ~Scanner();
-
-    QStringList listDevices() const;
-
-    /**
-     * Returns option by name
-     * @param name option name
-     * @return empty option on error
-     */
-    ScannerOption option(const QString& name) const;
-
-    /**
-     * Return all scanner options
-     */
-    QList<ScannerOption> options() const;
-
-    /**
-     * Sets option
-     * @param name - option name
-     * @param value - option value
-     * @return true on success
-     */
-    bool setOption(const QString& name, const QVariant& value);
-
-    /**
-     * Returns scanner name
-     */
-    QString name() const;
-signals:
-
-public slots:
-    void close();
-    bool open(const QString& name);
-    QImage start();
+    typedef QIcon (*callback)(const QString& name, bool fallback);
+    static void setCallback(callback cb);
+    static QIcon get(const QString& name, bool fallback = true);
 private:
-    void collectOptions();
-private:
-    cf::IScanner * backend_;
-    QString name_;
-    QMap<QString, ScannerOption> options_;
+    KSaneIcons();
+    static callback callback_;
 };
 
-#endif // SCANNER_H
+}
+
+#endif // ICONS_H

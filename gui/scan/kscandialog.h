@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2012 by Serge Poltavski                                 *
+ *   Copyright (C) 2013 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,37 +16,38 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef SCANNEROPTIONRANGE_H
-#define SCANNEROPTIONRANGE_H
+#ifndef KSCANDIALOG_H
+#define KSCANDIALOG_H
 
-#include <QVariant>
-#include <QPair>
+#include <QDialog>
 
-class ScannerOptionRange
+namespace KSaneIface {
+class KSaneWidget;
+}
+
+class QHBoxLayout;
+
+class KScanDialog : public QDialog
 {
+    Q_OBJECT
 public:
-    ScannerOptionRange();
-    ScannerOptionRange(const QVariant& min, const QVariant& max, const QVariant& step = QVariant());
-
-    void clear();
-
-    bool isNull() const;
-
-    QPair<QVariant, QVariant> range() const;
-    void setRange(const QVariant& min, const QVariant& max);
-    void setRange(const QPair<QVariant, QVariant>& r);
-
-    QVariant min() const;
-    QVariant max() const;
-    QVariant step() const;
-
-    void setMin(const QVariant& v);
-    void setMax(const QVariant& v);
-    void setStep(const QVariant& v);
+    KScanDialog(QWidget * parent = 0);
+    QString imagePath() const;
+    int run();
+private Q_SLOTS:
+    void imageReady(QByteArray& data, int width, int height, int bytes_per_line, int format);
 private:
-    QVariant min_;
-    QVariant max_;
-    QVariant step_;
+    QString autosaveDir() const;
+    QString autosaveImageName(const QString& dir) const;
+    QString makeFullAutosaveName(const QString& dir) const;
+    void initLayout();
+    void initUi();
+    bool autoSaveImage(const QString &path);
+private:
+    KSaneIface::KSaneWidget * sane_widget_;
+    QHBoxLayout * layout_;
+    QImage * image_;
+    QString saved_;
 };
 
-#endif // SCANNEROPTIONRANGE_H
+#endif // KSCANDIALOG_H

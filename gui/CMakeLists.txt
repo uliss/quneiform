@@ -75,6 +75,7 @@ set(HEADERS
     widgets/pageindicator.h
     widgets/preferenceswidget.h
     widgets/recentmenu.h
+    widgets/scanpreferences.h
     widgets/texteditor.h
     widgets/thumbnaillist.h
     widgets/thumbscene.h
@@ -91,6 +92,7 @@ set(SOURCES
     exportsettings.cpp
     formatsettings.cpp
     fullscreen.cpp
+    globalstate.cpp
     graphicsitemlayout.cpp
     iconutils.cpp
     imagecache.cpp
@@ -145,6 +147,7 @@ set(SOURCES
     widgets/pageindicator.cpp
     widgets/preferenceswidget.cpp
     widgets/recentmenu.cpp
+    widgets/scanpreferences.cpp
     widgets/texteditor.cpp
     widgets/thumblayout.cpp
     widgets/thumbscene.cpp
@@ -199,10 +202,17 @@ set(QT_USE_QTPLUGIN TRUE)
 find_package(Qt4 4.5 COMPONENTS QtCore QtGui QtXml QtXmlPatterns REQUIRED)
 include(${QT_USE_FILE})
 
+add_subdirectory(spell)
+add_subdirectory(scan)
+
 qt4_add_resources(QRC_SOURCES ${RESOURCES})
 qt4_wrap_cpp(MOC_SOURCES ${HEADERS})
 qt4_wrap_ui(UI_HEADERS ${FORMS})
-qt4_create_translation(TRANSLATIONS_QM ${HEADERS} ${SOURCES} ${UI_HEADERS} ${FORMS}
+qt4_create_translation(TRANSLATIONS_QM
+    ${HEADERS}
+    ${SOURCES}
+    ${UI_HEADERS}
+    ${FORMS}
     ${TRANSLATIONS_TS}
     OPTIONS -locations none)
 
@@ -251,9 +261,6 @@ if(MINGW)
 elseif(MSVC)
 	list(APPEND EXTRA_RES ${CMAKE_CURRENT_SOURCE_DIR}/resources/win_quneiform.rc)
 endif()
-
-add_subdirectory(spell)
-add_subdirectory(scan)
 
 if(APPLE)
     add_subdirectory(macosx)

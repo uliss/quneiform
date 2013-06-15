@@ -1,24 +1,24 @@
-qt4_wrap_ui(CF_SCAN_UI_HEADERS scannerdialog.ui)
-qt4_wrap_cpp(CF_SCAN_MOC_HEADERS
-    scanner.h
-    scannerdialog.h
-    scanarea.h)
-
-set(QF_SCAN_SRC
-    scanner.cpp
-    scannerdialog.cpp
-    scanneroption.cpp
-    scanneroptionrange.cpp
-    scanarea.cpp
-    ${CF_SCAN_MOC_HEADERS}
-    ${CF_SCAN_UI_HEADERS})
+set(QF_SCAN_LIB)
+set(QF_SCAN_SRC scannerdialog.cpp)
 
 if(CF_SANE_SCANNER_SUPPORT)
+    qt4_wrap_cpp(CF_SCAN_MOC_HEADERS kscandialog.h)
+    list(APPEND QF_SCAN_SRC kscandialog.cpp ${CF_SCAN_MOC_HEADERS})
     add_definitions(-DWITH_SANE)
+    include_directories(${CMAKE_SOURCE_DIR}/contrib/libksane/libksane)
+    list(APPEND QF_SCAN_LIB ksane)
+endif()
+
+if(CF_TWAIN_SCANNER_SUPPORT)
+    qt4_wrap_cpp(CF_SCAN_MOC_HEADERS kscandialog.h)
+    list(APPEND QF_SCAN_SRC kscandialog.cpp ${CF_SCAN_MOC_HEADERS})
+    add_definitions(-DWITH_TWAIN)
+    include_directories(${CMAKE_SOURCE_DIR}/contrib/libksane/libksane)
+    list(APPEND QF_SCAN_LIB ksane)
 endif()
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_library(quneiform_scan STATIC ${QF_SCAN_SRC})
 
-target_link_libraries(quneiform_scan cuneiform-scan)
+target_link_libraries(quneiform_scan cuneiform-scan ${QF_SCAN_LIB})

@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2012 by Serge Poltavski                                 *
+ *   Copyright (C) 2013 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,20 +16,23 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef SCANAREA_H
-#define SCANAREA_H
+#ifndef GLOBALSTATE_H
+#define GLOBALSTATE_H
 
-#include <QLabel>
+#include <QString>
+#include <QVariant>
+#include <QMap>
 
-class ScanArea : public QLabel
+class GlobalState
 {
-    Q_OBJECT
 public:
-    explicit ScanArea(QWidget * parent = 0);
-signals:
-    
-public slots:
-    
+    static bool contains(const QString& key);
+    static QVariant get(const QString& key);
+    static QVariant get(const QString& key, const QVariant& defValue);
+    static void set(const QString& key, const QVariant& value = QVariant());
+private:
+    GlobalState();
+    static QMap<QString, QVariant>& map();
 };
 
-#endif // SCANAREA_H
+#endif // GLOBALSTATE_H

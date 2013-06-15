@@ -24,8 +24,8 @@
 
 void TestScanner::testInit()
 {
-    ScannerDialog s;
-    s.open();
+//    utils::openScannerDialog(this);
+//    s.open();
 }
 
 Q_IMPORT_PLUGIN(dib_imageplugin)

@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2012 by Serge Poltavski                                 *
+ *   Copyright (C) 2013 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,16 +16,25 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "scanarea.h"
+#include <QDebug>
 
-ScanArea::ScanArea(QWidget * parent) :
-    QLabel(parent)
+#include "icons.h"
+
+namespace KSaneIface {
+
+KSaneIcons::callback KSaneIcons::callback_ = NULL;
+
+QIcon KSaneIcons::get(const QString& name, bool fallback)
 {
-    const int WIDTH = 100;
-    const int HEIGHT = WIDTH / (595.276 / 841.89);
+    if(!callback_)
+        return QIcon(name);
+    else
+        return callback_(name, fallback);
+}
 
-    setFixedSize(WIDTH, HEIGHT);
-    QPixmap p(WIDTH, HEIGHT);
-    p.fill(Qt::gray);
-    setPixmap(p);
+void KSaneIcons::setCallback(KSaneIcons::callback cb)
+{
+    callback_ = cb;
+}
+
 }

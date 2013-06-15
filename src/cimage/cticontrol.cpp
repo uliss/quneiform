@@ -836,7 +836,7 @@ bool CTIControl::free(BitmapPtr handle)
     BitmapPtr saved_handle = NULL;
     if(last_dib_ && last_dib_->bitmap(&saved_handle)) {
         if(saved_handle == handle)
-            last_dib_->reset();
+            last_dib_ = NULL;
     }
 
     ::free(handle);

@@ -5,3 +5,5 @@ set(CF_USE_MINIZIP True BOOL PARENT_SCOPE)
 if(OCRTK OR TESTS)
     add_subdirectory(ocrtk)
 endif()
+
+add_subdirectory(libksane)
