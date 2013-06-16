@@ -60,6 +60,7 @@
 #include "settingskeys.h"
 #include "scan/abstractscannerdialog.h"
 #include "applicationhelpfactory.h"
+#include "workspace.h"
 
 static const int VERSION_MAJOR = 0;
 static const int VERSION_MINOR = 0;
@@ -102,6 +103,15 @@ void MainWindow::about() {
 void MainWindow::alertRecognitionFinish()
 {
     QApplication::alert(this);
+
+    if(recognition_queue_->pageErrorNum() == 0)
+        Workspace::alertFailed("");
+}
+
+void MainWindow::alertPageRecognitionFail(const QString& msg)
+{
+    Q_UNUSED(msg);
+    Workspace::alertFailed("!");
 }
 
 void MainWindow::autosavePacket()
@@ -916,6 +926,7 @@ void MainWindow::setupRecognitionQueue() {
     connect(recognition_queue_, SIGNAL(finished(int)), SLOT(updateCurrentPage()));
     connect(recognition_queue_, SIGNAL(finished(int)), SLOT(enableViewActions()));
     connect(recognition_queue_, SIGNAL(finished(int)), SLOT(alertRecognitionFinish()));
+    connect(recognition_queue_, SIGNAL(pageFailed(QString)), SLOT(alertPageRecognitionFail(QString)));
     r_dlg->connectToQueue(recognition_queue_);
 }
 

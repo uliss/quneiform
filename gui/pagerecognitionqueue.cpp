@@ -85,7 +85,7 @@ void PageRecognitionQueue::handleFail(const QString& msg) {
     setPageFault(recognizer_->pagePath(), msg);
     handlePagePercents(100);
     page_error_num_++;
-    emit failed(msg);
+    emit pageFailed(msg);
 }
 
 void PageRecognitionQueue::handlePagePercents(int perc) {

@@ -96,10 +96,10 @@ public slots:
     void startSegmentation();
 signals:
     /**
-      * Emmitted on page recognition error
+      * Emitted on page recognition error
       * @param msg - error message
       */
-    void failed(const QString& msg);
+    void pageFailed(const QString& msg);
 
     /**
       * Emitted when recognition queue is finished

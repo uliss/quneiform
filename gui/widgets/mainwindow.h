@@ -69,6 +69,7 @@ protected:
 private slots:
     void about();
     void alertRecognitionFinish();
+    void alertPageRecognitionFail(const QString& msg);
     void autosavePacket();
     void disableViewActions();
     void disableZoomInAction();

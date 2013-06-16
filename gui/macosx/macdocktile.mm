@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2012 by Serge Poltavski                                 *
+ *   Copyright (C) 2013 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,20 +16,19 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef WORKSPACE_H
-#define WORKSPACE_H
+#include "macdocktile.h"
+#include "macstring.h"
 
-#include <QString>
+#import <Cocoa/Cocoa.h>
 
-class Workspace
+namespace utils {
+
+void setDockBadge(const QString& badgeText)
 {
-    Workspace();
-public:
-    static bool openFileWithApplication(const QString& filePath, const QString& applicationPath);
-    static QString showChooseApplicationDialog();
-    static bool launchApplication(const QString& appPath);
-    static void initPlatformDefaultSettings();
-    static void alertFailed(const QString& msg);
-};
+    NSString * badgeString = MacString::toNSString(badgeText);
+    [[NSApp dockTile] setBadgeLabel: badgeString];
+//    [badgeString release];
+}
 
-#endif // WORKSPACE_H
+}
+

@@ -5,6 +5,7 @@ set(HEADERS
 set(SOURCES
     macapplicationhelp.cpp
     macbundle.cpp
+    macdocktile.mm
     machelp.mm
     maclocale.mm
     macstring.mm

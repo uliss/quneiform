@@ -30,6 +30,7 @@
 
 #ifdef Q_WS_MAC
 #include "macosx/macopenfile.h"
+#include "macosx/macdocktile.h"
 #endif
 
 bool Workspace::openFileWithApplication(const QString& filePath, const QString& applicationPath)
@@ -112,4 +113,13 @@ void Workspace::initPlatformDefaultSettings()
 {
     initPlatformScanType();
     initPlatformExternalScanApp();
+}
+
+void Workspace::alertFailed(const QString& msg)
+{
+#ifdef Q_OS_MAC
+    utils::setDockBadge(msg);
+#else
+    qWarning() << Q_FUNC_INFO << msg;
+#endif
 }
