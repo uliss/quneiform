@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.0">
+<defaultcodec>UTF-8</defaultcodec>
 <context>
     <name>AboutDialog</name>
     <message>
@@ -63,6 +64,17 @@
     </message>
     <message>
         <source>pictures</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DummyScannerDialog</name>
+    <message>
+        <source>Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No scanner support</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -340,6 +352,41 @@
     </message>
     <message>
         <source>Perform page layout analysis</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>KScanDialog</name>
+    <message>
+        <source>Scanning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image saving failed to &quot;%1&quot;. Check autosave settings!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scan error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t open selected scanner: &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scanner: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save image to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t save image to %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

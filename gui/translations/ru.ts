@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.0" language="ru_RU">
+<defaultcodec>UTF-8</defaultcodec>
 <context>
     <name>AboutDialog</name>
     <message>
         <source>About Quneiform</source>
         <translation>О программе Quneiform</translation>
-    </message>
-    <message>
-        <source>Quneiform OCR&lt;br/&gt;Author: Serge Poltavski&lt;br/&gt;Email: &lt;a href=&quot;mailto:serge.poltavski@gmail.com&quot;&gt;serge.poltavski@gmail.com&lt;/a&gt;&lt;br/&gt;Translator: Serge Poltavski&lt;br/&gt;License: &lt;a href=&quot;http://www.gnu.org/licenses/gpl.html&quot;&gt;GPL v.3&lt;/a&gt;&lt;br/&gt;Version: %1&lt;br/&gt;Build number: %2&lt;br/&gt;&lt;br/&gt;This program uses refactoring version of libcuneiform from &lt;a href=&quot;https://github.com/uliss/quneiform&quot;&gt;GitHub&lt;/a&gt; released under GPL v.3 license.&lt;br/&gt;Cuneiform was originally released by Congitive Technologies under BSD license.&lt;br/&gt;&lt;br/&gt;Uses icons from &lt;a href=&quot;http://www.oxygen-icons.org/&quot;&gt;Oxygen&lt;/a&gt; theme.</source>
-        <translation type="obsolete">Quneiform OCR&lt;br/&gt;Автор: Сергей Полтавский&lt;br/&gt;Email: &lt;a href=&quot;mailto:serge.poltavski@gmail.com&quot;&gt;serge.poltavski@gmail.com&lt;/a&gt;&lt;br/&gt;Перевод: Сергей Полтавский&lt;br/&gt;Лицензия: &lt;a href=&quot;http://www.gnu.org/licenses/gpl.html&quot;&gt;GPL v.3&lt;/a&gt;&lt;br/&gt;Версия: %1&lt;br/&gt;Номер сборки: %2&lt;br/&gt;&lt;br/&gt;Программа использует рефакторинг-версию библиотеки cuneiform, распространяемой по GPL лицензии, исходный код которой доступен на сервисе &lt;a href=&quot;https://github.com/uliss/quneiform&quot;&gt;GitHub&lt;/a&gt;.&lt;br/&gt;Cuneiform была изначально разработана и открыта под BSD лицензией компанией Congitive Technologies.&lt;br/&gt;&lt;br/&gt;Использованы иконки из темы &lt;a href=&quot;http://www.oxygen-icons.org/&quot;&gt;Oxygen&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>Quneiform OCR&lt;br/&gt;Author: Serge Poltavski&lt;br/&gt;Email: &lt;a href=&quot;mailto:serge.poltavski@gmail.com&quot;&gt;serge.poltavski@gmail.com&lt;/a&gt;&lt;br/&gt;Translator: Serge Poltavski&lt;br/&gt;License: &lt;a href=&quot;http://www.gnu.org/licenses/gpl.html&quot;&gt;GPL v.3&lt;/a&gt;&lt;br/&gt;Version: %1&lt;br/&gt;Build number: %2&lt;br/&gt;Qt version: %3&lt;br/&gt;&lt;br/&gt;This program uses refactoring version of libcuneiform from &lt;a href=&quot;https://github.com/uliss/quneiform&quot;&gt;GitHub&lt;/a&gt; released under GPL v.3 license.&lt;br/&gt;Cuneiform was originally released by Congitive Technologies under BSD license.&lt;br/&gt;&lt;br/&gt;Uses icons from &lt;a href=&quot;http://www.oxygen-icons.org/&quot;&gt;Oxygen&lt;/a&gt; theme.</source>
@@ -68,6 +65,17 @@
     <message>
         <source>Recognize in separate process</source>
         <translation>Распознавать в отдельном процессе</translation>
+    </message>
+</context>
+<context>
+    <name>DummyScannerDialog</name>
+    <message>
+        <source>Information</source>
+        <translation>Информация</translation>
+    </message>
+    <message>
+        <source>No scanner support</source>
+        <translation>Сканеры не поддерживаются</translation>
     </message>
 </context>
 <context>
@@ -221,10 +229,6 @@
 <context>
     <name>GeneralPreferences</name>
     <message>
-        <source>Select</source>
-        <translation type="obsolete">Выбрать</translation>
-    </message>
-    <message>
         <source>External editor:</source>
         <translation>Внешний редактор:</translation>
     </message>
@@ -280,10 +284,6 @@
 <context>
     <name>ImageView</name>
     <message>
-        <source>Select recognize area</source>
-        <translation type="obsolete">Выбрать область распознавания</translation>
-    </message>
-    <message>
         <source>Fit to width</source>
         <translation>Уместить по ширине</translation>
     </message>
@@ -310,10 +310,6 @@
     <message>
         <source>Select recognition area</source>
         <translation>Выбрать область распознавания</translation>
-    </message>
-    <message>
-        <source>Delete text area</source>
-        <translation type="obsolete">Удалить область распознавания</translation>
     </message>
     <message>
         <source>Delete recognition area</source>
@@ -351,16 +347,47 @@
         <translation>Выбрать область распознавания</translation>
     </message>
     <message>
-        <source>Show layout</source>
-        <translation type="obsolete">Показать макет страницы</translation>
-    </message>
-    <message>
         <source>Analyze</source>
         <translation>Анализировать</translation>
     </message>
     <message>
         <source>Perform page layout analysis</source>
         <translation>Произвести анализ макета страницы</translation>
+    </message>
+</context>
+<context>
+    <name>KScanDialog</name>
+    <message>
+        <source>Scanning</source>
+        <translation>Сканирование</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Предупреждение</translation>
+    </message>
+    <message>
+        <source>Image saving failed to &quot;%1&quot;. Check autosave settings!</source>
+        <translation>Ошибка при сохранении изображения &quot;%1&quot;. Проверьте настройки автоматического сохранения!</translation>
+    </message>
+    <message>
+        <source>Scan error</source>
+        <translation>Ошибка сканирования</translation>
+    </message>
+    <message>
+        <source>Can&apos;t open selected scanner: &quot;%1&quot;</source>
+        <translation>Невозможно открыть выбранный сканер &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Scanner: %1</source>
+        <translation>Сканер %1</translation>
+    </message>
+    <message>
+        <source>Save image to</source>
+        <translation>Сохранить изображение в</translation>
+    </message>
+    <message>
+        <source>Can&apos;t save image to %1</source>
+        <translation>Невозможно сохранить изображение в %1</translation>
     </message>
 </context>
 <context>
@@ -485,17 +512,6 @@
     </message>
 </context>
 <context>
-    <name>MacPreferencesDialog</name>
-    <message>
-        <source>General</source>
-        <translation type="obsolete">Общие</translation>
-    </message>
-    <message>
-        <source>Debug</source>
-        <translation type="obsolete">Отладка</translation>
-    </message>
-</context>
-<context>
     <name>MainWindow</name>
     <message>
         <source>Quneiform OCR</source>
@@ -534,24 +550,12 @@
         <translation>Открыть изображения</translation>
     </message>
     <message>
-        <source>Recognize all</source>
-        <translation type="obsolete">Распознать все</translation>
-    </message>
-    <message>
         <source>Zoom In</source>
         <translation>Увеличить</translation>
     </message>
     <message>
         <source>Zoom Out</source>
         <translation>Уменьшить</translation>
-    </message>
-    <message>
-        <source>Select Region</source>
-        <translation type="obsolete">Выбрать область изображения</translation>
-    </message>
-    <message>
-        <source>Selects region for recognition</source>
-        <translation type="obsolete">Выбрать распознаваемую область изображения</translation>
     </message>
     <message>
         <source>Fit to page</source>
@@ -600,14 +604,6 @@
     <message>
         <source>File not exists</source>
         <translation>Файл не существует</translation>
-    </message>
-    <message>
-        <source>Quneiform OCR - opening images</source>
-        <translation type="obsolete">Quneiform OCR - открытие изображений</translation>
-    </message>
-    <message>
-        <source>Opening image &quot;%1&quot;</source>
-        <translation type="obsolete">Открытие изображения &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Open Quneiform packet</source>
@@ -696,16 +692,8 @@ Are you shure?</source>
 Вы уверены?</translation>
     </message>
     <message>
-        <source>Opening files</source>
-        <translation type="obsolete">Открытие файлов</translation>
-    </message>
-    <message>
         <source>Recognition settings</source>
         <translation>Настройки распознавания</translation>
-    </message>
-    <message>
-        <source>Images (*.gif *.png *.xpm *.jpg *.jpeg *.tif *.tiff *.bmp *.pnm *.pbm *.pgm)</source>
-        <translation type="obsolete">Изображения (*.gif *.png *.xpm *.jpg *.jpeg *.tif *.tiff *.bmp *.pnm *.pbm *.pgm)</translation>
     </message>
     <message>
         <source>Images (%1)</source>
@@ -895,17 +883,6 @@ Page: %2</source>
     </message>
 </context>
 <context>
-    <name>PreferencesDialogFactory</name>
-    <message>
-        <source>General</source>
-        <translation type="obsolete">Общие</translation>
-    </message>
-    <message>
-        <source>Debug</source>
-        <translation type="obsolete">Отладка</translation>
-    </message>
-</context>
-<context>
     <name>RecognitionProgressDialog</name>
     <message>
         <source>Page recognition: &quot;%1&quot;</source>
@@ -949,96 +926,6 @@ Page: %2</source>
     <message>
         <source>Recognition settings</source>
         <translation>Настройки распознавания</translation>
-    </message>
-</context>
-<context>
-    <name>SaneDialog</name>
-    <message>
-        <source>Scanning</source>
-        <translation type="obsolete">Сканирование</translation>
-    </message>
-    <message>
-        <source>Information</source>
-        <translation type="obsolete">Информация</translation>
-    </message>
-    <message>
-        <source>No scanners found.</source>
-        <translation type="obsolete">Сканеры не найдены.</translation>
-    </message>
-    <message>
-        <source>Scan error</source>
-        <translation type="obsolete">Ошибка сканирования</translation>
-    </message>
-    <message>
-        <source>Can&apos;t open selected scanner: &quot;%1&quot;</source>
-        <translation type="obsolete">Невозможно открыть выбранный сканер &quot;%1&quot;</translation>
-    </message>
-    <message>
-        <source>Scanner: %1</source>
-        <translation type="obsolete">Сканер %1</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Предупреждение</translation>
-    </message>
-    <message>
-        <source>Image saving failed to &quot;%1&quot;</source>
-        <translation type="obsolete">Ошибка сохранения изображения &quot;%1&quot;</translation>
-    </message>
-    <message>
-        <source>Scanning...</source>
-        <translation type="obsolete">Сканирование...</translation>
-    </message>
-    <message>
-        <source>Save image to</source>
-        <translation type="obsolete">Сохранить изображение в</translation>
-    </message>
-</context>
-<context>
-    <name>ScanPreferences</name>
-    <message>
-        <source>Scanning</source>
-        <translation type="obsolete">Сканирование</translation>
-    </message>
-    <message>
-        <source>Use last scanner:</source>
-        <translation type="obsolete">Использовать последний сканер:</translation>
-    </message>
-    <message>
-        <source>Autosave:</source>
-        <translation type="obsolete">Автосохранение:</translation>
-    </message>
-    <message>
-        <source>Save to directory</source>
-        <translation type="obsolete">Сохранять в папку</translation>
-    </message>
-    <message>
-        <source>Save to packet directory</source>
-        <translation type="obsolete">Сохранять в папку пакета</translation>
-    </message>
-    <message>
-        <source>Image format:</source>
-        <translation type="obsolete">Формат изображения:</translation>
-    </message>
-    <message>
-        <source>Image quality:</source>
-        <translation type="obsolete">Качество изображения:</translation>
-    </message>
-    <message>
-        <source>Choose directory</source>
-        <translation type="obsolete">Выбрать папку</translation>
-    </message>
-    <message>
-        <source>Autosave place:</source>
-        <translation type="obsolete">Место автосохранения:</translation>
-    </message>
-    <message>
-        <source>Choose autosave directory</source>
-        <translation type="obsolete">Выбор каталога для автосохранения</translation>
-    </message>
-    <message>
-        <source>Select</source>
-        <translation type="obsolete">Выбрать</translation>
     </message>
 </context>
 <context>
@@ -1098,113 +985,6 @@ Page: %2</source>
     <message>
         <source>Choose autosave directory</source>
         <translation>Выбор каталога для автосохранения</translation>
-    </message>
-</context>
-<context>
-    <name>Settings</name>
-    <message>
-        <source>Debug</source>
-        <translation type="obsolete">Отладка</translation>
-    </message>
-    <message>
-        <source>Debug settings</source>
-        <translation type="obsolete">Настройки отладки</translation>
-    </message>
-    <message>
-        <source>General</source>
-        <translation type="obsolete">Общие</translation>
-    </message>
-    <message>
-        <source>General settings</source>
-        <translation type="obsolete">Общие настройки</translation>
-    </message>
-    <message>
-        <source>Print libcuneiform debug information</source>
-        <translation type="obsolete">Выводить отладочную информацию библиотеки libcuneiform</translation>
-    </message>
-    <message>
-        <source>Show formatter bounding boxes for:</source>
-        <translation type="obsolete">Показывать границы форматирования для следующих блоков:</translation>
-    </message>
-    <message>
-        <source>sections</source>
-        <translation type="obsolete">секций</translation>
-    </message>
-    <message>
-        <source>paragraphs</source>
-        <translation type="obsolete">параграфов</translation>
-    </message>
-    <message>
-        <source>lines</source>
-        <translation type="obsolete">строк</translation>
-    </message>
-    <message>
-        <source>characters</source>
-        <translation type="obsolete">символов</translation>
-    </message>
-    <message>
-        <source>pictures</source>
-        <translation type="obsolete">изображений</translation>
-    </message>
-    <message>
-        <source>columns</source>
-        <translation type="obsolete">столбцов</translation>
-    </message>
-    <message>
-        <source>Settings</source>
-        <translation type="obsolete">Настройки</translation>
-    </message>
-    <message>
-        <source>Editor</source>
-        <translation type="obsolete">Редактор</translation>
-    </message>
-    <message>
-        <source>Show current character:</source>
-        <translation type="obsolete">Показывать выделенный символ:</translation>
-    </message>
-    <message>
-        <source>Current character color:</source>
-        <translation type="obsolete">Цвет текущего символа:</translation>
-    </message>
-    <message>
-        <source>Alternatives color:</source>
-        <translation type="obsolete">Цвет вариантов распознавания:</translation>
-    </message>
-    <message>
-        <source>Default font:</source>
-        <translation type="obsolete">Шрифт:</translation>
-    </message>
-    <message>
-        <source>CImage module debugging</source>
-        <translation type="obsolete">Отладка модуля CImage</translation>
-    </message>
-    <message>
-        <source>Recognize in separate process, to avoid GUI crash if libcuneiform crashes. But this option makes debuggin more hard.</source>
-        <translation type="obsolete">Распознавать в отдельном процессе, чтобы избежать падения графической оболочки при сбое в ядре cuneiform. В тоже время эта опция затрудняет отладку и поиск причины сбоя.</translation>
-    </message>
-    <message>
-        <source>Recognize in separate process</source>
-        <translation type="obsolete">Распознавать в отдельном процессе</translation>
-    </message>
-    <message>
-        <source>Theme:</source>
-        <translation type="obsolete">Тема:</translation>
-    </message>
-    <message>
-        <source>Icon theme:</source>
-        <translation type="obsolete">Тема значков:</translation>
-    </message>
-    <message>
-        <source>External Editor:</source>
-        <translation type="obsolete">Внешний редактор:</translation>
-    </message>
-    <message>
-        <source>Select</source>
-        <translation type="obsolete">Выбрать</translation>
-    </message>
-    <message>
-        <source>Select application</source>
-        <translation type="obsolete">Выбор программы</translation>
     </message>
 </context>
 <context>
