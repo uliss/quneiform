@@ -25,7 +25,7 @@
 void TestScanner::testInit()
 {
     AbstractScannerDialog * dlg = AbstractScannerDialog::make(NULL);
-    dlg->exec();
+//    dlg->exec();
     delete dlg;
 }
 

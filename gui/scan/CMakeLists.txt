@@ -33,4 +33,4 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_library(quneiform_scan STATIC ${QF_SCAN_SRC})
 
-target_link_libraries(quneiform_scan cuneiform-scan ${QF_SCAN_LIB})
+target_link_libraries(quneiform_scan ${QF_SCAN_LIB})
