@@ -99,6 +99,11 @@ void MainWindow::about() {
     about.exec();
 }
 
+void MainWindow::alertRecognitionFinish()
+{
+    QApplication::alert(this);
+}
+
 void MainWindow::autosavePacket()
 {
     Q_CHECK_PTR(packet_);
@@ -910,6 +915,7 @@ void MainWindow::setupRecognitionQueue() {
     connect(recognition_queue_, SIGNAL(started()), SLOT(disableViewActions()));
     connect(recognition_queue_, SIGNAL(finished(int)), SLOT(updateCurrentPage()));
     connect(recognition_queue_, SIGNAL(finished(int)), SLOT(enableViewActions()));
+    connect(recognition_queue_, SIGNAL(finished(int)), SLOT(alertRecognitionFinish()));
     r_dlg->connectToQueue(recognition_queue_);
 }
 

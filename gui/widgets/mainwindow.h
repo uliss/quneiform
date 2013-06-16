@@ -68,6 +68,7 @@ protected:
     void closeEvent(QCloseEvent * event);
 private slots:
     void about();
+    void alertRecognitionFinish();
     void autosavePacket();
     void disableViewActions();
     void disableZoomInAction();
