@@ -7,6 +7,7 @@ enable_testing()
 
 include(outtree)
 include(build_number)
+include(i18n)
 include(version)
 include(uninstall)
 include(update_samples)

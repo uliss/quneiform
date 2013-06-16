@@ -1,3 +1,3 @@
 #! /bin/sh
-lupdate `find . -name \*.cpp` -codecfortr UTF-8 -ts i18n/ksane_*.ts
+lupdate `find . -name \*.cpp` -codecfortr UTF-8 -locations none -no-obsolete -ts i18n/ksane_*.ts
 
