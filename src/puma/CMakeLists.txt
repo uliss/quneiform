@@ -1,6 +1,11 @@
 add_definitions(-DBOOST_DATE_TIME_NO_LIB)
 
+if(CF_USE_IMAGE_LIBRARY_QT AND APPLE)
+    add_definitions(-DREGISTER_QT_IMAGE_FORMATS)
+endif()
+
 set(CF_WORKER cuneiform-worker)
+
 
 set(CF_PUMA_SOURCE
     abstractrecognitionserver.cpp

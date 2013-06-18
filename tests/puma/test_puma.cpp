@@ -21,8 +21,17 @@
 
 #include "common/log.h"
 
+#ifdef REGISTER_QT_IMAGE_FORMATS
+#include "rdib/qtimageloader.h"
+#endif
+
 int main()
 {
+
+#ifdef REGISTER_QT_IMAGE_FORMATS
+    cf::QtImageLoader::registerFormats();
+#endif
+
     cf::Logger::config().enableRuntimeConfig(cf::MODULES_ALL);
 
     CppUnit::TextUi::TestRunner runner;

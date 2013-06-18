@@ -26,6 +26,10 @@
 #include "export/exporterfactory.h"
 #include "common/log.h"
 
+#ifdef REGISTER_QT_IMAGE_FORMATS
+#include "rdib/qtimageloader.h"
+#endif
+
 using namespace cf;
 
 static bool setupLogger()
@@ -44,6 +48,11 @@ ConsoleProgressCounter * makeCounter() {
 int main(int argc, char **argv)
 {
     try {
+
+#ifdef REGISTER_QT_IMAGE_FORMATS
+        cf::QtImageLoader::registerFormats();
+#endif
+
         OptionsParser parser;
         parser.parse(argc, argv);
 

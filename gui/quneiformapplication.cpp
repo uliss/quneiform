@@ -22,6 +22,7 @@
 #include <QtPlugin>
 #include <QIcon>
 #include <QDir>
+#include <QLibraryInfo>
 
 #include "metatyperegistrator.h"
 #include "translationloader.h"

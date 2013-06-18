@@ -18,6 +18,10 @@ if(MSVC)
     include_directories(.)
 endif()
 
+if(CF_USE_IMAGE_LIBRARY_QT AND APPLE)
+    add_definitions(-DREGISTER_QT_IMAGE_FORMATS)
+endif()
+
 add_library(cuneiform-options STATIC
     ${CLI_SOURCES}
 )

@@ -199,7 +199,7 @@ set(RESOURCE_PATH resources)
 set(RESOURCES ${RESOURCE_PATH}/cuneiform.qrc)
 
 if(APPLE)
-    list(APPEND RESOURCES ${RESOURCE_PATH}/macosx_resources.qrc)
+    list(APPEND RESOURCES ${RESOURCE_PATH}/macosx/resources.qrc)
 endif()
 
 set(QT_USE_QTMAIN TRUE)

@@ -1,6 +1,10 @@
 add_definitions(-DTEST_IMG_PATH="${CMAKE_SOURCE_DIR}/images/quneiform")
 add_definitions(-DTEST_EXE_PATH="${EXECUTABLE_OUTPUT_PATH}")
 
+if(CF_USE_IMAGE_LIBRARY_QT AND APPLE)
+    add_definitions(-DREGISTER_QT_IMAGE_FORMATS)
+endif()
+
 set(TEST_PUMA_SRC
     test_puma.cpp
     testlocalrecognitionserver.cpp

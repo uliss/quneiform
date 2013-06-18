@@ -33,6 +33,10 @@
 #include "puma/pumaimpl.h"
 #include "build_number.h"
 
+#ifdef REGISTER_QT_IMAGE_FORMATS
+#include "rdib/qtimageloader.h"
+#endif
+
 #ifndef NDEBUG
 #define WORKER_PREFIX cf::console::message("[Process worker:" CF_BUILD_NUMBER "] ", cf::console::YELLOW)
 #else
@@ -85,6 +89,10 @@ static void signal_callback_handler(int signum) {
 
 int main(int argc, char ** argv)
 {
+#ifdef REGISTER_QT_IMAGE_FORMATS
+    cf::QtImageLoader::registerFormats();
+#endif
+
     cf::Logger::config().enableRuntimeConfig(cf::MODULES_ALL);
 
     if(argc != 2 && argc != 3) {

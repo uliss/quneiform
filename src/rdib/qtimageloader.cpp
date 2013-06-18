@@ -80,7 +80,6 @@ void registerQt4Format(cf::image_format_t f, int priority = 50)
 bool registerQt4ImageFormats()
 {
     using namespace cf;
-
     QList<QByteArray> formats = QImageReader::supportedImageFormats();
 
     for(int i = 0; i < formats.count(); i++) {
@@ -111,7 +110,12 @@ bool registerQt4ImageFormats()
     return true;
 }
 
-bool registered = registerQt4ImageFormats();
+#ifndef Q_OS_MAC
+    // because calling QImageReader::supportedImageFormats() before QApplication
+    // leads to cache wrong values in QLibraryInfo::location(Paths)
+    // so this function should be called after QApplication
+    bool registered = registerQt4ImageFormats();
+#endif
 
 }
 
@@ -277,6 +281,11 @@ ImageFormatList QtImageLoader::supportedFormats() const
     }
 
     return res;
+}
+
+void QtImageLoader::registerFormats()
+{
+    registerQt4ImageFormats();
 }
 
 ImagePtr QtImageLoader::loadPdf(const ImageURL &url)

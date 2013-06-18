@@ -1,5 +1,0 @@
-<RCC>
-    <qresource prefix="/macosx">
-        <file alias="style.css">macstyle.css</file>
-    </qresource>
-</RCC>

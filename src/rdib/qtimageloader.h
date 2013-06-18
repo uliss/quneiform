@@ -51,6 +51,12 @@ public:
       * Returns list of supported formats
       */
     ImageFormatList supportedFormats() const;
+
+    /**
+     * Manually register image format loader callbacks
+     * @note mainly for macosx
+     */
+    static void registerFormats();
 private:
     ImagePtr loadPdf(const ImageURL& url);
     ImagePtr loadTiff(const ImageURL& url);
