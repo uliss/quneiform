@@ -1,7 +1,7 @@
 language: cpp
 compiler: gcc
 before_install:
-    - sudo apt-get install libboost-dev
+    - sudo apt-get install libboost-dev libsane-dev
     - mkdir -p build
     - cd build
 script: cmake .. && make
