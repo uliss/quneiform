@@ -31,7 +31,11 @@ BinarizationSettings::BinarizationSettings(const cf::BinarizeOptions& opts)
 cf::BinarizeOptions BinarizationSettings::toCfOptions() const
 {
     cf::BinarizeOptions res;
+#ifdef Q_OS_MAC
+    res.setBinarizator(cf::BINARIZATOR_OTSU);
+#else
     res.setBinarizator(static_cast<cf::binarizator_t>(getInt("binarizator", cf::BINARIZATOR_KRONROD)));
+#endif
     return res;
 }
 

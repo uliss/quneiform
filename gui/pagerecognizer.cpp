@@ -52,6 +52,12 @@ static language_t languageToType(const Language& lang) {
     }
 }
 
+static cf::BinarizeOptions getBinarizeOptions(Page * page)
+{
+    Q_CHECK_PTR(page);
+    return page->binarizationSettings().toCfOptions();
+}
+
 static cf::FormatOptions getFormatOptions(Page * page) {
     Q_CHECK_PTR(page);
 
@@ -173,12 +179,14 @@ bool PageRecognizer::analyze()
             return false;
         }
 
+        BinarizeOptions bopts = getBinarizeOptions(page_);
         FormatOptions fopts = getFormatOptions(page_);
         RecognizeOptions ropts = getRecogOptions(page_);
 
         RecognitionPtr server = makeRecognitionServer(workerType(), NULL, NULL);
         server->setRecognizeOptions(ropts);
         server->setFormatOptions(fopts);
+        server->setBinarizeOptions(bopts);
 
         if(!server->open(QtImageLoader::fromQImage(image_))) {
             emit failed("image open failed");
@@ -343,8 +351,7 @@ bool PageRecognizer::recognize() {
 
         RecognitionPtr server = makeRecognitionServer(workerType(), &recog_counter, recog_state_.data());
 
-
-        server->setBinarizeOptions(BinarizeOptions());
+        server->setBinarizeOptions(getBinarizeOptions(page_));
         server->setFormatOptions(getFormatOptions(page_));
         RecognizeOptions ropts = getRecogOptions(page_);
         server->setRecognizeOptions(ropts);
