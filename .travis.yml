@@ -4,7 +4,8 @@ before_install:
     - sudo apt-get install libboost-dev libsane-dev
     - mkdir -p build
     - cd build
-script: cmake .. && make
+    - cmake ..
+script: make && make package
 branches:
   only:
     - dev
