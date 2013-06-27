@@ -27,3 +27,5 @@ list(APPEND APPLE_LIBS ${APPLE_CORE_FOUNDATION})
 find_library(APPLE_APP_KIT AppKit "/")
 list(APPEND APPLE_LIBS ${APPLE_APP_KIT})
 target_link_libraries(quneiform_mac ${APPLE_LIBS} ${QT_LIBRARIES})
+
+add_subdirectory(scan)
