@@ -16,17 +16,13 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "macscan.h"
-#import "scancontroller.h"
+#import "scanwindowdelegate.h"
 
-namespace utils {
+@implementation ScanWindowDelegate
 
-void showScanDialog()
+- (void)windowWillClose:(NSNotification *)notification
 {
-    @autoreleasepool {
-        ScanController * ctrl = [[ScanController alloc] init];
-        [ctrl showScanDialog:nil];
-    }
+    NSLog(@"%@", notification);
 }
 
-}
+@end

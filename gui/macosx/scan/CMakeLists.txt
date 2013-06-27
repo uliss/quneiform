@@ -7,6 +7,7 @@ set(SRC_LIST
     macscan.mm
     scancontroller.m
     scanwindowcontroller.m
+    scanwindowdelegate.m
 )
 
 add_library(quneiform_mac_scan STATIC ${SRC_LIST})

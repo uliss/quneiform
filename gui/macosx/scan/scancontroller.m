@@ -25,7 +25,7 @@
     if(!windowController) {
         windowController = [[ScanWindowController alloc] init];
     }
-    
+
     NSLog(@"Showing %@", windowController);
     [windowController showWindow:self];
 }

@@ -18,10 +18,18 @@
 
 #import <Cocoa/Cocoa.h>
 #import <Quartz/Quartz.h>
+#import "scanwindowdelegate.h"
+
+@interface ScanDelegate : NSObject<IKScannerDeviceViewDelegate>
+- (void)scannerDeviceView:(IKScannerDeviceView *)scannerDeviceView didEncounterError:(NSError *)error;
+- (void)scannerDeviceView:(IKScannerDeviceView *)scannerDeviceView didScanToURL:(NSURL *)url fileData:(NSData *)data error:(NSError *)error;
+@end
 
 @interface ScanWindowController : NSWindowController {
     IBOutlet IKScannerDeviceView * devView;
     IBOutlet IKDeviceBrowserView * devBrowse;
+    IBOutlet ScanDelegate * scanDelegate;
+    IBOutlet ScanWindowDelegate * windowDelegate;
 }
 
 @end

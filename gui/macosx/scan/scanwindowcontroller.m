@@ -18,26 +18,60 @@
 
 #import "scanwindowcontroller.h"
 
-@interface ScanWindowController ()
+@implementation ScanDelegate
+
+- (void)scannerDeviceView:(IKScannerDeviceView *)scannerDeviceView didEncounterError:(NSError *)error
+{
+    NSLog(@"%@", error);
+}
+
+- (void)scannerDeviceView:(IKScannerDeviceView *)scannerDeviceView didScanToURL:(NSURL *)url fileData:(NSData *)data error:(NSError *)error
+{
+    if(url)
+        NSLog(@"Scanned to %@", url);
+
+    if(error)
+        NSLog(@"%@", error);
+}
 
 @end
 
 @implementation ScanWindowController
 
+-(void)dealloc
+{
+    [super dealloc];
+    NSLog(@"dealloc called");
+}
+
+
 -(id) init
 {
     if(![super initWithWindowNibName:@"ScanWindow"])
         return nil;
+
+//    windowDelegate = [[ScanWindowDelegate alloc] init];
+//    [[self window] setDelegate:windowDelegate];
     
     return self;
 }
 
-- (void)windowDidLoad
+- (void) windowDidLoad
 {
     [super windowDidLoad];
-    NSLog(@"Nib file is loaded");
-    
-    // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+
+    [devView setMode:IKScannerDeviceViewDisplayModeSimple];
+    [devView setScanControlLabel:NSLocalizedString(@"Scan", @"scan buttton label")];
+    [devView setDocumentName:NSLocalizedString(@"Page", @"scanned page name")];
+    [devView setDisplaysPostProcessApplicationControl:NO];
+    [devView setDisplaysDownloadsDirectoryControl:YES];
+    [devView setDownloadsDirectory:[NSURL URLWithString:@"/Users/serj/Pictures"]];
+    [devView setTransferMode:IKScannerDeviceViewTransferModeFileBased];
+    [devView setPostProcessApplication:[NSURL URLWithString:@""]];
+
+
+    scanDelegate = [[ScanDelegate alloc] init];
+    [devView setDelegate: scanDelegate];
 }
 
 @end
