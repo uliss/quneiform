@@ -35,6 +35,8 @@
     [super windowDidLoad];
 
     [devView setScanControlLabel:NSLocalizedString(@"Scan", @"scan buttton label")];
+    [devView setOverviewControlLabel:NSLocalizedString(@"Overview", @"overview buttton label")];
+    [devView setDocumentName:NSLocalizedString(@"Page", @"scanned document name")];
     [devView setDisplaysDownloadsDirectoryControl:YES];
     [devView setDownloadsDirectory:[self picturesDirectory]];
     [devView setDelegate:self];
