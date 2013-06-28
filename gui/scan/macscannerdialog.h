@@ -16,21 +16,21 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "machelp.h"
-#include "macstring.h"
+#ifndef MACSCANNERDIALOG_H
+#define MACSCANNERDIALOG_H
 
-#import <Cocoa/Cocoa.h>
+#include "abstractscannerdialog.h"
 
-namespace utils
+class MacScannerDialog : public AbstractScannerDialog
 {
+    Q_OBJECT
+public:
+    explicit MacScannerDialog(QObject * parent = 0);
+    void exec();
+public:
+    static void registerDialog();
+};
 
-void macShowHelp(const QString& anchor)
-{
-    NSString * str = MacString::toNSString(anchor);
-    NSString * locBookName = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleHelpBookName"];
 
-    NSLog(@"Show help %@ in book: %@", str, locBookName);
-    [[NSHelpManager sharedHelpManager] openHelpAnchor:str inBook:locBookName];
-}
 
-}
+#endif // MACSCANNERDIALOG_H

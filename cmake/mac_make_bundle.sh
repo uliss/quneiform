@@ -66,6 +66,8 @@ echo "Copying translations..."
 cp ${BUILDDIR}/gui/*.qm "${APPR}"
 echo "Copying Info.plist..."
 cp "${BUILDDIR}/Info.plist" "${APPC}"
+echo "Copying nib files..."
+cp "${BUILDDIR}/ScanWindow.nib" "${APPR}"
 
 function install_our {
     # source library path

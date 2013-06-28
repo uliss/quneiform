@@ -16,21 +16,41 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "machelp.h"
-#include "macstring.h"
+#include <QDebug>
+#include <QCoreApplication>
+#include <QFileOpenEvent>
 
-#import <Cocoa/Cocoa.h>
+#include "macscannerdialog.h"
+#include "macosx/scan/macscan.h"
+#include "scandialogtypes.h"
 
-namespace utils
+namespace {
+
+AbstractScannerDialog * createMacScannerDialog()
 {
-
-void macShowHelp(const QString& anchor)
-{
-    NSString * str = MacString::toNSString(anchor);
-    NSString * locBookName = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleHelpBookName"];
-
-    NSLog(@"Show help %@ in book: %@", str, locBookName);
-    [[NSHelpManager sharedHelpManager] openHelpAnchor:str inBook:locBookName];
+    MacScannerDialog * d = new MacScannerDialog();
+    return d;
 }
 
+void pageScanned(const char * path)
+{
+    QEvent * event = new QFileOpenEvent(QString::fromUtf8(path));
+    qApp->sendEvent(qApp, event);
+}
+
+}
+
+MacScannerDialog::MacScannerDialog(QObject * parent) :
+    AbstractScannerDialog(parent)
+{
+}
+
+void MacScannerDialog::exec()
+{
+    utils::showScanDialog(&pageScanned);
+}
+
+void MacScannerDialog::registerDialog()
+{
+    AbstractScannerDialog::registerDialogFunc(&createMacScannerDialog, SCAN_DIALOG_OS);
 }

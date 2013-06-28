@@ -27,6 +27,7 @@
 #include "externalappscannerdialog.h"
 #include "settingskeys.h"
 #include "scandialogtypes.h"
+#include "macscannerdialog.h"
 
 namespace {
 
@@ -41,6 +42,10 @@ bool registerDialogs()
 
 #ifdef WITH_TWAIN
     TwainScannerDialog::registerDialog();
+#endif
+
+#ifdef Q_OS_MAC
+    MacScannerDialog::registerDialog();
 #endif
 
     return true;

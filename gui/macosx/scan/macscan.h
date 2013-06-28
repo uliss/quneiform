@@ -16,21 +16,16 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "machelp.h"
-#include "macstring.h"
-
-#import <Cocoa/Cocoa.h>
+#ifndef __MacScan__MacScan__
+#define __MacScan__MacScan__
 
 namespace utils
 {
 
-void macShowHelp(const QString& anchor)
-{
-    NSString * str = MacString::toNSString(anchor);
-    NSString * locBookName = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleHelpBookName"];
+typedef void (*pageScannedCallback)(const char*);
 
-    NSLog(@"Show help %@ in book: %@", str, locBookName);
-    [[NSHelpManager sharedHelpManager] openHelpAnchor:str inBook:locBookName];
-}
+void showScanDialog(pageScannedCallback cb);
 
 }
+
+#endif /* defined(__MacScan__MacScan__) */

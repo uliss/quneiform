@@ -11,6 +11,12 @@ qt4_wrap_cpp(QF_SCAN_MOC_HEADERS
     externalappscannerdialog.h
 )
 
+if(APPLE)
+    qt4_wrap_cpp(MAC_MOC_HEADERS macscannerdialog.h)
+    list(APPEND QF_SCAN_SRC macscannerdialog.cpp ${MAC_MOC_HEADERS})
+    list(APPEND QF_SCAN_LIB quneiform_mac_scan)
+endif()
+
 list(APPEND QF_SCAN_SRC ${QF_SCAN_MOC_HEADERS})
 
 if(CF_SANE_SCANNER_SUPPORT)

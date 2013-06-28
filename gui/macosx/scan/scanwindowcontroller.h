@@ -16,21 +16,22 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "machelp.h"
-#include "macstring.h"
-
 #import <Cocoa/Cocoa.h>
+#import <Quartz/Quartz.h>
 
-namespace utils
-{
+typedef void (*scannedCallback)(const char *);
 
-void macShowHelp(const QString& anchor)
-{
-    NSString * str = MacString::toNSString(anchor);
-    NSString * locBookName = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleHelpBookName"];
-
-    NSLog(@"Show help %@ in book: %@", str, locBookName);
-    [[NSHelpManager sharedHelpManager] openHelpAnchor:str inBook:locBookName];
+@interface ScanWindowController : NSWindowController<NSWindowDelegate, IKScannerDeviceViewDelegate> {
+    IBOutlet IKScannerDeviceView * devView;
+    IBOutlet IKDeviceBrowserView * devBrowse;
+    scannedCallback callback_;
 }
 
-}
+- (id)initWithCallback:(scannedCallback) callback;
+- (void)showDialog;
+// NSWindowDelegate
+- (void)windowWillClose:(NSNotification *)notification;
+// IKScannerDeviceViewDelegate
+- (void)scannerDeviceView:(IKScannerDeviceView *)scannerDeviceView didScanToURL:(NSURL *)url fileData:(NSData *)data error:(NSError *)error;
+
+@end

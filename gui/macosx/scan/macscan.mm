@@ -16,21 +16,20 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "machelp.h"
-#include "macstring.h"
+#include "macscan.h"
+#import "scanwindowcontroller.h"
 
-#import <Cocoa/Cocoa.h>
+namespace utils {
 
-namespace utils
+static ScanWindowController * ctrl = 0;
+
+void showScanDialog(pageScannedCallback cb)
 {
+    if(!ctrl) {
+        ctrl = [[ScanWindowController alloc] initWithCallback:cb];
+    }
 
-void macShowHelp(const QString& anchor)
-{
-    NSString * str = MacString::toNSString(anchor);
-    NSString * locBookName = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleHelpBookName"];
-
-    NSLog(@"Show help %@ in book: %@", str, locBookName);
-    [[NSHelpManager sharedHelpManager] openHelpAnchor:str inBook:locBookName];
+    [ctrl showDialog];
 }
 
 }
