@@ -69,6 +69,10 @@ cp "${BUILDDIR}/Info.plist" "${APPC}"
 echo "Copying nib files..."
 cp "${BUILDDIR}/ScanWindow.nib" "${APPR}"
 
+# extract debug symbols
+echo "Extracting debug symbols..."
+dsymutil "$APPM/Quneiform" -o Quneiform.app.dSYM
+
 function install_our {
     # source library path
     lib_path=$1
@@ -120,3 +124,16 @@ cd $DESTDIR
 echo "Creating Quneiform.app bundle..."
 macdeployqt Quneiform.app -verbose=1
 
+echo "Removing unused Qt frameworks: declarative, script, network, sql, xml, xmlpatterns"
+rm -rf "$APPF/QtDeclarative.framework"
+rm -rf "$APPF/QtScript.framework"
+rm -rf "$APPF/QtNetwork.framework"
+rm -rf "$APPF/QtSql.framework"
+rm -rf "$APPF/QtXml.framework"
+rm -rf "$APPF/QtXmlPatterns.framework"
+
+echo "Removing unused Qt plugins: accessible, bearer"
+rm -rf "$APPC/PlugIns/accessible"
+rm -rf "$APPC/PlugIns/bearer"
+rm -rf "$APPC/PlugIns/codecs"
+rm -rf "$APPC/PlugIns/qmltooling"

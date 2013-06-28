@@ -204,7 +204,7 @@ endif()
 
 set(QT_USE_QTMAIN TRUE)
 set(QT_USE_QTPLUGIN TRUE)
-find_package(Qt4 4.5 COMPONENTS QtCore QtGui QtXml QtXmlPatterns REQUIRED)
+find_package(Qt4 4.5 COMPONENTS QtCore QtGui REQUIRED)
 include(${QT_USE_FILE})
 
 add_subdirectory(spell)

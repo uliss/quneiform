@@ -22,3 +22,4 @@ option(WITH_COVERAGE "Build with coverage analysis support" OFF)
 
 option(WITH_SANE "Build with SANE scanner support" ON)
 
+option(FOR_MACOSX "Add MacOSX specific flags" OFF)
