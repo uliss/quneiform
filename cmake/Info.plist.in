@@ -93,5 +93,7 @@
     <false/>
     <key>NSHumanReadableCopyright</key>
     <string>${MACOSX_BUNDLE_COPYRIGHT}</string>
+    <key>ForAppStore</key>
+    <string>yes</string>
 </dict>
 </plist>
