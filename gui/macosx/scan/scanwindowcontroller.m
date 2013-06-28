@@ -18,41 +18,15 @@
 
 #import "scanwindowcontroller.h"
 
-@implementation ScanDelegate
-
-- (void)scannerDeviceView:(IKScannerDeviceView *)scannerDeviceView didEncounterError:(NSError *)error
-{
-    NSLog(@"%@", error);
-}
-
-- (void)scannerDeviceView:(IKScannerDeviceView *)scannerDeviceView didScanToURL:(NSURL *)url fileData:(NSData *)data error:(NSError *)error
-{
-    if(url)
-        NSLog(@"Scanned to %@", url);
-
-    if(error)
-        NSLog(@"%@", error);
-}
-
-@end
-
 @implementation ScanWindowController
 
--(void)dealloc
-{
-    [super dealloc];
-    NSLog(@"dealloc called");
-}
-
-
--(id) init
+-(id) initWithCallback:(scannedCallback) callback
 {
     if(![super initWithWindowNibName:@"ScanWindow"])
         return nil;
 
-//    windowDelegate = [[ScanWindowDelegate alloc] init];
-//    [[self window] setDelegate:windowDelegate];
-    
+    callback_ = callback;
+
     return self;
 }
 
@@ -60,18 +34,45 @@
 {
     [super windowDidLoad];
 
-    [devView setMode:IKScannerDeviceViewDisplayModeSimple];
     [devView setScanControlLabel:NSLocalizedString(@"Scan", @"scan buttton label")];
-    [devView setDocumentName:NSLocalizedString(@"Page", @"scanned page name")];
-    [devView setDisplaysPostProcessApplicationControl:NO];
     [devView setDisplaysDownloadsDirectoryControl:YES];
-    [devView setDownloadsDirectory:[NSURL URLWithString:@"/Users/serj/Pictures"]];
-    [devView setTransferMode:IKScannerDeviceViewTransferModeFileBased];
-    [devView setPostProcessApplication:[NSURL URLWithString:@""]];
+    [devView setDownloadsDirectory:[self picturesDirectory]];
+    [devView setDelegate:self];
 
+    [[self window] setTitle:NSLocalizedString(@"Image scanning", @"scanning dialog title")];
+    [[self window] setReleasedWhenClosed:NO];
+    [[self window] setDelegate:self];
+}
 
-    scanDelegate = [[ScanDelegate alloc] init];
-    [devView setDelegate: scanDelegate];
+- (NSURL*)picturesDirectory
+{
+    NSArray * possibleURLs = [[NSFileManager defaultManager] URLsForDirectory:NSPicturesDirectory inDomains:NSUserDomainMask];
+
+    if ([possibleURLs count] >= 1)
+        return [possibleURLs objectAtIndex:0];
+
+    return [[NSBundle mainBundle] bundleURL];
+}
+
+- (void)windowWillClose:(NSNotification *)notification
+{
+
+}
+
+- (void)showDialog
+{
+    [self showWindow:nil];
+}
+
+- (void)scannerDeviceView:(IKScannerDeviceView *)scannerDeviceView didScanToURL:(NSURL *)url fileData:(NSData *)data error:(NSError *)error
+{
+    if(url) {
+        const char * path = [[url path] UTF8String];
+        callback_(path);
+    }
+
+    if(error)
+        NSLog(@"%@", error);
 }
 
 @end

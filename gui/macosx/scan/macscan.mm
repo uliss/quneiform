@@ -17,16 +17,19 @@
  ***************************************************************************/
 
 #include "macscan.h"
-#import "scancontroller.h"
+#import "scanwindowcontroller.h"
 
 namespace utils {
 
-void showScanDialog()
+static ScanWindowController * ctrl = 0;
+
+void showScanDialog(pageScannedCallback cb)
 {
-    @autoreleasepool {
-        ScanController * ctrl = [[ScanController alloc] init];
-        [ctrl showScanDialog:nil];
+    if(!ctrl) {
+        ctrl = [[ScanWindowController alloc] initWithCallback:cb];
     }
+
+    [ctrl showDialog];
 }
 
 }

@@ -22,7 +22,9 @@
 namespace utils
 {
 
-void showScanDialog();
+typedef void (*pageScannedCallback)(const char*);
+
+void showScanDialog(pageScannedCallback cb);
 
 }
 

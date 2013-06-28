@@ -27,7 +27,7 @@ namespace utils
 void macShowHelp(const QString& anchor)
 {
     NSString * str = MacString::toNSString(anchor);
-    NSString *locBookName = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleHelpBookName"];
+    NSString * locBookName = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleHelpBookName"];
 
     NSLog(@"Show help %@ in book: %@", str, locBookName);
     [[NSHelpManager sharedHelpManager] openHelpAnchor:str inBook:locBookName];

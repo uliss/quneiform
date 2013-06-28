@@ -16,6 +16,10 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <QDebug>
+#include <QCoreApplication>
+#include <QFileOpenEvent>
+
 #include "macscannerdialog.h"
 #include "macosx/scan/macscan.h"
 #include "scandialogtypes.h"
@@ -28,8 +32,13 @@ AbstractScannerDialog * createMacScannerDialog()
     return d;
 }
 
+void pageScanned(const char * path)
+{
+    QEvent * event = new QFileOpenEvent(QString::fromUtf8(path));
+    qApp->sendEvent(qApp, event);
 }
 
+}
 
 MacScannerDialog::MacScannerDialog(QObject * parent) :
     AbstractScannerDialog(parent)
@@ -38,7 +47,7 @@ MacScannerDialog::MacScannerDialog(QObject * parent) :
 
 void MacScannerDialog::exec()
 {
-    utils::showScanDialog();
+    utils::showScanDialog(&pageScanned);
 }
 
 void MacScannerDialog::registerDialog()
