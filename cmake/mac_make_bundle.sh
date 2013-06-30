@@ -129,7 +129,6 @@ rm -rf "$APPF/QtDeclarative.framework"
 rm -rf "$APPF/QtScript.framework"
 rm -rf "$APPF/QtNetwork.framework"
 rm -rf "$APPF/QtSql.framework"
-rm -rf "$APPF/QtXml.framework"
 rm -rf "$APPF/QtXmlPatterns.framework"
 
 echo "Removing unused Qt plugins: accessible, bearer"
