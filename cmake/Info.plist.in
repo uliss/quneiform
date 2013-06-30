@@ -61,6 +61,7 @@
                 <string>pgm</string>
                 <string>ppm</string>
                 <string>xpm</string>
+                <string>pdf</string>
             </array>
             <key>CFBundleTypeName</key>
             <string>Images</string>
