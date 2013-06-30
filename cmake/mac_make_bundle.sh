@@ -124,14 +124,14 @@ cd $DESTDIR
 echo "Creating Quneiform.app bundle..."
 macdeployqt Quneiform.app -verbose=1
 
-echo "Removing unused Qt frameworks: declarative, script, network, sql, xml, xmlpatterns"
+echo "Removing unused Qt frameworks: declarative, script, network, sql, xmlpatterns"
 rm -rf "$APPF/QtDeclarative.framework"
 rm -rf "$APPF/QtScript.framework"
 rm -rf "$APPF/QtNetwork.framework"
 rm -rf "$APPF/QtSql.framework"
 rm -rf "$APPF/QtXmlPatterns.framework"
 
-echo "Removing unused Qt plugins: accessible, bearer"
+echo "Removing unused Qt plugins: accessible, bearer, codecs, qmltooling"
 rm -rf "$APPC/PlugIns/accessible"
 rm -rf "$APPC/PlugIns/bearer"
 rm -rf "$APPC/PlugIns/codecs"
