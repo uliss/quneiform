@@ -68,7 +68,7 @@ int main(int argc, char ** argv)
 
         FormatOptions fopts = parser.formatOptions();
         CEDPagePtr page = s.recognizeImage(copts.inputURL(),
-                                           BinarizeOptions(),
+                                           parser.binarizeOptions(),
                                            parser.recognizeOptions(),
                                            fopts);
 
