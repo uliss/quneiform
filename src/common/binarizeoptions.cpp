@@ -16,6 +16,9 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <iomanip>
+#include <boost/foreach.hpp>
+
 #include "binarizeoptions.h"
 
 namespace cf {
@@ -119,6 +122,40 @@ void BinarizeOptions::setOption(const std::string& key, const char * value)
 void BinarizeOptions::setOption(const std::string& key, const std::string& value)
 {
     options_[key] = value;
+}
+
+static std::string toString(binarizator_t t)
+{
+    switch(t) {
+    case BINARIZATOR_OTSU:
+        return "otsu";
+    case BINARIZATOR_DEZA:
+        return "deza";
+    case BINARIZATOR_KRONROD:
+        return "kronrod";
+    default:
+        return "unknown";
+    }
+}
+
+template<class T>
+static void OPT(std::ostream& os, const std::string& name, const T& value) {
+    static const int FIELD_WIDTH = 25;
+    static const std::string INDENT(4, ' ');
+    os << INDENT << std::left << std::setw(FIELD_WIDTH) << name + ": " << value << "\n";
+ }
+
+std::ostream& operator<<(std::ostream& os, const BinarizeOptions& bopts)
+{
+    os << "Binarize options:\n";
+
+    OPT(os, "Binarizator:", toString(bopts.binarizator_));
+
+    BOOST_FOREACH(BinarizeOptions::OptionMap::value_type v, bopts.options_) {
+        OPT(os, v.first, v.second);
+    }
+
+    return os;
 }
 
 }

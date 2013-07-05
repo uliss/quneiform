@@ -21,6 +21,7 @@
 
 #include <map>
 #include <string>
+#include <iosfwd>
 #include <boost/variant.hpp>
 
 #include "globus.h"
@@ -55,10 +56,13 @@ public:
 private:
     typedef boost::variant<bool, int, float, std::string> Value;
     typedef std::map<std::string, Value> OptionMap;
+    friend std::ostream& operator<<(std::ostream& os, const BinarizeOptions& bopts);
 private:
     binarizator_t binarizator_;
     OptionMap options_;
 };
+
+FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const BinarizeOptions& bopts);
 
 }
 
