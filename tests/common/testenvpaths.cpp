@@ -43,7 +43,7 @@ void TestEnvPaths::testCommon()
 
 void TestEnvPaths::testFindInEnvPath()
 {
-#ifndef _WIN32_
+#ifndef _WIN32
     CPPUNIT_ASSERT(findInEnvPath("ls"));
     std::string res;
     CPPUNIT_ASSERT(findInEnvPath("ls", &res));

@@ -175,7 +175,7 @@ void TestHelper::testSingleton()
 
 void TestHelper::testFileExists() {
 #ifdef _WIN32
-//CPPUNIT_ASSERT(fs::fileExists("C:/Windows/System32/Drivers/hosts"));
+    CPPUNIT_ASSERT(fs::fileExists("C:/Windows/System32/kernel32.dll"));
 #else
     CPPUNIT_ASSERT(fs::fileExists("/bin/sh"));
     CPPUNIT_ASSERT(!fs::fileExists("/not-exists"));
