@@ -40,6 +40,7 @@ target_link_libraries(cf-binarize cuneiform-rimage cuneiform-cimage cuneiform-rd
 if(CF_USE_SHMEM)
     add_executable(cuneiform-process cuneiform_process_cli.cpp)
     target_link_libraries(cuneiform-process ${CLI_LIBS})
+    cf_install_exe(cuneiform-process)
 endif()
 
 add_executable(cf-layout cf-layout.cpp)
