@@ -247,7 +247,7 @@ STD_FUNC( Bool32 ) stdCheckDirectory( const char* name, Bool32 bCreateIfNone )
    // returns TRUE if directory exists or successfully created
 {
 #ifdef WIN32
-   if (cf::fs::fileExists(name)
+   if (cf::fs::fileExists(name))
    {  uint32_t attr = GetFileAttributes( name );
       if ((attr != 0xFFFFFFFF) && (attr & FILE_ATTRIBUTE_DIRECTORY))
          return TRUE;

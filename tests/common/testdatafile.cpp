@@ -44,10 +44,12 @@ void TestDatafile::testSetPath()
 
 void TestDatafile::testEnvPath()
 {
+#ifndef WIN32
     setenv("CF_DATADIR", "/some/path", TRUE);
     CPPUNIT_ASSERT_EQUAL(std::string("/some/path"), Datafile::envPath());
     unsetenv("CF_DATADIR");
     CPPUNIT_ASSERT(Datafile::envPath().empty());
+#endif
 }
 
 void TestDatafile::testSearchPath()

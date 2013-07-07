@@ -102,19 +102,6 @@ using namespace cf;
 #include <malloc.h>
 #endif
 
-/**
- * Convert backslashes to slashes. No-op on UNIX.
- */
-static void winpath_to_internal(char *p) {
-#if WIN32
-    for (int i = 0; p[i] != '\0'; i++) {
-        if (p[i] == '\\')
-        p[i] = '/';
-    }
-
-#endif
-}
-
 int HFILE_ERROR;
 
 Bool CreateDirectory(const char * dir, void*) {
@@ -443,8 +430,20 @@ void make_path(char *opath, const char *dir, const char *basename, const char *e
     }
 }
 
-/* Get current working directory. */
+#ifdef WIN32
+/**
+ * Convert backslashes to slashes.
+ */
+static void winpath_to_internal(char *p) {
 
+    for (int i = 0; p[i] != '\0'; i++) {
+        if (p[i] == '\\')
+            p[i] = '/';
+    }
+}
+#endif
+
+/* Get current working directory. */
 unsigned int curr_dir(unsigned int bsize, char* buf) {
 #ifdef _MSC_VER
     _getcwd(buf, bsize);

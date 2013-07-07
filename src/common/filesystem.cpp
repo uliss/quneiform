@@ -66,10 +66,8 @@ namespace cf {
 #define DIRSEP "/"
 #endif
 
-#ifndef _WIN32
             if(path == "/")
                 return "/";
-#endif
 
             std::vector<std::string> res;
             boost::algorithm::split(res, path, boost::algorithm::is_any_of(DIRSEP));
