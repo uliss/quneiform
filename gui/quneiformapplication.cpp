@@ -32,6 +32,7 @@
 #include "iconutils.h"
 #include "theme-config.h"
 #include "workspace.h"
+#include "common/datafile.h"
 
 #ifdef Q_OS_MAC
 #include "macosx/macbundle.h"
@@ -138,6 +139,7 @@ void QuneiformApplication::setCFDatafilesPath()
     QString path = utils::applicationBundle();
     path.append("/Contents/Resources/share/cuneiform");
     qDebug() << Q_FUNC_INFO << path;
+    cf::Datafile::setSearchMask(cf::DATAFILE_ENVIRONMENT);
     setenv("CF_DATADIR", path.toLocal8Bit().constData(), 1);
 #endif
 }
