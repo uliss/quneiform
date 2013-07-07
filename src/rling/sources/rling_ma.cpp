@@ -64,6 +64,7 @@
 #include <time.h>
 
 #include "compat/filefunc.h"
+#include "common/datafile.h"
 
 /*************************************************************************/
 /* tg_spell.c -  general spelling loop. It scans ED-file,
@@ -288,7 +289,8 @@ int16_t TE_open(int16_t Stream, pchar Name, int16_t Type, int16_t SubType)
 
     for (fn = 1; fn < 16; fn++) {
         if (file_handle[fn] == -1) {
-            i = open_data_file(Name, Type); /*, SubType); */
+            std::string full_path = cf::Datafile::fullPath(Name);
+            i = open(full_path.c_str(), Type); /*, SubType); */
 
             if (i < 0)
                 return -1;

@@ -19,15 +19,39 @@
 #include "datafile.h"
 #include "filesystem.h"
 #include "config-paths.h"
+#include "common_debug.h"
+#include "singleton.h"
 
 namespace cf {
 
 static const char * ENV_PATH = "CF_DATADIR";
 
-DatafileImpl::DatafileImpl() :
-    search_mask_(DATAFILE_PATH | DATAFILE_ENVIRONMENT | DATAFILE_INSTALL_PATH)
+class DatafileImpl
 {
-}
+public:
+    DatafileImpl();
+    std::string envPath() const;
+    std::string path() const;
+    void setPath(const std::string& path);
+    bool searchPlace(DatafileSearchFlag flag) const { return search_mask_ & flag; }
+    int searchMask() const;
+    void setSearchMask(int mask);
+    bool datafileExists(const std::string& name) const;
+    std::string datafileFullPath(const std::string& name) const;
+private:
+    std::string buildFullPath(const std::string& dir, const std::string& name) const;
+    bool datafileExistsInPath(const std::string& name) const;
+    bool datafileExistsInEnvPath(const std::string& name) const;
+    bool datafileExistsInInstallPath(const std::string& name) const;
+private:
+    std::string path_;
+    int search_mask_;
+};
+
+typedef Singleton<DatafileImpl, CreateUsingStatic> DF;
+
+DatafileImpl::DatafileImpl()
+    : search_mask_(DATAFILE_MAIN_PATH | DATAFILE_ENVIRONMENT | DATAFILE_INSTALL_PATH) {}
 
 std::string DatafileImpl::envPath() const
 {
@@ -50,7 +74,7 @@ void DatafileImpl::setPath(const std::string& path)
 
 bool DatafileImpl::datafileExists(const std::string& name) const
 {
-    if(searchPlace(DATAFILE_PATH) && datafileExistsInPath(name))
+    if(searchPlace(DATAFILE_MAIN_PATH) && datafileExistsInPath(name))
         return true;
 
     if(searchPlace(DATAFILE_ENVIRONMENT) && datafileExistsInEnvPath(name))
@@ -60,6 +84,20 @@ bool DatafileImpl::datafileExists(const std::string& name) const
         return true;
 
     return false;
+}
+
+std::string DatafileImpl::datafileFullPath(const std::string& name) const
+{
+    if(searchPlace(DATAFILE_MAIN_PATH) && datafileExistsInPath(name))
+        return buildFullPath(path_, name);
+
+    if(searchPlace(DATAFILE_ENVIRONMENT) && datafileExistsInEnvPath(name))
+        return buildFullPath(envPath(), name);
+
+    if(searchPlace(DATAFILE_INSTALL_PATH) && datafileExistsInInstallPath(name))
+        return buildFullPath(INSTALL_DATADIR, name);
+
+    return std::string();
 }
 
 std::string DatafileImpl::buildFullPath(const std::string& dir, const std::string& name) const
@@ -75,19 +113,28 @@ std::string DatafileImpl::buildFullPath(const std::string& dir, const std::strin
 bool DatafileImpl::datafileExistsInPath(const std::string& name) const
 {
     std::string full_path = buildFullPath(path_, name);
-    return fs::fileExists(full_path);
+    bool rc = fs::fileExists(full_path);
+    if(!rc)
+        COMMON_DEBUG_FUNC << "datafile not exists:" << full_path;
+    return rc;
 }
 
 bool DatafileImpl::datafileExistsInEnvPath(const std::string& name) const
 {
     std::string full_path = buildFullPath(envPath(), name);
-    return fs::fileExists(full_path);
+    bool rc = fs::fileExists(full_path);
+    if(!rc)
+        COMMON_DEBUG_FUNC << "datafile not exists:" << full_path;
+    return rc;
 }
 
 bool DatafileImpl::datafileExistsInInstallPath(const std::string& name) const
 {
     std::string full_path = buildFullPath(INSTALL_DATADIR, name);
-    return fs::fileExists(full_path);
+    bool rc = fs::fileExists(full_path);
+    if(!rc)
+        COMMON_DEBUG_FUNC << "datafile not exists:" << full_path;
+    return rc;
 }
 
 int DatafileImpl::searchMask() const
@@ -98,6 +145,41 @@ int DatafileImpl::searchMask() const
 void DatafileImpl::setSearchMask(int mask)
 {
     search_mask_ = mask;
+}
+
+std::string Datafile::envPath()
+{
+    return DF::instance().envPath();
+}
+
+std::string Datafile::mainPath()
+{
+    return DF::instance().path();
+}
+
+void Datafile::setMainPath(const std::string& path)
+{
+    DF::instance().setPath(path);
+}
+
+int Datafile::searchMask()
+{
+    return DF::instance().searchMask();
+}
+
+void Datafile::setSearchMask(int mask)
+{
+    DF::instance().setSearchMask(mask);
+}
+
+bool Datafile::exists(const std::string& name)
+{
+    return DF::instance().datafileExists(name);
+}
+
+std::string Datafile::fullPath(const std::string& name)
+{
+    return DF::instance().datafileFullPath(name);
 }
 
 } // namespace cf

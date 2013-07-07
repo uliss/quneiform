@@ -75,6 +75,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "linutil.h"
 
 #include "cfcompat.h"
+#include "common/filesystem.h"
 
 #ifdef WIN32
 #include <io.h>
@@ -136,7 +137,7 @@ Bool32 TestFontProtocol(void)
     LeoPageSetup ps={0};
     int jj;
 
-    if( _access("c:\\met.ini",0)==-1 )
+    if(cf::fs::fileExists("c:\\met.ini")==-1 )
         return FALSE;
 
     nClust=FONGetClustCount();

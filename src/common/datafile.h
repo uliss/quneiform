@@ -20,46 +20,35 @@
 #define CF_DATAFILE_H
 
 #include <string>
-#include <boost/noncopyable.hpp>
 
 #include "globus.h"
-#include "singleton.h"
 
 namespace cf {
 
 enum DatafileSearchFlag
 {
-    DATAFILE_PATH = 1,
+    DATAFILE_MAIN_PATH = 1,
     DATAFILE_ENVIRONMENT = 1 << 1,
     DATAFILE_INSTALL_PATH = 1 << 2
 };
 
-class CLA_EXPO DatafileImpl : boost::noncopyable
+class CLA_EXPO Datafile
 {
+    Datafile();
+    Datafile(const Datafile&);
+    void operator=(const Datafile&);
 public:
-    DatafileImpl();
+    static std::string envPath();
 
-    std::string envPath() const;
+    static std::string mainPath();
+    static void setMainPath(const std::string& mainPath);
 
-    std::string path() const;
-    void setPath(const std::string& path);
+    static int searchMask();
+    static void setSearchMask(int mask);
 
-    bool searchPlace(DatafileSearchFlag flag) const { return search_mask_ & flag; }
-    int searchMask() const;
-    void setSearchMask(int mask);
-
-    bool datafileExists(const std::string& name) const;
-private:
-    std::string buildFullPath(const std::string& dir, const std::string& name) const;
-    bool datafileExistsInPath(const std::string& name) const;
-    bool datafileExistsInEnvPath(const std::string& name) const;
-    bool datafileExistsInInstallPath(const std::string& name) const;
-private:
-    std::string path_;
-    int search_mask_;
+    static bool exists(const std::string& name);
+    static std::string fullPath(const std::string& name);
 };
-
-typedef Singleton<DatafileImpl, CreateUsingStatic> Datafile;
 
 } // namespace cf
 

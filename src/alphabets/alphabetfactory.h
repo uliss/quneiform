@@ -35,7 +35,7 @@ class CLA_EXPO AlphabetFactory : public boost::noncopyable
 
         /**
          * defines a pair of alphabet data tables
-         * filename1 amd filename2
+         * filename1 and filename2
          */
         typedef std::pair<std::string, std::string> AlphabetTables;
 

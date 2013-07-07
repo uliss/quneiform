@@ -20,9 +20,10 @@
 CPPUNIT_TEST_SUITE_REGISTRATION(TestGenericExporter);
 #define private public
 #define protected public
-#include <export/genericexporter.h>
-#include <ced/cedpicture.h>
-#include <ced/cedpage.h>
+#include "export/genericexporter.h"
+#include "ced/cedpicture.h"
+#include "ced/cedpage.h"
+#include "common/filesystem.h"
 #include "cfcompat.h"
 using namespace cf;
 
@@ -70,12 +71,12 @@ void TestGenericExporter::testCreatePicturesFolder() {
 
     p->setOutputFilename("test_page_1.html");
     p->createPicturesFolder();
-    CPPUNIT_ASSERT_EQUAL(0, _access("test_page_1_files", 0));
+    CPPUNIT_ASSERT(cf::fs::fileExists("test_page_1_files"));
     RemoveDirectory("test_page_1_files");
 
     p->setOutputFilename("./test_page_2.html");
     p->createPicturesFolder();
-    CPPUNIT_ASSERT_EQUAL(0, _access("test_page_2_files", 0));
+    CPPUNIT_ASSERT(cf::fs::fileExists("test_page_2_files"));
     RemoveDirectory("test_page_2_files");
 
     // assumed that tests not runs under root)))))))) (unless Windows)

@@ -35,6 +35,7 @@ private:
     void addBundlePluginPath();
     void platformInit();
     void resourcesInit();
+    void setCFDatafilesPath();
     void stylesheetInit();
 };
 

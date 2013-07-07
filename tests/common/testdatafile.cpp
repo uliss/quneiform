@@ -27,49 +27,54 @@ using namespace cf;
 
 void TestDatafile::testInit()
 {
-    CPPUNIT_ASSERT(Datafile::instance().path().empty());
-    CPPUNIT_ASSERT_EQUAL(Datafile::instance().searchMask(),
-                         DATAFILE_PATH | DATAFILE_ENVIRONMENT | DATAFILE_INSTALL_PATH);
-    CPPUNIT_ASSERT(!Datafile::instance().datafileExists("abcde"));
+    CPPUNIT_ASSERT(Datafile::mainPath().empty());
+    CPPUNIT_ASSERT_EQUAL(Datafile::searchMask(),
+                         DATAFILE_MAIN_PATH | DATAFILE_ENVIRONMENT | DATAFILE_INSTALL_PATH);
+    CPPUNIT_ASSERT(!Datafile::exists("abcde"));
+    CPPUNIT_ASSERT(Datafile::fullPath("abcde").empty());
 }
 
 void TestDatafile::testSetPath()
 {
-    CPPUNIT_ASSERT(Datafile::instance().path().empty());
-    Datafile::instance().setPath("/some/path");
-    CPPUNIT_ASSERT_EQUAL(std::string("/some/path"), Datafile::instance().path());
-    Datafile::instance().setPath("");
+    CPPUNIT_ASSERT(Datafile::mainPath().empty());
+    Datafile::setMainPath("/some/path");
+    CPPUNIT_ASSERT_EQUAL(std::string("/some/path"), Datafile::mainPath());
+    Datafile::setMainPath("");
 }
 
 void TestDatafile::testEnvPath()
 {
     setenv("CF_DATADIR", "/some/path", TRUE);
-    CPPUNIT_ASSERT_EQUAL(std::string("/some/path"), Datafile::instance().envPath());
+    CPPUNIT_ASSERT_EQUAL(std::string("/some/path"), Datafile::envPath());
     unsetenv("CF_DATADIR");
-    CPPUNIT_ASSERT(Datafile::instance().envPath().empty());
+    CPPUNIT_ASSERT(Datafile::envPath().empty());
 }
 
 void TestDatafile::testSearchPath()
 {
 #ifndef WIN32
-    Datafile::instance().setPath("/bin");
-    CPPUNIT_ASSERT(Datafile::instance().datafileExists("sh"));
+    Datafile::setMainPath("/bin");
+    CPPUNIT_ASSERT(Datafile::exists("sh"));
+    CPPUNIT_ASSERT_EQUAL(std::string("/bin/sh"), Datafile::fullPath("sh"));
 
-    Datafile::instance().setPath("/bin/");
-    CPPUNIT_ASSERT(Datafile::instance().datafileExists("sh"));
+    Datafile::setMainPath("/bin/");
+    CPPUNIT_ASSERT(Datafile::exists("sh"));
+    CPPUNIT_ASSERT_EQUAL(std::string("/bin/sh"), Datafile::fullPath("sh"));
 
-    int old_mask = Datafile::instance().searchMask();
-    Datafile::instance().setSearchMask(0);
-    CPPUNIT_ASSERT(!Datafile::instance().datafileExists("sh"));
-    Datafile::instance().setSearchMask(old_mask);
+    int old_mask = Datafile::searchMask();
+    Datafile::setSearchMask(0);
+    CPPUNIT_ASSERT(!Datafile::exists("sh"));
+    CPPUNIT_ASSERT(Datafile::fullPath("sh").empty());
+    Datafile::setSearchMask(old_mask);
 
-    Datafile::instance().setPath("");
-    CPPUNIT_ASSERT(!Datafile::instance().datafileExists("sh"));
+    Datafile::setMainPath("");
+    CPPUNIT_ASSERT(!Datafile::exists("sh"));
     setenv("CF_DATADIR", "/bin", TRUE);
-    CPPUNIT_ASSERT(Datafile::instance().datafileExists("sh"));
-    Datafile::instance().setSearchMask(0);
-    CPPUNIT_ASSERT(!Datafile::instance().datafileExists("sh"));
-    Datafile::instance().setSearchMask(old_mask);
+    CPPUNIT_ASSERT(Datafile::exists("sh"));
+    CPPUNIT_ASSERT_EQUAL(std::string("/bin/sh"), Datafile::fullPath("sh"));
+    Datafile::setSearchMask(0);
+    CPPUNIT_ASSERT(!Datafile::exists("sh"));
+    Datafile::setSearchMask(old_mask);
     unsetenv("CF_DATADIR");
 #endif
 }

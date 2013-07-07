@@ -20,7 +20,7 @@
 #include <iostream>
 
 #include "alphabetfactory.h"
-#include "cfcompat.h"
+#include "common/datafile.h"
 
 namespace cf
 {
@@ -49,9 +49,9 @@ bool AlphabetFactory::isLanguageData(language_t language)
     try {
         AlphabetTables entry = alphabetTables(language);
 
-        if (data_file_exists(entry.first.c_str()) == -1)
+        if (!Datafile::exists(entry.first))
             return false;
-        if (data_file_exists(entry.second.c_str()) == -1)
+        if (!Datafile::exists(entry.second))
             return false;
     }
     catch (AlphabetException&) {

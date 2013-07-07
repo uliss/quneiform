@@ -83,6 +83,7 @@ using namespace cf;
 #include <cstring>
 #include <dlfcn.h>
 #include <stdarg.h>
+#include <string>
 
 #if defined(__APPLE__) && defined(__MACH__)
 #include <malloc/malloc.h>
@@ -100,6 +101,19 @@ using namespace cf;
 #else
 #include <malloc.h>
 #endif
+
+/**
+ * Convert backslashes to slashes. No-op on UNIX.
+ */
+static void winpath_to_internal(char *p) {
+#if WIN32
+    for (int i = 0; p[i] != '\0'; i++) {
+        if (p[i] == '\\')
+        p[i] = '/';
+    }
+
+#endif
+}
 
 int HFILE_ERROR;
 
@@ -201,7 +215,7 @@ long _msize(void *memblock) {
 /* All uses in Cuneiform just check if the file exists. Ignoring all other
  * cases.
  */
-int _access(const char *filename, int mode) {
+static int _access(const char *filename, int mode) {
     struct stat foo;
     assert(mode == 0);
     return stat(filename, &foo);
@@ -355,90 +369,6 @@ char* mkdtemp(char *tmpl)
 
 #endif /* WIN32 */
 
-/* General helper functions. */
-static const char *separator = "/"; /* Yes, on Windows too. */
-
-#ifdef WIN32
-static void get_install_path(char *path)
-{
-    const int psize = 128;
-    char modulepath[128]; /* MSVC fails when psize is put in these brackets. */
-    char fname[50];
-    char suffix[10];
-    GetModuleFileName(thismod, modulepath, psize);
-    winpath_to_internal(modulepath);
-    split_path(modulepath, path, fname, suffix);
-}
-
-#else
-
-static void get_install_path(char *path) {
-    strcat(path, INSTALL_DATADIR);
-}
-
-#endif
-
-/* We try to locate data files in two locations:
- *
- * 1. At the directory pointed to by environment variable CF_DATADIR
- * 2. At a platform-dependent install location
- *
- * Caller's responsibility is to ensure *e1 and *e2 are large enough.
- *
- */
-
-static void build_name_estimates(const char *base_name, char *env_name, char *prefix_name) {
-    const char *env_prefix;
-    const char *varname = "CF_DATADIR";
-    int len = 0;
-    env_name[0] = '\0';
-    prefix_name[0] = '\0';
-    env_prefix = getenv(varname);
-
-    if (env_prefix)
-        len = strlen(env_prefix);
-
-    if (len > 0) {
-        strcat(env_name, env_prefix);
-
-        if (strcmp(env_prefix + len - 1, separator) != 0) {
-            strcat(env_name, separator);
-        }
-
-        strcat(env_name, base_name);
-    }
-
-    get_install_path(prefix_name);
-
-    if (strlen(prefix_name) > 0) {
-        strcat(prefix_name, separator);
-        strcat(prefix_name, base_name);
-    }
-}
-
-int open_data_file(const char *basename, int mode) {
-    char ename[1024];
-    char pname[1024];
-    build_name_estimates(basename, ename, pname);
-    int i = open(ename, mode);
-
-    if (i != -1)
-        return i;
-
-    return open(pname, mode);
-}
-
-int data_file_exists(const char *basename) {
-    char ename[1024];
-    char pname[1024];
-    build_name_estimates(basename, ename, pname);
-
-    if (_access(ename, 0) == 0)
-        return 0;
-
-    return _access(pname, 0);
-}
-
 /* Split a file name in three: path, base file name, and extension.
  * All internal file names use / as path separator, even on Windows.
  */
@@ -513,19 +443,6 @@ void make_path(char *opath, const char *dir, const char *basename, const char *e
     }
 }
 
-/**
- * Convert backslashes to slashes. No-op on UNIX.
- */
-void winpath_to_internal(char *p) {
-#if WIN32
-    for (int i = 0; p[i] != '\0'; i++) {
-        if (p[i] == '\\')
-        p[i] = '/';
-    }
-
-#endif
-}
-
 /* Get current working directory. */
 
 unsigned int curr_dir(unsigned int bsize, char* buf) {
@@ -578,31 +495,3 @@ FILE* create_temp_file(void) {
     return tmp_file;
 }
 #endif
-
-namespace cf
-{
-
-std::string InstallPath() {
-    return INSTALL_DATADIR;
-}
-
-std::string MakePath(const std::string& dir, const std::string& basename, const std::string& ext) {
-    const char DIRSEP = '/';
-    std::string r(dir);
-
-    if (!r.empty() && DIRSEP == r[r.length() - 1])
-        r[r.length() - 1] = DIRSEP;
-
-    r += basename;
-
-    if (!ext.empty()) {
-        if (ext[0] != '.')
-            r += ".";
-
-        r += ext;
-    }
-
-    return r;
-}
-
-}
