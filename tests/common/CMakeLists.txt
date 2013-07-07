@@ -7,6 +7,7 @@ add_executable(test_common
     testcolor.cpp
     testconsolemessages.cpp
     testctdib.cpp
+    testdatafile.cpp
     testenvpaths.cpp
     testfilesystem.cpp
     testformatoptions.cpp
