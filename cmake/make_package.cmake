@@ -29,46 +29,18 @@ if(APPLE)
                                   "${CMAKE_BINARY_DIR}" # dest dir
                                   "${CMAKE_SOURCE_DIR}" # source dir
                                   "${CMAKE_BINARY_DIR}" # build dir
-                          DEPENDS  Quneiform
+                          DEPENDS  Quneiform cuneiform-worker
     )
 
     add_custom_target(bundle COMMAND "${CMAKE_SOURCE_DIR}/cmake/mac_make_bundle.sh"
                                   "${CMAKE_BINARY_DIR}" # dest dir
                                   "${CMAKE_SOURCE_DIR}" # source dir
                                   "${CMAKE_BINARY_DIR}" # build dir
-                          DEPENDS  Quneiform
+                          DEPENDS  Quneiform cuneiform-worker
     )
 endif()
 
-if(APPLE)
-    set(CPACK_GENERATOR "Bundle")
-    set(CPACK_BUNDLE_NAME "Quneiform")
-
-    set(MACOSX_BUNDLE_BUNDLE_NAME ${CPACK_BUNDLE_NAME})
-    set(MACOSX_BUNDLE_BUNDLE_VERSION ${CF_VERSION})
-    set(MACOSX_BUNDLE_COPYRIGHT "(c) 2010-2012 Serge Poltavski")
-    set(MACOSX_BUNDLE_EXECUTABLE_NAME "Quneiform")
-    set(MACOSX_BUNDLE_ICON_FILE "Quneiform.icns")
-    set(MACOSX_BUNDLE_INFO_STRING "Optical recognition software")
-    set(MACOSX_BUNDLE_GUI_IDENTIFIER "com.github.uliss.quneiform")
-    set(MACOSX_BUNDLE_LONG_VERSION_STRING "${CPACK_BUNDLE_NAME} ${CF_BUILD_NUMBER}")
-    set(MACOSX_BUNDLE_SHORT_VERSION_STRING ${CF_VERSION})
-
-    configure_file(${CMAKE_SOURCE_DIR}/cmake/Info.plist.in ${CMAKE_BINARY_DIR}/Info.plist)
-
-    set(CPACK_PACKAGE_NAME ${CPACK_BUNDLE_NAME})
-    set(CPACK_PACKAGE_ICON "${CMAKE_SOURCE_DIR}/gui/resources/cuneiform.icns")
-
-    set(CPACK_BUNDLE_ICON "${CMAKE_SOURCE_DIR}/gui/resources/cuneiform.icns")
-    set(CPACK_BUNDLE_PLIST ${CMAKE_BINARY_DIR}/Info.plist)
-    set(CPACK_BUNDLE_STARTUP_COMMAND ${CMAKE_SOURCE_DIR}/cmake/MacOSX.sh)
-
-    set(CPACK_RESOURCE_FILE_README "${CMAKE_SOURCE_DIR}/doc/README.mac.txt")
-    set(CPACK_RESOURCE_FILE_WELCOME "${CMAKE_SOURCE_DIR}/doc/WELCOME.mac.txt")
-
-    set(CPACK_SET_DESTDIR OFF)
-
-elseif(UNIX AND NOT APPLE)
+if(UNIX AND NOT APPLE)
     set(CPACK_GENERATOR "DEB;TBZ2;TGZ")
     set(CPACK_STRIP_FILES "bin/cuneiform")
     set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_SOURCE_DIR}/README")
