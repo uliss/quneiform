@@ -447,10 +447,10 @@ static void winpath_to_internal(char *p) {
 unsigned int curr_dir(unsigned int bsize, char* buf) {
 #ifdef _MSC_VER
     _getcwd(buf, bsize);
+    winpath_to_internal(buf);
 #else
     getcwd(buf, bsize);
 #endif
-    winpath_to_internal(buf);
     return strlen(buf);
 }
 

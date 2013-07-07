@@ -127,7 +127,7 @@ Bool32 TestFontProtocol(void)
 {
 #ifdef _USE_LEO_
     int32_t          name;
-    int            i; //,j;
+    int            i;
     int            nClust;
     int            numCourier,nC;
     FILE          *fp;
@@ -137,8 +137,12 @@ Bool32 TestFontProtocol(void)
     LeoPageSetup ps={0};
     int jj;
 
-    if(cf::fs::fileExists("c:\\met.ini")==-1 )
+#ifdef _WIN32
+    if(!cf::fs::fileExists("c:\\met.ini"))
         return FALSE;
+#else
+        return FALSE;
+#endif
 
     nClust=FONGetClustCount();
 
