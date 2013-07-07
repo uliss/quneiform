@@ -72,7 +72,7 @@ std::string GenericExporter::createPicturesFolder() {
     std::string path = makeOutputPictureDir();
 
     // check if folder already exists
-    if (_access(path.c_str(), 0) == 0) {
+    if (cf::fs::fileExists(path)) {
         cfWarning(MODULE_EXPORT) << "[GenericExporter::createPicturesFolder]: folder \"" << path
                 << "\" already exists.";
         return path;

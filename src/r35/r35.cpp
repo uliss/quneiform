@@ -73,6 +73,7 @@
 #include "minmax.h"
 
 #include "cfcompat.h"
+#include "common/datafile.h"
 
 static const char * NAME = "hnd3rus.dat";
 static const char * NAME_NDX = "hnd3ind.dat";
@@ -779,7 +780,8 @@ void r35_set_cpu(int32_t cpu)
 
 Bool32 r35_init(const char *name, elm3x5 **tab3x5this, ind3x5 **header3x5this)
 {
-    int32_t f = open_data_file(name, O_BINARY | O_RDONLY); /* , S_IREAD */
+    std::string full_path = cf::Datafile::fullPath(name);
+    int32_t f = open(full_path.c_str(), O_BINARY | O_RDONLY); /* , S_IREAD */
     uint32_t num;
     r35_error_code = ER_R35_NO_ERROR;
 
@@ -829,7 +831,8 @@ Bool32 r35_save(const char *name, elm3x5 *tab3x5this, ind3x5 *header3x5this, int
 {
     int32_t f, i;
     // remove(name);
-    f = open_data_file(name, O_BINARY | O_WRONLY | O_CREAT | O_TRUNC); /* S_IWRITE */
+    std::string full_path = cf::Datafile::fullPath(name);
+    f = open(full_path.c_str(), O_BINARY | O_WRONLY | O_CREAT | O_TRUNC); /* S_IWRITE */
     r35_error_code = ER_R35_NO_ERROR;
 
     if (f == -1) {

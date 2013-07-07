@@ -15,6 +15,6 @@ cf_hide_visibility(${CF_STD})
 
 set_property(TARGET ${CF_STD} PROPERTY COMPILE_DEFINITIONS __STD__)
 
-target_link_libraries(${CF_STD} ${CF_COMPAT})
+target_link_libraries(${CF_STD} ${CF_COMPAT} ${CF_COMMON})
 cf_install_library(${CF_STD})
 cf_cppcheck(${CF_STD})

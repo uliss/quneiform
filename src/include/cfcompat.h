@@ -69,7 +69,6 @@ CFCOMPAT_FUNC long _msize(void *memblock);
 int RemoveDirectory(const char *d);
 
 CFCOMPAT_FUNC long _tell(int handle);
-CFCOMPAT_FUNC int _access(const char *filename, int mode);
 CFCOMPAT_FUNC long filelength(int fd);
 CFCOMPAT_FUNC long filelength(FILE * f);
 
@@ -107,11 +106,8 @@ CFCOMPAT_FUNC char* mkdtemp(char *tmpl);
 #endif
 #endif
 
-CFCOMPAT_FUNC int open_data_file(const char *basename, int mode);
-CFCOMPAT_FUNC int data_file_exists(const char *basename);
 CFCOMPAT_FUNC void split_path(const char *fname, char *file_path, char *basename, char *ext);
 CFCOMPAT_FUNC void make_path(char *opath, const char *dir, const char *basename, const char *ext);
-CFCOMPAT_FUNC void winpath_to_internal(char *p);
 CFCOMPAT_FUNC unsigned int curr_dir(unsigned int bsize, char* buf);
 CFCOMPAT_FUNC FILE* create_temp_file(void);
 

@@ -13,6 +13,7 @@ set(CF_COMMON_SOURCES
     console_messages.cpp
     consoleprogresscounter.cpp
     ctdib.cpp
+    datafile.cpp
     envpaths.cpp
     filesystem.cpp
     formatoptions.cpp

@@ -20,6 +20,12 @@
 #include <boost/algorithm/string/split.hpp>
 #include <vector>
 #include <string>
+#include <sys/types.h>
+#include <sys/stat.h>
+
+#ifdef WIN32
+#define stat _stat
+#endif
 
 #include "cfcompat.h"
 #include "filesystem.h"
@@ -28,7 +34,11 @@ namespace cf {
     namespace fs  {
         bool fileExists(const std::string& fname)
         {
-            return (_access(fname.c_str(), 0) == 0);
+            if(fname.empty())
+                return false;
+
+            struct stat foo;
+            return (stat(fname.c_str(), &foo) == 0);
         }
 
         std::string fileExtension(const std::string& filename)

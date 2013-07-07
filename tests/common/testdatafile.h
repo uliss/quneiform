@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2012 by Serge Poltavski                                 *
+ *   Copyright (C) 2013 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,27 +16,24 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef QUNEIFORMAPPLICATION_H
-#define QUNEIFORMAPPLICATION_H
+#ifndef TESTDATAFILE_H
+#define TESTDATAFILE_H
 
-#include <QApplication>
-#include <QStringList>
+#include <cppunit/extensions/HelperMacros.h>
 
-class QuneiformApplication : public QApplication
+class TestDatafile : public CppUnit::TestFixture
 {
-    Q_OBJECT
+    CPPUNIT_TEST_SUITE(TestDatafile);
+    CPPUNIT_TEST(testInit);
+    CPPUNIT_TEST(testSetPath);
+    CPPUNIT_TEST(testEnvPath);
+    CPPUNIT_TEST(testSearchPath);
+    CPPUNIT_TEST_SUITE_END();
 public:
-    QuneiformApplication(int& argc, char** argv);
-signals:
-    void openFiles(QStringList);
-protected:
-    bool event(QEvent * e);
-private:
-    void addBundlePluginPath();
-    void platformInit();
-    void resourcesInit();
-    void setCFDatafilesPath();
-    void stylesheetInit();
+    void testInit();
+    void testSetPath();
+    void testEnvPath();
+    void testSearchPath();
 };
 
-#endif // QUNEIFORMAPPLICATION_H
+#endif // TESTDATAFILE_H

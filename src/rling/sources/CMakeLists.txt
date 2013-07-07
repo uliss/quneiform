@@ -37,6 +37,8 @@ set_property(TARGET ${CF_RLINGS} PROPERTY COMPILE_DEFINITIONS RLING_SECONDARY)
 
 target_link_libraries(${CF_RLINGS}
     ${CF_CSTR}
-    ${CF_COMPAT})
+    ${CF_COMPAT}
+    ${CF_COMMON}
+)
 
 cf_install_library(${CF_RLINGS})
