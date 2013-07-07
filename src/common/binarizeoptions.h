@@ -63,7 +63,7 @@ public:
 private:
     typedef boost::variant<bool, int, float, std::string> Value;
     typedef std::map<std::string, Value> OptionMap;
-    friend std::ostream& operator<<(std::ostream& os, const BinarizeOptions& bopts);
+    friend FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const BinarizeOptions& bopts);
 private:
 #ifdef CF_SERIALIZE
     friend class boost::serialization::access;
