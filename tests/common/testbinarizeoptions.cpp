@@ -16,8 +16,12 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <sstream>
+#include <fstream>
+
 #include "testbinarizeoptions.h"
 #include "common/binarizeoptions.h"
+#include "../test_common.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestBinarizeOptions);
 
@@ -107,4 +111,93 @@ void TestBinarizeOptions::testStringOptions()
 
     bopts.setOption("key", std::string("value"));
     CPPUNIT_ASSERT_EQUAL(std::string("value"), bopts.optionString("key", ""));
+}
+
+void TestBinarizeOptions::testToString()
+{
+    std::ostringstream buf;
+    BinarizeOptions bopts;
+    bopts.setOption("key", "value");
+    buf << bopts;
+    CPPUNIT_ASSERT(buf.str().find("kronrod") != std::string::npos);
+
+    bopts.setBinarizator(BINARIZATOR_DEZA);
+    buf.str("");
+    buf << bopts;
+    CPPUNIT_ASSERT(buf.str().find("deza") != std::string::npos);
+
+    bopts.setBinarizator(BINARIZATOR_OTSU);
+    buf.str("");
+    buf << bopts;
+    CPPUNIT_ASSERT(buf.str().find("otsu") != std::string::npos);
+}
+
+void TestBinarizeOptions::testSerialize()
+{
+#ifdef CF_SERIALIZE
+    BinarizeOptions bopts;
+    bopts.setBinarizator(BINARIZATOR_THRESHOLD);
+    bopts.setOption("int", 1);
+    bopts.setOption("float", 3.0f);
+    bopts.setOption("bool", true);
+    bopts.setOption("string", "value");
+
+    const char * TEXT_OUT = "serialize_binarize_options.txt";
+
+    // save data to archive
+    {
+        std::ofstream ofs(TEXT_OUT);
+        CEDOutputArchive oa(ofs);
+        // write class instance to archive
+        oa << bopts ;
+    }
+
+    BinarizeOptions new_bopts;
+    {
+        // create and open an archive for input
+        std::ifstream ifs(TEXT_OUT);
+        CEDInputArchive ia(ifs);
+        // read class state from archive
+        ia >> new_bopts;
+
+        CPPUNIT_ASSERT_EQUAL(new_bopts.binarizator(), BINARIZATOR_THRESHOLD);
+    }
+#endif
+}
+
+void TestBinarizeOptions::testSerializeXml()
+{
+#ifdef CF_SERIALIZE
+    BinarizeOptions bopts;
+    bopts.setBinarizator(BINARIZATOR_THRESHOLD);
+    bopts.setOption("int", 1);
+    bopts.setOption("float", 3.0f);
+    bopts.setOption("bool", true);
+    bopts.setOption("string", "value");
+
+    const char * XML_OUT = "serialize_binarize_options.xml";
+
+    // save data to archive
+    {
+        std::ofstream ofs(XML_OUT);
+        CEDXmlOutputArchive oa(ofs);
+        // write class instance to archive
+        writeToXml(oa, "bopts", bopts);
+    }
+
+    BinarizeOptions new_bopts;
+    {
+        // create and open an archive for input
+        std::ifstream ifs(XML_OUT);
+        CEDXmlInputArchive ia(ifs);
+        // read class state from archive
+        readFromXml(ia, "bopts", new_bopts);
+
+        CPPUNIT_ASSERT_EQUAL(new_bopts.binarizator(), BINARIZATOR_THRESHOLD);
+        CPPUNIT_ASSERT_EQUAL(new_bopts.optionBool("bool", false), true);
+        CPPUNIT_ASSERT_EQUAL(new_bopts.optionInt("int", -1), 1);
+        CPPUNIT_ASSERT_EQUAL(new_bopts.optionFloat("float", 0.0), 3.0f);
+        CPPUNIT_ASSERT_EQUAL(new_bopts.optionString("string", ""), std::string("value"));
+    }
+#endif
 }

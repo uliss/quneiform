@@ -29,6 +29,9 @@ class TestBinarizeOptions : public CppUnit::TestFixture
     CPPUNIT_TEST(testFloatOptions);
     CPPUNIT_TEST(testIntOptions);
     CPPUNIT_TEST(testStringOptions);
+    CPPUNIT_TEST(testToString);
+    CPPUNIT_TEST(testSerialize);
+    CPPUNIT_TEST(testSerializeXml);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
@@ -36,6 +39,9 @@ public:
     void testFloatOptions();
     void testIntOptions();
     void testStringOptions();
+    void testToString();
+    void testSerialize();
+    void testSerializeXml();
 };
 
 
