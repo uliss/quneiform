@@ -48,19 +48,21 @@
 static const int SHMEM_SIZE_MAX = 100 * 1024 * 1024;
 
 static cf::CEDPagePtr recognize(cf::ImagePtr img,
+                                const cf::BinarizeOptions& bopts,
                                 const cf::RecognizeOptions& ropts,
                                 const cf::FormatOptions& fopts)
 {
     cf::LocalRecognitionServer r;
-    return r.recognizeImage(img, cf::BinarizeOptions(), ropts, fopts);
+    return r.recognizeImage(img, bopts, ropts, fopts);
 }
 
 static cf::CEDPagePtr recognize(const cf::ImageURL& url,
+                                const cf::BinarizeOptions& bopts,
                                 const cf::RecognizeOptions& ropts,
                                 const cf::FormatOptions& fopts)
 {
     cf::LocalRecognitionServer r;
-    return r.recognizeImage(url, cf::BinarizeOptions(), ropts, fopts);
+    return r.recognizeImage(url, bopts, ropts, fopts);
 }
 
 static void worker_terminate() {
@@ -140,14 +142,15 @@ int main(int argc, char ** argv)
 
         FormatOptions fopts = data.formatOptions();
         RecognizeOptions ropts = data.recognizeOptions();
+        BinarizeOptions bopts = data.binarizeOptions();
 
         CEDPagePtr page;
 
         try {
             if(use_shared_image)
-                page = recognize(data.image(), ropts, fopts);
+                page = recognize(data.image(), bopts, ropts, fopts);
             else
-                page = recognize(data.imageURL(), ropts, fopts);
+                page = recognize(data.imageURL(), bopts, ropts, fopts);
 
             if(!page)
                 return WORKER_RECOGNITION_ERROR;

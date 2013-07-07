@@ -58,6 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <sys/stat.h>
 #include <fcntl.h>
 #include "compat/filefunc.h"
+#include "common/filesystem.h"
 #include "internal.h"
 #include "std.h"
 #include "xpath.h"
@@ -246,7 +247,7 @@ STD_FUNC( Bool32 ) stdCheckDirectory( const char* name, Bool32 bCreateIfNone )
    // returns TRUE if directory exists or successfully created
 {
 #ifdef WIN32
-   if (_access(name, 0)==0)
+   if (cf::fs::fileExists(name)
    {  uint32_t attr = GetFileAttributes( name );
       if ((attr != 0xFFFFFFFF) && (attr & FILE_ATTRIBUTE_DIRECTORY))
          return TRUE;

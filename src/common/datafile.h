@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2012 by Serge Poltavski                                 *
+ *   Copyright (C) 2013 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,27 +16,40 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef QUNEIFORMAPPLICATION_H
-#define QUNEIFORMAPPLICATION_H
+#ifndef CF_DATAFILE_H
+#define CF_DATAFILE_H
 
-#include <QApplication>
-#include <QStringList>
+#include <string>
 
-class QuneiformApplication : public QApplication
+#include "globus.h"
+
+namespace cf {
+
+enum DatafileSearchFlag
 {
-    Q_OBJECT
-public:
-    QuneiformApplication(int& argc, char** argv);
-signals:
-    void openFiles(QStringList);
-protected:
-    bool event(QEvent * e);
-private:
-    void addBundlePluginPath();
-    void platformInit();
-    void resourcesInit();
-    void setCFDatafilesPath();
-    void stylesheetInit();
+    DATAFILE_MAIN_PATH = 1,
+    DATAFILE_ENVIRONMENT = 1 << 1,
+    DATAFILE_INSTALL_PATH = 1 << 2
 };
 
-#endif // QUNEIFORMAPPLICATION_H
+class CLA_EXPO Datafile
+{
+    Datafile();
+    Datafile(const Datafile&);
+    void operator=(const Datafile&);
+public:
+    static std::string envPath();
+
+    static std::string mainPath();
+    static void setMainPath(const std::string& mainPath);
+
+    static int searchMask();
+    static void setSearchMask(int mask);
+
+    static bool exists(const std::string& name);
+    static std::string fullPath(const std::string& name);
+};
+
+} // namespace cf
+
+#endif // CF_DATAFILE_H

@@ -32,6 +32,11 @@
 #include "iconutils.h"
 #include "theme-config.h"
 #include "workspace.h"
+#include "common/datafile.h"
+
+#ifdef Q_OS_MAC
+#include "macosx/macbundle.h"
+#endif
 
 Q_IMPORT_PLUGIN(dib_imageplugin)
 
@@ -99,6 +104,7 @@ void QuneiformApplication::platformInit()
 #ifdef Q_WS_MAC
     setAttribute(Qt::AA_DontShowIconsInMenus);
     addBundlePluginPath();
+    setCFDatafilesPath();
 #endif
 }
 
@@ -124,6 +130,17 @@ void QuneiformApplication::resourcesInit()
 
 #ifdef WITH_THEME_SNOWISH
     Q_INIT_RESOURCE(theme_snowish);
+#endif
+}
+
+void QuneiformApplication::setCFDatafilesPath()
+{
+#ifdef Q_OS_MAC
+    QString path = utils::applicationBundle();
+    path.append("/Contents/Resources/share/cuneiform");
+    qDebug() << Q_FUNC_INFO << path;
+    cf::Datafile::setSearchMask(cf::DATAFILE_ENVIRONMENT);
+    setenv("CF_DATADIR", path.toLocal8Bit().constData(), 1);
 #endif
 }
 

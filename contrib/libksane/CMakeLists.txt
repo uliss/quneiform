@@ -1,6 +1,5 @@
 PROJECT(libksane)
 
-find_package(Sane)
 include(FindLibintl.cmake)
 
 find_package(Qt4 REQUIRED) # find and setup Qt4 for this project

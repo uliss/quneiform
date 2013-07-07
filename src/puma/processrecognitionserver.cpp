@@ -172,6 +172,7 @@ bool ProcessRecognitionServer::recognize()
         data_.setSize(SHMEM_SIZE);
         data_.setFormatOptions(formatOptions());
         data_.setRecognizeOptions(recognizeOptions());
+        data_.setBinarizeOptions(binarizeOptions());
 
         bool rc = true;
         switch(src_) {

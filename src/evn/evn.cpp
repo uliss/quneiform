@@ -69,6 +69,7 @@
 #include "comp.h"
 #include "linepool.h"
 #include "cfcompat.h"
+#include "common/datafile.h"
 #include "minmax.h"
 
 #ifdef WIN32
@@ -201,7 +202,8 @@ int32_t evn_tab_init_prn(const char *file1, const char *file2)
     int32_t h;
     int32_t size;
     evn_error_code = ER_EVN_NO_ERROR;
-    h = open_data_file(file1, O_BINARY | O_RDONLY);
+    std::string path1 = cf::Datafile::fullPath(file1);
+    h = open(path1.c_str(), O_BINARY | O_RDONLY);
     strcpy(load_tab1, file1);
 
     if (h == -1) {
@@ -225,7 +227,8 @@ int32_t evn_tab_init_prn(const char *file1, const char *file2)
     }
 
     close(h);
-    h = open_data_file(file2, O_BINARY | O_RDONLY);
+    std::string path2 = cf::Datafile::fullPath(file2);
+    h = open(path2.c_str(), O_BINARY | O_RDONLY);
     strcpy(load_tab2, file2);
 
     if (h == -1) {

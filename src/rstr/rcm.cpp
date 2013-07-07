@@ -84,6 +84,7 @@
 #include "crling.h"
 #include "dpuma.h"
 #include "cline/cline.h"
+#include "common/datafile.h"
 
 #include "cfcompat.h"
 #include "common/log.h"
@@ -443,7 +444,8 @@ Bool32 read_rec_file(int16_t lang, puchar pool, puchar * end) {
 #define O_BINARY 0
 #endif
 
-	h = open_data_file(tab3x5[lang], O_RDONLY | O_BINARY);
+    std::string full_path = cf::Datafile::fullPath(tab3x5[lang]);
+    h = open(full_path.c_str(), O_RDONLY | O_BINARY);
 	if (h == -1) {
 		return FALSE;
 	}
@@ -497,15 +499,18 @@ Bool32 set_user_alphabet(uchar * usa_ascii) {
 	return TRUE;
 }
 
-Bool32 RSTR_IsLanguage(uchar language) {
+Bool32 RSTR_IsLanguage(uchar language)
+{
+    using namespace cf;
+
 	if (language < LANGUAGE_ENGLISH || language >= LANG_TOTAL)
 		return FALSE;
 	chdir((char*) lnOcrPath);
-	if (data_file_exists(tabevn1[language]) == -1)
+    if (!Datafile::exists(tabevn1[language]))
 		return FALSE;
-	if (data_file_exists(tabevn2[language]) == -1)
+    if (!Datafile::exists(tabevn2[language]))
 		return FALSE;
-	if (data_file_exists(tab3x5[language]) == -1)
+    if (!Datafile::exists(tab3x5[language]))
 		return FALSE;
 	if (language == LANGUAGE_RUSSIAN || language == LANGUAGE_RUS_ENG) {
 		if (0)

@@ -21,11 +21,19 @@
 
 #include <map>
 #include <string>
+#include <iosfwd>
 #include <boost/variant.hpp>
 
 #include "globus.h"
 #include "common/exception.h"
 #include "common/binarizatordef.h"
+#include "serialize.h"
+
+#ifdef CF_SERIALIZE
+#include <boost/serialization/map.hpp>
+#include <boost/serialization/variant.hpp>
+#include <boost/serialization/string.hpp>
+#endif
 
 namespace cf {
 
@@ -55,10 +63,23 @@ public:
 private:
     typedef boost::variant<bool, int, float, std::string> Value;
     typedef std::map<std::string, Value> OptionMap;
+    friend std::ostream& operator<<(std::ostream& os, const BinarizeOptions& bopts);
+private:
+#ifdef CF_SERIALIZE
+    friend class boost::serialization::access;
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int /*version*/) {
+        using boost::serialization::make_nvp;
+        ar & make_nvp("binarizator", binarizator_);
+        ar & make_nvp("options", options_);
+    }
+#endif
 private:
     binarizator_t binarizator_;
     OptionMap options_;
 };
+
+FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const BinarizeOptions& bopts);
 
 }
 

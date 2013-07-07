@@ -43,7 +43,11 @@ add_library(${CF_RLING} ${LIBTYPE} ${CF_RLING_SOURCE})
 cf_hide_visibility(${CF_RLING})
 set_property(TARGET ${CF_RLING} PROPERTY COMPILE_DEFINITIONS __RLING__)
 
-target_link_libraries(${CF_RLING} ${CF_CSTR} ${CF_RLINGS})
+target_link_libraries(${CF_RLING}
+    ${CF_CSTR}
+    ${CF_RLINGS}
+    ${CF_COMMON}
+)
 
 cf_install_library(${CF_RLING})
 cf_cppcheck(${CF_RLING})

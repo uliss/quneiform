@@ -176,6 +176,7 @@ bool RawData<std::string, IMAGE_PATH_SIZE>::save(const std::string& path) {
 
 typedef RawData<FormatOptions, 512> FormatOptionsData;
 typedef RawData<RecognizeOptions, 512> RecognizeOptionsData;
+typedef RawData<BinarizeOptions, 512> BinarizeOptionsData;
 typedef RawData<ImageURL, IMAGE_PATH_SIZE> ImagePathData;
 typedef RawData<CEDPagePtr, PAGE_BUFFER_SIZE> PageData;
 
@@ -251,6 +252,7 @@ typedef RawData<int, sizeof(int)> WorkerReturnCode;
 struct MemoryDataPrivate {
     FormatOptionsData fopts;
     RecognizeOptionsData ropts;
+    BinarizeOptionsData bopts;
     ImagePathData path;
     WorkerReturnCode rc;
     WorkerReturnMessage msg;
@@ -266,6 +268,11 @@ MemoryData::MemoryData() :
 MemoryData::MemoryData(void * memory, size_t sz)
     : memory_(memory), size_(sz)
 {
+}
+
+BinarizeOptions MemoryData::binarizeOptions() const
+{
+    return data()->bopts.load();
 }
 
 MemoryDataPrivate * MemoryData::data() const
@@ -341,6 +348,11 @@ void MemoryData::reset()
 {
     setMemory(0);
     setSize(0);
+}
+
+void MemoryData::setBinarizeOptions(const BinarizeOptions& bopts)
+{
+    data()->bopts.save(bopts);
 }
 
 void MemoryData::setFormatOptions(const cf::FormatOptions& fopts)

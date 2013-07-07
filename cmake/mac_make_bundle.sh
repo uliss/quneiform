@@ -53,12 +53,8 @@ hiutil -Cagf "$APPHR/English.lproj/Quneiform.helpindex" "$APPHR/English.lproj"
 hiutil -Cagf "$APPHR/ru.lproj/Quneiform.helpindex" "$APPHR/ru.lproj"
 echo "Copying datafiles..."
 cp ${SRCDIR}/datafiles/*.dat "${APPR}/share/cuneiform"
+
 echo "Copying executables..."
-
-# copy executables
-cp "${SRCDIR}/cmake/MacOSX.sh" "${APPM}/Quneiform.sh"
-chmod +x "${APPM}/Quneiform.sh"
-
 cp "${BUILDDIR}/Quneiform" "${APPM}/Quneiform"
 cp "${BUILDDIR}/cuneiform-worker" "${APPM}/cuneiform-worker"
 
@@ -68,6 +64,10 @@ echo "Copying Info.plist..."
 cp "${BUILDDIR}/Info.plist" "${APPC}"
 echo "Copying nib files..."
 cp "${BUILDDIR}/ScanWindow.nib" "${APPR}"
+
+# extract debug symbols
+echo "Extracting debug symbols..."
+dsymutil "$APPM/Quneiform" -o Quneiform.app.dSYM
 
 function install_our {
     # source library path
@@ -115,8 +115,44 @@ otool -L "${APP_EXE}" | tail -n +2 | tr -d '\t' | cut -f 1 -d ' ' | while read l
     esac
 done
 
+echo "Fixing cuneiform-worker linking paths..."
+otool -L "${APP_WORKER}" | tail -n +2 | tr -d '\t' | cut -f 1 -d ' ' | while read line; do
+    case $line in
+        *libcuneiform*)
+            ref=$(basename $line)
+            echo "    fixing project lib: $ref"
+            install_name_tool -change $line "@executable_path/../Resources/lib/${ref}" "${APP_WORKER}"
+        ;;
+        *libpoppler* | *libtiff* | *libiconv* | *libboost* | *libz*)
+            ref=$(basename $line)
+            echo "    fixing required lib: $ref"
+            install_name_tool -change $line "@executable_path/../Frameworks/${ref}" "${APP_WORKER}"
+        ;;
+        QtCore* | QtGui*)
+            ref=$(basename $line)
+            echo "    fixing Qt framework link: $ref"
+            install_name_tool -change $line "@executable_path/../Frameworks/${line}" "${APP_WORKER}"
+        ;;
+        *)
+            echo "    skipping $line"
+        ;;
+    esac
+done
+
 cd $DESTDIR
 
 echo "Creating Quneiform.app bundle..."
 macdeployqt Quneiform.app -verbose=1
 
+echo "Removing unused Qt frameworks: declarative, script, network, sql, xmlpatterns"
+rm -rf "$APPF/QtDeclarative.framework"
+rm -rf "$APPF/QtScript.framework"
+rm -rf "$APPF/QtNetwork.framework"
+rm -rf "$APPF/QtSql.framework"
+rm -rf "$APPF/QtXmlPatterns.framework"
+
+echo "Removing unused Qt plugins: accessible, bearer, codecs, qmltooling"
+rm -rf "$APPC/PlugIns/accessible"
+rm -rf "$APPC/PlugIns/bearer"
+rm -rf "$APPC/PlugIns/codecs"
+rm -rf "$APPC/PlugIns/qmltooling"

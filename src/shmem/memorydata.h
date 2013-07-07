@@ -42,6 +42,8 @@ public:
     MemoryData();
     MemoryData(void * memory, size_t size);
 
+    BinarizeOptions binarizeOptions() const;
+
     /**
       * Fills memory with zero
       */
@@ -108,6 +110,12 @@ public:
      * Sets memory pointer and size to 0
      */
     void reset();
+
+    /**
+      * Sets binarization options
+      * @see binarizeOptions()
+      */
+    void setBinarizeOptions(const BinarizeOptions& bopts);
 
     /**
       * Sets format options for data

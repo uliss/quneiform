@@ -75,6 +75,7 @@
 #include "msk32fun.h"
 #include "minmax.h"
 #include "common/modules.h"
+#include "common/datafile.h"
 
 #include "cfcompat.h"
 
@@ -665,14 +666,15 @@ int tch_in(const char *NameFile)
     initiated++;
     Hnd_abc_n[initiated] = 0;
 
-    if ((hnd = open_data_file(NameFile, O_RDONLY | O_BINARY)) > 0) {
+    std::string full_path = cf::Datafile::fullPath(NameFile);
+
+    if ((hnd = open(full_path.c_str(), O_RDONLY | O_BINARY)) > 0) {
         read(hnd, NameTab, 32* sizeof (char));
         read(hnd, (uint16_t *)&Hnd_abc_n[initiated], sizeof(short));
         read(hnd, (uint16_t *)&num_mask, sizeof(short));
         read(hnd, (uint16_t *)&tmp, sizeof(short));
         read(hnd, (uint16_t *)&tmp, sizeof(short));
     }
-
     else {
         fprintf(stderr, "tch_in: can't open file: \"%s\"\n", NameFile);
         return -1;

@@ -255,7 +255,7 @@ void LocalRecognitionServer::setOptions()
     Puma::instance().setFormatOptions(formatOptions());
 
     PUMA_TRACE_FUNC() << "\n"
-//                      << binarizeOptions() << "\n"
+                      << binarizeOptions() << "\n"
                       << recognizeOptions() << "\n"
                       << formatOptions();
 }

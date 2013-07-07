@@ -18,7 +18,8 @@ cf_hide_visibility(${CF_EVN})
 
 target_link_libraries(${CF_EVN}
     ${CF_DIF}
-    ${CF_COMPAT})
+    ${CF_COMPAT}
+    ${CF_COMMON})
 
 cf_install_library(${CF_EVN})
 cf_cppcheck(${CF_EVN})
