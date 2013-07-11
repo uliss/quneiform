@@ -87,6 +87,9 @@ void GeneralPreferences::setupIconTheme()
 {
     Q_CHECK_PTR(layout_);
 
+    if(availableIconThemes().count() < 2)
+        return;
+
     QComboBox * theme_select_ = new QComboBox(this);
     layout_->addRow(tr("Icon theme:"), theme_select_);
 
