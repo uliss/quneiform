@@ -132,7 +132,11 @@ void ScannerPreferences::setupUi()
 void ScannerPreferences::setupStack()
 {
     ui_->scanTypeComboBox->addItem(tr("Use operating system scan dialog"), SCAN_DIALOG_OS);
+
+#ifdef WITH_SANE
     ui_->scanTypeComboBox->addItem(tr("Use quneiform dialog"), SCAN_DIALOG_QUNEIFORM);
+#endif
+
     ui_->scanTypeComboBox->addItem(tr("Use external application"), SCAN_DIALOG_EXTERNAL_APP);
 
     connect(ui_->scanTypeComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(handlePageSelect(int)));
