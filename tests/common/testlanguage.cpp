@@ -47,18 +47,18 @@ void TestLanguage::testIsoNames() {
     static const char * iso_names[] = { "English", "German", "French", "Russian", "Swedish",
             "Spanish", "Italian", "Russian-English", "Ukrainian", "Serbian", "Croatian", "Polish",
             "Danish", "Portuguese", "Dutch", "Digits", "Uzbek", "Kazakh", "Kazakh-English",
-            "Czech", "Romanian", "Hungarian", "Bulgarian", "Slovak", "Latvian", "Lithuanian",
+            "Czech", "Romanian", "Hungarian", "Bulgarian", "Slovenian", "Latvian", "Lithuanian",
             "Estonian", "Turkish" };
 
     static const int num_names = sizeof(iso_names) / sizeof(iso_names[0]);
 
     static const char * iso_codes3[] = { "eng", "ger", "fra", "rus", "swe", "spa", "ita", "ruseng",
             "ukr", "srp", "hrv", "pol", "dan", "por", "dut", "dig", "uzb", "kaz", "kazeng", "cze",
-            "rum", "hun", "bul", "slo", "lav", "lit", "est", "tur" };
+            "rum", "hun", "bul", "slv", "lav", "lit", "est", "tur" };
 
     static const char * iso_codes2[] = { "en", "de", "fr", "ru", "sw", "es", "it", "ruen", "uk",
             "sr", "hr", "pl", "da", "pt", "nl", "di", "uz", "kk", "kken", "cs", "ro", "hu", "bg",
-            "sk", "lv", "lt", "et", "tr" };
+            "sl", "lv", "lt", "et", "tr" };
 
     static const int num_codes = sizeof(iso_codes3) / sizeof(iso_codes3[0]);
 
