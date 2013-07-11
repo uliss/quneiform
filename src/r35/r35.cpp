@@ -832,7 +832,7 @@ Bool32 r35_save(const char *name, elm3x5 *tab3x5this, ind3x5 *header3x5this, int
     int32_t f, i;
     // remove(name);
     std::string full_path = cf::Datafile::fullPath(name);
-    f = open(full_path.c_str(), O_BINARY | O_WRONLY | O_CREAT | O_TRUNC); /* S_IWRITE */
+    f = open(full_path.c_str(), O_BINARY | O_WRONLY | O_CREAT | O_TRUNC, 0600); /* S_IWRITE */
     r35_error_code = ER_R35_NO_ERROR;
 
     if (f == -1) {
