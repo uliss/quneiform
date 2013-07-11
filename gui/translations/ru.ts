@@ -469,10 +469,6 @@
         <translation>Сербский</translation>
     </message>
     <message>
-        <source>Slovak</source>
-        <translation>Словакский</translation>
-    </message>
-    <message>
         <source>Spanish</source>
         <translation>Испанский</translation>
     </message>
@@ -491,6 +487,10 @@
     <message>
         <source>Belarusian</source>
         <translation>Белорусский</translation>
+    </message>
+    <message>
+        <source>Slovenian</source>
+        <translation>Словенский</translation>
     </message>
 </context>
 <context>

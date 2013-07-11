@@ -60,7 +60,7 @@ bool initLanguageCodeMap() {
     lang_code_map.insert(::LANGUAGE_RUSSIAN, QT_TRANSLATE_NOOP("Lang", "Russian"));
     lang_code_map.insert(::LANGUAGE_RUS_ENG, QT_TRANSLATE_NOOP("Lang", "Russian-English"));
     lang_code_map.insert(::LANGUAGE_SERBIAN, QT_TRANSLATE_NOOP("Lang", "Serbian"));
-    lang_code_map.insert(::LANGUAGE_SLOVENIAN, QT_TRANSLATE_NOOP("Lang", "Slovak"));
+    lang_code_map.insert(::LANGUAGE_SLOVENIAN, QT_TRANSLATE_NOOP("Lang", "Slovenian"));
     lang_code_map.insert(::LANGUAGE_SPANISH, QT_TRANSLATE_NOOP("Lang", "Spanish"));
     lang_code_map.insert(::LANGUAGE_SWEDISH, QT_TRANSLATE_NOOP("Lang", "Swedish"));
     lang_code_map.insert(::LANGUAGE_TURKISH, QT_TRANSLATE_NOOP("Lang", "Turkish"));

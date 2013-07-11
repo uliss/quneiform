@@ -72,7 +72,7 @@ bool languageNamesInit() {
     addCodeName(LANGUAGE_RUSSIAN,     "ru", "rus", "Russian");
     addCodeName(LANGUAGE_RUS_ENG,     "ruen", "ruseng", "Russian-English");
     addCodeName(LANGUAGE_SERBIAN,     "sr", "srp", "Serbian");
-    addCodeName(LANGUAGE_SLOVENIAN,   "sk", "slo", "Slovak");
+    addCodeName(LANGUAGE_SLOVENIAN,   "sl", "slv", "Slovenian");
     addCodeName(LANGUAGE_SPANISH,     "es", "spa", "Spanish");
     addCodeName(LANGUAGE_SWEDISH,     "sw", "swe", "Swedish");
     addCodeName(LANGUAGE_TURKISH,     "tr", "tur", "Turkish");

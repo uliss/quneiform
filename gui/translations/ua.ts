@@ -473,10 +473,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Slovak</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Spanish</source>
         <translation type="unfinished"></translation>
     </message>
@@ -490,6 +486,10 @@
     </message>
     <message>
         <source>Ukrainian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slovenian</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
