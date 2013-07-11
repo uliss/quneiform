@@ -49,35 +49,35 @@ namespace
 
 // sets language data according to ISO 639-1 and 639-2
 bool languageNamesInit() {
-    addCodeName(LANGUAGE_BULGARIAN, "bg", "bul", "Bulgarian");
-    addCodeName(LANGUAGE_BELARUSIAN, "by", "bel", "Belarusian");
-    addCodeName(LANGUAGE_CROATIAN, "hr", "hrv", "Croatian");
-    addCodeName(LANGUAGE_CZECH, "cs", "cze", "Czech");
-    addCodeName(LANGUAGE_DANISH, "da", "dan", "Danish");
-    addCodeName(LANGUAGE_DIGITS, "di", "dig", "Digits");
-    addCodeName(LANGUAGE_DUTCH, "nl", "dut", "Dutch");
-    addCodeName(LANGUAGE_ENGLISH, "en", "eng", "English");
-    addCodeName(LANGUAGE_ESTONIAN, "et", "est", "Estonian");
-    addCodeName(LANGUAGE_FRENCH, "fr", "fra", "French");
-    addCodeName(LANGUAGE_GERMAN, "de", "ger", "German");
-    addCodeName(LANGUAGE_HUNGARIAN, "hu", "hun", "Hungarian");
-    addCodeName(LANGUAGE_ITALIAN, "it", "ita", "Italian");
-    addCodeName(LANGUAGE_KAZAKH, "kk", "kaz", "Kazakh");
-    addCodeName(LANGUAGE_KAZ_ENG, "kken", "kazeng", "Kazakh-English");
-    addCodeName(LANGUAGE_LATVIAN, "lv", "lav", "Latvian");
-    addCodeName(LANGUAGE_LITHUANIAN, "lt", "lit", "Lithuanian");
-    addCodeName(LANGUAGE_POLISH, "pl", "pol", "Polish");
-    addCodeName(LANGUAGE_PORTUGUESE, "pt", "por", "Portuguese");
-    addCodeName(LANGUAGE_ROMANIAN, "ro", "rum", "Romanian");
-    addCodeName(LANGUAGE_RUSSIAN, "ru", "rus", "Russian");
-    addCodeName(LANGUAGE_RUS_ENG, "ruen", "ruseng", "Russian-English");
-    addCodeName(LANGUAGE_SERBIAN, "sr", "srp", "Serbian");
-    addCodeName(LANGUAGE_SLOVENIAN, "sk", "slo", "Slovak");
-    addCodeName(LANGUAGE_SPANISH, "es", "spa", "Spanish");
-    addCodeName(LANGUAGE_SWEDISH, "sw", "swe", "Swedish");
-    addCodeName(LANGUAGE_TURKISH, "tr", "tur", "Turkish");
-    addCodeName(LANGUAGE_UKRAINIAN, "uk", "ukr", "Ukrainian");
-    addCodeName(LANGUAGE_UZBEK, "uz", "uzb", "Uzbek");
+    addCodeName(LANGUAGE_BULGARIAN,   "bg", "bul", "Bulgarian");
+    addCodeName(LANGUAGE_BELARUSIAN,  "by", "bel", "Belarusian");
+    addCodeName(LANGUAGE_CROATIAN,    "hr", "hrv", "Croatian");
+    addCodeName(LANGUAGE_CZECH,       "cs", "cze", "Czech");
+    addCodeName(LANGUAGE_DANISH,      "da", "dan", "Danish");
+    addCodeName(LANGUAGE_DIGITS,      "di", "dig", "Digits");
+    addCodeName(LANGUAGE_DUTCH,       "nl", "dut", "Dutch");
+    addCodeName(LANGUAGE_ENGLISH,     "en", "eng", "English");
+    addCodeName(LANGUAGE_ESTONIAN,    "et", "est", "Estonian");
+    addCodeName(LANGUAGE_FRENCH,      "fr", "fra", "French");
+    addCodeName(LANGUAGE_GERMAN,      "de", "ger", "German");
+    addCodeName(LANGUAGE_HUNGARIAN,   "hu", "hun", "Hungarian");
+    addCodeName(LANGUAGE_ITALIAN,     "it", "ita", "Italian");
+    addCodeName(LANGUAGE_KAZAKH,      "kk", "kaz", "Kazakh");
+    addCodeName(LANGUAGE_KAZ_ENG,     "kken", "kazeng", "Kazakh-English");
+    addCodeName(LANGUAGE_LATVIAN,     "lv", "lav", "Latvian");
+    addCodeName(LANGUAGE_LITHUANIAN,  "lt", "lit", "Lithuanian");
+    addCodeName(LANGUAGE_POLISH,      "pl", "pol", "Polish");
+    addCodeName(LANGUAGE_PORTUGUESE,  "pt", "por", "Portuguese");
+    addCodeName(LANGUAGE_ROMANIAN,    "ro", "rum", "Romanian");
+    addCodeName(LANGUAGE_RUSSIAN,     "ru", "rus", "Russian");
+    addCodeName(LANGUAGE_RUS_ENG,     "ruen", "ruseng", "Russian-English");
+    addCodeName(LANGUAGE_SERBIAN,     "sr", "srp", "Serbian");
+    addCodeName(LANGUAGE_SLOVENIAN,   "sk", "slo", "Slovak");
+    addCodeName(LANGUAGE_SPANISH,     "es", "spa", "Spanish");
+    addCodeName(LANGUAGE_SWEDISH,     "sw", "swe", "Swedish");
+    addCodeName(LANGUAGE_TURKISH,     "tr", "tur", "Turkish");
+    addCodeName(LANGUAGE_UKRAINIAN,   "uk", "ukr", "Ukrainian");
+    addCodeName(LANGUAGE_UZBEK,       "uz", "uzb", "Uzbek");
     return true;
 }
 
